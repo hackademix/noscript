@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NoScript Settings</title>
+<meta charset="utf-8">
+<link rel="icon" href="/img/noscript-options.png">
+<link rel="stylesheet" href="/lib/flextabs.css" />
+<link rel="stylesheet" href="options.css" />
+<link rel="stylesheet" href="whirlpool.css" />
+<script src="/lib/include.js"></script>
+<script src="/lib/log.js"></script>
+<script src="/lib/flextabs.js"></script>
+<script src="/common/locale.js"></script>
+<script src="/ui/ui.js"></script>
+</head>
+<body>
+<div id="header">
+<h1 >
+NoScript Options
+</h1>
+<div>
+<span id="version"></span>
+</div>
+
+<div class="buttons">
+<span><input id="file-import" type="file"/></span>
+<button id="btn-import" accesskey="__MSG_Import_accesskey__">__MSG_Import__</button>
+<button id="btn-export" accesskey="__MSG_Export_accesskey__">__MSG_Export__</button>
+<button id="btn-reset" accesskey="__MSG_Reset_accesskey__">__MSG_Reset__</button>
+</div>
+</div>
+<section id="sect-io">
+
+</section>
+
+<div id="main-tabs" class="flextabs">
+
+<h3 class="flextabs__tab"><button class="flextabs__toggle">__MSG_SectionGeneral__</button></h3>
+<div class="flextabs__content flextabs__content--active--last">
+  <section id="sect-general">
+  <div class="opt-group">
+  <span id="global-opt">
+  <input type="checkbox" id="opt-global"><label for="opt-global" id="lbl-global">__MSG_NoEnforcement__</label>
+  </span>
+  <span id="auto-opt">
+  <input type="checkbox" class="enforcement_required" id="opt-auto"><label for="opt-auto" id="lbl-auto">__MSG_AutoAllowTopLevel__</label>
+  </span>
+
+  </div>
+
+  <fieldset class="enforcement_required">
+    <legend accesskey="__MSG_CustomizePresets_accesskey__">__MSG_CustomizePresets__</legend>
+    <div id="presets"></div>
+  </fieldset>
+  </section>
+</div>
+
+<h3 class="flextabs__tab"><button class="flextabs__toggle enforcement_required">__MSG_SectionSitePermissions__</button></h3>
+<div class="flextabs__content">
+  <section class="sect-sites">
+  <form id="form-newsite" class="browser-style" >
+  <label id="newsite-label" for="newsite" accesskey="__MSG_WebAddress_accesskey__">__MSG_WebAddress__</label><input name="newsite" id="newsite" type="text" placeholder="[https://]noscript.net"
+  ><button class="add">+</button>
+  </form>
+  <div id="sites">
+    <div class="cssload-container">
+  	   <div class="cssload-whirlpool"></div>
+    </div>
+  </div>
+  </section>
+</div>
+
+<h3 class="flextabs__tab appearance_tab"><button class="flextabs__toggle">__MSG_SectionAppearance__</button></h3>
+<div class="flextabs__content appearance_tab">
+  <div class="opt-group desktop">
+    <span id="showCtxMenuItem-opt">
+    <input type="checkbox" id="opt-showCtxMenuItem">
+    <label for="opt-showCtxMenuItem" id="lbl-showCtxMenuItem">__MSG_ShowCtxMenuItem__</label>
+    </span>
+  </div>
+  <div class="opt-group desktop">
+    <span id="showCountBadge-opt">
+    <input type="checkbox" id="opt-showCountBadge">
+    <label for="opt-showCountBadge" id="lbl-showCountBadge">__MSG_ShowCountBadge__</label>
+    </span>
+  </div>
+  <div class="opt-group">
+    <span id="showFullAddresses-opt">
+    <input type="checkbox" id="opt-showFullAddresses">
+    <label for="opt-showFullAddresses" id="lbl-showFullAddresses">__MSG_ShowFullAddresses__</label>
+    </span>
+  </div>
+</div>
+
+<h3 class="flextabs__tab"><button class="flextabs__toggle">__MSG_SectionAdvanced__</button></h3>
+<div class="flextabs__content">
+  <div class="opt-group">
+  <span id="xss-opts">
+    <input type="checkbox" id="opt-xss"><label for="opt-xss" id="lbl-xss">__MSG_OptFilterXGet__</label>
+  <span id="xssFaq">(<a href="https://noscript.net/faq#xss" title="https://noscript.net/faq#xss">__MSG_XssFaq__</a>)</span>
+  </span>
+  <button id="btn-delete-xss-choices" disabled>__MSG_XSS_clearUserChoices__</button>
+  </div>
+  <div id="clearclick-options" class="opt-group">
+  <input type="checkbox" id="opt-clearclick"><label for="opt-clearclick" id="lbl-clearclick">ClearClick</label>
+  </div>
+
+  <section id="debug" class="browser-style">
+  <div class="opt-group">
+    <span><input type="checkbox" id="opt-debug"><label id="label-debug" for="opt-debug">Debug</label></span>
+  </div>
+  <div id="debug-tools" class="debug browser-style">
+  <label for="policy">Policy:</label>
+  <div id="policy-error"></div>
+  <textarea id="policy" class="browser-style">
+  </textarea>
+  </div>
+  </section>
+</div>
+</div>
+<script src="/lib/persistent-tabs.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

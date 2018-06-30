@@ -1,0 +1,17 @@
+.flextabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flextabs__tab {
+  width: 100%;
+}
+
+.flextabs__content {
+  display: none;
+  width: 100%;
+}
+
+.flextabs__content--active {
+  display: block;
+}

@@ -1,0 +1,91 @@
+
+body {
+  bottom: 8px;
+  font-family: sans-serif;
+  font-size: 12px;
+  color: #222;
+}
+
+#header {
+  text-align: left;
+  margin: 0;
+  line-height: 24px;
+  color: #048;
+  position: relative;
+  font-size: 24px;
+  z-index: 500;
+  padding: 8px;
+  display: block;
+  background: url(/img/icon96.png) no-repeat top right;
+  height: 96px;
+}
+
+#title {
+  margin-right: 96px;
+  font-size: 24px;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+}
+
+#main {
+  background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 41%,#9fd8ef 90%,#2ab0ed 100%) no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120px 16px 16px 16px;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+  position: fixed;
+  justify-content: center;
+}
+#message {
+  flex-grow: 1;
+  width: 100%;
+  max-height: 300px;
+  padding: 8px;
+  text-align: center;
+  word-break: break-all;
+}
+#message.multiline {
+  overflow: auto;
+  font-size: 12px;
+  text-align: justify;
+  margin-bottom: 16px;
+  background: rgba(255,255,255,.5);
+}
+#message.multiline p {
+  margin: 1px;
+  padding: 0;
+}
+#options {
+  display: flex;
+  flex-grow: 2;
+  flex-direction: column;
+  text-align: left;
+  align-items:baseline;
+  justify-content: center;
+}
+
+
+#checks {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: left;
+}
+
+#buttons {
+  width: 100%;
+  display: flex;
+  flex-grow: 0;
+  flex-direction: row;
+  align-items: center;
+  margin: 8px;
+  justify-content: space-around;
+}
+#buttons button {
+  min-width: 100px;
+}

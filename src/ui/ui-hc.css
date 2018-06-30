@@ -1,0 +1,63 @@
+input {
+  transform: none !important;
+  width: auto !important;
+  position: static !important;
+}
+
+input[type="radio"] {
+  -moz-appearance:  radio !important;
+  padding-right: .2em !important;
+}
+input[type="checkbox"] {
+  -moz-appearance:  checkbox !important;
+}
+
+
+button {
+  text-indent: 0 !important;
+}
+
+label {
+  display: initial !important;
+  position: static !important;
+  transform: none !important;
+  opacity: 1 !important;
+  text-indent: 0 !Important;
+  position: static;
+  width: auto !important;
+  padding: 4px !important;
+}
+
+span.preset {
+  display: block;
+  width: auto !important;
+  white-space: nowrap !important;
+}
+
+input.temp {
+  position: static !important;
+  opacity: 1 !important;
+}
+
+.full-address {
+  font-size: 130%;
+}
+
+tr.site {
+  border-top: 1px solid #888;
+}
+
+#top {
+  display:flex;
+  flex-flow: row;
+  justify-content: space-around;
+
+}
+#top button  {
+  position: static;
+  width: auto;
+}
+#top button.icon {
+  font-size: 12px !important;
+  font-family: arial sans-serif !important;
+}

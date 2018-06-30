@@ -1,0 +1,45 @@
+
+.cssload-container{
+	position:relative;
+}
+
+.cssload-whirlpool,
+.cssload-whirlpool::before,
+.cssload-whirlpool::after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border: 1px solid rgb(204,204,204);
+	border-left-color: rgb(0,0,0);
+	border-radius: 974px;
+}
+
+.cssload-whirlpool {
+	margin: -24px 0 0 -24px;
+	height: 49px;
+	width: 49px;
+	animation: cssload-rotate 1150ms linear infinite;
+}
+
+.cssload-whirlpool::before {
+	content: "";
+	margin: -22px 0 0 -22px;
+	height: 43px;
+	width: 43px;
+	animation: cssload-rotate 1150ms linear infinite;
+}
+
+.cssload-whirlpool::after {
+	content: "";
+	margin: -28px 0 0 -28px;
+	height: 55px;
+	width: 55px;
+	animation: cssload-rotate 2300ms linear infinite;
+}
+
+
+@keyframes cssload-rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}

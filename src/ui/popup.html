@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<title>NoScript Settings</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="popup.css" />
+<script src="/lib/include.js"></script>
+<script src="/lib/log.js"></script>
+<script src="/common/locale.js"></script>
+<script src="/ui/ui.js"></script>
+
+</head>
+<body>
+<div id="main">
+<div id="top">
+  <a aria-role="button" id="close" class="close icon">__MSG_Close__</a>
+  <a aria-role="button" id="reload" class="reload icon">__MSG_Reload__</a>
+  <a aria-role="button" id="options" class="options icon">__MSG_Options__</a>
+  <div class="hider">
+    <a aria-role="button" class="reveal" title="__MSG_Reveal__">🡆</a>
+    <div class="hider-label">__MSG_Hider__</div>
+    <button class="hider-close">🗙</button>
+  </div>
+  <div class="spacer"></div>
+  <a aria-role="button" id="enforce" class="toggle icon"></a>
+  <a aria-role="button" id="enforce-tab" class="toggle icon"></a>
+  <a aria-role="button" id="temp-trust-page" class="toggle icon">__MSG_TempTrustPage__</a>
+  <a aria-role="button" id="revoke-temp" class="toggle icon">__MSG_RevokeTemp__</a>
+</div>
+<div id="message" class="hidden"></div>
+<div id="content"></div>
+<div id="sites"></div>
+<div id="buttons">
+
+</div>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>

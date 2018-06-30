@@ -1,0 +1,71 @@
+a.__NoScript_PlaceHolder__ {
+  outline: 2px solid #048;
+  color: #048;
+  text-decoration: none;
+  text-align: center;
+  background: rgba(255,250,200, .7) no-repeat center;
+  background-size: 256px;
+  visibility: visible !important;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 1s all;
+}
+
+a.__NoScript_PlaceHolder__:hover {
+  opacity: 1;
+  text-decoration: underline;
+  background-size: 128px;
+  background-position: top left;
+}
+
+a.__NoScript_PlaceHolder__.closing {
+  transition: .4s all;
+  opacity: 0;
+  transform: scale(0, 0);
+}
+
+a.__NoScript_PlaceHolder__ > span {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.__NoScript_PlaceHolder__ button {
+  appearance: none;
+  -moz-appearance: none;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  color: #800;
+  font-size: 16px;
+  font-family: sans-serif;
+  padding: 0 4px;
+  margin: 0;
+  background: none;
+  transition: .2s all;
+}
+.__NoScript_PlaceHolder__  button:hover {
+
+  color: white;
+  text-shadow: -2px 0 2px red, 2px 0 2px red;
+}
+
+.__NoScript_PlaceHolder__ > span > span {
+  display: block;
+  font-size: 18px;
+  background: rgba(255, 250, 200, .5);
+  border-radius: 8px;
+  padding: 8px;
+  margin: 0;
+  font-family: sans-serif;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}

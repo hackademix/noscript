@@ -1,0 +1,101 @@
+{
+  "manifest_version": 2,
+  "default_locale": "en",
+  "name": "NoScript",
+  "applications": {
+    "gecko": {
+      "id":  "{73a6fe31-595d-460b-a920-fcc0f8843232}",
+      "strict_min_version": "59.0"
+    }
+  },
+  "version": "10.1.8.3rc4",
+  "description": "__MSG_Description__",
+
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
+
+  "icons": {
+    "48": "img/icon48.png",
+    "96": "img/icon96.png",
+    "256": "img/icon256.png"
+  },
+
+  "permissions": [
+      "contextMenus",
+      "privacy",
+      "storage",
+      "tabs",
+      "unlimitedStorage",
+      "webNavigation",
+      "webRequest",
+      "webRequestBlocking",
+      "<all_urls>"
+  ],
+
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "lib/uuid.js",
+      "lib/log.js",
+      "lib/include.js",
+      "lib/punycode.js",
+      "lib/tld.js",
+      "common/Policy.js",
+      "common/locale.js",
+      "common/Entities.js",
+      "common/SyntaxChecker.js",
+      "common/Storage.js",
+      "ui/Prompts.js",
+      "xss/XSS.js",
+      "bg/main.js"
+    ]
+  },
+
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "matches": ["<all_urls>"],
+      "match_about_blank": true,
+      "all_frames": true,
+      "js": [
+        "lib/log.js",
+        "content/onScriptDisabled.js",
+        "content/content.js",
+        "content/PlaceHolder.js"
+      ]
+    },
+    {
+       "matches": ["<all_urls>"],
+       "match_about_blank": true,
+       "all_frames": true,
+       "css": [
+         "/content/content.css"
+       ]
+     }
+  ],
+
+  "options_ui": {
+    "page": "ui/options.html",
+    "open_in_tab": true
+  },
+
+  "browser_action": {
+    "default_area": "navbar",
+    "default_title": "NoScript",
+    "default_icon": {
+      "64": "img/ui-maybe64.png"
+    }
+  },
+
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+N"
+      }
+    },
+    "togglePermissions": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+T"
+      }
+    }
+  }
+}

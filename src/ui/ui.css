@@ -1,0 +1,391 @@
+
+body {
+  font-family: sans-serif;
+  font: -moz-use-system-font;
+  font-size: 12px;
+}
+
+.mobile > body {
+  font-size: 4mm;
+  min-width: auto;
+}
+
+.mobile .desktop {
+  display: none !important;
+}
+
+ @media (max-width: 100mm) {
+   body {
+     background-size: 4em !important;
+     padding-right: 0 !important;
+    }
+
+   .presets {
+     width: 0;
+   }
+
+   .presets input.preset {
+     min-width: 0 !important;
+     background-color: none !important;
+     margin-bottom: 0;
+     margin-top: 1mm;
+     font-weight: bold;
+   }
+   .presets input.temp {
+    position: static;
+  }
+  .presets label.preset {
+    font-size: 50%;
+    top: -1mm;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    text-shadow: 0 0 4px #ff8;
+    position: absolute;
+    overflow: visible;
+  }
+
+  td.presets {
+      white-space: nowrap !important;
+      vertical-align: bottom;
+    }
+   .url {
+     white-space: wrap;
+     word-break: break-all;
+     font-size: 75%;
+     letter-spacing: -0.2mm;
+
+   }
+
+ }
+
+input[type="text"] {
+  border: 1px solid;
+}
+input[type="checkbox"] {
+  width: 1em;
+  height: 1em;
+}
+
+.presets {
+  -moz-user-select: none;
+}
+.sites {
+  border: 0;
+  background: white;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  overflow-y: auto;
+
+}
+.sites tr, .sites td {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: 1em;
+}
+.sites > tr.site:hover, .sites > tr.sites:active {
+  background: #abf;
+}
+.sites > tr:nth-child(even) {background: #fff}
+.sites > tr:nth-child(odd) {background: #eee}
+
+.site .url {
+    padding: 0 0 0 0.5em;
+    color: #ccc;
+    vertical-align: middle;
+}
+.site .url .protocol { display: none }
+
+.site .url .domain { cursor: help }
+
+[data-key="domain"] .full-address .host,
+[data-key="domain"] .full-address .sub,
+[data-key="domain"] .full-address .protocol,
+[data-key="host"] .full-address span .protocol,
+[data-key="host"] .full-address span .protocol, {
+  background-color: #afe;
+}
+[data-key="host"] .full-address span .protocol,
+[data-key="domain"] .full-address span .host,
+[data-key="domain"] .full-address span .protocol {
+  border: none;
+}
+
+
+.site .url[data-key="domain"] .domain,
+.site .url[data-key="host"] .domain,
+.site .url[data-key="host"] .sub,
+.site .url[data-key="unsafe"] span {
+  color: #a00;
+}
+
+.site .url[data-key="secure"] .domain,
+.site .url[data-key="secure"] .sub,
+.site .url[data-key="full"] span {
+  color: black;
+}
+
+.site .url[data-key="full"] span,
+.site .url[data-key="unsafe"] span {
+  display: initial;
+}
+
+.site .url .domain {
+  font-weight: bold;
+}
+
+input.https-only {
+  font-size: 1em;
+  -moz-appearance: none;
+  background: url(/img/ui-http64.png) no-repeat center;
+  background-size: 1.5em;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0 0 -0.13em 0.13em;
+  padding:0;
+  cursor: pointer;
+}
+input.https-only:checked {
+  background-image: url(/img/ui-https64.png);
+}
+label.https-only {
+  display: none;
+}
+
+[data-preset="UNTRUSTED"] .https-only, [data-preset="DEFAULT"] .https-only {
+  visibility: hidden;
+}
+
+
+td.presets {
+  font-size: 1em;
+  white-space: nowrap;
+}
+
+.mobile td.presets {
+  white-space: normal;
+}
+
+span.preset {
+  position: relative;
+  display: inline-block;
+  top: 0.13em;
+  font-size: 1em;
+}
+
+.preset label, .preset input, .preset button {
+  cursor: pointer;
+}
+
+.presets input.preset {
+  font-size: 1em;
+  -moz-appearance: none;
+  background: url(/img/ui-no64.png) no-repeat center left;
+  background-size: 1.5em;
+  width: 1.5em;
+  height: 1.5em;
+  outline: 0;
+  opacity: .5;
+  margin: 0 .5em 0.13em .5em;
+}
+
+input.preset:active, input.preset:focus, input.preset:hover {
+  background-color: #ff8;
+  border-radius: .5em;
+}
+
+.presets input.preset:checked, #presets input.preset {
+  opacity: 1;
+  transform: none;
+  min-width: 9.38em;
+  background-color: #ddd;
+  border-radius: 0.5em;
+}
+
+.presets input.preset:focus {
+  transform: none;
+}
+.sites input + label {
+  font-size: 1em;
+  line-height: 1.5em;
+  vertical-align: top;
+}
+.presets label.preset {
+  padding: 0;
+  letter-spacing: -0.06em;
+  width: 0em;
+  overflow: hidden;
+  display: none;
+  text-transform: uppercase;
+  color: #000;
+  opacity: .6;
+  position: absolute;
+  left: 0em;
+  padding-left: 2.5em;
+
+  transition: 0.2s all;
+}
+
+.presets input.preset[value^="T"] + label {
+  text-transform: none;
+}
+
+.presets input.preset:checked + label, #presets .presets label {
+  opacity: 1;
+  width: 100%;
+  display: inline-block;
+}
+
+button.options {
+  -moz-appearance: none;
+  border: none;
+  background: none transparent;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #048;
+  text-shadow: -0.06em -0.06em 0.06em #fff, 0.13em 0.13em 0.13em #000;
+  padding: 0;
+  margin: 0;
+}
+
+.preset .options {
+  -moz-appearance: none;
+
+  border: 0;
+  background: none;
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+
+  opacity: 0;
+  position: absolute;
+  bottom: 0.88em;
+  left: 1.13em;
+
+  pointer-events: none;
+
+}
+
+.preset:hover input.preset:checked ~ .options {
+  display: block;
+  opacity: 1;
+  bottom: 0.38em;
+
+}
+input.preset[value="T_TRUSTED"] {
+  background-image: url(/img/ui-temp64.png);
+}
+
+input.preset[value="TRUSTED"] {
+  background-image: url(/img/ui-yes64.png)
+}
+input.preset[value="UNTRUSTED"] {
+  background-image: url(/img/ui-black64.png)
+}
+input.preset[value="CUSTOM"] {
+  background-image: url(/img/ui-custom64.png)
+}
+
+input.temp {
+  font-size: 1em;
+  -moz-appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  background: url(/img/ui-clock64.png) no-repeat center;
+  background-size: 60%;
+  width: 1.5em;
+  height: 1.5em;
+  transition: 0.2s all;
+  right: 0;
+  top: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+input.temp + label {
+  display: none;
+}
+
+input.preset:checked ~ input.temp {
+  opacity: .5;
+  right: .5em;
+  pointer-events: all;
+}
+.presets input.preset:checked ~ input.temp:checked {
+  opacity: 1 !important;
+  background-size: 100%;
+
+}
+
+.customizing input.preset:checked, #presets input.preset:checked, .customizer fieldset {
+  background-color: #ffb !important;
+  border-radius: 0.5em 0.5em 0 0;
+  margin: 0 0.06em 0.06em 0.06em;
+}
+.customizing input.preset:checked, #presets input.preset, #presets input.preset:checked  {
+  margin: 0 1em -0.2em 1em;
+  border-radius: 0.5em 0.5em 0 0;
+}
+
+.customizing input.preset:checked + label.preset {
+  padding-left: 3em;
+}
+
+.customizing, .customizer {
+  background-color: #cca !important;
+}
+
+.customizer div {
+  transition: 0.2s height;
+  padding: 0;
+  margin: 0;
+}
+
+span.cap {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.customizer.closed .customizer-controls   {
+  height: 0;
+  overflow: hidden;
+}
+
+span.cap {
+  padding: 0.5em;
+  font-weight: normal;
+}
+
+span.cap.needed {
+  font-weight: bold;
+  background-color: #c88;
+}
+
+fieldset {
+  border: 0;
+  padding: 1.5em 0.5em 0.5em 0.5em;
+  margin: 0;
+  position: relative;
+}
+
+legend {
+  font-weight: bold;
+  display: inline;
+  position: absolute;
+  top: 0.25em;
+  left: 1em;
+  white-space: nowrap;
+}
+.customizer legend {
+  font-weight: bold;
+  font-size: 0.75em;
+}
+
+#presets .https-only {
+  display: none;
+}
