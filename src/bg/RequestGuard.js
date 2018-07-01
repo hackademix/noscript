@@ -422,7 +422,7 @@ var RequestGuard = (() => {
           }
         }
 
-        debug(`CSP blocker:`, blocker);
+        debug(`CSP blocker on %s:`, request.url, blocker);
         if (blocker) {
           if (header) {
             header.value = CSP.inject(header.value, blocker);

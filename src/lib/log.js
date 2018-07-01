@@ -9,6 +9,6 @@
     console.debug(`${PREFIX} ${msg}`, ...rest);
   }
   function error(e, msg, ...rest) {
-    console.error(`${PREFIX} ${msg}`, e, e.message, e.stack);
+    console.error(`${PREFIX} ${msg}`, ...rest, e, e.message, e.stack);
   }
 }

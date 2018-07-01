@@ -1,4 +1,4 @@
-console.log("Media Hook", document.documentElement.innerHTML);
+debug("Media Hook (blocked %s)", !!window.mediaBlocker, document.URL, document.documentElement && document.documentElement.innerHTML);
 try {
   (() => {
     let unpatched = new Map();
@@ -25,9 +25,6 @@ try {
     patch(window.MediaSource.prototype, "addSourceBuffer", function(mime, ...args) {
       let ms = this;
       let urls = urlMap.get(ms);
-      let me = Array.from(document.querySelectorAll("video,audio"))
-        .find(e => e.srcObject === ms || urls && urls.has(e.src));
-      let exposedMime = `${mime} (MSE)`;
 
       let request = {
         id: "noscript-media",
@@ -40,13 +37,21 @@ try {
       notifyPage();
 
       if (window.mediaBlocker) {
-        try {
-          let ph = PlaceHolder.create("media", request);
-          ph.replace(me);
-          PlaceHolder.listen();
-        } catch (e) {
-          error(e);
-        }
+        (async () => {
+          let me = Array.from(document.querySelectorAll("video,audio"))
+            .find(e => e.srcObject === ms || urls && urls.has(e.src));
+
+          if (!me) return;
+          let exposedMime = `${mime} (MSE)`;
+
+          try {
+            let ph = PlaceHolder.create("media", request);
+            ph.replace(me);
+            PlaceHolder.listen();
+          } catch (e) {
+            error(e);
+          }
+        })();
         throw new Error(`${exposedMime} blocked by NoScript`);
       }
 

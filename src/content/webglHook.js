@@ -1,4 +1,4 @@
-console.log("WebGL Hook", document.documentElement.innerHTML);
+console.log("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML);
 try {
   let proto = HTMLCanvasElement.prototype;
   let getContext = proto.getContext;
