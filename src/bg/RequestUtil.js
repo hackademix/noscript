@@ -39,10 +39,8 @@
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];
       let content = this.getContentMetaData(request);
-      filter.onstart = async event => {
-        if (/ml$/i.test(content.type)) {
-          filter.write(new Uint8Array()); // work-around for https://bugzilla.mozilla.org/show_bug.cgi?id=1410755
-        }
+      let first = true;
+      let execute = async () => {
         for (let details of scripts.values()) {
           details = Object.assign({
             runAt: "document_start",
@@ -64,7 +62,17 @@
           buffer = null;
         }
       };
+      filter.onstart = event => {
+        if (/ml$/i.test(content.type)) {
+          filter.write(new Uint8Array()); // work-around for https://bugzilla.mozilla.org/show_bug.cgi?id=1410755
+        }
+      }
       filter.ondata = event => {
+        if (first) {
+          execute();
+          first = false;
+        }
+
         if (buffer) {
           buffer.push(event.data);
           return;
