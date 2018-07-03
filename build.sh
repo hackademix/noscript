@@ -15,11 +15,11 @@ if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') ] && "$TLD/gene
   cp -u "$TLD/tld.js" $LIB
 fi
 
-./html5_events.pl
+./html5_events/html5_events.pl
 
-rm -rf $BUILD $XPI
-cp -pR $SRC $BUILD
-
+rm -rf "$BUILD" "$XPI"
+cp -pR "$SRC" "$BUILD"
+cp -p LICENSE.txt GPL.txt "$BUILD"/
 
 if [[ $VER == *rc* ]]; then
   sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
@@ -43,7 +43,7 @@ else
 fi
 
 echo "Creating $XPI.xpi..."
-mkdir -p $XPI_DIR
+mkdir -p "$XPI_DIR"
 
 "$BUILD_CMD" $BUILD_OPTS --source-dir=$(cygpath -w $BUILD) --artifacts-dir=$(cygpath -w $XPI_DIR) --ignore-files=test/XSS_test.js
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
@@ -56,5 +56,4 @@ else
   exit 3
 fi
 echo "Created $XPI.xpi"
-
 rm -rf "$BUILD"

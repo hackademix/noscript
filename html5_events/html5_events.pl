@@ -12,7 +12,7 @@ my $HTML5_URL = "https://hg.mozilla.org/mozilla-central/raw-file/tip/parser/html
 my $GECKO_URL = "https://hg.mozilla.org/mozilla-central/raw-file/tip/xpcom/ds/nsGkAtomList.h";
 
 my $HERE = dirname($0);
-my $SOURCE_FILE = $HERE . '/src/xss/InjectionChecker.js';
+my $SOURCE_FILE = "$HERE/../src/xss/InjectionChecker.js";
 
 sub create_re
 {
