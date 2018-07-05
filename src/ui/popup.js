@@ -107,27 +107,42 @@ addEventListener("unload", e => {
     let mainFrame = UI.seen && UI.seen.find(thing => thing.request.type === "main_frame");
     debug("Seen: %o", UI.seen);
     if (!mainFrame) {
-
-      if (/^https?:/.test(tab.url) && !tab.url.startsWith("https://addons.mozilla.org/")) {
-        document.body.classList.add("disabled");
-        showMessage("warning", _("freshInstallReload"));
-        let buttons = document.querySelector("#buttons");
-        let b = document.createElement("button");
-        b.textContent = _("OK");
-        b.onclick = document.getElementById("reload").onclick = () => {
-          reload();
-          close();
+      let isHttp = /^https?:/.test(tab.url);
+      try {
+        await browser.tabs.executeScript(tabId, { code: "" });
+        if (isHttp) {
+          document.body.classList.add("disabled");
+          showMessage("warning", _("freshInstallReload"));
+          let buttons = document.querySelector("#buttons");
+          let b = document.createElement("button");
+          b.textContent = _("OK");
+          b.onclick = document.getElementById("reload").onclick = () => {
+            reload();
+            close();
+          }
+          buttons.appendChild(b);
+          b = document.createElement("button");
+          b.textContent = _("Cancel");
+          b.onclick = () => close();
+          buttons.appendChild(b);
+          return;
         }
-        buttons.appendChild(b);
-        b = document.createElement("button");
-        b.textContent = _("Cancel");
-        b.onclick = () => close();
-        buttons.appendChild(b);
-        return;
+      } catch (e) {
+        error(e, "Could not run scripts on %s: privileged page?", tab.url);
       }
-      showMessage("warning", _("privilegedPage"));
-      document.getElementById("temp-trust-page").disabled = true;
-      if (!UI.seen) return;
+      if (!isHttp) {
+        showMessage("warning", _("privilegedPage"));
+        let tempTrust = document.getElementById("temp-trust-page");
+        tempTrust.disabled = true;
+      }
+      if (!UI.seen) {
+        if (!isHttp) return;
+        UI.seen = [
+          mainFrame = {
+            request: { url: tab.url, documentUrl: tab.url, type: "main_frame" }
+          }
+        ];
+      }
     }
 
     let justDomains = !UI.local.showFullAddresses;
