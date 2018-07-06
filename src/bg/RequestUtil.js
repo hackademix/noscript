@@ -1,6 +1,8 @@
 'use strict';
 {
+  let NULL = new Uint8Array();
   let pendingRequests = new Map();
+
   let cleanup = r => {
     pendingRequests.delete(r.requestId);
   };
@@ -10,6 +12,24 @@
   };
   browser.webRequest.onCompleted.addListener(cleanup, filter);
   browser.webRequest.onErrorOccurred.addListener(cleanup, filter);
+
+  let executeAll = async (scripts, where) => {
+    let {url, tabId, frameId} = where;
+    for (let details of scripts.values()) {
+      details = Object.assign({
+        runAt: "document_start",
+        matchAboutBlank: true,
+        frameId,
+      }, details);
+      try {
+        await browser.tabs.executeScript(tabId, details);
+        debug("Execute on start OK", url, details);
+      } catch (e) {
+        error(e, "Execute on start failed", url, details);
+      }
+    }
+  };
+
   var RequestUtil = {
 
     getContentMetaData(request) {
@@ -25,7 +45,8 @@
     },
 
     async executeOnStart(request, details) {
-      let {requestId, tabId, frameId} = request;
+      let {requestId, tabId, frameId, statusCode} = request;
+      if (statusCode >= 300 && statusCode < 400) return;
       let scripts = pendingRequests.get(requestId);
       let scriptKey = JSON.stringify(details);
       if (!scripts) {
@@ -36,23 +57,15 @@
         return;
       }
 
+      let content = this.getContentMetaData(request);
+      debug(request.url, content.type);
+      if (/\bxml\b/.test(content.type) && !/\bhtml\b/.test(content.type)) return;
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];
-      let content = this.getContentMetaData(request);
+
       let first = true;
-      let execute = async () => {
-        for (let details of scripts.values()) {
-          details = Object.assign({
-            runAt: "document_start",
-            frameId,
-          }, details);
-          try {
-            await browser.tabs.executeScript(tabId, details);
-            debug("Execute on start OK", request.url, details);
-          } catch (e) {
-            error(e, "Execute on start failed", request.url, details);
-          }
-        }
+      let runAndFlush = async () => {
+        await executeAll(scripts, request);
         if (buffer.length) {
           debug("Flushing %s buffer chunks", buffer.length);
           for (let chunk of buffer) {
@@ -62,24 +75,24 @@
           buffer = null;
         }
       };
+
       filter.onstart = event => {
-        if (/ml$/i.test(content.type)) {
-          filter.write(new Uint8Array()); // work-around for https://bugzilla.mozilla.org/show_bug.cgi?id=1410755
-        }
+        filter.write(NULL);
       }
-      filter.ondata = event => {
+
+      filter.ondata =  event => {
         if (first) {
-          execute();
+          runAndFlush();
           first = false;
         }
-
         if (buffer) {
           buffer.push(event.data);
           return;
         }
         filter.write(event.data);
         filter.disconnect();
-      }
+      };
+
     }
   }
 }

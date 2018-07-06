@@ -355,10 +355,11 @@ var RequestGuard = (() => {
     async onHeadersReceived(request) {
       // called for main_frame, sub_frame and object
       debug("onHeadersReceived", request);
+      let {url, documentUrl, statusCode, tabId, responseHeaders} = request;
+      if (statusCode >= 300 && statusCode < 400) return;
 
       try {
         let header, blocker;
-        let responseHeaders = request.responseHeaders;
         let content = {}
         for (let h of responseHeaders) {
           if (CSP.isMine(h)) {
@@ -370,11 +371,11 @@ var RequestGuard = (() => {
         }
 
 
-        if (ns.isEnforced(request.tabId)) {
+        if (ns.isEnforced(tabId)) {
           let policy = ns.policy;
-          let perms = policy.get(request.url, request.documentUrl).perms;
+          let perms = policy.get(url, documentUrl).perms;
           if (policy.autoAllowTop && request.frameId === 0 && perms === policy.DEFAULT) {
-            policy.set(Sites.optimalKey(request.url), perms = policy.TRUSTED.tempTwin);
+            policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
           }
 
           let {capabilities} = perms;
@@ -422,7 +423,7 @@ var RequestGuard = (() => {
           }
         }
 
-        debug(`CSP blocker on %s:`, request.url, blocker);
+        debug(`CSP blocker on %s:`, url, blocker);
         if (blocker) {
           if (header) {
             header.value = CSP.inject(header.value, blocker);
