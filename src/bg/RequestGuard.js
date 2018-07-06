@@ -90,9 +90,6 @@ var RequestGuard = (() => {
 
       if (what === "noscriptFrame") {
         let nsf = records.noscriptFrames;
-        if (frameId in nsf) {
-          return null;
-        }
         nsf[frameId] = optValue;
         what = optValue ? "blocked" : "allowed";
         if (frameId === 0) {
@@ -278,18 +275,20 @@ var RequestGuard = (() => {
       };
       if (tabId < 0) return;
       if (pending) request.initialUrl = pending.initialUrl;
-      try {
-        browser.tabs.sendMessage(
-          tabId,
-          {type: "seen", request, allowed, policyType, ownFrame: true},
-          {frameId}
-        );
-      } catch (e) {
-        debug(`Couldn't deliver "seen" message for ${type}@${url} ${allowed ? "A" : "F" } to document ${documentUrl} (${frameId}/${tabId}`, e);
+      if (type !== "sub_frame") { // we couldn't deliver it to frameId, since it's generally not loaded yet
+        try {
+          await browser.tabs.sendMessage(
+            tabId,
+            {type: "seen", request, allowed, policyType, ownFrame: true},
+            {frameId}
+          );
+        } catch (e) {
+          debug(`Couldn't deliver "seen" message for ${type}@${url} ${allowed ? "A" : "F" } to document ${documentUrl} (${frameId}/${tabId})`, e);
+        }
       }
       if (frameId === 0) return;
       try {
-        browser.tabs.sendMessage(
+        await browser.tabs.sendMessage(
           tabId,
           {type: "seen", request, allowed, policyType},
           {frameId: 0}

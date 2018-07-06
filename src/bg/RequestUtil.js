@@ -1,6 +1,7 @@
 'use strict';
 {
   let NULL = new Uint8Array();
+  let brokenOnLoad = (async () => parseInt(await browser.runtime.getBrowserInfo().version) < 61);
   let pendingRequests = new Map();
 
   let cleanup = r => {
@@ -59,7 +60,7 @@
 
       let content = this.getContentMetaData(request);
       debug(request.url, content.type);
-      if (/\bxml\b/.test(content.type) && !/\bhtml\b/.test(content.type)) return;
+      if (/^[\w/+-]*\b(xml|image)\b/i.test(content.type) && !/\bhtml\b/i.test(content.type)) return;
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];
 
@@ -76,8 +77,10 @@
         }
       };
 
-      filter.onstart = event => {
-        filter.write(NULL);
+      if (brokenOnLoad) {
+        filter.onstart = event => {
+          filter.write(NULL);
+        }
       }
 
       filter.ondata =  event => {
