@@ -6,6 +6,11 @@ MANIFEST_IN="$SRC/manifest.json"
 MANIFEST_OUT="$BUILD/manifest.json"
 
 VER=$(grep '"version":' "$SRC/manifest.json" | sed -re 's/.*": "(.*?)".*/\1/')
+if [ "$1" == "tag" ]; then
+  echo "Tagging at $VER"
+  git tag -a "$VER" && git push origin "$VER"
+  exit 0
+fi
 XPI_DIR="$BASE/xpi"
 XPI="$XPI_DIR/noscript-$VER"
 LIB="$SRC/lib"
