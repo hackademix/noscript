@@ -130,10 +130,14 @@ addEventListener("unload", e => {
       } catch (e) {
         error(e, "Could not run scripts on %s: privileged page?", tab.url);
       }
-      if (!isHttp) {
+
+      await include("/lib/restricted.js");
+      let isRestricted = isRestrictedURL(tab.url);
+      if (!isHttp || isRestricted) {
         showMessage("warning", _("privilegedPage"));
         let tempTrust = document.getElementById("temp-trust-page");
         tempTrust.disabled = true;
+        return;
       }
       if (!UI.seen) {
         if (!isHttp) return;

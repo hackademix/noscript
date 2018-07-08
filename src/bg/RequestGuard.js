@@ -314,6 +314,7 @@ var RequestGuard = (() => {
 
 
   const ABORT = {cancel: true}, ALLOW = {};
+  const INTERNAL_SCHEME = /^(?:chrome|resource|moz-extension|about):/;
   const listeners = {
     onBeforeRequest(request) {
       try {
@@ -324,7 +325,7 @@ var RequestGuard = (() => {
           let {url, originUrl, documentUrl} = request;
           if (("fetch" === policyType || "frame" === policyType) &&
             (url === originUrl && originUrl === documentUrl ||
-              /^(?:chrome|resource|moz-extension|about):/.test(originUrl))
+              INTERNAL_SCHEME.test(originUrl))
           ) {
             // livemark request or similar browser-internal, always allow;
             return ALLOW;
@@ -334,7 +335,8 @@ var RequestGuard = (() => {
             request._dataUrl = url;
             request.url = url = documentUrl;
           }
-          let allowed = !ns.isEnforced(request.tabId) ||
+          let allowed = INTERNAL_SCHEME.test(url) ||
+            !ns.isEnforced(request.tabId) ||
             policy.can(url, policyType, originUrl);
           Content.reportTo(request, allowed, policyType);
 
