@@ -87,23 +87,23 @@ var PlaceHolder = (() => {
       this.origin = new URL(url).origin;
       let TYPE = `<${this.policyType.toUpperCase()}>`;
 
-      let replacement = document.createElement("a");
+      let replacement = createHTMLElement("a");
       replacement.className = "__NoScript_PlaceHolder__";
       cloneStyle(element, replacement);
       replacement.style.backgroundImage = `url(${ICON_URL})`;
       replacement.href = url;
       replacement.title = `${TYPE}@${url}`;
 
-      let inner = replacement.appendChild(document.createElement("span"));
+      let inner = replacement.appendChild(createHTMLElement("span"));
       inner.className = replacement.className;
 
-      let button = inner.appendChild(document.createElement("button"));
+      let button = inner.appendChild(createHTMLElement("button"));
       button.className = replacement.className;
       button.setAttribute("aria-label", button.title = _("Close"));
       button.value = "close";
       button.textContent = "🗙";
 
-      let description = inner.appendChild(document.createElement("span"));
+      let description = inner.appendChild(createHTMLElement("span"));
       description.textContent = `${TYPE}@${this.origin}`;
 
       replacement._placeHolderObj = this;

@@ -2,6 +2,10 @@
 
  // debug = () => {}; // XPI_ONLY
 
+function createHTMLElement(name) {
+  return document.createElementNS("http://www.w3.org/1999/xhtml", name);
+}
+
 var _ = browser.i18n.getMessage;
 
 var canScript = true;
