@@ -5,10 +5,16 @@ BUILD="$BASE/build"
 MANIFEST_IN="$SRC/manifest.json"
 MANIFEST_OUT="$BUILD/manifest.json"
 
-VER=$(grep '"version":' "$SRC/manifest.json" | sed -re 's/.*": "(.*?)".*/\1/')
+VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
 if [ "$1" == "tag" ]; then
   echo "Tagging at $VER"
   git tag -a "$VER" && git push origin "$VER"
+  exit 0
+fi
+if [ "$1" == "bump" ]; then
+  echo "Bumping to $VER"
+  git add "$MANIFEST_IN"
+  git commit -m "Version bump: $VER."
   exit 0
 fi
 XPI_DIR="$BASE/xpi"
