@@ -1,7 +1,7 @@
 function onScriptDisabled() {
   for (let noscript of document.querySelectorAll("noscript")) {
     // force show NOSCRIPT elements content
-    let replacement = document.createElement("span");
+    let replacement = document.createElement("no-script");
     replacement.innerHTML = noscript.innerHTML;
     noscript.parentNode.replaceChild(replacement, noscript);
     // emulate meta-refresh
