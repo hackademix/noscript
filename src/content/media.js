@@ -8,9 +8,6 @@ try {
        exportFunction(replacement, obj, {defineAs: methodName});
        unpatched.set(obj, methods);
     }
-    patch(window.console, "log", function(s, ...args) {
-      unpatched.get(window.console).log.call(`PATCHED ${s}`, ...args);
-    });
     let urlMap = new WeakMap();
     patch(window.URL, "createObjectURL",  function(o, ...args) {
       let url = unpatched.get(window.URL).createObjectURL.call(this, o, ...args);
