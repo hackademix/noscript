@@ -235,7 +235,7 @@ input.preset:active, input.preset:focus, input.preset:hover {
 
 .presets input.preset:checked + label, #presets .presets label {
   opacity: 1;
-  width: 100%;
+  width: 60%;
   display: inline-block;
 }
 
