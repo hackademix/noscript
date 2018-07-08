@@ -1,6 +1,7 @@
 'use strict';
 {
   let NULL = new Uint8Array();
+  let xmlFeedOrImage = /^(?:(?:application|text)\/(?:(?:r(?:ss|df)|atom)\+)?xml(;|$))|image\//i;
   let brokenOnLoad = (async () => parseInt(await browser.runtime.getBrowserInfo().version) < 61);
   let pendingRequests = new Map();
 
@@ -60,7 +61,7 @@
 
       let content = this.getContentMetaData(request);
       debug(request.url, content.type);
-      if (/^[\w/+-]*\b(xml|image)\b/i.test(content.type) && !/\bhtml\b/i.test(content.type)) return;
+      if (xmlFeedOrImage.test(content.type) && !/\/svg\b/i.test(content.type)) return;
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];
 
