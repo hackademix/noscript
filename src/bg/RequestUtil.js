@@ -1,8 +1,11 @@
 'use strict';
 {
   let NULL = new Uint8Array();
-  let xmlFeedOrImage = /^(?:(?:application|text)\/(?:(?:r(?:ss|df)|atom)\+)?xml(;|$))|image\//i;
+  let DEFAULT_CHARSET = "utf-8";
+  let xmlFeedOrImage = /^(?:(?:application|text)\/(?:(?:r(?:ss|df)|atom)\+)xml(;|$))|image\//i;
+  let rawXml = /^(?:application|text)\/xml;/i;
   let brokenOnLoad = (async () => parseInt(await browser.runtime.getBrowserInfo().version) < 61);
+
   let pendingRequests = new Map();
 
   let cleanup = r => {
@@ -35,15 +38,7 @@
   var RequestUtil = {
 
     getContentMetaData(request) {
-      if (request.content) return request.content;
-      let {responseHeaders} = request;
-      let content = request.content = {};
-      for (let h of responseHeaders) {
-        if (/^\s*Content-(Type|Disposition)\s*$/i.test(h.name)) {
-          content[h.name.split("-")[1].trim().toLowerCase()] = h.value;
-        }
-      }
-      return content;
+      return request.content || (request.content = new ContentMetaData(request));
     },
 
     async executeOnStart(request, details) {
@@ -60,8 +55,9 @@
       }
 
       let content = this.getContentMetaData(request);
-      debug(request.url, content.type);
+      debug(request.url, content.type, content.charset);
       if (xmlFeedOrImage.test(content.type) && !/\/svg\b/i.test(content.type)) return;
+      let disconnect = !(brokenOnLoad && rawXml.test(content.type));
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];
 
@@ -73,18 +69,20 @@
           for (let chunk of buffer) {
             filter.write(chunk);
           }
-          filter.disconnect();
+          if (disconnect) filter.disconnect();
           buffer = null;
         }
       };
 
       if (brokenOnLoad) {
         filter.onstart = event => {
+          debug(`onstart ${request.url}`);
           filter.write(NULL);
         }
       }
 
-      filter.ondata =  event => {
+      filter.ondata = event => {
+
         if (first) {
           runAndFlush();
           first = false;
@@ -93,8 +91,10 @@
           buffer.push(event.data);
           return;
         }
+
+        debug(`ondata ${request.url}`);
         filter.write(event.data);
-        filter.disconnect();
+        if (disconnect) filter.disconnect();
       };
 
     }
