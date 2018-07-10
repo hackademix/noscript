@@ -374,7 +374,7 @@
     "message": "Show NoScript contextual menu item"
   },
   "ShowCountBadge": {
-    "message": "Display script count badge"
+    "message": "Display blocked items count badge"
   },
   "SitePermissions": {
     "message": "Site Permissions"
