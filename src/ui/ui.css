@@ -197,7 +197,15 @@ input.preset:active, input.preset:focus, input.preset:hover {
   border-radius: .5em;
 }
 
-.presets input.preset:checked, #presets input.preset {
+#presets-sizer {
+  visibility: hidden;
+  width: 10px;
+  height: 1px;
+  overflow: hidden !important;
+  border: 1px solid red;
+}
+
+.presets input.preset:checked, #presets input.preset, #presets-sizer input.preset {
   opacity: 1;
   transform: none;
   min-width: 9.38em;
@@ -226,7 +234,6 @@ input.preset:active, input.preset:focus, input.preset:hover {
   left: 0em;
   padding-left: 2.5em;
 
-  transition: 0.2s all;
 }
 
 .presets input.preset[value^="T"] + label {
@@ -235,8 +242,15 @@ input.preset:active, input.preset:focus, input.preset:hover {
 
 .presets input.preset:checked + label, #presets .presets label {
   opacity: 1;
-  width: 60%;
+  width: 80%;
   display: inline-block;
+}
+
+#presets-sizer .presets label {
+   position: static;
+   display: block;
+   width: auto;
+   overflow: visible;
 }
 
 button.options {

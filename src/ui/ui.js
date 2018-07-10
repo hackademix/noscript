@@ -187,7 +187,7 @@ var UI = (() => {
 
     initRow(table = this.table) {
       let row = table.querySelector("tr.site");
-
+      debug("initRow: ", new Error().stack);
       // PRESETS
       {
         let presets = row.querySelector(".presets");
@@ -212,7 +212,42 @@ var UI = (() => {
             clone.querySelector(".options").remove();
           }
           presets.appendChild(clone);
+
         }
+
+
+        if (!document.getElementById("presets-sizer")) {
+          // adapt button to label if needed
+          let sizer = table.cloneNode(true);
+          sizer.id = "presets-sizer";
+          document.body.appendChild(sizer);
+          let presetWidth = sizer.querySelector("input.preset").offsetWidth;
+          let labelWidth = 0;
+          for (let l of sizer.querySelectorAll("label.preset")) {
+            let lw = l.offsetWidth;
+            debug("lw", lw);
+            if (lw > labelWidth) labelWidth = lw;
+          }
+
+          debug(`Preset: %s Label: %s`, presetWidth, labelWidth);
+          labelWidth += 16;
+          if (presetWidth < labelWidth) {
+            for (let ss of document.styleSheets) {
+              if (ss.href.endsWith("/ui.css")) {
+                for (let r of ss.cssRules) {
+                  if (/input\.preset:checked.*min-width:/.test(r.cssText)) {
+                    r.style.minWidth = (labelWidth) + "px";
+                    break;
+                  }
+                }
+              }
+            }
+          }
+
+          sizer.style.visibility = "visible";
+          // setTimeout( () => sizer.style.display = "none");
+        }
+
       }
 
       // URL
