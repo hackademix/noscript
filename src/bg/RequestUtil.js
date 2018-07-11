@@ -19,17 +19,8 @@
     types:  ["main_frame", "sub_frame", "object"]
   };
 
-
-  browser.webRequest.onCompleted.addListener(r => {
-    cleanup(r);
-    let {tabId, url} = r;
-    let key = tabKey(tabId, url);
-    if (reloadingTabs.has(key)) {
-      debug("Reloading tab", key);
-      browser.tabs.update(tabId, {url});
-    }
-  }, filter);
-  browser.webRequest.onErrorOccurred.addListener(cleanup, filter);
+  for (let event of ["onCompleted", "onErrorOccurred"])
+    browser.webRequest[event].addListener(cleanup, filter);
 
   let executeAll = async (scripts, where) => {
     let {url, tabId, frameId} = where;
@@ -99,9 +90,12 @@
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];
       let first = true;
+      let done = false;
+      let mustReload = false;
       let runAndFlush = async () => {
         let scriptsRan = await executeAll(scripts, request);
         if (mustCheckFeed && !scriptsRan) {
+          mustReload = true;
           debug(`Marking as "must reload"`, tabId, url);
           reloadingTabs.add(tabKey(tabId, url));
         }
@@ -112,6 +106,9 @@
           }
           filter.disconnect();
           buffer = null;
+        }
+        if (done) {
+          filter.onstop(null);
         }
       };
 
@@ -137,7 +134,13 @@
         filter.disconnect();
       };
 
-
+      filter.onstop = event => {
+        done = true;
+        if (mustReload && !buffer) {
+          mustReload = false;
+          browser.tabs.update(tabId, {url});
+        }
+      }
     }
   }
 }
