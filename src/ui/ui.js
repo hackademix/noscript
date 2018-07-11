@@ -187,7 +187,6 @@ var UI = (() => {
 
     initRow(table = this.table) {
       let row = table.querySelector("tr.site");
-      debug("initRow: ", new Error().stack);
       // PRESETS
       {
         let presets = row.querySelector(".presets");
@@ -225,7 +224,7 @@ var UI = (() => {
           let labelWidth = 0;
           for (let l of sizer.querySelectorAll("label.preset")) {
             let lw = l.offsetWidth;
-            debug("lw", lw);
+            debug("lw", l.textContent, lw);
             if (lw > labelWidth) labelWidth = lw;
           }
 
