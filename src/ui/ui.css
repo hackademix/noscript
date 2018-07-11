@@ -199,17 +199,18 @@ input.preset:active, input.preset:focus, input.preset:hover {
 
 #presets-sizer {
   visibility: hidden;
-
-  overflow: hidden !important;
-  border: 1px solid red;
-}
-
-#presets-sizer td.site {
-  display: none;
-}
-#presets-sizer span.url {
+  position: absolute;
   display: block;
+  width: 5000px;
+  height: 500px;
+  top: -5000px;
 }
+
+#presets-sizer span.preset {
+  display: block;
+
+}
+
 .presets input.preset:checked, #presets input.preset, #presets-sizer input.preset {
   opacity: 1;
   transform: none;
