@@ -140,9 +140,7 @@
        },
 
        async openStandalonePopup() {
-         let win = await browser.windows.getLastFocused({
-           windowTypes: ["normal"]
-         });
+         let win = await browser.windows.getLastFocused();
          let [tab] = (await browser.tabs.query({
            lastFocusedWindow: true,
            active: true

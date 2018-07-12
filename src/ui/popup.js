@@ -25,7 +25,7 @@ addEventListener("unload", e => {
     let optionsClosed = false;
     let tab = (await browser.tabs.query({
       windowId: browser.windows ?
-        (await browser.windows.getLastFocused({windowTypes: ["normal"]})).id
+        (await browser.windows.getLastFocused()).id
         : null,
       active: true
     }))[0];
