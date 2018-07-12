@@ -183,7 +183,7 @@ XSS.InjectionChecker = (async () => {
           return this.reduceJSON(s.replace(expr, REPL));
         }
       } catch (e) {}
-      let iterations = 0;
+
       for (;;) {
         let prev = s;
         let start = s.indexOf("{");
@@ -1002,7 +1002,7 @@ XSS.InjectionChecker = (async () => {
           return true;
       }
 
-      if (s.indexOf("coalesced:") !== 0) {
+      if (!isPost && s.indexOf("coalesced:") !== 0) {
         let coalesced = ASPIdiocy.coalesceQuery(s);
         if (coalesced !== s && this.checkRecursive("coalesced:" + coalesced, depth, isPost))
           return true;
