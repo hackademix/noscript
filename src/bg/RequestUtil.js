@@ -8,11 +8,15 @@
 
   let pendingRequests = new Map();
 
-  let reloadingTabs = new Set();
+  let reloadingTabs = new Map();
   let tabKey = (tabId, url) => `${tabId}:${url}`;
 
   let cleanup = r => {
     pendingRequests.delete(r.requestId);
+    let key = tabKey(r.tabId, r.url);
+    if (reloadingTabs.get(key) === false) {
+      reloadingTabs.delete(key);
+    }
   };
   let filter = {
     urls: ["<all_urls>"],
@@ -66,14 +70,8 @@
       if (frameId === 0) {
         let key = tabKey(tabId, url);
         debug("Checking whether %s is a reloading tab...", key);
-        if (reloadingTabs.has(key)) {
-          debug("Skipping dynamic script injection for reloading feed tab", key);
-          let filter = browser.webRequest.filterResponseData(requestId);
-          filter.onstart = e => {
-            reloadingTabs.delete(key);
-            filter.write(NULL);
-            filter.disconnect();
-          }
+        if (reloadingTabs.get(key)) {
+          reloadingTabs.set(key, false); // doom it for removal in cleanup
           return;
         }
       }
@@ -97,7 +95,7 @@
         if (mustCheckFeed && !scriptsRan) {
           mustReload = true;
           debug(`Marking as "must reload"`, tabId, url);
-          reloadingTabs.add(tabKey(tabId, url));
+          reloadingTabs.set(tabKey(tabId, url), true);
         }
         if (buffer && buffer.length) {
           debug("Flushing %s buffer chunks", buffer.length);
