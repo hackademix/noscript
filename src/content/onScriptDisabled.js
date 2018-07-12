@@ -12,7 +12,7 @@ function onScriptDisabled() {
         let [secs, url] = content.split(/\s*;\s*url\s*=\s*/i);
         if (url) {
           try {
-            let urlObj = new URL(url);
+            let urlObj = new URL(url.replace(/^(['"]?)(.+?)\1$/, '$2'));
             if (!/^https?:/.test(urlObj.protocol)) {
               continue;
             }
