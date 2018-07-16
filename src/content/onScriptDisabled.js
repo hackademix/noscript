@@ -13,7 +13,7 @@ function onScriptDisabled() {
         let urlObj;
         if (url) {
           try {
-            urlObj = new URL(url.replace(/^(['"]?)(.+?)\1$/, '$2'));
+            urlObj = new URL(url.replace(/^(['"]?)(.+?)\1$/, '$2'), document.URL);
             if (!/^https?:/.test(urlObj.protocol)) {
               continue;
             }
