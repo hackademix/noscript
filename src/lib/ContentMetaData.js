@@ -17,12 +17,13 @@ class ContentMetaData {
         charset = m[1];
       }
     }
-    Object.defineProperty(this, "charset", { value: charset, writable: false, configurable: true })
+    Object.defineProperty(this, "charset", { value: charset, writable: false, configurable: true });
+    return charset;
   }
 
   createDecoder() {
     try {
-      return new TextDecoder(charset);
+      return new TextDecoder(this.charset);
     } catch (e) {
       return new TextDecoder(this.defaultCharset);
     }

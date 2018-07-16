@@ -1,7 +1,7 @@
 'use strict';
 {
   let NULL = new Uint8Array();
-  let DEFAULT_CHARSET = "utf-8";
+
   let xmlFeedOrImage = /^(?:(?:application|text)\/(?:(?:r(?:ss|df)|atom)\+)xml(;|$))|image\//i;
   let rawXml = /^(?:application|text)\/xml;/i;
   let brokenOnLoad;
