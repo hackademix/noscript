@@ -10,15 +10,17 @@ function onScriptDisabled() {
       let content = meta.getAttribute("content");
       if (content) {
         let [secs, url] = content.split(/\s*;\s*url\s*=\s*/i);
+        let urlObj;
         if (url) {
           try {
-            let urlObj = new URL(url.replace(/^(['"]?)(.+?)\1$/, '$2'));
+            urlObj = new URL(url.replace(/^(['"]?)(.+?)\1$/, '$2'));
             if (!/^https?:/.test(urlObj.protocol)) {
               continue;
             }
           } catch (e) {
+            continue;
           }
-          window.setTimeout(() => location.href = url, (parseInt(secs) || 0) * 1000);
+          window.setTimeout(() => location.href = urlObj, (parseInt(secs) || 0) * 1000);
         }
       }
     }
