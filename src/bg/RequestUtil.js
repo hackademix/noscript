@@ -57,6 +57,21 @@
       let {requestId, url, tabId, frameId, statusCode} = request;
 
       if (statusCode >= 300 && statusCode < 400) return;
+      if (frameId === 0) {
+        let key = tabKey(tabId, url);
+        debug("Checking whether %s is a reloading tab...", key);
+        if (reloadingTabs.get(key)) {
+          reloadingTabs.set(key, false); // doom it for removal in cleanup
+          return;
+        }
+      }
+      let content = this.getContentMetaData(request);
+      if (content.disposition) {
+        debug("Skipping execute on start of %s %o", url, content);
+        return;
+      }
+      debug("Injecting script on start in %s (%o)", url, content);
+
       let scripts = pendingRequests.get(requestId);
       let scriptKey = JSON.stringify(details);
       if (!scripts) {
@@ -67,17 +82,6 @@
         return;
       }
 
-      if (frameId === 0) {
-        let key = tabKey(tabId, url);
-        debug("Checking whether %s is a reloading tab...", key);
-        if (reloadingTabs.get(key)) {
-          reloadingTabs.set(key, false); // doom it for removal in cleanup
-          return;
-        }
-      }
-
-      let content = this.getContentMetaData(request);
-      debug(url, content.type, content.charset);
       if (xmlFeedOrImage.test(content.type) && !/\/svg\b/i.test(content.type)) return;
       if (typeof brokenOnLoad === "undefined") {
         brokenOnLoad = await (async () => parseInt((await browser.runtime.getBrowserInfo()).version) < 61)();

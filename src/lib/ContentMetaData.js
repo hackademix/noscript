@@ -4,7 +4,7 @@ class ContentMetaData {
     let {responseHeaders} = request;
     for (let h of responseHeaders) {
       if (/^\s*Content-(Type|Disposition)\s*$/i.test(h.name)) {
-        this[h.name.split("-")[1].trim().toLowerCase()] = h.value;
+        this[RegExp.$1.toLowerCase()] = h.value;
       }
     }
   }
