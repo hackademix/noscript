@@ -47,8 +47,8 @@
 
   var RequestUtil = {
 
-    getContentMetaData(request) {
-      return request.content || (request.content = new ContentMetaData(request));
+    getResponseMetaData(request) {
+      return request.response || (request.response = new ResponseMetaData(request));
     },
 
     async executeOnStart(request, details) {
@@ -63,12 +63,14 @@
           return;
         }
       }
-      let content = this.getContentMetaData(request);
-      if (content.disposition) {
-        debug("Skipping execute on start of %s %o", url, content);
+      
+      let response = this.getResponseMetaData(request);
+      let {contentType, contentDisposition} = response;
+      if (contentDisposition) {
+        debug("Skipping execute on start of %s %o", url, response);
         return;
       }
-      debug("Injecting script on start in %s (%o)", url, content);
+      debug("Injecting script on start in %s (%o)", url, response);
 
       let scripts = pendingRequests.get(requestId);
       let scriptKey = JSON.stringify(details);
@@ -80,12 +82,12 @@
         return;
       }
 
-      if (xmlFeedOrImage.test(content.type) && !/\/svg\b/i.test(content.type)) return;
+      if (xmlFeedOrImage.test(contentType) && !/\/svg\b/i.test(contentType)) return;
       if (typeof brokenXMLOnLoad === "undefined") {
         brokenXMLOnLoad = await (async () => parseInt((await browser.runtime.getBrowserInfo()).version) < 61)();
       }
 
-      let mustCheckFeed = brokenXMLOnLoad && frameId === 0 && rawXml.test(content.type);
+      let mustCheckFeed = brokenXMLOnLoad && frameId === 0 && rawXml.test(contentType);
       debug("mustCheckFeed = %s, brokenXMLOnLoad = %s", mustCheckFeed, brokenXMLOnLoad);
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];

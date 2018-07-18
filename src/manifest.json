@@ -39,7 +39,7 @@
       "lib/include.js",
       "lib/punycode.js",
       "lib/tld.js",
-      "lib/ContentMetaData.js",
+      "lib/ResponseMetaData.js",
       "common/Policy.js",
       "common/locale.js",
       "common/Entities.js",
