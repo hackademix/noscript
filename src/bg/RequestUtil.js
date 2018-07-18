@@ -1,10 +1,8 @@
 'use strict';
 {
-  let NULL = new Uint8Array();
-
   let xmlFeedOrImage = /^(?:(?:application|text)\/(?:(?:r(?:ss|df)|atom)\+)xml(;|$))|image\//i;
   let rawXml = /^(?:application|text)\/xml;/i;
-  let brokenOnLoad;
+  let brokenXMLOnLoad;
 
   let pendingRequests = new Map();
 
@@ -83,12 +81,12 @@
       }
 
       if (xmlFeedOrImage.test(content.type) && !/\/svg\b/i.test(content.type)) return;
-      if (typeof brokenOnLoad === "undefined") {
-        brokenOnLoad = await (async () => parseInt((await browser.runtime.getBrowserInfo()).version) < 61)();
+      if (typeof brokenXMLOnLoad === "undefined") {
+        brokenXMLOnLoad = await (async () => parseInt((await browser.runtime.getBrowserInfo()).version) < 61)();
       }
 
-      let mustCheckFeed = brokenOnLoad && frameId === 0 && rawXml.test(content.type);
-      debug("mustCheckFeed = %s, brokenOnLoad = %s", mustCheckFeed, brokenOnLoad);
+      let mustCheckFeed = brokenXMLOnLoad && frameId === 0 && rawXml.test(content.type);
+      debug("mustCheckFeed = %s, brokenXMLOnLoad = %s", mustCheckFeed, brokenXMLOnLoad);
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];
       let first = true;
@@ -113,13 +111,6 @@
           filter.onstop(null);
         }
       };
-
-      if (brokenOnLoad) {
-        filter.onstart = event => {
-          filter.write(NULL);
-          debug("onstart", url);
-        }
-      }
 
       filter.ondata = event => {
         if (first) {
