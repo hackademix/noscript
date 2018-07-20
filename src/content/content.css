@@ -45,8 +45,9 @@ a.__NoScript_PlaceHolder__ > span {
   right: 0;
   display: block;
   color: #800;
-  font-size: 16px;
+  font-size: 24px;
   font-family: sans-serif;
+  font-weight: bold;
   padding: 0 4px;
   margin: 0;
   background: none;

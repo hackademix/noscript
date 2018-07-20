@@ -101,7 +101,7 @@ var PlaceHolder = (() => {
       button.className = replacement.className;
       button.setAttribute("aria-label", button.title = _("Close"));
       button.value = "close";
-      button.textContent = "🗙";
+      button.textContent = "×";
 
       let description = inner.appendChild(createHTMLElement("span"));
       description.textContent = `${TYPE}@${this.origin}`;
