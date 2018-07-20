@@ -72,16 +72,24 @@ let notifyPage = () => {
   return false;
 }
 
-
+var queryingCanScript = false;
 async function init() {
+  if (queryingCanScript) return;
+  queryingCanScript = true;
+  debug(`NoScript init() called in document %s, scripting=%s, content type %s readyState %s`,
+    document.URL, canScript, document.contentType, document.readyState);
+  
   try {
     canScript = await browser.runtime.sendMessage({type: "canScript"});
     init = () => {};
     debug("canScript:", canScript);
   } catch (e) {
+    debug("Error querying canScript", e);
     // background script not initialized yet?
     setTimeout(() => init(), 100);
     return;
+  } finally {
+    queryingCanScript = false;
   }
 
   if (!canScript) onScriptDisabled();
