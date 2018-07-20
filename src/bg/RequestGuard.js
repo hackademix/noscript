@@ -367,7 +367,7 @@ var RequestGuard = (() => {
             header = h;
             h.value = CSP.inject(h.value, "");
           } else if (/^\s*Content-(Type|Disposition)\s*$/i.test(h.name)) {
-            content[h.name.split("-")[1].trim().toLowerCase()] = h.value;
+            content[RegExp.$1.toLowerCase()] = h.value;
           }
         }
 

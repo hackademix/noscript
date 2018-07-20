@@ -16,17 +16,12 @@
       reloadingTabs.delete(key);
     }
   };
-  let filter = {
-    urls: ["<all_urls>"],
-    types:  ["main_frame", "sub_frame", "object"]
-  };
-
-  for (let event of ["onCompleted", "onErrorOccurred"])
-    browser.webRequest[event].addListener(cleanup, filter);
-
-  let executeAll = async (scripts, where) => {
-    let {url, tabId, frameId} = where;
-
+  
+  let executeAll = async request => {
+    let {url, tabId, frameId, requestId} = request;
+    let scripts = pendingRequests.get(requestId);
+    if (!scripts) return -1;
+    pendingRequests.delete(requestId);
     let count = 0;
     for (let details of scripts.values()) {
       details = Object.assign({
@@ -44,7 +39,20 @@
     }
     return count;
   };
-
+  
+  {
+    let filter = {
+      urls: ["<all_urls>"],
+      types:  ["main_frame", "sub_frame", "object"]
+    };
+    let wr = browser.webRequest;
+    for (let event of ["onCompleted", "onErrorOccurred"])
+      wr[event].addListener(cleanup, filter);
+  
+    filter.types = ["main_frame"];
+    wr.onResponseStarted.addListener(executeAll, filter);
+  }
+  
   var RequestUtil = {
 
     getResponseMetaData(request) {
@@ -66,11 +74,13 @@
       
       let response = this.getResponseMetaData(request);
       let {contentType, contentDisposition} = response;
-      if (contentDisposition) {
-        debug("Skipping execute on start of %s %o", url, response);
+      if (contentDisposition ||
+          xmlFeedOrImage.test(contentType) && !/\/svg\b/i.test(contentType)) {
+        debug("Skipping execute on start of %s %o.", url, response);
         return;
       }
-      debug("Injecting script on start in %s (%o)", url, response);
+      
+      debug("Injecting script on start in %s (%o).", url, response);
 
       let scripts = pendingRequests.get(requestId);
       let scriptKey = JSON.stringify(details);
@@ -81,12 +91,18 @@
         scripts.set(scriptKey, details);
         return;
       }
-
-      if (xmlFeedOrImage.test(contentType) && !/\/svg\b/i.test(contentType)) return;
+      
+      if (request.type === "main_frame" 
+          && /^(?:application|text)\//.test(contentType) 
+          && !/[^;]+\b(html|xml)\b/i.test(contentType)) {
+        debug("Not HTML, but top-level document: defer script to onResponseStarted for %s (%o)", url, response);
+        return;
+      }
+      
       if (typeof brokenXMLOnLoad === "undefined") {
         brokenXMLOnLoad = await (async () => parseInt((await browser.runtime.getBrowserInfo()).version) < 61)();
       }
-
+      
       let mustCheckFeed = brokenXMLOnLoad && frameId === 0 && rawXml.test(contentType);
       debug("mustCheckFeed = %s, brokenXMLOnLoad = %s", mustCheckFeed, brokenXMLOnLoad);
       let filter = browser.webRequest.filterResponseData(requestId);
@@ -95,7 +111,7 @@
       let done = false;
       let mustReload = false;
       let runAndFlush = async () => {
-        let scriptsRan = await executeAll(scripts, request);
+        let scriptsRan = await executeAll(request);
         if (mustCheckFeed && !scriptsRan) {
           mustReload = true;
           debug(`Marking as "must reload"`, tabId, url);
@@ -120,6 +136,7 @@
           first = false;
         }
         if (buffer) {
+          debug("buffering", url);
           buffer.push(event.data);
           return;
         }
