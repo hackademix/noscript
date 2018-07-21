@@ -3692,8 +3692,16 @@ jeonnam.kr
 seoul.kr
 ulsan.kr
 
-// kw : https://en.wikipedia.org/wiki/.kw
-*.kw
+// kw : https://www.nic.kw/policies/
+// Confirmed by registry <nic.tech@citra.gov.kw>
+kw
+com.kw
+edu.kw
+emb.kw
+gov.kw
+ind.kw
+net.kw
+org.kw
 
 // ky : http://www.icta.ky/da_ky_reg_dom.php
 // Confirmed by registry <kysupport@perimeterusa.com> 2008-06-17
@@ -8608,9 +8616,6 @@ itv
 // iveco : 2015-09-03 CNH Industrial N.V.
 iveco
 
-// iwc : 2014-06-23 Richemont DNS Inc.
-iwc
-
 // jaguar : 2014-11-13 Jaguar Land Rover Ltd
 jaguar
 
@@ -12527,7 +12532,7 @@ lima-city.rocks
 webspace.rocks
 lima.zone
 
-// TransIP : htts://www.transip.nl
+// TransIP : https://www.transip.nl
 // Submitted by Rory Breuk <rbreuk@transip.nl>
 *.transurl.be
 *.transurl.eu
