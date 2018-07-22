@@ -194,38 +194,27 @@
        return this.policy.enforced && (tabId === -1 || !this.unrestrictedTabs.has(tabId));
      },
 
-     async start() {
+     start() {
        if (this.running) return;
        this.running = true;
 
-       let initializing = init();
-       let wr = browser.webRequest;
-       let waitForPolicy = async r => {
-         try {
-           await initializing;
-         } catch (e) {
-           error(e);
-         }
-       }
-       wr.onBeforeRequest.addListener(waitForPolicy, {
-         urls: ["<all_urls>"]
-       }, ["blocking"]);
-       await initializing;
-       wr.onBeforeRequest.removeListener(waitForPolicy);
+       deferWebTraffic(init(), 
+          async () => {
 
-       await include("/bg/Settings.js");
-       MessageHandler.listen();
+           await include("/bg/Settings.js");
+           MessageHandler.listen();
 
-       log("STARTED");
+           log("STARTED");
 
-       this.devMode = (await browser.management.getSelf()).installType === "development";
-       if (this.local.debug) {
-         if (this.devMode) {
-           include("/test/run.js");
-         }
-       } else {
-         debug = () => {}; // suppress verbosity
-       }
+           this.devMode = (await browser.management.getSelf()).installType === "development";
+           if (this.local.debug) {
+             if (this.devMode) {
+               include("/test/run.js");
+             }
+           } else {
+             debug = () => {}; // suppress verbosity
+           }
+         });
      },
 
      stop() {

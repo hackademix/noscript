@@ -6,6 +6,18 @@ function createHTMLElement(name) {
   return document.createElementNS("http://www.w3.org/1999/xhtml", name);
 }
 
+function probe() {
+  try {
+    debug("Probing execution...");
+    let s = document.createElement("script"); 
+    s.textContent=";"; 
+    document.documentElement.appendChild(s);
+    s.remove();
+  } catch(e) {
+    debug(e);
+  }
+}
+
 var _ = browser.i18n.getMessage;
 
 var canScript = true;
@@ -62,8 +74,9 @@ if (document.readyState !== "complete") {
     init();
   };
   addEventListener("pageshow", pageshown);
-} else init();
-
+} else {
+  init(true);
+}
 let notifyPage = () => {
   if (document.readyState === "complete") {
     browser.runtime.sendMessage({type: "pageshow", seen, canScript});
@@ -73,24 +86,28 @@ let notifyPage = () => {
 }
 
 var queryingCanScript = false;
-async function init() {
+async function init(oldPage = false) {
   if (queryingCanScript) return;
   queryingCanScript = true;
   debug(`NoScript init() called in document %s, scripting=%s, content type %s readyState %s`,
     document.URL, canScript, document.contentType, document.readyState);
   
   try {
-    canScript = await browser.runtime.sendMessage({type: "canScript"});
+    canScript = document.URL === "about:blank" || await browser.runtime.sendMessage({type: "canScript"});
+    if (oldPage && canScript) {
+      probe();
+      setTimeout(() => init(), 100);
+      return;
+    }
     init = () => {};
     debug("canScript:", canScript);
   } catch (e) {
     debug("Error querying canScript", e);
     if (document.readyState !== "complete" &&
-      document.URL !== "about:blank" && 
       /Receiving end does not exist/.test(e.message)) {
       window.location.reload(false);
     } else {
-      setTimeout(() => init(), 100);
+      setTimeout(() => init(oldPage), 100);
     }
     return;
   } finally {

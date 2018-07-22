@@ -47,6 +47,7 @@
       "common/Storage.js",
       "ui/Prompts.js",
       "xss/XSS.js",
+      "bg/deferWebTraffic.js",
       "bg/main.js"
     ]
   },

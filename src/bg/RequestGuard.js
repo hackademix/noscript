@@ -357,7 +357,7 @@ var RequestGuard = (() => {
       // called for main_frame, sub_frame and object
       debug("onHeadersReceived", request);
       let {url, documentUrl, statusCode, tabId, responseHeaders} = request;
-      if (statusCode >= 300 && statusCode < 400) return;
+      //if (statusCode >= 300 && statusCode < 400) return;
 
       try {
         let header, blocker;
@@ -421,6 +421,9 @@ var RequestGuard = (() => {
             await RequestUtil.executeOnStart(request, {
               file: "content/media.js"
             });
+          } else if (request.frameId === 0 && !TabStatus.map.has(tabId)) {
+            debug("No TabStatus data yet for noscriptFrame", tabId);
+            TabStatus.record(request, "noscriptFrame", true);
           }
         }
 
@@ -442,6 +445,7 @@ var RequestGuard = (() => {
     },
 
     onResponseStarted(request) {
+      debug("onResponseStarted", request);
       if (request.type === "main_frame") {
         TabStatus.initTab(request.tabId);
       }
@@ -477,7 +481,7 @@ var RequestGuard = (() => {
     let type = report["violated-directive"].split("-", 1)[0]; // e.g. script-src 'none' => script
     if (type === "frame") type = "sub_frame";
     let url = report['blocked-uri'];
-    if (url === 'self') url = request.documentUrl;
+    if (!url || url === 'self') url = request.documentUrl;
     return Object.assign({}, request, {
       url,
       type,
@@ -490,11 +494,12 @@ var RequestGuard = (() => {
       const report = JSON.parse(decoder.decode(request.requestBody.raw[0].bytes))['csp-report'];
       let csp = report["original-policy"]
       debug("CSP report", report);
-      if (report['blocked-uri'] !== 'self') {
+      let blockedURI = report['blocked-uri'];
+      if (blockedURI && blockedURI !== 'self') {
         let r = fakeRequestFromCSP(report, request);
         Content.reportTo(r, false, policyTypesMap[r.type]);
         TabStatus.record(r, "blocked");
-      } else if (report["violated-directive"] === "script-src 'none'") {
+      } else if (report["violated-directive"] === "script-src" && /; script-src 'none'/.test(report["original-policy"])) {
         let r =  fakeRequestFromCSP(report, request);
         TabStatus.record(r, "noscriptFrame", true);
       }

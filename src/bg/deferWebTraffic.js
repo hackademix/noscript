@@ -1,0 +1,68 @@
+function deferWebTraffic(promiseToWaitFor, next) {
+  debug("deferWebTraffic on %o", promiseToWaitFor);
+  let seenTabs = new Set();
+  function checkNavigation(nav) {
+    if (nav.url.startsWith("http")) {
+      let seen = seenTabs.has(nav.tabId);
+      debug(`%s navigation %o`, seen ? "seen" : "unseen", nav);
+      if (!seen) {
+        reloadTab(tabId);
+      }
+    }
+  }
+  browser.webNavigation.onCommitted.addListener(checkNavigation);
+  function reloadTab(tabId) {
+    seenTabs.add(tabId);
+    try {
+      // browser.tabs.update(tabId, {url: documentUrl});
+      browser.tabs.executeScript(tabId, {
+        runAt: "document_start",
+        code: "window.location.reload(false)"
+      });
+      debug("Reloading tab", tabId);
+    } catch (e) {
+      error(e, "Can't reload tab", tabId);
+    }
+  }
+  
+   async function waitFor(request) {
+    let {type, documentUrl, url, tabId, frameId} = request;
+    if (!seenTabs.has(tabId)) {
+      if (type === "main_frame") {
+        seenTabs.add(tabId);
+      } else if (documentUrl) {
+        if (frameId !== 0) {
+          documentUrl = request.frameAncestors.pop().url;
+        }
+        reloadTab(tabId);
+      }
+    }
+    debug("Deferring ", url, type);
+    try {
+      await promiseToWaitFor;
+    } catch (e) {
+      error(e);
+    }
+    debug("Green light to ", url, type);
+  }
+  
+  function spyTabs(request) {
+    debug("Spying request %o", request);
+    
+  }
+  browser.webRequest.onHeadersReceived.addListener(spyTabs, {
+    urls: ["<all_urls>"],
+    types: ["main_frame"],
+  }, ["blocking", "responseHeaders"]);
+  browser.webRequest.onBeforeRequest.addListener(waitFor, {
+    urls: ["<all_urls>"]
+  }, ["blocking"]);
+  
+  (async () => {
+    await promiseToWaitFor;
+    browser.webNavigation.onCommitted.removeListener(checkNavigation);
+    browser.webRequest.onBeforeRequest.removeListener(waitFor);
+    browser.webRequest.onHeadersReceived.removeListener(spyTabs);
+    if (next) next();
+  })();
+} 
