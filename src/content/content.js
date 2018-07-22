@@ -85,8 +85,13 @@ async function init() {
     debug("canScript:", canScript);
   } catch (e) {
     debug("Error querying canScript", e);
-    // background script not initialized yet?
-    setTimeout(() => init(), 100);
+    if (document.readyState !== "complete" &&
+      document.URL !== "about:blank" && 
+      /Receiving end does not exist/.test(e.message)) {
+      window.location.reload(false);
+    } else {
+      setTimeout(() => init(), 100);
+    }
     return;
   } finally {
     queryingCanScript = false;

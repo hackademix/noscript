@@ -30,7 +30,14 @@
         frameId,
       }, details);
       try {
-        await browser.tabs.executeScript(tabId, details);
+        for (let attempts = 10; attempts-- > 0;) {
+          try {
+            await browser.tabs.executeScript(tabId, details);
+          } catch(e) {
+            if (!/No matching message handler/.test(e.message)) throw e;
+            debug("Couldn't inject script into %s: too early? Retrying up to %s times...", url, attempts);
+          }
+        }
         count++;
         debug("Execute on start OK", url, details);
       } catch (e) {
