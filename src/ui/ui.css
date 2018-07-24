@@ -249,7 +249,7 @@ input.preset:active, input.preset:focus, input.preset:hover {
 .presets input.preset:checked + label, #presets .presets label {
   opacity: 1;
   width: 80%;
-  display: inline-block;
+  display: inline-flex;
 }
 
 #presets-sizer .presets label {
@@ -368,7 +368,7 @@ input.preset:checked ~ input.temp {
 
 span.cap {
   white-space: nowrap;
-  display: inline-block;
+  display: inline-flex;
 }
 
 .customizer.closed .customizer-controls   {
