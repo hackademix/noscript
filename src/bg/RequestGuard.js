@@ -72,6 +72,7 @@ var RequestGuard = (() => {
     },
 
     initTab(tabId, records = this.newRecords()) {
+      if (tabId < 0) return;
       this.map.set(tabId, records);
       return records;
     },
@@ -109,6 +110,8 @@ var RequestGuard = (() => {
     },
 
     record(request, what, optValue) {
+      let {tabId} = request;
+      if (tabId < 0) return;
       let records = this._record(request, what, optValue);
       if (records) {
         this.updateTab(request.tabId);
@@ -118,6 +121,7 @@ var RequestGuard = (() => {
     _pendingTabs: new Set(),
 
     updateTab(tabId) {
+      if (tabId < 0) return;
       if (this._pendingTabs.size === 0) {
         window.setTimeout(() => { // clamp UI updates
           for (let tabId of this._pendingTabs) {
@@ -217,7 +221,7 @@ var RequestGuard = (() => {
         case "pageshow":
           TabStatus.recordAll(sender.tab.id, message.seen);
           return true;
-        case "enable":
+        case "enable": {
           let {url, documentUrl, policyType} = message;
           let TAG = `<${policyType.toUpperCase()}>`;
           let origin = Sites.origin(url);
@@ -258,10 +262,17 @@ var RequestGuard = (() => {
             ns.savePolicy();
           }
           return true;
-          case "canScript":
-            let records = TabStatus.map.get(sender.tab.id);
-            debug("Records.noscriptFrames %o, canScript: %s", records && records.noscriptFrames, !(records && records.noscriptFrames[sender.frameId]));
-            return !(records && records.noscriptFrames[sender.frameId]);
+        }
+        case "canScript": {
+          let {frameId, url, tab} = sender;
+          let tabId = tab.id;
+          let records = TabStatus.map.get(tabId);
+          let noscriptFrames = records && records.noscriptFrames;
+          let canScript = !(noscriptFrames && noscriptFrames[sender.frameId]);
+          let shouldScript = ns.isEnforced(tabId) && ns.policy.can(url, "script");
+          debug("Frame %s %s of  %o, canScript: %s, shouldScript: %s", frameId, url, noscriptFrames, canScript, shouldScript);
+          return {canScript, shouldScript};
+        }
       }
     },
 

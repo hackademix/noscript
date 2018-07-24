@@ -1,7 +1,9 @@
 'use strict';
 
  // debug = () => {}; // XPI_ONLY
-
+ 
+window.canScript = true;
+ 
 function createHTMLElement(name) {
   return document.createElementNS("http://www.w3.org/1999/xhtml", name);
 }
@@ -20,7 +22,6 @@ function probe() {
 
 var _ = browser.i18n.getMessage;
 
-var canScript = true;
 
 var embeddingDocument = false;
 
@@ -86,26 +87,49 @@ let notifyPage = () => {
 }
 
 var queryingCanScript = false;
+var caps = {};
+
 async function init(oldPage = false) {
   if (queryingCanScript) return;
+  if (document.URL === "about:blank") {
+    return;
+  }
   queryingCanScript = true;
-  debug(`NoScript init() called in document %s, scripting=%s, content type %s readyState %s`,
-    document.URL, canScript, document.contentType, document.readyState);
+
+  debug(`init() called in document %s, contentType %s readyState %s`,
+    document.URL, document.contentType, document.readyState);
   
   try {
-    canScript = document.URL === "about:blank" || await browser.runtime.sendMessage({type: "canScript"});
-    if (oldPage && canScript) {
-      probe();
-      setTimeout(() => init(), 100);
-      return;
+    let {canScript, shouldScript} = await browser.runtime.sendMessage({type: "canScript"});
+    debug(`document %s, canScript=%s, shouldScript=%s, readyState %s`, document.URL, canScript, shouldScript, document.readyState);
+    if (canScript) {
+      if (oldPage) {
+        probe();
+        setTimeout(() => init(), 100);
+        return;
+      }
+      if (!shouldScript) {
+        // Something wrong: scripts can run, permissions say they shouldn't.
+        // Was webRequest bypassed by caching/session restore/service workers?
+        let noCache = !!navigator.serviceWorker.controller;
+        if (noCache) {
+           for (let r of await navigator.serviceWorker.getRegistrations()) {
+             await r.unregister();
+           }
+        }
+        debug("Reloading %s (%s)", document.URL, noCache  ? "no cache" : "cached");
+        location.reload(noCache);
+        return;
+      }
     }
+    window.canScript = canScript;
     init = () => {};
-    debug("canScript:", canScript);
   } catch (e) {
     debug("Error querying canScript", e);
-    if (document.readyState !== "complete" &&
+    if (!oldPage &&
       /Receiving end does not exist/.test(e.message)) {
-      window.location.reload(false);
+      // probably startup and bg page not ready yet, hence no CSP: reload!
+      location.reload(false);
     } else {
       setTimeout(() => init(oldPage), 100);
     }
@@ -126,8 +150,8 @@ async function init(oldPage = false) {
     }
   );
 
-  debug(`Loading NoScript in document %s, scripting=%s, content type %s readyState %s`,
-    document.URL, canScript, document.contentType, document.readyState);
+  debug(`Loading NoScript in document %s, scripting=%s, readyState %s`,
+    document.URL, canScript, document.readyState);
 
   if (/application|video|audio/.test(document.contentType)) {
     debug("Embedding document detected");
