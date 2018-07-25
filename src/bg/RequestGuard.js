@@ -269,7 +269,7 @@ var RequestGuard = (() => {
           let records = TabStatus.map.get(tabId);
           let noscriptFrames = records && records.noscriptFrames;
           let canScript = !(noscriptFrames && noscriptFrames[sender.frameId]);
-          let shouldScript = ns.isEnforced(tabId) && ns.policy.can(url, "script");
+          let shouldScript = !ns.isEnforced(tabId) || ns.policy.can(url, "script");
           debug("Frame %s %s of  %o, canScript: %s, shouldScript: %s", frameId, url, noscriptFrames, canScript, shouldScript);
           return {canScript, shouldScript};
         }

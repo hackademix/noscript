@@ -87,11 +87,15 @@ let notifyPage = () => {
 }
 
 var queryingCanScript = false;
-var caps = {};
+
+function reload(noCache = false) {
+  init = () => {};
+  location.reload(noCache);
+}
 
 async function init(oldPage = false) {
   if (queryingCanScript) return;
-  if (document.URL === "about:blank") {
+  if (!document.URL.startsWith("http")) {
     return;
   }
   queryingCanScript = true;
@@ -105,12 +109,13 @@ async function init(oldPage = false) {
     if (canScript) {
       if (oldPage) {
         probe();
-        setTimeout(() => init(), 100);
+        setTimeout(() => init(), 200);
         return;
       }
       if (!shouldScript) {
         // Something wrong: scripts can run, permissions say they shouldn't.
         // Was webRequest bypassed by caching/session restore/service workers?
+        window.stop();
         let noCache = !!navigator.serviceWorker.controller;
         if (noCache) {
            for (let r of await navigator.serviceWorker.getRegistrations()) {
@@ -118,7 +123,7 @@ async function init(oldPage = false) {
            }
         }
         debug("Reloading %s (%s)", document.URL, noCache  ? "no cache" : "cached");
-        location.reload(noCache);
+        reload(noCache);
         return;
       }
     }
@@ -129,7 +134,8 @@ async function init(oldPage = false) {
     if (!oldPage &&
       /Receiving end does not exist/.test(e.message)) {
       // probably startup and bg page not ready yet, hence no CSP: reload!
-      location.reload(false);
+      debug("Reloading", document.URL);
+      reload();
     } else {
       setTimeout(() => init(oldPage), 100);
     }
@@ -162,4 +168,4 @@ async function init(oldPage = false) {
     // document.write("<plaintext>");
   }
   notifyPage() || addEventListener("pageshow", notifyPage);
-};
+}
