@@ -192,7 +192,7 @@
     "message": "Cookie"
   },
   "Https_description": {
-    "message": "Blocca i contenuti attivi quando no provengono da una connessione sicura (HTTPS):"
+    "message": "Blocca i contenuti attivi quando non provengono da una connessione sicura (HTTPS):"
   },
   "Https_never": {
     "message": "Mai"
@@ -582,13 +582,13 @@
     "message": "Ringraziamenti per questa estensione"
   },
   "extensionCreator_tip": {
-    "message": "Visita il sito dell‘autore"
+    "message": "Visita il sito dell'autore"
   },
   "extensionCreatorLabel": {
     "message": "Autore:"
   },
   "extensionHomepage_tip": {
-    "message": "Visita il sito dell‘estensione"
+    "message": "Visita il sito dell'estensione"
   },
   "forbidGlobal": {
     "message": "Blocca gli script a livello globale (raccomandato)"
