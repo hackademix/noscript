@@ -99,10 +99,9 @@
         return;
       }
       
-      if (request.type === "main_frame" 
-          && /^(?:application|text)\//.test(contentType) 
+      if (/^(?:application|text)\//.test(contentType) 
           && !/[^;]+\b(html|xml)\b/i.test(contentType)) {
-        debug("Not HTML, but top-level document: defer script to onResponseStarted for %s (%o)", url, response);
+        debug("Not HTML: defer script to onResponseStarted for %s (%o)", url, response);
         return;
       }
       
