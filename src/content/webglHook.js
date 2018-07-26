@@ -1,4 +1,4 @@
-if (correctFrame()) {
+{
   debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML);
   let proto = HTMLCanvasElement.prototype;
   let getContext = proto.getContext;

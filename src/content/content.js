@@ -100,8 +100,8 @@ async function init(oldPage = false) {
   }
   queryingCanScript = true;
 
-  debug(`init() called in document %s, contentType %s readyState %s`,
-    document.URL, document.contentType, document.readyState);
+  debug(`init() called in document %s, contentType %s readyState %s, frameElement %o`,
+    document.URL, document.contentType, document.readyState, window.frameElement && frameElement.data);
   
   try {
     let {canScript, shouldScript} = await browser.runtime.sendMessage({type: "canScript"});

@@ -1,4 +1,4 @@
-if (correctFrame()) {
+{
   debug("Media Hook (blocked %s)", !!window.mediaBlocker, document.URL, document.documentElement && document.documentElement.innerHTML);
   (() => {
     let unpatched = new Map();

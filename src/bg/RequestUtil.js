@@ -24,14 +24,13 @@
     let scripts = pendingScripts.get(requestId);
     if (!scripts) return -1;
     pendingScripts.delete(requestId);
-    
-    let where = type === "object" ? {allFrames: true} : {frameId};
     let count = 0;
     let run = async details => {
       details = Object.assign({
         runAt: "document_start",
         matchAboutBlank: true,
-      }, details, where);
+        frameId
+      }, details);
       try {
         let res;
         for (let attempts = 10; attempts-- > 0;) {
@@ -49,17 +48,14 @@
         error(e, "Execute on start failed", url, details);
       }
     };
-
-    await run({code: `void(window.correctFrame = () => "${url}" === document.URL && document.readyState === "loading")`});
     await Promise.all([...scripts.values()].map(run));
-    await run({code: `void(window.correctFrame = () => false)`});
     return count;
   };
   
   {
     let filter = {
       urls: ["<all_urls>"],
-      types:  ["main_frame", "sub_frame", "object"]
+      types:  ["main_frame", "sub_frame"]
     };
     let wr = browser.webRequest;
     for (let event of ["onCompleted", "onErrorOccurred"]) {
@@ -81,7 +77,7 @@
     executeOnStart(request, details) {
       let {requestId, url, tabId, frameId, statusCode, type} = request;
 
-      if (statusCode >= 300 && statusCode < 400) return;
+      if (statusCode >= 300 && statusCode < 400 || type === "object") return;
       if (frameId === 0) {
         let key = tabKey(tabId, url);
         debug("Checking whether %s is a reloading tab...", key);

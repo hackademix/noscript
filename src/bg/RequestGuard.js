@@ -390,8 +390,17 @@ var RequestGuard = (() => {
           if (policy.autoAllowTop && request.type === "main_frame" && perms === policy.DEFAULT) {
             policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
           }
-
+          
           let {capabilities} = perms;
+          let isObject = request.type === "object";
+          if (isObject && !capabilities.has("webgl")) { // we can't inject webglHook
+            debug("Disabling scripts in object %s to prevent webgl abuse", url);
+            capabilities = new Set(capabilities);
+            capabilities.delete("script");
+            let r = Object.assign({}, request, {type: "webgl"});
+            TabStatus.record(r, "blocked");
+            Content.reportTo(r, false, "webgl");
+          }
           let canScript = capabilities.has("script");
 
           let blockedTypes;
@@ -419,7 +428,7 @@ var RequestGuard = (() => {
             blocker = CSP.createBlocker(...blockedTypes);
           }
 
-          if (canScript) {
+          if (canScript && !isObject) {
             if (!capabilities.has("webgl")) {
                RequestUtil.executeOnStart(request, {
                 file: "/content/webglHook.js"
@@ -427,7 +436,7 @@ var RequestGuard = (() => {
             }
             if (!capabilities.has("media")) {
               RequestUtil.executeOnStart(request, {
-                code: "window.mediaBlocker = correctFrame();"
+                code: "window.mediaBlocker = true;"
               });
             }
             
