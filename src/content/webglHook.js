@@ -1,5 +1,5 @@
-debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML);
-try {
+if (correctFrame()) {
+  debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML);
   let proto = HTMLCanvasElement.prototype;
   let getContext = proto.getContext;
   exportFunction(function(type, ...rest) {
@@ -24,8 +24,5 @@ try {
     }
     return getContext.call(this, type, ...rest);
   }, proto, {defineAs: "getContext"});
-} catch (e) {
-  console.error(e);
+  document.URL;
 }
-
-null;

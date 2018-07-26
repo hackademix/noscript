@@ -20,32 +20,39 @@
   };
   
   let executeAll = async request => {
-    let {url, tabId, frameId, requestId} = request;
+    let {url, tabId, frameId, requestId, type} = request;
     let scripts = pendingScripts.get(requestId);
     if (!scripts) return -1;
     pendingScripts.delete(requestId);
+    
+    let where = type === "object" ? {allFrames: true} : {frameId};
     let count = 0;
-    await Promise.all([...scripts.values()].map(async details => {
+    let run = async details => {
       details = Object.assign({
         runAt: "document_start",
         matchAboutBlank: true,
-        frameId,
-      }, details);
+      }, details, where);
       try {
+        let res;
         for (let attempts = 10; attempts-- > 0;) {
           try {
-            await browser.tabs.executeScript(tabId, details);
+            res = await browser.tabs.executeScript(tabId, details);
+            break;
           } catch(e) {
             if (!/No matching message handler/.test(e.message)) throw e;
             debug("Couldn't inject script into %s: too early? Retrying up to %s times...", url, attempts);
           }
         }
         count++;
-        debug("Execute on start OK", url, details);
+        debug("Execute on start OK, result=%o", res, url, details);
       } catch (e) {
         error(e, "Execute on start failed", url, details);
       }
-    }));
+    };
+
+    await run({code: `void(window.correctFrame = () => "${url}" === document.URL && document.readyState === "loading")`});
+    await Promise.all([...scripts.values()].map(run));
+    await run({code: `void(window.correctFrame = () => false)`});
     return count;
   };
   
@@ -59,7 +66,6 @@
       wr[event].addListener(cleanup, filter);
     }
     
-    filter.types = ["main_frame"];
     wr.onResponseStarted.addListener(r => {
       let scripts = pendingScripts.get(r.requestId);
       if (scripts) scripts.runAndFlush();
@@ -73,7 +79,7 @@
     },
 
     executeOnStart(request, details) {
-      let {requestId, url, tabId, frameId, statusCode} = request;
+      let {requestId, url, tabId, frameId, statusCode, type} = request;
 
       if (statusCode >= 300 && statusCode < 400) return;
       if (frameId === 0) {

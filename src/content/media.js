@@ -1,5 +1,5 @@
-debug("Media Hook (blocked %s)", !!window.mediaBlocker, document.URL, document.documentElement && document.documentElement.innerHTML);
-try {
+if (correctFrame()) {
+  debug("Media Hook (blocked %s)", !!window.mediaBlocker, document.URL, document.documentElement && document.documentElement.innerHTML);
   (() => {
     let unpatched = new Map();
     function patch(obj, methodName, replacement) {
@@ -56,6 +56,5 @@ try {
     });
 
   })();
-} catch (e) {
-  error(e, "Cannot patch MediaSource");
+  document.URL;
 }

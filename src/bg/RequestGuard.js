@@ -99,12 +99,14 @@ var RequestGuard = (() => {
         }
       }
       let collection = records[what];
-      if (type in collection) {
-        if (!collection[type].includes(requestKey)) {
-          collection[type].push(requestKey);
+      if (collection) {
+        if (type in collection) {
+          if (!collection[type].includes(requestKey)) {
+            collection[type].push(requestKey);
+          }
+        } else {
+          collection[type] = [requestKey];
         }
-      } else {
-        collection[type] = [requestKey];
       }
       return records;
     },
@@ -425,12 +427,12 @@ var RequestGuard = (() => {
             }
             if (!capabilities.has("media")) {
               RequestUtil.executeOnStart(request, {
-                code: "window.mediaBlocker = true;"
+                code: "window.mediaBlocker = correctFrame();"
               });
             }
             
             RequestUtil.executeOnStart(request, {
-              file: "content/media.js"
+              file: "/content/media.js"
             });
           } else if (request.type === "main_frame" && !TabStatus.map.has(tabId)) {
             debug("No TabStatus data yet for noscriptFrame", tabId);
