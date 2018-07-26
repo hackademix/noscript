@@ -3,14 +3,16 @@
   let xmlFeedOrImage = /^(?:(?:application|text)\/(?:(?:r(?:ss|df)|atom)\+)xml(;|$))|image\//i;
   let rawXml = /^(?:application|text)\/xml;/i;
   let brokenXMLOnLoad;
-
-  let pendingRequests = new Map();
-
+  (async () => brokenXMLOnLoad = parseInt((await browser.runtime.getBrowserInfo()).version) < 61)()
+  
+  let pendingScripts = new Map();
+  let NOP = () => {};
+  
   let reloadingTabs = new Map();
   let tabKey = (tabId, url) => `${tabId}:${url}`;
 
   let cleanup = r => {
-    pendingRequests.delete(r.requestId);
+    pendingScripts.delete(r.requestId);
     let key = tabKey(r.tabId, r.url);
     if (reloadingTabs.get(key) === false) {
       reloadingTabs.delete(key);
@@ -19,11 +21,11 @@
   
   let executeAll = async request => {
     let {url, tabId, frameId, requestId} = request;
-    let scripts = pendingRequests.get(requestId);
+    let scripts = pendingScripts.get(requestId);
     if (!scripts) return -1;
-    pendingRequests.delete(requestId);
+    pendingScripts.delete(requestId);
     let count = 0;
-    for (let details of scripts.values()) {
+    await Promise.all([...scripts.values()].map(async details => {
       details = Object.assign({
         runAt: "document_start",
         matchAboutBlank: true,
@@ -43,7 +45,7 @@
       } catch (e) {
         error(e, "Execute on start failed", url, details);
       }
-    }
+    }));
     return count;
   };
   
@@ -53,11 +55,15 @@
       types:  ["main_frame", "sub_frame", "object"]
     };
     let wr = browser.webRequest;
-    for (let event of ["onCompleted", "onErrorOccurred"])
+    for (let event of ["onCompleted", "onErrorOccurred"]) {
       wr[event].addListener(cleanup, filter);
-  
+    }
+    
     filter.types = ["main_frame"];
-    wr.onResponseStarted.addListener(executeAll, filter);
+    wr.onResponseStarted.addListener(r => {
+      let scripts = pendingScripts.get(r.requestId);
+      if (scripts) scripts.runAndFlush();
+    }, filter);
   }
   
   var RequestUtil = {
@@ -66,7 +72,7 @@
       return request.response || (request.response = new ResponseMetaData(request));
     },
 
-    async executeOnStart(request, details) {
+    executeOnStart(request, details) {
       let {requestId, url, tabId, frameId, statusCode} = request;
 
       if (statusCode >= 300 && statusCode < 400) return;
@@ -89,10 +95,10 @@
       
       debug("Injecting script on start in %s (%o).", url, response);
 
-      let scripts = pendingRequests.get(requestId);
+      let scripts = pendingScripts.get(requestId);
       let scriptKey = JSON.stringify(details);
       if (!scripts) {
-        pendingRequests.set(requestId, scripts = new Map());
+        pendingScripts.set(requestId, scripts = new Map());
         scripts.set(scriptKey, details);
       } else {
         scripts.set(scriptKey, details);
@@ -105,18 +111,17 @@
         return;
       }
       
-      if (typeof brokenXMLOnLoad === "undefined") {
-        brokenXMLOnLoad = await (async () => parseInt((await browser.runtime.getBrowserInfo()).version) < 61)();
-      }
-      
       let mustCheckFeed = brokenXMLOnLoad && frameId === 0 && rawXml.test(contentType);
       debug("mustCheckFeed = %s, brokenXMLOnLoad = %s", mustCheckFeed, brokenXMLOnLoad);
       let filter = browser.webRequest.filterResponseData(requestId);
       let buffer = [];
-      let first = true;
-      let done = false;
+      let responseCompleted = false;
       let mustReload = false;
-      let runAndFlush = async () => {
+      scripts.runAndFlush = async () => {
+        scripts.runAndFlush = NOP;
+        if (responseCompleted && buffer && !buffer.length) {
+          filter.disconnect();
+        }
         let scriptsRan = await executeAll(request);
         if (mustCheckFeed && !scriptsRan) {
           mustReload = true;
@@ -124,23 +129,20 @@
           reloadingTabs.set(tabKey(tabId, url), true);
         }
         if (buffer && buffer.length) {
-          debug("Flushing %s buffer chunks", buffer.length);
+          debug("Flushing %s buffer chunks on %s", buffer.length, url);
           for (let chunk of buffer) {
             filter.write(chunk);
           }
-          filter.disconnect();
           buffer = null;
         }
-        if (done) {
+        filter.disconnect();
+        if (responseCompleted) {
           filter.onstop(null);
         }
       };
-
+      
       filter.ondata = event => {
-        if (first) {
-          runAndFlush();
-          first = false;
-        }
+        scripts.runAndFlush();
         if (buffer) {
           debug("buffering", url);
           buffer.push(event.data);
@@ -152,8 +154,9 @@
         filter.disconnect();
       };
 
-      filter.onstop = event => {
-        done = true;
+      filter.onstop = async event => {
+        responseCompleted = true;
+        await scripts.runAndFlush();
         if (mustReload && !buffer) {
           mustReload = false;
           browser.tabs.update(tabId, {url});

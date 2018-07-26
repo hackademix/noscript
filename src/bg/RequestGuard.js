@@ -89,7 +89,7 @@ var RequestGuard = (() => {
         records = this.initTab(tabId);
       }
 
-      if (what === "noscriptFrame") {
+      if (what === "noscriptFrame" && type !== "object") {
         let nsf = records.noscriptFrames;
         nsf[frameId] = optValue;
         what = optValue ? "blocked" : "allowed";
@@ -364,12 +364,11 @@ var RequestGuard = (() => {
       return ALLOW;
     },
 
-    async onHeadersReceived(request) {
+    onHeadersReceived(request) {
       // called for main_frame, sub_frame and object
       debug("onHeadersReceived", request);
       let {url, documentUrl, statusCode, tabId, responseHeaders} = request;
-      //if (statusCode >= 300 && statusCode < 400) return;
-
+      
       try {
         let header, blocker;
         let content = {}
@@ -386,7 +385,7 @@ var RequestGuard = (() => {
         if (ns.isEnforced(tabId)) {
           let policy = ns.policy;
           let perms = policy.get(url, documentUrl).perms;
-          if (policy.autoAllowTop && request.frameId === 0 && perms === policy.DEFAULT) {
+          if (policy.autoAllowTop && request.type === "main_frame" && perms === policy.DEFAULT) {
             policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
           }
 
@@ -420,19 +419,20 @@ var RequestGuard = (() => {
 
           if (canScript) {
             if (!capabilities.has("webgl")) {
-              await RequestUtil.executeOnStart(request, {
+               RequestUtil.executeOnStart(request, {
                 file: "/content/webglHook.js"
               });
             }
             if (!capabilities.has("media")) {
-              await RequestUtil.executeOnStart(request, {
+              RequestUtil.executeOnStart(request, {
                 code: "window.mediaBlocker = true;"
               });
             }
-            await RequestUtil.executeOnStart(request, {
+            
+            RequestUtil.executeOnStart(request, {
               file: "content/media.js"
             });
-          } else if (request.frameId === 0 && !TabStatus.map.has(tabId)) {
+          } else if (request.type === "main_frame" && !TabStatus.map.has(tabId)) {
             debug("No TabStatus data yet for noscriptFrame", tabId);
             TabStatus.record(request, "noscriptFrame", true);
           }
@@ -450,7 +450,7 @@ var RequestGuard = (() => {
 
         if (header) return {responseHeaders};
       } catch (e) {
-        error(e, "Error in onHeadersReceived", uneval(request));
+        error(e, "Error in onHeadersReceived", request);
       }
       return ALLOW;
     },
