@@ -78,10 +78,15 @@ if (document.readyState !== "complete") {
 } else {
   init(true);
 }
-let notifyPage = () => {
+let notifyPage = async () => {
+  debug("Page %s shown, %s", document.URL, document.readyState);
   if (document.readyState === "complete") {
-    browser.runtime.sendMessage({type: "pageshow", seen, canScript});
-    return true;
+    try {
+      await browser.runtime.sendMessage({type: "pageshow", seen: seen.list, canScript});
+      return true;
+    } catch (e) {
+      debug(e);
+    }
   }
   return false;
 }
@@ -166,5 +171,6 @@ async function init(oldPage = false) {
     }, true);
     // document.write("<plaintext>");
   }
-  notifyPage() || addEventListener("pageshow", notifyPage);
+  notifyPage();
+  addEventListener("pageshow", notifyPage);
 }
