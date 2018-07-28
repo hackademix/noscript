@@ -266,12 +266,13 @@ var RequestGuard = (() => {
           return true;
         }
         case "canScript": {
-          let {frameId, url, tab} = sender;
+          let {frameId, tab} = sender;
+          let {url} = message;
           let tabId = tab.id;
           let records = TabStatus.map.get(tabId);
           let noscriptFrames = records && records.noscriptFrames;
           let canScript = !(noscriptFrames && noscriptFrames[sender.frameId]);
-          let shouldScript = !ns.isEnforced(tabId) || ns.policy.can(url, "script");
+          let shouldScript = !ns.isEnforced(tabId) || !url.startsWith("http") || ns.policy.can(url, "script");
           debug("Frame %s %s of  %o, canScript: %s, shouldScript: %s", frameId, url, noscriptFrames, canScript, shouldScript);
           return {canScript, shouldScript};
         }

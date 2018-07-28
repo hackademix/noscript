@@ -104,7 +104,7 @@ async function init(oldPage = false) {
     document.URL, document.contentType, document.readyState, window.frameElement && frameElement.data);
   
   try {
-    let {canScript, shouldScript} = await browser.runtime.sendMessage({type: "canScript"});
+    let {canScript, shouldScript} = await browser.runtime.sendMessage({type: "canScript", url: document.URL});
     debug(`document %s, canScript=%s, shouldScript=%s, readyState %s`, document.URL, canScript, shouldScript, document.readyState);
     if (canScript) {
       if (oldPage) {
