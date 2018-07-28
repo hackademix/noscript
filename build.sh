@@ -15,6 +15,7 @@ if [ "$1" == "bump" ]; then
   echo "Bumping to $VER"
   git add "$MANIFEST_IN"
   git commit -m "Version bump: $VER."
+  [[ $VER == *rc* ]] || "$0" tag 
   exit 0
 fi
 XPI_DIR="$BASE/xpi"
