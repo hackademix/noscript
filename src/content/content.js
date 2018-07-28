@@ -3,7 +3,9 @@
  // debug = () => {}; // XPI_ONLY
  
 var canScript = true, shouldScript = false;
- 
+
+let now = () => performance.now() + performance.timeOrigin;
+
 function createHTMLElement(name) {
   return document.createElementNS("http://www.w3.org/1999/xhtml", name);
 }
@@ -117,7 +119,9 @@ async function init(oldPage = false) {
         setTimeout(() => init(), 200);
         return;
       }
-      if (!shouldScript) {
+      if (!shouldScript && 
+          (document.readyState !== "complete" || 
+            now() - performance.timing.domContentLoadedEvenStart < 5000)) {
         // Something wrong: scripts can run, permissions say they shouldn't.
         // Was webRequest bypassed by caching/session restore/service workers?
         window.stop();
