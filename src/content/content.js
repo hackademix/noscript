@@ -2,7 +2,7 @@
 
  // debug = () => {}; // XPI_ONLY
  
-window.canScript = true;
+var canScript = true;
  
 function createHTMLElement(name) {
   return document.createElementNS("http://www.w3.org/1999/xhtml", name);
