@@ -130,7 +130,7 @@
           debug(`Marking as "must reload"`, tabId, url);
           reloadingTabs.set(tabKey(tabId, url), true);
         }
-        if (buffer && buffer.length) {
+        if (buffer) {
           debug("Flushing %s buffer chunks on %s", buffer.length, url);
           for (let chunk of buffer) {
             filter.write(chunk);
