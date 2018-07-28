@@ -2,7 +2,7 @@
 
  // debug = () => {}; // XPI_ONLY
  
-var canScript = true;
+var canScript = true, shouldScript = false;
  
 function createHTMLElement(name) {
   return document.createElementNS("http://www.w3.org/1999/xhtml", name);
@@ -86,7 +86,7 @@ let notifyPage = () => {
   return false;
 }
 
-var queryingCanScript = false;
+var queryingStatus = false;
 
 function reload(noCache = false) {
   init = () => {};
@@ -94,17 +94,17 @@ function reload(noCache = false) {
 }
 
 async function init(oldPage = false) {
-  if (queryingCanScript) return;
+  if (queryingStatus) return;
   if (!document.URL.startsWith("http")) {
     return;
   }
-  queryingCanScript = true;
+  queryingStatus = true;
 
   debug(`init() called in document %s, contentType %s readyState %s, frameElement %o`,
     document.URL, document.contentType, document.readyState, window.frameElement && frameElement.data);
   
   try {
-    let {canScript, shouldScript} = await browser.runtime.sendMessage({type: "canScript", url: document.URL});
+    ({canScript, shouldScript} = await browser.runtime.sendMessage({type: "docStatus", url: document.URL}));
     debug(`document %s, canScript=%s, shouldScript=%s, readyState %s`, document.URL, canScript, shouldScript, document.readyState);
     if (canScript) {
       if (oldPage) {
@@ -127,10 +127,9 @@ async function init(oldPage = false) {
         return;
       }
     }
-    window.canScript = canScript;
     init = () => {};
   } catch (e) {
-    debug("Error querying canScript", e);
+    debug("Error querying docStatus", e);
     if (!oldPage &&
       /Receiving end does not exist/.test(e.message)) {
       // probably startup and bg page not ready yet, hence no CSP: reload!
@@ -141,7 +140,7 @@ async function init(oldPage = false) {
     }
     return;
   } finally {
-    queryingCanScript = false;
+    queryingStatus = false;
   }
 
   if (!canScript) onScriptDisabled();

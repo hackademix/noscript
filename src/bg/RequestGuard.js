@@ -265,7 +265,7 @@ var RequestGuard = (() => {
           }
           return true;
         }
-        case "canScript": {
+        case "docStatus": {
           let {frameId, tab} = sender;
           let {url} = message;
           let tabId = tab.id;
