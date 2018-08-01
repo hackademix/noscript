@@ -525,6 +525,7 @@ var RequestGuard = (() => {
         TabStatus.record(r, "blocked");
       } else if (report["violated-directive"] === "script-src" && /; script-src 'none'/.test(report["original-policy"])) {
         let r =  fakeRequestFromCSP(report, request);
+        Content.reportTo(r, false, "script"); // NEW
         TabStatus.record(r, "noscriptFrame", true);
       }
     } catch(e) {
