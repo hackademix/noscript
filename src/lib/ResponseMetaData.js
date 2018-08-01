@@ -27,7 +27,7 @@ class ResponseMetaData {
   }
 
   get isUTF8() {
-    return /^utf-8$/i.test(this.charset);
+    return /^utf-?8$/i.test(this.charset);
   }
 
   forceUTF8() {
