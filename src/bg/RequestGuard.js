@@ -353,7 +353,7 @@ var RequestGuard = (() => {
             !ns.isEnforced(request.tabId) ||
             policy.can(url, policyType, originUrl);
           Content.reportTo(request, allowed, policyType);
-
+          
           if (!allowed) {
             debug(`Blocking ${policyType}`, request);
             TabStatus.record(request, "blocked");
@@ -477,7 +477,8 @@ var RequestGuard = (() => {
       );
       debug("%s scriptBlocked=%s setting noscriptFrame on ", request.url, scriptBlocked, request.tabId, request.frameId);
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
-      pendingRequests.get(request.requestId).scriptBlocked = scriptBlocked;
+      let pending = pendingRequests.get(request.requestId);
+      if (pending) pending.scriptBlocked = scriptBlocked;
     },
 
     onCompleted(request) {
