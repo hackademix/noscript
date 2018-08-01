@@ -44,7 +44,11 @@ if ! grep '"id":' "$MANIFEST_OUT" >/dev/null; then
   exit 1
 fi
 
-sed -re 's/\/\/\s*(.*)\s*\/\/ XPI_ONLY/\1/' $SRC/content/content.js > $BUILD/content/content.js
+for file in $SRC/content/*.js; do
+  if grep -P '\/\/\s(REL|DEV)_ONLY' $file >/dev/null; then
+    sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' $file > $BUILD/content/$(basename $file)
+  fi
+done
 
 if [ "$1" == "sign" ]; then
   BUILD_CMD="$BASE/../../we-sign"

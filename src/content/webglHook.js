@@ -1,5 +1,5 @@
 {
-  debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML);
+  debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML); // DEV_ONLY
   let proto = HTMLCanvasElement.prototype;
   let getContext = proto.getContext;
   exportFunction(function(type, ...rest) {

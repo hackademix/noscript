@@ -1,6 +1,6 @@
 'use strict';
 
- // debug = () => {}; // XPI_ONLY
+ // debug = () => {}; // REL_ONLY
  
 var canScript = true, shouldScript = false;
 

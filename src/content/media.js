@@ -1,5 +1,5 @@
 {
-  debug("Media Hook (blocked %s)", !!window.mediaBlocker, document.URL, document.documentElement && document.documentElement.innerHTML);
+  debug("Media Hook (blocked %s)", !!window.mediaBlocker, document.URL, document.documentElement && document.documentElement.innerHTML); // DEV_ONLY
   (() => {
     let unpatched = new Map();
     function patch(obj, methodName, replacement) {
