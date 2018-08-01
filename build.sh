@@ -1,5 +1,5 @@
 #!/bin/bash
-BASE=$PWD
+BASE="$PWD"
 SRC="$BASE/src"
 BUILD="$BASE/build"
 MANIFEST_IN="$SRC/manifest.json"
@@ -24,7 +24,7 @@ LIB="$SRC/lib"
 TLD="$BASE/TLD"
 
 if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') ] && "$TLD/generate.sh"; then
-  cp -u "$TLD/tld.js" $LIB
+  cp -u "$TLD/tld.js" "$LIB"
 fi
 
 ./html5_events/html5_events.pl
@@ -44,9 +44,9 @@ if ! grep '"id":' "$MANIFEST_OUT" >/dev/null; then
   exit 1
 fi
 
-for file in $SRC/content/*.js; do
-  if grep -P '\/\/\s(REL|DEV)_ONLY' $file >/dev/null; then
-    sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' $file > $BUILD/content/$(basename $file)
+for file in "$SRC"/content/*.js; do
+  if grep -P '\/\/\s(REL|DEV)_ONLY' "$file" >/dev/null; then
+    sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file" > "$BUILD"/content/$(basename "$file")
   fi
 done
 
@@ -61,7 +61,7 @@ fi
 echo "Creating $XPI.xpi..."
 mkdir -p "$XPI_DIR"
 
-"$BUILD_CMD" $BUILD_OPTS --source-dir=$(cygpath -w $BUILD) --artifacts-dir=$(cygpath -w $XPI_DIR) --ignore-files=test/XSS_test.js
+"$BUILD_CMD" $BUILD_OPTS --source-dir=$(cygpath -w "$BUILD") --artifacts-dir=$(cygpath -w "$XPI_DIR") --ignore-files=test/XSS_test.js
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
