@@ -1,5 +1,6 @@
 #!/usr/bin/perl -w
 # use strict;
+use utf8;
 use open ':utf8';
 use Regexp::Assemble;
 $dat="public_suffix_list.dat";
