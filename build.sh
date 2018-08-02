@@ -46,7 +46,7 @@ fi
 
 for file in "$SRC"/content/*.js; do
   if grep -P '\/\/\s(REL|DEV)_ONLY' "$file" >/dev/null; then
-    sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file" > "$BUILD"/content/$(basename "$file")
+    sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file" > "$BUILD/content/$(basename "$file")"
   fi
 done
 
