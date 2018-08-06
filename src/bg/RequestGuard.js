@@ -369,6 +369,14 @@ var RequestGuard = (() => {
 
     onHeadersReceived(request) {
       // called for main_frame, sub_frame and object
+      
+      // check for duplicate calls
+      let pending = pendingRequests.get(request.requestId);
+      if (pending && pending.headersProcessed) {
+        debug("[WARNING] already processed ", request);
+      }
+      pending.headersProcessed = true;
+      
       debug("onHeadersReceived", request);
       let {url, documentUrl, statusCode, tabId, responseHeaders} = request;
       
@@ -478,7 +486,12 @@ var RequestGuard = (() => {
       debug("%s scriptBlocked=%s setting noscriptFrame on ", request.url, scriptBlocked, request.tabId, request.frameId);
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
       let pending = pendingRequests.get(request.requestId);
-      if (pending) pending.scriptBlocked = scriptBlocked;
+      if (pending) {
+        pending.scriptBlocked = scriptBlocked;
+        if (!pending.headersProcessed) {
+          debug("[WARNING] onHeadersReceived could not process", request);
+        }
+      }
     },
 
     onCompleted(request) {
@@ -533,12 +546,13 @@ var RequestGuard = (() => {
     }
     return ABORT;
   }
-
+  
   const RequestGuard = {
     async start() {
       let wr = browser.webRequest;
       let listen = (what, ...args) => wr[what].addListener(listeners[what], ...args);
-
+      let listenLast = (what, ...args) => new LastListener(wr[what], listeners[what], ...args).install();
+      
       let allUrls = ["<all_urls>"];
       let docTypes = ["main_frame", "sub_frame", "object"];
 
@@ -546,7 +560,7 @@ var RequestGuard = (() => {
         {urls: allUrls, types: allTypes},
         ["blocking"]
       );
-      listen("onHeadersReceived",
+      listenLast("onHeadersReceived",
         {urls: allUrls, types: docTypes},
         ["blocking", "responseHeaders"]
       );
@@ -570,8 +584,12 @@ var RequestGuard = (() => {
 
     stop() {
       let wr = browser.webRequest;
-      for (let [name, listener] of Object.entries(this.listeners)) {
-        wr[name].removeListener(listener);
+      for (let [name, listener] of Object.entries(listeners)) {
+        if (typeof listener === "function") {
+          wr[name].removeListener(listener);
+        } else if (listener instanceof LastListener) {
+          listener.uninstall();
+        }
       }
       wr.onBeforeRequest.removeListener(onViolationReport);
     }
