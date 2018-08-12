@@ -8,6 +8,9 @@
   let version = browser.runtime.getManifest().version;
   document.querySelector("#version").textContent = _("Version", version);
   // simple general options
+  
+  let opt = UI.wireOption;
+  
   opt("global", o => {
     if (o) {
       policy.enforced = !o.checked;
@@ -30,7 +33,6 @@
   });
 
   opt("xss");
-
   {
     let button = document.querySelector("#btn-reset");
     button.onclick = async () => {
@@ -172,29 +174,6 @@
 
 
   // UTILITY FUNCTIONS
-
-  async function opt(name, storage = "sync", onchange) {
-    let input = document.querySelector(`#opt-${name}`);
-    if (!input) {
-      debug("Checkbox not found %s", name);
-      return;
-    }
-    if (typeof storage === "function") {
-      input.onchange = e => storage(input);
-      input.checked = storage(null);
-    } else {
-      let obj = UI[storage];
-      if (!obj) log(storage);
-      input.checked = obj[name];
-      if (onchange) onchange(input.checked);
-      input.onchange = async () => {
-        obj[name] = input.checked;
-        await UI.updateSettings({[storage]: obj});
-        if (onchange) onchange(obj[name]);
-      }
-    }
-  }
-
 
   function updateRawPolicyEditor() {
     if (!UI.local.debug) return;

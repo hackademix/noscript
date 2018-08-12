@@ -12,7 +12,7 @@
 <script src="/ui/ui.js"></script>
 
 </head>
-<body>
+<body id="noscript-popup">
 <div id="main">
 <div id="top">
   <a aria-role="button" id="close" class="close icon">__MSG_Close__</a>
@@ -30,6 +30,12 @@
   <a aria-role="button" id="revoke-temp" class="toggle icon">__MSG_RevokeTemp__</a>
 </div>
 <div id="message" class="hidden"></div>
+<div id="high-contrast-chooser" class="opt-group">
+  <span id="highContrast-opt">
+  <input type="checkbox" id="opt-highContrast">
+  <label for="opt-highContrast" id="lbl-highContrast">__MSG_HighContrast__</label>
+  </span>
+</div>
 <div id="content"></div>
 <div id="sites"></div>
 <div id="buttons">

@@ -27,10 +27,10 @@ var UI = (() => {
       }
       await include(scripts);
 
-      detectHighContrast();
+      
 
       let inited = new Promise(resolve => {
-        let listener = m => {
+        let listener = async m => {
           if (m.type === "settings") {
             UI.policy = new Policy(m.policy);
             UI.snapshot = UI.policy.snapshot;
@@ -44,6 +44,7 @@ var UI = (() => {
             }
             resolve();
             if (UI.onSettings) UI.onSettings();
+            await HighContrast.init();
           }
         };
         browser.runtime.onMessage.addListener(listener);
@@ -98,21 +99,73 @@ var UI = (() => {
     async openSiteInfo(domain) {
       let url = `/ui/siteInfo.html#${encodeURIComponent(domain)};${UI.tabId}`;
       browser.tabs.create({url});
+    },
+    
+    wireOption(name, storage = "sync", onchange) {
+      let input = document.querySelector(`#opt-${name}`);
+      if (!input) {
+        debug("Checkbox not found %s", name);
+        return;
+      }
+      if (typeof storage === "function") {
+        input.onchange = e => storage(input);
+        input.checked = storage(null);
+      } else {
+        let obj = UI[storage];
+        if (!obj) log(storage);
+        input.checked = obj[name];
+        if (onchange) onchange(input.checked);
+        input.onchange = async () => {
+          obj[name] = input.checked;
+          await UI.updateSettings({[storage]: obj});
+          if (onchange) onchange(obj[name]);
+        }
+      }
+      return input;
+    }  
+  };
+  
+  var HighContrast = {
+    css: null,
+    async init() {
+      this.widget = UI.wireOption("highContrast", "local", value => {
+        UI.highContrast = value;
+        this.toggle();
+      });
+      await this.toggle();
+    },
+    async toggle() {
+      let hc = "highContrast" in UI ? UI.highContrast : await this.detect();
+      if (hc) {
+        if (this.css) {
+          document.documentElement.appendChild(this.css);
+        } else {
+          this.css = await include("/ui/ui-hc.css")
+        }
+      } else if (this.css) {
+        this.css.remove();
+      }
+      document.documentElement.classList.toggle("hc", hc);
+      if (this.widget) {
+        this.widget.checked = hc;
+      }
+    },
+    
+    detect() {
+      if ("highContrast" in UI.local) {
+        UI.highContrast = UI.local.highContrast;
+      } else {
+        // auto-detect
+        let canary = document.createElement("input");
+        canary.className="https-only";
+        canary.style.display = "none";
+        document.body.appendChild(canary);
+        UI.highContrast = window.getComputedStyle(canary).backgroundImage === "none";
+        canary.parentNode.removeChild(canary);
+      }
+      return UI.highContrast;
     }
   };
-
-  function detectHighContrast() {
-    // detect high contrast
-    let canary = document.createElement("input");
-    canary.className="https-only";
-    canary.style.display = "none";
-    document.body.appendChild(canary);
-    if (UI.highContrast = window.getComputedStyle(canary).backgroundImage === "none") {
-      include("/ui/ui-hc.css");
-      document.documentElement.classList.toggle("hc");
-    }
-    canary.parentNode.removeChild(canary);
-  }
 
   function fireOnChange(sitesUI, data) {
     if (UI.isDirty(true)) {

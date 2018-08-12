@@ -177,6 +177,9 @@
   "EnforceForTab": {
     "message": "Enable restrictions for this tab"
   },
+  "HighContrast": {
+    "message": "High contrast appearance"
+  },
   "httpsOnly": {
     "message": "Match HTTPS content only"
   },

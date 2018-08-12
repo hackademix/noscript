@@ -409,3 +409,7 @@ legend {
 #presets .https-only {
   display: none;
 }
+
+#high-contrast-chooser {
+  display: none;
+}

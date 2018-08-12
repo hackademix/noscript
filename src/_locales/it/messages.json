@@ -176,6 +176,9 @@
   "EnforceForTab": {
     "message": "Attiva le restrizioni per questa scheda"
   },
+  "HighContrast": {
+    "message": "Aspetto ad alto contrasto"
+  },
   "httpsOnly": {
     "message": "Consenti solo contenuti veicolati tramite HTTPS"
   },

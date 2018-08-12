@@ -61,3 +61,7 @@ tr.site {
   font-size: 12px !important;
   font-family: arial sans-serif !important;
 }
+
+#noscript-popup #high-contrast-chooser {
+  display: block;
+}
