@@ -437,22 +437,7 @@ var RequestGuard = (() => {
             blocker = CSP.createBlocker(...blockedTypes);
           }
 
-          if (canScript && !isObject) {
-            if (!capabilities.has("webgl")) {
-               RequestUtil.executeOnStart(request, {
-                file: "/content/webglHook.js"
-              });
-            }
-            if (!capabilities.has("media")) {
-              RequestUtil.executeOnStart(request, {
-                code: "window.mediaBlocker = true;"
-              });
-            }
-            
-            RequestUtil.executeOnStart(request, {
-              file: "/content/media.js"
-            });
-          } else if (request.type === "main_frame" && !TabStatus.map.has(tabId)) {
+          if (request.type === "main_frame" && !TabStatus.map.has(tabId)) {
             debug("No TabStatus data yet for noscriptFrame", tabId);
             TabStatus.record(request, "noscriptFrame", true);
           }

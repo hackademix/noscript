@@ -26,12 +26,14 @@
      let policyData = (await Storage.get("sync", "policy")).policy;
      if (policyData && policyData.DEFAULT) {
        ns.policy = new Policy(policyData);
+       await ChildPolicies.update(policyData);
      } else {
        await include("/legacy/Legacy.js");
        ns.policy = await Legacy.createOrMigratePolicy();
        ns.savePolicy();
      }
-
+     
+     
      await include("/bg/defaults.js");
      await ns.defaults;
      await include(["/bg/RequestGuard.js", "/bg/RequestUtil.js"]);
@@ -226,6 +228,7 @@
 
      async savePolicy() {
        if (this.policy) {
+         await ChildPolicies.update(this.policy);
          await Storage.set("sync", {
            policy: this.policy.dry()
          });

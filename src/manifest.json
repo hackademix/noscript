@@ -49,6 +49,7 @@
       "ui/Prompts.js",
       "xss/XSS.js",
       "bg/deferWebTraffic.js",
+      "bg/ChildPolicies.js",
       "bg/main.js"
     ]
   },
@@ -63,7 +64,9 @@
         "lib/log.js",
         "content/onScriptDisabled.js",
         "content/content.js",
-        "content/PlaceHolder.js"
+        "content/webglHook.js",
+        "content/PlaceHolder.js",
+        "content/media.js"
       ]
     },
     {

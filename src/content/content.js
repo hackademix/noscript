@@ -1,7 +1,34 @@
 'use strict';
 
  // debug = () => {}; // REL_ONLY
- 
+{
+  let listenersMap = new Map();
+  var ns = {
+    on(eventName, listener) {
+      let listeners = listenersMap.get(eventName);
+      if (!listeners) listenersMap.set(eventName, listeners = new Set());
+      listeners.add(listener);
+    },
+    detach(eventName, listener) {
+      let listeners = listenersMap.get(eventName);
+      if (listeners) listeners.delete(listener);
+    },
+    fire(eventName) {
+      let listeners = listenersMap.get(eventName);
+      if (listeners) {
+        for (let l of listeners) {
+          l(this);
+        }
+      }
+    },
+    perms: { DEFAULT: null, CURRENT: null },
+    allows(cap) {
+      let perms = this.perms.CURRENT; 
+      return perms  && perms.capabilities.includes(cap);
+    }
+  }
+}
+
 var canScript = true, shouldScript = false;
 
 let now = () => performance.now() + performance.timeOrigin;
@@ -23,7 +50,6 @@ function probe() {
 }
 
 var _ = browser.i18n.getMessage;
-
 
 var embeddingDocument = false;
 

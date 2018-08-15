@@ -1,5 +1,6 @@
-{
-  debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML); // DEV_ONLY
+ns.on("perms", ns => {
+  debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML, ns.perms.CURRENT); // DEV_ONLY
+  if (ns.allows("webgl")) return;
   let proto = HTMLCanvasElement.prototype;
   let getContext = proto.getContext;
   exportFunction(function(type, ...rest) {
@@ -23,6 +24,6 @@
       return {};
     }
     return getContext.call(this, type, ...rest);
-  }, proto, {defineAs: "getContext"});
-  document.URL;
-}
+  }, proto, {defineAs: "getContext"});  
+});
+document.URL;
