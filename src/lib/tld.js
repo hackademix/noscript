@@ -12,9 +12,11 @@ var tld = {
       pos = domain.search(this._tldRx);
       if (pos === -1) {
         // TLD not in the public suffix list, fall back to the "one-dot rule"
+        // (for a.b.c.tld, assume the domain to be "c.tld")
         pos = domain.lastIndexOf(".");
         if (pos === -1) {
-          return "";
+          // No dots at all? Likely a private domain in a LAN.
+          return domain;
         }
       }
       pos = domain.lastIndexOf(".", pos - 1) + 1;
