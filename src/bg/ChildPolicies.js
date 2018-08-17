@@ -1,5 +1,7 @@
-"use script";
+"use strict";
 {
+  let marker = JSON.stringify(uuid());
+  
   let Scripts = {
     references: new Set(),
     opts: {
@@ -54,7 +56,27 @@
   let siteKeys2MatchPatterns = keys => keys && flatten(keys.map(siteKey2MatchPattern)).filter(p => !!p) || [];  
 
   var ChildPolicies = {
+    async storeTabInfo(tabId, info) {
+      try {
+        await browser.tabs.executeScript(tabId, {
+          code: `window.name = ${marker} + ${JSON.stringify(JSON.stringify([info]))} + ${marker} + "," + window.name;`,
+          allFrames: false,
+          matchAboutBlank: true,
+          runAt: "document_start",
+        });    
+      } catch (e) {
+        error(e);
+      }
+    },
     async update(policy) {
+      Scripts.forget();
+      
+      if (!policy.enforced) {
+        await Scripts.register(`ns.setup(null, ${marker});`, 
+           ["<all_urls>"]);
+        return;
+      }
+      
       let serialized = policy.dry ? policy.dry(true) : policy;
       let permsMap = new Map();
       let trusted = JSON.stringify(serialized.TRUSTED);
@@ -96,15 +118,11 @@
           ));
       }
       
-      Scripts.forget();
       // register new content scripts
       for (let [perms, keys] of [...permsMap]) {
         await Scripts.register(`ns.perms.CURRENT = ${perms};`, siteKeys2MatchPatterns(keys), excludeMap.get(perms));
       }
-      await Scripts.register(
-        `ns.perms.DEFAULT = ${JSON.stringify(serialized.DEFAULT)}; 
-         if(!ns.perms.CURRENT) ns.perms.CURRENT = ns.perms.DEFAULT;
-         ns.fire("perms");`, 
+      await Scripts.register(`ns.setup(${JSON.stringify(serialized.DEFAULT)}, ${marker});`, 
          ["<all_urls>"]);
     }
   }

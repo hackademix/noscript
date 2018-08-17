@@ -89,7 +89,8 @@ var Settings = {
     }
 
     if (typeof unrestrictedTab === "boolean") {
-      ns.unrestrictedTabs[settings.unrestrictedTab ? "add" : "delete"](tabId);
+      ns.unrestrictedTabs[unrestrictedTab ? "add" : "delete"](tabId);
+      ChildPolicies.storeTabInfo(tabId, {unrestricted: unrestrictedTab});
     }
     if (reloadAffected) {
       browser.tabs.reload(tabId);

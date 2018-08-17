@@ -28,7 +28,6 @@ ns.defaults = (async () => {
 
   // dynamic settings
   if (!ns.local.uuid) {
-    await include("/lib/uuid.js");
     ns.local.uuid = uuid();
     await ns.save(ns.local);
   }

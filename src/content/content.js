@@ -21,7 +21,47 @@
         }
       }
     },
-    perms: { DEFAULT: null, CURRENT: null },
+    setup(DEFAULT, MARKER) {
+      this.perms.DEFAULT = DEFAULT;
+      if(!this.perms.CURRENT) this.perms.CURRENT = DEFAULT;
+      
+      // ugly hack: since now we use registerContentScript instead of the
+      // filterRequest dynamic script injection hack, we use top.name
+      // to store per-tab information. We don't want web content to
+      // mess with it, though, so we wrap it around auto-hiding accessors
+      this.perms.MARKER = MARKER;
+      let eraseTabInfoRx = new RegExp(`[^]*${MARKER},?`);
+      if (eraseTabInfoRx.test(top.name)) {
+        let _name = top.name;
+        let tabInfoRx = new RegExp(`^${MARKER}\\[([^]*?)\\]${MARKER},`);
+        if (top === window) { // wrap to hide
+          Reflect.defineProperty(top.wrappedJSObject, "name", {
+            get: exportFunction(() => _name.replace(eraseTabInfoRx, ""), top.wrappedJSObject),
+            set: exportFunction(value => {
+              let preamble = _name.match(tabInfoRx);
+              _name = `${preamble && preamble[0] || ""}${value}`;
+              return value;
+            }, top.wrappedJSObject)
+          });
+        }
+        let tabInfoMatch = _name.match(tabInfoRx);
+        if (tabInfoMatch) try {
+          this.perms.tabInfo = JSON.parse(tabInfoMatch[1]);
+        } catch (e) {
+          error(e);
+        }
+      }
+      
+      if (!this.perms.DEFAULT || this.perms.tabInfo.unrestricted) {
+        this.allows = () => true;
+      }
+      ns.fire("perms");
+    },
+    storeTabInfo(info) {
+      let {MARKER} = this.perms;
+      window.name = `${MARKER}${JSON.stringify([info])}${MARKER},${window.name.split(marker).pop()}`;
+    },
+    perms: { DEFAULT: null, CURRENT: null, tabInfo: {} },
     allows(cap) {
       let perms = this.perms.CURRENT; 
       return perms  && perms.capabilities.includes(cap);
