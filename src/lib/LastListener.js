@@ -20,10 +20,8 @@ class LastListener {
       let w = (...args) => {
         if (this.observed.hasListener(w._other)) {
           this.observed.removeListener(w);
-          if (this.last !== w) return this.defaultResult;
         } else if (this.installed) { 
           this.observed.addListener(w._other, ...this.extras);
-          this.last = w._other;
         }
         debug("Running listener", w === ww[0] ? 0 : 1, ...args);
         return this.installed ? this.listener(...args)

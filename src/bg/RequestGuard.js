@@ -481,7 +481,7 @@ var RequestGuard = (() => {
             pending.headersProcessed ? "has been overridden on": "could not process", 
             request);
 
-          if (tabId !== -1) {
+          if (tabId !== -1 && type !== "object") {
             debug("[WARNING] Reloading %s frame %s of tab %s.", url, frameId, tabId);
             browser.tabs.executeScript(tabId, {
               runAt: "document_start",
