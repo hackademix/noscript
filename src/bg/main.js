@@ -36,7 +36,7 @@
      
      await include("/bg/defaults.js");
      await ns.defaults;
-     await include(["/bg/RequestGuard.js", "/bg/RequestUtil.js"]);
+     await include("/bg/RequestGuard.js");
      await RequestGuard.start();
      await XSS.start(); // we must start it anyway to initialize sub-objects
      if (!ns.sync.xss) {

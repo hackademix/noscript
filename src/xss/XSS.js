@@ -61,8 +61,9 @@ var XSS = (() => {
       let block = !!(reasons.urlInjection || reasons.postInjection)
 
       if (reasons.protectName) {
-        RequestUtil.executeOnStart(request, {
-          file: "/xss/sanitizeName.js",
+        await include("bg/COntentScriptOnce.js");
+        await ContentScriptOnce.execute(request, {
+          js: [{file: "/xss/sanitizeName.js"}],
         });
         if (!block) return ALLOW;
       }

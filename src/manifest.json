@@ -39,7 +39,6 @@
       "lib/include.js",
       "lib/punycode.js",
       "lib/tld.js",
-      "lib/ResponseMetaData.js",
       "lib/LastListener.js",
       "common/Policy.js",
       "common/locale.js",

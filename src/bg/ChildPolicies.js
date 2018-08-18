@@ -58,8 +58,9 @@
   var ChildPolicies = {
     async storeTabInfo(tabId, info) {
       try {
+        let preamble = info ? `${marker} + ${JSON.stringify(JSON.stringify([info]))} + ${marker} + "," + ` : "";
         await browser.tabs.executeScript(tabId, {
-          code: `window.name = ${marker} + ${JSON.stringify(JSON.stringify([info]))} + ${marker} + "," + window.name;`,
+          code: `window.name = ${preamble}window.name.split(${marker} + ",").pop();`,
           allFrames: false,
           matchAboutBlank: true,
           runAt: "document_start",

@@ -1,4 +1,4 @@
-ns.on("perms", ns => {
+ns.on("perms", event => {
   debug("Media Hook", document.URL, document.documentElement && document.documentElement.innerHTML, ns.perms.CURRENT); // DEV_ONLY
   let mediaBlocker = !ns.allows("media");
   let unpatched = new Map();
@@ -54,6 +54,4 @@ ns.on("perms", ns => {
 
     return unpatched.get(window.MediaSource.prototype).addSourceBuffer.call(ms, mime, ...args);
   });
-
-})();
-document.URL;
+});

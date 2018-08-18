@@ -34,16 +34,20 @@ function deferWebTraffic(promiseToWaitFor, next) {
         if (frameId !== 0) {
           documentUrl = request.frameAncestors.pop().url;
         }
-        reloadTab(tabId);
+        if (tabId !== -1) {
+          reloadTab(tabId);
+        } else {
+          debug("No tab to reload for %s %s from %s", type, url, documentUrl);
+        }
       }
     }
-    debug("Deferring ", url, type);
+    debug("Deferring %s %s from %s", type, url, documentUrl);
     try {
       await promiseToWaitFor;
     } catch (e) {
       error(e);
     }
-    debug("Green light to ", url, type);
+    debug("Green light to %s %s from %s", type, url, documentUrl);
   }
   
   function spyTabs(request) {

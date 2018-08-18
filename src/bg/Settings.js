@@ -90,7 +90,7 @@ var Settings = {
 
     if (typeof unrestrictedTab === "boolean") {
       ns.unrestrictedTabs[unrestrictedTab ? "add" : "delete"](tabId);
-      ChildPolicies.storeTabInfo(tabId, {unrestricted: unrestrictedTab});
+      ChildPolicies.storeTabInfo(tabId, unrestrictedTab && {unrestricted: true});
     }
     if (reloadAffected) {
       browser.tabs.reload(tabId);

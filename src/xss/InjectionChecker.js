@@ -741,7 +741,7 @@ XSS.InjectionChecker = (async () => {
     checkJS: function(s, unescapedUni) {
       this.log(s);
 
-      if (/\?name\b[\s\S]*:|[^&?]\bname\b/.test(s)) {
+      if (/[=\(](?:[\s\S]*(?:\?name\b[\s\S]*:|[^&?]\bname\b)|name\b)/.test(s)) {
         this.nameAssignment = true;
       }
 

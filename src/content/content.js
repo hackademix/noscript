@@ -3,23 +3,30 @@
  // debug = () => {}; // REL_ONLY
 {
   let listenersMap = new Map();
+  let backlog = new Set();
   var ns = {
     on(eventName, listener) {
       let listeners = listenersMap.get(eventName);
       if (!listeners) listenersMap.set(eventName, listeners = new Set());
       listeners.add(listener);
+      if (backlog.has(eventName)) this.fire(eventName, listener);
     },
     detach(eventName, listener) {
       let listeners = listenersMap.get(eventName);
       if (listeners) listeners.delete(listener);
     },
-    fire(eventName) {
+    fire(eventName, listener = null) {
+      if (listener) {
+        listener({type:eventName, source: this});
+        return;
+      }
       let listeners = listenersMap.get(eventName);
       if (listeners) {
         for (let l of listeners) {
-          l(this);
+          this.fire(eventName, l);
         }
       }
+      backlog.add(eventName);
     },
     setup(DEFAULT, MARKER) {
       this.perms.DEFAULT = DEFAULT;
@@ -36,10 +43,10 @@
         let tabInfoRx = new RegExp(`^${MARKER}\\[([^]*?)\\]${MARKER},`);
         if (top === window) { // wrap to hide
           Reflect.defineProperty(top.wrappedJSObject, "name", {
-            get: exportFunction(() => _name.replace(eraseTabInfoRx, ""), top.wrappedJSObject),
+            get: exportFunction(() => top.name.replace(eraseTabInfoRx, ""), top.wrappedJSObject),
             set: exportFunction(value => {
-              let preamble = _name.match(tabInfoRx);
-              _name = `${preamble && preamble[0] || ""}${value}`;
+              let preamble = top.name.match(tabInfoRx);
+              top.name = `${preamble && preamble[0] || ""}${value}`;
               return value;
             }, top.wrappedJSObject)
           });
@@ -57,14 +64,14 @@
       }
       ns.fire("perms");
     },
-    storeTabInfo(info) {
-      let {MARKER} = this.perms;
-      window.name = `${MARKER}${JSON.stringify([info])}${MARKER},${window.name.split(marker).pop()}`;
-    },
-    perms: { DEFAULT: null, CURRENT: null, tabInfo: {} },
+    perms: { DEFAULT: null, CURRENT: null, tabInfo: {}, MARKER: "" },
     allows(cap) {
       let perms = this.perms.CURRENT; 
       return perms  && perms.capabilities.includes(cap);
+    },
+    getWindowName() {
+      return top !== window || !this.perms.MARKER ? window.name
+        : window.name.split(this.perms.MARKER + ",").pop();
     }
   }
 }
