@@ -34,11 +34,7 @@ function deferWebTraffic(promiseToWaitFor, next) {
         if (frameId !== 0) {
           documentUrl = request.frameAncestors.pop().url;
         }
-        if (tabId !== -1) {
-          reloadTab(tabId);
-        } else {
-          debug("No tab to reload for %s %s from %s", type, url, documentUrl);
-        }
+        reloadTab(tabId);
       }
     }
     debug("Deferring %s %s from %s", type, url, documentUrl);

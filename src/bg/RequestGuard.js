@@ -462,19 +462,33 @@ var RequestGuard = (() => {
 
     onResponseStarted(request) {
       debug("onResponseStarted", request);
-      if (request.type === "main_frame") {
-        TabStatus.initTab(request.tabId);
+      let {url, tabId, frameId, type} = request;
+      if (type === "main_frame") {
+        TabStatus.initTab(tabId);
       }
       let scriptBlocked = request.responseHeaders.some(
         h => CSP.isMine(h) && CSP.blocks(h.value, "script")
       );
-      debug("%s scriptBlocked=%s setting noscriptFrame on ", request.url, scriptBlocked, request.tabId, request.frameId);
+      debug("%s scriptBlocked=%s setting noscriptFrame on ", url, scriptBlocked, tabId, frameId);
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
       let pending = pendingRequests.get(request.requestId);
       if (pending) {
         pending.scriptBlocked = scriptBlocked;
-        if (!pending.headersProcessed) {
-          debug("[WARNING] onHeadersReceived could not process", request);
+        if (!(pending.headersProcessed && 
+            (scriptBlocked || ns.policy.can(url, "script", request.documentURL))
+          )) {
+          debug("[WARNING] onHeadersReceived %s %o", frameId, tabId,
+            pending.headersProcessed ? "has been overridden on": "could not process", 
+            request);
+
+          if (tabId !== -1) {
+            debug("[WARNING] Reloading %s frame %s of tab %s.", url, frameId, tabId);
+            browser.tabs.executeScript(tabId, {
+              runAt: "document_start",
+              code: "window.location.reload(false)",
+              frameId
+            });
+          }
         }
       }
     },
