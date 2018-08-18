@@ -8,8 +8,7 @@ use File::stat;
 use File::Basename;
 use List::MoreUtils qw(uniq);
 
-my $HTML5_URL = "https://hg.mozilla.org/mozilla-central/raw-file/tip/parser/html/nsHtml5AtomList.h";
-my $GECKO_URL = "https://hg.mozilla.org/mozilla-central/raw-file/tip/xpcom/ds/nsGkAtomList.h";
+my $HTML_ATOMS_URL = "https://hg.mozilla.org/mozilla-central/raw-file/tip/xpcom/ds/StaticAtoms.py";
 
 my $HERE = dirname($0);
 my $SOURCE_FILE = "$HERE/../src/xss/InjectionChecker.js";
@@ -17,6 +16,8 @@ my $SOURCE_FILE = "$HERE/../src/xss/InjectionChecker.js";
 sub create_re
 {
   my $cache = "$HERE/html5_events.re";
+  my $archive = "$HERE/html5_events_archive.txt";
+  
   my $sb = stat($cache);
 
   if ($sb && time() - $sb->mtime < 86400)
@@ -26,7 +27,7 @@ sub create_re
     close IN;
     return $content[0];
   }
-
+  
   sub fetch_url
   {
     my $url = shift(@_);
@@ -47,21 +48,35 @@ sub create_re
   }
 
 
-  my $content = # fetch_url($HTML5_URL) .
-    fetch_url($GECKO_URL);
+  my $content = fetch_url($HTML_ATOMS_URL);
 
-  $content = join("\n", grep(/^(?:HTML5|GK)_ATOM.*"on\w+"/, split(/[\n\r]/, $content)));
+  $content = join("\n", grep(/^\s*Atom\("on\w+"/, split(/[\n\r]/, $content)));
 
   $content =~ s/.*"(on\w+)".*/$1 /g;
-  $content =~ s/\s+/ /g;
-  $content =~ s/^\s+|\s+$//g;
+  
+  open IN, "<$archive";
+  my @archived = <IN>;
+  close IN;
 
+  $content .= join("\n", @archived);
+  
+  $content =~ s/\s+/\n/g;
+  $content =~ s/^\s+|\s+$//g;
+  
+  my @all_events = grep(!/^only$/, uniq(split("\n", $content)));
+  
+  open (OUT, ">$archive");
+  print OUT join("\n", @all_events);
+  close OUT;
+  
   my $l  = Regexp::List->new;
-  my $re = $l->list2re(uniq(split(' ', $content)));
+  my $re = $l->list2re(@all_events);
   $re =~ s/\(\?[-^]\w+:(.*)\)/$1/;
+  
   open (OUT, ">$cache");
   print OUT $re;
   close OUT;
+  
   $re;
 }
 
