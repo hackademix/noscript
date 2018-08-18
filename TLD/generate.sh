@@ -1,5 +1,8 @@
 #!/bin/bash
 BASE=$(dirname "$0")
+if [ -f "$1" ]; then
+  cp "$1" "$BASE/tld_template.js"
+fi
 pushd "$BASE"
 fname=public_suffix_list.dat
 nflag=""

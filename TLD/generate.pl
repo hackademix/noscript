@@ -42,8 +42,8 @@ sub generate {
   open(SRC, $src) || die("Cannot open $src");
   open(DST, ">$dst") || die("Cannot open $dst");
   while(<SRC>) {
-    s/%tld_rx%/$rx/g;
-    s/%tld_ex%/$ex/g;
+    s/(_tldRx:\s*\/\(.*?\))\S*?(\$\/)/$1$rx$2/g;
+    s/(_tldEx:\s*\/\(.*?\))\S*?(\$\/)/$1$ex$2/g;
     print DST;
     print;
   }

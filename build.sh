@@ -23,7 +23,7 @@ XPI="$XPI_DIR/noscript-$VER"
 LIB="$SRC/lib"
 TLD="$BASE/TLD"
 
-if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') ] && "$TLD/generate.sh"; then
+if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') ] && "$TLD/generate.sh" "$LIB/tld.js"; then
   cp -u "$TLD/tld.js" "$LIB"
 fi
 
