@@ -453,7 +453,10 @@ var RequestGuard = (() => {
           }
         }
 
-        if (header) return {responseHeaders};
+        if (header) {
+          pending.cspHeader = header;
+          return {responseHeaders};
+        }
       } catch (e) {
         error(e, "Error in onHeadersReceived", request);
       }
@@ -462,7 +465,7 @@ var RequestGuard = (() => {
 
     onResponseStarted(request) {
       debug("onResponseStarted", request);
-      let {url, tabId, frameId, type} = request;
+      let {requestId, url, tabId, frameId, type} = request;
       if (type === "main_frame") {
         TabStatus.initTab(tabId);
       }
@@ -471,7 +474,7 @@ var RequestGuard = (() => {
       );
       debug("%s scriptBlocked=%s setting noscriptFrame on ", url, scriptBlocked, tabId, frameId);
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
-      let pending = pendingRequests.get(request.requestId);
+      let pending = pendingRequests.get(requestId);
       if (pending) {
         pending.scriptBlocked = scriptBlocked;
         if (!(pending.headersProcessed && 
@@ -550,29 +553,43 @@ var RequestGuard = (() => {
     async start() {
       let wr = browser.webRequest;
       let listen = (what, ...args) => wr[what].addListener(listeners[what], ...args);
-      let listenLast = (what, ...args) => new LastListener(wr[what], listeners[what], ...args).install();
       
       let allUrls = ["<all_urls>"];
       let docTypes = ["main_frame", "sub_frame", "object"];
-
-      listen("onBeforeRequest",
-        {urls: allUrls, types: allTypes},
-        ["blocking"]
-      );
-      listenLast("onHeadersReceived",
-        {urls: allUrls, types: docTypes},
-        ["blocking", "responseHeaders"]
-      );
-      listen("onResponseStarted",
-        {urls: allUrls, types: docTypes},
-        ["responseHeaders"]
-      );
-      listen("onCompleted",
-        {urls: allUrls, types: allTypes},
-      );
-      listen("onErrorOccurred",
-        {urls: allUrls, types: allTypes},
-      );
+      
+      let filterDocs = {urls: allUrls, types: docTypes};
+      let filterAll = {urls: allUrls, types: allTypes};
+      
+      listen("onBeforeRequest", filterAll, ["blocking"]);
+      
+      listen("onHeadersReceived", filterDocs, ["blocking", "responseHeaders"]);
+      
+      (listeners.onHeadersReceivedLast = new LastListener(wr.onHeadersReceived, request => {
+        let {requestId, responseHeaders} = request;
+        let pending = pendingRequests.get(request.requestId);
+        if (pending && pending.headersProcessed) {    
+          let {cspHeader} = pending;
+          if (cspHeader) {
+            debug("Safety net: injecting again %o in %o", cspHeader, request);
+            for (let h of responseHeaders) {
+              if (h.name === cspHeader.name) {
+                h.value = cspHeader.value;
+                cspHeader = null;
+                break;
+              }
+            }
+            if (cspHeader) responseHeaders.push(cspHeader);
+            return {responseHeaders};
+          }
+        } else {
+          debug("[WARNING] onHeadersReceived not called (yet?)", request);
+        }
+        return null;
+      }, filterDocs, ["blocking", "responseHeaders"])).install();
+      
+      listen("onResponseStarted", filterDocs, ["responseHeaders"]);
+      listen("onCompleted", filterAll);
+      listen("onErrorOccurred", filterAll);
 
 
       wr.onBeforeRequest.addListener(onViolationReport,
