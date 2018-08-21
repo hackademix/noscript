@@ -40,6 +40,7 @@
       "lib/punycode.js",
       "lib/tld.js",
       "lib/LastListener.js",
+      "lib/Messages.js",
       "common/Policy.js",
       "common/locale.js",
       "common/Entities.js",

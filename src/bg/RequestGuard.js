@@ -213,71 +213,71 @@ var RequestGuard = (() => {
   if (!("setIcon" in browser.browserAction)) { // unsupported on Android
     TabStatus._updateTabNow = TabStatus.updateTab = () => {};
   }
-
-  const Content = {
-
-
-    async hearFrom(message, sender) {
-      debug("Received message from content", message, sender);
-      switch (message.type) {
-        case "pageshow":
-          TabStatus.recordAll(sender.tab.id, message.seen);
-          return true;
-        case "enable": {
-          let {url, documentUrl, policyType} = message;
-          let TAG = `<${policyType.toUpperCase()}>`;
-          let origin = Sites.origin(url);
-          let {siteKey} = Sites.parse(url);
-          let options;
-          if (siteKey === origin) {
-            TAG += `@${siteKey}`;
-          } else {
-            options = [
-              {label: _("allowLocal", siteKey), checked: true},
-              {label: _("allowLocal", origin)}
-            ];
-          }
-          // let parsedDoc = Sites.parse(documentUrl);
-          let t = u => `${TAG}@${u}`;
-          let ret = await Prompts.prompt({
-            title: _("BlockedObjects"),
-            message: _("allowLocal", TAG),
-            options});
-          debug(`Prompt returned %o`);
-          if (ret.button !== 0) return;
-          let key = [siteKey, origin][ret.option || 0];
-          if (!key) return;
-          let {siteMatch, contextMatch, perms} = ns.policy.get(key, documentUrl);
-          let {capabilities} = perms;
-          if (!capabilities.has(policyType)) {
-            perms = new Permissions(new Set(capabilities), false);
-            perms.capabilities.add(policyType);
-
-            /* TODO: handle contextual permissions
-            if (documentUrl) {
-              let context = new URL(documentUrl).origin;
-              let contextualSites = new Sites([context, perms]);
-              perms = new Permissions(new Set(capabilities), false, contextualSites);
-            }
-            */
-            ns.policy.set(key, perms);
-            ns.savePolicy();
-          }
-          return true;
-        }
-        case "docStatus": {
-          let {frameId, tab} = sender;
-          let {url} = message;
-          let tabId = tab.id;
-          let records = TabStatus.map.get(tabId);
-          let noscriptFrames = records && records.noscriptFrames;
-          let canScript = !(noscriptFrames && noscriptFrames[sender.frameId]);
-          let shouldScript = !ns.isEnforced(tabId) || !url.startsWith("http") || ns.policy.can(url, "script");
-          debug("Frame %s %s of  %o, canScript: %s, shouldScript: %s", frameId, url, noscriptFrames, canScript, shouldScript);
-          return {canScript, shouldScript};
-        }
-      }
+  
+  
+  let messageHandler = {
+    async pageshow(message, sender) {
+      TabStatus.recordAll(sender.tab.id, message.seen);
+      return true;
     },
+    async enable(message, sender) {
+      let {url, documentUrl, policyType} = message;
+      let TAG = `<${policyType.toUpperCase()}>`;
+      let origin = Sites.origin(url);
+      let {siteKey} = Sites.parse(url);
+      let options;
+      if (siteKey === origin) {
+        TAG += `@${siteKey}`;
+      } else {
+        options = [
+          {label: _("allowLocal", siteKey), checked: true},
+          {label: _("allowLocal", origin)}
+        ];
+      }
+      // let parsedDoc = Sites.parse(documentUrl);
+      let t = u => `${TAG}@${u}`;
+      let ret = await Prompts.prompt({
+        title: _("BlockedObjects"),
+        message: _("allowLocal", TAG),
+        options});
+      debug(`Prompt returned %o`);
+      if (ret.button !== 0) return;
+      let key = [siteKey, origin][ret.option || 0];
+      if (!key) return;
+      let {siteMatch, contextMatch, perms} = ns.policy.get(key, documentUrl);
+      let {capabilities} = perms;
+      if (!capabilities.has(policyType)) {
+        perms = new Permissions(new Set(capabilities), false);
+        perms.capabilities.add(policyType);
+
+        /* TODO: handle contextual permissions
+        if (documentUrl) {
+          let context = new URL(documentUrl).origin;
+          let contextualSites = new Sites([context, perms]);
+          perms = new Permissions(new Set(capabilities), false, contextualSites);
+        }
+        */
+        ns.policy.set(key, perms);
+        await ns.savePolicy();
+      }
+      return true;
+    },
+    
+    async docStatus(message, sender) {
+      let {frameId, tab} = sender;
+      let {url} = message;
+      let tabId = tab.id;
+      let records = TabStatus.map.get(tabId);
+      let noscriptFrames = records && records.noscriptFrames;
+      let canScript = !(noscriptFrames && noscriptFrames[sender.frameId]);
+      let shouldScript = !ns.isEnforced(tabId) || !url.startsWith("http") || ns.policy.can(url, "script");
+      debug("Frame %s %s of  %o, canScript: %s, shouldScript: %s", frameId, url, noscriptFrames, canScript, shouldScript);
+      return {canScript, shouldScript};
+    }
+    
+  }
+  
+  const Content = {
 
     async reportTo(request, allowed, policyType) {
       let {requestId, tabId, frameId, type, url, documentUrl, originUrl} = request;
@@ -312,7 +312,6 @@ var RequestGuard = (() => {
       }
     }
   };
-  browser.runtime.onMessage.addListener(Content.hearFrom);
 
   const pendingRequests = new Map();
   function initPendingRequest(request) {
@@ -551,6 +550,8 @@ var RequestGuard = (() => {
   
   const RequestGuard = {
     async start() {
+      Messages.addHandler(messageHandler);
+      
       let wr = browser.webRequest;
       let listen = (what, ...args) => wr[what].addListener(listeners[what], ...args);
       
@@ -608,6 +609,7 @@ var RequestGuard = (() => {
         }
       }
       wr.onBeforeRequest.removeListener(onViolationReport);
+      Messages.removeHandler(messageHandler);
     }
   };
 

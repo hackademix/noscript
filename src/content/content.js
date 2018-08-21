@@ -88,7 +88,7 @@ function probe() {
   try {
     debug("Probing execution...");
     let s = document.createElement("script"); 
-    s.textContent=";"; 
+    s.textContent = ";"; 
     document.documentElement.appendChild(s);
     s.remove();
   } catch(e) {
@@ -157,7 +157,7 @@ let notifyPage = async () => {
   debug("Page %s shown, %s", document.URL, document.readyState);
   if (document.readyState === "complete") {
     try {
-      await browser.runtime.sendMessage({type: "pageshow", seen: seen.list, canScript});
+      await browser.runtime.sendMessage({action: "pageshow", seen: seen.list, canScript});
       return true;
     } catch (e) {
       debug(e);
@@ -184,7 +184,7 @@ async function init(oldPage = false) {
     document.URL, document.contentType, document.readyState, window.frameElement && frameElement.data);
   
   try {
-    ({canScript, shouldScript} = await browser.runtime.sendMessage({type: "docStatus", url: document.URL}));
+    ({canScript, shouldScript} = await browser.runtime.sendMessage({action: "docStatus", url: document.URL}));
     debug(`document %s, canScript=%s, shouldScript=%s, readyState %s`, document.URL, canScript, shouldScript, document.readyState);
     if (canScript) {
       if (oldPage) {

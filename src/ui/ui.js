@@ -59,11 +59,11 @@ var UI = (() => {
       debug("Imported", Policy);
     },
     async pullSettings() {
-      browser.runtime.sendMessage({type: "NoScript.broadcastSettings", tabId: UI.tabId});
+      browser.runtime.sendMessage({action: "broadcastSettings", tabId: UI.tabId});
     },
     async updateSettings({policy, xssUserChoices, unrestrictedTab, local, sync, reloadAffected}) {
       if (policy) policy = policy.dry(true);
-      return await browser.runtime.sendMessage({type: "NoScript.updateSettings",
+      return await browser.runtime.sendMessage({action: "updateSettings",
         policy,
         xssUserChoices,
         unrestrictedTab,
@@ -75,10 +75,10 @@ var UI = (() => {
     },
 
     async exportSettings() {
-      return await browser.runtime.sendMessage({type: "NoScript.exportSettings"});
+      return await browser.runtime.sendMessage({action: "exportSettings"});
     },
     async importSettings(data) {
-      return await browser.runtime.sendMessage({type: "NoScript.importSettings", data});
+      return await browser.runtime.sendMessage({action: "importSettings", data});
     },
 
     async revokeTemp() {
