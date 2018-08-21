@@ -20,7 +20,26 @@ var {Permissions, Policy, Sites} = (() => {
     static isValid(site) {
       return /^(?:https?:(?:\/\/)?)?([\w\u0100-\uf000][\w\u0100-\uf000.-]*)?[\w\u0100-\uf000](?::\d+)?$/.test(site);
     }
-
+    
+    
+    static originImplies(originKey, site) {
+      return originKey === site || site.startsWith(`${originKey}/`);
+    }
+    static domainImplies(domainKey, site, protocol = null) {
+      if (!protocol) {
+        return (Sites.isSecureDomainKey(domainKey)) 
+          ? Sites.domainImplies(Sites.toggleSecureDomainKey(domainKey, false), site, "https")
+          : ["http", "https"].some(protocol => Sites.domainImplies(domainKey, site, protocol));
+      }
+      return Sites.originImplies(`${protocol}://${domainKey}`, site);
+    }
+    
+    static isImplied(site, byKey) {
+      return byKey.includes("://") 
+        ? Sites.originImplies(byKey, site)
+        : Sites.domainImplies(byKey, site);
+    }
+    
     static parse(site) {
       let url, siteKey = "";
       if (site instanceof URL) {

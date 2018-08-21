@@ -111,11 +111,12 @@
       // compute exclusions
       let permsMapEntries = [...permsMap];
       let excludeMap = new Map();
+      
       for (let [perms, keys] of permsMapEntries) {
         excludeMap.set(perms, siteKeys2MatchPatterns(flatten(
           permsMapEntries.filter(([other]) => other !== perms)
             .map(([otherPerms, otherKeys]) => otherKeys))
-              .filter(k => k && k.includes("/"))
+              .filter(k => k && k.includes("/") && keys.some(by => Sites.isImplied(k, by)))
           ));
       }
       
