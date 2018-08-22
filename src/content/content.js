@@ -114,8 +114,7 @@ var seen = {
   }
 }
 
-var handlers = {
-
+Messages.addHandler({
   seen(event) {
     let {allowed, policyType, request, ownFrame} = event;
     if (window.top === window) {
@@ -129,18 +128,10 @@ var handlers = {
       }
     }
   },
-
   collect(event) {
     let list = seen.list;
     debug("COLLECT", list);
     return list;
-  }
-};
-
-browser.runtime.onMessage.addListener(async event => {
-  if (event.type in handlers) {
-    debug("Received message", event);
-    return handlers[event.type](event);
   }
 });
 
@@ -157,7 +148,7 @@ let notifyPage = async () => {
   debug("Page %s shown, %s", document.URL, document.readyState);
   if (document.readyState === "complete") {
     try {
-      await browser.runtime.sendMessage({action: "pageshow", seen: seen.list, canScript});
+      await Messages.send("pageshow", {seen: seen.list, canScript});
       return true;
     } catch (e) {
       debug(e);
@@ -184,7 +175,7 @@ async function init(oldPage = false) {
     document.URL, document.contentType, document.readyState, window.frameElement && frameElement.data);
   
   try {
-    ({canScript, shouldScript} = await browser.runtime.sendMessage({action: "docStatus", url: document.URL}));
+    ({canScript, shouldScript} = await Messages.send("queryDocStatus", {url: document.URL}));
     debug(`document %s, canScript=%s, shouldScript=%s, readyState %s`, document.URL, canScript, shouldScript, document.readyState);
     if (canScript) {
       if (oldPage) {

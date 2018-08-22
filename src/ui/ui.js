@@ -16,6 +16,7 @@ var UI = (() => {
       UI.tabId = tabId;
       let scripts = [
         "/ui/ui.css",
+        "/lib/Messages.js",
         "/lib/punycode.js",
         "/lib/tld.js",
         "/common/Policy.js",
@@ -27,11 +28,9 @@ var UI = (() => {
       }
       await include(scripts);
 
-      
-
       let inited = new Promise(resolve => {
-        let listener = async m => {
-          if (m.type === "settings") {
+        Messages.addHandler({
+          async settings(m) {
             UI.policy = new Policy(m.policy);
             UI.snapshot = UI.policy.snapshot;
             UI.seen = m.seen;
@@ -46,8 +45,7 @@ var UI = (() => {
             if (UI.onSettings) UI.onSettings();
             await HighContrast.init();
           }
-        };
-        browser.runtime.onMessage.addListener(listener);
+        });
 
         if (this.mobile) FastClick.attach(document.body);
         UI.pullSettings();
@@ -59,11 +57,11 @@ var UI = (() => {
       debug("Imported", Policy);
     },
     async pullSettings() {
-      browser.runtime.sendMessage({action: "broadcastSettings", tabId: UI.tabId});
+      Messages.send("broadcastSettings", {tabId: UI.tabId});
     },
     async updateSettings({policy, xssUserChoices, unrestrictedTab, local, sync, reloadAffected}) {
       if (policy) policy = policy.dry(true);
-      return await browser.runtime.sendMessage({action: "updateSettings",
+      return await Messages.send("updateSettings", {
         policy,
         xssUserChoices,
         unrestrictedTab,
@@ -75,10 +73,10 @@ var UI = (() => {
     },
 
     async exportSettings() {
-      return await browser.runtime.sendMessage({action: "exportSettings"});
+      return await Messages.send("exportSettings");
     },
     async importSettings(data) {
-      return await browser.runtime.sendMessage({action: "importSettings", data});
+      return await Messages.send("importSettings", {data});
     },
 
     async revokeTemp() {

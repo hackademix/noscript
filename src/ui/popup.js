@@ -4,9 +4,7 @@ var sitesUI;
 
 addEventListener("unload", e => {
   if (!UI.initialized) {
-    browser.runtime.sendMessage({
-      type: "openStandalonePopup"
-    });
+    Messages.send("openStandalonePopup");
   }
 });
 

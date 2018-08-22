@@ -118,8 +118,7 @@
       let policy = ns.policy.dry(true);
       let seen = tabId !== -1 ? await ns.collectSeen(tabId) : null;
       let xssUserChoices = await XSS.getUserChoices();
-      browser.runtime.sendMessage({
-        type: "settings",
+      await Messages.send("settings", {
         policy,
         seen,
         xssUserChoices,
@@ -228,11 +227,7 @@
     async collectSeen(tabId) {
 
       try {
-        let seen = Array.from(await browser.tabs.sendMessage(tabId, {
-          type: "collect"
-        }, {
-          frameId: 0
-        }));
+        let seen = Array.from(await Messages.send("collect", {}, {tabId, frameId: 0}));
         debug("Collected seen", seen);
         return seen;
       } catch (e) {

@@ -62,6 +62,7 @@
       "all_frames": true,
       "js": [
         "lib/log.js",
+        "lib/Messages.js",
         "content/onScriptDisabled.js",
         "content/content.js",
         "content/webglHook.js",

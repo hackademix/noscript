@@ -263,7 +263,7 @@ var RequestGuard = (() => {
       return true;
     },
     
-    async docStatus(message, sender) {
+    async queryDocStatus(message, sender) {
       let {frameId, tab} = sender;
       let {url} = message;
       let tabId = tab.id;
@@ -291,10 +291,9 @@ var RequestGuard = (() => {
       if (pending) request.initialUrl = pending.initialUrl;
       if (type !== "sub_frame") { // we couldn't deliver it to frameId, since it's generally not loaded yet
         try {
-          await browser.tabs.sendMessage(
-            tabId,
-            {type: "seen", request, allowed, policyType, ownFrame: true},
-            {frameId}
+          await Messages.send("seen",
+            {request, allowed, policyType, ownFrame: true},
+            {tabId, frameId}
           );
         } catch (e) {
           debug(`Couldn't deliver "seen" message for ${type}@${url} ${allowed ? "A" : "F" } to document ${documentUrl} (${frameId}/${tabId})`, e);
@@ -302,10 +301,9 @@ var RequestGuard = (() => {
       }
       if (frameId === 0) return;
       try {
-        await browser.tabs.sendMessage(
-          tabId,
-          {type: "seen", request, allowed, policyType},
-          {frameId: 0}
+        await Message.send("seen",
+          {request, allowed, policyType},
+          {tabId, frameId: 0}
         );
       } catch (e) {
         debug(`Couldn't deliver "seen" message to top frame containing ${documentUrl} (${frameId}/${tabId}`, e);

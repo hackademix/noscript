@@ -116,8 +116,7 @@ var PlaceHolder = (() => {
 
     async enable(replacement) {
       debug("Enabling %o", this.request, this.policyType);
-      let ok = await browser.runtime.sendMessage({
-        action: "enable",
+      let ok = await Messages.send("enable", {
         url: this.request.url,
         policyType: this.policyType,
         documentUrl: document.URL
