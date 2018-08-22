@@ -25,13 +25,14 @@ var {Permissions, Policy, Sites} = (() => {
     static originImplies(originKey, site) {
       return originKey === site || site.startsWith(`${originKey}/`);
     }
-    static domainImplies(domainKey, site, protocol = null) {
-      if (!protocol) {
-        return (Sites.isSecureDomainKey(domainKey)) 
-          ? Sites.domainImplies(Sites.toggleSecureDomainKey(domainKey, false), site, "https")
-          : ["http", "https"].some(protocol => Sites.domainImplies(domainKey, site, protocol));
+    
+    static domainImplies(domainKey, site, protocol ="https?") {
+      if (Sites.isSecureDomainKey(domainKey)) {
+        protocol = "https";
+        domainKey = Sites.toggleSecureDomainKey(domainKey, false);
       }
-      return Sites.originImplies(`${protocol}://${domainKey}`, site);
+      return new RegExp(`^${protocol}://([^/?#:]+\\.)?${domainKey.replace(/\./g, "\\.")}(?:[:/]|$)`)
+        .test(site);
     }
     
     static isImplied(site, byKey) {
