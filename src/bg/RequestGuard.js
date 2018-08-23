@@ -369,12 +369,19 @@ var RequestGuard = (() => {
       
       // check for duplicate calls
       let pending = pendingRequests.get(request.requestId);
-      if (pending && pending.headersProcessed) {
-        debug("[WARNING] already processed ", request);
+      if (pending) {
+        if (pending.headersProcessed) {
+          debug("[WARNING] already processed ", request);
+        } else {
+          debug("onHeadersReceived", request);
+        }
+      } else {
+        debug("[WARNING] no pending information for ", request);
+        initPendingRequest(request);
+        pending = pendingRequests.get(request.requestId);
       }
       pending.headersProcessed = true;
       
-      debug("onHeadersReceived", request);
       let {url, documentUrl, statusCode, tabId, responseHeaders} = request;
       
       try {
