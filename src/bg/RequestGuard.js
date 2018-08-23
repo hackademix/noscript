@@ -364,7 +364,7 @@ var RequestGuard = (() => {
       return ALLOW;
     },
 
-    onHeadersReceived(request) {
+    async onHeadersReceived(request) {
       // called for main_frame, sub_frame and object
       
       // check for duplicate calls
@@ -389,12 +389,12 @@ var RequestGuard = (() => {
           }
         }
 
-
         if (ns.isEnforced(tabId)) {
           let policy = ns.policy;
           let perms = policy.get(url, documentUrl).perms;
           if (policy.autoAllowTop && request.type === "main_frame" && perms === policy.DEFAULT) {
             policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
+            await ChildPolicies.update(policy);
           }
           
           let {capabilities} = perms;
