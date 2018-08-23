@@ -2,6 +2,7 @@
 {
   let handlers = new Set();
   
+  let forever = new Promise(resolve => {});
   let dispatch = async (msg, sender) => {
     let {_messageName} = msg;
     for (let h of handlers) {
@@ -10,6 +11,7 @@
         return await f(msg, sender);
       }
     }
+    await forever;
   };
   
   var Messages = {
