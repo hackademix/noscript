@@ -5,7 +5,9 @@ var {Permissions, Policy, Sites} = (() => {
   const SECURE_DOMAIN_RX = new RegExp(`^${SECURE_DOMAIN_PREFIX}`);
   const DOMAIN_RX = new RegExp(`(?:^\\w+://|${SECURE_DOMAIN_PREFIX})?([^/]*)`, "i");
   const SKIP_RX = /^(?:(?:about|chrome|resource|moz-.*):|\[System)/;
-
+  
+  let rxQuote = s => s.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
+  
   class Sites extends Map {
     static secureDomainKey(domain) {
       return domain.includes(":") ? domain : `${SECURE_DOMAIN_PREFIX}${domain}`;
@@ -27,12 +29,19 @@ var {Permissions, Policy, Sites} = (() => {
     }
     
     static domainImplies(domainKey, site, protocol ="https?") {
+      if (!site.includes(domainKey)) return false;
+      
       if (Sites.isSecureDomainKey(domainKey)) {
         protocol = "https";
         domainKey = Sites.toggleSecureDomainKey(domainKey, false);
       }
-      return new RegExp(`^${protocol}://([^/?#:]+\\.)?${domainKey.replace(/\./g, "\\.")}(?:[:/]|$)`)
-        .test(site);
+      try {
+        return new RegExp(`^${protocol}://([^/?#:]+\\.)?${rxQuote(domainKey)}(?:[:/]|$)`)
+          .test(site);
+      } catch (e) {
+        error(e, `Cannot check if ${domainKey} implies ${site}`);
+        return false;
+      }
     }
     
     static isImplied(site, byKey) {
