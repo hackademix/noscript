@@ -185,7 +185,7 @@ async function init(oldPage = false) {
       }
       if (!shouldScript && 
           (document.readyState !== "complete" || 
-            now() - performance.timing.domContentLoadedEvenStart < 5000)) {
+            now() - performance.timing.domContentLoadedEventStart < 5000)) {
         // Something wrong: scripts can run, permissions say they shouldn't.
         // Was webRequest bypassed by caching/session restore/service workers?
         window.stop();
