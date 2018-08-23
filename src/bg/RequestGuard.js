@@ -301,7 +301,7 @@ var RequestGuard = (() => {
       }
       if (frameId === 0) return;
       try {
-        await Message.send("seen",
+        await Messages.send("seen",
           {request, allowed, policyType},
           {tabId, frameId: 0}
         );
