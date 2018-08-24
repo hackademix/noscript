@@ -462,7 +462,7 @@ var RequestGuard = (() => {
         }
 
         if (header) {
-          pending.cspHeader = header;
+          if (blocker) pending.cspHeader = header;
           if (!hasReportTo) {
             responseHeaders.push(REPORT_TO);
           }
@@ -489,7 +489,7 @@ var RequestGuard = (() => {
       if (pending) {
         pending.scriptBlocked = scriptBlocked;
         if (!(pending.headersProcessed && 
-            (scriptBlocked || ns.policy.can(url, "script", request.documentURL))
+            (scriptBlocked || !ns.isEnforced(tabId) || ns.policy.can(url, "script", request.documentURL))
           )) {
           debug("[WARNING] onHeadersReceived %s %o", frameId, tabId,
             pending.headersProcessed ? "has been overridden on": "could not process", 
