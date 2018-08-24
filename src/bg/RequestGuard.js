@@ -13,7 +13,7 @@ var RequestGuard = (() => {
   const CSP = {
     name: "content-security-policy",
     start: `report-uri ${REPORT_URI};`,
-    end: `;report-to ${REPORT_URI};`,
+    end: `;report-to ${REPORT_GROUP};`,
     isMine(header) {
       let {name, value} = header;
       if (name.toLowerCase() !== CSP.name) return false;
@@ -386,13 +386,16 @@ var RequestGuard = (() => {
       
       try {
         let header, blocker;
-        let content = {}
+        let content = {};
+        let hasReportTo = false;
         for (let h of responseHeaders) {
           if (CSP.isMine(h)) {
             header = h;
             h.value = CSP.inject(h.value, "");
           } else if (/^\s*Content-(Type|Disposition)\s*$/i.test(h.name)) {
             content[RegExp.$1.toLowerCase()] = h.value;
+          } else if (h.name === REPORT_TO.name && h.value === REPORT_TO.value) {
+            hasReportTo = true;
           }
         }
 
@@ -417,7 +420,7 @@ var RequestGuard = (() => {
           let canScript = capabilities.has("script");
 
           let blockedTypes;
-          let forbidData = FORBID_DATAURI_TYPES.filter(t => !capabilities.has(t));
+          let forbidData = new Set(FORBID_DATAURI_TYPES.filter(t => !capabilities.has(t)));
           if (!content.disposition &&
             (!content.type || /^\s*(?:video|audio|application)\//.test(content.type))) {
             debug(`Suspicious content type "%s" in request %o with capabilities %o`,
@@ -425,10 +428,11 @@ var RequestGuard = (() => {
             blockedTypes = CSP.types.filter(t => !capabilities.has(t));
           } else if(!canScript) {
             blockedTypes = ["script"];
-            forbidData.push("object"); // data: URIs loaded in objects may run scripts
+            forbidData.add("object"); // data: URIs loaded in objects may run scripts
           }
 
           for (let type of forbidData) { // object, font, media
+            if (blockedTypes.includes(type)) continue;
             // HTTP is blocked in onBeforeRequest, let's allow it only and block
             // for instance data: and blob: URIs
             let dataBlocker = {name: type, value: "http: https:"};
@@ -459,6 +463,9 @@ var RequestGuard = (() => {
 
         if (header) {
           pending.cspHeader = header;
+          if (!hasReportTo) {
+            responseHeaders.push(REPORT_TO);
+          }
           return {responseHeaders};
         }
       } catch (e) {
