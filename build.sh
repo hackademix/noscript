@@ -11,12 +11,17 @@ if [ "$1" == "tag" ]; then
   git tag -a "$VER" && git push origin "$VER"
   exit 0
 fi
+if [ "$1" == "rel" ]; then
+  perl -pi -e 's/("version":.*)rc\d+/$1/' "$MANIFEST_IN" && rm "$MANIFEST_IN".bak
+  "$0" && "$0" bump
+  exit
+fi
 if [ "$1" == "bump" ]; then
   echo "Bumping to $VER"
   git add "$MANIFEST_IN"
   git commit -m "Version bump: $VER."
   [[ $VER == *rc* ]] || "$0" tag 
-  exit 0
+  exit
 fi
 XPI_DIR="$BASE/xpi"
 XPI="$XPI_DIR/noscript-$VER"
@@ -33,11 +38,21 @@ rm -rf "$BUILD" "$XPI"
 cp -pR "$SRC" "$BUILD"
 cp -p LICENSE.txt GPL.txt "$BUILD"/
 
+BUILD_CMD="web-ext"
+BUILD_OPTS="build"
+  
 if [[ $VER == *rc* ]]; then
   sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
     "$MANIFEST_IN" > "$MANIFEST_OUT"
+  if [ "$1" == "sign" ]; then
+    BUILD_CMD="$BASE/../../we-sign"
+    BUILD_OPTS=""
+  fi
 else
   grep -v '"update_url":' "$MANIFEST_IN" > "$MANIFEST_OUT"
+  if [ "$1" == "sign" ]; then
+    echo >&2 "WARNING: won't auto-sign a release version, please manually upload to AMO."
+  fi
 fi
 if ! grep '"id":' "$MANIFEST_OUT" >/dev/null; then
   echo >&2 "Cannot build manifest.json"
@@ -49,14 +64,6 @@ for file in "$SRC"/content/*.js; do
     sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file" > "$BUILD/content/$(basename "$file")"
   fi
 done
-
-if [ "$1" == "sign" ]; then
-  BUILD_CMD="$BASE/../../we-sign"
-  BUILD_OPTS=""
-else
-  BUILD_CMD="web-ext"
-  BUILD_OPTS="build"
-fi
 
 echo "Creating $XPI.xpi..."
 mkdir -p "$XPI_DIR"
