@@ -29,12 +29,11 @@ var {Permissions, Policy, Sites} = (() => {
     }
     
     static domainImplies(domainKey, site, protocol ="https?") {
-      if (!site.includes(domainKey)) return false;
-      
       if (Sites.isSecureDomainKey(domainKey)) {
         protocol = "https";
         domainKey = Sites.toggleSecureDomainKey(domainKey, false);
       }
+      if (!site.includes(domainKey)) return false;
       try {
         return new RegExp(`^${protocol}://([^/?#:]+\\.)?${rxQuote(domainKey)}(?:[:/]|$)`)
           .test(site);
