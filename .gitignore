@@ -3,3 +3,5 @@
 # build artifacts
 xpi
 *.xpi
+# dev env options
+.eslintrc.json
