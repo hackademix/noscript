@@ -17,6 +17,24 @@ if [ "$1" == "rel" ]; then
   exit
 fi
 if [ "$1" == "bump" ]; then
+  if [ "$2" ]; then
+    NEW_VER="$2"
+    if [[ "$2" == *.* ]]; then # full dotted version number
+      pattern='"\d+.*?'
+      NEW_VER='"'"$2"
+    elif [[ "$2" == *rc* ]]; then # new RC after release
+      if [[ "$2" == rc* ]]; then
+        echo >&2 "Please specify next release version (like 12rc1). Current is $VER"
+        exit 1
+      fi
+      pattern='\b(?:\d+rc)?\d+'
+    else # incremental version
+      pattern='\b\d+'
+    fi
+    REPLACE_EXPR='s/(?<PREAMBLE>"version":.*)'"$pattern"'"/$+{PREAMBLE}'"$NEW_VER"'"/'
+    perl -pi -e $REPLACE_EXPR "$MANIFEST_IN" && rm "$MANIFEST_IN".bak && "$0" bump
+    exit
+  fi
   echo "Bumping to $VER"
   git add "$MANIFEST_IN"
   git commit -m "Version bump: $VER."
