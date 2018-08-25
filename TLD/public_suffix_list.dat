@@ -381,8 +381,13 @@ gov.bm
 net.bm
 org.bm
 
-// bn : https://en.wikipedia.org/wiki/.bn
-*.bn
+// bn : http://www.bnnic.bn/faqs
+bn
+com.bn
+edu.bn
+gov.bn
+net.bn
+org.bn
 
 // bo : https://nic.bo/delegacion2015.php#h-1.10
 bo
@@ -546,6 +551,7 @@ niteroi.br
 not.br
 ntr.br
 odo.br
+ong.br
 org.br
 osasco.br
 palmas.br
@@ -1239,7 +1245,7 @@ tozsde.hu
 utazas.hu
 video.hu
 
-// id : https://register.pandi.or.id/
+// id : https://pandi.id/en/domain/registration-requirements/
 id
 ac.id
 biz.id
@@ -1250,6 +1256,7 @@ mil.id
 my.id
 net.id
 or.id
+ponpes.id
 sch.id
 web.id
 
@@ -10733,6 +10740,7 @@ us-east-1.amazonaws.com
 // Amazon Elastic Beanstalk : https://aws.amazon.com/elasticbeanstalk/
 // Submitted by Luke Wells <psl-maintainers@amazon.com>
 cn-north-1.eb.amazonaws.com.cn
+cn-northwest-1.eb.amazonaws.com.cn
 elasticbeanstalk.com
 ap-northeast-1.elasticbeanstalk.com
 ap-northeast-2.elasticbeanstalk.com
