@@ -425,23 +425,25 @@ var RequestGuard = (() => {
             (!content.type || /^\s*(?:video|audio|application)\//.test(content.type))) {
             debug(`Suspicious content type "%s" in request %o with capabilities %o`,
               content.type, request, capabilities);
-            blockedTypes = CSP.types.filter(t => !capabilities.has(t));
+            blockedTypes = new Set(CSP.types.filter(t => !capabilities.has(t)));
           } else if(!canScript) {
-            blockedTypes = ["script"];
+            blockedTypes = new Set(["script"]);
             forbidData.add("object"); // data: URIs loaded in objects may run scripts
+          } else {
+            blockedTypes = new Set();
           }
 
           for (let type of forbidData) { // object, font, media
-            if (blockedTypes.includes(type)) continue;
+            if (blockedTypes.has(type)) continue;
             // HTTP is blocked in onBeforeRequest, let's allow it only and block
             // for instance data: and blob: URIs
             let dataBlocker = {name: type, value: "http: https:"};
-            if (blockedTypes) blockedTypes.push(dataBlocker)
-            else blockedTypes = [dataBlocker];
+            blockedTypes.add(dataBlocker)
           }
 
-          debug("Blocked types", blockedTypes);
-          if (blockedTypes && blockedTypes.length) {
+        
+          if (blockedTypes.size) {
+            debug("Blocked types", blockedTypes);
             blocker = CSP.createBlocker(...blockedTypes);
           }
 

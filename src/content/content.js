@@ -180,7 +180,6 @@ async function init(oldPage = false) {
     if (canScript) {
       if (oldPage) {
         probe();
-        setTimeout(() => init(), 200);
         return;
       }
       if (!shouldScript && 
