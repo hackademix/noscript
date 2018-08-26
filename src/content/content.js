@@ -61,14 +61,21 @@
       
       if (!this.perms.DEFAULT || this.perms.tabInfo.unrestricted) {
         this.allows = () => true;
+        this.capabilities =  Object.assign(
+          new Set(["script"]), { has() { return true; } });
+      } else {
+        let perms = this.perms.CURRENT || this.perms.DEFAULT;
+        this.capabilities = new Set(perms.capabilities);
+        new DocumentCSP(document).apply(this.capabilities);
       }
       ns.fire("perms");
     },
     perms: { DEFAULT: null, CURRENT: null, tabInfo: {}, MARKER: "" },
+        
     allows(cap) {
-      let perms = this.perms.CURRENT; 
-      return perms  && perms.capabilities.includes(cap);
+      return this.capabilities && this.capabilities.has(cap);
     },
+    
     getWindowName() {
       return top !== window || !this.perms.MARKER ? window.name
         : window.name.split(this.perms.MARKER + ",").pop();

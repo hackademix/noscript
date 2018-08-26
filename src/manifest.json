@@ -67,6 +67,9 @@
       "js": [
         "lib/log.js",
         "lib/Messages.js",
+        "lib/CSP.js",
+        "common/CapsCSP.js",
+        "content/DocumentCSP.js",
         "content/onScriptDisabled.js",
         "content/content.js",
         "content/webglHook.js",
