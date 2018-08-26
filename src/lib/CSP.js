@@ -19,4 +19,5 @@ class CSP {
   }
 }
 
+CSP.isEmbedType = type => /\b(?:application|video|audio)\b/.test(type);
 CSP.headerName = "content-security-policy";

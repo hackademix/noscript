@@ -27,4 +27,6 @@ class NetCSP extends CSP {
     return `${this.start}${super.build(...directives)}${this.end}`;
   }
   
+  cleanup(headers) {
+  }
 }

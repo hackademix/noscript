@@ -1,4 +1,4 @@
-ns.on("perms", event => {
+ns.on("capabilities", event => {
   if (ns.allows("script")) {
     let name = ns.getWindowName();
     if (/[<"'\`(=:]/.test(name)) {

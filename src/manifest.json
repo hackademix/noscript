@@ -60,6 +60,14 @@
 
   "content_scripts": [
     {
+       "matches": ["<all_urls>"],
+       "match_about_blank": true,
+       "all_frames": true,
+       "css": [
+         "/content/content.css"
+       ]
+     },
+    {
       "run_at": "document_start",
       "matches": ["<all_urls>"],
       "match_about_blank": true,
@@ -71,20 +79,14 @@
         "common/CapsCSP.js",
         "content/DocumentCSP.js",
         "content/onScriptDisabled.js",
+        "content/staticNS.js",
         "content/content.js",
-        "content/webglHook.js",
         "content/PlaceHolder.js",
+        "content/embeddingDocument.js",
+        "content/webglHook.js",
         "content/media.js"
       ]
-    },
-    {
-       "matches": ["<all_urls>"],
-       "match_about_blank": true,
-       "all_frames": true,
-       "css": [
-         "/content/content.css"
-       ]
-     }
+    }
   ],
 
   "options_ui": {

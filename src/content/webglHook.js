@@ -1,5 +1,5 @@
-ns.on("perms", event => {
-  debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML, ns.perms.CURRENT); // DEV_ONLY
+ns.on("capabilities", event => {
+  debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML, ns.capabilities); // DEV_ONLY
   if (ns.allows("webgl")) return;
   let proto = HTMLCanvasElement.prototype;
   let getContext = proto.getContext;

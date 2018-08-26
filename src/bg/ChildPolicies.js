@@ -1,6 +1,7 @@
 "use strict";
 {
   let marker = JSON.stringify(uuid());
+  let allUrls = ["<all_urls>"];
   
   let Scripts = {
     references: new Set(),
@@ -10,27 +11,52 @@
       matchAboutBlank: true,
       runAt: "document_start"
     },
+    async init() {
+      let opts = Object.assign({}, this.opts);
+      opts.js = [{file: "/content/dynamicNS.js"}];
+      opts.matches = allUrls;
+      delete opts.excludedMatches;
+      this._stubScript = await browser.contentScripts.register(opts);
+      
+      this.init = this.forget;
+    },
     forget() {
       for (let script of [...this.references]) {
         script.unregister();
         this.references.delete(script);
       }
     },
+    debug: false,
+    trace(code) {
+      return this.debug
+        ? `console.debug("Executing child policy", ${JSON.stringify(code)});${code}`
+        : code
+        ;
+    },
     async register(code, matches, excludeMatches) {
       debug("Registering child policy.", code, matches, excludeMatches);
       if (!matches.length) return;
       try {
-        this.opts.js[0].code = code;
-        this.opts.matches = matches;
+        let opts = Object.assign({}, this.opts);
+        opts.js[0].code = this.trace(code); 
+        opts.matches = matches;
         if (excludeMatches && excludeMatches.length) {
-          this.opts.excludeMatches = excludeMatches;
-        } else {
-          delete this.opts.excludeMatches;
+          opts.excludeMatches = excludeMatches;
         }
-        this.references.add(await browser.contentScripts.register(this.opts));
+        this.references.add(await browser.contentScripts.register(opts));
       } catch (e) {
         error(e);
       }
+    },
+    
+    buildPerms(perms, finalizeSetup = false) {
+      if (typeof perms !== "string") {
+        perms = JSON.stringify(perms);
+      }
+      return finalizeSetup
+        ? `ns.setup(${perms}, ${marker});` 
+        : `ns.config.CURRENT = ${perms};`
+        ;
     }
   };
   
@@ -69,12 +95,13 @@
         error(e);
       }
     },
-    async update(policy) {
-      Scripts.forget();
+    async update(policy, debug) {
+      if (debug !== "undefined") Scripts.debug = debug;
+      
+      await Scripts.init();
       
       if (!policy.enforced) {
-        await Scripts.register(`ns.setup(null, ${marker});`, 
-           ["<all_urls>"]);
+        await Scripts.register(`ns.setup(null, ${marker});`, allUrls);
         return;
       }
       
@@ -122,10 +149,27 @@
       
       // register new content scripts
       for (let [perms, keys] of [...permsMap]) {
-        await Scripts.register(`ns.perms.CURRENT = ${perms};`, siteKeys2MatchPatterns(keys), excludeMap.get(perms));
+        await Scripts.register(Scripts.buildPerms(perms), siteKeys2MatchPatterns(keys), excludeMap.get(perms));
       }
-      await Scripts.register(`ns.setup(${JSON.stringify(serialized.DEFAULT)}, ${marker});`, 
-         ["<all_urls>"]);
+      await Scripts.register(Scripts.buildPerms(serialized.DEFAULT, true), allUrls);
+    },
+    
+    getForDocument(policy, url, context = null) {
+      return {
+        CURRENT: policy.get(url, context).perms.dry(),
+        DEFAULT: policy.DEFAULT.dry(),
+        MARKER: marker
+      };
+    },
+    
+    async updateFrame(tabId, frameId, perms, defaultPreset) {
+      let code = Scripts.buildPerms(perms) + Scripts.buildPerms(defaultPreset, true);
+      await browser.tabs.executeScript(tabId, {
+        code,
+        frameId,
+        matchAboutBlank: true,
+        runAt: "document_start"
+      });   
     }
-  }
+  };
 }

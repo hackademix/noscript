@@ -23,10 +23,13 @@
   }
 
   async function init() {
+    await include("/bg/defaults.js");
+    await ns.defaults;
+    
     let policyData = (await Storage.get("sync", "policy")).policy;
     if (policyData && policyData.DEFAULT) {
       ns.policy = new Policy(policyData);
-      await ChildPolicies.update(policyData);
+      await ChildPolicies.update(policyData, ns.local.debug);
     } else {
       await include("/legacy/Legacy.js");
       ns.policy = await Legacy.createOrMigratePolicy();
@@ -34,8 +37,7 @@
     }
     
     
-    await include("/bg/defaults.js");
-    await ns.defaults;
+    
     await include("/bg/RequestGuard.js");
     await RequestGuard.start();
     await XSS.start(); // we must start it anyway to initialize sub-objects
@@ -135,7 +137,11 @@
     async importSettings({data}) {
       return await Settings.import(data);
     },
-
+    
+    async fetchChildPolicy({url, contextUrl}) {
+      return ChildPolicies.getForDocument(ns.policy, url, contextUrl);
+    },
+    
     async openStandalonePopup() {
       let win = await browser.windows.getLastFocused();
       let [tab] = (await browser.tabs.query({
@@ -203,7 +209,7 @@
 
     async savePolicy() {
       if (this.policy) {
-        await ChildPolicies.update(this.policy);
+        await ChildPolicies.update(this.policy, this.local.debug);
         await Storage.set("sync", {
           policy: this.policy.dry()
         });

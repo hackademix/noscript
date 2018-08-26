@@ -1,5 +1,5 @@
-ns.on("perms", event => {
-  debug("Media Hook", document.URL, document.documentElement && document.documentElement.innerHTML, ns.perms.CURRENT); // DEV_ONLY
+ns.on("capabilities", event => {
+  debug("Media Hook", document.URL, document.documentElement && document.documentElement.innerHTML, ns.capabilities); // DEV_ONLY
   let mediaBlocker = !ns.allows("media");
   let unpatched = new Map();
   function patch(obj, methodName, replacement) {

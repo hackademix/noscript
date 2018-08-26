@@ -6,9 +6,9 @@ class DocumentCSP {
     this.builder = new CapsCSP();
   }
   
-  apply(capabilities) {
+  apply(capabilities, embedding = CSP.isEmbedType(this.document.contentType)) {
     let csp = this.builder;
-    let blocker = csp.buildFromCapabilities(capabilities);
+    let blocker = csp.buildFromCapabilities(capabilities, embedding);
     if (!blocker) return;
     
     let document = this.document;
@@ -19,8 +19,11 @@ class DocumentCSP {
     let parent = document.head || document.documentElement;
     try {
       parent.insertBefore(meta, parent.firstChild);
+      debug(`Failsafe <meta> CSP inserted in the DOM: "%s"`, header.value);
+      if (capabilities.has("script")) meta.remove();
     } catch (e) {
       error(e, "Error inserting CSP %s in the DOM", header && header.value);
     }
   }
+  
 }

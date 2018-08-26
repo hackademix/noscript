@@ -1,6 +1,17 @@
 var PlaceHolder = (() => {
   const HANDLERS = new Map();
-
+  
+  let checkStyle = async () => {
+    checkStyle = () => {};
+    if (!ns.embeddingDocument) return;
+    let replacement = document.querySelector("a.__NoScript_PlaceHolder__");
+    if (!replacement) return;
+    if (window.getComputedStyle(replacement, null).opacity !== "0.8") {
+      document.head.appendChild(createHTMLElement("style")).textContent = await
+        (await fetch(browser.extension.getURL("/content/content.css"))).text();
+    }
+  }
+  
   class Handler {
     constructor(type, selector) {
       this.type = type;
@@ -9,6 +20,7 @@ var PlaceHolder = (() => {
       HANDLERS.set(type, this);
     }
     filter(element, request) {
+      if (request.embeddingDocument) return true;
       let url = request.initialUrl || request.url;
       return "data" in element ? element.data === url : element.src === url;
     }
@@ -77,10 +89,14 @@ var PlaceHolder = (() => {
         .filter(element => this.handler.filter(element, request))
           .forEach(element => this.replace(element));
       };
-      if (this.replacements.size) PlaceHolder.listen();
+      if (this.replacements.size) {
+        PlaceHolder.listen();
+        checkStyle();
+      }
     }
 
     replace(element) {
+      if (!element.parentElement) return;
       let {
         url
       } = this.request;
@@ -108,10 +124,10 @@ var PlaceHolder = (() => {
 
       replacement._placeHolderObj = this;
       replacement._placeHolderElement = element;
-      this.replacements.add(replacement);
+      
 
-      if (element.parentNode) element.parentNode.replaceChild(replacement, element);
-      else document.body.appendChild(replacement);
+      element.parentNode.replaceChild(replacement, element);
+      this.replacements.add(replacement);
     }
 
     async enable(replacement) {
