@@ -41,6 +41,9 @@
       "lib/tld.js",
       "lib/LastListener.js",
       "lib/Messages.js",
+      "lib/CSP.js",
+      "lib/NetCSP.js",
+      "common/CapsCSP.js",
       "common/Policy.js",
       "common/locale.js",
       "common/Entities.js",
@@ -48,6 +51,7 @@
       "common/Storage.js",
       "ui/Prompts.js",
       "xss/XSS.js",
+      "bg/ReportingCSP.js",
       "bg/deferWebTraffic.js",
       "bg/ChildPolicies.js",
       "bg/main.js"

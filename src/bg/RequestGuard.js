@@ -2,44 +2,12 @@ var RequestGuard = (() => {
   'use strict';
   const VERSION_LABEL =  `NoScript ${browser.runtime.getManifest().version}`;
   browser.browserAction.setTitle({title: VERSION_LABEL});
+  
   const REPORT_URI = "https://noscript-csp.invalid/__NoScript_Probe__/";
   const REPORT_GROUP = "NoScript-Endpoint";
-  const REPORT_TO = {
-    name: "Report-To",
-    value: JSON.stringify({ "url": REPORT_URI,
-             "group": REPORT_GROUP,
-             "max-age": 10886400 }),
-  };
-  const CSP = {
-    name: "content-security-policy",
-    start: `report-uri ${REPORT_URI};`,
-    end: `;report-to ${REPORT_GROUP};`,
-    isMine(header) {
-      let {name, value} = header;
-      if (name.toLowerCase() !== CSP.name) return false;
-      let startIdx = value.indexOf(this.start);
-      return startIdx > -1 && startIdx < value.lastIndexOf(this.end);
-    },
-    inject(headerValue, mine) {
-      let startIdx = headerValue.indexOf(this.start);
-      if (startIdx < 0) return `${headerValue};${mine}`;
-      let endIdx = headerValue.lastIndexOf(this.end);
-      let retValue = `${headerValue.substring(0, startIdx)}${mine}`;
-
-      return endIdx < 0 ? retValue : `${retValue}${headerValue.substring(endIdx + this.end.length + 1)}`;
-    },
-    create(...directives) {
-      return `${this.start}${directives.join(';')}${this.end}`;
-    },
-    createBlocker(...types) {
-        return this.create(...(types.map(type => `${type.name || type}-src ${type.value || "'none'"}`)));
-    },
-    blocks(header, type) {
-      return header.includes(`;${type}-src 'none';`)
-    },
-    types: ["script", "object", "media"],
-  };
-
+  
+  let csp = new ReportingCSP(REPORT_URI, REPORT_GROUP);
+  
   const policyTypesMap = {
       main_frame:  "",
       sub_frame: "frame",
@@ -57,8 +25,6 @@ var RequestGuard = (() => {
   };
   const allTypes = Object.keys(policyTypesMap);
   Object.assign(policyTypesMap, {"webgl": "webgl"}); // fake types
-
-  const FORBID_DATAURI_TYPES = ["font", "media", "object"];
 
   const TabStatus = {
     map: new Map(),
@@ -382,92 +348,66 @@ var RequestGuard = (() => {
       }
       pending.headersProcessed = true;
       
-      let {url, documentUrl, statusCode, tabId, responseHeaders} = request;
+      let {url, documentUrl, statusCode, tabId, responseHeaders, type} = request;
+      
+      let isMainFrame = type === "main_frame";
       
       try {
-        let header, blocker;
+        let header;
         let content = {};
+        const REPORT_TO = csp.reportToHeader;
         let hasReportTo = false;
         for (let h of responseHeaders) {
-          if (CSP.isMine(h)) {
+          if (csp.isMine(h)) {
             header = h;
-            h.value = CSP.inject(h.value, "");
+            h.value = csp.inject(h.value, "");
           } else if (/^\s*Content-(Type|Disposition)\s*$/i.test(h.name)) {
             content[RegExp.$1.toLowerCase()] = h.value;
           } else if (h.name === REPORT_TO.name && h.value === REPORT_TO.value) {
             hasReportTo = true;
           }
         }
-
+        
         if (ns.isEnforced(tabId)) {
           let policy = ns.policy;
           let perms = policy.get(url, documentUrl).perms;
-          if (policy.autoAllowTop && request.type === "main_frame" && perms === policy.DEFAULT) {
+          
+          if (policy.autoAllowTop && isMainFrame && perms === policy.DEFAULT) {
             policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
             await ChildPolicies.update(policy);
           }
           
-          let {capabilities} = perms;
-          let isObject = request.type === "object";
-          if (isObject && !capabilities.has("webgl")) { // we can't inject webglHook
-            debug("Disabling scripts in object %s to prevent webgl abuse", url);
-            capabilities = new Set(capabilities);
-            capabilities.delete("script");
-            let r = Object.assign({}, request, {type: "webgl"});
-            TabStatus.record(r, "blocked");
-            Content.reportTo(r, false, "webgl");
-          }
-          let canScript = capabilities.has("script");
-
-          let blockedTypes;
-          let forbidData = new Set(FORBID_DATAURI_TYPES.filter(t => !capabilities.has(t)));
-          if (!content.disposition &&
-            (!content.type || /^\s*(?:video|audio|application)\//.test(content.type))) {
+          let blockHttp = !content.disposition &&
+            (!content.type || /^\s*(?:video|audio|application)\//.test(content.type));
+          if (blockHttp) {
             debug(`Suspicious content type "%s" in request %o with capabilities %o`,
               content.type, request, capabilities);
-            blockedTypes = new Set(CSP.types.filter(t => !capabilities.has(t)));
-          } else if(!canScript) {
-            blockedTypes = new Set(["script"]);
-            forbidData.add("object"); // data: URIs loaded in objects may run scripts
-          } else {
-            blockedTypes = new Set();
           }
-
-          for (let type of forbidData) { // object, font, media
-            if (blockedTypes.has(type)) continue;
-            // HTTP is blocked in onBeforeRequest, let's allow it only and block
-            // for instance data: and blob: URIs
-            let dataBlocker = {name: type, value: "http: https:"};
-            blockedTypes.add(dataBlocker)
+          
+          let blocker = csp.buildFromCapabilities(perms.capabilities, blockHttp);
+          if (blocker) {
+            if (!hasReportTo) {
+              responseHeaders.push(csp.reportToHeader);
+            }
+            
+            if (header) {
+              pending.cspHeader = header;
+              header.value = csp.inject(header.value, blocker);
+            } else {
+              header = csp.asHeader(blocker);
+              responseHeaders.push(header);
+            }
+            
+            debug(`CSP blocker on %s:`, url, blocker, header.value);
           }
-
-        
-          if (blockedTypes.size) {
-            debug("Blocked types", blockedTypes);
-            blocker = CSP.createBlocker(...blockedTypes);
-          }
-
-          if (request.type === "main_frame" && !TabStatus.map.has(tabId)) {
+          
+          if (isMainFrame && !TabStatus.map.has(tabId)) {
             debug("No TabStatus data yet for noscriptFrame", tabId);
             TabStatus.record(request, "noscriptFrame", true);
           }
         }
 
-        debug(`CSP blocker on %s:`, url, blocker);
-        if (blocker) {
-          if (header) {
-            header.value = CSP.inject(header.value, blocker);
-          } else {
-            header = {name: CSP.name, value: blocker};
-            responseHeaders.push(header);
-          }
-        }
-
         if (header) {
-          if (blocker) pending.cspHeader = header;
-          if (!hasReportTo) {
-            responseHeaders.push(REPORT_TO);
-          }
           return {responseHeaders};
         }
       } catch (e) {
@@ -483,7 +423,7 @@ var RequestGuard = (() => {
         TabStatus.initTab(tabId);
       }
       let scriptBlocked = request.responseHeaders.some(
-        h => CSP.isMine(h) && CSP.blocks(h.value, "script")
+        h => csp.isMine(h) && csp.blocks(h.value, "script")
       );
       debug("%s scriptBlocked=%s setting noscriptFrame on ", url, scriptBlocked, tabId, frameId);
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
@@ -608,7 +548,7 @@ var RequestGuard = (() => {
 
 
       wr.onBeforeRequest.addListener(onViolationReport,
-        {urls: [REPORT_URI], types: ["csp_report"]}, ["blocking", "requestBody"]);
+        {urls: [csp.reportURI], types: ["csp_report"]}, ["blocking", "requestBody"]);
 
       TabStatus.probe();
     },
