@@ -186,6 +186,7 @@
           await include("/bg/Settings.js");
           Messages.addHandler(messageHandler);
 
+          await Messages.send("started");
           log("STARTED");
 
           this.devMode = (await browser.management.getSelf()).installType === "development";
