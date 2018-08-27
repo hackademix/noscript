@@ -8,7 +8,7 @@
       "strict_min_version": "59.0"
     }
   },
-  "version": "10.1.9rc1",
+  "version": "10.1.9rc3",
   "description": "__MSG_Description__",
 
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
@@ -54,6 +54,9 @@
       "bg/ReportingCSP.js",
       "bg/deferWebTraffic.js",
       "bg/ChildPolicies.js",
+      "bg/Defaults.js",
+      "bg/RequestGuard.js",
+      "bg/Settings.js",
       "bg/main.js"
     ]
   },

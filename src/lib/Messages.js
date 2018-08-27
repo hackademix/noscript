@@ -1,17 +1,23 @@
 "use strict";
 {
   let handlers = new Set();
-  
-  let forever = new Promise(resolve => {});
+
   let dispatch = async (msg, sender) => {
     let {_messageName} = msg;
+    let answers = [];
     for (let h of handlers) {
       let f = h[_messageName];
       if (typeof f === "function") {
-        return await f(msg, sender);
+        answers.push(f(msg, sender));
       }
     }
-    await forever;
+    if (answers.length) {
+      return await (
+        answers.length === 1 ? answers.pop(): Promise.all(answers)  
+      );
+    }
+    console.log("Answering %s", _messageName);
+    return undefined;
   };
   
   var Messages = {

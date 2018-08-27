@@ -23,8 +23,7 @@
   }
 
   async function init() {
-    await include("/bg/defaults.js");
-    await ns.defaults;
+    await Defaults.init();
     
     let policyData = (await Storage.get("sync", "policy")).policy;
     if (policyData && policyData.DEFAULT) {
@@ -35,16 +34,22 @@
       ns.policy = await Legacy.createOrMigratePolicy();
       ns.savePolicy();
     }
-    
-    
-    
-    await include("/bg/RequestGuard.js");
+
     await RequestGuard.start();
     await XSS.start(); // we must start it anyway to initialize sub-objects
     if (!ns.sync.xss) {
       XSS.stop();
     }
-    Commands.install();
+
+    Messages.addHandler(messageHandler);
+
+    try {
+      await Messages.send("started");
+    } catch (e) {
+      // no embedder to answer us
+    }
+    log("STARTED");
+
   };
 
   let Commands = {
@@ -65,8 +70,6 @@
 
     togglePermissions() {},
     install() {
-
-
       if ("command" in browser) {
         // keyboard shortcuts
         browser.commands.onCommand.addListener(cmd => {
@@ -182,13 +185,8 @@
 
       deferWebTraffic(init(), 
         async () => {
-
-          await include("/bg/Settings.js");
-          Messages.addHandler(messageHandler);
-
-          await Messages.send("started");
-          log("STARTED");
-
+          Commands.install();
+            
           this.devMode = (await browser.management.getSelf()).installType === "development";
           if (this.local.debug) {
             if (this.devMode) {
