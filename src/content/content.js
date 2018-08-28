@@ -84,6 +84,16 @@ ns.on("capabilities", () => {
     });
   
   if (!ns.canScript) {
+
+    if (!!navigator.serviceWorker.controller) {
+      addEventListener("beforescriptexecute", e => e.preventDefault());
+        (async () => {
+          for (let r of await navigator.serviceWorker.getRegistrations()) {
+            await r.unregister();
+          }
+        })();
+    }
+
     if (document.readyState !== "loading") onScriptDisabled();
     window.addEventListener("DOMContentLoaded", onScriptDisabled);
   }
