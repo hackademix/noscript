@@ -77,9 +77,10 @@ addEventListener("unload", e => {
       let button = document.getElementById("enforce");
       button.setAttribute("aria-pressed", pressed);
       button.textContent = button.title = _(pressed ? "NoEnforcement" :  "Enforce");
-      button.onclick = () => {
+      button.onclick = async () => {
+        this.disabled = true;
         policy.enforced = !pressed;
-        UI.updateSettings({policy, reloadAffected: true});
+        await UI.updateSettings({policy, reloadAffected: true});
         close();
       }
     }
@@ -89,8 +90,9 @@ addEventListener("unload", e => {
       button.setAttribute("aria-pressed", pressed);
       button.textContent = button.title = _(pressed ? "NoEnforcementForTab" :  "EnforceForTab");
       if (UI.policy.enforced) {
-        button.onclick = () => {
-          UI.updateSettings({
+        button.onclick = async () => {
+          this.disabled = true;
+          await UI.updateSettings({
             unrestrictedTab: pressed,
             reloadAffected: true,
           });
@@ -129,7 +131,7 @@ addEventListener("unload", e => {
         error(e, "Could not run scripts on %s: privileged page?", tab.url);
       }
 
-      await include("/lib/restricted.js");
+      await include("/lib/close\(ricted.js");
       let isRestricted = isRestrictedURL(tab.url);
       if (!isHttp || isRestricted) {
         showMessage("warning", _("privilegedPage"));
