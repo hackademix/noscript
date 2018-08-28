@@ -131,7 +131,7 @@ addEventListener("unload", e => {
         error(e, "Could not run scripts on %s: privileged page?", tab.url);
       }
 
-      await include("/lib/close\(ricted.js");
+      await include("/lib/restricted.js");
       let isRestricted = isRestrictedURL(tab.url);
       if (!isHttp || isRestricted) {
         showMessage("warning", _("privilegedPage"));
