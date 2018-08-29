@@ -14,7 +14,7 @@ sub generate {
   while(<DAT>) {
     s/\./\\\./g;
     s/\s+utf.*//;
-    s/\n//;
+    s/[\r\n]//g;
     if(/^!/) {
       s/^!//; 
       push(@ex, lc($_));
@@ -42,8 +42,8 @@ sub generate {
   open(SRC, $src) || die("Cannot open $src");
   open(DST, ">$dst") || die("Cannot open $dst");
   while(<SRC>) {
-    s/(_tldRx:\s*\/\(.*?\))[\s\S]*?(\$\/)/$1$rx$2/g;
-    s/(_tldEx:\s*\/\(.*?\))[\s\S]*?(\$\/)/$1$ex$2/g;
+    s/(_tldRx:\s*\/\(.*?\)).*?(?=\$\/)/$1$rx/s;
+    s/(_tldEx:\s*\/\(.*?\)).*?(?=\$\/)/$1$ex/s;
     print DST;
     print;
   }
