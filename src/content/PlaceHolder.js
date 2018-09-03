@@ -107,6 +107,11 @@ var PlaceHolder = (() => {
       replacement.className = "__NoScript_PlaceHolder__";
       cloneStyle(element, replacement);
       replacement.style.backgroundImage = `url(${ICON_URL})`;
+
+      if (ns.embeddingDocument) {
+        replacement.classList.add("document");
+      }
+
       replacement.href = url;
       replacement.title = `${TYPE}@${url}`;
 
