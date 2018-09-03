@@ -177,15 +177,13 @@ addEventListener("unload", e => {
       let domains = new Map();
 
       function urlToLabel(url) {
-        let {
-          origin
-        } = url;
+        let origin = Sites.origin(url);
         let match = policySites.match(url);
         if (match) return match;
         if (domains.has(origin)) {
           if (justDomains) return domains.get(origin);
         } else {
-          let domain = tld.getDomain(url.hostname);
+          let domain = tld.getDomain(url.hostname) || origin;
           domain = url.protocol === "https:" ? Sites.secureDomainKey(domain) : domain;
           domains.set(origin, domain);
           if (justDomains) return domain;
@@ -196,7 +194,8 @@ addEventListener("unload", e => {
       let parsedSeen = seen.map(thing => Object.assign({
           type: thing.policyType
         }, Sites.parse(thing.request.url)))
-        .filter(parsed => parsed.url && parsed.url.origin !== "null");
+        .filter(parsed => parsed.url && (
+            parsed.url.origin !== "null" || parsed.url.protocol === "file:"));
 
       let sitesSet = new Set(
         parsedSeen.map(parsed => parsed.label = urlToLabel(parsed.url))
@@ -206,7 +205,7 @@ addEventListener("unload", e => {
       }
       let sites = [...sitesSet];
       for (let parsed of parsedSeen) {
-        sites.filter(s => parsed.label === s || domains.get(parsed.url.origin) === s).forEach(m => {
+        sites.filter(s => parsed.label === s || domains.get(Sites.origin(parsed.url)) === s).forEach(m => {
           let siteTypes = typesMap.get(m);
           if (!siteTypes) typesMap.set(m, siteTypes = new Set());
           siteTypes.add(parsed.type);

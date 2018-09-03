@@ -5,9 +5,10 @@ var {Permissions, Policy, Sites} = (() => {
   const SECURE_DOMAIN_RX = new RegExp(`^${SECURE_DOMAIN_PREFIX}`);
   const DOMAIN_RX = new RegExp(`(?:^\\w+://|${SECURE_DOMAIN_PREFIX})?([^/]*)`, "i");
   const SKIP_RX = /^(?:(?:about|chrome|resource|moz-.*):|\[System)/;
-  
+  const VALID_SITE_RX = /^(?:(?:(?:(?:http|ftp|ws)s?|file):)(?:(?:\/\/)[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000](?:$|\/))?|[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000]$)/;
+
   let rxQuote = s => s.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
-  
+
   class Sites extends Map {
     static secureDomainKey(domain) {
       return domain.includes(":") ? domain : `${SECURE_DOMAIN_PREFIX}${domain}`;
@@ -20,14 +21,14 @@ var {Permissions, Policy, Sites} = (() => {
     }
 
     static isValid(site) {
-      return /^(?:https?:(?:\/\/)?)?([\w\u0100-\uf000][\w\u0100-\uf000.-]*)?[\w\u0100-\uf000](?::\d+)?$/.test(site);
+      return VALID_SITE_RX.test(site);
     }
-    
-    
+
+
     static originImplies(originKey, site) {
       return originKey === site || site.startsWith(`${originKey}/`);
     }
-    
+
     static domainImplies(domainKey, site, protocol ="https?") {
       if (Sites.isSecureDomainKey(domainKey)) {
         protocol = "https";
@@ -42,13 +43,13 @@ var {Permissions, Policy, Sites} = (() => {
         return false;
       }
     }
-    
+
     static isImplied(site, byKey) {
-      return byKey.includes("://") 
+      return byKey.includes("://")
         ? Sites.originImplies(byKey, site)
         : Sites.domainImplies(byKey, site);
     }
-    
+
     static parse(site) {
       let url, siteKey = "";
       if (site instanceof URL) {
@@ -63,7 +64,11 @@ var {Permissions, Policy, Sites} = (() => {
       if (url) {
         let path = url.pathname;
         siteKey = url.origin;
-        if (path !== '/') siteKey += path;
+        if (siteKey === "null") {
+          siteKey = site;
+        } else if (path !== '/') {
+          siteKey += path;
+        }
       }
       return {url, siteKey};
     }
@@ -71,14 +76,16 @@ var {Permissions, Policy, Sites} = (() => {
     static optimalKey(site) {
       let {url, siteKey} = Sites.parse(site);
       if (url && url.protocol === "https:") return Sites.secureDomainKey(tld.getDomain(url.hostname));
-      return url && url.origin || siteKey;
+      return Sites.origin(url) || siteKey;
     }
 
     static origin(site) {
       try {
-        return new URL(site).origin;
+        let objUrl = site.href ? site : new URL(site);
+        let origin = objUrl.origin;
+        return origin === "null" ? objUrl.href : origin;
       } catch (e) {};
-      return site;
+      return site.origin || site;
     }
 
     static toExternal(url) { // domains are stored in punycode internally
@@ -101,6 +108,7 @@ var {Permissions, Policy, Sites} = (() => {
 
     match(site) {
       if (site && this.size) {
+        if (site instanceof URL) site = site.href;
         if (this.has(site)) return site;
 
         let {url, siteKey} = Sites.parse(site);

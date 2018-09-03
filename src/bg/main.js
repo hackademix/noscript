@@ -141,8 +141,9 @@
       return await Settings.import(data);
     },
     
-    async fetchChildPolicy({url, contextUrl}) {
-      return ChildPolicies.getForDocument(ns.policy, url, contextUrl);
+    async fetchChildPolicy({url, contextUrl}, sender) {
+      return ChildPolicies.getForDocument(ns.policy, 
+        url || sender.url, contextUrl || sender.tab.url);
     },
     
     async openStandalonePopup() {

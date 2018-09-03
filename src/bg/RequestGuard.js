@@ -177,14 +177,12 @@ var RequestGuard = (() => {
       let {siteKey} = Sites.parse(url);
       let options;
       if (siteKey === origin) {
-        TAG += `@${siteKey}`;
-      } else {
-        options = [
-          {label: _("allowLocal", siteKey), checked: true},
-          {label: _("allowLocal", origin)}
-        ];
+        origin = new URL(url).protocol;
       }
-      // let parsedDoc = Sites.parse(documentUrl);
+      options = [
+        {label: _("allowLocal", siteKey), checked: true},
+        {label: _("allowLocal", origin)}
+      ];
       let t = u => `${TAG}@${u}`;
       let ret = await Prompts.prompt({
         title: _("BlockedObjects"),

@@ -1,4 +1,20 @@
 function onScriptDisabled() {
+  if (document.URL.startsWith("file:")) {
+    // file: documents are loaded synchronously and may not be affected by
+    // CSP. We already intercept onbeforeexecutescript event, let's cope with
+    // event and URL attributes.
+    for (let e of document.all) {
+      for (let a of e.attributes) {
+        if (/^on\w+/i.test(a.name)) {
+          debug(`Removed %s.%sevent`, e.tagName, a.name);
+          a.value = "";
+        } else if (/^\s*(?:data|javascript):/i.test(unescape(a.value))) {
+          debug(`Neutralized %s.%s="%s" attribute`, e.tagName, a.name, a.value);
+          a.value = "data:";
+        }
+      }
+    }
+  }
   for (let noscript of document.querySelectorAll("noscript")) {
     // force show NOSCRIPT elements content
     let replacement = createHTMLElement("span");

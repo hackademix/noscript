@@ -2,7 +2,7 @@
 {
   let marker = JSON.stringify(uuid());
   let allUrls = ["<all_urls>"];
-  
+
   let Scripts = {
     references: new Set(),
     opts: {
@@ -17,7 +17,7 @@
       opts.matches = allUrls;
       delete opts.excludedMatches;
       this._stubScript = await browser.contentScripts.register(opts);
-      
+
       this.init = this.forget;
     },
     forget() {
@@ -29,7 +29,7 @@
     debug: false,
     trace(code) {
       return this.debug
-        ? `console.debug("Executing child policy", ${JSON.stringify(code)});${code}`
+        ? `console.debug("Executing child policy on %s", document.URL, ${JSON.stringify(code)});${code}`
         : code
         ;
     },
@@ -38,7 +38,7 @@
       if (!matches.length) return;
       try {
         let opts = Object.assign({}, this.opts);
-        opts.js[0].code = this.trace(code); 
+        opts.js[0].code = this.trace(code);
         opts.matches = matches;
         if (excludeMatches && excludeMatches.length) {
           opts.excludeMatches = excludeMatches;
@@ -48,38 +48,51 @@
         error(e);
       }
     },
-    
+
     buildPerms(perms, finalizeSetup = false) {
       if (typeof perms !== "string") {
         perms = JSON.stringify(perms);
       }
       return finalizeSetup
-        ? `ns.setup(${perms}, ${marker});` 
+        ? `ns.setup(${perms}, ${marker});`
         : `ns.config.CURRENT = ${perms};`
         ;
     }
   };
-  
+
   let flatten = arr => arr.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
-  
-  let protocolRx = /^(https?):/i;
-  let pathRx = /[^:/]\//;
+
+  let protocolRx = /^(\w+):/i;
+  let pathRx = /(?:[^:/]\/|:\/{3})$/;
   let portRx = /:\d+(?=\/|$)/;
-  let validMatchPatternRx = /^(?:https?|\*):\/\/(?:\*\.)?(?:[\w\u0100-\uf000][\w\u0100-\uf000.-]*)?[\w\u0100-\uf000]\/(\*|[^*]*)$/;
-  
+  let validMatchPatternRx = /^(?:\*|(?:http|ws|ftp)s?|file):\/\/(?:\*\.)?(?:[\w\u0100-\uf000][\w\u0100-\uf000.-]*)?\/(\*|[^*]*)$/;
+
   let siteKey2MatchPattern = site => {
     let hasProtocol = site.match(protocolRx);
-    let protocol = hasProtocol ? ''
-      : Sites.isSecureDomainKey(site) ? "https://" : "*://";
-    let hostname = Sites.toggleSecureDomainKey(site, false)
-      .replace(portRx, '');
-    if (!hasProtocol) hostname = `*.${hostname}`;
-    let path = pathRx.test(hostname) ? "" : "/*";
-    let mp = `${protocol}${hostname}${path}`;
-    return  validMatchPatternRx.test(mp) && (path ? mp : [mp, `${mp}?*`, `${mp}#*`]);
+    let mp = site;
+    if (hasProtocol) {
+      try {
+        let url = new URL(site);
+        url.port = "";
+        url.search = "";
+        url.hash = "";
+        mp = url.href;
+      } catch (e) {
+        return false;
+      }
+    } else {
+      let protocol = Sites.isSecureDomainKey(site) ? "https://" : "*://";
+      let hostname = Sites.toggleSecureDomainKey(site, false)
+          .replace(portRx, '');
+      mp = `${protocol}*.${hostname}`;
+      if (!hostname.includes("/")) mp += "/";
+    }
+
+    return validMatchPatternRx.test(mp) && (
+      mp.endsWith("/") ? `${mp}*` : [mp, `${mp}?*`, `${mp}#*`]);
   };
-  
-  let siteKeys2MatchPatterns = keys => keys && flatten(keys.map(siteKey2MatchPattern)).filter(p => !!p) || [];  
+
+  let siteKeys2MatchPatterns = keys => keys && flatten(keys.map(siteKey2MatchPattern)).filter(p => !!p) || [];
 
   var ChildPolicies = {
     async storeTabInfo(tabId, info) {
@@ -90,21 +103,21 @@
           allFrames: false,
           matchAboutBlank: true,
           runAt: "document_start",
-        });    
+        });
       } catch (e) {
         error(e);
       }
     },
     async update(policy, debug) {
       if (debug !== "undefined") Scripts.debug = debug;
-      
+
       await Scripts.init();
-      
+
       if (!policy.enforced) {
         await Scripts.register(`ns.setup(null, ${marker});`, allUrls);
         return;
       }
-      
+
       let serialized = policy.dry ? policy.dry(true) : policy;
       let permsMap = new Map();
       let trusted = JSON.stringify(serialized.TRUSTED);
@@ -120,7 +133,7 @@
         if (!(newKeys && newKeys.length)) continue;
         let keys = permsMap.get(perms);
         if (keys) {
-          newKeys = keys.concat(newKeys); 
+          newKeys = keys.concat(newKeys);
         }
         permsMap.set(perms, newKeys);
       }
@@ -134,11 +147,11 @@
           permsMap.set(permsKey, [key]);
         }
       }
-      
+
       // compute exclusions
       let permsMapEntries = [...permsMap];
       let excludeMap = new Map();
-      
+
       for (let [perms, keys] of permsMapEntries) {
         excludeMap.set(perms, siteKeys2MatchPatterns(flatten(
           permsMapEntries.filter(([other]) => other !== perms)
@@ -146,14 +159,14 @@
               .filter(k => k && k.includes("/") && keys.some(by => Sites.isImplied(k, by)))
           ));
       }
-      
+
       // register new content scripts
       for (let [perms, keys] of [...permsMap]) {
         await Scripts.register(Scripts.buildPerms(perms), siteKeys2MatchPatterns(keys), excludeMap.get(perms));
       }
       await Scripts.register(Scripts.buildPerms(serialized.DEFAULT, true), allUrls);
     },
-    
+
     getForDocument(policy, url, context = null) {
       return {
         CURRENT: policy.get(url, context).perms.dry(),
@@ -161,7 +174,7 @@
         MARKER: marker
       };
     },
-    
+
     async updateFrame(tabId, frameId, perms, defaultPreset) {
       let code = Scripts.buildPerms(perms) + Scripts.buildPerms(defaultPreset, true);
       await browser.tabs.executeScript(tabId, {
@@ -169,7 +182,7 @@
         frameId,
         matchAboutBlank: true,
         runAt: "document_start"
-      });   
+      });
     }
   };
 }

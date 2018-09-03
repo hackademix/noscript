@@ -1,6 +1,5 @@
 'use strict';
 // debug = () => {}; // REL_ONLY
-
 var _ = browser.i18n.getMessage;
 
 function createHTMLElement(name) {
@@ -50,7 +49,7 @@ var notifyPage = async () => {
   if (document.readyState === "complete") {
     try {
       if (!("canScript" in ns)) {
-        let childPolicy = await Messages.send("fetchChildPolicy", {url: document.URL, contextUrl: top.location.href});
+        let childPolicy = await Messages.send("fetchChildPolicy", {url: document.URL});
         ns.config.CURRENT = childPolicy.CURRENT;
         ns.setup(childPolicy.DEFAULT, childPolicy.MARKER);
         return;
@@ -82,11 +81,22 @@ ns.on("capabilities", () => {
       },
       allowed: ns.canScript
     });
-  
-  if (!ns.canScript) {
 
+  if (!ns.canScript) {
+    addEventListener("beforescriptexecute", e => e.preventDefault());
+    let mo = new MutationObserver(mutations => {
+      for (let m of mutations) {
+        console.log(`Mutation `, m);
+        if (m.type !== "attribute") continue;
+        if (/^on\w+/i.test(m.attributeName)) {
+          m.target.removeAttribute(m.attributeName);
+        } else if (/^\s*(javascript|data):/i.test(m.target.attributes[m.attributeName])) {
+          m.target.setAttribute(m.attributeName, "#");
+        }
+      }
+    });
+    // mo.observe(document.documentElement, {attributes: true, subtree: true});
     if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-      addEventListener("beforescriptexecute", e => e.preventDefault());
       (async () => {
         for (let r of await navigator.serviceWorker.getRegistrations()) {
           await r.unregister();
@@ -97,6 +107,6 @@ ns.on("capabilities", () => {
     if (document.readyState !== "loading") onScriptDisabled();
     window.addEventListener("DOMContentLoaded", onScriptDisabled);
   }
-  
+
   notifyPage();
 });

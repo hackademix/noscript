@@ -1,6 +1,6 @@
 var PlaceHolder = (() => {
   const HANDLERS = new Map();
-  
+
   let checkStyle = async () => {
     checkStyle = () => {};
     if (!ns.embeddingDocument) return;
@@ -11,7 +11,7 @@ var PlaceHolder = (() => {
         (await fetch(browser.extension.getURL("/content/content.css"))).text();
     }
   }
-  
+
   class Handler {
     constructor(type, selector) {
       this.type = type;
@@ -20,9 +20,15 @@ var PlaceHolder = (() => {
       HANDLERS.set(type, this);
     }
     filter(element, request) {
-      if (request.embeddingDocument) return true;
+      if (request.embeddingDocument) {
+        return document.URL === request.url;
+      }
       let url = request.initialUrl || request.url;
       return "data" in element ? element.data === url : element.src === url;
+    }
+    selectFor(request) {
+      return [...document.querySelectorAll(this.selector)]
+        .filter(element => this.filter(element, request))
     }
   }
 
@@ -59,6 +65,9 @@ var PlaceHolder = (() => {
     static canReplace(policyType) {
       return HANDLERS.has(policyType);
     }
+    static handlerFor(policyType) {
+      return HANDLERS.get(policyType);
+    }
 
     static listen() {
       PlaceHolder.listen = () => {};
@@ -83,7 +92,7 @@ var PlaceHolder = (() => {
       this.policyType = policyType;
       this.request = request;
       this.replacements = new Set();
-      this.handler = HANDLERS.get(policyType);
+      this.handler = PlaceHolder.handlerFor(policyType);
       if (this.handler) {
         [...document.querySelectorAll(this.handler.selector)]
         .filter(element => this.handler.filter(element, request))
@@ -100,7 +109,11 @@ var PlaceHolder = (() => {
       let {
         url
       } = this.request;
-      this.origin = new URL(url).origin;
+      let objUrl = new URL(url)
+      this.origin = objUrl.origin;
+      if (this.origin === "null") {
+        this.origin = objUrl.protocol;
+      }
       let TYPE = `<${this.policyType.toUpperCase()}>`;
 
       let replacement = createHTMLElement("a");
@@ -129,7 +142,7 @@ var PlaceHolder = (() => {
 
       replacement._placeHolderObj = this;
       replacement._placeHolderElement = element;
-      
+
 
       element.parentNode.replaceChild(replacement, element);
       this.replacements.add(replacement);
