@@ -5,25 +5,33 @@ class DocumentCSP {
     this.document = document;
     this.builder = new CapsCSP();
   }
-  
+
   apply(capabilities, embedding = CSP.isEmbedType(this.document.contentType)) {
     let csp = this.builder;
     let blocker = csp.buildFromCapabilities(capabilities, embedding);
     if (!blocker) return;
-    
+
     let document = this.document;
+    let createHTMLElement =
+      tagName => document.createElementNS("http://www.w3.org/1999/xhtml", tagName);
+
     let header = csp.asHeader(blocker);
-    let meta = document.createElementNS("http://www.w3.org/1999/xhtml", "meta");
+    let meta = createHTMLElement("meta");
     meta.setAttribute("http-equiv", header.name);
     meta.setAttribute("content", header.value);
-    let parent = document.head || document.documentElement;
+    let parent = document.head ||
+      document.documentElement.appendChild(createHTMLElement("head"));
+
     try {
       parent.insertBefore(meta, parent.firstChild);
       debug(`Failsafe <meta> CSP inserted in the DOM: "%s"`, header.value);
-      if (capabilities.has("script")) meta.remove();
+      if (capabilities.has("script")) {
+        meta.remove();
+        if (!parent.firstChild) parent.remove();
+      }
     } catch (e) {
       error(e, "Error inserting CSP %s in the DOM", header && header.value);
     }
   }
-  
+
 }

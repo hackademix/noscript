@@ -83,19 +83,7 @@ ns.on("capabilities", () => {
     });
 
   if (!ns.canScript) {
-    addEventListener("beforescriptexecute", e => e.preventDefault());
-    let mo = new MutationObserver(mutations => {
-      for (let m of mutations) {
-        console.log(`Mutation `, m);
-        if (m.type !== "attribute") continue;
-        if (/^on\w+/i.test(m.attributeName)) {
-          m.target.removeAttribute(m.attributeName);
-        } else if (/^\s*(javascript|data):/i.test(m.target.attributes[m.attributeName])) {
-          m.target.setAttribute(m.attributeName, "#");
-        }
-      }
-    });
-    // mo.observe(document.documentElement, {attributes: true, subtree: true});
+
     if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
       (async () => {
         for (let r of await navigator.serviceWorker.getRegistrations()) {
