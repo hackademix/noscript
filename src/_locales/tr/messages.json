@@ -235,6 +235,10 @@
         "message": "Bu sekme için kısıtlamaları etkinleştir",
         "description": ""
     },
+    "HighContrast": {
+        "message": "Yüksek karşıtlıklı görünüm",
+        "description": ""
+    },
     "httpsOnly": {
         "message": "Yalnız HTTPS içeriğine uyan",
         "description": ""

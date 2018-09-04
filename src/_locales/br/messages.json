@@ -68,7 +68,7 @@
         "description": ""
     },
     "AutoReload": {
-        "message": "Emfreskaat ar pajennoù sevet pa cheñch an aotreadurioù",
+        "message": "Em-freskaat ar pajennoù merket pa cheñch an aotreadurioù",
         "description": ""
     },
     "AutoReload_currentTab": {
@@ -88,7 +88,7 @@
         "description": ""
     },
     "BookmarkSync": {
-        "message": "Enrolladur ar c'heflunian NoScript e-barzh ur sined evit aesaat ar sinkroneladur",
+        "message": "Enrolladur ar c'hefluniañ NoScript e-barzh ur sined evit aesaat ar sinkroneladur",
         "description": ""
     },
     "Cancel": {
@@ -140,7 +140,7 @@
         "description": ""
     },
     "ContentBlocker": {
-        "message": "Arloañ ivez ar strishadurioù-mañ d'al lec'hiennoù a zo war ar gwennlistenn",
+        "message": "Arloañ ivez ar strishadurioù-mañ d'al lec'hiennoù a zo war ar wennlistenn",
         "description": ""
     },
     "CtxMenu": {
@@ -200,7 +200,7 @@
         "description": ""
     },
     "Reveal": {
-        "message": "Klikit amañ evit adpakañ ar boutonioù a vank...",
+        "message": "Klikit amañ evit adpakañ ar boutonoù a vank...",
         "description": ""
     },
     "ShowFullAddresses": {
@@ -233,6 +233,10 @@
     },
     "EnforceForTab": {
         "message": "Enaouiñ ar strishadurioù evit an ivinell-mañ",
+        "description": ""
+    },
+    "HighContrast": {
+        "message": "Neuz dargemm uhel",
         "description": ""
     },
     "httpsOnly": {
@@ -320,7 +324,7 @@
         "description": ""
     },
     "NotifyMeta": {
-        "message": "Diskouez ur gemennadenn war an adhenchadurioù META stanket",
+        "message": "Diskouez ur gemennadenn war an adheñchadurioù META stanket",
         "description": ""
     },
     "NotifyMeta_accesskey": {
@@ -344,11 +348,11 @@
         "description": ""
     },
     "OptFilterXGet": {
-        "message": "Diziñfektiñ ar rekestoù susped dreuz-lec'hiennoù",
+        "message": "Yac'haat ar rekedoù susped dreuz-lec'hiennoù",
         "description": ""
     },
     "OptFilterXPost": {
-        "message": "Treuzfurmiñ ar rekestoù POST dreuz-lec'hiennoù e-barzh rekestoù GET diroadenn",
+        "message": "Treuzfurmiñ ar rekedoù POST dreuz-lec'hiennoù e-barzh rekedoù GET diroadenn",
         "description": ""
     },
     "Options": {
@@ -444,7 +448,7 @@
         "description": ""
     },
     "RestrictSubdocScripting": {
-        "message": "Stankiñ ar skriptoù e-barzh is-teulioù ar gwennlistenn ar pajenn hep gwennlistenn",
+        "message": "Stankiñ ar skriptoù e-barzh is-teulioù ar wennlistenn ar pajenn hep gwennlistenn",
         "description": ""
     },
     "RevokeTemp": {
@@ -456,7 +460,7 @@
         "description": ""
     },
     "SecureCookies": {
-        "message": "Enaouiñ an emverañ an toupinoù suraet",
+        "message": "Enaouiñ emveradur an toupinoù suraet",
         "description": ""
     },
     "SecureCookiesExceptions": {
@@ -512,7 +516,7 @@
         "description": ""
     },
     "TempTrustPage": {
-        "message": "Lakaat hollad ar bajenn da FIZIUS evit ur mare",
+        "message": "Lakaat hollad ar bajenn war FIZIUS evit ur mare",
         "description": ""
     },
     "TempTrustPage_accesskey": {
@@ -536,7 +540,7 @@
         "description": ""
     },
     "Trusted": {
-        "message": "A c'haller kaout fiziañs enno",
+        "message": "Fiziet",
         "description": ""
     },
     "Trusted_temporary": {
@@ -544,15 +548,15 @@
         "description": ""
     },
     "Trusted_permanent": {
-        "message": "FIZIUS",
+        "message": "FIZIET",
         "description": ""
     },
     "TrustedPagesAdj": {
-        "message": "fizius",
+        "message": "fiziet",
         "description": ""
     },
     "Uninstall": {
-        "message": "Distialiañ",
+        "message": "Distaliañ",
         "description": ""
     },
     "Unknown": {
@@ -576,11 +580,11 @@
         "description": ""
     },
     "Untrusted": {
-        "message": "Disfizius",
+        "message": "Disfiziet",
         "description": ""
     },
     "UntrustedPagesAdj": {
-        "message": "disfizius",
+        "message": "disfiziet",
         "description": ""
     },
     "WebAddress": {
@@ -592,7 +596,7 @@
         "description": ""
     },
     "Whitelist": {
-        "message": "Listenn-wenn",
+        "message": "Gwennlistenn",
         "description": ""
     },
     "XSS_notify": {
@@ -612,23 +616,23 @@
         "description": ""
     },
     "XSS_optBlock": {
-        "message": "Stankañ ar rekest-mañ",
+        "message": "Stankañ ar reked-mañ",
         "description": ""
     },
     "XSS_optSanitize": {
-        "message": "Yac'haat ar rekest-mañ",
+        "message": "Yac'haat ar reked-mañ",
         "description": ""
     },
     "XSS_optAllow": {
-        "message": "Aotren ar rekest-mañ",
+        "message": "Aotren ar reked-mañ",
         "description": ""
     },
     "XSS_optAlwaysAllow": {
-        "message": "Aotren dalc'hmat ar rekestoù goulenn eus $1 da $2",
+        "message": "Aotren dalc'hmat ar rekedoù goulenn eus $1 da $2",
         "description": ""
     },
     "XSS_optAlwaysBlock": {
-        "message": "Aotren rekest bloc'had an teulioù gant $1 da $2",
+        "message": "Aotren reked bloc'had an teulioù gant $1 da $2",
         "description": ""
     },
     "Xss": {
@@ -648,7 +652,7 @@
         "description": ""
     },
     "XssFaq": {
-        "message": "XSS FAG…",
+        "message": "FAG XSS…",
         "description": ""
     },
     "XssFaq_accesskey": {
@@ -664,7 +668,7 @@
         "description": ""
     },
     "allowGlobal": {
-        "message": "Lazhañ an holl wiriadennoù aotradurioù (dañjerus)",
+        "message": "Lazhañ an holl wiriadurioù aotradurioù (dañjerus)",
         "description": ""
     },
     "allowLocal": {
@@ -700,7 +704,7 @@
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "NoScript a zo bet kavet gantañ ur sined kefluniañ hag a zo enrollet war a-seblant war \n$1.\nHa fellout a ra deoc'h da vat dreist-skrivañ ho keflunadurioù lec'hel eus NoScript gant endalc'had ar sined?",
+        "message": "NoScript a zo bet kavet gantañ ur sined kefluniañ hag a zo enrollet war a-seblant war \n$1.\nHa fellout a ra deoc'h dreist-skrivañ ho keflunadurioù lec'hel da vat eus NoScript gant endalc'had ar sined?",
         "description": ""
     },
     "bookmarkSync_message": {
@@ -764,7 +768,7 @@
         "description": ""
     },
     "distrust": {
-        "message": "Merkañ $1 evel disfizius",
+        "message": "Merkañ $1 evel disfiziet",
         "description": ""
     },
     "extensionContributors": {
@@ -800,7 +804,7 @@
         "description": ""
     },
     "privilegedPage": {
-        "message": "Ur bajenn brienten a zo anezhi, n'hall ket bezañ kefluniet an aotreadurioù.",
+        "message": "Ur bajenn gant dreistgwirioù, n'hall ket bezañ kefluniet an aotreadurioù.",
         "description": ""
     },
     "incompatibleOptions": {
@@ -836,7 +840,7 @@
         "description": ""
     },
     "removal_message": {
-        "message": "Dre ziweredekaat pe distaliañ NoScript, reiñ a reoc'h un termen d'an HOLL gwarezioù pourvezet gant NoScript.\n\nMa 'z oc'h just skuizh gant ar fed da verañ an aotreoù eus an eil lec'hienn war-lerc'h ebenn, bez ez eus ur choaz suroc'h.\n\nNoScript a c'hall paouez da stankañ ar skriptoù, war-bouez ar re ho peus merket evel disfizius, en ur genderc'hel da wareziñ ac'hanoc'h gant an enep-muzulioù araokaetañ a-enep XSS, Clickjacking, CSRF ha gourdrouzioù all ar web.\n\nDaoust hag-eñ e fell deoc'h da vat da zilemel HOLLAD gwarezioù NoScript?\n",
+        "message": "Dre ziweredekaat pe distaliañ NoScript, reiñ a reoc'h un termen d'an HOLL warezioù pourvezet gant NoScript.\n\nMa 'z oc'h just skuizh gant ar fet da verañ an aotreoù eus an eil lec'hienn war-lerc'h e-benn, bez ez eus ur choaz suroc'h.\n\nNoScript a c'hall paouez da stankañ ar skriptoù, war-bouez ar re ho peus merket evel disfizius, en ur genderc'hel da wareziñ ac'hanoc'h gant an enep-muzulioù araokaetañ a-enep XSS, Clickjacking, CSRF ha gourdrouzioù all ar web.\n\nDaoust hag-eñ e fell deoc'h dilemel HOLLAD da vat gwarezioù NoScript?\n",
         "description": ""
     },
     "removal_no": {
@@ -844,7 +848,7 @@
         "description": ""
     },
     "removal_title": {
-        "message": "Kemenn Diglasadur Surentez",
+        "message": "Kemenn diglasadur surentez",
         "description": ""
     },
     "removal_yes": {
