@@ -71,19 +71,12 @@
     let hasProtocol = site.match(protocolRx);
     let mp = site;
     if (hasProtocol) {
-      try {
-        let url = new URL(site);
-        url.port = "";
-        url.search = "";
-        url.hash = "";
-        mp = url.href;
-      } catch (e) {
-        return false;
-      }
+      mp = Sites.cleanUrl(mp);
+      if (!mp) return false;
     } else {
       let protocol = Sites.isSecureDomainKey(site) ? "https://" : "*://";
-      let hostname = Sites.toggleSecureDomainKey(site, false)
-          .replace(portRx, '');
+      let hostname = Sites.toggleSecureDomainKey(site, false).replace(portRx, '');
+      if (!tld.preserveFQDNs) hostname = tld.normalize(hostname);
       mp = `${protocol}*.${hostname}`;
       if (!hostname.includes("/")) mp += "/";
     }
@@ -92,7 +85,16 @@
       mp.endsWith("/") ? `${mp}*` : [mp, `${mp}?*`, `${mp}#*`]);
   };
 
-  let siteKeys2MatchPatterns = keys => keys && flatten(keys.map(siteKey2MatchPattern)).filter(p => !!p) || [];
+  let withFQDNs = patterns => {
+    return tld.preserveFQDNs ? patterns : patterns.concat(
+      patterns.map(p => p.replace(/^(?:\w+|\*):\/\/[^/]*[^./]/, '$&.'))
+    );
+  }
+
+  let siteKeys2MatchPatterns = keys =>
+    keys && withFQDNs(flatten(keys.map(siteKey2MatchPattern))
+      .filter(p => !!p))
+      || [];
 
   var ChildPolicies = {
     async storeTabInfo(tabId, info) {

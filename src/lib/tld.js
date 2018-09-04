@@ -1,12 +1,18 @@
 var tld = {
-  normalize(d) { return d; },
+  preserveFQDNs: false,
+
+  // remove trailing dots from FQDNs
+  normalize(d) { return d.endsWith(".") ? d.slice(0, -1) : d },
 
   isIp(d) { return this._ipRx.test(d); },
 
-  getDomain(domain) {
-    if (domain === "localhost" || this.isIp(domain)) return domain;
+  getDomain(aDomain) {
+    if (aDomain === "localhost" || this.isIp(aDomain)) return aDomain;
 
-    domain = this.normalize(domain);
+    domain = this.normalize(aDomain);
+
+    let resultDomain = this.preserveFQDNs ? aDomain : domain;
+
     var pos = domain.search(this._tldEx);
     if(pos === -1 ) {
       pos = domain.search(this._tldRx);
@@ -16,20 +22,22 @@ var tld = {
         pos = domain.lastIndexOf(".");
         if (pos === -1) {
           // No dots at all? Likely a private domain in a LAN.
-          return domain;
+          return resultDomain;
         }
       }
       pos = domain.lastIndexOf(".", pos - 1) + 1;
     } else if(domain[pos] == ".") {
       ++pos;
     }
-    return pos <= 0 ? domain : domain.substring(pos);
+    return pos <= 0 ? resultDomain : resultDomain.substring(pos);
   },
 
-  getPublicSuffix(domain) {
-    if (this.isIp(domain)) return "";
+  getPublicSuffix(aDomain) {
+    if (this.isIp(aDomain)) return "";
 
-    domain = this.normalize(domain);
+    domain = this.normalize(aDomain);
+    let resultDomain = this.preserveFQDNs ? aDomain : domain;
+
     var pos = domain.search(this._tldEx);
     if(pos < 0) {
       pos = domain.search(this._tldRx);
@@ -37,7 +45,7 @@ var tld = {
     } else {
       pos = domain.indexOf(".", pos + 1) + 1;
     }
-    return pos < 0 ? "" : domain.substring(pos);
+    return pos < 0 ? "" : resultDomain.substring(pos);
   },
 
   _ipRx: /^(?:0\.|[1-9]\d{0,2}\.){3}(?:0|[1-9]\d{0,2})$|:.*:/i,

@@ -5,7 +5,7 @@ var {Permissions, Policy, Sites} = (() => {
   const SECURE_DOMAIN_RX = new RegExp(`^${SECURE_DOMAIN_PREFIX}`);
   const DOMAIN_RX = new RegExp(`(?:^\\w+://|${SECURE_DOMAIN_PREFIX})?([^/]*)`, "i");
   const SKIP_RX = /^(?:(?:about|chrome|resource|moz-.*):|\[System)/;
-  const VALID_SITE_RX = /^(?:(?:(?:(?:http|ftp|ws)s?|file):)(?:(?:\/\/)[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000](?:$|\/))?|[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000]$)/;
+  const VALID_SITE_RX = /^(?:(?:(?:(?:http|ftp|ws)s?|file):)(?:(?:\/\/)[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000.](?:$|\/))?|[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000]$)/;
 
   let rxQuote = s => s.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
 
@@ -83,9 +83,26 @@ var {Permissions, Policy, Sites} = (() => {
       try {
         let objUrl = site.href ? site : new URL(site);
         let origin = objUrl.origin;
-        return origin === "null" ? objUrl.href : origin;
-      } catch (e) {};
+        return origin === "null" ? Sites.cleanUrl(objUrl) || site : origin;
+      } catch (e) {
+        console.error(e);
+      };
       return site.origin || site;
+    }
+
+    static cleanUrl(url) {
+      try {
+        url = new URL(url);
+        if (!tld.preserveFQDNs && url.hostname) {
+          url.hostname = tld.normalize(url.hostname);
+        }
+        url.port = "";
+        url.search = "";
+        url.hash = "";
+        return url.href;
+      } catch (e) {
+        return null;
+      }
     }
 
     static toExternal(url) { // domains are stored in punycode internally
@@ -136,7 +153,7 @@ var {Permissions, Policy, Sites} = (() => {
     domainMatch(url) {
       let {protocol, hostname} = url;
       if (!hostname) return null;
-
+      if (!tld.preserveFQDNs) hostname = tld.normalize(hostname);
       let secure = protocol === "https:";
       for (let domain = hostname;;) {
         if (this.has(domain)) {

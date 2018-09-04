@@ -183,8 +183,12 @@ addEventListener("unload", e => {
         if (domains.has(origin)) {
           if (justDomains) return domains.get(origin);
         } else {
-          let domain = tld.getDomain(url.hostname) || origin;
-          domain = url.protocol === "https:" ? Sites.secureDomainKey(domain) : domain;
+          let domain = tld.getDomain(url.hostname);
+          if (domain) {
+            domain = url.protocol === "https:" ? Sites.secureDomainKey(domain) : domain;
+          } else {
+            domain = url.protocol;
+          }
           domains.set(origin, domain);
           if (justDomains) return domain;
         }
