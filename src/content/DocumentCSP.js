@@ -19,7 +19,8 @@ class DocumentCSP {
     let meta = createHTMLElement("meta");
     meta.setAttribute("http-equiv", header.name);
     meta.setAttribute("content", header.value);
-    let parent = document.head ||
+    let {head} = document;
+    let parent = head ||
       document.documentElement.appendChild(createHTMLElement("head"));
 
     try {
@@ -27,7 +28,7 @@ class DocumentCSP {
       debug(`Failsafe <meta> CSP inserted in the DOM: "%s"`, header.value);
       if (capabilities.has("script")) {
         meta.remove();
-        if (!parent.firstChild) parent.remove();
+        if (!head) parent.remove();
       }
     } catch (e) {
       error(e, "Error inserting CSP %s in the DOM", header && header.value);
