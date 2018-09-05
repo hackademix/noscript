@@ -98,7 +98,7 @@ var UI = (() => {
       let url = `/ui/siteInfo.html#${encodeURIComponent(domain)};${UI.tabId}`;
       browser.tabs.create({url});
     },
-    
+
     wireOption(name, storage = "sync", onchange) {
       let input = document.querySelector(`#opt-${name}`);
       if (!input) {
@@ -120,9 +120,9 @@ var UI = (() => {
         }
       }
       return input;
-    }  
+    }
   };
-  
+
   var HighContrast = {
     css: null,
     async init() {
@@ -148,7 +148,7 @@ var UI = (() => {
         this.widget.checked = hc;
       }
     },
-    
+
     detect() {
       if ("highContrast" in UI.local) {
         UI.highContrast = UI.local.highContrast;
@@ -425,7 +425,8 @@ var UI = (() => {
           if (isTemp) {
             row.perms.temp = target.checked;
           } else {
-            let temp = preset.parentNode.querySelector("input.temp").checked;
+            let temp = row.perms.temp;
+            tempToggle.checked = temp;
             let perms = row._customPerms ||
               (row._customPerms = new Permissions(new Set(row.perms.capabilities), temp));
             row.perms = perms;
