@@ -3,6 +3,7 @@
 # build artifacts
 xpi
 *.xpi
+*.bak
 # dev env options
 .eslintrc.json
 # auto-generated files

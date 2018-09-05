@@ -16,7 +16,7 @@ sub generate {
     s/\s+utf.*//;
     s/[\r\n]//g;
     if(/^!/) {
-      s/^!//; 
+      s/^!//;
       push(@ex, lc($_));
     } elsif (!/^(\/\/|[ \n\r]|$)/) {
       s/\*\\\./[^\\.]+\\./;
@@ -24,7 +24,7 @@ sub generate {
     }
   }
   close(DAT);
-  
+
   #$o = Regexp::Optimizer->new;
   #$o = Regexp::List->new;
   $o = Regexp::Assemble->new;
@@ -38,14 +38,13 @@ sub generate {
   s/\(\?-xism:(.*)\)/$1/;
   $ex = $_;
   @ex = NULL;
-  
+
   open(SRC, $src) || die("Cannot open $src");
   open(DST, ">$dst") || die("Cannot open $dst");
   while(<SRC>) {
     s/(_tldRx:\s*\/\(.*?\)).*?(?=\$\/)/$1$rx/s;
     s/(_tldEx:\s*\/\(.*?\)).*?(?=\$\/)/$1$ex/s;
     print DST;
-    print;
   }
   close(SRC);
   close(DST);
