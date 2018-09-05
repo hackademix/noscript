@@ -80,6 +80,7 @@ var {Permissions, Policy, Sites} = (() => {
     }
 
     static origin(site) {
+      if (!site) return "";
       try {
         let objUrl = site.href ? site : new URL(site);
         let origin = objUrl.origin;
