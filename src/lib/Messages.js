@@ -13,13 +13,13 @@
     }
     if (answers.length) {
       return await (
-        answers.length === 1 ? answers.pop(): Promise.all(answers)  
+        answers.length === 1 ? answers.pop(): Promise.all(answers)
       );
     }
-    console.log("Answering %s", _messageName);
+    console.debug("Warning: no handler for message %s", _messageName);
     return undefined;
   };
-  
+
   var Messages = {
     addHandler(handler) {
       let originalSize = handlers.size;

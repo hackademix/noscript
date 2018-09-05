@@ -50,6 +50,11 @@ var notifyPage = async () => {
     try {
       if (!("canScript" in ns)) {
         let childPolicy = await Messages.send("fetchChildPolicy", {url: document.URL});
+        if (!childPolicy) {
+          debug(`No answer to fetchChildPolicy message. Still initializing?`);
+          setTimeout(notifyPage, 300);
+          return;
+        }
         ns.config.CURRENT = childPolicy.CURRENT;
         ns.setup(childPolicy.DEFAULT, childPolicy.MARKER);
         return;
