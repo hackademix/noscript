@@ -40,7 +40,7 @@ var RequestGuard = (() => {
     _record(request, what, optValue) {
       let {tabId, frameId, type, url, documentUrl} = request;
       let policyType = policyTypesMap[type] || type;
-      let requestKey = Policy.requestKey(url, documentUrl, policyType);
+      let requestKey = Policy.requestKey(url, policyType, documentUrl);
       let map = this.map;
       let records;
       if (map.has(tabId)) {
