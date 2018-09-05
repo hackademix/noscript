@@ -5,3 +5,6 @@ xpi
 *.xpi
 # dev env options
 .eslintrc.json
+# auto-generated files
+TLD/tld.js
+TLD/tld_template.js
