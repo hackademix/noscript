@@ -90,7 +90,7 @@ var Settings = {
 
     if (typeof unrestrictedTab === "boolean") {
       ns.unrestrictedTabs[unrestrictedTab ? "add" : "delete"](tabId);
-      ChildPolicies.storeTabInfo(tabId, unrestrictedTab && {unrestricted: true});
+      this.enforceTabRestrictions(tabId, unrestrictedTab);
     }
     if (reloadAffected) {
       browser.tabs.reload(tabId);
@@ -123,4 +123,8 @@ var Settings = {
     }, null, 2);
   },
 
+  async enforceTabRestrictions(tabId, unrestricted = ns.unrestrictedTabs.has(tabId)) {
+    await ChildPolicies.storeTabInfo(tabId, unrestricted && {unrestricted: true});
+    return unrestricted;
+  }
 }

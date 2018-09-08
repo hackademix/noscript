@@ -2,7 +2,7 @@
 {
   let listenersMap = new Map();
   let backlog = new Set();
-  
+
   let ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
@@ -32,39 +32,46 @@
       }
       backlog.add(eventName);
     },
-    
+
     setup(DEFAULT, MARKER) {
       this.config.DEFAULT = DEFAULT;
       if(!this.config.CURRENT) this.config.CURRENT = DEFAULT;
 
       // ugly hack: since now we use registerContentScript instead of the
-      // filterRequest dynamic script injection hack, we use top.name
+      // filterRequest dynamic script injection hack, we use window.name
       // to store per-tab information. We don't want web content to
       // mess with it, though, so we wrap it around auto-hiding accessors
-      this.config.MARKER = MARKER;
-      let eraseTabInfoRx = new RegExp(`[^]*${MARKER},?`);
-      if (eraseTabInfoRx.test(top.name)) {
-        let _name = top.name;
+
+      if (this.config.MARKER = MARKER) {
+
         let tabInfoRx = new RegExp(`^${MARKER}\\[([^]*?)\\]${MARKER},`);
-        if (top === window) { // wrap to hide
-          Reflect.defineProperty(top.wrappedJSObject, "name", {
-            get: exportFunction(() => top.name.replace(eraseTabInfoRx, ""), top.wrappedJSObject),
-            set: exportFunction(value => {
-              let preamble = top.name.match(tabInfoRx);
-              top.name = `${preamble && preamble[0] || ""}${value}`;
-              return value;
-            }, top.wrappedJSObject)
-          });
+        let name = window.name;
+        try {
+          name = top.name;
+        } catch(e) {
+          // won't work cross-origin
         }
-        let tabInfoMatch = _name.match(tabInfoRx);
-        if (tabInfoMatch) try {
-          this.config.tabInfo = JSON.parse(tabInfoMatch[1]);
-        } catch (e) {
-          error(e);
+        let tabInfoMatch = name.match(tabInfoRx);
+        if (tabInfoMatch) {
+          try {
+            this.config.tabInfo = JSON.parse(tabInfoMatch[1]);
+          } catch (e) {
+            error(e);
+          }
         }
+        let splitter = `${MARKER},`;
+        this.getWindowName = () => window.name.split(splitter).pop();
+        Reflect.defineProperty(window.wrappedJSObject, "name", {
+          get: exportFunction(() => this.getWindowName(), window.wrappedJSObject),
+          set: exportFunction(value => {
+            let tabInfoMatch = window.name.match(tabInfoRx);
+            window.name = tabInfoMatch ? `${tabInfoMatch[0]}${value}` : value;
+            return value;
+          }, window.wrappedJSObject)
+        });
       }
-      
       if (!this.config.DEFAULT || this.config.tabInfo.unrestricted) {
+        debug("%s is loading unrestricted by user's choice (%o).", document.URL, this.config);
         this.allows = () => true;
         this.capabilities =  Object.assign(
           new Set(["script"]), { has() { return true; } });
@@ -73,24 +80,21 @@
         this.capabilities = new Set(perms.capabilities);
         new DocumentCSP(document).apply(this.capabilities, this.embeddingDocument);
       }
-      
+
       this.canScript = this.allows("script");
       this.fire("capabilities");
     },
     config: { DEFAULT: null, CURRENT: null, tabInfo: {}, MARKER: "" },
-        
+
     allows(cap) {
       return this.capabilities && this.capabilities.has(cap);
     },
-    
+
     getWindowName() {
-      let marker = this.config.MARKER;
-      return (top === window && marker) ? 
-          window.name.split(`${marker},`).pop()
-          : window.name;
+      return window.name;
     }
   };
-  
+
   if (this.ns) {
     this.ns.merge(ns);
   } else {

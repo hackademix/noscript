@@ -317,6 +317,10 @@ var RequestGuard = (() => {
             await ChildPolicies.update(policy);
           }
           capabilities = perms.capabilities;
+        } else {
+          if (!isMainFrame && type === "sub_frame") {
+            await Settings.enforceTabRestrictions(tabId);
+          }
         }
         if (isMainFrame && !TabStatus.map.has(tabId)) {
           debug("No TabStatus data yet for noscriptFrame", tabId);

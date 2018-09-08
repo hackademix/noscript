@@ -102,7 +102,7 @@
         let preamble = info ? `${marker} + ${JSON.stringify(JSON.stringify([info]))} + ${marker} + "," + ` : "";
         await browser.tabs.executeScript(tabId, {
           code: `window.name = ${preamble}window.name.split(${marker} + ",").pop();`,
-          allFrames: false,
+          allFrames: true,
           matchAboutBlank: true,
           runAt: "document_start",
         });
