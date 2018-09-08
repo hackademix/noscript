@@ -394,6 +394,7 @@ var RequestGuard = (() => {
       let blockedURI = report['blocked-uri'];
       if (blockedURI && blockedURI !== 'self') {
         let r = fakeRequestFromCSP(report, request);
+        if (r.url === 'inline') r.url = request.documentURI;
         Content.reportTo(r, false, policyTypesMap[r.type]);
         TabStatus.record(r, "blocked");
       } else if (report["violated-directive"] === "script-src" && /; script-src 'none'/.test(report["original-policy"])) {

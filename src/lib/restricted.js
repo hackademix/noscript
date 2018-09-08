@@ -21,7 +21,9 @@
   function isRestrictedURL(u) {
     try {
       if (typeof u === "string") u = new URL(u);
-      return u.protocol === "https:" && domains.includes(tld.normalize(u.hostname || ""));
+      let {protocol, hostname} = u;
+      return (!/^(?:https?|file|data):$/.test(protocol))
+        || protocol === "https:" && hostname && domains.includes(tld.normalize(hostname));
     } catch (e) {
       return false;
     }

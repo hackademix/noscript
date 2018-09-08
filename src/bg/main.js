@@ -24,7 +24,7 @@
 
   async function init() {
     await Defaults.init();
-    
+
     let policyData = (await Storage.get("sync", "policy")).policy;
     if (policyData && policyData.DEFAULT) {
       ns.policy = new Policy(policyData);
@@ -116,7 +116,7 @@
       await Settings.update(settings);
       toggleCtxMenuItem();
     },
-      
+
     async broadcastSettings({
       tabId = -1
     }) {
@@ -140,12 +140,12 @@
     async importSettings({data}) {
       return await Settings.import(data);
     },
-    
+
     async fetchChildPolicy({url, contextUrl}, sender) {
-      return ChildPolicies.getForDocument(ns.policy, 
+      return ChildPolicies.getForDocument(ns.policy,
         url || sender.url, contextUrl || sender.tab.url);
     },
-    
+
     async openStandalonePopup() {
       let win = await browser.windows.getLastFocused();
       let [tab] = (await browser.tabs.query({
@@ -184,10 +184,10 @@
       if (this.running) return;
       this.running = true;
 
-      deferWebTraffic(init(), 
+      deferWebTraffic(init(),
         async () => {
           Commands.install();
-            
+
           this.devMode = (await browser.management.getSelf()).installType === "development";
           if (this.local.debug) {
             if (this.devMode) {
@@ -231,16 +231,17 @@
     },
 
     async collectSeen(tabId) {
-
       try {
         let seen = Array.from(await Messages.send("collect", {}, {tabId, frameId: 0}));
         debug("Collected seen", seen);
         return seen;
       } catch (e) {
-        // probably a page where content scripts cannot run, let's open the options instead
-        error(e, "Cannot collect noscript activity data");
+        await include("/lib/restricted.js");
+        if (!isRestrictedURL((await browser.tabs.get(tabId)).url)) {
+          // probably a page where content scripts cannot run, let's open the options instead
+          error(e, "Cannot collect noscript activity data");
+        }
       }
-
       return null;
     },
   };

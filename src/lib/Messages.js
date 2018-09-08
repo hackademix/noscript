@@ -3,10 +3,11 @@
   let handlers = new Set();
 
   let dispatch = async (msg, sender) => {
-    let {_messageName} = msg;
+    let {__meta} = msg;
+    let {name} = __meta;
     let answers = [];
     for (let h of handlers) {
-      let f = h[_messageName];
+      let f = h[name];
       if (typeof f === "function") {
         answers.push(f(msg, sender));
       }
@@ -16,8 +17,17 @@
         answers.length === 1 ? answers.pop(): Promise.all(answers)
       );
     }
-    console.debug("Warning: no handler for message %s", _messageName);
-    return undefined;
+    let context = typeof window === "object" && window.location || null;
+    let originalSender = __meta.originalSender || sender;
+    console.debug("Warning: no handler for message %o in context %s", msg, context);
+    if (originalSender.tab && originalSender.tab.id) {
+      // if we're receiving a message from content, there might be another
+      // Messages instance in a different context (e.g. background page vs
+      // options page vs browser action) capable of processing it, and we've
+      // just "steal" it. Let's rebroadcast.
+      return await Messages.send(name, msg, {originalSender});
+    }
+    throw new Error(`No handler registered for message "${name}" in context ${context}`);
   };
 
   var Messages = {
@@ -35,12 +45,12 @@
         browser.runtime.onMessage.removeListener(dispatch);
       }
     },
-    async send(name, args = {}, toContent = null) {
-      args._messageName = name;
-      if (toContent && "tabId" in toContent) {
+    async send(name, args = {}, recipientInfo = null) {
+      args.__meta = {name, recipientInfo};
+      if (recipientInfo && "tabId" in recipientInfo) {
         let opts;
-        if ("frameId" in toContent) opts = {frameId: toContent.frameId};
-        return await browser.tabs.sendMessage(toContent.tabId, args, opts);
+        if ("frameId" in recipientInfo) opts = {frameId: recipientInfo.frameId};
+        return await browser.tabs.sendMessage(recipientInfo.tabId, args, opts);
       }
       return await browser.runtime.sendMessage(args);
     }
