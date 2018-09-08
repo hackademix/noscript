@@ -58,7 +58,7 @@ var {Permissions, Policy, Sites} = (() => {
         try {
           url = new URL(site);
         } catch (e) {
-          siteKey = typeof site === "string" ? site : site.toString();
+          siteKey = site ? (typeof site === "string" ? site : site.toString()) : "";
         }
       }
       if (url) {
