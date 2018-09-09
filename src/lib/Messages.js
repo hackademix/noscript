@@ -24,10 +24,12 @@
         answers.length === 1 ? answers.pop(): Promise.all(answers)
       );
     }
-    let context = typeof window === "object" && window.location.href || null;
+    let context = typeof window === "object" && window.location.href || "?";
     let originalSender = __meta.originalSender || sender;
-    if (context === originalSender.url || context === sender.url) {
-      throw new Error("Message %s (%o) looping to its sender (%s)", name, msg, context);
+    let {url} = originalSender;
+
+    if (url && context.replace(/[?#].*/, '') === url.replace(/[?#].*/, '')) {
+      throw new Error(`Message ${name} ${JSON.stringify(msg)} looping to its sender (${context})`);
     }
     console.debug("Warning: no handler for message %o in context %s", msg, context);
     if (originalSender.tab && originalSender.tab.id) {
