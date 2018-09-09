@@ -6,18 +6,12 @@
   let Scripts = {
     references: new Set(),
     opts: {
-      js: [{}],
+      js: [{file: "/content/dynamicNS.js"}, {}],
       allFrames: true,
       matchAboutBlank: true,
       runAt: "document_start"
     },
     async init() {
-      let opts = Object.assign({}, this.opts);
-      opts.js = [{file: "/content/dynamicNS.js"}];
-      opts.matches = allUrls;
-      delete opts.excludedMatches;
-      this._stubScript = await browser.contentScripts.register(opts);
-
       this.init = this.forget;
     },
     forget() {
@@ -38,7 +32,7 @@
       if (!matches.length) return;
       try {
         let opts = Object.assign({}, this.opts);
-        opts.js[0].code = this.trace(code);
+        opts.js[1].code = this.trace(code);
         opts.matches = matches;
         if (excludeMatches && excludeMatches.length) {
           opts.excludeMatches = excludeMatches;
@@ -49,14 +43,11 @@
       }
     },
 
-    buildPerms(perms, finalizeSetup = false) {
+    buildPerms(perms) {
       if (typeof perms !== "string") {
         perms = JSON.stringify(perms);
       }
-      return finalizeSetup
-        ? `ns.setup(${perms}, ${marker});`
-        : `ns.config.CURRENT = ${perms};`
-        ;
+      return `ns.setup(${perms}, ${marker});`
     }
   };
 
@@ -169,10 +160,15 @@
       }
 
       // register new content scripts
+      let registering = [];
+      let allMatching = [];
       for (let [perms, keys] of [...permsMap]) {
-        await Scripts.register(Scripts.buildPerms(perms), siteKeys2MatchPatterns(keys), excludeMap.get(perms));
+        let match = siteKeys2MatchPatterns(keys);
+        allMatching.push(...match);
+        registering.push(Scripts.register(Scripts.buildPerms(perms), match, excludeMap.get(perms)));
       }
-      await Scripts.register(Scripts.buildPerms(serialized.DEFAULT, true), allUrls);
+      registering.push(Scripts.register(Scripts.buildPerms(serialized.DEFAULT), allUrls, allMatching));
+      await Promise.all(registering);
       if (tracing) {
         debug("All the child policies registered in %sms", Date.now() - t0);
       }
@@ -186,14 +182,5 @@
       };
     },
 
-    async updateFrame(tabId, frameId, perms, defaultPreset) {
-      let code = Scripts.buildPerms(perms) + Scripts.buildPerms(defaultPreset, true);
-      await browser.tabs.executeScript(tabId, {
-        code,
-        frameId,
-        matchAboutBlank: true,
-        runAt: "document_start"
-      });
-    }
   };
 }

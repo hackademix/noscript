@@ -7,8 +7,8 @@ if (!this.ns) {
   let deferredSetup = null;
   let nsStub = this.ns = {
     config: {},
-    setup(DEFAULT, MARKER) {
-      deferredSetup = [DEFAULT, MARKER];
+    setup(CURRENT, MARKER) {
+      deferredSetup = [CURRENT, MARKER];
     },
     merge: ns => {
       ns.config = Object.assign(ns.config, nsStub.config);

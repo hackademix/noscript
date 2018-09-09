@@ -32,7 +32,7 @@
     } else {
       await include("/legacy/Legacy.js");
       ns.policy = await Legacy.createOrMigratePolicy();
-      ns.savePolicy();
+      await ns.savePolicy();
     }
 
     await RequestGuard.start();
