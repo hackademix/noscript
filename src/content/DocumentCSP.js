@@ -26,10 +26,8 @@ class DocumentCSP {
     try {
       parent.insertBefore(meta, parent.firstChild);
       debug(`Failsafe <meta> CSP inserted in the DOM: "%s"`, header.value);
-      if (capabilities.has("script")) {
-        meta.remove();
-        if (!head) parent.remove();
-      }
+      meta.remove();
+      if (!head) parent.remove();
     } catch (e) {
       error(e, "Error inserting CSP %s in the DOM", header && header.value);
     }
