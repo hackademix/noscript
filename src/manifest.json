@@ -8,7 +8,7 @@
       "strict_min_version": "59.0"
     }
   },
-  "version": "10.1.9.5",
+  "version": "10.1.9.6rc1",
   "description": "__MSG_Description__",
 
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
