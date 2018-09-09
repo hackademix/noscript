@@ -590,16 +590,21 @@ var UI = (() => {
       try {
         url = new URL(site);
       } catch (e) {
-        let protocol = Sites.isSecureDomainKey(site) ? "https:" : "http:";
-        let hostname = Sites.toggleSecureDomainKey(site, false);
-        url = {protocol, hostname, origin: `${protocol}://${site}`, pathname: "/"};
+        if (/^(\w+:)\/*$/.test(site)) {
+          url = {protocol: RegExp.$1, hostname: "", origin: site, pathname:""};
+          let hostname = Sites.toExternal(url.hostname);
+          debug("Lonely %o", url, Sites.isSecureDomainKey(siteMatch) || !hostname && url.protocol === "https:");
+        } else {
+          let protocol = Sites.isSecureDomainKey(site) ? "https:" : "http:";
+          let hostname = Sites.toggleSecureDomainKey(site, false);
+          url = {protocol, hostname, origin: `${protocol}://${site}`, pathname: "/"};
+        }
       }
 
       let hostname = Sites.toExternal(url.hostname);
       let domain = tld.getDomain(hostname);
 
       if (!siteMatch) {
-        // siteMatch = url.protocol === "https:" ? Sites.secureDomainKey(domain) : site;
         siteMatch = site;
       }
       let secure = Sites.isSecureDomainKey(siteMatch);
@@ -628,12 +633,12 @@ var UI = (() => {
 
         row.querySelector(".domain").textContent = domain;
         row.querySelector(".path").textContent = siteMatch.length > url.origin.length ? url.pathname : "";
-        let httpsOnly = row.querySelector("input.https-only");
-        httpsOnly.checked = keyStyle === "full" || keyStyle === "secure";
       } else {
         row._label = siteMatch;
         urlContainer.querySelector(".full-address").textContent = siteMatch;
       }
+      let httpsOnly = row.querySelector("input.https-only");
+      httpsOnly.checked = keyStyle === "full" || keyStyle === "secure";
 
       let presets = row.querySelectorAll("input.preset");
       let idSuffix = `-${this.uiCount}-${sitesCount}`;
