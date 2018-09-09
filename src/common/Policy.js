@@ -116,7 +116,7 @@ var {Permissions, Policy, Sites} = (() => {
     }
 
     set(k, v) {
-      if (!k || SKIP_RX.test(k)) return this;
+      if (!k || SKIP_RX.test(k) || k === "§:") return this;
       let [,domain] = DOMAIN_RX.exec(k);
       if (/[^\u0000-\u007f]/.test(domain)) {
         k = k.replace(domain, punycode.toASCII(domain));

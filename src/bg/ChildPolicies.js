@@ -65,7 +65,9 @@
   let protocolRx = /^(\w+):/i;
   let pathRx = /(?:[^:/]\/|:\/{3})$/;
   let portRx = /:\d+(?=\/|$)/;
-  let validMatchPatternRx = /^(?:\*|(?:http|ws|ftp)s?|file):\/\/(?:\*\.)?(?:[\w\u0100-\uf000][\w\u0100-\uf000.-]*)?\/(\*|[^*]*)$/;
+  let validMatchPatternRx = /^(?:\*|(?:http|ws|ftp)s?|file):\/\/(?:\*|(?:\*\.)?[\w\u0100-\uf000][\w\u0100-\uf000.-]*)?\/(\*|[^*]*)$/;
+
+  let validMatchPattern = mp => validMatchPatternRx.test(mp);
 
   let siteKey2MatchPattern = site => {
     let hasProtocol = site.match(protocolRx);
@@ -75,10 +77,13 @@
       if (!mp) return false;
     } else {
       let protocol = Sites.isSecureDomainKey(site) ? "https://" : "*://";
+      mp = `${protocol}*`;
       let hostname = Sites.toggleSecureDomainKey(site, false).replace(portRx, '');
-      if (!tld.preserveFQDNs) hostname = tld.normalize(hostname);
-      mp = `${protocol}*.${hostname}`;
-      if (!hostname.includes("/")) mp += "/";
+      if (hostname && hostname !== ".") {
+        if (!tld.preserveFQDNs) hostname = tld.normalize(hostname);
+        mp += hostname.startsWith(".") ? hostname : `.${hostname}`;
+      }
+      if (!(hostname && hostname.includes("/"))) mp += "/";
     }
 
     return validMatchPatternRx.test(mp) && (
@@ -87,14 +92,15 @@
 
   let withFQDNs = patterns => {
     return tld.preserveFQDNs ? patterns : patterns.concat(
-      patterns.map(p => p.replace(/^(?:\w+|\*):\/\/[^/]*[^./]/, '$&.'))
-    );
+      patterns.map(p => p.replace(/^(?:\w+|\*):\/\/[^/]*[^.*/]/, '$&.')
+        ).filter(validMatchPattern)
+      );
   }
 
   let siteKeys2MatchPatterns = keys =>
-    keys && withFQDNs(flatten(keys.map(siteKey2MatchPattern))
-      .filter(p => !!p))
-      || [];
+    keys ? [... new Set(
+      withFQDNs(flatten(keys.map(siteKey2MatchPattern)).filter(p => !!p)))]
+      : [];
 
   var ChildPolicies = {
     async storeTabInfo(tabId, info) {
@@ -110,9 +116,9 @@
         error(e);
       }
     },
-    async update(policy, debug) {
-      if (debug !== "undefined") Scripts.debug = debug;
-
+    async update(policy, tracing) {
+      if (tracing !== "undefined") Scripts.debug = tracing;
+      let t0 = Date.now();
       await Scripts.init();
 
       if (!policy.enforced) {
@@ -167,6 +173,9 @@
         await Scripts.register(Scripts.buildPerms(perms), siteKeys2MatchPatterns(keys), excludeMap.get(perms));
       }
       await Scripts.register(Scripts.buildPerms(serialized.DEFAULT, true), allUrls);
+      if (tracing) {
+        debug("All the child policies registered in %sms", Date.now() - t0);
+      }
     },
 
     getForDocument(policy, url, context = null) {
