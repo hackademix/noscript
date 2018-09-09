@@ -3,7 +3,14 @@
   let handlers = new Set();
 
   let dispatch = async (msg, sender) => {
-    let {__meta} = msg;
+    let {__meta, _messageName} = msg;
+    if (!__meta) {
+      // legacy message from embedder?
+      if (!_messageName) {
+        throw new Error(`NoScript cannot handle message %s`, JSON.stringify(msg));
+      }
+      __meta = {name: _messageName};
+    }
     let {name} = __meta;
     let answers = [];
     for (let h of handlers) {
@@ -17,8 +24,11 @@
         answers.length === 1 ? answers.pop(): Promise.all(answers)
       );
     }
-    let context = typeof window === "object" && window.location || null;
+    let context = typeof window === "object" && window.location.href || null;
     let originalSender = __meta.originalSender || sender;
+    if (context === originalSender.url || context === sender.url) {
+      throw new Error("Message %s (%o) looping to its sender (%s)", name, msg, context);
+    }
     console.debug("Warning: no handler for message %o in context %s", msg, context);
     if (originalSender.tab && originalSender.tab.id) {
       // if we're receiving a message from content, there might be another
