@@ -33,9 +33,8 @@
       backlog.add(eventName);
     },
 
-    setup(DEFAULT, MARKER) {
-      this.config.DEFAULT = DEFAULT;
-      if(!this.config.CURRENT) this.config.CURRENT = DEFAULT;
+    setup(permissions, MARKER) {
+      this.config.permissions = permissions;
 
       // ugly hack: since now we use registerContentScript instead of the
       // filterRequest dynamic script injection hack, we use window.name
@@ -70,13 +69,13 @@
           }, window.wrappedJSObject)
         });
       }
-      if (!this.config.DEFAULT || this.config.tabInfo.unrestricted) {
+      if (!this.config.permissions || this.config.tabInfo.unrestricted) {
         debug("%s is loading unrestricted by user's choice (%o).", document.URL, this.config);
         this.allows = () => true;
         this.capabilities =  Object.assign(
           new Set(["script"]), { has() { return true; } });
       } else {
-        let perms = this.config.CURRENT;
+        let perms = this.config.permissions;
         this.capabilities = new Set(perms.capabilities);
         new DocumentCSP(document).apply(this.capabilities, this.embeddingDocument);
       }
@@ -84,7 +83,7 @@
       this.canScript = this.allows("script");
       this.fire("capabilities");
     },
-    config: { DEFAULT: null, CURRENT: null, tabInfo: {}, MARKER: "" },
+    config: { permissions: null, tabInfo: {}, MARKER: "" },
 
     allows(cap) {
       return this.capabilities && this.capabilities.has(cap);

@@ -54,7 +54,7 @@ var notifyPage = async () => {
           debug(`No answer to fetchChildPolicy message. This should not be happening.`);
           return;
         }
-        ns.setup(childPolicy.CURRENT, childPolicy.MARKER);
+        ns.setup(childPolicy.permissions, childPolicy.MARKER);
         return;
       }
 

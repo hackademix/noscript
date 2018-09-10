@@ -176,8 +176,7 @@
 
     getForDocument(policy, url, context = null) {
       return {
-        CURRENT: policy.get(url, context).perms.dry(),
-        DEFAULT: policy.DEFAULT.dry(),
+        permissions: policy.get(url, context).perms.dry(),
         MARKER: marker
       };
     },
