@@ -54,7 +54,6 @@
   let flatten = arr => arr.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
 
   let protocolRx = /^(\w+):/i;
-  let pathRx = /(?:[^:/]\/|:\/{3})$/;
   let portRx = /:\d+(?=\/|$)/;
   let validMatchPatternRx = /^(?:\*|(?:http|ws|ftp)s?|file):\/\/(?:\*|(?:\*\.)?[\w\u0100-\uf000][\w\u0100-\uf000.-]*|\[[\w:]+\])?\/(\*|[^*]*)$/;
 
