@@ -33,7 +33,17 @@
       backlog.add(eventName);
     },
 
-    setup(permissions, MARKER) {
+    async fetchPolicy() {
+        let policy = await Messages.send("fetchChildPolicy", {url: document.URL});
+        if (!policy) {
+          debug(`No answer to fetchChildPolicy message. This should not be happening.`);
+          return false;
+        }
+        this.setup(policy.permissions, policy.MARKER, true);
+        return true;
+    },
+
+    setup(permissions, MARKER, fetched = false) {
       this.config.permissions = permissions;
 
       // ugly hack: since now we use registerContentScript instead of the
@@ -75,6 +85,15 @@
         this.capabilities =  Object.assign(
           new Set(["script"]), { has() { return true; } });
       } else {
+        if (!fetched) {
+          let hostname = window.location.hostname;
+          if (hostname && hostname.startsWith("[")) {
+            // WebExt match patterns don't seem to support IPV6 (Firefox 63)...
+            debug("Ignoring child policy setup parameters for IPV6 address %s, forcing IPC...", hostname);
+            this.fetchPolicy();
+            return;
+          }
+        }
         let perms = this.config.permissions;
         this.capabilities = new Set(perms.capabilities);
         new DocumentCSP(document).apply(this.capabilities, this.embeddingDocument);

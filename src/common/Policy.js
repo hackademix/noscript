@@ -11,7 +11,7 @@ var {Permissions, Policy, Sites} = (() => {
 
   class Sites extends Map {
     static secureDomainKey(domain) {
-      return domain.includes(":") ? domain : `${SECURE_DOMAIN_PREFIX}${domain}`;
+      return /^[§\w]+:/.test(domain) ? domain : `${SECURE_DOMAIN_PREFIX}${domain}`;
     }
     static isSecureDomainKey(domain) {
       return domain.startsWith(SECURE_DOMAIN_PREFIX);

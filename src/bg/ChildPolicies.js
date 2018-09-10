@@ -56,7 +56,7 @@
   let protocolRx = /^(\w+):/i;
   let pathRx = /(?:[^:/]\/|:\/{3})$/;
   let portRx = /:\d+(?=\/|$)/;
-  let validMatchPatternRx = /^(?:\*|(?:http|ws|ftp)s?|file):\/\/(?:\*|(?:\*\.)?[\w\u0100-\uf000][\w\u0100-\uf000.-]*)?\/(\*|[^*]*)$/;
+  let validMatchPatternRx = /^(?:\*|(?:http|ws|ftp)s?|file):\/\/(?:\*|(?:\*\.)?[\w\u0100-\uf000][\w\u0100-\uf000.-]*|\[[\w:]+\])?\/(\*|[^*]*)$/;
 
   let validMatchPattern = mp => validMatchPatternRx.test(mp);
 
@@ -67,23 +67,30 @@
       mp = Sites.cleanUrl(mp);
       if (!mp) return false;
     } else {
-      let protocol = Sites.isSecureDomainKey(site) ? "https://" : "*://";
-      mp = `${protocol}*`;
+      mp = Sites.isSecureDomainKey(site) ? "https://" : "*://";
       let hostname = Sites.toggleSecureDomainKey(site, false).replace(portRx, '');
       if (hostname && hostname !== ".") {
-        if (!tld.preserveFQDNs) hostname = tld.normalize(hostname);
-        mp += hostname.startsWith(".") ? hostname : `.${hostname}`;
+        if (tld.isIp(hostname) || hostname.includes("*")) {
+          mp += hostname;
+        } else {
+          if (!tld.preserveFQDNs) hostname = tld.normalize(hostname);
+          mp += hostname.startsWith(".") ? `*${hostname}` : `*.${hostname}`;
+        }
+      } else {
+        mp += "*";
       }
       if (!(hostname && hostname.includes("/"))) mp += "/";
     }
 
-    return validMatchPatternRx.test(mp) && (
-      mp.endsWith("/") ? `${mp}*` : [mp, `${mp}?*`, `${mp}#*`]);
+    return validMatchPattern(mp) &&
+      (mp.endsWith("/") ? `${mp}*` : [mp, `${mp}?*`, `${mp}#*`]);
   };
 
   let withFQDNs = patterns => {
-    return tld.preserveFQDNs ? patterns : patterns.concat(
-      patterns.map(p => p.replace(/^(?:\w+|\*):\/\/[^/]*[^.*/]/, '$&.')
+    if (tld.preserveFQDNs) return patterns;
+    let rx = /^(?:\w+|\*):\/\/([^/]*[^.*/])/;
+    return patterns.concat(
+      patterns.map(p => p.replace(rx, (m, host) => tld.isIp(host) ? m : m + ".")
         ).filter(validMatchPattern)
       );
   }

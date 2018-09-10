@@ -49,15 +49,9 @@ var notifyPage = async () => {
   if (document.readyState === "complete") {
     try {
       if (!("canScript" in ns)) {
-        let childPolicy = await Messages.send("fetchChildPolicy", {url: document.URL});
-        if (!childPolicy) {
-          debug(`No answer to fetchChildPolicy message. This should not be happening.`);
-          return;
-        }
-        ns.setup(childPolicy.permissions, childPolicy.MARKER);
+        ns.fetchPolicy();
         return;
       }
-
       await Messages.send("pageshow", {seen: seen.list, canScript: ns.canScript});
       return true;
     } catch (e) {
