@@ -59,6 +59,7 @@
     },
     async send(name, args = {}, recipientInfo = null) {
       args.__meta = {name, recipientInfo};
+      args._messageName = name; // legacy protocol, for embedders
       if (recipientInfo && "tabId" in recipientInfo) {
         let opts;
         if ("frameId" in recipientInfo) opts = {frameId: recipientInfo.frameId};
