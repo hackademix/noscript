@@ -89,6 +89,7 @@ onloading
 onloadingdone
 onloadingerror
 onpopstate
+onmerchantvalidation
 onmessage
 onmessageerror
 onmidimessage
