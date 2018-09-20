@@ -65,7 +65,7 @@
       button.disabled = true;
       let settings = await UI.exportSettings();
       let f = document.createElement("iframe");
-      f.srcdoc = `<a download="noscript_data.txt" target="_blank">NoScript Export</a>`;
+      f.srcdoc = `<a download="noscript_data.json" target="_blank">NoScript Export</a>`;
       f.style.position = "fixed";
       f.style.top = "-999px";
       f.style.height = "1px";
