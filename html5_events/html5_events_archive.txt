@@ -124,6 +124,7 @@ onoverflow
 onpagehide
 onpageshow
 onpaste
+onpayerdetailchange
 onpaymentmethodchange
 onpointerlockchange
 onpointerlockerror
