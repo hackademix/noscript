@@ -92,11 +92,15 @@
       patterns.map(p => p.replace(rx, (m, host) => tld.isIp(host) ? m : m + ".")
         ).filter(validMatchPattern)
       );
-  }
+  };
+
+  let extraProtocols = patterns => patterns.concat(
+      patterns.filter(p => p.startsWith("*://"))
+        .map(p => p.replace("*", "ftp")));
 
   let siteKeys2MatchPatterns = keys =>
     keys ? [... new Set(
-      withFQDNs(flatten(keys.map(siteKey2MatchPattern)).filter(p => !!p)))]
+      extraProtocols(withFQDNs(flatten(keys.map(siteKey2MatchPattern)).filter(p => !!p))))]
       : [];
 
   var ChildPolicies = {
