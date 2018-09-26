@@ -89,6 +89,13 @@
         "content/webglHook.js",
         "content/media.js"
       ]
+    },
+    {
+      "run_at": "document_start",
+      "matches": ["ftp://*/*"],
+      "js": [
+        "content/ftp.js"
+      ]
     }
   ],
 
