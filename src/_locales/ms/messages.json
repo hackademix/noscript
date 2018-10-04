@@ -1,0 +1,894 @@
+{
+    "Add": {
+        "message": "Add",
+        "description": ""
+    },
+    "Add_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AdditionalPermissions": {
+        "message": "Keizinan tambahan untuk laman dipercayai",
+        "description": ""
+    },
+    "AdditionalRestrictions": {
+        "message": "Sekatan tambahan untuk laman tidak dipercayai",
+        "description": ""
+    },
+    "SectionAdvanced": {
+        "message": "Advanced",
+        "description": ""
+    },
+    "Allow": {
+        "message": "Benarkan",
+        "description": ""
+    },
+    "Allow_accesskey": {
+        "message": "l",
+        "description": ""
+    },
+    "AllowBookmarks": {
+        "message": "Benarkan laman dibuka menerusi tanda buku",
+        "description": ""
+    },
+    "AllowClipboard": {
+        "message": "Benarkan salin dan tampal lengkap dari papan keratan luar",
+        "description": ""
+    },
+    "AllowLocalLinks": {
+        "message": "Benarkan pautan setempat",
+        "description": ""
+    },
+    "AllowPage": {
+        "message": "Benarkan semuanya dalam laman ini",
+        "description": ""
+    },
+    "AllowPage_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AllowPing": {
+        "message": "Benarkan <A PING…>",
+        "description": ""
+    },
+    "AllowViaBookmarks": {
+        "message": "Benarkan laman dibuka menerusi tanda buku",
+        "description": ""
+    },
+    "AlwaysBlockUntrustedContent": {
+        "message": "Sekat setiap objek yang berasal dari laman yang bertanda tidak dipercayai",
+        "description": ""
+    },
+    "SectionAppearance": {
+        "message": "Penampilan",
+        "description": ""
+    },
+    "AutoAllowTopLevel": {
+        "message": "Tetapkan laman aras-tertinggi menjadi DIPERCAYAI",
+        "description": ""
+    },
+    "AutoReload": {
+        "message": "Automatically reload affected pages when permissions change",
+        "description": ""
+    },
+    "AutoReload_currentTab": {
+        "message": "Muat semula tab semasa sahaja",
+        "description": ""
+    },
+    "BaseDom": {
+        "message": "Domain Tapak aras ke2 (noscript.net)",
+        "description": ""
+    },
+    "BlockedItems": {
+        "message": "$1 dari $2 item disekat.",
+        "description": ""
+    },
+    "BlockedObjects": {
+        "message": "Objek Disekat NoScript",
+        "description": ""
+    },
+    "BookmarkSync": {
+        "message": "Sandar konfigurasi NoScript dalam tanda buku untuk memudahkan penyegerakan",
+        "description": ""
+    },
+    "Cancel": {
+        "message": "Batal",
+        "description": ""
+    },
+    "CascadePermissions": {
+        "message": "Cascade top document's permissions to 3rd party scripts",
+        "description": ""
+    },
+    "ClearClickDescription": {
+        "message": "NoScript intercepted a mouse or keyboard interaction with a partially hidden element. Click on the image below to cycle between the obstructed and the clear version.",
+        "description": ""
+    },
+    "ClearClickHeader": {
+        "message": "Potential Clickjacking / UI Redressing Attempt!",
+        "description": ""
+    },
+    "ClearClickOpt": {
+        "message": "ClearClick protection on pages…",
+        "description": ""
+    },
+    "ClearClickReport": {
+        "message": "Lapor",
+        "description": ""
+    },
+    "ClearClickReport_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "ClearClickReportId": {
+        "message": "ID Laporan:",
+        "description": ""
+    },
+    "ClearClickTitle": {
+        "message": "ClearClick Warning",
+        "description": ""
+    },
+    "Close": {
+        "message": "Tutup",
+        "description": ""
+    },
+    "CollapseBlockedObjects": {
+        "message": "Collapse blocked objects",
+        "description": ""
+    },
+    "ConfirmUnblock": {
+        "message": "Tanya pengesahan sebelum menyahsekat objek buat sementara",
+        "description": ""
+    },
+    "ContentBlocker": {
+        "message": "Laksana sekatan ini kepada laman bersenarai putih juga",
+        "description": ""
+    },
+    "CtxMenu": {
+        "message": "Menu Konteks",
+        "description": ""
+    },
+    "Custom": {
+        "message": "Suai",
+        "description": ""
+    },
+    "CustomizePresets": {
+        "message": "Praset penyuaian (untuk semua laman yang berkongsi praset)",
+        "description": ""
+    },
+    "Default": {
+        "message": "Lalai",
+        "description": ""
+    },
+    "DefaultPolicies": {
+        "message": "Polisi Lalai",
+        "description": ""
+    },
+    "Description": {
+        "message": "Extra protection for your Firefox: NoScript allows JavaScript, Flash (and other plugins) only for trusted domains of your choice (e.g. your home-banking web site). This whitelist based pre-emptive blocking approach prevents exploitation of security vulnerabilities (known and even unknown!) with no loss of functionality… Experts will agree: Firefox is really safer with NoScript :-)",
+        "description": ""
+    },
+    "Donate": {
+        "message": "Donate",
+        "description": ""
+    },
+    "Donate_accesskey": {
+        "message": "o",
+        "description": ""
+    },
+    "Embeddings": {
+        "message": "Pembenaman",
+        "description": ""
+    },
+    "Exceptions": {
+        "message": "Pengecualian...",
+        "description": ""
+    },
+    "Export": {
+        "message": "Eksport",
+        "description": ""
+    },
+    "Export_accesskey": {
+        "message": "E",
+        "description": ""
+    },
+    "FixLinks": {
+        "message": "Cuba membaiki pautan SkripJava",
+        "description": ""
+    },
+    "Hider": {
+        "message": "Lepaskan di sini untuk sembunyi.",
+        "description": ""
+    },
+    "Reveal": {
+        "message": "Klik di sini untuk memperoleh semula butang yang hilang...",
+        "description": ""
+    },
+    "ShowFullAddresses": {
+        "message": "Senarai penuh alamat dalam dialog timbul keizinan (https://www.noscript.net)",
+        "description": ""
+    },
+    "SectionGeneral": {
+        "message": "Am",
+        "description": ""
+    },
+    "GlobalHttpsWhitelist": {
+        "message": "Benarkan HTTPS secara Sejagat pada dokumen HTTPS",
+        "description": ""
+    },
+    "NotEnforced": {
+        "message": "Sekatan dilumpuhkan",
+        "description": ""
+    },
+    "NoEnforcement": {
+        "message": "Lumpuhkan sekatan secara sejagat (merbahaya)",
+        "description": ""
+    },
+    "Enforce": {
+        "message": "Benarkan sekatan secara sejagat",
+        "description": ""
+    },
+    "NoEnforcementForTab": {
+        "message": "Lumpuhkan sekatan untuk tab ini",
+        "description": ""
+    },
+    "EnforceForTab": {
+        "message": "Benarkan sekatan untuk tab ini",
+        "description": ""
+    },
+    "HighContrast": {
+        "message": "Penambilan Beza Jelas Tinggi",
+        "description": ""
+    },
+    "httpsOnly": {
+        "message": "Padan kandungan HTTPS sahaja",
+        "description": ""
+    },
+    "Https": {
+        "message": "HTTPS",
+        "description": ""
+    },
+    "Https_always": {
+        "message": "Sentiasa",
+        "description": ""
+    },
+    "Https_behavior": {
+        "message": "Kelakuan",
+        "description": ""
+    },
+    "Https_cookies": {
+        "message": "Kuki",
+        "description": ""
+    },
+    "Https_description": {
+        "message": "Halang kandungan sesawang aktif melainkan ia berasal dari sambungan (HTTPS) selamat:",
+        "description": ""
+    },
+    "Https_never": {
+        "message": "Tidak Sesekali",
+        "description": ""
+    },
+    "Https_proxy": {
+        "message": "Ketika menggunakan proksi (disarankan dengan Tor)",
+        "description": ""
+    },
+    "HttpsFaq": {
+        "message": "FAQ HTTPS...",
+        "description": ""
+    },
+    "HttpsFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "HttpsForced": {
+        "message": "Paksa laman berikut untuk menggunakan sambungan (HTTPS) selamat:",
+        "description": ""
+    },
+    "HttpsForcedExceptions": {
+        "message": "Tidak sesekali paksa sambungan (HTTPS) selamat untuk laman berikut:",
+        "description": ""
+    },
+    "Import": {
+        "message": "Import",
+        "description": ""
+    },
+    "Import_accesskey": {
+        "message": "I",
+        "description": ""
+    },
+    "KeepLocked": {
+        "message": "Pastikan unsur ini dikunci (disarankan)",
+        "description": ""
+    },
+    "MatchSample": {
+        "message": "Sampel sepadan pola:",
+        "description": ""
+    },
+    "Next": {
+        "message": "Seterusnya",
+        "description": ""
+    },
+    "NoUntrustedPlaceholder": {
+        "message": "No placeholder for objects coming from sites marked as untrusted",
+        "description": ""
+    },
+    "Notifications": {
+        "message": "Pemberitahuan",
+        "description": ""
+    },
+    "Notify": {
+        "message": "Tunjuk mesej berkenaan skrip disekat",
+        "description": ""
+    },
+    "Notify_bottom": {
+        "message": "Letak mesej di bahagian bawah",
+        "description": ""
+    },
+    "NotifyMeta": {
+        "message": "Tunjuk mesej berkenaan penghalaan semula META disekat",
+        "description": ""
+    },
+    "NotifyMeta_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "NselForce": {
+        "message": "Tunjuk unsur <NOSCRIPT> yang mengikuti <SCRIPT> disekat",
+        "description": ""
+    },
+    "NselNever": {
+        "message": "Sembunyi unsur <NOSCRIPT>",
+        "description": ""
+    },
+    "OK": {
+        "message": "OK",
+        "description": ""
+    },
+    "OptBlockCssScanners": {
+        "message": "Sekat pengimbas berasaskan-CSS",
+        "description": ""
+    },
+    "OptFilterXGet": {
+        "message": "Bersihkan permohonan silang-laman yang dicurigai",
+        "description": ""
+    },
+    "OptFilterXPost": {
+        "message": "Turn cross-site POST requests into data-less GET requests",
+        "description": ""
+    },
+    "Options": {
+        "message": "Pilihan...",
+        "description": ""
+    },
+    "Options_accesskey": {
+        "message": "O",
+        "description": ""
+    },
+    "OptionsLong": {
+        "message": "Pilihan NoScript",
+        "description": ""
+    },
+    "OptionsWidth": {
+        "message": "40em",
+        "description": ""
+    },
+    "PermanentInPrivate": {
+        "message": "Perintah \"Benarkan\" kekal dalam tetingkap persendirian",
+        "description": ""
+    },
+    "SectionSitePermissions": {
+        "message": "Keizinan Per-laman",
+        "description": ""
+    },
+    "PermissionsText": {
+        "message": "You can specify which web sites are allowed to execute scripts. Type the address or the domain (e.g. \"http://www.site.com\" or \"site.com\") of the site you want to allow and then click Allow.",
+        "description": ""
+    },
+    "Plugins": {
+        "message": "Pemalam",
+        "description": ""
+    },
+    "Policies": {
+        "message": "Polisi",
+        "description": ""
+    },
+    "Preset": {
+        "message": "Tahap Keselamatan",
+        "description": ""
+    },
+    "Preset_high": {
+        "message": "Berkubu (Sepenuhnya terkunci)",
+        "description": ""
+    },
+    "Preset_low": {
+        "message": "Santai (Senarai Hitam + Keselamatan Sesawang)",
+        "description": ""
+    },
+    "Preset_medium": {
+        "message": "Klasik (Senarai Putih + Keselamatan Sesawang)",
+        "description": ""
+    },
+    "Preset_off": {
+        "message": "Dimatikan (biar benar?!)",
+        "description": ""
+    },
+    "Prev": {
+        "message": "Terdahulu",
+        "description": ""
+    },
+    "RecentBlocked": {
+        "message": "Laman disekat baru-baru ini",
+        "description": ""
+    },
+    "Refresh": {
+        "message": "Muat semula",
+        "description": ""
+    },
+    "ReloadWarn": {
+        "message": "Pilihan ini akan berkesan pada laman baharu atau dimuatkan semula (secara manual)",
+        "description": ""
+    },
+    "RemoveSelected": {
+        "message": "Buang Laman Terpilih",
+        "description": ""
+    },
+    "Reset": {
+        "message": "Reset",
+        "description": ""
+    },
+    "Reset_accesskey": {
+        "message": "s",
+        "description": ""
+    },
+    "ResetDef": {
+        "message": "Tetap Semula ke Lalai",
+        "description": ""
+    },
+    "ResetDef_accesskey": {
+        "message": "D",
+        "description": ""
+    },
+    "RestrictSubdocScripting": {
+        "message": "Sekat penskripan dalam subdokumen tersenarai-putih bagi halaman bukan-tersenarai-putih",
+        "description": ""
+    },
+    "RevokeTemp": {
+        "message": "Revoke Temporary Permissions",
+        "description": ""
+    },
+    "RevokeTemp_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "SecureCookies": {
+        "message": "Benarkan Pengurusan Kuki Selamat Berautomatik",
+        "description": ""
+    },
+    "SecureCookiesExceptions": {
+        "message": "Abaikan kuki tak selamat ditetapkan terhadap HTTPS dengan mengikuti laman berikut:",
+        "description": ""
+    },
+    "SecureCookiesForced": {
+        "message": "Paksa penyulitan untuk semua kuki yang ditetapkan menerusi HTTPS pada laman berikut:",
+        "description": ""
+    },
+    "SecurityManager": {
+        "message": "Pengurus Keselamatan",
+        "description": ""
+    },
+    "Show": {
+        "message": "Tunjuk...",
+        "description": ""
+    },
+    "ShowConsole": {
+        "message": "Tunjuk Konsol...",
+        "description": ""
+    },
+    "ShowConsole_accesskey": {
+        "message": "S",
+        "description": ""
+    },
+    "ShowPlaceholder": {
+        "message": "Tunjuk ikon pemegang tempat",
+        "description": ""
+    },
+    "ShowReleaseNotes": {
+        "message": "Papar nota keluaran ketika kemaskini",
+        "description": ""
+    },
+    "ShowCtxMenuItem": {
+        "message": "Tunjuk item menu konteks NoScript",
+        "description": ""
+    },
+    "ShowCountBadge": {
+        "message": "Display blocked items count badge",
+        "description": ""
+    },
+    "SitePermissions": {
+        "message": "Keizinan Laman",
+        "description": ""
+    },
+    "SitePermissions_accessKey": {
+        "message": "S",
+        "description": ""
+    },
+    "SitePolicies": {
+        "message": "Polisi Khusus Laman",
+        "description": ""
+    },
+    "TempTrustPage": {
+        "message": "Tetapkan semua pada laman menjadi DIPERCAYAI Buat Sementara",
+        "description": ""
+    },
+    "TempTrustPage_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "TempToPerm": {
+        "message": "Jadikan keizinan laman secara kekal",
+        "description": ""
+    },
+    "TempToPerm_accesskey": {
+        "message": "M",
+        "description": ""
+    },
+    "Trust": {
+        "message": "Tanda sebagai Dipercayai",
+        "description": ""
+    },
+    "Trust_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "Trusted": {
+        "message": "Dipercayai",
+        "description": ""
+    },
+    "Trusted_temporary": {
+        "message": "DIPERCAYAI Semen.",
+        "description": ""
+    },
+    "Trusted_permanent": {
+        "message": "DIPERCAYAI",
+        "description": ""
+    },
+    "TrustedPagesAdj": {
+        "message": "dipercayai",
+        "description": ""
+    },
+    "Uninstall": {
+        "message": "Nyahpasang",
+        "description": ""
+    },
+    "Unknown": {
+        "message": "Tidak diketahui",
+        "description": ""
+    },
+    "UnsafeReload": {
+        "message": "Muat Semula Tak Selamat",
+        "description": ""
+    },
+    "UnsafeReload_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "Untrust": {
+        "message": "Tanda sebagai Tidak Dipercayai",
+        "description": ""
+    },
+    "Untrust_accesskey": {
+        "message": "U",
+        "description": ""
+    },
+    "Untrusted": {
+        "message": "Tidak Dipercayai",
+        "description": ""
+    },
+    "UntrustedPagesAdj": {
+        "message": "tidak dipercayai",
+        "description": ""
+    },
+    "WebAddress": {
+        "message": "Gelintar atau tambah laman sesawang:",
+        "description": ""
+    },
+    "WebAddress_accesskey": {
+        "message": "w",
+        "description": ""
+    },
+    "Whitelist": {
+        "message": "Senarai Putih",
+        "description": ""
+    },
+    "XSS_notify": {
+        "message": "Tunjuk pemberitahuan XSS",
+        "description": ""
+    },
+    "XSS_clearUserChoices": {
+        "message": "Kosongkan Pilihan XSS",
+        "description": ""
+    },
+    "XSS_promptTitle": {
+        "message": "Amaran XSS NoScript",
+        "description": ""
+    },
+    "XSS_promptMessage": {
+        "message": "NoScript detected a potential Cross-Site Scripting attack\nfrom $1 to $2.\nSuspicious data:\n$3",
+        "description": ""
+    },
+    "XSS_optBlock": {
+        "message": "Sekat permohonan ini",
+        "description": ""
+    },
+    "XSS_optSanitize": {
+        "message": "Bersihkan permohonan ini",
+        "description": ""
+    },
+    "XSS_optAllow": {
+        "message": "Benarkan permohonan ini",
+        "description": ""
+    },
+    "XSS_optAlwaysAllow": {
+        "message": "Always allow document requests from $1 to $2",
+        "description": ""
+    },
+    "XSS_optAlwaysBlock": {
+        "message": "Sentiasa sekat permohonan dokumen dari $1 hingga $2",
+        "description": ""
+    },
+    "Xss": {
+        "message": "XSS",
+        "description": ""
+    },
+    "Xss_accesskey": {
+        "message": "X",
+        "description": ""
+    },
+    "XssExceptions": {
+        "message": "Pengecualian Perlindungan Anti-XSS",
+        "description": ""
+    },
+    "XssExceptions_description": {
+        "message": "Destinations matching these regular expressions will NOT be protected against XSS.",
+        "description": ""
+    },
+    "XssFaq": {
+        "message": "FAQ XSS...",
+        "description": ""
+    },
+    "XssFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "about": {
+        "message": "Perihal $1",
+        "description": ""
+    },
+    "allowFrom": {
+        "message": "Benarkan semua daripada $1",
+        "description": ""
+    },
+    "allowGlobal": {
+        "message": "Lumpuhkan semua semakan keizinan (merbahaya)",
+        "description": ""
+    },
+    "allowLocal": {
+        "message": "Benarkan $1",
+        "description": ""
+    },
+    "allowTemp": {
+        "message": "Benarkan $1 buat sementara",
+        "description": ""
+    },
+    "allowTempFrom": {
+        "message": "Benarkan buat sementara semua daripada $1",
+        "description": ""
+    },
+    "allowed_no": {
+        "message": "Skrip Semasa Disekat",
+        "description": ""
+    },
+    "allowed_prt": {
+        "message": "Sebahagian Skrip Dibenarkan",
+        "description": ""
+    },
+    "allowed_yes": {
+        "message": "Skrip Semasa Dibenarkan",
+        "description": ""
+    },
+    "alwaysAsk": {
+        "message": "Sentiasa tanya pengesahan",
+        "description": ""
+    },
+    "audio_samples": {
+        "message": "Sampel audio",
+        "description": ""
+    },
+    "bookmarkSync_confirm": {
+        "message": "NoScript has found a configuration bookmark seemingly saved on\n$1.\nDo you really want to overwrite your local NoScript configuration with this bookmark's content?",
+        "description": ""
+    },
+    "bookmarkSync_message": {
+        "message": "Tanda buku TIDAK perlu dibuka, tetapi disegerakkan menggunakan satu perkhidmatan seperti sambungan Weave atau XMarks.",
+        "description": ""
+    },
+    "bookmarkSync_title": {
+        "message": "Tanda Buku Konfigurasi NoScript",
+        "description": ""
+    },
+    "cap_script": {
+        "message": "skrip",
+        "description": ""
+    },
+    "cap_frame": {
+        "message": "bingkai",
+        "description": ""
+    },
+    "cap_object": {
+        "message": "objek",
+        "description": ""
+    },
+    "cap_media": {
+        "message": "media",
+        "description": ""
+    },
+    "cap_font": {
+        "message": "fon",
+        "description": ""
+    },
+    "cap_webgl": {
+        "message": "webgl",
+        "description": ""
+    },
+    "cap_fetch": {
+        "message": "dapatkan",
+        "description": ""
+    },
+    "cap_other": {
+        "message": "lain-lain",
+        "description": ""
+    },
+    "changelog": {
+        "message": "Log Perubahan",
+        "description": ""
+    },
+    "changelog_tip": {
+        "message": "Tunjuk log perubahan",
+        "description": ""
+    },
+    "confirm": {
+        "message": "Anda pasti?",
+        "description": ""
+    },
+    "disable": {
+        "message": "Lumpuhkan $1",
+        "description": ""
+    },
+    "disable_accessKey": {
+        "message": "D",
+        "description": ""
+    },
+    "distrust": {
+        "message": "Tanda $1 sebagai Tidak Dipercayai",
+        "description": ""
+    },
+    "extensionContributors": {
+        "message": "Penyumbang:",
+        "description": ""
+    },
+    "extensionContributors_tip": {
+        "message": "Individu yang patut diucap terima kasih atas sambungan ini",
+        "description": ""
+    },
+    "extensionCreator_tip": {
+        "message": "Lawati laman sesawang pengarang",
+        "description": ""
+    },
+    "extensionCreatorLabel": {
+        "message": "Pengarang:",
+        "description": ""
+    },
+    "extensionHomepage_tip": {
+        "message": "Lawati laman sesawang sambungan",
+        "description": ""
+    },
+    "forbidGlobal": {
+        "message": "Sekat Skrip secara Sejagat (disarankan)",
+        "description": ""
+    },
+    "forbidLocal": {
+        "message": "Halang $1",
+        "description": ""
+    },
+    "freshInstallReload": {
+        "message": "Untuk mengendalikan tab ini, NoScript perlu memuatkannya semula.\nTeruskan?",
+        "description": ""
+    },
+    "privilegedPage": {
+        "message": "This is a privileged page, whose permissions cannot be configured.",
+        "description": ""
+    },
+    "incompatibleOptions": {
+        "message": "\"$1\"\nis incompatible with \"$2\".\nDo you want to enable the former and disable the latter?",
+        "description": ""
+    },
+    "incompatibleOptions_title": {
+        "message": "Amaran Pilihan Tidak Serasi",
+        "description": ""
+    },
+    "informaction_tip": {
+        "message": "Lawati laman sesawang InformAction",
+        "description": ""
+    },
+    "license": {
+        "message": "License",
+        "description": ""
+    },
+    "license_tip": {
+        "message": "Baca lesen pengguna-akhir",
+        "description": ""
+    },
+    "logo_tip": {
+        "message": "Lawati laman sesawang sambungan",
+        "description": ""
+    },
+    "metaRefresh_notify": {
+        "message": "NoScript blocked a <META> redirection inside a <NOSCRIPT> element: $1 in $2 seconds.",
+        "description": ""
+    },
+    "Reload": {
+        "message": "Muat Semula",
+        "description": ""
+    },
+    "removal_message": {
+        "message": "Dengan melumpuhkan atau menyahpasang NoScript, anda rela membuang SEMUA perlindungan yang telah disediakan oleh NoScript.\n\nJika anda penat mengendali keizinan skrip laman secara satu per satu, terdapat satu lagi pilihan yang lebih mudah dan selamat.\n\nNoScript boleh menyekat skrip, kecuali anda tandakan sebagai dipercayai, dan masih melindungi anda dengan perencanaan keselamatan termaju terhadap XSS, Clickjacking, CSRF dan lain-lain ancaman sesawang.\n\nSekali lagi, anda pasti mahu membuang SEMUA perlindungan NoScript?\n",
+        "description": ""
+    },
+    "removal_no": {
+        "message": "Tidak, hanya hentikan skrip penyekat",
+        "description": ""
+    },
+    "removal_title": {
+        "message": "Amaran Penyusutan Keselamatan",
+        "description": ""
+    },
+    "removal_yes": {
+        "message": "Ya, buang SEMUA perlindungan",
+        "description": ""
+    },
+    "reset_title": {
+        "message": "Tetap Semula NoScript",
+        "description": ""
+    },
+    "reset_warning": {
+        "message": "SEMUA keutamaan NoScript dan keizinan laman akan ditetapkan semula ke nilai lalainya serta-merta.\nTindakan ini tidak boleh dikembalikan.\nAnda mahu teruskan?",
+        "description": ""
+    },
+    "siteInfo_confirm": {
+        "message": "You're about to ask for information about the \"$1\" site\nby submitting a query to $2.\nDo you want to continue?",
+        "description": ""
+    },
+    "siteInfo_tooltip": {
+        "message": "Klik-tengah atau shift-klik untuk maklumat laman...",
+        "description": ""
+    },
+    "sponsor_tip": {
+        "message": "Lawati laman sesawang penaja",
+        "description": ""
+    },
+    "unsafeReload_warning": {
+        "message": "UNSAFELY reloading a suspicious\n\n$1 [$2]\n\nFROM [$3]\n\nNoScript will NOT protect this request!\n",
+        "description": ""
+    },
+    "untrustedOrigin": {
+        "message": "punca tidak dipercayai",
+        "description": ""
+    },
+    "version": {
+        "message": "Versi $1",
+        "description": ""
+    },
+    "versionShort": {
+        "message": "v $1",
+        "description": ""
+    }
+}
