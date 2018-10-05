@@ -174,6 +174,13 @@ var UI = (() => {
 
   function compareBy(prop, a, b) {
     let x = a[prop], y = b[prop];
+    if (x.endsWith(":")) {
+      if (!y.endsWith(":")) {
+        return this.mainDomain ? 1 : -1;
+      }
+    } else if (y.endsWith(":")) {
+      return this.mainDomain ? -1 : 1;
+    }
     return x > y ? 1 : x < y ? -1 : 0;
   }
 
@@ -542,10 +549,10 @@ var UI = (() => {
           } else if (y === md) {
             return 1;
           }
-          return wrappedCompare(a, b);
+          return wrappedCompare.call(this, a, b);
         }
       }
-      let rows = [...this.allSiteRows()].sort(sorter);
+      let rows = [...this.allSiteRows()].sort(sorter.bind(this));
       if (this.mainSite) {
         let mainLabel = "." + this.mainDomain;
         let topIdx = rows.findIndex(r => r._label === mainLabel);
@@ -563,7 +570,8 @@ var UI = (() => {
     }
 
     sorter(a, b) {
-      return compareBy("domain", a, b) ||  compareBy("_label", a, b);
+      let cb = compareBy.bind(this);
+      return cb("domain", a, b) || cb("_label", a, b);
     }
 
     async tempTrustAll() {
@@ -583,28 +591,36 @@ var UI = (() => {
 
     createSiteRow(site, siteMatch, perms, contextMatch = null, sitesCount = this.sitesCount++) {
       debug("Creating row for site: %s, matching %s / %s, %o", site, siteMatch, contextMatch, perms);
-
+      let policy = UI.policy;
       let row = this.rowTemplate.cloneNode(true);
       row.sitesCount = sitesCount;
       let url;
       try {
         url = new URL(site);
+        if (siteMatch !== site && siteMatch === url.protocol) {
+          perms = policy.DEFAULT;
+        }
       } catch (e) {
         if (/^(\w+:)\/*$/.test(site)) {
-          url = {protocol: RegExp.$1, hostname: "", origin: site, pathname:""};
-          let hostname = Sites.toExternal(url.hostname);
-          debug("Lonely %o", url, Sites.isSecureDomainKey(siteMatch) || !hostname && url.protocol === "https:");
+          let hostname = "";
+          url = {protocol: RegExp.$1, hostname, origin: site, pathname:""};
+          debug("Lonely %o", url);
         } else {
+          debug("Domain %s (%s)", site, siteMatch);
           let protocol = Sites.isSecureDomainKey(site) ? "https:" : "http:";
           let hostname = Sites.toggleSecureDomainKey(site, false);
-          url = {protocol, hostname, origin: `${protocol}://${site}`, pathname: "/"};
+          url = {protocol, hostname, origin: `${protocol}//${site}`, pathname: "/"};
         }
       }
 
       let hostname = Sites.toExternal(url.hostname);
-      let domain = tld.getDomain(hostname);
+      let overrideDefault = url.protocol && site !== url.protocol ?
+        policy.get(url.protocol, contextMatch) : null;
+      if (overrideDefault && !overrideDefault.siteMatch) overrideDefault = null;
 
-      if (!siteMatch) {
+      let domain = tld.getDomain(hostname);
+      let disableDefault = false;
+      if (!siteMatch || siteMatch === url.protocol && site !== siteMatch) {
         siteMatch = site;
       }
       let secure = Sites.isSecureDomainKey(siteMatch);
@@ -654,23 +670,45 @@ var UI = (() => {
           label.setAttribute("for", temp.id);
         }
       }
-      let policy = UI.policy;
 
-      let presetName = "CUSTOM";
-      for (let p of ["TRUSTED", "UNTRUSTED", "DEFAULT"]) {
-        let preset = policy[p];
-        switch (perms) {
-          case preset:
-            presetName = p;
-            break;
-          case preset.tempTwin:
-            presetName = `T_${p}`;
-            if (!presetName in UI.presets) {
+      let getPresetName = perms => {
+        let presetName = "CUSTOM";
+        for (let p of ["TRUSTED", "UNTRUSTED", "DEFAULT"]) {
+          let preset = policy[p];
+          switch (perms) {
+            case preset:
               presetName = p;
+              break;
+            case preset.tempTwin:
+              presetName = `T_${p}`;
+              if (!presetName in UI.presets) {
+                presetName = p;
+              }
+              break;
             }
-            break;
-          }
+        }
+        return presetName;
       }
+
+      let presetName = getPresetName(perms);
+      if (overrideDefault) {
+        let overrideName = getPresetName(overrideDefault.perms);
+        if (overrideName) {
+          let override = row.querySelector(`.presets input[value="${overrideName}"]`);
+          if (override) {
+            let def = row.querySelector(`.presets input[value="DEFAULT"]`);
+            if (def && def !== override) {
+              let label = def.nextElementSibling;
+              label.title = def.title = `${override.title} (${overrideDefault.siteMatch})`;
+              label.textContent = override.nextElementSibling.textContent + "*";
+              label.classList.toggle("override", true);
+              def.dataset.override = overrideName;
+              def.style.backgroundImage = window.getComputedStyle(override, null).backgroundImage;
+            }
+          }
+        }
+      }
+
       let tempFirst = true; // TODO: make it a preference
       let unsafeMatch = keyStyle !== "secure" && keyStyle !== "full";
       if (presetName === "DEFAULT" && (tempFirst || unsafeMatch)) {

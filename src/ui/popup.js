@@ -175,11 +175,17 @@ addEventListener("unload", e => {
       typesMap.clear();
       let policySites = UI.policy.sites;
       let domains = new Map();
-
+      let protocols = new Set();
       function urlToLabel(url) {
         let origin = Sites.origin(url);
         let match = policySites.match(url);
-        if (match) return match;
+        if (match) {
+          if (match === url.protocol) {
+            protocols.add(match);
+          } else {
+            return match;
+          }
+        }
         if (domains.has(origin)) {
           if (justDomains) return domains.get(origin);
         } else {
@@ -207,6 +213,7 @@ addEventListener("unload", e => {
       if (!justDomains) {
         for (let domain of domains.values()) sitesSet.add(domain);
       }
+      for (let protocol of protocols) sitesSet.add(protocol);
       let sites = [...sitesSet];
       for (let parsed of parsedSeen) {
         sites.filter(s => parsed.label === s || domains.get(Sites.origin(parsed.url)) === s).forEach(m => {

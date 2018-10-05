@@ -155,6 +155,10 @@ label.https-only {
   display: none;
 }
 
+.preset label.preset.override {
+  color: #555;
+}
+
 [data-preset="UNTRUSTED"] .https-only, [data-preset="DEFAULT"] .https-only {
   visibility: hidden;
 }
