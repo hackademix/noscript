@@ -349,7 +349,7 @@ input.preset:checked ~ input.temp {
 }
 .customizing input.preset:checked, #presets input.preset, #presets input.preset:checked  {
   margin: 0 1em -0.2em 1em;
-  border-radius: 0.5em 0.5em 0 0;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
 }
 
 .customizing input.preset:checked + label.preset {
@@ -357,7 +357,7 @@ input.preset:checked ~ input.temp {
 }
 
 .customizing, .customizer {
-  background-color: #cca !important;
+  background-color: rgb(243, 243, 243) !important;
 }
 
 .customizer div {

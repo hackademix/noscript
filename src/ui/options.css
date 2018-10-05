@@ -1,7 +1,7 @@
 
 /* @import url("chrome://browser/content/extension.css"); */
 body {
-  background: #eee url("/img/noscript-options.png") no-repeat fixed top right;
+  background: #fff url("/img/noscript-options.png") no-repeat fixed top right;
   background-size: 8em;
   padding: 0 2em 0 0;
   margin: 0.5em 0.5em 0.5em 0.5em;
@@ -20,15 +20,14 @@ body {
   text-align: right;
 }
 #header h1 {
-  color: #048;
-  text-shadow: 0.06em 0.06em 0.06em rgba(0,0,0,.5);
+  color: #848484;
   font-size: 2em;
   padding: 0;
   margin: 0;
   text-align: right;
 }
 #version {
-  color: #048;
+  color: #848484;
   font-size: 0.75em;
   padding: 0;
   margin: 0 0 0.5em;
@@ -59,7 +58,6 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-  border-bottom: 1px solid rgba(255, 255, 255, .5);
   padding: .5em 0;
 }
 
@@ -122,7 +120,6 @@ body.debug div.debug {
 }
 
 input, button {
-  font-size: 1em;
 }
 
 button.add {
@@ -161,23 +158,23 @@ input[type="file"] {
 }
 
 .flextabs__content, .flextabs__toggle[aria-expanded="true"] {
-  background-color: rgba(200, 200, 200, .5) !important;
+  background-color: rgba(230, 230, 230, .5) !important;
   border: 0 solid #888;
 }
 
 .flextabs__toggle {
   -moz-appearance: none;
-  border-width: 0 1px 0 0 !important;
+  border-width: 0 0 0 0 !important;
   margin: 0 4px 0 0;
-  background: #ccc;
+  background: #e6e6e6;
   outline-width: 1px 0 0 0 !important;
 }
 
 
 
 .flextabs__content {
-  border-width: 0 1px 1px 0;
-  border-radius: 0 .5em 0 0;
+  border-width: 0 0 0 0;
+  border-radius: 0 .5em .5em .5em;
   padding: .5em;
 }
 
