@@ -38,7 +38,7 @@ if [ "$1" == "bump" ]; then
   echo "Bumping to $VER"
   git add "$MANIFEST_IN"
   git commit -m "Version bump: $VER."
-  [[ $VER == *rc* ]] || "$0" tag 
+  [[ $VER == *rc* ]] || "$0" tag
   exit
 fi
 XPI_DIR="$BASE/xpi"
@@ -46,7 +46,7 @@ XPI="$XPI_DIR/noscript-$VER"
 LIB="$SRC/lib"
 TLD="$BASE/TLD"
 
-if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') ] && "$TLD/generate.sh" "$LIB/tld.js"; then
+if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') -a "$1" != "tld" ] && "$TLD/generate.sh" "$LIB/tld.js"; then
   cp -u "$TLD/tld.js" "$LIB"
 fi
 
@@ -58,7 +58,7 @@ cp -p LICENSE.txt GPL.txt "$BUILD"/
 
 BUILD_CMD="web-ext"
 BUILD_OPTS="build"
-  
+
 if [[ $VER == *rc* ]]; then
   sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
     "$MANIFEST_IN" > "$MANIFEST_OUT"
