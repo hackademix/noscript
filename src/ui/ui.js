@@ -614,7 +614,7 @@ var UI = (() => {
       }
 
       let hostname = Sites.toExternal(url.hostname);
-      let overrideDefault = url.protocol && site !== url.protocol ?
+      let overrideDefault = site && url.protocol && site !== url.protocol ?
         policy.get(url.protocol, contextMatch) : null;
       if (overrideDefault && !overrideDefault.siteMatch) overrideDefault = null;
 
