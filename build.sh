@@ -12,7 +12,8 @@ if [ "$1" == "tag" ]; then
   exit 0
 fi
 if [ "$1" == "rel" ]; then
-  perl -pi -e 's/("version":.*)rc\d+/$1/' "$MANIFEST_IN" && rm "$MANIFEST_IN".bak
+  perl -pi.bak -e 's/("version":.*)rc\d+/$1/' "$MANIFEST_IN"
+  rm -f "$MANIFEST_IN".bak
   "$0" && "$0" bump
   exit
 fi
@@ -32,7 +33,8 @@ if [ "$1" == "bump" ]; then
       pattern='\b\d+'
     fi
     REPLACE_EXPR='s/(?<PREAMBLE>"version":.*)'"$pattern"'"/$+{PREAMBLE}'"$NEW_VER"'"/'
-    perl -pi -e $REPLACE_EXPR "$MANIFEST_IN" && rm "$MANIFEST_IN".bak && "$0" bump
+    perl -pi.bak -e $REPLACE_EXPR "$MANIFEST_IN" && "$0" bump
+    rm -f "$MANIFEST_IN".bak
     exit
   fi
   echo "Bumping to $VER"
