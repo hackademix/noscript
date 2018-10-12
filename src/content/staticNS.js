@@ -52,15 +52,12 @@
       // mess with it, though, so we wrap it around auto-hiding accessors
 
       if (this.config.MARKER = MARKER) {
+        let splitter = `${MARKER},`;
+        this.getWindowName = () => window.name.split(splitter).pop();
 
         let tabInfoRx = new RegExp(`^${MARKER}\\[([^]*?)\\]${MARKER},`);
-        let name = window.name;
-        try {
-          name = top.name;
-        } catch(e) {
-          // won't work cross-origin
-        }
-        let tabInfoMatch = name.match(tabInfoRx);
+
+        let tabInfoMatch = window.name.match(tabInfoRx);
         if (tabInfoMatch) {
           try {
             this.config.tabInfo = JSON.parse(tabInfoMatch[1]);
@@ -68,8 +65,7 @@
             error(e);
           }
         }
-        let splitter = `${MARKER},`;
-        this.getWindowName = () => window.name.split(splitter).pop();
+
         Reflect.defineProperty(window.wrappedJSObject, "name", {
           get: exportFunction(() => this.getWindowName(), window.wrappedJSObject),
           set: exportFunction(value => {

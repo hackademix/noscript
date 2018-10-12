@@ -318,7 +318,7 @@ var RequestGuard = (() => {
           }
           capabilities = perms.capabilities;
         } else {
-          if (!isMainFrame && type === "sub_frame") {
+          if (isMainFrame || type === "sub_frame") {
             await Settings.enforceTabRestrictions(tabId);
           }
         }
