@@ -105,9 +105,10 @@
 
   var ChildPolicies = {
     addTabInfoCookie(request, info) {
+      let {tabId, frameId} = request;
       let h = {
         name: "Set-Cookie",
-        value: `${marker}=${JSON.stringify(info)}`
+        value: `${marker}_${tabId}_${frameId}=${JSON.stringify(info)}`
       };
       let {responseHeaders} = request;
       if (responseHeaders.some(({value, name}) => h.value === value && h.name === name)) {

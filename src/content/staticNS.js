@@ -52,13 +52,14 @@
       // (before any content can access it)
 
       if (this.config.MARKER = MARKER) {
-        let cookieRx = new RegExp(`(?:^|;\\s*)${MARKER}=([^;]*)`);
+        let cookieRx = new RegExp(`(?:^|;\\s*)(${MARKER}(?:_\\d+){2})=([^;]*)`);
         let match = document.cookie.match(cookieRx);
         if (match) {
+          let [cookie, cookieName, cookieValue] = match;
           // delete cookie NOW
-          document.cookie = `${MARKER}=;expires=${new Date(Date.now() - 31536000000).toGMTString()}`;
+          document.cookie = `${cookieName}=;expires=${new Date(Date.now() - 31536000000).toGMTString()}`;
           try {
-            this.config.tabInfo = JSON.parse(decodeURIComponent(match[1]));
+            this.config.tabInfo = JSON.parse(decodeURIComponent(cookieValue));
           } catch (e) {
             error(e);
           }
