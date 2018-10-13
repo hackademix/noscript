@@ -292,6 +292,7 @@ var RequestGuard = (() => {
     async onHeadersReceived(request) {
       // called for main_frame, sub_frame and object
       // check for duplicate calls
+      let headersModified = false;
       let pending = pendingRequests.get(request.requestId);
       if (pending) {
         if (pending.headersProcessed) {
@@ -319,7 +320,10 @@ var RequestGuard = (() => {
           capabilities = perms.capabilities;
         } else {
           if (isMainFrame || type === "sub_frame") {
-            await Settings.enforceTabRestrictions(tabId);
+            let unrestricted = ns.unrestrictedTabs.has(tabId) && {unrestricted: true};
+            if (unrestricted) {
+              headersModified = ChildPolicies.addTabInfoCookie(request, unrestricted);
+            }
           }
         }
         if (isMainFrame && !TabStatus.map.has(tabId)) {
@@ -331,6 +335,9 @@ var RequestGuard = (() => {
         if (header) {
           pending.cspHeader = header;
           debug(`CSP blocker on %s:`, url, header.value);
+          headersModified = true;
+        }
+        if (headersModified) {
           return {responseHeaders};
         }
       } catch (e) {

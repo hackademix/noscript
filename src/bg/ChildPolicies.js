@@ -1,6 +1,6 @@
 "use strict";
 {
-  let marker = JSON.stringify(uuid());
+  let marker = uuid();
   let allUrls = ["<all_urls>"];
 
   let Scripts = {
@@ -47,7 +47,7 @@
       if (typeof perms !== "string") {
         perms = JSON.stringify(perms);
       }
-      return `ns.setup(${perms}, ${marker});`
+      return `ns.setup(${perms}, "${marker}");`
     }
   };
 
@@ -104,18 +104,17 @@
       : [];
 
   var ChildPolicies = {
-    async storeTabInfo(tabId, info) {
-      try {
-        let preamble = info ? `${marker} + ${JSON.stringify(JSON.stringify([info]))} + ${marker} + "," + ` : "";
-        await browser.tabs.executeScript(tabId, {
-          code: `window.name = ${preamble}window.name.split(${marker} + ",").pop();`,
-          allFrames: true,
-          matchAboutBlank: true,
-          runAt: "document_start",
-        });
-      } catch (e) {
-        error(e);
+    addTabInfoCookie(request, info) {
+      let h = {
+        name: "Set-Cookie",
+        value: `${marker}=${JSON.stringify(info)}`
+      };
+      let {responseHeaders} = request;
+      if (responseHeaders.some(({value, name}) => h.value === value && h.name === name)) {
+       return false;
       }
+      responseHeaders.push(h);
+      return true;
     },
     async update(policy, tracing) {
       if (tracing !== "undefined") Scripts.debug = tracing;
@@ -123,7 +122,7 @@
       await Scripts.init();
 
       if (!policy.enforced) {
-        await Scripts.register(`ns.setup(null, ${marker});`, allUrls);
+        await Scripts.register(Scripts.buildPerms("null"), allUrls);
         return;
       }
 

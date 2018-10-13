@@ -47,33 +47,22 @@
       this.config.permissions = permissions;
 
       // ugly hack: since now we use registerContentScript instead of the
-      // filterRequest dynamic script injection hack, we use window.name
-      // to store per-tab information. We don't want web content to
-      // mess with it, though, so we wrap it around auto-hiding accessors
+      // filterRequest dynamic script injection hack, we use a session cookie
+      // to store per-tab information,  erasing it as soon as we see it
+      // (before any content can access it)
 
       if (this.config.MARKER = MARKER) {
-        let splitter = `${MARKER},`;
-        this.getWindowName = () => window.name.split(splitter).pop();
-
-        let tabInfoRx = new RegExp(`^${MARKER}\\[([^]*?)\\]${MARKER},`);
-
-        let tabInfoMatch = window.name.match(tabInfoRx);
-        if (tabInfoMatch) {
+        let cookieRx = new RegExp(`(?:^|;\\s*)${MARKER}=([^;]*)`);
+        let match = document.cookie.match(cookieRx);
+        if (match) {
+          // delete cookie NOW
+          document.cookie = `${MARKER}=;expires=${new Date(Date.now() - 31536000000).toGMTString()}`;
           try {
-            this.config.tabInfo = JSON.parse(tabInfoMatch[1]);
+            this.config.tabInfo = JSON.parse(decodeURIComponent(match[1]));
           } catch (e) {
             error(e);
           }
         }
-
-        Reflect.defineProperty(window.wrappedJSObject, "name", {
-          get: exportFunction(() => this.getWindowName(), window.wrappedJSObject),
-          set: exportFunction(value => {
-            let tabInfoMatch = window.name.match(tabInfoRx);
-            window.name = tabInfoMatch ? `${tabInfoMatch[0]}${value}` : value;
-            return value;
-          }, window.wrappedJSObject)
-        });
       }
       if (!this.config.permissions || this.config.tabInfo.unrestricted) {
         debug("%s is loading unrestricted by user's choice (%o).", document.URL, this.config);
