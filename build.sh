@@ -88,7 +88,15 @@ done
 echo "Creating $XPI.xpi..."
 mkdir -p "$XPI_DIR"
 
-"$BUILD_CMD" $BUILD_OPTS --source-dir=$(cygpath -w "$BUILD") --artifacts-dir=$(cygpath -w "$XPI_DIR") --ignore-files=test/XSS_test.js
+if which cygpath; then
+  WEBEXT_IN="$(cygpath -w "$BUILD")"
+  WEBEXT_OUT="$(cygpath -w "$XPI_DIR")"
+else
+  WEBEXT_IN="$BUILD"
+  WEBEXT_OUT="$XPI_DIR"
+fi
+
+"$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" --ignore-files=test/XSS_test.js
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"

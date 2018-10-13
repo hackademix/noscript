@@ -3,7 +3,7 @@ use strict;
 
 require LWP::UserAgent;
 use LWP::Simple;
-use RegExp::List;
+use Regexp::List;
 use File::stat;
 use File::Basename;
 use List::MoreUtils qw(uniq);
@@ -17,7 +17,7 @@ sub create_re
 {
   my $cache = "$HERE/html5_events.re";
   my $archive = "$HERE/html5_events_archive.txt";
-  
+
   my $sb = stat($cache);
 
   if ($sb && time() - $sb->mtime < 86400)
@@ -27,7 +27,7 @@ sub create_re
     close IN;
     return $content[0];
   }
-  
+
   sub fetch_url
   {
     my $url = shift(@_);
@@ -53,30 +53,30 @@ sub create_re
   $content = join("\n", grep(/^\s*Atom\("on\w+"/, split(/[\n\r]/, $content)));
 
   $content =~ s/.*"(on\w+)".*/$1 /g;
-  
+
   open IN, "<$archive";
   my @archived = <IN>;
   close IN;
 
   $content .= join("\n", @archived);
-  
+
   $content =~ s/\s+/\n/g;
   $content =~ s/^\s+|\s+$//g;
-  
+
   my @all_events = grep(!/^only$/, uniq(split("\n", $content)));
-  
+
   open (OUT, ">$archive");
   print OUT join("\n", @all_events);
   close OUT;
-  
+
   my $l  = Regexp::List->new;
   my $re = $l->list2re(@all_events);
   $re =~ s/\(\?[-^]\w+:(.*)\)/$1/;
-  
+
   open (OUT, ">$cache");
   print OUT $re;
   close OUT;
-  
+
   $re;
 }
 
