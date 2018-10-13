@@ -11,14 +11,15 @@ if [ "$1" == "tag" ]; then
   git tag -a "$VER" && git push origin "$VER"
   exit 0
 fi
-if [ "$1" == "rel" ]; then
+if [[ "$1" == "rel" ]]; then
   perl -pi.bak -e 's/("version":.*)rc\d+/$1/' "$MANIFEST_IN"
   rm -f "$MANIFEST_IN".bak
   "$0" && "$0" bump
   exit
 fi
-if [ "$1" == "bump" ]; then
-  if [ "$2" ]; then
+
+if [[ "$1" == "bump" ]]; then
+  if [[ "$2" ]]; then
     NEW_VER="$2"
     if [[ "$2" == *.* ]]; then # full dotted version number
       pattern='"\d+.*?'
@@ -64,13 +65,13 @@ BUILD_OPTS="build"
 if [[ $VER == *rc* ]]; then
   sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
     "$MANIFEST_IN" > "$MANIFEST_OUT"
-  if [ "$1" == "sign" ]; then
+  if [[ "$1" == "sign" ]]; then
     BUILD_CMD="$BASE/../../we-sign"
     BUILD_OPTS=""
   fi
 else
   grep -v '"update_url":' "$MANIFEST_IN" > "$MANIFEST_OUT"
-  if [ "$1" == "sign" ]; then
+  if [[ "$1" == "sign" ]]; then
     echo >&2 "WARNING: won't auto-sign a release version, please manually upload to AMO."
   fi
 fi
