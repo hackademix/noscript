@@ -101,6 +101,7 @@ fi
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
+  ../../we-publish "$XPI.xpi"
 elif [ -f "$XPI.zip" ]; then
   mv "$XPI.zip" "$XPI.xpi"
 else
