@@ -110,7 +110,7 @@ var RequestGuard = (() => {
       let browserAction = browser.browserAction;
       browserAction.setIcon({tabId, path: {64: `/img/ui-${icon}64.png`}});
       browserAction.setBadgeText({tabId, text: showBadge ? numBlocked.toString() : ""});
-      browserAction.setBadgeBackgroundColor({tabId, color: [255, 0, 0, 128]});
+      browserAction.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
       browserAction.setTitle({tabId,
         title: `${VERSION_LABEL} \n${enforced ?
             _("BlockedItems", [numBlocked, numAllowed + numBlocked]) + ` \n${report}`
