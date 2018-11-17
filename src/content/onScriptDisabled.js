@@ -1,31 +1,26 @@
 function onScriptDisabled() {
+  let refresh = false;
   for (let noscript of document.querySelectorAll("noscript")) {
     // force show NOSCRIPT elements content
     let replacement = createHTMLElement("span");
     replacement.innerHTML = noscript.innerHTML;
     noscript.parentNode.replaceChild(replacement, noscript);
     // emulate meta-refresh
-    let meta = replacement.querySelector('meta[http-equiv="refresh"]');
+    let meta =  replacement.querySelector('meta[http-equiv="refresh"]');
     if (meta) {
-      let content = meta.getAttribute("content");
-      if (content) {
-        let [secs, url] = content.split(/\s*;\s*url\s*=\s*/i);
-        let urlObj;
-        if (url) {
-          try {
-            urlObj = new URL(url.replace(/^(['"]?)(.+?)\1$/, '$2'), document.URL);
-            if (!/^https?:/.test(urlObj.protocol)) {
-              continue;
-            }
-          } catch (e) {
-            continue;
-          }
-          window.setTimeout(() => location.href = urlObj, (parseInt(secs) || 0) * 1000);
-        }
-      }
+      refresh = true;
+      document.head.appendChild(meta);
     }
   }
-
+  if (refresh) {
+    let html = document.documentElement.outerHTML;
+    window.addEventListener("load", e => {
+      let document = window.wrappedJSObject.document;
+      document.open();
+      document.write(html);
+      document.close();
+    });
+  }
   {
     let eraser = {
       tapped: null,
