@@ -264,7 +264,10 @@ var RequestGuard = (() => {
         if (policyType) {
           let {url, originUrl, documentUrl} = request;
           if (("fetch" === policyType || "frame" === policyType) &&
-            (url === originUrl && originUrl === documentUrl ||
+              (((!originUrl || url === originUrl) && originUrl === documentUrl
+                // some extensions make them both undefined,
+                // see https://github.com/eight04/image-picka/issues/150
+              ) ||
               INTERNAL_SCHEME.test(originUrl))
           ) {
             // livemark request or similar browser-internal, always allow;
