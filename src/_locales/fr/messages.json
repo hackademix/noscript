@@ -164,7 +164,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Une protection supplémentaire pour votre Firefox : NoScript autorise JavaScript, Flash (et autres greffons) seulement pour les domaines de votre choix (p. ex. le site Web de votre banque). Cette approche de blocage préemptif, fondé sur une liste blanche, prévient l’exploitation de vulnérabilités informatiques (connues et inconnues) sans perte de fonctionnalité. Les experts seront d’accord : Firefox est vraiment plus sûr avec NoScript :-)",
+        "message": "Une protection supplémentaire pour votre Firefox : NoScript autorise JavaScript, Flash (et autres greffons) seulement pour les domaines de votre choix (p. ex. le site Web de votre banque). Cette approche de blocage préemptif, fondé sur une liste blanche, prévient l’exploitation de vulnérabilités informatiques (connues et même inconnues !) sans perte de fonctionnalité. Les experts seront d’accord : Firefox est vraiment plus sûr avec NoScript :-)",
         "description": ""
     },
     "Donate": {
@@ -340,7 +340,7 @@
         "description": ""
     },
     "OK": {
-        "message": "D’accord",
+        "message": "Valider",
         "description": ""
     },
     "OptBlockCssScanners": {
@@ -408,7 +408,7 @@
         "description": ""
     },
     "Preset_off": {
-        "message": "Désactivée (sérieusement ?)",
+        "message": "Désactivée (sérieusement ?!)",
         "description": ""
     },
     "Prev": {
@@ -756,7 +756,7 @@
         "description": ""
     },
     "confirm": {
-        "message": "Êtes-vous certain ?",
+        "message": "Vraiment ?",
         "description": ""
     },
     "disable": {
