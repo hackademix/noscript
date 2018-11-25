@@ -263,8 +263,9 @@ var RequestGuard = (() => {
         let policyType = policyTypesMap[request.type];
         if (policyType) {
           let {url, originUrl, documentUrl} = request;
-          if (("fetch" === policyType || "frame" === policyType) &&
-              (((!originUrl || url === originUrl) && originUrl === documentUrl
+          let isFetch = "fetch" === policyType;
+          if ((isFetch || "frame" === policyType) &&
+              (((isFetch && !originUrl || url === originUrl) && originUrl === documentUrl
                 // some extensions make them both undefined,
                 // see https://github.com/eight04/image-picka/issues/150
               ) ||
