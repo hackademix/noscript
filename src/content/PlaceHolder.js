@@ -144,7 +144,7 @@ var PlaceHolder = (() => {
       replacement._placeHolderElement = element;
 
 
-      element.parentNode.replaceChild(replacement, element);
+      element.replaceWith(replacement);
       this.replacements.add(replacement);
     }
 
@@ -162,8 +162,8 @@ var PlaceHolder = (() => {
         return;
       }
       try {
-        var element = replacement._placeHolderElement;
-        replacement.parentNode.replaceChild(element, replacement);
+        let element = replacement._placeHolderElement;
+        replacement.replaceWith(element.cloneNode(true));
         this.replacements.delete(replacement);
       } catch (e) {
         error(e, "While replacing");
