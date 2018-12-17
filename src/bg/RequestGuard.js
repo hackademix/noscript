@@ -310,18 +310,33 @@ var RequestGuard = (() => {
         pending = pendingRequests.get(request.requestId);
       }
       pending.headersProcessed = true;
-      let {url, documentUrl, statusCode, tabId, responseHeaders, type} = request;
+      let {url, documentUrl, frameAncestors, statusCode, tabId,
+          responseHeaders, type} = request;
       let isMainFrame = type === "main_frame";
       try {
         let capabilities;
         if (ns.isEnforced(tabId)) {
           let policy = ns.policy;
           let perms = policy.get(url, documentUrl).perms;
-          if (policy.autoAllowTop && isMainFrame && perms === policy.DEFAULT) {
-            policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
-            await ChildPolicies.update(policy);
+          if (isMainFrame) {
+            if (policy.autoAllowTop && perms === policy.DEFAULT) {
+              policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
+              await ChildPolicies.update(policy);
+            }
+            capabilities = perms.capabilities;
+          } else {
+            capabilities = perms.capabilities;
+            if (frameAncestors.length > 0) {
+              // cascade top document's restrictions to subframes
+              let topUrl = frameAncestors.pop().url;
+              let topPerms = policy.get(topUrl, topUrl).perms;
+              if (topPerms !== perms) {
+                let topCaps = topPerms.capabilities;
+                // intersect capabilities
+                capabilities = new Set([...capabilities].filter(c => topCaps.has(c)));
+              }
+            }
           }
-          capabilities = perms.capabilities;
         } else {
           if (isMainFrame || type === "sub_frame") {
             let unrestricted = ns.unrestrictedTabs.has(tabId) && {unrestricted: true};
