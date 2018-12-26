@@ -237,6 +237,8 @@ onmozorientationchange
 onuserproximity
 ondevicelight
 ondevicechange
+onmozvisualresize
+onmozvisualscroll
 onloadend
 onloadstart
 onprogress
