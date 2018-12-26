@@ -25,11 +25,11 @@ class DocumentCSP {
 
     try {
       parent.insertBefore(meta, parent.firstChild);
-      debug(`Failsafe <meta> CSP inserted in the DOM: "%s"`, header.value);
+      debug(`Failsafe <meta> CSP inserted in %s: "%s"`, document.URL, header.value);
       meta.remove();
       if (!head) parent.remove();
     } catch (e) {
-      error(e, "Error inserting CSP %s in the DOM", header && header.value);
+      error(e, "Error inserting CSP %s in %s", document.URL, header && header.value);
     }
   }
 

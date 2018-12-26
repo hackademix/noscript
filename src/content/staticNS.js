@@ -51,7 +51,9 @@
       // to store per-tab information,  erasing it as soon as we see it
       // (before any content can access it)
 
-      if (this.config.MARKER = MARKER) {
+      let checkUnrestricted = challenge => sha256(`${MARKER}:${challenge}`);
+
+      if ((this.config.MARKER = MARKER) && permissions) {
         let cookieRx = new RegExp(`(?:^|;\\s*)(${MARKER}(?:_\\d+){2})=([^;]*)`);
         let match = document.cookie.match(cookieRx);
         if (match) {
@@ -63,9 +65,21 @@
           } catch (e) {
             error(e);
           }
+        } else if (window !== window.top) {
+          // The cookie hack won't work for non-HTTP subframes (issue #48),
+          // or the cookie might have been deleted in a race condition,
+          // so here we try to check the parent
+          let checkParent = parent.wrappedJSObject.checkNoScriptUnrestricted;
+          if (checkParent) {
+            let challenge = uuid();
+            let unrestricted = checkParent(challenge) === checkUnrestricted(challenge);
+            this.config.tabInfo = {unrestricted, inherited: true};
+          }
         }
       }
+
       if (!this.config.permissions || this.config.tabInfo.unrestricted) {
+        exportFunction(checkUnrestricted, window, {defineAs: "checkNoScriptUnrestricted"});
         debug("%s is loading unrestricted by user's choice (%o).", document.URL, this.config);
         this.allows = () => true;
         this.capabilities =  Object.assign(

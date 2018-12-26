@@ -77,6 +77,8 @@
       "all_frames": true,
       "js": [
         "lib/log.js",
+        "lib/uuid.js",
+        "lib/sha256.js",
         "lib/Messages.js",
         "lib/CSP.js",
         "common/CapsCSP.js",
