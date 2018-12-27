@@ -70,10 +70,15 @@
           // or the cookie might have been deleted in a race condition,
           // so here we try to check the parent
           let checkParent = parent.wrappedJSObject.checkNoScriptUnrestricted;
-          if (checkParent) {
-            let challenge = uuid();
-            let unrestricted = checkParent(challenge) === checkUnrestricted(challenge);
-            this.config.tabInfo = {unrestricted, inherited: true};
+          if (typeof checkParent  === "function") {
+            try {
+              let challenge = uuid();
+              let unrestricted = checkParent(challenge) === checkUnrestricted(challenge);
+              this.config.tabInfo = {unrestricted, inherited: true};
+            } catch (e) {
+              debug("Exception thrown while checking parent unrestricted tab marker. Something fishy going on...")
+              error(e);
+            }
           }
         }
       }
