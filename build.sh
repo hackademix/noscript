@@ -26,10 +26,15 @@ if [[ "$1" == "bump" ]]; then
       NEW_VER='"'"$2"
     elif [[ "$2" == *rc* ]]; then # new RC after release
       if [[ "$2" == rc* ]]; then
-        echo >&2 "Please specify next release version (like 12rc1). Current is $VER"
-        exit 1
+        if [[ ! "$VER" == *rc* ]]; then
+          echo >&2 "Please specify next release version (like 12rc1). Current is $VER"
+          exit 1
+        else
+          pattern='rc\d+'
+        fi
+      else
+        pattern='\b(?:\d+rc)?\d+'
       fi
-      pattern='\b(?:\d+rc)?\d+'
     else # incremental version
       pattern='\b\d+'
     fi
