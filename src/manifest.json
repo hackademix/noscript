@@ -8,7 +8,7 @@
       "strict_min_version": "59.0"
     }
   },
-  "version": "10.2.2rc3",
+  "version": "10.5",
   "description": "__MSG_Description__",
 
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
@@ -34,6 +34,8 @@
   "background": {
     "persistent": true,
     "scripts": [
+      "lib/UA.js",
+      "lib/browser-polyfill.js",
       "lib/uuid.js",
       "lib/log.js",
       "lib/include.js",
@@ -76,6 +78,8 @@
       "match_about_blank": true,
       "all_frames": true,
       "js": [
+        "lib/UA.js",
+        "lib/browser-polyfill.js",
         "lib/log.js",
         "lib/uuid.js",
         "lib/sha256.js",
@@ -116,11 +120,13 @@
 
   "commands": {
     "_execute_browser_action": {
+      "description": "NoScript UI",
       "suggested_key": {
         "default": "Alt+Shift+N"
       }
     },
     "togglePermissions": {
+      "description": "Toggle permissions",
       "suggested_key": {
         "default": "Ctrl+Shift+T"
       }
