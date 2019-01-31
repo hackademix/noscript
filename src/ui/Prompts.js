@@ -7,14 +7,16 @@ var Prompts = (() => {
     async open(data) {
       promptData = data;
       this.close();
-      this.currentWindow = await browser.windows.create({
+      let options = {
         url: browser.extension.getURL("ui/prompt.html"),
         type: "panel",
-        allowScriptsToClose: true,
-      //  titlePreface: "NoScript ",
         width: data.features.width,
         height: data.features.height,
-      });
+      };
+      if (UA.isMozilla) {
+        options.allowScriptsToClose = true;
+      }
+      this.currentWindow = await browser.windows.create(options);
     }
     async close() {
       if (this.currentWindow) {

@@ -31,7 +31,7 @@ function deferWebTraffic(promiseToWaitFor, next) {
       if (type === "main_frame") {
         seenTabs.add(tabId);
       } else if (documentUrl) {
-        if (frameId !== 0) {
+        if (frameId !== 0 && request.frameAncestors) {
           documentUrl = request.frameAncestors.pop().url;
         }
         reloadTab(tabId);

@@ -51,6 +51,10 @@
     }
   };
 
+  if (!browser.contentScripts) { // #chromium fallback
+    Scripts.register = () => {};
+  }
+
   let flatten = arr => arr.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
 
   let protocolRx = /^(\w+):/i;
