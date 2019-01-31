@@ -1,22 +1,22 @@
 {
   // see https://bugzilla.mozilla.org/show_bug.cgi?id=1415644
-  let domains = [
-  "accounts-static.cdn.mozilla.net",
-  "accounts.firefox.com",
-  "addons.cdn.mozilla.net",
-  "addons.mozilla.org",
-  "api.accounts.firefox.com",
-  "content.cdn.mozilla.net",
-  "content.cdn.mozilla.net",
-  "discovery.addons.mozilla.org",
-  "input.mozilla.org",
-  "install.mozilla.org",
-  "oauth.accounts.firefox.com",
-  "profile.accounts.firefox.com",
-  "support.mozilla.org",
-  "sync.services.mozilla.com",
-  "testpilot.firefox.com",
-  ];
+  let domains = UA.isMozilla ? [
+    "accounts-static.cdn.mozilla.net",
+    "accounts.firefox.com",
+    "addons.cdn.mozilla.net",
+    "addons.mozilla.org",
+    "api.accounts.firefox.com",
+    "content.cdn.mozilla.net",
+    "content.cdn.mozilla.net",
+    "discovery.addons.mozilla.org",
+    "input.mozilla.org",
+    "install.mozilla.org",
+    "oauth.accounts.firefox.com",
+    "profile.accounts.firefox.com",
+    "support.mozilla.org",
+    "sync.services.mozilla.com",
+    "testpilot.firefox.com",
+  ] : [ "chrome.google.com" ];
 
   function isRestrictedURL(u) {
     try {
