@@ -16,6 +16,7 @@ body {
 
 #top a {
   appearance: none !important;
+  webkit-appearance: none !important;
   -moz-appearance: none !important;
   width: 2em;
   height: 2em;
@@ -119,8 +120,9 @@ body {
 }
 
 .hider-close {
-  -moz-appearance: none;
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   color: black;
   background: transparent;
   padding: 0;
