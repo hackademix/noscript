@@ -113,6 +113,8 @@ var XSS = (() => {
 
   return {
     async start() {
+      if (!UA.isMozilla) return; // async webRequest is supported on Mozilla only
+
       let {onBeforeRequest} = browser.webRequest;
       if (onBeforeRequest.hasListener(requestListener)) return;
 

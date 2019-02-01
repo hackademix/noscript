@@ -8,9 +8,9 @@
   let version = browser.runtime.getManifest().version;
   document.querySelector("#version").textContent = _("Version", version);
   // simple general options
-  
+
   let opt = UI.wireOption;
-  
+
   opt("global", o => {
     if (o) {
       policy.enforced = !o.checked;
@@ -96,7 +96,7 @@
     }
     let button = document.querySelector("#btn-delete-xss-choices");
     let choices = UI.xssUserChoices;
-    button.disabled = Object.keys(choices).length === 0;
+    button.disabled = !choices || Object.keys(choices).length === 0;
     button.onclick = () => {
       UI.updateSettings({
         xssUserChoices: {}
