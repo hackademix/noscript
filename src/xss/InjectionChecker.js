@@ -107,11 +107,10 @@ XSS.InjectionChecker = (async () => {
       var bs = {
         nq: new RegExp("[" + def + "]")
       };
-      Array.forEach("'\"`", // special treatment for quotes
-        function(c) {
-          bs[c] = new RegExp("[" + def + c + "]");
-        }
-      );
+      for (let c of ['"', '"', '`']) {
+        // special treatment for quotes
+        bs[c] = new RegExp("[" + def + c + "]");
+      }
       delete this.breakStops;
       return (this.breakStops = bs);
     },

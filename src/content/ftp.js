@@ -9,7 +9,7 @@
     ) {
       return;
     }
-    
+
     gTable = document.getElementsByTagName("table")[0];
     gTBody = gTable.tBodies[0];
     if (gTBody.rows.length < 2)
@@ -31,7 +31,7 @@
       headCells[i].addEventListener("click", rowAction(i), true);
     }
     if (gUI_showHidden) {
-      gRows = Array.slice(gTBody.rows);
+      gRows = Array.from(gTBody.rows);
       hiddenObjects = gRows.some(row => row.className == "hidden-object");
     }
     gTable.setAttribute("order", "");
@@ -60,7 +60,7 @@
   }
   function orderBy(column) {
     if (!gRows)
-      gRows = Array.slice(gTBody.rows);
+      gRows = Array.from(gTBody.rows);
     var order;
     if (gOrderBy == column) {
       order = gTable.getAttribute("order") == "asc" ? "desc" : "asc";
