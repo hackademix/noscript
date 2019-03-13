@@ -29,6 +29,7 @@ onchargingchange
 onchargingtimechange
 onchecking
 onCheckboxStateChange
+onCheckKeyPressEventModel
 onclick
 onclose
 oncommand
