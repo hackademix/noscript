@@ -225,7 +225,7 @@
         let toBeSaved = {
           [obj.storage]: obj
         };
-        Storage.set(obj.storage, toBeSaved);
+        await Storage.set(obj.storage, toBeSaved);
       }
       return obj;
     },
