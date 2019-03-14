@@ -180,6 +180,10 @@
       return this.policy.enforced && (tabId === -1 || !this.unrestrictedTabs.has(tabId));
     },
 
+    requestCan(request, capability) {
+      return !this.isEnforced(request.tabId) || this.policy.can(request.url, "script", request.documentURL);
+    },
+
     start() {
       if (this.running) return;
       this.running = true;

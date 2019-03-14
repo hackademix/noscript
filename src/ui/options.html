@@ -99,15 +99,31 @@
 
 <h3 class="flextabs__tab"><button class="flextabs__toggle">__MSG_SectionAdvanced__</button></h3>
 <div class="flextabs__content">
-  <div class="opt-group">
-  <span id="xss-opts">
+  <div id="xss-options" class="opt-group">
+  <span id="xss-opt">
     <input type="checkbox" id="opt-xss"><label for="opt-xss" id="lbl-xss">__MSG_OptFilterXGet__</label>
-  <span id="xssFaq">(<a href="https://noscript.net/faq#xss" title="https://noscript.net/faq#xss">__MSG_XssFaq__</a>)</span>
+    <span id="xssFaq">(<a href="https://noscript.net/faq#xss" title="https://noscript.net/faq#xss">__MSG_XssFaq__</a>)</span>
   </span>
   <button id="btn-delete-xss-choices" disabled>__MSG_XSS_clearUserChoices__</button>
+  <br />
+  <span id="xssScanRequestBody-opt">
+    <input type="checkbox" id="opt-xssScanRequestBody">
+      <label for="opt-xssScanRequestBody" id="lbl-opt-xssScanRequestBody">__MSG_OptScanXUpload__</label>
+  </span>
+  <span id="xssBlockUnscannedPOST-opt">
+    <input type="checkbox" id="opt-xssBlockUnscannedPOST">
+      <label for="opt-xssBlockUnscannedPOST" id="lbl-opt-xssBlockUnscannedPOST">__MSG_OptBlockUnscannedXPost__</label>
+  </span>
   </div>
   <div id="clearclick-options" class="opt-group">
   <input type="checkbox" id="opt-clearclick"><label for="opt-clearclick" id="lbl-clearclick">ClearClick</label>
+  </div>
+
+  <div id="tb-options" class="opt-group">
+    <span id="overrideTorBrowserPolicy-opt">
+      <input type="checkbox" id="opt-overrideTorBrowserPolicy">
+        <label for="opt-overrideTorBrowserPolicy" id="lbl-opt-overrideTorBrowserPolicy">__MSG_OptOverrideTorBrowserPolicy__</label>
+    </span>
   </div>
 
   <section id="debug" class="browser-style">

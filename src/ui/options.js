@@ -8,9 +8,9 @@
   let version = browser.runtime.getManifest().version;
   document.querySelector("#version").textContent = _("Version", version);
   // simple general options
-  
+
   let opt = UI.wireOption;
-  
+
   opt("global", o => {
     if (o) {
       policy.enforced = !o.checked;
@@ -33,6 +33,11 @@
   });
 
   opt("xss");
+  opt("xssScanRequestBody");
+  opt("xssBlockUnscannedPOST");
+
+  opt("overrideTorBrowserPolicy");
+
   {
     let button = document.querySelector("#btn-reset");
     button.onclick = async () => {

@@ -136,9 +136,19 @@ input[type="file"] {
 .opt-group {
   padding: 0.5em 0;
 }
+
 #xssFaq {
   padding: 0.5em 1em;
 }
+
+#tb-options {
+  display: none;
+}
+
+.tor #tb-options {
+  display: initial;
+}
+
 #clearclick-options {
   display: none;
 }

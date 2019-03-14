@@ -41,6 +41,9 @@ var UI = (() => {
             if (UI.local && !UI.local.debug) {
               debug = () => {}; // be quiet!
             }
+            if (UI.local) {
+              document.documentElement.classList.toggle("tor", !!UI.local.isTorBrowser);
+            }
             resolve();
             if (UI.onSettings) UI.onSettings();
             await HighContrast.init();

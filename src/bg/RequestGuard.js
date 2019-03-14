@@ -379,7 +379,7 @@ var RequestGuard = (() => {
       if (pending) {
         pending.scriptBlocked = scriptBlocked;
         if (!(pending.headersProcessed &&
-            (scriptBlocked || !ns.isEnforced(tabId) || ns.policy.can(url, "script", request.documentURL))
+            (scriptBlocked || !ns.requestCan(request, "script"))
           )) {
           debug("[WARNING] onHeadersReceived %s %o", frameId, tabId,
             pending.headersProcessed ? "has been overridden on": "could not process",

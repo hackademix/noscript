@@ -114,6 +114,13 @@ var XSS = (() => {
   return {
     async start() {
       let {onBeforeRequest} = browser.webRequest;
+      let  {xssScanRequestBody} = ns.sync;
+      if (xssScanRequestBody !== this.xssScanRequestBody) {
+        this.stop();
+        this.xssScanRequestBody = xssScanRequestBody;
+      }
+      this.xssBlockUnscannedPOST = ns.sync.xssBlockUnscannedPOST;
+
       if (onBeforeRequest.hasListener(requestListener)) return;
 
       await include("/legacy/Legacy.js");
@@ -135,7 +142,9 @@ var XSS = (() => {
       onBeforeRequest.addListener(requestListener, {
         urls: ["*://*/*"],
         types: ["main_frame", "sub_frame", "object"]
-      }, ["blocking", "requestBody"]);
+      },
+        // work-around for https://bugzilla.mozilla.org/show_bug.cgi?id=1532530
+        xssScanRequestBody ? ["blocking", "requestBody"] : ["blocking"]);
     },
 
     stop() {
@@ -233,8 +242,11 @@ var XSS = (() => {
       ic.reset();
 
       let postInjection = xssReq.isPost &&
-        request.requestBody && request.requestBody.formData &&
-        ic.checkPost(request.requestBody.formData, skipParams);
+       (XSS.xssScanRequestBody ?
+          request.requestBody && request.requestBody.formData &&
+            ic.checkPost(request.requestBody.formData, skipParams)
+        : XSS.xssBlockUnscannedPOST && ns.requestCan(request, "script") && _("UnscannedXPost")
+      );
 
       let protectName = ic.nameAssignment;
       let urlInjection = ic.checkUrl(destUrl, skipRx);
