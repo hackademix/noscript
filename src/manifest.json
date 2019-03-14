@@ -10,7 +10,8 @@
   },
   "version": "10.2.2rc3",
   "description": "__MSG_Description__",
-
+  "incognito": "spanning",
+  
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
 
   "icons": {
