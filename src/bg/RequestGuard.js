@@ -326,7 +326,7 @@ var RequestGuard = (() => {
             capabilities = perms.capabilities;
           } else {
             capabilities = perms.capabilities;
-            if (frameAncestors.length > 0) {
+            if (frameAncestors.length > 0 && ns.sync.cascadeRestrictions) {
               // cascade top document's restrictions to subframes
               let topUrl = frameAncestors.pop().url;
               let topPerms = policy.get(topUrl, topUrl).perms;

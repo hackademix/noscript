@@ -91,6 +91,7 @@ var Settings = {
     if (isTorBrowser) {
       // Tor Browser-specific settings
       ns.defaults.local.isTorBrowser = true; // prevents reset from forgetting
+      ns.defaults.sync.cascadeRestrictions = true; // we want this to be the default even on reset
       if (!this.gotTorBrowserInit) {
         // First initialization message from the Tor Browser
         this.gotTorBrowserInit = true;
@@ -105,11 +106,20 @@ var Settings = {
       } else {
         reloadOptionsUI = true;
       }
-      if (!settings.local) settings.local = {};
-      settings.local.isTorBrowser = true;
-      if (!settings.sync) settings.sync = {};
-      settings.sync.xssScanRequestBody = false;
-      settings.sync.xssBlockUnscannedPOST = true;
+
+      let torBrowserSettings = {
+        local: {
+          isTorBrowser: true,
+        },
+        sync: {
+          cascadeRestrictions: true,
+          xssScanRequestBody: false,
+          xssBlockUnscannedPOST: true,
+        }
+      }
+      for (let [storage, prefs] of Object.entries(torBrowserSettings)) {
+        settings[storage] = Object.assign(settings[storage] || {}, prefs);
+      }
     }
 
     if (settings.sync === null) {

@@ -32,6 +32,8 @@
     return policy.autoAllowTop;
   });
 
+  opt("cascadeRestrictions");
+
   opt("xss");
   opt("xssScanRequestBody");
   opt("xssBlockUnscannedPOST");

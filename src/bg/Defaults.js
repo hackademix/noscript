@@ -12,6 +12,7 @@ var Defaults = {
       sync: {
         global: false,
         xss: true,
+        cascadeRestrictions : false,
         xssScanRequestBody: true,
         xssBlockUnscannedPOST: false,
         overrideTorBrowserPolicy: false, // note: Settings.update() on reset will flip this to true

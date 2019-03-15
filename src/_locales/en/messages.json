@@ -74,6 +74,9 @@
   "CascadePermissions": {
     "message": "Cascade top document's permissions to 3rd party scripts"
   },
+  "CascadeRestrictions": {
+    "message": "Cascade top document's restrictions to subdocuments"
+  },
   "ClearClickDescription": {
     "message": "NoScript intercepted a mouse or keyboard interaction with a partially hidden element. Click on the image below to cycle between the obstructed and the clear version."
   },
