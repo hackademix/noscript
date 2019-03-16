@@ -181,7 +181,7 @@
     },
 
     requestCan(request, capability) {
-      return !this.isEnforced(request.tabId) || this.policy.can(request.url, "script", request.documentURL);
+      return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, request.documentURL);
     },
 
     start() {
