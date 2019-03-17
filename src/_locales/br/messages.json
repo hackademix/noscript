@@ -99,6 +99,10 @@
         "message": "Aotreadurioù e skaleriad an teul uhel war skriptoù 3tredeoù",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript en deus dastapet un etregwerad logodenn pe glavier gant un elfenn peuz-goachet. Klikit war ar skeudenn dindan evit merdeiñ etre ar stumm stanket hag ar stumm sklaer.",
         "description": ""
@@ -353,6 +357,22 @@
     },
     "OptFilterXPost": {
         "message": "Treuzfurmiñ ar rekedoù POST dreuz-lec'hiennoù e-barzh rekedoù GET diroadenn",
+        "description": ""
+    },
+    "OptScanXUpload": {
+        "message": "Skanañ an uskargadennoù evit diguzhañ tagadennoù etre lec'hienn a c'hall bezañ",
+        "description": ""
+    },
+    "OptBlockUnscannedXPost": {
+        "message": "Goulenn kadarnaat ar goulennoù POST etre-lec'hienn n'o deus ket gallet bezañ skanet",
+        "description": ""
+    },
+    "UnscannedXPost": {
+        "message": "Ar goulenn etre-lec'hienn-mañ n'hall ket bezañ skanet evit an XSS.\nGellout a ra bezañ un hanter-dra, met NoScript n'hall ket touiñ en un doare sur. Aotreit an dra-se m'ho peus fiziañs e-barzh an div lec'hienn, hepken.",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Erlec'hiañ rak-arventennoù live surentez ar Merdeer Tor",
         "description": ""
     },
     "Options": {

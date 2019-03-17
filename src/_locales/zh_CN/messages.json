@@ -99,6 +99,10 @@
         "message": "将顶级文件的权限下发到第三方脚本",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript 使用半隐蔽的元素拦截鼠标或键盘的交互。点击下面的图片可以交替显示拦截和未拦截的版本。",
         "description": ""
@@ -353,6 +357,22 @@
     },
     "OptFilterXPost": {
         "message": "将跨网站的 POST 请求转换为无数据的 GET 请求",
+        "description": ""
+    },
+    "OptScanXUpload": {
+        "message": "Scan uploads for potential cross-site attacks",
+        "description": ""
+    },
+    "OptBlockUnscannedXPost": {
+        "message": "Ask confirmation for cross-site POST requests which could not be scanned",
+        "description": ""
+    },
+    "UnscannedXPost": {
+        "message": "This cross-site request could not be scanned for XSS.\nIt might be innocuous, but NoScript cannot tell for sure. Allow only if you trust both sites.",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Override Tor Browser's Security Level preset",
         "description": ""
     },
     "Options": {

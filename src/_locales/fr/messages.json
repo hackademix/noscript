@@ -99,6 +99,10 @@
         "message": "Répercuter les permissions du document de plus haut niveau sur les scripts tiers",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript a intercepté une interaction du clavier ou de la souris dont un élément était partiellement caché. Cliquez sur l’image ci-dessous pour basculer entre la version bloquée et la version visible.",
         "description": ""
@@ -353,6 +357,22 @@
     },
     "OptFilterXPost": {
         "message": "Transformer les requêtes POST intersites en requêtes GET sans données",
+        "description": ""
+    },
+    "OptScanXUpload": {
+        "message": "Chercher des attaques potentielles par script intersites dans les téléversements",
+        "description": ""
+    },
+    "OptBlockUnscannedXPost": {
+        "message": "Demander une confirmation pour les requêtes POST intersites qui n’ont pas pu être analysées",
+        "description": ""
+    },
+    "UnscannedXPost": {
+        "message": "La recherche de scripts intersites n’a pas pu être effectuée pour cette requête intersites.\nElle pourrait être inoffensive, mais NoScript ne peut pas en être certain. Ne l’autorisez que si vous faites confiance aux deux sites.",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Remplacer le préréglage du niveau de sécurité du Navigateur Tor",
         "description": ""
     },
     "Options": {
@@ -612,7 +632,7 @@
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript a détecté une attaque potentielle de script intersites\nde $1 vers $2. \nDonnées suspectes : \n$3",
+        "message": "NoScript a détecté une attaque potentielle par script intersites\nde $1 vers $2. \nDonnées suspectes : \n$3",
         "description": ""
     },
     "XSS_optBlock": {

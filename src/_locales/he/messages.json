@@ -99,6 +99,10 @@
         "message": "הדרג הרשאות ראש של מסמכים אל תסריטי צד שלישי",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript ירט הידוד של עכבר או מקלדת עם יסוד מוסתר חלקית. לחץ על התמונה למטה כדי להעביר בין הגרסה המסוכלת לבין הגרסה הנקייה.",
         "description": ""
@@ -353,6 +357,22 @@
     },
     "OptFilterXPost": {
         "message": "הפוך בקשות POST חוצות־אתרים אל בקשות GET מופחתות־נתונים",
+        "description": ""
+    },
+    "OptScanXUpload": {
+        "message": "סרוק העלאות עבור מתקפות חוצות־אתרים פוטנציאליות",
+        "description": ""
+    },
+    "OptBlockUnscannedXPost": {
+        "message": "בקש אימות עבור בקשות POST חוצות־אתרים שאינן יכולות להיסרק",
+        "description": ""
+    },
+    "UnscannedXPost": {
+        "message": "בקשת חוצת־אתרים זו לא יכלה להיסרק עבור XSS.\nהיא עשויה להיות בלתי־מזיקה, אבל NoScript אינו יכול לדעת בוודאות. התר רק אם אתה בוטח בשני האתרים.",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "דרוס הגדרה של רמת אבטחה של דפדפן Tor",
         "description": ""
     },
     "Options": {
@@ -612,7 +632,7 @@
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript גילה מתקפת תיסרוט חוצת־אתרים אפשרית\nמן $1 אל $2.\nנתונים חשודים:\n$3",
+        "message": "NoScript גילה מתקפת תיסרוט חוצת־אתרים פוטנציאלית\nמן $1 אל $2.\nנתונים חשודים:\n$3",
         "description": ""
     },
     "XSS_optBlock": {

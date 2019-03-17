@@ -99,6 +99,10 @@
         "message": "Heredar del documento tope los permisos para scripts de 3º",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript interceptó una interacción de ratón o teclado con un elemento parcialmente oculto. Haz clic en la imagen abajo para alternar entre la versión obstruida y la corregida.",
         "description": ""
@@ -353,6 +357,22 @@
     },
     "OptFilterXPost": {
         "message": "Convertir peticiones POST de sitios entrecruzados en peticiones GET sin datos",
+        "description": ""
+    },
+    "OptScanXUpload": {
+        "message": "Scan uploads for potential cross-site attacks",
+        "description": ""
+    },
+    "OptBlockUnscannedXPost": {
+        "message": "Ask confirmation for cross-site POST requests which could not be scanned",
+        "description": ""
+    },
+    "UnscannedXPost": {
+        "message": "This cross-site request could not be scanned for XSS.\nIt might be innocuous, but NoScript cannot tell for sure. Allow only if you trust both sites.",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Override Tor Browser's Security Level preset",
         "description": ""
     },
     "Options": {

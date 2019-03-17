@@ -99,6 +99,10 @@
         "message": "Üst belgenin izinleri 3. taraf betiklerine yansıtılsın",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript gizli bir bileşenden gelen bir fare ya da tuş takımı etkileşimini engelledi. Aşağıdaki görsele tıklayarak engellenmiş ve temiz sürümler arasında geçiş yapabilirsiniz.",
         "description": ""
@@ -353,6 +357,22 @@
     },
     "OptFilterXPost": {
         "message": "Siteler arası POST istekleri veriden arındırılmış GET isteklerine dönüştürülsün",
+        "description": ""
+    },
+    "OptScanXUpload": {
+        "message": "Scan uploads for potential cross-site attacks",
+        "description": ""
+    },
+    "OptBlockUnscannedXPost": {
+        "message": "Ask confirmation for cross-site POST requests which could not be scanned",
+        "description": ""
+    },
+    "UnscannedXPost": {
+        "message": "This cross-site request could not be scanned for XSS.\nIt might be innocuous, but NoScript cannot tell for sure. Allow only if you trust both sites.",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Override Tor Browser's Security Level preset",
         "description": ""
     },
     "Options": {

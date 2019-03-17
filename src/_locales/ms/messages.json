@@ -68,7 +68,7 @@
         "description": ""
     },
     "AutoReload": {
-        "message": "Automatically reload affected pages when permissions change",
+        "message": "Muat semula halaman berjangkit secara automatik bila keizinan berubah",
         "description": ""
     },
     "AutoReload_currentTab": {
@@ -99,6 +99,10 @@
         "message": "Cascade top document's permissions to 3rd party scripts",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript intercepted a mouse or keyboard interaction with a partially hidden element. Click on the image below to cycle between the obstructed and the clear version.",
         "description": ""
@@ -108,7 +112,7 @@
         "description": ""
     },
     "ClearClickOpt": {
-        "message": "ClearClick protection on pages…",
+        "message": "Perlindungan ClearClick pada halaman...",
         "description": ""
     },
     "ClearClickReport": {
@@ -124,7 +128,7 @@
         "description": ""
     },
     "ClearClickTitle": {
-        "message": "ClearClick Warning",
+        "message": "Amaran ClearClick",
         "description": ""
     },
     "Close": {
@@ -132,7 +136,7 @@
         "description": ""
     },
     "CollapseBlockedObjects": {
-        "message": "Collapse blocked objects",
+        "message": "Runtuhkan objek disekat",
         "description": ""
     },
     "ConfirmUnblock": {
@@ -355,6 +359,22 @@
         "message": "Turn cross-site POST requests into data-less GET requests",
         "description": ""
     },
+    "OptScanXUpload": {
+        "message": "Scan uploads for potential cross-site attacks",
+        "description": ""
+    },
+    "OptBlockUnscannedXPost": {
+        "message": "Ask confirmation for cross-site POST requests which could not be scanned",
+        "description": ""
+    },
+    "UnscannedXPost": {
+        "message": "This cross-site request could not be scanned for XSS.\nIt might be innocuous, but NoScript cannot tell for sure. Allow only if you trust both sites.",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Override Tor Browser's Security Level preset",
+        "description": ""
+    },
     "Options": {
         "message": "Pilihan...",
         "description": ""
@@ -452,7 +472,7 @@
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Revoke Temporary Permissions",
+        "message": "Tarik Balik Keizinan Sementara",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -500,7 +520,7 @@
         "description": ""
     },
     "ShowCountBadge": {
-        "message": "Display blocked items count badge",
+        "message": "Papar lencana kiraan item disekat",
         "description": ""
     },
     "SitePermissions": {
@@ -612,7 +632,7 @@
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript detected a potential Cross-Site Scripting attack\nfrom $1 to $2.\nSuspicious data:\n$3",
+        "message": "NoScript mengesan satu potensi serangan Penskripan Rentas-Laman\ndaripada $1 kepada $2.\nData mencurigakan:\n$3",
         "description": ""
     },
     "XSS_optBlock": {
@@ -628,7 +648,7 @@
         "description": ""
     },
     "XSS_optAlwaysAllow": {
-        "message": "Always allow document requests from $1 to $2",
+        "message": "Sentiasa benarkan permohonan dokumen dari $1 hingga $2",
         "description": ""
     },
     "XSS_optAlwaysBlock": {
@@ -648,7 +668,7 @@
         "description": ""
     },
     "XssExceptions_description": {
-        "message": "Destinations matching these regular expressions will NOT be protected against XSS.",
+        "message": "Padanan destinasi bagi ungkapan nalar ini TIDAK akan dilindungi dengan XSS.",
         "description": ""
     },
     "XssFaq": {
@@ -704,7 +724,7 @@
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "NoScript has found a configuration bookmark seemingly saved on\n$1.\nDo you really want to overwrite your local NoScript configuration with this bookmark's content?",
+        "message": "NoScript telah menemnui tanda buku konfigurasi yang telah disimpan pada\n$1.\nAnda pasti mahu menulis-ganti konfigurasi NoScript setempat anda dengan kandungan tanda buku ini?",
         "description": ""
     },
     "bookmarkSync_message": {
@@ -804,11 +824,11 @@
         "description": ""
     },
     "privilegedPage": {
-        "message": "This is a privileged page, whose permissions cannot be configured.",
+        "message": "Ini adalah halaman sulit, yang mana keizinan tidak boleh dikonfigur.",
         "description": ""
     },
     "incompatibleOptions": {
-        "message": "\"$1\"\nis incompatible with \"$2\".\nDo you want to enable the former and disable the latter?",
+        "message": "\"$1\"\ntidak serasi dengan \"$2\".\nAnda mahu benarkan yang terdahulu dan lumpuhkan yang baharu?",
         "description": ""
     },
     "incompatibleOptions_title": {
@@ -832,7 +852,7 @@
         "description": ""
     },
     "metaRefresh_notify": {
-        "message": "NoScript blocked a <META> redirection inside a <NOSCRIPT> element: $1 in $2 seconds.",
+        "message": "NoScript menyekat satu unsur <META> penghalaan semula <NOSCRIPT>: $1 dalam tempoh $2 saat.",
         "description": ""
     },
     "Reload": {
@@ -864,7 +884,7 @@
         "description": ""
     },
     "siteInfo_confirm": {
-        "message": "You're about to ask for information about the \"$1\" site\nby submitting a query to $2.\nDo you want to continue?",
+        "message": "Anda akan ditanya maklumat berkenaan laman \"$1\"\ndengan menyerahkan pertanyaan kepada $2.\nAnda mahu teruskan?",
         "description": ""
     },
     "siteInfo_tooltip": {
@@ -876,7 +896,7 @@
         "description": ""
     },
     "unsafeReload_warning": {
-        "message": "UNSAFELY reloading a suspicious\n\n$1 [$2]\n\nFROM [$3]\n\nNoScript will NOT protect this request!\n",
+        "message": "Memuatkan semula secara BERBAHAYA\n\n$1 [$2]\n\nDARIPADA [$3]\n\nNoScript TIDAK melindungi permintaan ini!\n",
         "description": ""
     },
     "untrustedOrigin": {

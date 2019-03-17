@@ -99,6 +99,10 @@
         "message": "Toestemmingen van bovenste document aan scripts van derden doorgeven",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Beperkingen van bovenste document aan subdocumenten doorgeven",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript heeft een muis- of toetsenbordinteractie met een gedeeltelijk verborgen element onderschept. Klik op de onderstaande afbeelding om tussen de belemmerde en de zichtbare versie om te schakelen.",
         "description": ""
@@ -353,6 +357,22 @@
     },
     "OptFilterXPost": {
         "message": "Cross-site-POST-aanvragen omzetten naar gegevensarme GET-aanvragen",
+        "description": ""
+    },
+    "OptScanXUpload": {
+        "message": "Uploads scannen op potentiële cross-site-aanvallen",
+        "description": ""
+    },
+    "OptBlockUnscannedXPost": {
+        "message": "Bevestiging vragen voor cross-site-POST-aanvragen die niet konden worden gescand",
+        "description": ""
+    },
+    "UnscannedXPost": {
+        "message": "Deze cross-site-aanvraag kon niet op XSS worden gescand.\nDit kan onschuldig zijn, maar NoScript weet het niet zeker. Sta dit alleen toe als u beide websites vertrouwt.",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Voorkeuze van beveiligingsniveau van Tor Browser negeren",
         "description": ""
     },
     "Options": {
@@ -800,7 +820,7 @@
         "description": ""
     },
     "freshInstallReload": {
-        "message": "Om op deze pagina te werken, moet NoScript het opnieuw laden.\nDoorgaan?",
+        "message": "Om op dit tabblad te kunnen werken, moet NoScript het opnieuw laden.\nDoorgaan?",
         "description": ""
     },
     "privilegedPage": {
