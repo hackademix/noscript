@@ -51,15 +51,33 @@ tr.site {
   display:flex;
   flex-flow: row;
   justify-content: space-around;
-
+  height: auto;
 }
-#top button  {
+#top a  {
   position: static;
   width: auto;
+  appearance: initial !important;
+  -moz-appearance: initial !important;
+  width: auto;
+  height: auto;
+  display: block;
 }
-#top button.icon {
+#top a.icon {
   font-size: 12px !important;
-  font-family: arial sans-serif !important;
+  font-family: sans-serif !important;
+  text-indent: 0;
+  color: black !important;
+  background: white !important;
+  background-image: none !important;
+  border-radius: .3em;
+  text-align: center;
+  border: 1px solid black;
+  height: auto;
+  padding: .2em;
+  vertical-align: middle;
+}
+#top a.icon:hover {
+  transform: none;
 }
 
 #noscript-popup #high-contrast-chooser {
