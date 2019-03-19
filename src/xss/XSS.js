@@ -245,7 +245,9 @@ var XSS = (() => {
        (XSS.xssScanRequestBody ?
           request.requestBody && request.requestBody.formData &&
             ic.checkPost(request.requestBody.formData, skipParams)
-        : XSS.xssBlockUnscannedPOST && ns.requestCan(request, "script") && _("UnscannedXPost")
+        : XSS.xssBlockUnscannedPOST &&
+          request.documentUrl && // exclude non-document POSTs, such as url bar searches
+          ns.requestCan(request, "script") && _("UnscannedXPost")
       );
 
       let protectName = ic.nameAssignment;
