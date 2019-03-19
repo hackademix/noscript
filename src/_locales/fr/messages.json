@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Cascade top document's restrictions to subdocuments",
+        "message": "Répercuter les restrictions du document de plus haut niveau sur les sous-documents",
         "description": ""
     },
     "ClearClickDescription": {

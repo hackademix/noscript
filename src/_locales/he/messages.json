@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Cascade top document's restrictions to subdocuments",
+        "message": "הדרג הגבלות ראש של מסמכים אל תת־מסמכים",
         "description": ""
     },
     "ClearClickDescription": {
