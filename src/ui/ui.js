@@ -316,33 +316,30 @@ var UI = (() => {
       sizer.id = "presets-sizer";
       sizer.appendChild(presets.cloneNode(true));
       document.body.appendChild(sizer);
-      setTimeout(async () => {
-        let presetWidth = sizer.querySelector("input.preset").offsetWidth;
-        let labelWidth = 0;
-        for (let l of sizer.querySelectorAll("label.preset")) {
-          let lw = l.offsetWidth;
-          debug("lw", l.textContent, lw);
-          if (lw > labelWidth) labelWidth = lw;
-        }
+      let presetWidth = sizer.querySelector("input.preset").offsetWidth;
+      let labelWidth = 0;
+      for (let l of sizer.querySelectorAll("label.preset")) {
+        let lw = l.offsetWidth;
+        debug("lw", l.textContent, lw);
+        if (lw > labelWidth) labelWidth = lw;
+      }
 
-        debug(`Preset: %s Label: %s`, presetWidth, labelWidth);
-        labelWidth += 16;
-        if (presetWidth < labelWidth) {
-          for (let ss of document.styleSheets) {
-            if (ss.href.endsWith("/ui.css")) {
-              for (let r of ss.cssRules) {
-                if (/input\.preset:checked.*min-width:/.test(r.cssText)) {
-                  r.style.minWidth = (labelWidth) + "px";
-                  break;
-                }
+      debug(`Preset: %s Label: %s`, presetWidth, labelWidth);
+      labelWidth += 16;
+      if (presetWidth < labelWidth) {
+        for (let ss of document.styleSheets) {
+          if (ss.href.endsWith("/ui.css")) {
+            for (let r of ss.cssRules) {
+              if (/input\.preset:checked.*min-width:/.test(r.cssText)) {
+                r.style.minWidth = (labelWidth) + "px";
+                break;
               }
             }
           }
         }
+      }
 
-        sizer.remove();
-
-      }, 100);
+      sizer.remove();
       UI.Sites.correctSize = () => {}; // just once, please!
     }
 

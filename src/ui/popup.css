@@ -28,7 +28,7 @@ body {
   background: transparent no-repeat center;
   background-size: 100%;
   transform: unset;
-  transition: all 0.3s;
+  transition: transform 0.3s;
   border: none;
   display: block;
 
@@ -221,7 +221,6 @@ body {
   background-position: left top;
   background-repeat: no-repeat;
   min-height: 3em;
-  transition: height .5s;
   font-size: 1.2em;
   vertical-align: middle;
 }
