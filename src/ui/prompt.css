@@ -47,7 +47,6 @@ body {
   max-height: 300px;
   padding: 8px;
   text-align: center;
-  word-break: break-all;
 }
 #message.multiline {
   overflow: auto;
@@ -75,6 +74,16 @@ body {
   flex-direction: column;
   flex-grow: 1;
   text-align: left;
+}
+
+.choices div {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+.choices label {
+  display: block;
+  padding-bottom: .5em;
 }
 
 #buttons {
