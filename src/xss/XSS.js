@@ -179,6 +179,9 @@ var XSS = (() => {
 
       let unescapedDest = unescape(destUrl);
       let srcOrigin = srcObj ? srcObj.origin : "";
+      if (srcOrigin === "null") {
+        srcOrigin = srcObj.href.replace(/[\?#].*/, '');
+      }
       let destOrigin = destObj.origin;
 
       let isGet = method === "GET";
