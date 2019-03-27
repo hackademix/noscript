@@ -126,8 +126,8 @@
     "message": "Default Policies"
   },
   "Description": {
-    "message": "Extra protection for your Firefox: NoScript allows JavaScript, Flash (and other plugins) only for trusted domains of your choice (e.g. your home-banking web site). This whitelist based pre-emptive blocking approach prevents exploitation of security vulnerabilities (known and even unknown!) with no loss of functionality… Experts will agree: Firefox is really safer with NoScript :-)"
-  },
+    "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation."
+},
   "Donate": {
     "message": "Donate"
   },
