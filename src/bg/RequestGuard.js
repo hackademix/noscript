@@ -20,7 +20,10 @@ var RequestGuard = (() => {
       media: "media",
       other: "",
   };
-  const allTypes = Object.keys(policyTypesMap);
+  const allTypes = UA.isMozilla ? Object.keys(policyTypesMap)
+    : ["main_frame", "sub_frame", "stylesheet", "script", "image", "font",
+    "object", "xmlhttprequest", "ping", "csp_report", "media", "websocket", "other"];
+
   Object.assign(policyTypesMap, {"webgl": "webgl"}); // fake types
   const TabStatus = {
     map: new Map(),
@@ -254,7 +257,7 @@ var RequestGuard = (() => {
     return redirected;
   }
   const ABORT = {cancel: true}, ALLOW = {};
-  const INTERNAL_SCHEME = /^(?:chrome|resource|moz-extension|about):/;
+  const INTERNAL_SCHEME = /^(?:chrome|resource|(?:moz|chrome)-extension|about):/;
   const listeners = {
     onBeforeRequest(request) {
       try {
@@ -326,7 +329,7 @@ var RequestGuard = (() => {
             capabilities = perms.capabilities;
           } else {
             capabilities = perms.capabilities;
-            if (frameAncestors.length > 0 && ns.sync.cascadeRestrictions) {
+            if (frameAncestors && frameAncestors.length > 0 && ns.sync.cascadeRestrictions) {
               // cascade top document's restrictions to subframes
               let topUrl = frameAncestors.pop().url;
               let topPerms = policy.get(topUrl, topUrl).perms;

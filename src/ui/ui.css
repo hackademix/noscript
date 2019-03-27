@@ -3,6 +3,7 @@ body {
   font-family: sans-serif;
   font: -moz-use-system-font;
   font-size: 12px;
+  min-width: 600px;
 }
 
 .mobile > body {
@@ -139,6 +140,8 @@ input[type="checkbox"] {
 
 input.https-only {
   font-size: 1em;
+  appearance: none;
+  -webkit-appearance: none;
   -moz-appearance: none;
   background: url(/img/ui-http64.png) no-repeat center;
   background-size: 1.5em;
@@ -186,6 +189,8 @@ span.preset {
 
 .presets input.preset {
   font-size: 1em;
+  appearance: none;
+  -webkit-appearance: none;
   -moz-appearance: none;
   background: url(/img/ui-no64.png) no-repeat center left;
   background-size: 1.5em;
@@ -264,6 +269,8 @@ input.preset:active, input.preset:focus, input.preset:hover {
 }
 
 button.options {
+  appearance: none;
+  -webkit-appearance: none;
   -moz-appearance: none;
   border: none;
   background: none transparent;
@@ -276,6 +283,8 @@ button.options {
 }
 
 .preset .options {
+  appearance: none;
+  -webkit-appearance: none;
   -moz-appearance: none;
 
   border: 0;
@@ -315,6 +324,8 @@ input.preset[value="CUSTOM"] {
 
 input.temp {
   font-size: 1em;
+  appearance: none;
+  -webkit-appearance: none;
   -moz-appearance: none;
   margin: 0;
   padding: 0;

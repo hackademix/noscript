@@ -87,7 +87,7 @@
       }
       UI.local.toolbarLayout = {
         left, right,
-        hidden: Array.map(document.querySelectorAll("#top > .hider > .icon"), el => el.id),
+        hidden: Array.from(document.querySelectorAll("#top > .hider > .icon")).map(el => el.id),
       };
 
       debug("%o", UI.local);

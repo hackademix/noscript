@@ -5,10 +5,14 @@ input {
 }
 
 input[type="radio"] {
+  appearance: radio !important;
+  -webkit-appearance: radio !important;
   -moz-appearance:  radio !important;
   padding-right: .2em !important;
 }
 input[type="checkbox"] {
+  appearance: checkbox !important;
+  -webkit-appearance: checkbox !important;
   -moz-appearance:  checkbox !important;
 }
 

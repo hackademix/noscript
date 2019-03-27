@@ -103,7 +103,7 @@
     }
     let button = document.querySelector("#btn-delete-xss-choices");
     let choices = UI.xssUserChoices;
-    button.disabled = Object.keys(choices).length === 0;
+    button.disabled = !choices || Object.keys(choices).length === 0;
     button.onclick = () => {
       UI.updateSettings({
         xssUserChoices: {}

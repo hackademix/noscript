@@ -195,3 +195,11 @@ input[type="file"] {
   border-radius: .2em .2em 0 0;
   padding: .2em .4em;
 }
+
+#xss-options {
+  display: none;
+}
+
+.mozwebext #xss-options {
+  display: block;
+}

@@ -26,7 +26,7 @@ var Test = (() => {
         error(e);
       }
       this[r ? "passed" : "failed"]++;
-      log(`${r ? "PASSED" : "FAILED"} ${msg || uneval(test)}`);
+      log(`${r ? "PASSED" : "FAILED"} ${msg || test}`);
       if (typeof callback === "function") try {
         callback(r, test, msg);
       } catch(e) {
