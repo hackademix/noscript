@@ -1183,4 +1183,4 @@
     module.exports = browser; // eslint-disable-line no-undef
   }
 });
-//# sourceMappingURL=browser-polyfill.js.map
+// !disabled because of https://bugzilla.mozilla.org/show_bug.cgi?id=1437937 # sourceMappingURL=browser-polyfill.js.map
