@@ -50,9 +50,11 @@ XSS.Exceptions = (() => {
       }
 
       // destination or @source matching legacy regexp
-      if (this.legacyExceptions.test(unescapedDest) &&
-        !this.isBadException(destObj.hostname) ||
-        this.legacyExceptions.test("@" + unescape(srcUrl))) {
+      if (this.legacyExceptions &&
+          (this.legacyExceptions.test(unescapedDest) &&
+          !this.isBadException(destObj.hostname) ||
+          this.legacyExceptions.test("@" + unescape(srcUrl))
+        )) {
         logEx("Legacy exception", this.legacyExceptions);
         return true;
       }
