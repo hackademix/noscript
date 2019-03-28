@@ -49,7 +49,7 @@
       // no embedder to answer us
     }
     log("STARTED");
-
+    await include("/bg/popupHandler.js");
   };
 
   let Commands = {

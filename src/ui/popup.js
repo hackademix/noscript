@@ -18,7 +18,6 @@ addEventListener("unload", e => {
 
   try {
     let tabId;
-    let pendingReload = false;
     let isBrowserAction = true;
     let optionsClosed = false;
     let tab = (await browser.tabs.query({
@@ -44,7 +43,18 @@ addEventListener("unload", e => {
       tabId = tab.id;
     }
 
+
     await UI.init(tabId);
+
+    let port = browser.runtime.connect({name: "noscript.popup"})
+    function pendingReload(b) {
+      try {
+        port.postMessage({tabId, pendingReload: b});
+      } catch (e) {
+        debug(e);
+      }
+    }
+
 
     if (isBrowserAction) {
       browser.tabs.onActivated.addListener(e => {
@@ -154,7 +164,7 @@ addEventListener("unload", e => {
     sitesUI = new UI.Sites(document.getElementById("sites"));
 
     sitesUI.onChange = (row) => {
-      pendingReload = !row.temp2perm;
+      pendingReload(!row.temp2perm);
       if (optionsClosed) return;
       browser.tabs.query({url: browser.runtime.getManifest().options_ui.page })
         .then(tabs => {
@@ -168,7 +178,7 @@ addEventListener("unload", e => {
 
 
     function initSitesUI() {
-      pendingReload = false;
+      pendingReload(false);
       let {
         typesMap
       } = sitesUI;
@@ -233,14 +243,13 @@ addEventListener("unload", e => {
     function reload() {
       if (sitesUI) sitesUI.clear();
       browser.tabs.reload(tabId);
-      pendingReload = false;
+      pendingReload(false);
     }
 
     function close() {
       if (isBrowserAction) {
         window.close();
       } else {
-        //browser.windows.remove(tab.windowId);
         browser.tabs.remove(tab.id);
       }
     }
@@ -260,16 +269,9 @@ addEventListener("unload", e => {
         hostContains: sitesUI.mainDomain
       }]
     });
-    addEventListener("unload", e => {
+    addEventListener("blur", e => {
       onCompleted.removeListener(onCompletedListener);
-      debug("pendingReload", pendingReload);
-      if (pendingReload) {
-        UI.updateSettings({
-          policy: UI.policy,
-          reloadAffected: true,
-        });
-      }
-    }, true);
+    });
   } catch (e) {
     error(e, "Can't open popup");
     close();
