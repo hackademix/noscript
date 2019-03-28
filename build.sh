@@ -108,7 +108,7 @@ if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
   ../../we-publish "$XPI.xpi"
 elif [ -f "$XPI.zip" ]; then
-  mv "$XPI.zip" "$XPI.xpi"
+  cp "$XPI.zip" "$XPI.xpi"
 else
   echo >&2 "ERROR: Could not create $XPI.xpi!"
   exit 3
