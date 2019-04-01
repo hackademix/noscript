@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Cascade top document's restrictions to subdocuments",
+        "message": "Üst belgenin kısıtlamalarını alt belgelere aktarır",
         "description": ""
     },
     "ClearClickDescription": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Firefox için ek koruma: NoScript, yalnız güvenilir olarak seçtiğiniz etki alanları için (İnternet bankacılığı gşbş) JavaScript, Flash (ve diğer uygulama ekleri) gibi bileşenlere izin verir. Bu beyaz liste temelli engelleme yaklaşımı, herhangi bir özellik kaybına neden olmadan güvenlik açıklarından yararlanılmasını engeller (bilinen ve bilinmeyen!)... Uzmanlar Firefox uygulamasının NoScript ile gerçekten güvenli olduğu konusunda hemfikir :-)",
+        "message": "Tarayıcınız için en iyi koruma: NoScript, kötü niyetli girişimleri engellemek için yalnız güvenilir olarak seçtiğiniz etki alanlarında etkin içeriğin kullanılmasına izin verir.",
         "description": ""
     },
     "Donate": {
@@ -360,19 +360,19 @@
         "description": ""
     },
     "OptScanXUpload": {
-        "message": "Scan uploads for potential cross-site attacks",
+        "message": "Yüklenen dosyalar olası siteler arası saldırılara karşı taransın",
         "description": ""
     },
     "OptBlockUnscannedXPost": {
-        "message": "Ask confirmation for cross-site POST requests which could not be scanned",
+        "message": "Taranamayan siteler arası POST istekleri için onay istensin",
         "description": ""
     },
     "UnscannedXPost": {
-        "message": "This cross-site request could not be scanned for XSS.\nIt might be innocuous, but NoScript cannot tell for sure. Allow only if you trust both sites.",
+        "message": "Bu siteler arası isteği XSS saldırılarına karşı taranamadı.\nZararsız olabilir ancak NoScript kesin olarak bir şey söyleyemiyor. Yalnız her iki siteye de güveniyorsanız onaylayın.",
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Override Tor Browser's Security Level preset",
+        "message": "Tor Browser Güvenlik Duvarı ayarı değiştirilsin",
         "description": ""
     },
     "Options": {

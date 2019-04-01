@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Protezione extra per Firefox: NoScript consente JavaScript, Flash (e altri plug-in) solo per domini verificati di tua scelta (ad es. il tuo sito web di home banking). Questo approccio di blocco preventivo basato su whitelist previene lo sfruttamento delle vulnerabilità della sicurezza (note e persino sconosciute!) senza alcuna perdita di funzionalità… Gli esperti saranno d‘accordo: Firefox è davvero più sicuro con NoScript :-)",
+        "message": "Protezione massima per il tuo browser: NoScript permette i contenuti attivi solo per i domini fidati di tua scelta per impedirne lo sfruttamento.",
         "description": ""
     },
     "Donate": {
