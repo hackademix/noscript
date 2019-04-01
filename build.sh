@@ -102,13 +102,14 @@ else
   WEBEXT_OUT="$XPI_DIR"
 fi
 
-"$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" --ignore-files=test/XSS_test.js
+"$BUILD_CMD" $BUILD_OPTS --overwrite-dest --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" --ignore-files=test/XSS_test.js
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
   ../../we-publish "$XPI.xpi"
 elif [ -f "$XPI.zip" ]; then
-  cp "$XPI.zip" "$XPI.xpi"
+  [[ "$VER" == *rc* ]] && xpicmd="mv" || xpicmd="cp"
+  $xpicmd "$XPI.zip" "$XPI.xpi"
 else
   echo >&2 "ERROR: Could not create $XPI.xpi!"
   exit 3
