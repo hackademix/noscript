@@ -15,7 +15,7 @@ function onScriptDisabled() {
   if (refresh) {
     let html = document.documentElement.outerHTML;
     window.addEventListener("load", e => {
-      let document = window.wrappedJSObject.document;
+      let document = window.wrappedJSObject ? window.wrappedJSObject.document : window.document;
       document.open();
       document.write(html);
       document.close();

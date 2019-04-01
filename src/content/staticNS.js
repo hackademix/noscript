@@ -65,7 +65,7 @@
           } catch (e) {
             error(e);
           }
-        } else if (window !== window.top) {
+        } else if (UA.isMozilla && window !== window.top) {
           // The cookie hack won't work for non-HTTP subframes (issue #48),
           // or the cookie might have been deleted in a race condition,
           // so here we try to check the parent

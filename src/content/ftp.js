@@ -1,4 +1,4 @@
-(() => {
+if (UA.isMozilla) (() => {
   // see https://dxr.mozilla.org/mozilla-central/rev/d03b538b6b417ba892d0a92fd693945b741246e1/netwerk/streamconv/converters/nsIndexedToHTML.cpp#381
   'use strict';
   var gTable, gOrderBy, gTBody, gRows, gUI_showHidden;

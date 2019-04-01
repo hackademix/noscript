@@ -1,5 +1,5 @@
 var UA = {
-  isMozilla: document.URL.startsWith("moz-"),
+  isMozilla: document.URL.startsWith("moz-") || typeof window.wrappedJSObject === "object",
 }
 
 if (!UA.isMozilla) {
