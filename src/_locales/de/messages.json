@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Zusätzliche Sicherheit für Ihren Firefox: Mit NoScript können Sie JavaScript, Flash, Java und andere ausführbare Inhalte bloß auf vertrauenswürdigen Domains Ihrer Wahl zulassen, z.B. beim Online-Banking. Dieser whitelist-basierte präventive Ansatz verhindert das Ausnutzen von (bekannten und unbekannten!) Sicherheitslücken ohne Verlust an Funktionalität… Experten sind sich einig: Firefox wird wirklich noch sicherer mithilfe von NoScript ;-)",
+        "message": "Maximaler Schutz für Ihren Browser: NoScript lässt aktive Inhalte nur für vertrauenswürdige Domains Ihrer Wahl zu, um Exploits zu verhindern.",
         "description": ""
     },
     "Donate": {
