@@ -134,7 +134,7 @@ var Settings = {
       async storage => (settings[storage] || // changed or...
           settings[storage] === null // ... needs reset to default
         ) && await ns.save(settings[storage]
-            ? Object.assign(ns[storage], settings[storage]) : ns[storage] = ns.defaults[storage])
+            ? Object.assign(ns[storage], settings[storage]) : ns[storage] = Object.assign({}, ns.defaults[storage]))
     ));
     if (ns.local.debug !== oldDebug) {
       await include("/lib/log.js");
