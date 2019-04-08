@@ -142,8 +142,10 @@
     },
 
     async fetchChildPolicy({url, contextUrl}, sender) {
-      return ChildPolicies.getForDocument(ns.policy,
-        url || sender.url, contextUrl || sender.tab.url);
+      let {tab} = sender;
+      if (!url) url = sender.url;
+      let policy = !Sites.isInternal(url) && ns.isEnforced(tab.id) ? ns.policy : null;
+      return ChildPolicies.getForDocument(policy, url, contextUrl || tab.url);
     },
 
     async openStandalonePopup() {

@@ -1,10 +1,9 @@
 var {Permissions, Policy, Sites} = (() => {
   'use strict';
-
   const SECURE_DOMAIN_PREFIX = "§:";
   const SECURE_DOMAIN_RX = new RegExp(`^${SECURE_DOMAIN_PREFIX}`);
   const DOMAIN_RX = new RegExp(`(?:^\\w+://|${SECURE_DOMAIN_PREFIX})?([^/]*)`, "i");
-  const SKIP_RX = /^(?:(?:about|chrome|resource|moz-.*):|\[System)/;
+  const INTERNAL_SITE_RX = /^(?:(?:about|chrome|resource|(?:moz|chrome)-.*):|\[System)/;
   const VALID_SITE_RX = /^(?:(?:(?:(?:http|ftp|ws)s?|file):)(?:(?:\/\/)[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000.](?:$|\/))?|[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000]$)/;
 
   let rxQuote = s => s.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
@@ -24,6 +23,9 @@ var {Permissions, Policy, Sites} = (() => {
       return VALID_SITE_RX.test(site);
     }
 
+    static isInternal(site) {
+      return INTERNAL_SITE_RX.test(site);
+    }
 
     static originImplies(originKey, site) {
       return originKey === site || site.startsWith(`${originKey}/`);
@@ -116,7 +118,7 @@ var {Permissions, Policy, Sites} = (() => {
     }
 
     set(k, v) {
-      if (!k || SKIP_RX.test(k) || k === "§:") return this;
+      if (!k || Sites.isInternal(k) || k === "§:") return this;
       let [,domain] = DOMAIN_RX.exec(k);
       if (/[^\u0000-\u007f]/.test(domain)) {
         k = k.replace(domain, punycode.toASCII(domain));

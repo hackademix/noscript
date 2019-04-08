@@ -256,8 +256,8 @@ var RequestGuard = (() => {
     });
     return redirected;
   }
+
   const ABORT = {cancel: true}, ALLOW = {};
-  const INTERNAL_SCHEME = /^(?:chrome|resource|(?:moz|chrome)-extension|about):/;
   const listeners = {
     onBeforeRequest(request) {
       try {
@@ -272,7 +272,7 @@ var RequestGuard = (() => {
                 // some extensions make them both undefined,
                 // see https://github.com/eight04/image-picka/issues/150
               ) ||
-              INTERNAL_SCHEME.test(originUrl))
+              Sites.isInternal(originUrl))
           ) {
             // livemark request or similar browser-internal, always allow;
             return ALLOW;
@@ -281,7 +281,7 @@ var RequestGuard = (() => {
             request._dataUrl = url;
             request.url = url = documentUrl;
           }
-          let allowed = INTERNAL_SCHEME.test(url) ||
+          let allowed = Sites.isInternal(url) ||
             !ns.isEnforced(request.tabId) ||
             policy.can(url, policyType, originUrl);
           Content.reportTo(request, allowed, policyType);
