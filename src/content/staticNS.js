@@ -69,7 +69,12 @@
           // The cookie hack won't work for non-HTTP subframes (issue #48),
           // or the cookie might have been deleted in a race condition,
           // so here we try to check the parent
-          let checkParent = parent.wrappedJSObject.checkNoScriptUnrestricted;
+          let checkParent = null;
+          try {
+            checkParent = parent.wrappedJSObject.checkNoScriptUnrestricted;
+          } catch (e) {
+            // may throw a SecurityException for cross-origin wrappedJSObject access
+          }
           if (typeof checkParent  === "function") {
             try {
               let challenge = uuid();
