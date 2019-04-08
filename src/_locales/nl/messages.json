@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Extra bescherming voor uw Firefox: NoScript staat JavaScript, Flash en andere plug-ins alleen toe voor vertrouwde domeinen van uw keuze (zoals uw website voor thuisbankieren). Deze op een toestemmingenlijst gebaseerde preventieve benadering van blokkering voorkomt exploitatie van beveiligingskwetsbaarheden (bekende en zelfs onbekende!) zonder verlies van functionaliteit… Experts zijn het ermee eens: Firefox is echt veiliger met NoScript. :-)",
+        "message": "Maximale bescherming voor uw browser: NoScript staat actieve inhoud alleen toe voor vertrouwde domeinen van uw keuze, zodat uitbuiting wordt voorkomen.",
         "description": ""
     },
     "Donate": {
