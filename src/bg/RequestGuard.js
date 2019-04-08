@@ -296,7 +296,9 @@ var RequestGuard = (() => {
       }
       return ALLOW;
     },
-    async onHeadersReceived(request) {
+    onHeadersReceived(request) {
+      let result = ALLOW;
+      let promises = [];
       // called for main_frame, sub_frame and object
       // check for duplicate calls
       let headersModified = false;
@@ -324,7 +326,7 @@ var RequestGuard = (() => {
           if (isMainFrame) {
             if (policy.autoAllowTop && perms === policy.DEFAULT) {
               policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
-              await ChildPolicies.update(policy);
+              promises.push(ChildPolicies.update(policy));
             }
             capabilities = perms.capabilities;
           } else {
@@ -360,12 +362,16 @@ var RequestGuard = (() => {
           headersModified = true;
         }
         if (headersModified) {
-          return {responseHeaders};
+          result = {responseHeaders};
         }
       } catch (e) {
         error(e, "Error in onHeadersReceived", request);
       }
-      return ALLOW;
+      promises = promises.filter(p => p instanceof Promise);
+      if (promises.length > 0) {
+        return Promise.all(promises).then(() => result);
+      }
+      return result;
     },
     onResponseStarted(request) {
       debug("onResponseStarted", request);
