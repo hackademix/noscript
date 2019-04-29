@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Üst belgenin kısıtlamalarını alt belgelere aktarır",
+        "message": "Üst belgenin kısıtlamaları alt belgelere aktarılsın",
         "description": ""
     },
     "ClearClickDescription": {
@@ -208,7 +208,7 @@
         "description": ""
     },
     "ShowFullAddresses": {
-        "message": "İzinler açılan penceresinde tam adresleri listele (https://www.noscript.net)",
+        "message": "İzinler penceresinde tam adresler görüntülensin (https://www.noscript.net)",
         "description": ""
     },
     "SectionGeneral": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Yüksek karşıtlıklı görünüm",
+        "message": "Yüksek karşıtlıklı görünüm kullanılsın",
         "description": ""
     },
     "httpsOnly": {
@@ -368,7 +368,7 @@
         "description": ""
     },
     "UnscannedXPost": {
-        "message": "Bu siteler arası isteği XSS saldırılarına karşı taranamadı.\nZararsız olabilir ancak NoScript kesin olarak bir şey söyleyemiyor. Yalnız her iki siteye de güveniyorsanız onaylayın.",
+        "message": "Bu siteler arası istek XSS saldırılarına karşı taranamadı.\nZararsız olabilir ancak NoScript kesin olarak bir şey söyleyemiyor. Ancak her iki siteye de güveniyorsanız onaylayın.",
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
@@ -472,7 +472,7 @@
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Geçici İzinleri Geri Al",
+        "message": "Geçici izinleri kaldır",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -636,15 +636,15 @@
         "description": ""
     },
     "XSS_optBlock": {
-        "message": "Bu isteği engelle",
+        "message": "Bu istek engellensin",
         "description": ""
     },
     "XSS_optSanitize": {
-        "message": "Bu isteği arındır",
+        "message": "Bu istek arındırılsın",
         "description": ""
     },
     "XSS_optAllow": {
-        "message": "Bu isteğe izin ver",
+        "message": "Bu isteğe izin verilsin",
         "description": ""
     },
     "XSS_optAlwaysAllow": {
@@ -752,7 +752,7 @@
         "description": ""
     },
     "cap_font": {
-        "message": "yazıtipi",
+        "message": "yazı tipi",
         "description": ""
     },
     "cap_webgl": {
@@ -856,7 +856,7 @@
         "description": ""
     },
     "Reload": {
-        "message": "Yeniden Yükle",
+        "message": "Yenile",
         "description": ""
     },
     "removal_message": {

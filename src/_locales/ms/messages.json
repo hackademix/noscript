@@ -96,19 +96,19 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Cascade top document's permissions to 3rd party scripts",
+        "message": "Lata keizinan dokumen teratas kepada skrip pihak ke-3",
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Cascade top document's restrictions to subdocuments",
+        "message": "Lata sekatan dokumen teratas ke subdokumen",
         "description": ""
     },
     "ClearClickDescription": {
-        "message": "NoScript intercepted a mouse or keyboard interaction with a partially hidden element. Click on the image below to cycle between the obstructed and the clear version.",
+        "message": "NoScript menyekat interaksi tetikus atau papan kekunci dengan elemen separa-sembunyi. Klik pada imej di bawah untuk kitar antara versi kabur dengan yang jelas.",
         "description": ""
     },
     "ClearClickHeader": {
-        "message": "Potential Clickjacking / UI Redressing Attempt!",
+        "message": "Percubaan Godaman Klik / Pembetulan UI yang berpotensi!",
         "description": ""
     },
     "ClearClickOpt": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Extra protection for your Firefox: NoScript allows JavaScript, Flash (and other plugins) only for trusted domains of your choice (e.g. your home-banking web site). This whitelist based pre-emptive blocking approach prevents exploitation of security vulnerabilities (known and even unknown!) with no loss of functionality… Experts will agree: Firefox is really safer with NoScript :-)",
+        "message": "Perlindungan maksimum untuk pelayar anda: NoScript hanya membolehkan kandungan aktif untuk domain yang dipercayai berdasarkan pilihan anda untuk menghindari eksploitasi.",
         "description": ""
     },
     "Donate": {
@@ -312,7 +312,7 @@
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "No placeholder for objects coming from sites marked as untrusted",
+        "message": "Tiada sandaran bagi objek-objek yang masuk daripada laman yang telah ditanda tidak dipercayai",
         "description": ""
     },
     "Notifications": {
@@ -356,23 +356,23 @@
         "description": ""
     },
     "OptFilterXPost": {
-        "message": "Turn cross-site POST requests into data-less GET requests",
+        "message": "Ubah permohonan HANTARAN laman-silang menjadi pemohonan GET kurang-data",
         "description": ""
     },
     "OptScanXUpload": {
-        "message": "Scan uploads for potential cross-site attacks",
+        "message": "Imbas muat naik bagi serang laman-silang yang berpotensi",
         "description": ""
     },
     "OptBlockUnscannedXPost": {
-        "message": "Ask confirmation for cross-site POST requests which could not be scanned",
+        "message": "Tanya pengesahan untuk permohonan HANTARAN laman-silang yang tidak diimbas",
         "description": ""
     },
     "UnscannedXPost": {
-        "message": "This cross-site request could not be scanned for XSS.\nIt might be innocuous, but NoScript cannot tell for sure. Allow only if you trust both sites.",
+        "message": "Pemohonan laman-silang ini tidak diimbas bagi XSS.\nIa mungkin tidak merbahaya, tetapi NoScript tidak pasti berkenaannya. Hanya beri kebenaran sekiranya anda benar-benar mempercayai kedua-dua laman.",
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Override Tor Browser's Security Level preset",
+        "message": "Batalkan praset Aras Keselamatan Pelayar Tor",
         "description": ""
     },
     "Options": {
@@ -400,7 +400,7 @@
         "description": ""
     },
     "PermissionsText": {
-        "message": "You can specify which web sites are allowed to execute scripts. Type the address or the domain (e.g. \"http://www.site.com\" or \"site.com\") of the site you want to allow and then click Allow.",
+        "message": "Anda boleh tentukan laman sesawang manakah boleh melakukan skrip. Taip alamat atau domain (seperti \"http://www.site.com\" atau \"site.com\") bagi laman yang hendak diberi keizinan, kemudian klik Benarkan.",
         "description": ""
     },
     "Plugins": {

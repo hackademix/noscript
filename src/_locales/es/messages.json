@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Cascade top document's restrictions to subdocuments",
+        "message": "Heredar del documento tope las restricciones para subdocumentos",
         "description": ""
     },
     "ClearClickDescription": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Protección extra para tu Firefox: NoScript permite JavaScript, Flash (y otros complementos) sólo para dominios confiables de tu elección (por ejemplo, su sitio web de banca personal). Este enfoque de bloqueo preventivo basado en listas blancas evita la explotación de vulnerabilidades de seguridad (¡conocidas e incluso desconocidas!) sin pérdida de funcionalidad... Los expertos estarán de acuerdo: Firefox es realmente más seguro con NoScript :-)",
+        "message": "Máxima protección para tu navegador: NoScript permite contenido activo solamente para dominios en los que confías por elección, para prevenir la explotación.",
         "description": ""
     },
     "Donate": {
@@ -360,19 +360,19 @@
         "description": ""
     },
     "OptScanXUpload": {
-        "message": "Scan uploads for potential cross-site attacks",
+        "message": "Escanear subidas por potenciales ataques de sitios cruzados",
         "description": ""
     },
     "OptBlockUnscannedXPost": {
-        "message": "Ask confirmation for cross-site POST requests which could not be scanned",
+        "message": "Preguntar por confirmación de solicitudes POST de sitio cruzado que no pudieron ser escaneadas.",
         "description": ""
     },
     "UnscannedXPost": {
-        "message": "This cross-site request could not be scanned for XSS.\nIt might be innocuous, but NoScript cannot tell for sure. Allow only if you trust both sites.",
+        "message": "Esta solicitud de sitio cruzado no pudo ser escaneada por XSS.\nPodría ser inocua, pero NoScript no puede afirmarlo. Permítela solamente si confías en ambos sitios.",
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Override Tor Browser's Security Level preset",
+        "message": "Sobreponer al Nivel de Seguridad predeterminado del Navegador Tor",
         "description": ""
     },
     "Options": {
