@@ -1,4 +1,5 @@
-ns.on("capabilities", event => {
+
+if ("MediaSource" in window) ns.on("capabilities", event => {
   debug("Media Hook", document.URL, document.documentElement && document.documentElement.innerHTML, ns.capabilities); // DEV_ONLY
   let mediaBlocker = !ns.allows("media");
   let unpatched = new Map();
