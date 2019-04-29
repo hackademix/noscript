@@ -166,8 +166,10 @@ addEventListener("unload", e => {
     sitesUI.onChange = (row) => {
       pendingReload(!row.temp2perm);
       if (optionsClosed) return;
-      browser.tabs.query({url: browser.runtime.getManifest().options_ui.page })
-        .then(tabs => {
+      browser.tabs.query({
+        url: browser.extension.getURL(
+            browser.runtime.getManifest().options_ui.page)
+        }).then(tabs => {
           browser.tabs.remove(tabs.map(t => t.id));
       });
       optionsClosed = true;
