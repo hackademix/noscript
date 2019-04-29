@@ -6191,34 +6191,33 @@ org.to
 edu.to
 mil.to
 
-// subTLDs: https://www.nic.tr/forms/eng/policies.pdf
-//     and: https://www.nic.tr/forms/politikalar.pdf
-// Submitted by <mehmetgurevin@gmail.com>
+// tr : https://nic.tr/
+// https://nic.tr/forms/eng/policies.pdf
+// https://nic.tr/index.php?USRACTN=PRICELST
 tr
-com.tr
-info.tr
-biz.tr
-net.tr
-org.tr
-web.tr
-gen.tr
-tv.tr
 av.tr
-dr.tr
 bbs.tr
-name.tr
-tel.tr
-gov.tr
 bel.tr
-pol.tr
+biz.tr
+com.tr
+dr.tr
+edu.tr
+gen.tr
+gov.tr
+info.tr
 mil.tr
 k12.tr
-edu.tr
 kep.tr
-
+name.tr
+net.tr
+org.tr
+pol.tr
+tel.tr
+tsk.tr
+tv.tr
+web.tr
 // Used by Northern Cyprus
 nc.tr
-
 // Used by government agencies of Northern Cyprus
 gov.nc.tr
 
@@ -7940,9 +7939,6 @@ dodge
 
 // dog : 2014-12-04 Binky Moon, LLC
 dog
-
-// doha : 2014-09-18 Communications Regulatory Authority (CRA)
-doha
 
 // domains : 2013-10-17 Binky Moon, LLC
 domains
@@ -10844,6 +10840,10 @@ myfritz.net
 // Submitted by Anthony Voutas <anthony@backplane.io>
 backplaneapp.io
 
+// Banzai Cloud
+// Submitted by Gabor Kozma <info@banzaicloud.com>
+app.banzaicloud.io
+
 // BetaInABox
 // Submitted by Adrian <adrian@betainabox.com>
 betainabox.com
@@ -10879,6 +10879,7 @@ browsersafetymark.io
 
 // Bytemark Hosting : https://www.bytemark.co.uk
 // Submitted by Paul Cammish <paul.cammish@bytemark.co.uk>
+uk0.bigv.io
 dh.bytemark.co.uk
 vm.bytemark.co.uk
 
@@ -10946,6 +10947,10 @@ certmgr.org
 // Citrix : https://citrix.com
 // Submitted by Alex Stoddard <alex.stoddard@citrix.com>
 xenapponazure.com
+
+// Civilized Discourse Construction Kit, Inc. : https://www.discourse.org/
+// Submitted by Rishabh Nambiar <rishabh.nambiar@discourse.org>
+discourse.group
 
 // ClearVox : http://www.clearvox.nl/
 // Submitted by Leon Rowland <leon@clearvox.nl>
@@ -11717,6 +11722,11 @@ githubusercontent.com
 // Submitted by Alex Hanselka <alex@gitlab.com>
 gitlab.io
 
+// GOV.UK Platform as a Service : https://www.cloud.service.gov.uk/
+// Submitted by Tom Whitwell <tom.whitwell@digital.cabinet-office.gov.uk>
+cloudapps.digital
+london.cloudapps.digital
+
 // UKHomeOffice : https://www.gov.uk/government/organisations/home-office
 // Submitted by Jon Shanks <jon.shanks@digital.homeoffice.gov.uk>
 homeoffice.gov.uk
@@ -12083,6 +12093,10 @@ bmoattachments.org
 net.ru
 org.ru
 pp.ru
+
+// Nabu Casa : https://www.nabucasa.com
+// Submitted by Paulus Schoutsen <infra@nabucasa.com>
+ui.nabu.casa
 
 // Netlify : https://www.netlify.com
 // Submitted by Jessica Parsons <jessica@netlify.com>
