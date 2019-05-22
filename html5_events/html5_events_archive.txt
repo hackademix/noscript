@@ -139,6 +139,8 @@ onpush
 onpushsubscriptionchange
 onRadioStateChange
 onreadystatechange
+onrejectionhandled
+onremove
 onrequestprogress
 onresourcetimingbufferfull
 onresponseprogress
@@ -170,6 +172,7 @@ ontransitionend
 ontransitionrun
 ontransitionstart
 onunderflow
+onunhandledrejection
 onunload
 onunmute
 onupdatefound
