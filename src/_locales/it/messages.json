@@ -359,18 +359,6 @@
         "message": "Trasforma le richieste POST cross-site in richieste GET",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "Ispeziona gli upload cercando potenziali attacchi XSS",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "Chiedi conferma per gli upload potenzialmente pericolosi che non si sono potuti ispezionare",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "NoScript non ha potuto ispezionare questo caricamento da un sito ad un'altro. \nPotrebbe essere innocuo, ma NoScript non può assicurarlo con certezza.\nPermettilo solo se ti fidi di entrambi i siti.",
-        "description": ""
-    },
     "OptOverrideTorBrowserPolicy": {
         "message": "Fai prevalere le mie impostazioni sul \"Livello di Sicurezza\" del Tor Browser",
         "description": ""

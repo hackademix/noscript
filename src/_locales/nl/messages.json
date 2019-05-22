@@ -359,18 +359,6 @@
         "message": "Cross-site-POST-aanvragen omzetten naar gegevensarme GET-aanvragen",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "Uploads scannen op potentiële cross-site-aanvallen",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "Bevestiging vragen voor cross-site-POST-aanvragen die niet konden worden gescand",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "Deze cross-site-aanvraag kon niet op XSS worden gescand.\nDit kan onschuldig zijn, maar NoScript weet het niet zeker. Sta dit alleen toe als u beide websites vertrouwt.",
-        "description": ""
-    },
     "OptOverrideTorBrowserPolicy": {
         "message": "Voorkeuze van beveiligingsniveau van Tor Browser negeren",
         "description": ""

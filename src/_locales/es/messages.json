@@ -359,18 +359,6 @@
         "message": "Convertir peticiones POST de sitios entrecruzados en peticiones GET sin datos",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "Escanear subidas por potenciales ataques de sitios cruzados",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "Preguntar por confirmación de solicitudes POST de sitio cruzado que no pudieron ser escaneadas.",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "Esta solicitud de sitio cruzado no pudo ser escaneada por XSS.\nPodría ser inocua, pero NoScript no puede afirmarlo. Permítela solamente si confías en ambos sitios.",
-        "description": ""
-    },
     "OptOverrideTorBrowserPolicy": {
         "message": "Sobreponer al Nivel de Seguridad predeterminado del Navegador Tor",
         "description": ""

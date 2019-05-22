@@ -359,19 +359,7 @@
         "message": "Ubah permohonan HANTARAN laman-silang menjadi pemohonan GET kurang-data",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "Imbas muat naik bagi serang laman-silang yang berpotensi",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "Tanya pengesahan untuk permohonan HANTARAN laman-silang yang tidak diimbas",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "Pemohonan laman-silang ini tidak diimbas bagi XSS.\nIa mungkin tidak merbahaya, tetapi NoScript tidak pasti berkenaannya. Hanya beri kebenaran sekiranya anda benar-benar mempercayai kedua-dua laman.",
-        "description": ""
-    },
-    "OptOverrideTorBrowserPolicy": {
+        "OptOverrideTorBrowserPolicy": {
         "message": "Batalkan praset Aras Keselamatan Pelayar Tor",
         "description": ""
     },

@@ -359,18 +359,6 @@
         "message": "הפוך בקשות POST חוצות־אתרים אל בקשות GET מופחתות־נתונים",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "סרוק העלאות עבור מתקפות חוצות־אתרים פוטנציאליות",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "בקש אימות עבור בקשות POST חוצות־אתרים שאינן יכולות להיסרק",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "בקשת חוצת־אתרים זו לא יכלה להיסרק עבור XSS.\nהיא עשויה להיות בלתי־מזיקה, אבל NoScript אינו יכול לדעת בוודאות. התר רק אם אתה בוטח בשני האתרים.",
-        "description": ""
-    },
     "OptOverrideTorBrowserPolicy": {
         "message": "דרוס הגדרה של רמת אבטחה של דפדפן Tor",
         "description": ""

@@ -113,8 +113,6 @@ var Settings = {
         },
         sync: {
           cascadeRestrictions: true,
-          xssScanRequestBody: false,
-          xssBlockUnscannedPOST: true,
         }
       }
       for (let [storage, prefs] of Object.entries(torBrowserSettings)) {

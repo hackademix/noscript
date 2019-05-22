@@ -359,18 +359,6 @@
         "message": "Siteler arası POST istekleri veriden arındırılmış GET isteklerine dönüştürülsün",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "Yüklenen dosyalar olası siteler arası saldırılara karşı taransın",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "Taranamayan siteler arası POST istekleri için onay istensin",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "Bu siteler arası istek XSS saldırılarına karşı taranamadı.\nZararsız olabilir ancak NoScript kesin olarak bir şey söyleyemiyor. Ancak her iki siteye de güveniyorsanız onaylayın.",
-        "description": ""
-    },
     "OptOverrideTorBrowserPolicy": {
         "message": "Tor Browser Güvenlik Duvarı ayarı değiştirilsin",
         "description": ""

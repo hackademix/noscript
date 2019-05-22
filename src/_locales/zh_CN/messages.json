@@ -359,18 +359,6 @@
         "message": "将跨网站的 POST 请求转换为无数据的 GET 请求",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "Scan uploads for potential cross-site attacks",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "Ask confirmation for cross-site POST requests which could not be scanned",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "This cross-site request could not be scanned for XSS.\nIt might be innocuous, but NoScript cannot tell for sure. Allow only if you trust both sites.",
-        "description": ""
-    },
     "OptOverrideTorBrowserPolicy": {
         "message": "Override Tor Browser's Security Level preset",
         "description": ""

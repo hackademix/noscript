@@ -116,12 +116,6 @@ var XSS = (() => {
       if (!UA.isMozilla) return; // async webRequest is supported on Mozilla only
 
       let {onBeforeRequest} = browser.webRequest;
-      let  {xssScanRequestBody} = ns.sync;
-      if (xssScanRequestBody !== this.xssScanRequestBody) {
-        this.stop();
-        this.xssScanRequestBody = xssScanRequestBody;
-      }
-      this.xssBlockUnscannedPOST = ns.sync.xssBlockUnscannedPOST;
 
       if (onBeforeRequest.hasListener(requestListener)) return;
 
@@ -144,9 +138,7 @@ var XSS = (() => {
       onBeforeRequest.addListener(requestListener, {
         urls: ["*://*/*"],
         types: ["main_frame", "sub_frame", "object"]
-      },
-        // work-around for https://bugzilla.mozilla.org/show_bug.cgi?id=1532530
-        xssScanRequestBody ? ["blocking", "requestBody"] : ["blocking"]);
+      }, ["blocking", "requestBody"]);
     },
 
     stop() {
@@ -247,13 +239,8 @@ var XSS = (() => {
       ic.reset();
 
       let postInjection = xssReq.isPost &&
-       (XSS.xssScanRequestBody ?
           request.requestBody && request.requestBody.formData &&
-            ic.checkPost(request.requestBody.formData, skipParams)
-        : XSS.xssBlockUnscannedPOST &&
-          (request.originUrl || request.documentUrl) && // exclude non-document POSTs, such as url bar searches
-          ns.requestCan(request, "script") && ("\n" + _("UnscannedXPost"))
-      );
+          ic.checkPost(request.requestBody.formData, skipParams);
 
       let protectName = ic.nameAssignment;
       let urlInjection = ic.checkUrl(destUrl, skipRx);

@@ -359,18 +359,6 @@
         "message": "Webseitenübergreifende POST-Anfragen in datenlose GET-Anfragen umwandeln",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "Uploads auf potenzielle webseitenübergreifende Angriffe überprüfen",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "Rückfrage bei webseitenübergreifenden POST-Anfragen, die nicht überprüft werden konnten",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "Diese webseitenübergreifende Anfrage konnte nicht auf XSS überprüft werden.\nSie könnte harmlos sein, aber NoScript kann das nicht sicher feststellen. Nur zulassen, wenn Sie beiden Webseiten vertrauen.",
-        "description": ""
-    },
     "OptOverrideTorBrowserPolicy": {
         "message": "Die Sicherheitsstufe des Tor Browsers übersteuern",
         "description": ""

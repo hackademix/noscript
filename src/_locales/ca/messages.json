@@ -359,18 +359,6 @@
         "message": "Converteix sol·licituds «POST» entre llocs en sol·licituds «GET» sense dades",
         "description": ""
     },
-    "OptScanXUpload": {
-        "message": "Escaneja les pujades per a possibles atacs entre llocs",
-        "description": ""
-    },
-    "OptBlockUnscannedXPost": {
-        "message": "Solicita confirmació de sol·licituds POST entre llocs que no s'han pogut analitzar.",
-        "description": ""
-    },
-    "UnscannedXPost": {
-        "message": "No s'ha pogut escanejar aquesta sol·licitud entre llocs per a XSS.\nPot ser que sigui innocu, però el NoScript no pot dir-ho amb seguretat. Permeteu-ho només si confieu en els dos llocs.",
-        "description": ""
-    },
     "OptOverrideTorBrowserPolicy": {
         "message": "Anul·la el nivell de seguretat del navegador Tor",
         "description": ""
