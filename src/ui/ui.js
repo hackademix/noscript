@@ -372,7 +372,7 @@ var UI = (() => {
       let customizer = target.closest(".customizer");
       let row = customizer ? customizer.parentNode.querySelector("tr.customizing") : target.closest("tr.site");
       if (!row) return;
-      row.temp2perm = false;
+
       let isTemp = target.matches("input.temp");
       let preset = target.matches("input.preset") ? target
         : customizer || isTemp ? row.querySelector("input.preset:checked")
@@ -392,23 +392,25 @@ var UI = (() => {
         return;
       }
 
-      let policy = UI.policy;
+
       let {siteMatch, contextMatch, perms} = row;
-      let presetValue = preset.value;
-      let policyPreset = presetValue.startsWith("T_") ? policy[presetValue.substring(2)].tempTwin : policy[presetValue];
-
-      if (policyPreset) {
-        if (row.perms !== policyPreset) {
-          row.temp2perm = row.perms && policyPreset.tempTwin === row.perms;
-          row.perms = policyPreset;
-        }
-      }
-
 
       let isCap = customizer && target.matches(".cap");
       let tempToggle = preset.parentNode.querySelector("input.temp");
 
       if (ev.type === "change") {
+        row.temp2perm = false;
+        let policy = UI.policy;
+        let presetValue = preset.value;
+        let policyPreset = presetValue.startsWith("T_") ? policy[presetValue.substring(2)].tempTwin : policy[presetValue];
+
+        if (policyPreset) {
+          if (row.perms !== policyPreset) {
+            row.temp2perm = row.perms &&
+              (policyPreset.tempTwin === row.perms || policyPreset === row.perms._tempTwin);
+            row.perms = policyPreset;
+          }
+        }
         if (preset.checked) {
           row.dataset.preset = preset.value;
         }
