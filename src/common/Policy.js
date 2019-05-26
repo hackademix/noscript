@@ -238,7 +238,20 @@ var {Permissions, Policy, Sites} = (() => {
       }
       return enabled;
     }
-
+    sameAs(otherPerms) {
+      let otherCaps = new Set(otherPerms.capabilities);
+      let theseCaps = this.capabilities;
+      for (let c of theseCaps) {
+        if (!otherCaps.delete(c)) return false;
+      }
+      for (let c of otherCaps) {
+        if (!theseCaps.has(c)) return false;
+      }
+      return true;
+    }
+    clone() {
+      return new Permissions(this.capabilities, this.temp, this.context);
+    }
     get tempTwin() {
       return this._tempTwin || (this._tempTwin = new Permissions(this.capabilities, true, this.contextual));
     }

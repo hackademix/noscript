@@ -346,6 +346,11 @@ var UI = (() => {
     allSiteRows() {
       return this.table.querySelectorAll("tr.site");
     }
+
+    anyPermissionsChanged() {
+      return Array.from(this.allSiteRows()).some(row => row.permissionsChanged);
+    }
+
     clear() {
       debug("Clearing list", this.table);
 
@@ -399,17 +404,16 @@ var UI = (() => {
       let tempToggle = preset.parentNode.querySelector("input.temp");
 
       if (ev.type === "change") {
-        row.temp2perm = false;
+        row.permissionsChanged = false;
+        if (!row._originalPerms) {
+          row._originalPerms = row.perms.clone();
+        }
         let policy = UI.policy;
         let presetValue = preset.value;
         let policyPreset = presetValue.startsWith("T_") ? policy[presetValue.substring(2)].tempTwin : policy[presetValue];
 
-        if (policyPreset) {
-          if (row.perms !== policyPreset) {
-            row.temp2perm = row.perms &&
-              (policyPreset.tempTwin === row.perms || policyPreset === row.perms._tempTwin);
-            row.perms = policyPreset;
-          }
+        if (policyPreset && row.perms !== policyPreset) {
+          row.perms = policyPreset;
         }
         if (preset.checked) {
           row.dataset.preset = preset.value;
@@ -443,6 +447,7 @@ var UI = (() => {
             this.customize(perms, preset, row);
           }
         }
+        row.permissionsChanged = !row.perms.sameAs(row._originalPerms);
         fireOnChange(this, row);
       } else if (!(isCap || isTemp) && ev.type === "click") {
           this.customize(row.perms, preset, row);

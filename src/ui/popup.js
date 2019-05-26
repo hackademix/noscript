@@ -164,7 +164,7 @@ addEventListener("unload", e => {
     sitesUI = new UI.Sites(document.getElementById("sites"));
 
     sitesUI.onChange = (row) => {
-      pendingReload(!row.temp2perm);
+      pendingReload(sitesUI.anyPermissionsChanged());
       if (optionsClosed) return;
       browser.tabs.query({
         url: browser.extension.getURL(
