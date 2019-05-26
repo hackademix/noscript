@@ -5,6 +5,7 @@ var XSS = (() => {
   const ABORT = {cancel: true}, ALLOW = {};
 
   let promptsMap = new Map();
+  let timingsMap = new Map();
 
   async function getUserResponse(xssReq) {
     let {originKey} = xssReq;
@@ -19,6 +20,14 @@ var XSS = (() => {
         return ABORT;
     }
     return null;
+  }
+
+  function doneListener(request) {
+    let timing = timingsMap.get(request.id);
+    if (timing) {
+      timing.interrupted = true;
+      timingsMap.delete(request.id);
+    }
   }
 
   async function requestListener(request) {
@@ -40,17 +49,22 @@ var XSS = (() => {
 
     let data;
     let reasons;
+
     try {
+
       reasons = await XSS.maybe(xssReq);
       if (!reasons) return ALLOW;
 
       data = [];
     } catch (e) {
       error(e, "XSS filter processing %o", xssReq);
+      if (e instanceof TimingException) {
+        // we don't want prompts if the request expired / errored first
+        return;
+      }
       reasons = { urlInjection: true };
       data = [e.toString()];
     }
-
 
 
     let prompting = (async () => {
@@ -115,7 +129,7 @@ var XSS = (() => {
     async start() {
       if (!UA.isMozilla) return; // async webRequest is supported on Mozilla only
 
-      let {onBeforeRequest} = browser.webRequest;
+      let {onBeforeRequest, onCompleted, onErrorOccurred} = browser.webRequest;
 
       if (onBeforeRequest.hasListener(requestListener)) return;
 
@@ -134,11 +148,15 @@ var XSS = (() => {
         }
         XSS.Exceptions.setWhitelist(null);
       }
-
-      onBeforeRequest.addListener(requestListener, {
+      let filter = {
         urls: ["*://*/*"],
         types: ["main_frame", "sub_frame", "object"]
-      }, ["blocking", "requestBody"]);
+      };
+      onBeforeRequest.addListener(requestListener, filter, ["blocking", "requestBody"]);
+      if (!onCompleted.hasListener(doneListener)) {
+        onCompleted.addListener(doneListener, filter);
+        onErrorOccurred.addListener(doneListener, filter);
+      }
     },
 
     stop() {
@@ -235,17 +253,22 @@ var XSS = (() => {
       let {destUrl} = xssReq;
 
       await include("/xss/InjectionChecker.js");
-      let ic = await this.InjectionChecker;
-      ic.reset();
+      let ic = new (await this.InjectionChecker)();
+      let {timing} = ic;
+      timingsMap.set(request.id, timing);
 
       let postInjection = xssReq.isPost &&
           request.requestBody && request.requestBody.formData &&
-          ic.checkPost(request.requestBody.formData, skipParams);
+          await ic.checkPost(request.requestBody.formData, skipParams);
+
+      if (timing.tooLong) {
+        log("[XSS] Long check (%s ms) - %s", timing.elapsed, JSON.stringify(xssReq));
+      }
 
       let protectName = ic.nameAssignment;
-      let urlInjection = ic.checkUrl(destUrl, skipRx);
+      let urlInjection = await ic.checkUrl(destUrl, skipRx);
       protectName = protectName || ic.nameAssignment;
-      ic.reset();
+
       return !(protectName || postInjection || urlInjection) ? null
         : { protectName, postInjection, urlInjection };
     }
