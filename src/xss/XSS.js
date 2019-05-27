@@ -58,7 +58,7 @@ var XSS = (() => {
       data = [];
     } catch (e) {
       error(e, "XSS filter processing %o", xssReq);
-      if (e instanceof TimingException) {
+      if (e instanceof TimingException && !/\btimeout\b/i.test(e.message)) {
         // we don't want prompts if the request expired / errored first
         return;
       }
@@ -256,6 +256,7 @@ var XSS = (() => {
       let ic = new (await this.InjectionChecker)();
       let {timing} = ic;
       timingsMap.set(request.id, timing);
+      timing.fatalTimeout = true;
 
       let postInjection = xssReq.isPost &&
           request.requestBody && request.requestBody.formData &&
