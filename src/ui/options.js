@@ -39,14 +39,13 @@
   opt("overrideTorBrowserPolicy");
 
   {
-    let button = document.querySelector("#btn-reset");
-    button.onclick = async () => {
+    document.querySelector("#btn-reset").addEventListener("click", async () => {
       if (confirm(_("reset_warning"))) {
         policy = new Policy();
         await UI.updateSettings({policy, local: null, sync: null, xssUserChoices: {}});
         window.location.reload();
       }
-    }
+    });
 
     let fileInput = document.querySelector("#file-import");
     fileInput.onchange = () => {
@@ -62,8 +61,8 @@
       fr.readAsText(fileInput.files[0]);
     }
 
-    button = document.querySelector("#btn-import");
-    button.onclick = () => fileInput.click();
+    document.querySelector("#btn-import").addEventListener("click",
+      () => fileInput.click());
 
     document.querySelector("#btn-export").addEventListener("click", async e => {
       let button = e.target;
