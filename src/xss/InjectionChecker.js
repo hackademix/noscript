@@ -172,8 +172,7 @@ XSS.InjectionChecker = (async () => {
       const toStringRx = /^function\s*toString\(\)\s*{\s*\[native code\]\s*\}$/;
 
       // optimistic case first, one big JSON block
-      s = s.replace(/[^{"]+=/, "")
-      let m = s.match(/{[^]+}|\[[^]*{[^]*}[^]*\]/);
+      let m = s.match(/{[^]+}|\[[^=]*{[^]*}[^]*\]/);
       if (!m) return s;
 
       // semicolon-separated JSON chunks, like on syndication.twitter.com
@@ -201,15 +200,15 @@ XSS.InjectionChecker = (async () => {
         let iterations = 0;
         while (start > -1 && end - start > 1) {
           expr = s.substring(start, end + 1);
+          if (expr === prevExpr) break;
           let before = s.substring(0, start);
           let after = s.substring(end + 1);
-          if (expr === prevExpr) break;
           iterations++;
           if (await this.timing.pause()) {
             this.log(`JSON reduction iterations ${iterations++}, elapsed ${this.timing.elapsed}, expr ${expr}`);
           }
           end = s.lastIndexOf("}", end - 1);
-          if (end === -1) {
+          if (end < start) {
             start = s.indexOf("{", start + 1);
             end = s.lastIndexOf("}");
           }
