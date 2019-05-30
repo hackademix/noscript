@@ -24,8 +24,10 @@
 </div>
 
 <div class="buttons">
-<span><input id="file-import" type="file"/></span>
+<div id="import-container">
+  <input id="file-import" type="file" name="file-import" tabindex="-1" accept=".txt,.json"/>
 <button id="btn-import" accesskey="__MSG_Import_accesskey__">__MSG_Import__</button>
+</div>
 <button id="btn-export" accesskey="__MSG_Export_accesskey__">__MSG_Export__</button>
 <button id="btn-reset" accesskey="__MSG_Reset_accesskey__">__MSG_Reset__</button>
 </div>

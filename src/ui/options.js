@@ -61,8 +61,11 @@
       fr.readAsText(fileInput.files[0]);
     }
 
-    document.querySelector("#btn-import").addEventListener("click",
-      () => fileInput.click());
+    document.querySelector("#btn-import").addEventListener("click", async e => {
+      fileInput.focus();
+      fileInput.click();
+      e.target.focus();
+    });
 
     document.querySelector("#btn-export").addEventListener("click", async e => {
       let button = e.target;

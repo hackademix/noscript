@@ -129,8 +129,20 @@ button.add {
   font-weight: bold;
 }
 
-input[type="file"] {
-  display: none;
+#import-container {
+  position: relative;
+}
+#file-import {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .opt-group {
