@@ -34,7 +34,7 @@ var PlaceHolder = (() => {
 
   new Handler("frame", "iframe");
   new Handler("object", "object, embed");
-  new Handler("media", "video, audio");
+  new Handler("media", "video, audio, source");
 
   function cloneStyle(src, dest,
     props = ["width", "height", "position", "*", "margin*"]) {
@@ -106,6 +106,10 @@ var PlaceHolder = (() => {
 
     replace(element) {
       if (!element.parentElement) return;
+      if (element.parentElement instanceof HTMLMediaElement) {
+        this.replace(element.parentElement);
+        return;
+      }
       let {
         url
       } = this.request;
