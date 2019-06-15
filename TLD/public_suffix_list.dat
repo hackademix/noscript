@@ -11001,6 +11001,10 @@ cloudaccess.net
 cloudcontrolled.com
 cloudcontrolapp.com
 
+// Cloudera, Inc. : https://www.cloudera.com/
+// Submitted by Philip Langdale <security@cloudera.com>
+cloudera.site
+
 // Cloudflare, Inc. : https://www.cloudflare.com/
 // Submitted by Jake Riesterer <publicsuffixlist@cloudflare.com>
 workers.dev
@@ -11789,6 +11793,7 @@ goip.de
 // Submitted by Eduardo Vela <evn@google.com>
 run.app
 a.run.app
+web.app
 *.0emm.com
 appspot.com
 blogspot.ae
@@ -11996,6 +12001,10 @@ ipifony.net
 // Submitted by Kim-Alexander Brodowski <kim.brodowski@iserv.eu>
 mein-iserv.de
 test-iserv.de
+
+// I-O DATA DEVICE, INC. : http://www.iodata.com/
+// Submitted by Yuji Minagawa <domains-admin@iodata.jp>
+iobb.net
 
 // Jino : https://www.jino.ru
 // Submitted by Sergey Ulyashin <ulyashin@jino.ru>
