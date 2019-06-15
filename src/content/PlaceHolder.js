@@ -119,10 +119,14 @@ var PlaceHolder = (() => {
       let replacement = createHTMLElement("a");
       replacement.className = "__NoScript_PlaceHolder__";
       cloneStyle(element, replacement);
-      replacement.style.backgroundImage = `url(${ICON_URL})`;
+      let setImage = () => replacement.style.backgroundImage = `url(${ICON_URL})`;
 
       if (ns.embeddingDocument) {
         replacement.classList.add("document");
+        window.stop();
+        setTimeout(setImage, 0); // defer to bypass window.stop();
+      } else {
+        setImage();
       }
 
       replacement.href = url;
