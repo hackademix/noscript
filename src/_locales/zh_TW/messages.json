@@ -1,0 +1,902 @@
+{
+    "Add": {
+        "message": "新增",
+        "description": ""
+    },
+    "Add_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AdditionalPermissions": {
+        "message": "用於信任網站的額外權限",
+        "description": ""
+    },
+    "AdditionalRestrictions": {
+        "message": "用於非信任網站的額外權限",
+        "description": ""
+    },
+    "SectionAdvanced": {
+        "message": "進階",
+        "description": ""
+    },
+    "Allow": {
+        "message": "允許",
+        "description": ""
+    },
+    "Allow_accesskey": {
+        "message": "l",
+        "description": ""
+    },
+    "AllowBookmarks": {
+        "message": "允許透過書籤開啟的網站",
+        "description": ""
+    },
+    "AllowClipboard": {
+        "message": "允許從外部剪貼簿複製及貼上 RTF 文字",
+        "description": ""
+    },
+    "AllowLocalLinks": {
+        "message": "允許本機連結",
+        "description": ""
+    },
+    "AllowPage": {
+        "message": "本頁面全部允許",
+        "description": ""
+    },
+    "AllowPage_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AllowPing": {
+        "message": "允許",
+        "description": ""
+    },
+    "AllowViaBookmarks": {
+        "message": "允許透過書籤開啟的網站",
+        "description": ""
+    },
+    "AlwaysBlockUntrustedContent": {
+        "message": "封鎖所有來自標示為不信任網站的物件",
+        "description": ""
+    },
+    "SectionAppearance": {
+        "message": "外觀",
+        "description": ""
+    },
+    "AutoAllowTopLevel": {
+        "message": "暫時將頂級網域的網站設定為信任的網站",
+        "description": ""
+    },
+    "AutoReload": {
+        "message": "當權限變更時，自動重新整理受影響的網頁",
+        "description": ""
+    },
+    "AutoReload_currentTab": {
+        "message": "只重新整理目前的分頁",
+        "description": ""
+    },
+    "BaseDom": {
+        "message": "基礎第2層域名（noscripts.net）",
+        "description": ""
+    },
+    "BlockedItems": {
+        "message": "已封鎖 $2 物件中的 $1 個。",
+        "description": ""
+    },
+    "BlockedObjects": {
+        "message": "被 NoScript 封鎖的物件",
+        "description": ""
+    },
+    "BookmarkSync": {
+        "message": "將 NoScript 組態備份到書籤，讓同步更輕鬆",
+        "description": ""
+    },
+    "Cancel": {
+        "message": "取消",
+        "description": ""
+    },
+    "CascadePermissions": {
+        "message": "給予第3方原件編碼頂級文件的權限",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "將上層文件的限制串聯至子文件",
+        "description": ""
+    },
+    "ClearClickDescription": {
+        "message": "NoScript 已攔截一項隱藏元素和您的滑鼠或鍵盤互動。點選下方圖片來切換乾淨或被攔截的版本。",
+        "description": ""
+    },
+    "ClearClickHeader": {
+        "message": "偵測到潛在的點擊綁架或介面偽裝！",
+        "description": ""
+    },
+    "ClearClickOpt": {
+        "message": "ClearClick 頁面保護",
+        "description": ""
+    },
+    "ClearClickReport": {
+        "message": "報告",
+        "description": ""
+    },
+    "ClearClickReport_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "ClearClickReportId": {
+        "message": "報告ID:",
+        "description": ""
+    },
+    "ClearClickTitle": {
+        "message": "ClearClick 警告",
+        "description": ""
+    },
+    "Close": {
+        "message": "關閉",
+        "description": ""
+    },
+    "CollapseBlockedObjects": {
+        "message": "摺疊被封鎖的物件",
+        "description": ""
+    },
+    "ConfirmUnblock": {
+        "message": "在暫時取消封鎖物件前，先詢問我",
+        "description": ""
+    },
+    "ContentBlocker": {
+        "message": "將這些限制也套用到白名單的網站",
+        "description": ""
+    },
+    "CtxMenu": {
+        "message": "右鍵菜單",
+        "description": ""
+    },
+    "Custom": {
+        "message": "自訂",
+        "description": ""
+    },
+    "CustomizePresets": {
+        "message": "預設自訂（針對所有跟隨這一設定的網站）",
+        "description": ""
+    },
+    "Default": {
+        "message": "預設",
+        "description": ""
+    },
+    "DefaultPolicies": {
+        "message": "預設原則",
+        "description": ""
+    },
+    "Description": {
+        "message": "給您的瀏覽器最大保護：NoScript 僅允許您選擇之信任網域的主動式內容，以防止入侵。",
+        "description": ""
+    },
+    "Donate": {
+        "message": "捐獻",
+        "description": ""
+    },
+    "Donate_accesskey": {
+        "message": "o",
+        "description": ""
+    },
+    "Embeddings": {
+        "message": "嵌入",
+        "description": ""
+    },
+    "Exceptions": {
+        "message": "例外",
+        "description": ""
+    },
+    "Export": {
+        "message": "匯出",
+        "description": ""
+    },
+    "Export_accesskey": {
+        "message": "E",
+        "description": ""
+    },
+    "FixLinks": {
+        "message": "嘗試修理JavaScript鏈結",
+        "description": ""
+    },
+    "Hider": {
+        "message": "拖到這裹來隱藏",
+        "description": ""
+    },
+    "Reveal": {
+        "message": "點擊這裹找回消失的按鈕",
+        "description": ""
+    },
+    "ShowFullAddresses": {
+        "message": "在權限彈出視窗裹列出完整網址",
+        "description": ""
+    },
+    "SectionGeneral": {
+        "message": "一般",
+        "description": ""
+    },
+    "GlobalHttpsWhitelist": {
+        "message": "全局允許HTTPS文件裹的HTTPS原件編碼",
+        "description": ""
+    },
+    "NotEnforced": {
+        "message": "已解除的限制",
+        "description": ""
+    },
+    "NoEnforcement": {
+        "message": "全局解除限制（危險）",
+        "description": ""
+    },
+    "Enforce": {
+        "message": "全局實施限制",
+        "description": ""
+    },
+    "NoEnforcementForTab": {
+        "message": "僅在本標籤頁解除限制",
+        "description": ""
+    },
+    "EnforceForTab": {
+        "message": "僅在本標籤頁實施限制",
+        "description": ""
+    },
+    "HighContrast": {
+        "message": "高對比外觀",
+        "description": ""
+    },
+    "httpsOnly": {
+        "message": "僅在有關的HTTPS內容實施",
+        "description": ""
+    },
+    "Https": {
+        "message": "HTTPS",
+        "description": ""
+    },
+    "Https_always": {
+        "message": "永遠",
+        "description": ""
+    },
+    "Https_behavior": {
+        "message": "行為",
+        "description": ""
+    },
+    "Https_cookies": {
+        "message": "Cookies",
+        "description": ""
+    },
+    "Https_description": {
+        "message": "禁止動態網頁內容（除非來自安全（HTTPS）連接）",
+        "description": ""
+    },
+    "Https_never": {
+        "message": "永不",
+        "description": ""
+    },
+    "Https_proxy": {
+        "message": "使用代理伺服器時（使用Tor時建議選用）",
+        "description": ""
+    },
+    "HttpsFaq": {
+        "message": "HTTPS 常見問題...",
+        "description": ""
+    },
+    "HttpsFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "HttpsForced": {
+        "message": "強制以下網站使用安全（HTTPS）連接",
+        "description": ""
+    },
+    "HttpsForcedExceptions": {
+        "message": "永不強制以下網站使用安全（HTTPS）連接",
+        "description": ""
+    },
+    "Import": {
+        "message": "匯入",
+        "description": ""
+    },
+    "Import_accesskey": {
+        "message": "I",
+        "description": ""
+    },
+    "KeepLocked": {
+        "message": "保持本元素鎖定 (建議)",
+        "description": ""
+    },
+    "MatchSample": {
+        "message": "模式吻合範例：",
+        "description": ""
+    },
+    "Next": {
+        "message": "下一步",
+        "description": ""
+    },
+    "NoUntrustedPlaceholder": {
+        "message": "不給予標示為不可信網站的物件佔位符",
+        "description": ""
+    },
+    "Notifications": {
+        "message": "通知",
+        "description": ""
+    },
+    "Notify": {
+        "message": "顯示有關已被封鎖的原件編碼的訊息",
+        "description": ""
+    },
+    "Notify_bottom": {
+        "message": "訊息置於底部",
+        "description": ""
+    },
+    "NotifyMeta": {
+        "message": "顯示有關已被封鎖的META重導向的訊息",
+        "description": ""
+    },
+    "NotifyMeta_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "NselForce": {
+        "message": "顯示跟隨已被封鎖的<SCRIPT>的元素<NOSCRIPT>",
+        "description": ""
+    },
+    "NselNever": {
+        "message": "隱藏<NOSCRIPT>的元素",
+        "description": ""
+    },
+    "OK": {
+        "message": "確定",
+        "description": ""
+    },
+    "OptBlockCssScanners": {
+        "message": "封鎖基於CSS的掃描器",
+        "description": ""
+    },
+    "OptFilterXGet": {
+        "message": " 不理跨網站的可疑要求",
+        "description": ""
+    },
+    "OptFilterXPost": {
+        "message": "將網站POST要求變成沒有資料的GET要求",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "覆蓋 Tor 瀏覽器安全等級的設定檔",
+        "description": ""
+    },
+    "Options": {
+        "message": "選項",
+        "description": ""
+    },
+    "Options_accesskey": {
+        "message": "O",
+        "description": ""
+    },
+    "OptionsLong": {
+        "message": "NoScript 選項",
+        "description": ""
+    },
+    "OptionsWidth": {
+        "message": "40em",
+        "description": ""
+    },
+    "PermanentInPrivate": {
+        "message": "在隱私視窗裹的永久「允許」指令",
+        "description": ""
+    },
+    "SectionSitePermissions": {
+        "message": "按網站而設的權限",
+        "description": ""
+    },
+    "PermissionsText": {
+        "message": "你可以指示那些網站是被允許執行原件編碼。輸入該網站的網址或網域名（例：http://www.site.com\" 或 \"site.com\"）解後點擊「允許」。",
+        "description": ""
+    },
+    "Plugins": {
+        "message": "外掛程式",
+        "description": ""
+    },
+    "Policies": {
+        "message": "原則",
+        "description": ""
+    },
+    "Preset": {
+        "message": "安全性等級",
+        "description": ""
+    },
+    "Preset_high": {
+        "message": "堡壘（完全封鎖）",
+        "description": ""
+    },
+    "Preset_low": {
+        "message": "柔和（黑名單＋萬維網保安）",
+        "description": ""
+    },
+    "Preset_medium": {
+        "message": "經典（白名單＋萬維網保安）",
+        "description": ""
+    },
+    "Preset_off": {
+        "message": "關閉（你想清楚沒有？）",
+        "description": ""
+    },
+    "Prev": {
+        "message": "上一步",
+        "description": ""
+    },
+    "RecentBlocked": {
+        "message": "最近封鎖的網站",
+        "description": ""
+    },
+    "Refresh": {
+        "message": "重新整理",
+        "description": ""
+    },
+    "ReloadWarn": {
+        "message": "這些選項會在新下載或（手動）再下載的網頁上啟用",
+        "description": ""
+    },
+    "RemoveSelected": {
+        "message": "移除選擇的網站",
+        "description": ""
+    },
+    "Reset": {
+        "message": "重設",
+        "description": ""
+    },
+    "Reset_accesskey": {
+        "message": "s",
+        "description": ""
+    },
+    "ResetDef": {
+        "message": "重設為預設值",
+        "description": ""
+    },
+    "ResetDef_accesskey": {
+        "message": "D",
+        "description": ""
+    },
+    "RestrictSubdocScripting": {
+        "message": "封鎖白名單外的頁面裏的白名單內的子文件的原件編碼",
+        "description": ""
+    },
+    "RevokeTemp": {
+        "message": "撤銷臨時權限",
+        "description": ""
+    },
+    "RevokeTemp_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "SecureCookies": {
+        "message": "實施自動安全Cookie管理",
+        "description": ""
+    },
+    "SecureCookiesExceptions": {
+        "message": "不理由以下網站經HTTPS發出的不安全Cookie：",
+        "description": ""
+    },
+    "SecureCookiesForced": {
+        "message": "強制加密由以下網站經HTTPS發出的Cookie：",
+        "description": ""
+    },
+    "SecurityManager": {
+        "message": "保安管理員",
+        "description": ""
+    },
+    "Show": {
+        "message": "顯示⋯⋯",
+        "description": ""
+    },
+    "ShowConsole": {
+        "message": "顯示控制台⋯⋯\n",
+        "description": ""
+    },
+    "ShowConsole_accesskey": {
+        "message": "S",
+        "description": ""
+    },
+    "ShowPlaceholder": {
+        "message": "顯示佔位符圖示",
+        "description": ""
+    },
+    "ShowReleaseNotes": {
+        "message": "顯示更新的發行說明",
+        "description": ""
+    },
+    "ShowCtxMenuItem": {
+        "message": "顯示NoScript右鍵菜單項",
+        "description": ""
+    },
+    "ShowCountBadge": {
+        "message": "顯示被封鎖項目的數量",
+        "description": ""
+    },
+    "SitePermissions": {
+        "message": "網站權限",
+        "description": ""
+    },
+    "SitePermissions_accessKey": {
+        "message": "S",
+        "description": ""
+    },
+    "SitePolicies": {
+        "message": "網站專屬原則",
+        "description": ""
+    },
+    "TempTrustPage": {
+        "message": "暫時信任本頁的所有物件",
+        "description": ""
+    },
+    "TempTrustPage_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "TempToPerm": {
+        "message": "令頁面的權限為永久\n",
+        "description": ""
+    },
+    "TempToPerm_accesskey": {
+        "message": "M",
+        "description": ""
+    },
+    "Trust": {
+        "message": "標示為信任的",
+        "description": ""
+    },
+    "Trust_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "Trusted": {
+        "message": "信任的",
+        "description": ""
+    },
+    "Trusted_temporary": {
+        "message": "暫時信任的",
+        "description": ""
+    },
+    "Trusted_permanent": {
+        "message": "信任的",
+        "description": ""
+    },
+    "TrustedPagesAdj": {
+        "message": "信任的",
+        "description": ""
+    },
+    "Uninstall": {
+        "message": "解除安裝",
+        "description": ""
+    },
+    "Unknown": {
+        "message": "未知",
+        "description": ""
+    },
+    "UnsafeReload": {
+        "message": "不安全地再載入",
+        "description": ""
+    },
+    "UnsafeReload_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "Untrust": {
+        "message": "標示為不可信",
+        "description": ""
+    },
+    "Untrust_accesskey": {
+        "message": "U",
+        "description": ""
+    },
+    "Untrusted": {
+        "message": "不可信",
+        "description": ""
+    },
+    "UntrustedPagesAdj": {
+        "message": "不可信",
+        "description": ""
+    },
+    "WebAddress": {
+        "message": "搜尋或增加一個網站",
+        "description": ""
+    },
+    "WebAddress_accesskey": {
+        "message": "w",
+        "description": ""
+    },
+    "Whitelist": {
+        "message": "白名單",
+        "description": ""
+    },
+    "XSS_notify": {
+        "message": "顯示XSS通知",
+        "description": ""
+    },
+    "XSS_clearUserChoices": {
+        "message": "請除XSS選擇",
+        "description": ""
+    },
+    "XSS_promptTitle": {
+        "message": "NoScript XSS 警告",
+        "description": ""
+    },
+    "XSS_promptMessage": {
+        "message": "Noscript 偵測到一個由$1到$2潛在跨網站原件編碼攻擊。可疑資料：$3",
+        "description": ""
+    },
+    "XSS_optBlock": {
+        "message": "封鎖這個要求",
+        "description": ""
+    },
+    "XSS_optSanitize": {
+        "message": "不理這個要求",
+        "description": ""
+    },
+    "XSS_optAllow": {
+        "message": "允許這個要求",
+        "description": ""
+    },
+    "XSS_optAlwaysAllow": {
+        "message": "永遠允許從$1到$2的文件要求",
+        "description": ""
+    },
+    "XSS_optAlwaysBlock": {
+        "message": "永遠封鎖從$1到$2的文件要求",
+        "description": ""
+    },
+    "Xss": {
+        "message": "XSS",
+        "description": ""
+    },
+    "Xss_accesskey": {
+        "message": "X",
+        "description": ""
+    },
+    "XssExceptions": {
+        "message": "反-XSS保護例外",
+        "description": ""
+    },
+    "XssExceptions_description": {
+        "message": "終點名稱若與這些字串吻合不會免疫於跨網站原件編碼（XSS）攻擊。",
+        "description": ""
+    },
+    "XssFaq": {
+        "message": "XSS 常見問題⋯⋯",
+        "description": ""
+    },
+    "XssFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "about": {
+        "message": " 關於$1",
+        "description": ""
+    },
+    "allowFrom": {
+        "message": "允許由$1來的所有物件",
+        "description": ""
+    },
+    "allowGlobal": {
+        "message": "撤銷所有權限檢查（危險）",
+        "description": ""
+    },
+    "allowLocal": {
+        "message": "允許$1",
+        "description": ""
+    },
+    "allowTemp": {
+        "message": "暫時允許$1",
+        "description": ""
+    },
+    "allowTempFrom": {
+        "message": "暫時允許由$1來的所有物件",
+        "description": ""
+    },
+    "allowed_no": {
+        "message": "現時被封鎖的原件編碼",
+        "description": ""
+    },
+    "allowed_prt": {
+        "message": "局部允許的原件編碼",
+        "description": ""
+    },
+    "allowed_yes": {
+        "message": "現時允許的原件編碼",
+        "description": ""
+    },
+    "alwaysAsk": {
+        "message": "永遠要求確認",
+        "description": ""
+    },
+    "audio_samples": {
+        "message": "音頻範例",
+        "description": ""
+    },
+    "bookmarkSync_confirm": {
+        "message": "Noscript發現一個設定書籤擬似已儲存在$1。\n你真的想以這個設定書籤的內容覆寫本機NoScript設定嗎？",
+        "description": ""
+    },
+    "bookmarkSync_message": {
+        "message": "這個書籤不是用來被查閱，而是會經Weave或XMarks擴展等服務而被同步。",
+        "description": ""
+    },
+    "bookmarkSync_title": {
+        "message": "NoScript 設定的書籤",
+        "description": ""
+    },
+    "cap_script": {
+        "message": "原件編碼",
+        "description": ""
+    },
+    "cap_frame": {
+        "message": "框",
+        "description": ""
+    },
+    "cap_object": {
+        "message": "物件",
+        "description": ""
+    },
+    "cap_media": {
+        "message": " 媒體",
+        "description": ""
+    },
+    "cap_font": {
+        "message": "字體",
+        "description": ""
+    },
+    "cap_webgl": {
+        "message": "WebGL",
+        "description": ""
+    },
+    "cap_fetch": {
+        "message": "獲取",
+        "description": ""
+    },
+    "cap_other": {
+        "message": "其他",
+        "description": ""
+    },
+    "changelog": {
+        "message": "更新日誌",
+        "description": ""
+    },
+    "changelog_tip": {
+        "message": "顯示更新日誌",
+        "description": ""
+    },
+    "confirm": {
+        "message": "你想清楚沒有？",
+        "description": ""
+    },
+    "disable": {
+        "message": "撤銷$1",
+        "description": ""
+    },
+    "disable_accessKey": {
+        "message": "D",
+        "description": ""
+    },
+    "distrust": {
+        "message": "標示$1為不可信",
+        "description": ""
+    },
+    "extensionContributors": {
+        "message": "頁獻者：",
+        "description": ""
+    },
+    "extensionContributors_tip": {
+        "message": "為你帶來此擴展的人們",
+        "description": ""
+    },
+    "extensionCreator_tip": {
+        "message": "訪問擴展開發者主頁",
+        "description": ""
+    },
+    "extensionCreatorLabel": {
+        "message": "開發者：",
+        "description": ""
+    },
+    "extensionHomepage_tip": {
+        "message": "訪問擴展主頁",
+        "description": ""
+    },
+    "forbidGlobal": {
+        "message": "全局封鎖原件編碼（建議）",
+        "description": ""
+    },
+    "forbidLocal": {
+        "message": "封鎖$1",
+        "description": ""
+    },
+    "freshInstallReload": {
+        "message": "Noscript需要重新載入頁面以在這標籤頁運作。繼續？",
+        "description": ""
+    },
+    "privilegedPage": {
+        "message": "本頁的權限不可改變。",
+        "description": ""
+    },
+    "incompatibleOptions": {
+        "message": "「$1」並不兼容「$2」。你想啟用前者並撤銷後者嗎？ ",
+        "description": ""
+    },
+    "incompatibleOptions_title": {
+        "message": "選項不兼容警告",
+        "description": ""
+    },
+    "informaction_tip": {
+        "message": "訪問InformAction主頁",
+        "description": ""
+    },
+    "license": {
+        "message": "許可證",
+        "description": ""
+    },
+    "license_tip": {
+        "message": "閱讀用戶許可協議",
+        "description": ""
+    },
+    "logo_tip": {
+        "message": "訪問擴展主頁",
+        "description": ""
+    },
+    "metaRefresh_notify": {
+        "message": "Noscript   用了$2秒封鎖了 1個在<NOSCRIPT>元素$1裏的<META>重導向。",
+        "description": ""
+    },
+    "Reload": {
+        "message": "重新載入",
+        "description": ""
+    },
+    "removal_message": {
+        "message": "撤銷或解除安裝NoScript，你即是放棄所有NoScript 提供的無保護。\n\n假如你只是厭倦逐一網站來處理權限，其實有令一安全方法。\n\n已被標示為不可信的除外，Noscript 可以暫停封鎖原件編碼，而又仍然以最先進的保安防衛措施來保護你免受XSS, Clickjacking, CSRF 及其他網絡威脅。\n\n你真的想撤銷所有Noscript的保護措施？",
+        "description": ""
+    },
+    "removal_no": {
+        "message": "不，只停上封鎖原件編碼。",
+        "description": ""
+    },
+    "removal_title": {
+        "message": "保安降級警告",
+        "description": ""
+    },
+    "removal_yes": {
+        "message": "是，移除所有保護。",
+        "description": ""
+    },
+    "reset_title": {
+        "message": "NoScript 重置",
+        "description": ""
+    },
+    "reset_warning": {
+        "message": "所有NoScript設定及網站權限即將會被被重置到各自的預設值。\n這個動作無法還原。\n你還想繼續嗎？\n",
+        "description": ""
+    },
+    "siteInfo_confirm": {
+        "message": "你即將會透過提交查詢到$2來詢問「$1」網站的資料。\n你想繼續嗎？",
+        "description": ""
+    },
+    "siteInfo_tooltip": {
+        "message": "點擊滑鼠中鍵或SHIFT＋點擊來看網站資料\n",
+        "description": ""
+    },
+    "sponsor_tip": {
+        "message": "訪問贊助商主頁",
+        "description": ""
+    },
+    "unsafeReload_warning": {
+        "message": "不安全地由 [$3]重新載入一個可疑$1 [$2]\n\nNoScript將不會保護這個要求。",
+        "description": ""
+    },
+    "untrustedOrigin": {
+        "message": "1個不可信來源",
+        "description": ""
+    },
+    "version": {
+        "message": "版本$1",
+        "description": ""
+    },
+    "versionShort": {
+        "message": "第$1版",
+        "description": ""
+    }
+}
