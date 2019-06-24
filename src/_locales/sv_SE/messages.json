@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Extra skydd för Firefox: NoScript tillåter JavaScript, Flash (och andra tillägg) endast för betrodda domäner som du väljer (t.ex. din webbplats för banktjänster). Denna vitlista är baserad på förebyggande blockeringsmetoder som förhindrar utnyttjande av säkerhetsproblem (kända och till och med okända!) utan förlust av funktionalitet... Experter är överens: Firefox är verkligen säkrare med NoScript :-)",
+        "message": "Maximalt skydd för din webbläsare: NoScript tillåter aktivt innehåll endast för betrodda domäner som du väljer för att förhindra exploatering.",
         "description": ""
     },
     "Donate": {
@@ -360,7 +360,7 @@
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Override Tor Browser's Security Level preset",
+        "message": "Åsidosätt förinställning i Tor Browser för säkerhetsnivå",
         "description": ""
     },
     "Options": {
