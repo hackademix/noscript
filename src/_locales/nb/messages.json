@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Cascade top document's restrictions to subdocuments",
+        "message": "Kaskade toppdokumentets begrensninger på underdokumenter",
         "description": ""
     },
     "ClearClickDescription": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Ekstra beskyttelse for Firefox: NoScript tillater JavaScript, Flash (og andre programtillegg) kun for betrodde domener du velger (f.eks. din nettbankside). Denne hvitlistebaserte forhåndsblokkeringsbaserte tilnærmingen forhindrer utnytting av sikkerhetssvakheter (kjente og ukjente!) uten funksjonalitetstap… Eksperter vil bekrefte: Firefox er faktisk tryggere med NoScript :-)",
+        "message": "Maksimal beskyttelse for nettleseren din: NoScript tillater bare aktivt innhold for pålitelige domener du ønsker, for å forhindre utnyttelse.",
         "description": ""
     },
     "Donate": {
@@ -360,7 +360,7 @@
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Override Tor Browser's Security Level preset",
+        "message": "Overstyr Tor Browser sikkerhetsnivå forhåndsinnstilt",
         "description": ""
     },
     "Options": {

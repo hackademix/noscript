@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "为 Firefox 提供额外的保护：NoScript 只允许在您选择的信任域执行 JavaScript、Flash 以及其他插件（比如您的家庭银行网站）。这种基于预设白名单的拦截策略可以防止（已知或未知的）安全漏洞攻击，同时不损失任何功能…专业人士也会同意：NoScript 让 Firefox 更安全 :-)",
+        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
         "description": ""
     },
     "Donate": {
