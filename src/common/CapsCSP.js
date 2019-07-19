@@ -11,16 +11,16 @@ function CapsCSP(baseCSP = new CSP()) {
         blockedTypes.add("worker");
         if (!blockedTypes.has("object")) {
           // data: URIs loaded in objects may run scripts
-          blockedTypes.add({name: "object", value: "http: https:"}); 
+          blockedTypes.add({name: "object", value: "http:"});
         }
       }
-      
+
       if (!blockHttp) {
         // HTTP is blocked in onBeforeRequest, let's allow it only and block
         // for instance data: and blob: URIs
         for (let type of this.dataUriTypes) {
           if (blockedTypes.delete(type)) {
-            blockedTypes.add({name: type, value: "http: https:"});
+            blockedTypes.add({name: type, value: "http:"});
           }
         }
       }
