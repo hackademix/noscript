@@ -162,7 +162,7 @@ var UI = (() => {
         canary.style.display = "none";
         document.body.appendChild(canary);
         UI.highContrast = window.getComputedStyle(canary).backgroundImage === "none";
-        canary.parentNode.removeChild(canary);
+        canary.remove();
       }
       return UI.highContrast;
     }
@@ -361,7 +361,7 @@ var UI = (() => {
       this.rowTemplate = this.initRow();
 
       for (let r of this.allSiteRows()) {
-        r.parentNode.removeChild(r);
+        r.remove();
       }
       this.customize(null);
       this.sitesCount = 0;
@@ -760,7 +760,7 @@ var UI = (() => {
         policy.set(site, row.perms);
         for(let r of this.allSiteRows()) {
           if (r !== row && r.siteMatch === site && r.contextMatch === row.contextMatch) {
-            r.parentNode.removeChild(r);
+            r.remove();
           }
         }
         let newRow = this.createSiteRow(site, site, row.perms, row.contextMatch, row.sitesCount);

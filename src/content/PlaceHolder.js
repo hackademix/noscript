@@ -186,7 +186,7 @@ var PlaceHolder = (() => {
     close(replacement) {
       replacement.classList.add("closing");
       this.replacements.delete(replacement);
-      window.setTimeout(() => replacement.parentNode.removeChild(replacement), 500);
+      window.setTimeout(() => replacement.remove(), 500);
     }
   }
 
