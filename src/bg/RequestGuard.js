@@ -173,7 +173,7 @@ var RequestGuard = (() => {
       TabStatus.recordAll(sender.tab.id, message.seen);
       return true;
     },
-    async enable(message, sender) {
+    async blockedObjects(message, sender) {
       let {url, documentUrl, policyType} = message;
       let TAG = `<${policyType.toUpperCase()}>`;
       let origin = Sites.origin(url);
@@ -184,7 +184,8 @@ var RequestGuard = (() => {
       }
       options = [
         {label: _("allowLocal", siteKey), checked: true},
-        {label: _("allowLocal", origin)}
+        {label: _("allowLocal", origin)},
+        {label: _("CollapseBlockedObjects")},
       ];
       let t = u => `${TAG}@${u}`;
       let ret = await Prompts.prompt({
@@ -193,6 +194,9 @@ var RequestGuard = (() => {
         options});
       debug(`Prompt returned %o`);
       if (ret.button !== 0) return;
+      if (ret.option === 2) {
+        return {collapse: "all"};
+      }
       let key = [siteKey, origin][ret.option || 0];
       if (!key) return;
       let {siteMatch, contextMatch, perms} = ns.policy.get(key, documentUrl);
@@ -210,7 +214,7 @@ var RequestGuard = (() => {
         ns.policy.set(key, perms);
         await ns.savePolicy();
       }
-      return true;
+      return {enable: key};
     },
   }
   const Content = {

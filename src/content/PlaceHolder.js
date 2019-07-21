@@ -1,10 +1,11 @@
 var PlaceHolder = (() => {
   const HANDLERS = new Map();
-
+  const CLASS_NAME = "__NoScript_PlaceHolder__";
+  const SELECTOR = `a.${CLASS_NAME}`;
   let checkStyle = async () => {
     checkStyle = () => {};
     if (!ns.embeddingDocument) return;
-    let replacement = document.querySelector("a.__NoScript_PlaceHolder__");
+    let replacement = document.querySelector(SELECTOR);
     if (!replacement) return;
     if (window.getComputedStyle(replacement, null).opacity !== "0.8") {
       document.head.appendChild(createHTMLElement("style")).textContent = await
@@ -126,7 +127,7 @@ var PlaceHolder = (() => {
       let TYPE = `<${this.policyType.toUpperCase()}>`;
 
       let replacement = createHTMLElement("a");
-      replacement.className = "__NoScript_PlaceHolder__";
+      replacement.className = CLASS_NAME;
       cloneStyle(element, replacement);
       let setImage = () => replacement.style.backgroundImage = `url(${ICON_URL})`;
 
@@ -163,13 +164,20 @@ var PlaceHolder = (() => {
 
     async enable(replacement) {
       debug("Enabling %o", this.request, this.policyType);
-      let ok = await Messages.send("enable", {
+      let ret = await Messages.send("blockedObjects", {
         url: this.request.url,
         policyType: this.policyType,
         documentUrl: document.URL
       });
-      debug("Received response", ok);
-      if (!ok) return;
+      debug("Received response", ret);
+      if (!ret) return;
+      if (ret.collapse) {
+        for (let collapsing of (ret.collapse === "all" ? document.querySelectorAll(SELECTOR) : [replacement])) {
+          this.replacements.delete(collapsing);
+          collapsing.remove();
+        }
+        return;
+      }
       if (this.request.embeddingDocument) {
         window.location.reload();
         return;

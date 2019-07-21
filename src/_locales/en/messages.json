@@ -63,7 +63,7 @@
     "message": "Blocked $1 of $2 items."
   },
   "BlockedObjects": {
-    "message": "NoScript Blocked Objects"
+    "message": "NoScript Blocked\u00A0Objects"
   },
   "BookmarkSync": {
     "message": "Backup NoScript configuration in a bookmark for easy synchronization"
