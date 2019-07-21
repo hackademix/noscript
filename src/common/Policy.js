@@ -84,11 +84,11 @@ var {Permissions, Policy, Sites} = (() => {
     static origin(site) {
       if (!site) return "";
       try {
-        let objUrl = site.href ? site : new URL(site);
-        let origin = objUrl.origin;
+        let objUrl = (typeof site === "object" && "origin" in site) ? site : site.startsWith("chrome:") ? {origin: "chrome:" } : new URL(site);
+        let {origin} = objUrl;
         return origin === "null" ? Sites.cleanUrl(objUrl) || site : origin;
       } catch (e) {
-        console.error(e);
+        error(e);
       };
       return site.origin || site;
     }
