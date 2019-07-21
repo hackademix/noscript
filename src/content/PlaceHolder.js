@@ -72,9 +72,14 @@ var PlaceHolder = (() => {
     static listen() {
       PlaceHolder.listen = () => {};
       window.addEventListener("click", ev => {
-        if (ev.button === 0) {
-          let replacement = ev.target.closest("a.__NoScript_PlaceHolder__");
-          let ph = replacement && ev.isTrusted && replacement._placeHolderObj;
+        if (ev.button === 0 && ev.isTrusted) {
+          let ph, replacement;
+          for (let e of document.elementsFromPoint(ev.clientX, ev.clientY)) {
+            if (ph = e._placeHolderObj) {
+              replacement = e;
+              break;
+            }
+          }
           if (ph) {
             ev.preventDefault();
             ev.stopPropagation();
