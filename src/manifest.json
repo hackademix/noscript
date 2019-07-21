@@ -94,7 +94,8 @@
         "content/PlaceHolder.js",
         "content/embeddingDocument.js",
         "content/webglHook.js",
-        "content/media.js"
+        "content/media.js",
+        "content/sanitizePaste.js"
       ]
     },
     {
