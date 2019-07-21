@@ -27,16 +27,19 @@ if (ns.embeddingDocument) {
     if (!document.body.firstChild) { // we've been called early
       setTimeout(replace, 0);
       let types = {
-        "media": /^(?:video|audio)\//i,
+        // Reminder: order is important because media matches also for
+        // some /^application\// types
+        "media": /^(?:(?:video|audio)\/|application\/(?:ogg|mp4|mpeg)$)/i,
         "object": /^application\//i,
       }
       for (let [type, rx] of Object.entries(types)) {
-        if (rx.test(document.contentType) && !ns.allows(type)) {
-          window.stop();
+        if (rx.test(document.contentType)) {
+          if (!ns.allows(type)) {
+            window.stop();
+          }
           break;
         }
       }
-
     } else {
       replace();
     }
