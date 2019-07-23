@@ -10815,6 +10815,12 @@ apigee.io
 // Submitted by Thomas Orozco <thomas@aptible.com>
 on-aptible.com
 
+// ASEINet : https://www.aseinet.com/
+// Submitted by Asei SEKIGUCHI <mail@aseinet.com>
+user.aseinet.ne.jp
+gv.vc
+d.gv.vc
+
 // Asociación Amigos de la Informática "Euskalamiga" : http://encounter.eus/
 // Submitted by Hector Martin <marcan@euskalencounter.org>
 user.party.eus
@@ -11013,6 +11019,7 @@ cloudera.site
 
 // Cloudflare, Inc. : https://www.cloudflare.com/
 // Submitted by Jake Riesterer <publicsuffixlist@cloudflare.com>
+trycloudflare.com
 workers.dev
 
 // Clovyr : https://clovyr.io
@@ -11894,6 +11901,11 @@ caa.li
 ua.rs
 conf.se
 
+// Handshake : https://handshake.org
+// Submitted by Mike Damm <md@md.vc>
+hs.zone
+hs.run
+
 // Hashbang : https://hashbang.sh
 hashbang.sh
 
@@ -11924,11 +11936,13 @@ ravendb.run
 bpl.biz
 orx.biz
 ng.city
-ng.ink
 biz.gl
+ng.ink
 col.ng
+firm.ng
 gen.ng
 ltd.ng
+ng.school
 sch.so
 
 // Häkkinen.fi
@@ -12007,6 +12021,7 @@ ipifony.net
 // Submitted by Kim-Alexander Brodowski <kim.brodowski@iserv.eu>
 mein-iserv.de
 test-iserv.de
+iserv.dev
 
 // I-O DATA DEVICE, INC. : http://www.iodata.com/
 // Submitted by Yuji Minagawa <domains-admin@iodata.jp>
@@ -12062,6 +12077,10 @@ svn-repos.de
 leadpages.co
 lpages.co
 lpusercontent.com
+
+// Lelux.fi : https://lelux.fi/
+// Submitted by Lelux Admin <publisuffix@lelux.site>
+lelux.site
 
 // Lifetime Hosting : https://Lifetime.Hosting/
 // Submitted by Mike Fillator <support@lifetime.hosting>
@@ -12394,12 +12413,14 @@ nom.al
 nym.by
 nym.bz
 nom.cl
+nym.ec
 nom.gd
 nom.ge
 nom.gl
 nym.gr
 nom.gt
 nym.gy
+nym.hk
 nom.hn
 nym.ie
 nom.im
@@ -12539,6 +12560,14 @@ protonet.io
 chirurgiens-dentistes-en-france.fr
 byen.site
 
+// pubtls.org: https://www.pubtls.org
+// Submitted by Kor Nielsen <kor@pubtls.org>
+pubtls.org
+
+// Qualifio : https://qualifio.com/
+// Submitted by Xavier De Cock <xdecock@gmail.com>
+qualifioapp.com
+
 // Redstar Consultants : https://www.redstarconsultants.com/
 // Submitted by Jons Slemmer <jons@redstarconsultants.com>
 instantcloud.cn
@@ -12643,11 +12672,6 @@ my-firewall.org
 myfirewall.org
 spdns.org
 
-// SensioLabs, SAS : https://sensiolabs.com/
-// Submitted by Fabien Potencier <fabien.potencier@sensiolabs.com>
-*.s5y.io
-*.sensiosite.cloud
-
 // Service Online LLC : http://drs.ua/
 // Submitted by Serhii Bulakh <support@drs.ua>
 biz.ua
@@ -12661,6 +12685,10 @@ shiftedit.io
 // Shopblocks : http://www.shopblocks.com/
 // Submitted by Alex Bowers <alex@shopblocks.com>
 myshopblocks.com
+
+// Shopit : https://www.shopitcommerce.com/
+// Submitted by Craig McMahon <craig@shopitcommerce.com>
+shopitsite.com
 
 // Siemens Mobility GmbH
 // Submitted by Oliver Graebner <security@mo-siemens.io>
@@ -12732,6 +12760,11 @@ temp-dns.com
 // Submitted by Matthias.Winzeler <matthias.winzeler@swisscom.com>
 applicationcloud.io
 scapp.io
+
+// Symfony, SAS : https://symfony.com/
+// Submitted by Fabien Potencier <fabien@symfony.com>
+*.s5y.io
+*.sensiosite.cloud
 
 // Syncloud : https://syncloud.org
 // Submitted by Boris Rybalkin <syncloud@syncloud.it>
@@ -12886,6 +12919,10 @@ voorloper.cloud
 // Submitted by Masayuki Note <masa@blade.wafflecell.com>
 wafflecell.com
 
+// WebHare bv: https://www.webhare.com/
+// Submitted by Arnold Hendriks <info@webhare.com>
+*.webhare.dev
+
 // WeDeploy by Liferay, Inc. : https://www.wedeploy.com
 // Submitted by Henrique Vicente <security@wedeploy.com>
 wedeploy.io
@@ -12915,6 +12952,12 @@ u2-local.xnbay.com
 cistron.nl
 demon.nl
 xs4all.space
+
+// Yandex.Cloud LLC: https://cloud.yandex.com
+// Submitted by Alexander Lodin <security+psl@yandex-team.ru>
+yandexcloud.net
+storage.yandexcloud.net
+website.yandexcloud.net
 
 // YesCourse Pty Ltd : https://yescourse.com
 // Submitted by Atul Bhouraskar <atul@yescourse.com>
