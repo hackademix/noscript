@@ -1,6 +1,6 @@
 {
   let mozWebExtUrl = document.URL.startsWith("moz-");
-  let isMozilla = mozWebExtUrl || window.wrappedJSObject === "object";
+  let isMozilla = mozWebExtUrl || typeof window.wrappedJSObject === "object";
   if (isMozilla) {
     if (mozWebExtUrl) {
       // help browser-specific UI styling
