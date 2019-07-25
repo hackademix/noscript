@@ -14,7 +14,6 @@
     }
     if (!editing) return;
 
-    let html = container.innerHTML;
     // we won't touch DOM elements which are already there
     let oldNodes = new Set(container.querySelectorAll(selector + ",form"));
     window.setTimeout(() => {
@@ -22,9 +21,10 @@
       // or drop job, rather than replacing it, in order to avoid interferences
       // with built-in sanitization
       try {
+        let html = container.innerHTML;
         if (sanitizeExtras(container, oldNodes)) {
-          let t = e.type;
-          console.log(`[NoScript] Sanitized\n<${t}>\n${html}\n</${t}>to\n<${t}>\n${container.innerHTML}\n</${t}>`, container);
+          let t = e.type.toUpperCase();
+          console.log(`[NoScript] Sanitized\n<${t}>\n${html}\n</${t}>\nto\n<${t}>\n${container.innerHTML}\n</${t}>`, container);
         }
       } catch(ex) {
        console.log(ex);
