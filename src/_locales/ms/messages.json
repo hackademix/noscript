@@ -359,7 +359,7 @@
         "message": "Ubah permohonan HANTARAN laman-silang menjadi pemohonan GET kurang-data",
         "description": ""
     },
-        "OptOverrideTorBrowserPolicy": {
+    "OptOverrideTorBrowserPolicy": {
         "message": "Batalkan praset Aras Keselamatan Pelayar Tor",
         "description": ""
     },

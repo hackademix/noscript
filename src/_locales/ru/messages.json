@@ -64,7 +64,7 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Временно разрешать документы верхнего уровня по умолчанию",
+        "message": "Временно установить «ДОВЕРЕННЫЕ» для сайтов верхнего уровня",
         "description": ""
     },
     "AutoReload": {
@@ -524,7 +524,7 @@
         "description": ""
     },
     "TempTrustPage": {
-        "message": "Установить преднастройку \nВременно ДОВЕРЕННЫЕ \nдля всех элементов страницы",
+        "message": "Установить  «Врем. ДОВЕРЕННЫЕ» \nдля всех элементов страницы",
         "description": ""
     },
     "TempTrustPage_accesskey": {
@@ -596,7 +596,7 @@
         "description": ""
     },
     "WebAddress": {
-        "message": "Адрес веб-сайта:",
+        "message": "Найти или добавить сайт:",
         "description": ""
     },
     "WebAddress_accesskey": {

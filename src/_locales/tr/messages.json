@@ -40,7 +40,7 @@
         "description": ""
     },
     "AllowPage": {
-        "message": "Bu sayfada tümüne izin verilsin",
+        "message": "Bu sayfadakilerin tümüne izin verilsin",
         "description": ""
     },
     "AllowPage_accesskey": {
@@ -64,7 +64,7 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Geçici olarak üst düzey siteleri GÜVENİLİR olarak ayarla",
+        "message": "Geçici olarak üst düzey siteler GÜVENİLİR olarak ayarlansın",
         "description": ""
     },
     "AutoReload": {
@@ -84,11 +84,11 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript Tarafından Engellenen Nesneler",
+        "message": "NoScript Engellenmiş Nesneler",
         "description": ""
     },
     "BookmarkSync": {
-        "message": "Kolay eşitleme için NoScript yapılandırmasını bir yer imine yedekle",
+        "message": "Kolay eşitleme için NoScript yapılandırmasını bir yer imine yedeklensin",
         "description": ""
     },
     "Cancel": {
@@ -108,11 +108,11 @@
         "description": ""
     },
     "ClearClickHeader": {
-        "message": "Olası Clickjacking / Kullanıcı Arayüzü Yenileme Girişimi!",
+        "message": "Olası Sahte Tıklama / Kullanıcı Arayüzü Değiştirme Girişimi!",
         "description": ""
     },
     "ClearClickOpt": {
-        "message": "Sayfalarda ClearClick koruması…",
+        "message": "Sayfalarda temiz tıklama koruması…",
         "description": ""
     },
     "ClearClickReport": {
@@ -128,7 +128,7 @@
         "description": ""
     },
     "ClearClickTitle": {
-        "message": "ClearClick Uyarısı",
+        "message": "Temiz Tıklama Uyarısı",
         "description": ""
     },
     "Close": {
@@ -148,7 +148,7 @@
         "description": ""
     },
     "CtxMenu": {
-        "message": "Bağlamsal menü",
+        "message": "Sağ tık menüsü",
         "description": ""
     },
     "Custom": {
@@ -168,11 +168,11 @@
         "description": ""
     },
     "Description": {
-        "message": "Tarayıcınız için en iyi koruma: NoScript, kötü niyetli girişimleri engellemek için yalnız güvenilir olarak seçtiğiniz etki alanlarında etkin içeriğin kullanılmasına izin verir.",
+        "message": "Tarayıcınız için en iyi koruma: NoScript, kötü niyetli girişimleri engellemek için, yalnız güvenilir olarak seçtiğiniz etki alanlarında bulunan etkin içeriklerin çalışmasına izin verir.",
         "description": ""
     },
     "Donate": {
-        "message": "Bağış Yap",
+        "message": "Bağış Yapın",
         "description": ""
     },
     "Donate_accesskey": {
@@ -184,19 +184,19 @@
         "description": ""
     },
     "Exceptions": {
-        "message": "İstisnalar…",
+        "message": "Katılmayacaklar…",
         "description": ""
     },
     "Export": {
-        "message": "Ver",
+        "message": "Dışa Aktar",
         "description": ""
     },
     "Export_accesskey": {
-        "message": "V",
+        "message": "D",
         "description": ""
     },
     "FixLinks": {
-        "message": "JavaScript bağlantılarını onarmayı dene",
+        "message": "JavaScript bağlantıları onarılmaya çalışılsın",
         "description": ""
     },
     "Hider": {
@@ -224,19 +224,19 @@
         "description": ""
     },
     "NoEnforcement": {
-        "message": "Kısıtlamaları genel olarak devre dışı bırak (tehlikeli)",
+        "message": "Kısıtlamalar genel olarak devre dışı bırakılsın (tehlikeli)",
         "description": ""
     },
     "Enforce": {
-        "message": "Kısıtlamaları genel olarak etkinleştir",
+        "message": "Kısıtlamalar genel olarak etkinleştirilsin",
         "description": ""
     },
     "NoEnforcementForTab": {
-        "message": "Bu sekme için kısıtlamaları devre dışı bırak",
+        "message": "Kısıtlamalar bu sekme için devre dışı bırakılsın",
         "description": ""
     },
     "EnforceForTab": {
-        "message": "Bu sekme için kısıtlamaları etkinleştir",
+        "message": "Kısıtlamalar bu sekme için etkinleştirilsin",
         "description": ""
     },
     "HighContrast": {
@@ -244,7 +244,7 @@
         "description": ""
     },
     "httpsOnly": {
-        "message": "Yalnız HTTPS içeriğine uyan",
+        "message": "Yalnız HTTPS içeriğine uyulsun",
         "description": ""
     },
     "Https": {
@@ -284,11 +284,11 @@
         "description": ""
     },
     "HttpsForced": {
-        "message": "Şu siteler için güvenli (HTTPS) bağlantısı kullanılsın:",
+        "message": "Şu siteler için güvenli bağlantı (HTTPS) kullanılsın:",
         "description": ""
     },
     "HttpsForcedExceptions": {
-        "message": "Şu siteler için hiç bir zaman güvenli (HTTPS) bağlantısı kullanılmasın:",
+        "message": "Şu siteler için hiç bir zaman güvenli bağlantı (HTTPS) kullanılmasın:",
         "description": ""
     },
     "Import": {
@@ -320,7 +320,7 @@
         "description": ""
     },
     "Notify": {
-        "message": "Engellenmiş betikler hakkında ileti görüntüle",
+        "message": "Engellenmiş betikler hakkında ileti görüntülensin",
         "description": ""
     },
     "Notify_bottom": {
@@ -344,7 +344,7 @@
         "description": ""
     },
     "OK": {
-        "message": "TAMAM",
+        "message": "Tamam",
         "description": ""
     },
     "OptBlockCssScanners": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "PermanentInPrivate": {
-        "message": "Gizli pencerelerde kalıcı \"İzin Verilsin\" komutları",
+        "message": "Gizli pencerelerde komutlara kalıcı olarak \"İzin Verilsin\"",
         "description": ""
     },
     "SectionSitePermissions": {
@@ -388,7 +388,7 @@
         "description": ""
     },
     "PermissionsText": {
-        "message": "Betiklerin yürütülmesine izin verilecek web sitelerini belirtebilirsiniz. İzin vermek istediğiniz sitenin adres ya da etki alanını (http://www.sitem.com ya da \"site.com\") yazıp İzin Ver üzerine tıklayın.",
+        "message": "Betiklerin yürütülmesine izin verilecek web sitelerini belirtebilirsiniz. İzin vermek istediğiniz sitenin adres ya da etki alanını (\"http://www.sitem.com\" ya da \"site.com\") yazıp İzin Ver üzerine tıklayın.",
         "description": ""
     },
     "Plugins": {
@@ -404,19 +404,19 @@
         "description": ""
     },
     "Preset_high": {
-        "message": "Güvenli (Tam Kilitleme)",
+        "message": "Kale (Tam Kilitleme)",
         "description": ""
     },
     "Preset_low": {
-        "message": "Kolay (Kara Liste + Web Güvenliği)",
+        "message": "Kontrollu (Kara Liste + Web Güvenliği)",
         "description": ""
     },
     "Preset_medium": {
-        "message": "Klasik (Beyaz Liste + Web Güvenliği)>",
+        "message": "Klasik (Beyaz Liste + Web Güvenliği)",
         "description": ""
     },
     "Preset_off": {
-        "message": "Kapalı (emin misiniz?!)",
+        "message": "Kapalı (Ciddi misiniz?!)",
         "description": ""
     },
     "Prev": {
@@ -448,7 +448,7 @@
         "description": ""
     },
     "ResetDef": {
-        "message": "Varsayılanlara Sıfırla",
+        "message": "Varsayılan Değerlere Sıfırla",
         "description": ""
     },
     "ResetDef_accesskey": {
@@ -456,11 +456,11 @@
         "description": ""
     },
     "RestrictSubdocScripting": {
-        "message": "Beyaz listede olmayan sitelerde beyaz listedeki olan alt belgelerdeki betikler engellensin",
+        "message": "Beyaz listede olmayan sayfalarda beyaz listede olan alt belgelerdeki betikler engellensin",
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Geçici izinleri kaldır",
+        "message": "Geçici İzinleri Kaldır",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -568,7 +568,7 @@
         "description": ""
     },
     "Unknown": {
-        "message": "Bilinmeyen",
+        "message": "Bilinmiyor",
         "description": ""
     },
     "UnsafeReload": {
@@ -596,7 +596,7 @@
         "description": ""
     },
     "WebAddress": {
-        "message": "Arayın ya da web sitesi ekleyin:",
+        "message": "Bir web sitesi arayın ya da ekleyin:",
         "description": ""
     },
     "WebAddress_accesskey": {
@@ -620,7 +620,7 @@
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript $1 siteisnden $2 sitesine olası bir siteler \narası betik saldırısı algıladı.\nŞüpheli veriler:\n$3\n",
+        "message": "NoScript $1 sitesinden $2 sitesine\nolası bir siteler arası betik saldırısı algıladı.\nŞüpheli veriler:\n$3\n",
         "description": ""
     },
     "XSS_optBlock": {
@@ -652,11 +652,11 @@
         "description": ""
     },
     "XssExceptions": {
-        "message": "Anti-XSS Koruma İstisnaları",
+        "message": "Anti-XSS Korumasına Katılmayacaklar",
         "description": ""
     },
     "XssExceptions_description": {
-        "message": "Bu kurallı ifadelere uyan hedefler için XSS koruması uygulanmaz.",
+        "message": "Bu kurallı ifadelere uyan hedefler XSS koruması tarafından engellenmez.",
         "description": ""
     },
     "XssFaq": {
@@ -680,11 +680,11 @@
         "description": ""
     },
     "allowLocal": {
-        "message": "$1 Kullanılabilsin",
+        "message": "$1 üzerindekilere izin verilsin",
         "description": ""
     },
     "allowTemp": {
-        "message": "$1 geçici olarak kullanılabilsin",
+        "message": "$1 üzerindekilere geçici olarak izin verilsin",
         "description": ""
     },
     "allowTempFrom": {
@@ -692,15 +692,15 @@
         "description": ""
     },
     "allowed_no": {
-        "message": "Hiç Bir Betik Kullanılamaz",
+        "message": "Şu Ana Kadar Engellenmiş Betikler",
         "description": ""
     },
     "allowed_prt": {
-        "message": "Betiklerin Bir Kısmı Kullanılabilir",
+        "message": "Kısmen İzin Verilmiş Betikler",
         "description": ""
     },
     "allowed_yes": {
-        "message": "Betikler Kullanılabilir",
+        "message": "Şu Anda İzin Verilen Betikler",
         "description": ""
     },
     "alwaysAsk": {
@@ -712,7 +712,7 @@
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "NoScript şu zamanda kaydedilmiş bir yapılandırma yer imi buldu\n$1.\nYerel NoScript yapılandırmasının yerine bu yer imindeki içeriğin yazılmasını istiyor musunuz?",
+        "message": "NoScript şu zamanda kaydedilmiş bir yapılandırma yer imi buldu:\n$1.\nYerel NoScript yapılandırmasının yerine bu yer imindeki yapılandırma içeriğinin yazılmasını istiyor musunuz?",
         "description": ""
     },
     "bookmarkSync_message": {
@@ -748,7 +748,7 @@
         "description": ""
     },
     "cap_fetch": {
-        "message": "getir",
+        "message": "alma",
         "description": ""
     },
     "cap_other": {
@@ -768,7 +768,7 @@
         "description": ""
     },
     "disable": {
-        "message": "$1 Devre Dışı Bırakılsın",
+        "message": "$1 devre dışı bırakılsın",
         "description": ""
     },
     "disable_accessKey": {
@@ -776,7 +776,7 @@
         "description": ""
     },
     "distrust": {
-        "message": "$1 Güvenilmez Olarak İşaretlensin",
+        "message": "$1 Güvenilmez olarak işaretlensin",
         "description": ""
     },
     "extensionContributors": {
@@ -784,7 +784,7 @@
         "description": ""
     },
     "extensionContributors_tip": {
-        "message": "Bu eklentiyi geliştirdikleri için teşekkür edeceğiniz kişiler",
+        "message": "Bu eklentinin geliştirilmesine katkıda bulunan kişiler",
         "description": ""
     },
     "extensionCreator_tip": {
@@ -800,7 +800,7 @@
         "description": ""
     },
     "forbidGlobal": {
-        "message": "Genel Olarak Betikleri Engelle (önerilir)",
+        "message": "Betikler Genel Olarak Engellensin (Önerilir)",
         "description": ""
     },
     "forbidLocal": {
@@ -808,7 +808,7 @@
         "description": ""
     },
     "freshInstallReload": {
-        "message": "Bu sekmede işlem yapabilmesi için NoScript tarafından yeniden yüklenmesi gerekiyor.\nYeniden yüklensin mi?",
+        "message": "Bu sekmede işlem yapabilmek için NoScript sekmeyi yeniden yüklemeli.\nYeniden yüklensin mi?",
         "description": ""
     },
     "privilegedPage": {
@@ -824,7 +824,7 @@
         "description": ""
     },
     "informaction_tip": {
-        "message": "InformAction ana sayfasını ziyaret edin",
+        "message": "InformAction web sitesini ziyaret edin",
         "description": ""
     },
     "license": {
@@ -840,7 +840,7 @@
         "description": ""
     },
     "metaRefresh_notify": {
-        "message": "NoScript bir <NOSCRIPT> bileşen içindeki bir <META> yönlendirmeyi engelledi: $1, $2 saniye içinde.",
+        "message": "NoScript bir <NOSCRIPT> bileşeni içindeki bir <META> yönlendirmesini engelledi: $1, $2 saniye içinde.",
         "description": ""
     },
     "Reload": {
@@ -852,7 +852,7 @@
         "description": ""
     },
     "removal_no": {
-        "message": "Hayır, yalnız betikleri engellemeyi durdur",
+        "message": "Hayır, yalnız betik engellenmesi kaldırılsın",
         "description": ""
     },
     "removal_title": {
@@ -860,7 +860,7 @@
         "description": ""
     },
     "removal_yes": {
-        "message": "Evet, TÜM korumayı kaldır",
+        "message": "Evet, TÜM korumalar kaldırılsın",
         "description": ""
     },
     "reset_title": {
@@ -872,15 +872,15 @@
         "description": ""
     },
     "siteInfo_confirm": {
-        "message": "$2 üzerine bir sorgu gönderek \"$1\" sitesi hakkında\nbilgi istemek üzeresiniz.\nDevam etmek ister misiniz?",
+        "message": "$2 üzerine bir sorgu gönderek \n\"$1\" sitesi hakkında bilgi istemek üzeresiniz.\nDevam etmek istiyor musunuz?",
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Site bilgileri için orta ya da shift ile sol tıklayın...",
+        "message": "Site bilgileri için orta tık ya da shift tuşuna basarak sol tık kullanın...",
         "description": ""
     },
     "sponsor_tip": {
-        "message": "Destekçi ana sayfasını ziyaret edin",
+        "message": "Destekçinin web sitesini ziyaret edin",
         "description": ""
     },
     "unsafeReload_warning": {
