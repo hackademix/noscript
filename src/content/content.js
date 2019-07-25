@@ -1,6 +1,16 @@
 'use strict';
 // debug = () => {}; // REL_ONLY
-var _ = browser.i18n.getMessage;
+function _(...args) {
+  let fakeLang = navigator.language === "en-US" &&
+                  browser.i18n.getUILanguage() !== "en-US";
+  return (_ = (template, ...substitutions) => {
+        let [key, defTemplate] = template.split("|");
+        return fakeLang
+          ? (defTemplate || key).replace(/\$([1-9])/g,
+              (m, p) => substitutions[parseInt(p) - 1] || "$" + p)
+          : browser.i18n.getMessage(template, ...substitutions);
+      })(...args);
+}
 
 function createHTMLElement(name) {
   return document.createElementNS("http://www.w3.org/1999/xhtml", name);
