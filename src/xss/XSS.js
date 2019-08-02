@@ -254,6 +254,7 @@ var XSS = (() => {
 
       await include("/xss/InjectionChecker.js");
       let ic = new (await this.InjectionChecker)();
+      ic.logEnabled = ns.local.debug;
       let {timing} = ic;
       timingsMap.set(request.id, timing);
       timing.fatalTimeout = true;

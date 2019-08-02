@@ -42,10 +42,10 @@ XSS.InjectionChecker = (async () => {
 
     fuzzify: fuzzify,
     syntax: new SyntaxChecker(),
-    _log: function(msg, i) {
+    _log: function(msg, iterations) {
       if (msg) msg = this._printable(msg);
-      if (t) msg += " - TIME: " + (this.timing.elapsed);
-      if (i) msg += " - ITER: " + i;
+      msg = `${msg} - TIME: ${this.timing.elapsed}`;
+      if (iterations) msg = `${msg} - ITER: ${iterations}`;
       debug("[InjectionChecker]", msg);
     },
 
@@ -1194,6 +1194,5 @@ XSS.InjectionChecker = (async () => {
     },
 
   };
-  // InjectionChecker.logEnabled = true;
   return InjectionChecker;
 })();
