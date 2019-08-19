@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "被 NoScript 封鎖的物件",
+        "message": "NoScript 阻擋的項目",
         "description": ""
     },
     "BookmarkSync": {
