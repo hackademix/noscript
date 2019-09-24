@@ -58,7 +58,7 @@ var XSS = (() => {
       data = [];
     } catch (e) {
       error(e, "XSS filter processing %o", xssReq);
-      if (e instanceof TimingException && !/\btimeout\b/i.test(e.message)) {
+      if (e instanceof TimingException) {
         // we don't want prompts if the request expired / errored first
         return;
       }
