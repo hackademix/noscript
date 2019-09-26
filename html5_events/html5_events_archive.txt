@@ -262,6 +262,7 @@ onseeked
 ontimeout
 ontimeupdate
 onended
+onformdata
 onratechange
 ondurationchange
 onvolumechange
