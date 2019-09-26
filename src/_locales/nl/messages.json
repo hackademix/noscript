@@ -332,7 +332,7 @@
         "description": ""
     },
     "NotifyMeta_accesskey": {
-        "message": "r",
+        "message": "M",
         "description": ""
     },
     "NselForce": {
@@ -464,7 +464,7 @@
         "description": ""
     },
     "RevokeTemp_accesskey": {
-        "message": "s",
+        "message": "T",
         "description": ""
     },
     "SecureCookies": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "ShowConsole_accesskey": {
-        "message": "t",
+        "message": "C",
         "description": ""
     },
     "ShowPlaceholder": {
@@ -576,7 +576,7 @@
         "description": ""
     },
     "UnsafeReload_accesskey": {
-        "message": "h",
+        "message": "O",
         "description": ""
     },
     "Untrust": {

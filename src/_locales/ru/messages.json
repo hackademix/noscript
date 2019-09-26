@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript заблокировал  объектов",
+        "message": "Объекты, заблокированные NoScript’ом",
         "description": ""
     },
     "BookmarkSync": {

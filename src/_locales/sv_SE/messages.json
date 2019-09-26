@@ -56,7 +56,7 @@
         "description": ""
     },
     "AlwaysBlockUntrustedContent": {
-        "message": "Blockera varje objekt som kommer från en webbplats som är märkt som inte betrodd",
+        "message": "Blockera varje objekt som kommer från en webbplats som är markerad som inte betrodd",
         "description": ""
     },
     "SectionAppearance": {
@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript-blockerade objekt",
+        "message": "NoScript blockerade objekt",
         "description": ""
     },
     "BookmarkSync": {
@@ -212,7 +212,7 @@
         "description": ""
     },
     "SectionGeneral": {
-        "message": "Allmän",
+        "message": "Allmänt",
         "description": ""
     },
     "GlobalHttpsWhitelist": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Hög kontrast utseende",
+        "message": "Utseende med hög kontrast",
         "description": ""
     },
     "httpsOnly": {
@@ -312,7 +312,7 @@
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "Ingen platshållare för objekt som kommer från platser märkta som opålitliga",
+        "message": "Ingen platshållare för objekt som kommer från platser markerade som opålitliga",
         "description": ""
     },
     "Notifications": {
@@ -508,7 +508,7 @@
         "description": ""
     },
     "ShowCountBadge": {
-        "message": "Visa märke för antal blockerade objekt",
+        "message": "Visa bricka för antal blockerade objekt",
         "description": ""
     },
     "SitePermissions": {
@@ -540,7 +540,7 @@
         "description": ""
     },
     "Trust": {
-        "message": "Märk som betrodd",
+        "message": "Markera som betrodd",
         "description": ""
     },
     "Trust_accesskey": {
@@ -580,7 +580,7 @@
         "description": ""
     },
     "Untrust": {
-        "message": "Märk som inte betrodd",
+        "message": "Markera som inte betrodd",
         "description": ""
     },
     "Untrust_accesskey": {
@@ -776,7 +776,7 @@
         "description": ""
     },
     "distrust": {
-        "message": "Märk $1 som inte betrodd",
+        "message": "Markera $1 som inte betrodd",
         "description": ""
     },
     "extensionContributors": {
@@ -848,7 +848,7 @@
         "description": ""
     },
     "removal_message": {
-        "message": "Genom att inaktivera eller avinstallera NoScript, ger du upp alla skydd som tillhandahålls av NoScript.\n\nOm du bara är trött på att hantera skriptbehörigheter per webbplats, finns det ett säkrare val.\n\nNoScript kan sluta blockera skript, förutom de som du märker som inte betrodda, samtidigt som du skyddar dig med de mest avancerade säkerhetsåtgärderna mot XSS, Clickjacking, CSRF och andra webbhot.\n\nVill du verkligen ta bort ALLA NoScript-skydd?",
+        "message": "Genom att inaktivera eller avinstallera NoScript, ger du upp alla skydd som tillhandahålls av NoScript.\n\nOm du bara är trött på att hantera skriptbehörigheter per webbplats, finns det ett säkrare val.\n\nNoScript kan sluta blockera skript, förutom de som du markerar som inte betrodda, samtidigt som du skyddar dig med de mest avancerade säkerhetsåtgärderna mot XSS, Clickjacking, CSRF och andra webbhot.\n\nVill du verkligen ta bort ALLA NoScript-skydd?",
         "description": ""
     },
     "removal_no": {
