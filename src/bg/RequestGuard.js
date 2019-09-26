@@ -261,6 +261,19 @@ var RequestGuard = (() => {
     return redirected;
   }
 
+  function intersectCapabilities(perms, frameAncestors) {
+    if (frameAncestors && frameAncestors.length > 0 && ns.sync.cascadeRestrictions) {
+      // cascade top document's restrictions to subframes
+      let topUrl = frameAncestors[frameAncestors.length - 1].url;
+      let topPerms = ns.policy.get(topUrl, topUrl).perms;
+      if (topPerms !== perms) {
+        let topCaps = topPerms.capabilities;
+        return new Set([...perms.capabilities].filter(c => topCaps.has(c)));
+      }
+    }
+    return perms.capabilities;
+  }
+
   const ABORT = {cancel: true}, ALLOW = {};
   const listeners = {
     onBeforeRequest(request) {
@@ -281,13 +294,18 @@ var RequestGuard = (() => {
             // livemark request or similar browser-internal, always allow;
             return ALLOW;
           }
+
           if (/^(?:data|blob):/.test(url)) {
             request._dataUrl = url;
             request.url = url = documentUrl;
           }
           let allowed = Sites.isInternal(url) ||
             !ns.isEnforced(request.tabId) ||
-            policy.can(url, policyType, originUrl);
+            intersectCapabilities(
+                policy.get(url, documentUrl).perms,
+                request.frameAncestors
+              ).has(policyType);
+
           Content.reportTo(request, allowed, policyType);
           if (!allowed) {
             debug(`Blocking ${policyType}`, request);
@@ -319,8 +337,7 @@ var RequestGuard = (() => {
         pending = pendingRequests.get(request.requestId);
       }
       pending.headersProcessed = true;
-      let {url, documentUrl, frameAncestors, statusCode, tabId,
-          responseHeaders, type} = request;
+      let {url, documentUrl, tabId, responseHeaders, type} = request;
       let isMainFrame = type === "main_frame";
       try {
         let capabilities;
@@ -334,17 +351,7 @@ var RequestGuard = (() => {
             }
             capabilities = perms.capabilities;
           } else {
-            capabilities = perms.capabilities;
-            if (frameAncestors && frameAncestors.length > 0 && ns.sync.cascadeRestrictions) {
-              // cascade top document's restrictions to subframes
-              let topUrl = frameAncestors.pop().url;
-              let topPerms = policy.get(topUrl, topUrl).perms;
-              if (topPerms !== perms) {
-                let topCaps = topPerms.capabilities;
-                // intersect capabilities
-                capabilities = new Set([...capabilities].filter(c => topCaps.has(c)));
-              }
-            }
+            capabilities = intersectCapabilities(perms, request.frameAncestors);
           }
         } else {
           if (isMainFrame || type === "sub_frame") {
