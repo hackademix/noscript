@@ -171,11 +171,6 @@ var Settings = {
     }, null, 2);
   },
 
-  async enforceTabRestrictions(tabId, unrestricted = ns.unrestrictedTabs.has(tabId)) {
-    await ChildPolicies.storeTabInfo(tabId, unrestricted && {unrestricted: true});
-    return unrestricted;
-  },
-
   async reloadOptionsUI() {
     try {
       for (let t of await browser.tabs.query({url: browser.extension.getURL(
