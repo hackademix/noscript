@@ -250,11 +250,12 @@ var {Permissions, Policy, Sites} = (() => {
       return true;
     }
     clone() {
-      return new Permissions(this.capabilities, this.temp, this.context);
+      return new Permissions(this.capabilities, this.temp, this.contextual);
     }
     get tempTwin() {
       return this._tempTwin || (this._tempTwin = new Permissions(this.capabilities, true, this.contextual));
     }
+
   }
 
   Permissions.ALL = ["script", "object", "media", "frame", "font", "webgl", "fetch", "other"];
