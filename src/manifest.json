@@ -57,7 +57,6 @@
       "xss/XSS.js",
       "bg/ReportingCSP.js",
       "bg/deferWebTraffic.js",
-      "bg/ChildPolicies.js",
       "bg/Defaults.js",
       "bg/RequestGuard.js",
       "bg/Settings.js",

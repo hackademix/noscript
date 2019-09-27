@@ -451,6 +451,16 @@ var {Permissions, Policy, Sites} = (() => {
       return JSON.stringify(this.dry(true));
     }
 
+    cascadeRestrictions(perms, topUrl) {
+      let topPerms = ns.policy.get(topUrl, topUrl).perms;
+      if (topPerms !== perms) {
+        let topCaps = topPerms.capabilities;
+        perms = new Permissions([...perms.capabilities].filter(c => topCaps.has(c)),
+          perms.temp, perms.contextual);
+      }
+      return perms;
+    }
+
     equals(other) {
       this.snapshot === other.snapshot;
     }

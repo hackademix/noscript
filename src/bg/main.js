@@ -28,7 +28,6 @@
     let policyData = (await Storage.get("sync", "policy")).policy;
     if (policyData && policyData.DEFAULT) {
       ns.policy = new Policy(policyData);
-      await ChildPolicies.update(policyData, ns.local.debug);
     } else {
       await include("/legacy/Legacy.js");
       ns.policy = await Legacy.createOrMigratePolicy();
@@ -141,11 +140,25 @@
       return await Settings.import(data);
     },
 
-    async fetchChildPolicy({url, contextUrl}, sender) {
-      let {tab} = sender;
+    fetchChildPolicy({url, contextUrl}, sender) {
       if (!url) url = sender.url;
-      let policy = !Sites.isInternal(url) && ns.isEnforced(tab.id) ? ns.policy : null;
-      return ChildPolicies.getForDocument(policy, url, contextUrl || tab.url);
+      let {tab} = sender;
+      let tabUrl = tab.url;
+      if (!contextUrl) contextUrl = tabUrl;
+
+      let policy = !Sites.isInternal(url) && ns.isEnforced(tab.id)
+        ? ns.policy : null;
+
+      let permissions = Permissions.ALL;
+      if (policy) {
+        let perms = policy.get(url, contextUrl).perms;
+        if (tabUrl && ns.sync.cascadeRestrictions) {
+          perms = policy.cascadeRestrictions(perms, tabUrl);
+        }
+        permissions = perms.dry();
+      } // otherwise either internal URL or unrestricted
+
+      return {permissions};
     },
 
     async openStandalonePopup() {
@@ -170,7 +183,13 @@
     },
   };
 
-
+  function onSyncMessage(msg, sender) {
+    switch(msg.id) {
+      case "fetchPolicy":
+        return messageHandler.fetchChildPolicy(msg, sender);
+      break;
+    }
+  }
 
   var ns = {
     running: false,
@@ -190,6 +209,8 @@
       if (this.running) return;
       this.running = true;
 
+      browser.runtime.onSyncMessage.addListener(onSyncMessage);
+
       deferWebTraffic(init(),
         async () => {
           Commands.install();
@@ -208,6 +229,7 @@
     stop() {
       if (!this.running) return;
       this.running = false;
+      browser.runtime.onSyncMessage.removeListener(onSyncMessage);
       Messages.removeHandler(messageHandler);
       RequestGuard.stop();
       log("STOPPED");
@@ -215,7 +237,6 @@
 
     async savePolicy() {
       if (this.policy) {
-        await ChildPolicies.update(this.policy, this.local.debug);
         await Storage.set("sync", {
           policy: this.policy.dry()
         });

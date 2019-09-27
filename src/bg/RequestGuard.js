@@ -262,14 +262,11 @@ var RequestGuard = (() => {
   }
 
   function intersectCapabilities(perms, frameAncestors) {
-    if (frameAncestors && frameAncestors.length > 0 && ns.sync.cascadeRestrictions) {
+    if (frameAncestors && frameAncestors.length && ns.sync.cascadeRestrictions) {
       // cascade top document's restrictions to subframes
-      let topUrl = frameAncestors[frameAncestors.length - 1].url;
-      let topPerms = ns.policy.get(topUrl, topUrl).perms;
-      if (topPerms !== perms) {
-        let topCaps = topPerms.capabilities;
-        return new Set([...perms.capabilities].filter(c => topCaps.has(c)));
-      }
+      perms = policy.cascadeRestrictions(perms,
+        frameAncestors[frameAncestors.length - 1].url)
+        .capabilities;
     }
     return perms.capabilities;
   }
@@ -347,20 +344,12 @@ var RequestGuard = (() => {
           if (isMainFrame) {
             if (policy.autoAllowTop && perms === policy.DEFAULT) {
               policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
-              promises.push(ChildPolicies.update(policy));
             }
             capabilities = perms.capabilities;
           } else {
             capabilities = intersectCapabilities(perms, request.frameAncestors);
           }
-        } else {
-          if (isMainFrame || type === "sub_frame") {
-            let unrestricted = ns.unrestrictedTabs.has(tabId) && {unrestricted: true};
-            if (unrestricted) {
-              headersModified = ChildPolicies.addTabInfoCookie(request, unrestricted);
-            }
-          }
-        }
+        } // else unrestricted, either globally or per-tab
         if (isMainFrame && !TabStatus.map.has(tabId)) {
           debug("No TabStatus data yet for noscriptFrame", tabId);
           TabStatus.record(request, "noscriptFrame",
