@@ -435,7 +435,7 @@ var RequestGuard = (() => {
       type,
     });
   }
-  async function onViolationReport(request) {
+  function onViolationReport(request) {
     try {
       let decoder = new TextDecoder("UTF-8");
       const report = JSON.parse(decoder.decode(request.requestBody.raw[0].bytes))['csp-report'];
