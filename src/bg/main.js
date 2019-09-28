@@ -141,24 +141,26 @@
     },
 
     fetchChildPolicy({url, contextUrl}, sender) {
-      if (!url) url = sender.url;
       let {tab} = sender;
-      let tabUrl = tab.url;
-      if (!contextUrl) contextUrl = tabUrl;
-
+      let topUrl = tab.url || TabCache.get(tab.id);
       let policy = !Sites.isInternal(url) && ns.isEnforced(tab.id)
         ? ns.policy : null;
 
-      let permissions = Permissions.ALL;
+      let permissions, unrestricted, cascaded;
       if (policy) {
         let perms = policy.get(url, contextUrl).perms;
-        if (tabUrl && ns.sync.cascadeRestrictions) {
-          perms = policy.cascadeRestrictions(perms, tabUrl);
+        cascaded = ns.sync.cascadeRestrictions;
+        if (topUrl && cascaded) {
+          perms = policy.cascadeRestrictions(perms, topUrl);
         }
         permissions = perms.dry();
-      } // otherwise either internal URL or unrestricted
-
-      return {permissions};
+      } else {
+        // otherwise either internal URL or unrestricted
+        permissions = new Permissions(Permissions.ALL);
+        unrestricted = true;
+        cascaded = false;
+      }
+      return {permissions, unrestricted, cascaded};
     },
 
     async openStandalonePopup() {

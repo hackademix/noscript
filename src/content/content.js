@@ -58,10 +58,6 @@ var notifyPage = async () => {
   debug("Page %s shown, %s", document.URL, document.readyState);
   if (document.readyState === "complete") {
     try {
-      if (!("canScript" in ns)) {
-        ns.fetchPolicy();
-        return;
-      }
       await Messages.send("pageshow", {seen: seen.list, canScript: ns.canScript});
       return true;
     } catch (e) {
@@ -73,8 +69,6 @@ var notifyPage = async () => {
   }
   return false;
 }
-
-notifyPage();
 
 window.addEventListener("pageshow", notifyPage);
 
@@ -105,3 +99,6 @@ ns.on("capabilities", () => {
 
   notifyPage();
 });
+
+ns.fetchPolicy();
+notifyPage();
