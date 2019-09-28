@@ -47,6 +47,7 @@
       "lib/Messages.js",
       "lib/CSP.js",
       "lib/NetCSP.js",
+      "lib/TabCache.js",
       "common/CapsCSP.js",
       "common/Policy.js",
       "common/locale.js",

@@ -261,12 +261,18 @@ var RequestGuard = (() => {
     return redirected;
   }
 
-  function intersectCapabilities(perms, frameAncestors) {
-    if (frameAncestors && frameAncestors.length && ns.sync.cascadeRestrictions) {
-      // cascade top document's restrictions to subframes
-      perms = policy.cascadeRestrictions(perms,
-        frameAncestors[frameAncestors.length - 1].url)
-        .capabilities;
+  function intersectCapabilities(perms, request) {
+    let {frameId, frameAncestors, tabId} = request;
+    if (frameId !== 0 && ns.sync.cascadeRestrictions) {
+      let topUrl = frameAncestors && frameAncestors.length
+        && frameAncestors[frameAncestors.length - 1].url;
+      if (!topUrl) {
+        let tab = TabCache.get(tabId);
+        if (tab) topUrl = tab.url;
+      }
+      if (topUrl) {
+        return ns.policy.cascadeRestrictions(perms, topUrl).capabilities;
+      }
     }
     return perms.capabilities;
   }
@@ -300,7 +306,7 @@ var RequestGuard = (() => {
             !ns.isEnforced(request.tabId) ||
             intersectCapabilities(
                 policy.get(url, documentUrl).perms,
-                request.frameAncestors
+                request
               ).has(policyType);
 
           Content.reportTo(request, allowed, policyType);
@@ -347,7 +353,7 @@ var RequestGuard = (() => {
             }
             capabilities = perms.capabilities;
           } else {
-            capabilities = intersectCapabilities(perms, request.frameAncestors);
+            capabilities = intersectCapabilities(perms, request);
           }
         } // else unrestricted, either globally or per-tab
         if (isMainFrame && !TabStatus.map.has(tabId)) {
