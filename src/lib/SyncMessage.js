@@ -6,12 +6,22 @@
     if (typeof browser.runtime.onSyncMessage !== "object") {
       // Background Script side
 
-      // cache of senders from unprivileged requests to track tab ids in Firefox
+      // cache of senders from early async messages to track tab ids in Firefox
       let pending = new Map();
+      if (MOZILLA) {
+        // we don't care this is async, as long as it get called before the
+        // sync XHR (we are not interested in the response on the content side)
+        browser.runtime.onMessage.addListener((m, sender) => {
+          if (!m.___syncMessageId) return;
+          pending.set(m.___syncMessageId, sender);
+        });
+      }
+
       let tabUrlCache = new Map();
       let tabRemovalListener = null;
       let CANCEL = {cancel: true};
       let {TAB_ID_NONE} = browser.tabs;
+
 
       let obrListener = request => {
         let {url, tabId} = request;
@@ -56,13 +66,8 @@
             url: documentUrl,
             timeStamp: Date.now()
           };
-          if (msg === null) {
-            // this was the unprivileged, messageless preliminary request
-            // to set tabId and frameId
-            pending.set(msgId, sender);
-          }
         }
-        if (!(msg !== null && sender && url.startsWith(ENDPOINT_PREFIX))) {
+        if (!(msg !== null && sender)) {
           return CANCEL;
         }
         // Just like in the async runtime.sendMessage() API,
@@ -88,7 +93,7 @@
           listeners.add(l);
           if (listeners.size === 1) {
             browser.webRequest.onBeforeRequest.addListener(obrListener,
-              {urls: [`${ENDPOINT_PREFIX}*`, `*://*/${ENDPOINT_PREFIX}*`],
+              {urls: [`${ENDPOINT_PREFIX}*`],
                 types: ["xmlhttprequest"]},
               ["blocking"]
             );
@@ -112,8 +117,8 @@
     }
     let docUrl = document.URL;
     browser.runtime.sendSyncMessage = sendSyncMessage = msg => {
-      let msgId = `id=${encodeURIComponent(`${uuid()},${docUrl}`)}`;
-      let url = `${ENDPOINT_PREFIX}${msgId}` +
+      let msgId = `${uuid()},${docUrl}`;
+      let url = `${ENDPOINT_PREFIX}id=${encodeURIComponent(msgId)}` +
         `&url=${encodeURIComponent(docUrl)}`;
       if (window.top === window) {
         // we add top URL information because Chromium doesn't know anything
@@ -121,16 +126,11 @@
         url += "&top=true";
       }
 
-      if (MOZILLA) try {
-        // on Firefox first we send an unprivileged XHR to notify the listener
-        // about the tab ID, which is not sent in privileged XHR
-        let r = new content.XMLHttpRequest();
-        let unprivilegedUrl = docUrl.startsWith("http")
-          ? `${document.location.origin}/${url}` : url;
-        r.open("GET", unprivilegedUrl, false);
-        r.send(null);
-      } catch (e) {
-        // we ignore the likely CORS error
+      if (MOZILLA) {
+        // on Firefox we first need to send an async message telling the
+        // background script about the tab ID, which does not get sent
+        // with "privileged" XHR
+        browser.runtime.sendMessage({___syncMessageId: msgId});
       }
       // adding the payload
       url += `&msg=${encodeURIComponent(JSON.stringify(msg))}`;
