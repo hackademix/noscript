@@ -141,16 +141,16 @@
     },
 
     fetchChildPolicy({url, contextUrl}, sender) {
-      let {tab} = sender;
-      let topUrl = tab.url || TabCache.get(tab.id);
-      let policy = !Sites.isInternal(url) && ns.isEnforced(tab.id)
+      let {tab, frameId} = sender;
+      let topUrl = frameId === 0 ? contextUrl : tab && (tab.url || TabCache.get(tab.id));
+      let policy = !Sites.isInternal(url) && ns.isEnforced(tab ? tab.id : -1)
         ? ns.policy : null;
 
       let permissions, unrestricted, cascaded;
       if (policy) {
         let perms = policy.get(url, contextUrl).perms;
-        cascaded = ns.sync.cascadeRestrictions;
-        if (topUrl && cascaded) {
+        cascaded = topUrl && ns.sync.cascadeRestrictions;
+        if (cascaded) {
           perms = policy.cascadeRestrictions(perms, topUrl);
         }
         permissions = perms.dry();
