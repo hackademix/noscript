@@ -78,7 +78,7 @@
           try {
             if ((result = l(JSON.parse(msg), sender)) !== undefined) break;
           } catch (e) {
-            console.error(e);
+            console.error(e, "Processing message %o from %o", msg, sender);
           }
         }
         return {
