@@ -2,8 +2,14 @@
 BASE="$PWD"
 SRC="$BASE/src"
 BUILD="$BASE/build"
+CHROMIUM="$BASE/chromium"
 MANIFEST_IN="$SRC/manifest.json"
 MANIFEST_OUT="$BUILD/manifest.json"
+
+strip_rc_ver() {
+  MANIFEST="$1"
+  perl -pi.bak -e 's/("version":.*)rc\d+/$1/' "$MANIFEST" && rm -f "$MANIFEST".bak
+}
 
 VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
 if [ "$1" == "tag" ]; then
@@ -12,8 +18,7 @@ if [ "$1" == "tag" ]; then
   exit 0
 fi
 if [[ "$1" == "rel" ]]; then
-  perl -pi.bak -e 's/("version":.*)rc\d+/$1/' "$MANIFEST_IN"
-  rm -f "$MANIFEST_IN".bak
+  strip_rc_ver "$MANIFEST_IN"
   "$0" && "$0" bump
   exit
 fi
@@ -85,11 +90,13 @@ if ! grep '"id":' "$MANIFEST_OUT" >/dev/null; then
   exit 1
 fi
 
-for file in "$SRC"/content/*.js; do
-  if grep -P '\/\/\s(REL|DEV)_ONLY' "$file" >/dev/null; then
-    sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file" > "$BUILD/content/$(basename "$file")"
-  fi
-done
+if [ "$1" != "debug" ]; then
+  for file in "$SRC"/content/*.js; do
+    if grep -P '\/\/\s(REL|DEV)_ONLY' "$file" >/dev/null; then
+      sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file" > "$BUILD/content/$(basename "$file")"
+    fi
+  done
+fi
 
 echo "Creating $XPI.xpi..."
 mkdir -p "$XPI_DIR"
@@ -115,4 +122,12 @@ else
   exit 3
 fi
 echo "Created $XPI.xpi"
-rm -rf "$BUILD"
+ln -fs $XPI.xpi "$BASE/latest.xpi"
+# create chromium pre-release
+rm -rf "$CHROMIUM"
+strip_rc_ver "$MANIFEST_OUT"
+mv "$BUILD" "$CHROMIUM"
+"$BUILD_CMD" build --source-dir="$CHROMIUM" --artifacts-dir="$CHROMIUM"
+for ext in zip crx; do
+  ln -fs "$CHROMIUM/noscript-$VER.zip" "$BASE/latest.$ext"
+done
