@@ -82,10 +82,9 @@
             console.error(e, "Processing message %o from %o", msg, sender);
           }
         }
-        return {
-          redirectUrl: `data:application/json,${JSON.stringify(result)}`
-        };
+        return result instanceof Promise ? (async () => ret(await result)) : ret(result);
       };
+      let ret = r => ({redirectUrl:  `data:application/json,${JSON.stringify(r)}`})
 
       let listeners = new Set();
       browser.runtime.onSyncMessage = {
