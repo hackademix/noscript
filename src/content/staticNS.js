@@ -4,13 +4,12 @@
   let backlog = new Set();
 
   let stopAndReload = beforeReloading => {
-    stop();
-    let navTimes = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
-    debug("Should I reload? %o, now: %s", navTimes, performance.now())
-    if (navTimes && navTimes.type === "reload" || performance.now() > 10000) {
+    debug("Should I reload? %o, now: %s", performance.now())
+    if (performance.now() > 10000) {
       debug("Won't reload.");
       return;
     }
+    stop();
     setTimeout(() => {
       debug("Reloading...");
       if (typeof beforeReloading === "function") {
