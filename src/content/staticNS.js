@@ -5,7 +5,7 @@
 
   let stopAndReload = beforeReloading => {
     debug("Should I reload? %o, now: %s", performance.now())
-    if (performance.now() > 10000) {
+    if (location.href === "about:blank" || performance.now() > 10000 ) {
       debug("Won't reload.");
       return;
     }
