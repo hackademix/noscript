@@ -1,8 +1,12 @@
 # files (especially tests) to be ignored until a subsequent release for security
 **/embargoed/**
 # build artifacts
+build
+chromium
 xpi
 *.xpi
+*.zip
+*.crx
 *.bak
 # dev env options
 .eslintrc.json
