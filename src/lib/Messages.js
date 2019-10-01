@@ -7,7 +7,8 @@
     if (!__meta) {
       // legacy message from embedder?
       if (!_messageName) {
-        throw new Error(`NoScript cannot handle message %s`, JSON.stringify(msg));
+        debug(`Message not in NoScript-specific format: %s`, JSON.stringify(msg));
+        return undefined;
       }
       __meta = {name: _messageName};
     }
@@ -24,22 +25,7 @@
         answers.length === 1 ? answers.pop(): Promise.all(answers)
       );
     }
-    let context = typeof window === "object" && window.location.href || "?";
-    let originalSender = __meta.originalSender || sender;
-    let {url} = originalSender;
-
-    if (url && context.replace(/[?#].*/, '') === url.replace(/[?#].*/, '')) {
-      throw new Error(`Message ${name} ${JSON.stringify(msg)} looping to its sender (${context})`);
-    }
-    console.debug("Warning: no handler for message %o in context %s", msg, context);
-    if (originalSender.tab && originalSender.tab.id) {
-      // if we're receiving a message from content, there might be another
-      // Messages instance in a different context (e.g. background page vs
-      // options page vs browser action) capable of processing it, and we've
-      // just "steal" it. Let's rebroadcast.
-      return await Messages.send(name, msg, {originalSender});
-    }
-    throw new Error(`No handler registered for message "${name}" in context ${context}`);
+    debug("Warning: no handler for message %s %s in context %s", name, JSON.stringify(msg), context);
   };
 
   var Messages = {
