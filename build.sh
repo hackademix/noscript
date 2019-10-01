@@ -127,7 +127,7 @@ ln -fs $XPI.xpi "$BASE/latest.xpi"
 rm -rf "$CHROMIUM"
 strip_rc_ver "$MANIFEST_OUT"
 mv "$BUILD" "$CHROMIUM"
-"$BUILD_CMD" build --source-dir="$CHROMIUM" --artifacts-dir="$CHROMIUM"
+webext build --source-dir="$CHROMIUM" --artifacts-dir="$CHROMIUM"
 for ext in zip crx; do
   ln -fs "$CHROMIUM/noscript-$VER.zip" "$BASE/latest.$ext"
 done
