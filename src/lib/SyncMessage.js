@@ -1,3 +1,4 @@
+"use strict";
 (() => {
   let ENDPOINT_PREFIX = `https://sync-messages.invalid/${browser.extension.getURL("")}?`;
   let MOZILLA = "mozSystem" in XMLHttpRequest.prototype;
@@ -116,7 +117,7 @@
       let uuid = () => (Math.random() * Date.now()).toString(16);
     }
     let docUrl = document.URL;
-    browser.runtime.sendSyncMessage = sendSyncMessage = msg => {
+    browser.runtime.sendSyncMessage = msg => {
       let msgId = `${uuid()},${docUrl}`;
       let url = `${ENDPOINT_PREFIX}id=${encodeURIComponent(msgId)}` +
         `&url=${encodeURIComponent(docUrl)}`;
