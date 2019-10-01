@@ -79,7 +79,7 @@
           try {
             if ((result = l(JSON.parse(msg), sender)) !== undefined) break;
           } catch (e) {
-            console.error(e, "Processing message %o from %o", msg, sender);
+            console.error("%o processing message %o from %o", e, msg, sender);
           }
         }
         return result instanceof Promise ? (async () => ret(await result)) : ret(result);
@@ -132,17 +132,17 @@
         // with "privileged" XHR
         browser.runtime.sendMessage({___syncMessageId: msgId});
       }
-      // adding the payload
-      url += `&msg=${encodeURIComponent(JSON.stringify(msg))}`;
+      // then we send the payload using a privileged XHR, which is not subject
+      // to CORS but unfortunately doesn't carry any tab id except on Chromium
+
+      url += `&msg=${encodeURIComponent(JSON.stringify(msg))}`; // adding the payload
+      let r = new XMLHttpRequest();
       try {
-        // then we send the payload using a privileged XHR, which is not subject
-        // to CORS but unfortunately doesn't carry any tab id except on Chromium
-        let r = new XMLHttpRequest();
         r.open("GET", url, false);
         r.send(null);
         return JSON.parse(r.responseText);
       } catch(e) {
-        console.error(`syncMessage error in ${document.URL}: ${e.message}`);
+        console.error(`syncMessage error in ${document.URL}: ${e.message} (response ${r.responseText})`);
       }
       return null;
     };
