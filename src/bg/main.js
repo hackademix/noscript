@@ -142,9 +142,20 @@
 
     fetchChildPolicy({url, contextUrl}, sender) {
       let {tab, frameId} = sender;
+      let policy = ns.policy;
+      if (!policy) {
+        console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
+        return {
+          permissions: new Permissions(Permissions.DEFAULT).dry(),
+          unrestricted: false,
+          cascaded: false,
+          fallback: true
+        };
+      }
       let topUrl = frameId === 0 ? contextUrl : tab && (tab.url || TabCache.get(tab.id));
-      let policy = !Sites.isInternal(url) && ns.isEnforced(tab ? tab.id : -1)
-        ? ns.policy : null;
+      if (Sites.isInternal(url) || !ns.isEnforced(tab ? tab.id : -1)) {
+        policy = null;
+      }
 
       let permissions, unrestricted, cascaded;
       if (policy) {
@@ -156,7 +167,7 @@
         permissions = perms.dry();
       } else {
         // otherwise either internal URL or unrestricted
-        permissions = new Permissions(Permissions.ALL);
+        permissions = new Permissions(Permissions.ALL).dry();
         unrestricted = true;
         cascaded = false;
       }
@@ -198,6 +209,7 @@
     policy: null,
     local: null,
     sync: null,
+    initializing: null,
     unrestrictedTabs: new Set(),
     isEnforced(tabId = -1) {
       return this.policy.enforced && (tabId === -1 || !this.unrestrictedTabs.has(tabId));
@@ -210,10 +222,8 @@
     start() {
       if (this.running) return;
       this.running = true;
-
       browser.runtime.onSyncMessage.addListener(onSyncMessage);
-
-      deferWebTraffic(init(),
+      deferWebTraffic(this.initalizing = init(),
         async () => {
           Commands.install();
 

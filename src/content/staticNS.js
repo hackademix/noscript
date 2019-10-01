@@ -34,18 +34,47 @@
     },
 
     fetchPolicy() {
+      debug(`Fetching policy from document %s, readyState %s, content %s`,
+        document.URL, document.readyState, document.documentElement.outerHTML);
+
       let url = document.URL;
+
+      if (url.startsWith("file:")) {
+        let cookie = "noscript.startupFileReloaded=true";
+        if (!document.cookie.split(/\s*;\s*/).includes(cookie)) {
+          stop();
+          setTimeout(() => {
+            document.cookie = cookie;
+            location.reload();
+          }, 10)
+        }
+      }
+
       let policy = browser.runtime.sendSyncMessage(
-        {id: "fetchPolicy", url, contextUrl: document.URL});
+        {id: "fetchPolicy", url, contextUrl: url});
+
+      debug("Fetched %o, readyState %s", policy, document.readyState);
       if (!policy) {
-        debug(`No answer to fetchPolicy message. This should not be happening.`);
+        debug("Could not fetch policy!");
+        if (url.startsWith("file:") && !sessionStorage.__noScriptFallbackReload__) {
+          sessionStorage.__noScriptFallbackReload__ = "true";
+          location.reload();
+        } else {
+          // let's try asynchronously
+          (async () => {
+            this.setup(await Messages.send("fetchPolicy", {url, contextUrl: url}));
+          })();
+        }
         return false;
+      } else if (policy.fallback) {
+        location.reload();
       }
       this.setup(policy);
       return true;
     },
 
     setup(policy) {
+      debug("%s, %s, %o", document.URL, document.readyState, policy);
       this.policy = policy;
 
       if (!policy.permissions || policy.unrestricted) {
