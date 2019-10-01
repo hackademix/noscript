@@ -3,6 +3,23 @@
   let listenersMap = new Map();
   let backlog = new Set();
 
+  let stopAndReload = beforeReloading => {
+    stop();
+    let navTimes = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    debug("Should I reload? %o, now: %s", navTimes, performance.now())
+    if (navTimes && navTimes.type === "reload" || performance.now() > 10000) {
+      debug("Won't reload.");
+      return;
+    }
+    setTimeout(() => {
+      debug("Reloading...");
+      if (typeof beforeReloading === "function") {
+        beforeReloading();
+      }
+      location.reload();
+    }, 1000)
+  };
+
   let ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
@@ -36,17 +53,12 @@
     fetchPolicy() {
       debug(`Fetching policy from document %s, readyState %s, content %s`,
         document.URL, document.readyState, document.documentElement.outerHTML);
-
       let url = document.URL;
-
-      if (url.startsWith("file:")) {
+      let isFileUrl = url.startsWith("file:");
+      if (isFileUrl) {
         let cookie = "noscript.startupFileReloaded=true";
         if (!document.cookie.split(/\s*;\s*/).includes(cookie)) {
-          stop();
-          setTimeout(() => {
-            document.cookie = cookie;
-            location.reload();
-          }, 10)
+          stopAndReload(() => document.cookie = cookie);
         }
       }
 
@@ -56,18 +68,17 @@
       debug("Fetched %o, readyState %s", policy, document.readyState);
       if (!policy) {
         debug("Could not fetch policy!");
-        if (url.startsWith("file:") && !sessionStorage.__noScriptFallbackReload__) {
+        if (isFileUrl && !sessionStorage.__noScriptFallbackReload__) {
           sessionStorage.__noScriptFallbackReload__ = "true";
-          location.reload();
-        } else {
-          // let's try asynchronously
-          (async () => {
-            this.setup(await Messages.send("fetchPolicy", {url, contextUrl: url}));
-          })();
+          stopAndReload();
         }
+        // let's try asynchronously
+        (async () => {
+          this.setup(await Messages.send("fetchPolicy", {url, contextUrl: url}));
+        })();
         return false;
       } else if (policy.fallback) {
-        location.reload();
+        stopAndReload();
       }
       this.setup(policy);
       return true;
