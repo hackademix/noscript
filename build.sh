@@ -134,4 +134,4 @@ ln -fs $XPI.xpi "$BASE/latest.xpi"
 rm -rf "$CHROMIUM"
 strip_rc_ver "$MANIFEST_OUT"
 mv "$BUILD" "$CHROMIUM"
-web-ext build --source-dir="$CHROMIUM" --artifacts-dir="$CHROMIUM" --ignore-files=test/XSS_test.js $COMMON_BUILD_OPTS
+web-ext build --source-dir="$CHROMIUM" --artifacts-dir="$WEBEXTOUT" --ignore-files=test/XSS_test.js $COMMON_BUILD_OPTS
