@@ -8,7 +8,12 @@ MANIFEST_OUT="$BUILD/manifest.json"
 
 strip_rc_ver() {
   MANIFEST="$1"
-  perl -pi.bak -e 's/("version":.*)rc\d+/$1/' "$MANIFEST" && rm -f "$MANIFEST".bak
+  if [ "$2" = "rel" ]; then
+    replace='s/("version":.*)rc\d+/$1/'
+  else
+    replace='s/("version":.*)(\d+)rc(\d+)/{$1 . ($2 == "0" ? "0" : ($2-1) . ".999" . sprintf("%03d", $3))}/e'
+  fi
+  perl -pi.bak -e "$replace" "$MANIFEST" && rm -f "$MANIFEST".bak
 }
 
 VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
@@ -18,7 +23,7 @@ if [ "$1" == "tag" ]; then
   exit 0
 fi
 if [[ "$1" == "rel" ]]; then
-  strip_rc_ver "$MANIFEST_IN"
+  strip_rc_ver "$MANIFEST_IN" rel
   "$0" && "$0" bump
   exit
 fi
@@ -109,7 +114,9 @@ else
   WEBEXT_OUT="$XPI_DIR"
 fi
 
-"$BUILD_CMD" $BUILD_OPTS --overwrite-dest --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" --ignore-files=test/XSS_test.js
+COMMON_BUILD_OPTS=--ignore-files=test/XSS_test.js
+
+"$BUILD_CMD" $BUILD_OPTS --overwrite-dest --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
@@ -127,7 +134,4 @@ ln -fs $XPI.xpi "$BASE/latest.xpi"
 rm -rf "$CHROMIUM"
 strip_rc_ver "$MANIFEST_OUT"
 mv "$BUILD" "$CHROMIUM"
-webext build --source-dir="$CHROMIUM" --artifacts-dir="$CHROMIUM"
-for ext in zip crx; do
-  ln -fs "$CHROMIUM/noscript-$VER.zip" "$BASE/latest.$ext"
-done
+web-ext build --source-dir="$CHROMIUM" --artifacts-dir="$CHROMIUM" --ignore-files=test/XSS_test.js $COMMON_BUILD_OPTS
