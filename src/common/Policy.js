@@ -3,6 +3,7 @@ var {Permissions, Policy, Sites} = (() => {
   const SECURE_DOMAIN_PREFIX = "§:";
   const SECURE_DOMAIN_RX = new RegExp(`^${SECURE_DOMAIN_PREFIX}`);
   const DOMAIN_RX = new RegExp(`(?:^\\w+://|${SECURE_DOMAIN_PREFIX})?([^/]*)`, "i");
+  const IPV4_RX = /^(?:\d+\.){1,3}\d+/;
   const INTERNAL_SITE_RX = /^(?:(?:about|chrome|resource|(?:moz|chrome)-.*):|\[System)/;
   const VALID_SITE_RX = /^(?:(?:(?:(?:http|ftp|ws)s?|file):)(?:(?:\/\/)[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000.](?:$|\/))?|[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000]$)/;
 
@@ -158,6 +159,7 @@ var {Permissions, Policy, Sites} = (() => {
       if (!hostname) return null;
       if (!tld.preserveFQDNs) hostname = tld.normalize(hostname);
       let secure = protocol === "https:";
+      let isIPv4 = IPV4_RX.test(hostname);
       for (let domain = hostname;;) {
         if (this.has(domain)) {
           return domain;
@@ -168,13 +170,24 @@ var {Permissions, Policy, Sites} = (() => {
             return ssDomain;
           }
         }
-        let dotPos = domain.indexOf(".");
-        if (dotPos === -1) {
-          break;
-        }
-        domain = domain.substring(dotPos + 1); // sub
-        if (!domain) {
-          break;
+
+        if (isIPv4) {
+           // subnet shortcuts
+          let dotPos = domain.lastIndexOf(".");
+          if (!(dotPos > 3 || domain.indexOf(".") < dotPos)) {
+            break; // we want at least the 2 most significant bytes
+          }
+          domain = domain.substring(0, dotPos);
+        } else {
+          // (sub)domain matching
+          let dotPos = domain.indexOf(".");
+          if (dotPos === -1) {
+            break;
+          }
+          domain = domain.substring(dotPos + 1); // upper level
+          if (!domain) {
+            break;
+          }
         }
       }
       return null;

@@ -7,6 +7,9 @@
   p1.set("https://flashgot.net", p1.TRUSTED);
   p1.set("http://flashgot.net", p1.UNTRUSTED);
   p1.set("perchè.com", p1.TRUSTED);
+  p1.set("10", p1.TRUSTED);
+  p1.set("192.168", p1.TRUSTED);
+  p1.set("192.168.69", p1.UNTRUSTED)
   let p2 = new Policy(p1.dry());
   debug("p1", JSON.stringify(p1.dry()));
   debug("p2", JSON.stringify(p2.dry()));
@@ -23,7 +26,10 @@
     () => !p1.can("http://secure.informaction.com"),
     () => p1.can("https://secure.informaction.com"),
     () => p1.can("https://www.secure.informaction.com"),
+    () => !p1.can("https://192.168.69.1"),
+    () => !p1.can("https://10.0.0.1"),
+    () => p1.can("http://192.168.1.2"),
   ]) Test.run(t);
-  
+
   Test.report();
 }
