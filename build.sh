@@ -114,9 +114,9 @@ else
   WEBEXT_OUT="$XPI_DIR"
 fi
 
-COMMON_BUILD_OPTS=--ignore-files=test/XSS_test.js
+COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js --overwrite-dest" 
 
-"$BUILD_CMD" $BUILD_OPTS --overwrite-dest --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
+"$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
