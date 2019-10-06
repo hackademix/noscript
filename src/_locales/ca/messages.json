@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "Objectes bloquejats de NoScript",
+        "message": "S'ha bloquejat el NoScript  Objectes",
         "description": ""
     },
     "BookmarkSync": {
@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Cascade top document's restrictions to subdocuments",
+        "message": "Restriccions de documents principals en cascada a subdocuments",
         "description": ""
     },
     "ClearClickDescription": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Protecció addicional per al vostre Firefox: NoScript permet JavaScript, Flash (i altres connectors) només per als dominis de confiança que trieu (p. ex. el web de banca de la llar). L'enfocament de bloqueig preventiu basat en la llista blanca evita l'explotació de vulnerabilitats de seguretat (conegudes i fins i tot desconegudes) sense pèrdua de funcionalitat... Els experts hi estan d'acord: Firefox és realment més segur amb NoScript :-)",
+        "message": "Protecció màxima per al vostre navegador: NoScript permet contingut actiu només per a dominis de confiança que escolliu per evitar l'explotació.",
         "description": ""
     },
     "Donate": {
