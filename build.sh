@@ -114,7 +114,7 @@ else
   WEBEXT_OUT="$XPI_DIR"
 fi
 
-COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js --overwrite-dest" 
+COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js --overwrite-dest"
 
 "$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
@@ -134,4 +134,4 @@ ln -fs $XPI.xpi "$BASE/latest.xpi"
 rm -rf "$CHROMIUM"
 strip_rc_ver "$MANIFEST_OUT"
 mv "$BUILD" "$CHROMIUM"
-web-ext build --source-dir="$CHROMIUM" --artifacts-dir="$WEBEXTOUT" --ignore-files=test/XSS_test.js $COMMON_BUILD_OPTS
+web-ext build --source-dir="$CHROMIUM" --artifacts-dir="$WEBEXT_OUT" --ignore-files=test/XSS_test.js $COMMON_BUILD_OPTS
