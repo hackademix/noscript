@@ -631,10 +631,11 @@ var UI = (() => {
         siteMatch = site;
       }
       let secure = Sites.isSecureDomainKey(siteMatch);
+      let isOnion = UI.local.isTorBrowser && hostname && hostname.endsWith(".onion");
       let keyStyle = secure ? "secure"
         : !domain || /^\w+:/.test(siteMatch) ?
-            (url.protocol === "https:" ? "full" : "unsafe")
-          : domain === hostname ? "domain" : "host";
+            (url.protocol === "https:" || isOnion ? "full" : "unsafe")
+          : isOnion ? "secure" : domain === hostname ? "domain" : "host";
 
       let urlContainer = row.querySelector(".url");
       urlContainer.dataset.key = keyStyle;
