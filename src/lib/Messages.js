@@ -25,7 +25,7 @@
         answers.length === 1 ? answers.pop(): Promise.all(answers)
       );
     }
-    debug("Warning: no handler for message %s %s in context %s", name, JSON.stringify(msg), context);
+    debug("Warning: no handler for message %s %s in context %s", name, JSON.stringify(msg), document.URL);
   };
 
   var Messages = {
