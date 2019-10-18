@@ -16,7 +16,7 @@ function deferWebTraffic(promiseToWaitFor, next) {
     try {
       browser.tabs.executeScript(tabId, {
         runAt: "document_start",
-        code: "window.location.reload(false)"
+        code: "if (performance.now() < 60000) window.location.reload(false)"
       });
       debug("Reloading tab", tabId);
     } catch (e) {
