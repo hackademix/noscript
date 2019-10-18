@@ -55,36 +55,25 @@
       let url = document.URL;
       let isFileUrl = url.startsWith("file:");
       if (isFileUrl) {
-        let cookie = "noscript.startupFileReloaded=true";
-        if (!document.cookie.split(/\s*;\s*/).includes(cookie)) {
-          stopAndReload(() => document.cookie = cookie);
-        }
+        addEventListener("beforescriptexecute", e => {
+          if (!this.canScript) e.preventDefault();
+        }, true);
       }
 
       let policy = browser.runtime.sendSyncMessage(
         {id: "fetchPolicy", url, contextUrl: url});
 
       debug("Fetched %o, readyState %s", policy, document.readyState);
-      if (!policy) {
-        debug("Could not fetch policy!");
-        if (isFileUrl && !sessionStorage.__noScriptFallbackReload__) {
-          sessionStorage.__noScriptFallbackReload__ = "true";
-          stopAndReload();
-        }
-        // let's try asynchronously
-        (async () => {
-          this.setup(await Messages.send("fetchPolicy", {url, contextUrl: url}));
-        })();
-        return false;
-      } else if (policy.fallback) {
-        stopAndReload();
-      }
       this.setup(policy);
+
       return true;
     },
 
     setup(policy) {
       debug("%s, %s, %o", document.URL, document.readyState, policy);
+      if (!policy) {
+        policy = {permissions: {capabilities: []}, localFallback: true};
+      }
       this.policy = policy;
 
       if (!policy.permissions || policy.unrestricted) {
