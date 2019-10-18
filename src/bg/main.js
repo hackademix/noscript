@@ -141,8 +141,11 @@
     },
 
     async fetchChildPolicy({url, contextUrl}, sender) {
-      let {tab, frameId} = sender;
       await ns.initializing;
+      return (this.fetchChildPolicy = this.fetchChildPolicySync)(...arguments);
+    },
+    fetchChildPolicySync({url, contextUrl}, sender) {
+      let {tab, frameId} = sender;
       let policy = ns.policy;
       if (!policy) {
         console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
