@@ -19,6 +19,7 @@
       }
 
       let tabUrlCache = new Map();
+      let asyncResults = new Map();
       let tabRemovalListener = null;
       let CANCEL = {cancel: true};
       let {TAB_ID_NONE} = browser.tabs;
@@ -28,6 +29,9 @@
         let {url, tabId} = request;
         let params = new URLSearchParams(url.split("?")[1]);
         let msgId = params.get("id");
+        if (asyncResults.has(msgId)) {
+          return asyncRet(msgId);
+        }
         let msg = params.get("msg");
         let documentUrl = params.get("url");
         let sender;
@@ -82,9 +86,34 @@
             console.error("%o processing message %o from %o", e, msg, sender);
           }
         }
-        return result instanceof Promise ? (async () => ret(await result)) : ret(result);
+        if (result instanceof Promise) {
+          if (MOZILLA) {
+            // Firefox supports asynchronous webRequest listeners, so we can
+            // just defer the return
+            return (async () => ret(await result))();
+          } else {
+            // On Chromium, if the promise is not resolved yet,
+            // we redirect the XHR to the same URL (hence same msgId)
+            // while the result get cached for asynchronous retrieval
+            result.then(r => {
+              asyncResults.set(msgId, result = r);
+            });
+            return asyncResults.has(msgId)
+            ? asyncRet(msgId) // promise was already resolved
+            : {redirectUrl: url.replace(
+                /&redirects=(\d+)|$/, // redirects count to avoid loop detection
+                (all, count) => `&redirects=${parseInt(count) + 1 || 1}`)};
+          }
+        }
+        return ret(result);
       };
+
       let ret = r => ({redirectUrl:  `data:application/json,${JSON.stringify(r)}`})
+      let asyncRet = msgId => {
+        let result = asyncResults.get(msgId);
+        asyncResults.delete(msgId);
+        return ret(result);
+      }
 
       let listeners = new Set();
       browser.runtime.onSyncMessage = {
