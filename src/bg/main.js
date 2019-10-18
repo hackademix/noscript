@@ -140,8 +140,9 @@
       return await Settings.import(data);
     },
 
-    fetchChildPolicy({url, contextUrl}, sender) {
+    async fetchChildPolicy({url, contextUrl}, sender) {
       let {tab, frameId} = sender;
+      await ns.initializing;
       let policy = ns.policy;
       if (!policy) {
         console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
@@ -223,7 +224,7 @@
       if (this.running) return;
       this.running = true;
       browser.runtime.onSyncMessage.addListener(onSyncMessage);
-      deferWebTraffic(this.initalizing = init(),
+      deferWebTraffic(this.initializing = init(),
         async () => {
           Commands.install();
 
