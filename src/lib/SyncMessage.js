@@ -34,12 +34,23 @@
         }
         let msg = params.get("msg");
         let documentUrl = params.get("url");
+        let suspension = !!params.get("suspend");
         let sender;
-        if (tabId === TAB_ID_NONE) {
+        if (tabId === TAB_ID_NONE || suspension) {
           // Firefox sends privileged content script XHR without valid tab ids
           // so we cache sender info from unprivileged XHR correlated by msgId
           if (pending.has(msgId)) {
             sender = pending.get(msgId);
+            if (suspension) { // we hold any script execution / DOM modification on this promise
+              return new Promise(resolve => {
+                sender.unsuspend = resolve;
+              });
+            }
+            if (sender.unsuspend) {
+              let {unsuspend} = sender;
+              delete sender.unsuspend;
+              setTimeout(unsuspend(ret("unsuspend")), 0);
+            }
             pending.delete(msgId);
           } else {
             throw new Error(`sendSyncMessage: cannot correlate sender info for ${msgId}.`);
@@ -141,9 +152,7 @@
     }
   } else if (typeof browser.runtime.sendSyncMessage !== "function") {
     // Content Script side
-    if (typeof uuid !== "function") {
-      let uuid = () => (Math.random() * Date.now()).toString(16);
-    }
+    let uuid = () => (Math.random() * Date.now()).toString(16);
     let docUrl = document.URL;
     browser.runtime.sendSyncMessage = msg => {
       let msgId = `${uuid()},${docUrl}`;
@@ -154,12 +163,30 @@
         // about frameAncestors
         url += "&top=true";
       }
-
+      let finalizers = [];
       if (MOZILLA) {
         // on Firefox we first need to send an async message telling the
         // background script about the tab ID, which does not get sent
         // with "privileged" XHR
         browser.runtime.sendMessage({___syncMessageId: msgId});
+
+        // In order to cope with inconsistencies in XHR synchronicity,
+        // allowing DOM element to be inserted and script to be executed
+        // (seen with file:// and ftp:// loads) we additionally suspend on
+        // Mutation notifications and beforescriptexecute events
+        let suspendURL = url + "&suspend";
+        let suspend = () => {
+          let r = new XMLHttpRequest();
+          r.open("GET", url, false);
+          r.send(null);
+        };
+        let domSuspender = new MutationObserver(suspend);
+        domSuspender.observe(document.documentElement, {childList: true});
+        addEventListener("beforescriptexecute", suspend, true);
+        finalizers.push(() => {
+          removeEventListener("beforescriptexecute", suspend, true);
+          domSuspender.disconnect();
+        });
       }
       // then we send the payload using a privileged XHR, which is not subject
       // to CORS but unfortunately doesn't carry any tab id except on Chromium
@@ -172,6 +199,8 @@
         return JSON.parse(r.responseText);
       } catch(e) {
         console.error(`syncMessage error in ${document.URL}: ${e.message} (response ${r.responseText})`);
+      } finally {
+        for (let f of finalizers) try { f(); } catch(e) { console.error(e); }
       }
       return null;
     };
