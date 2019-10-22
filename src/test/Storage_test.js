@@ -56,6 +56,13 @@
       async () => await eq("small2", "k", 3),
       async () => await eq("bigObject", "k0000", "v0000"),
       async () => await eq("hugeObject", "k0001", "v0001"),
+      async () => {
+        let key = "bigObject";
+        let wasChunked = await Storage.isChunked(key);
+        await Storage.set("sync", {[key]: {tiny: "prop"}});
+        return wasChunked && !(await Storage.isChunked(key));
+      },
+      async () => eq("bigObject", "tiny", "prop"),
       async  () => {
         await Storage.remove("sync", keys);
         let myItems = await Storage.get("sync", keys);

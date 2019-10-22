@@ -71,12 +71,14 @@ var Storage = (() => {
           // Firefox Sync's max object BYTEs size is 16384, Chrome's 8192.
           // Rather than mesuring actual bytes, we play it safe by halving then
           // lowest to cope with escapes / multibyte characters.
+          let removeKeys = [];
           for (let k of Object.keys(keys)) {
             let s = JSON.stringify(keys[k]);
+            let chunksCountKey = chunksKey(k);
+            let oldCount = await browser.storage.sync.get(chunksCountKey)[chunksCountKey] || 0;
+            let count;
             if (s.length > MAX_ITEM_SIZE) {
-              let count = Math.ceil(s.length / MAX_ITEM_SIZE);
-              let chunksCountKey = chunksKey(k);
-              let oldCount = await browser.storage.sync.get(chunksCountKey);
+              count = Math.ceil(s.length / MAX_ITEM_SIZE);
               let chunks = {
                 [chunksCountKey]: count
               };
@@ -85,15 +87,17 @@ var Storage = (() => {
               }
               await browser.storage.sync.set(chunks);
               keys[k] = "[CHUNKED]";
-              if (oldCount-- > count) {
-                let oldChunks = [];
-                do {
-                  oldChunks.push(`${k}${oldCount}`);
-                } while(oldCount-- > count);
-                await browser.storage.sync.remove(oldChunks);
-              }
+            } else {
+              count = 0;
+              removeKeys.push(chunksCountKey);
+            }
+            if (oldCount-- > count) {
+              do {
+                removeKeys.push(`${k}${oldCount}`);
+              } while(oldCount-- > count);
             }
           }
+          await browser.storage.sync.remove(removeKeys);
         }
       }
 
