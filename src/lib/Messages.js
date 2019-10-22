@@ -2,10 +2,10 @@
 {
   let handlers = new Set();
 
-  let dispatch = async (msg, sender) => {
+  let dispatch = (msg, sender) => {
     let {__meta, _messageName} = msg;
     if (!__meta) {
-      // legacy message from embedder?
+      // legacy message from embedder or library? ignore it
       if (!_messageName) {
         debug(`Message not in NoScript-specific format: %s`, JSON.stringify(msg));
         return undefined;
@@ -13,19 +13,32 @@
       __meta = {name: _messageName};
     }
     let {name} = __meta;
-    let answers = [];
+    let responderFound = false;
+    let exception = null;
     for (let h of handlers) {
       let f = h[name];
+
       if (typeof f === "function") {
-        answers.push(f(msg, sender));
+        let result;
+        try {
+          result = f(msg, sender);
+        } catch (e) {
+          error(e);
+          exception = e;
+          continue;
+        }
+        if (typeof result === "undefined") {
+          responderFound = true;
+          continue;
+        }
+        return (result instanceof Promise) ? result
+          : new Promise(r => r(result));
       }
     }
-    if (answers.length) {
-      return await (
-        answers.length === 1 ? answers.pop(): Promise.all(answers)
-      );
+    if (exception) throw exception;
+    if (!responderFound) {
+      debug("Warning: no handler for message %s %s in context %s", name, JSON.stringify(msg), document.URL);
     }
-    debug("Warning: no handler for message %s %s in context %s", name, JSON.stringify(msg), document.URL);
   };
 
   var Messages = {
