@@ -3,22 +3,6 @@
   let listenersMap = new Map();
   let backlog = new Set();
 
-  let stopAndReload = beforeReloading => {
-    debug("Should I reload? %o, now: %s", performance.now())
-    if (location.href === "about:blank" || performance.now() > 10000 ) {
-      debug("Won't reload.");
-      return;
-    }
-    stop();
-    setTimeout(() => {
-      debug("Reloading...");
-      if (typeof beforeReloading === "function") {
-        beforeReloading();
-      }
-      location.reload();
-    }, 1000)
-  };
-
   let ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
@@ -53,17 +37,25 @@
       debug(`Fetching policy from document %s, readyState %s, content %s`,
         document.URL, document.readyState, document.documentElement.outerHTML);
       let url = document.URL;
-      let isFileUrl = url.startsWith("file:");
-      if (isFileUrl) {
-        addEventListener("beforescriptexecute", e => {
-          if (!this.canScript) e.preventDefault();
-        }, true);
+      addEventListener("beforescriptexecute", e => {
+        // safety net for syncrhonous load on Firefox
+        if (!this.canScript) e.preventDefault();
+      }, true);
+
+      let policy = null;
+      for (;;) {
+        try {
+          policy = browser.runtime.sendSyncMessage(
+            {id: "fetchPolicy", url, contextUrl: url});
+          break;
+        } catch (e) {
+          if (e.message !== "Could not esablish connection. Receiving end does not exist.") {
+            break;
+          }
+          error("Background page ready yet, retrying to fetch policy...")
+        }
       }
-
-      let policy = browser.runtime.sendSyncMessage(
-        {id: "fetchPolicy", url, contextUrl: url});
-
-      debug("Fetched %o, readyState %s", policy, document.readyState);
+      debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
       this.setup(policy);
 
       return true;
