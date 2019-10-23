@@ -65,6 +65,10 @@
         return await browser.tabs.sendMessage(recipientInfo.tabId, args, opts);
       }
       return await browser.runtime.sendMessage(args);
+    },
+    isMissingEndpoint(error) {
+      return error && error.message ===
+        "Could not esablish connection. Receiving end does not exist.";
     }
   }
 }

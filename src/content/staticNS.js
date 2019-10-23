@@ -49,7 +49,7 @@
             {id: "fetchPolicy", url, contextUrl: url});
           break;
         } catch (e) {
-          if (e.message !== "Could not esablish connection. Receiving end does not exist.") {
+          if (!Messages.isMissingEndpoint(e)) {
             break;
           }
           error("Background page ready yet, retrying to fetch policy...")

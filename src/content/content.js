@@ -62,7 +62,7 @@ var notifyPage = async () => {
       return true;
     } catch (e) {
       debug(e);
-      if (/Receiving end does not exist/.test(e.message)) {
+      if (Messages.isMissingEndpoint(e)) {
         window.setTimeout(notifyPage, 2000);
       }
     }
