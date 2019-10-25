@@ -36,10 +36,16 @@
     fetchPolicy() {
       debug(`Fetching policy from document %s, readyState %s, content %s`,
         document.URL, document.readyState, document.documentElement.outerHTML);
+      let originalState = document.readyState;
+      let scriptsBlocked = false;
       let url = document.URL;
       addEventListener("beforescriptexecute", e => {
         // safety net for syncrhonous load on Firefox
-        if (!this.canScript) e.preventDefault();
+        if (!this.canScript) {
+          e.preventDefault();
+          scriptsBlocked = true;
+          log("Some script managed to be inserted in the DOM while fetching policy, blocking it.\n", e.target.textContent);
+        }
       }, true);
 
       let policy = null;
@@ -50,13 +56,24 @@
           break;
         } catch (e) {
           if (!Messages.isMissingEndpoint(e)) {
+            error(e);
             break;
           }
-          error("Background page ready yet, retrying to fetch policy...")
+          error("Background page not ready yet, retrying to fetch policy...")
         }
       }
       debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
       this.setup(policy);
+      if (this.canScript && scriptsBlocked &&
+        originalState === "loading" && document.readyState !== originalState) {
+        log("Blocked some scripts on %s even though they are actually permitted by policy.", url)
+        // something went wrong, e.g. with session restore.
+        if (!url.startsWith("http")) {
+          log("Not a HTTP page, reloading %s.", url);
+          window.stop();
+          location.reload(false);
+        }
+      }
 
       return true;
     },
