@@ -111,6 +111,11 @@ var RequestGuard = (() => {
         : (numAllowed ? "sub" : "no");
       let showBadge = ns.local.showCountBadge && numBlocked > 0;
       let browserAction = browser.browserAction;
+      if (!browserAction.setIcon) { // mobile
+        browserAction.setTitle({tabId, title: `NoScript (${numBlocked})`});
+        return;
+      }
+
       browserAction.setIcon({tabId, path: {64: `/img/ui-${icon}64.png`}});
       browserAction.setBadgeText({tabId, text: showBadge ? numBlocked.toString() : ""});
       browserAction.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
@@ -165,9 +170,6 @@ var RequestGuard = (() => {
   }
   browser.tabs.onActivated.addListener(TabStatus.onActivatedTab);
   browser.tabs.onRemoved.addListener(TabStatus.onRemovedTab);
-  if (!("setIcon" in browser.browserAction)) { // unsupported on Android
-    TabStatus._updateTabNow = TabStatus.updateTab = () => {};
-  }
   let messageHandler = {
     async pageshow(message, sender) {
       TabStatus.recordAll(sender.tab.id, message.seen);
