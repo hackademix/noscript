@@ -38,11 +38,15 @@ var UI = (() => {
             UI.xssUserChoices = m.xssUserChoices;
             UI.local = m.local;
             UI.sync = m.sync;
-            if (UI.local && !UI.local.debug) {
-              debug = () => {}; // be quiet!
-            }
+
             if (UI.local) {
+              if (!UI.local.debug) {
+                debug = () => {}; // be quiet!
+              }
               document.documentElement.classList.toggle("tor", !!UI.local.isTorBrowser);
+              if (UI.local.isTorBrowser) {
+                Sites.onionSecure = true;
+              }
             }
             resolve();
             if (UI.onSettings) UI.onSettings();

@@ -65,6 +65,9 @@ var {Permissions, Policy, Sites} = (() => {
         }
       }
       if (url) {
+        if (Sites.onionSecure && url.protocol === "http:" && url.hostname.endsWith(".onion")) {
+          url.protocol = "https:";
+        }
         let path = url.pathname;
         siteKey = url.origin;
         if (siteKey === "null") {

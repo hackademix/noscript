@@ -92,6 +92,8 @@ var Settings = {
       // Tor Browser-specific settings
       ns.defaults.local.isTorBrowser = true; // prevents reset from forgetting
       ns.defaults.sync.cascadeRestrictions = true; // we want this to be the default even on reset
+      Sites.onionSecure = true;
+
       if (!this.gotTorBrowserInit) {
         // First initialization message from the Tor Browser
         this.gotTorBrowserInit = true;
