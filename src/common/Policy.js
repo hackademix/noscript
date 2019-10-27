@@ -465,7 +465,7 @@ var {Permissions, Policy, Sites} = (() => {
     }
 
     cascadeRestrictions(perms, topUrl) {
-      let topPerms = ns.policy.get(topUrl, topUrl).perms;
+      let topPerms = this.get(topUrl, topUrl).perms;
       if (topPerms !== perms) {
         let topCaps = topPerms.capabilities;
         perms = new Permissions([...perms.capabilities].filter(c => topCaps.has(c)),
