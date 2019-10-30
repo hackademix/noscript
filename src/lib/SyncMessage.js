@@ -169,7 +169,7 @@
     // Content Script side
     let uuid = () => (Math.random() * Date.now()).toString(16);
     let docUrl = document.URL;
-    browser.runtime.sendSyncMessage = msg => {
+    browser.runtime.sendSyncMessage = (msg, callback) => {
       let msgId = `${uuid()},${docUrl}`;
       let url = `${ENDPOINT_PREFIX}id=${encodeURIComponent(msgId)}` +
         `&url=${encodeURIComponent(docUrl)}`;
@@ -178,16 +178,25 @@
         // about frameAncestors
         url += "&top=true";
       }
+      /*
+      if (document.documentElement instanceof HTMLElement && !document.head) {
+        // let's insert a head element to let userscripts work
+        document.documentElement.appendChild(document.createElement("head"));
+      }*/
+
       if (MOZILLA) {
         // on Firefox we first need to send an async message telling the
         // background script about the tab ID, which does not get sent
         // with "privileged" XHR
-        let result;
+        let result, done = false;
         browser.runtime.sendMessage(
           {__syncMessage__: {id: msgId, payload: msg}}
         ).then(r => {
+          done = true;
           result = r;
+          if (callback) callback(r);
         }).catch(e => {
+          done = true;
           throw e;
         });
 
@@ -198,24 +207,45 @@
         let suspendURL = url + "&suspend=true";
         let suspended = false;
         let suspend = () => {
-          if (result || suspended) return;
+          if (suspended) return;
           suspended = true;
-          try {
-            let r = new XMLHttpRequest();
-            r.open("GET", suspendURL, false);
-            r.send(null);
-          } finally {
-            suspended = false;
+          while(!done) {
+            try {
+              let r = new XMLHttpRequest();
+              r.open("GET", suspendURL, false);
+              r.send(null);
+            } catch (e) {
+              console.error(e);
+            }
           }
+          suspended = false;
         };
-        let domSuspender = new MutationObserver(suspend);
+        let domSuspender = new MutationObserver(records => {
+          suspend();
+        });
         domSuspender.observe(document.documentElement, {childList: true});
         addEventListener("beforescriptexecute", suspend, true);
+
+        let finalize = () => {
+          removeEventListener("beforescriptexecute", suspend, true);
+          domSuspender.disconnect();
+        };
+
+        if (callback) {
+          let realCB = callback;
+          callback = r => {
+            try {
+              realCB(r);
+            } finally {
+              finalize();
+            }
+          };
+          return;
+        }
         try {
           suspend();
         } finally {
-          removeEventListener("beforescriptexecute", suspend, true);
-          domSuspender.disconnect();
+          finalize();
         }
         return result;
       }
@@ -224,14 +254,16 @@
 
       url += `&msg=${encodeURIComponent(JSON.stringify(msg))}`; // adding the payload
       let r = new XMLHttpRequest();
+      let result;
       try {
         r.open("GET", url, false);
         r.send(null);
-        return JSON.parse(r.responseText);
+        result = JSON.parse(r.responseText);
       } catch(e) {
         console.error(`syncMessage error in ${document.URL}: ${e.message} (response ${r.responseText})`);
       }
-      return null;
+      if (callback) callback(result);
+      return result;
     };
   }
 })();
