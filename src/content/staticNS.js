@@ -1,5 +1,5 @@
-'use strict';
 {
+  'use strict';
   let listenersMap = new Map();
   let backlog = new Set();
 
@@ -37,22 +37,37 @@
       debug(`Fetching policy from document %s, readyState %s, content %s`,
         document.URL, document.readyState, document.documentElement.outerHTML);
       let originalState = document.readyState;
-      let scriptsBlocked = false;
+      let blockedScripts = [];
       let url = document.URL;
       addEventListener("beforescriptexecute", e => {
         // safety net for syncrhonous load on Firefox
         if (!this.canScript) {
           e.preventDefault();
-          scriptsBlocked = true;
-          log("Some script managed to be inserted in the DOM while fetching policy, blocking it.\n", e.target.textContent);
+          let script = e.target;
+          blockedScripts.push(script)
+          log("Some script managed to be inserted in the DOM while fetching policy, blocking it.\n", script);
         }
       }, true);
 
       let policy = null;
+
+      let setup = policy => {
+        debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
+        this.setup(policy);
+        if (this.canScript && blockedScripts.length && originalState === "loading") {
+          log("Blocked some scripts on %s even though they are actually permitted by policy.", url)
+          // something went wrong, e.g. with session restore.
+          for (let s of blockedScripts) {
+            // reinsert the script
+            s.replace(s.cloneNode(true));
+          }
+        }
+      }
+
       for (;;) {
         try {
           policy = browser.runtime.sendSyncMessage(
-            {id: "fetchPolicy", url, contextUrl: url});
+            {id: "fetchPolicy", url, contextUrl: url}, setup);
           break;
         } catch (e) {
           if (!Messages.isMissingEndpoint(e)) {
@@ -62,20 +77,7 @@
           error("Background page not ready yet, retrying to fetch policy...")
         }
       }
-      debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
-      this.setup(policy);
-      if (this.canScript && scriptsBlocked &&
-        originalState === "loading" && document.readyState !== originalState) {
-        log("Blocked some scripts on %s even though they are actually permitted by policy.", url)
-        // something went wrong, e.g. with session restore.
-        if (!url.startsWith("http")) {
-          log("Not a HTTP page, reloading %s.", url);
-          window.stop();
-          location.reload(false);
-        }
-      }
 
-      return true;
     },
 
     setup(policy) {
