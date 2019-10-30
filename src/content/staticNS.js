@@ -34,11 +34,18 @@
     },
 
     fetchPolicy() {
+      let url = document.URL;
+      if (!UA.isMozilla && url.startsWith("http")) {
+        (async () => {
+          this.setup(await Messages.send("fetchPolicy", {url, contextUrl: url}));
+        })();
+        return;
+      }
       debug(`Fetching policy from document %s, readyState %s, content %s`,
-        document.URL, document.readyState, document.documentElement.outerHTML);
+        url, document.readyState, document.documentElement.outerHTML);
       let originalState = document.readyState;
       let blockedScripts = [];
-      let url = document.URL;
+
       addEventListener("beforescriptexecute", e => {
         // safety net for syncrhonous load on Firefox
         if (!this.canScript) {
