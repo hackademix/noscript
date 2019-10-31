@@ -59,15 +59,17 @@
       let originalState = document.readyState;
       let blockedScripts = [];
 
-      addEventListener("beforescriptexecute", e => {
-        // safety net for syncrhonous load on Firefox
-        if (!this.canScript) {
-          e.preventDefault();
-          let script = e.target;
-          blockedScripts.push(script)
-          log("Some script managed to be inserted in the DOM while fetching policy, blocking it.\n", script);
-        }
-      }, true);
+      if (/^(?:ftp|file):/.test(url)) {
+        addEventListener("beforescriptexecute", e => {
+          // safety net for synchronous loads on Firefox
+          if (!this.canScript) {
+            e.preventDefault();
+            let script = e.target;
+            blockedScripts.push(script)
+            log("Some script managed to be inserted in the DOM while fetching policy, blocking it.\n", script);
+          }
+        }, true);
+      }
 
       let policy = null;
 
@@ -79,7 +81,7 @@
           // something went wrong, e.g. with session restore.
           for (let s of blockedScripts) {
             // reinsert the script
-            s.replace(s.cloneNode(true));
+            s.replaceWith(s.cloneNode(true));
           }
         }
       }
