@@ -232,11 +232,7 @@
           Commands.install();
 
           this.devMode = (await browser.management.getSelf()).installType === "development";
-          if (this.local.debug) {
-            if (this.devMode) {
-              include("/test/run.js");
-            }
-          } else {
+          if (!this.local.debug) {
             debug = () => {}; // suppress verbosity
           }
         });
@@ -249,6 +245,10 @@
       Messages.removeHandler(messageHandler);
       RequestGuard.stop();
       log("STOPPED");
+    },
+
+    test() {
+      include("/test/run.js");
     },
 
     async savePolicy() {
