@@ -35,14 +35,27 @@
 
     fetchPolicy() {
       let url = document.URL;
-      if (url.startsWith("http")) {
+      debug(`Fetching policy from document %s, readyState %s, content %s`,
+        url, document.readyState, document.documentElement.outerHTML);
+
+      if (!/^(?:file|ftp|https?):/i.test(url)) {
         (async () => {
-          this.setup(await Messages.send("fetchChildPolicy", {url, contextUrl: url}));
+          let policy;
+          try {
+            policy = await Messages.send("fetchChildPolicy", {url, contextUrl: url});
+          } catch (e) {
+            console.error("Error while fetching policy", e);
+          }
+          if (policy === undefined) {
+            log("Policy was undefined, retrying in 1/2 sec...");
+            setTimeout(() => this.fetchPolicy(), 500);
+            return;
+          }
+          this.setup(policy);
         })();
         return;
       }
-      debug(`Fetching policy from document %s, readyState %s, content %s`,
-        url, document.readyState, document.documentElement.outerHTML);
+
       let originalState = document.readyState;
       let blockedScripts = [];
 
