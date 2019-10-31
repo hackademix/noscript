@@ -35,9 +35,9 @@
 
     fetchPolicy() {
       let url = document.URL;
-      if (!UA.isMozilla && url.startsWith("http")) {
+      if (url.startsWith("http")) {
         (async () => {
-          this.setup(await Messages.send("fetchPolicy", {url, contextUrl: url}));
+          this.setup(await Messages.send("fetchChildPolicy", {url, contextUrl: url}));
         })();
         return;
       }
