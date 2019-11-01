@@ -55,6 +55,9 @@ var PlaceHolder = (() => {
     for (let p of props) {
       destStyle[p] = srcStyle[p];
     }
+    if (src.offsetTop < 0 && src.offsetTop <= (-src.offsetHeight)) {
+      destStyle.top = "0"; // fixes video player off-display position on Youtube
+    }
     destStyle.display = srcStyle.display !== "block" ? "inline-block" : "block";
   }
 

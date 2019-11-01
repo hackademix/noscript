@@ -35,13 +35,11 @@ if ("MediaSource" in window) ns.on("capabilities", event => {
     notifyPage();
 
     if (mediaBlocker) {
-      (async () => {
+      let exposedMime = `${mime} (MSE)`;
+      setTimeout(() => {
         let me = Array.from(document.querySelectorAll("video,audio"))
           .find(e => e.srcObject === ms || urls && urls.has(e.src));
-
         if (!me) return;
-        let exposedMime = `${mime} (MSE)`;
-
         try {
           let ph = PlaceHolder.create("media", request);
           ph.replace(me);
@@ -49,7 +47,7 @@ if ("MediaSource" in window) ns.on("capabilities", event => {
         } catch (e) {
           error(e);
         }
-      })();
+      }, 0);
       throw new Error(`${exposedMime} blocked by NoScript`);
     }
 
