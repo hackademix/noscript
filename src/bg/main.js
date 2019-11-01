@@ -142,7 +142,7 @@
 
     async fetchChildPolicy({url, contextUrl}, sender) {
       await ns.initializing;
-      return (messageHandler.fetchChildPolicy = messageHandler.fetchChildPolicySync)(...arguments);
+      return (this.fetchChildPolicy = this.fetchChildPolicySync)(...arguments);
     },
     fetchChildPolicySync({url, contextUrl}, sender) {
       let {tab, frameId} = sender;

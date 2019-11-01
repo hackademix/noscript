@@ -21,7 +21,7 @@
       if (typeof f === "function") {
         let result;
         try {
-          result = f(msg, sender);
+          result = f.call(h, msg, sender);
         } catch (e) {
           error(e);
           exception = e;
