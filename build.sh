@@ -11,7 +11,7 @@ strip_rc_ver() {
   if [ "$2" = "rel" ]; then
     replace='s/("version":.*)rc\d+/$1/'
   else
-    replace='s/("version":.*)(\d+)rc(\d+)/{$1 . ($2 == "0" ? "0" : ($2-1) . ".999" . sprintf("%03d", $3))}/e'
+    replace='s/("version":.*)(\d+)rc(\d+)/{$1 . ($2 == "0" ? "0" : ($2-1) . ".9" . sprintf("%03d", $3))}/e'
   fi
   perl -pi.bak -e "$replace" "$MANIFEST" && rm -f "$MANIFEST".bak
 }
