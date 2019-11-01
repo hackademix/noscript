@@ -35,9 +35,17 @@
 
     fetchPolicy() {
       let url = document.URL;
-      debug(`Fetching policy from document %s, readyState %s, content %s`,
-        url, document.readyState, document.documentElement.outerHTML);
-
+      debug(`Fetching policy from document %s, readyState %s`,
+        url, document.readyState
+        , document.documentElement.outerHTML, // DEV_ONLY
+        document.domain, document.baseURI, window.isSecureContext // DEV_ONLY
+      );
+      if (/^(javascript|about):/.test(url)) {
+        url = document.readyState === "loading"
+        ? document.baseURI
+        : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
+        debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
+      }
       if (!/^(?:file|ftp|https?):/i.test(url)) {
         (async () => {
           let policy;
