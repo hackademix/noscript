@@ -40,13 +40,14 @@
         , document.documentElement.outerHTML, // DEV_ONLY
         document.domain, document.baseURI, window.isSecureContext // DEV_ONLY
       );
-      if (/^(javascript|about):/.test(url)) {
-        url = document.readyState === "loading"
-        ? document.baseURI
-        : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
-        debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
-      }
+
       if (!/^(?:file|ftp|https?):/i.test(url)) {
+        if (/^(javascript|about):/.test(url)) {
+          url = document.readyState === "loading"
+          ? document.baseURI
+          : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
+          debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
+        }
         (async () => {
           let policy;
           try {
