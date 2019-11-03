@@ -188,15 +188,13 @@
         // on Firefox we first need to send an async message telling the
         // background script about the tab ID, which does not get sent
         // with "privileged" XHR
-        let result, done = false;
+        let result;
         browser.runtime.sendMessage(
           {__syncMessage__: {id: msgId, payload: msg}}
         ).then(r => {
-          done = true;
           result = r;
           if (callback) callback(r);
         }).catch(e => {
-          done = true;
           throw e;
         });
 
@@ -209,14 +207,12 @@
         let suspend = () => {
           if (suspended) return;
           suspended = true;
-          while(!done) {
-            try {
-              let r = new XMLHttpRequest();
-              r.open("GET", suspendURL, false);
-              r.send(null);
-            } catch (e) {
-              console.error(e);
-            }
+          try {
+            let r = new XMLHttpRequest();
+            r.open("GET", suspendURL, false);
+            r.send(null);
+          } catch (e) {
+            console.error(e);
           }
           suspended = false;
         };
