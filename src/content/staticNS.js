@@ -86,11 +86,17 @@
         debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
         this.setup(policy);
         if (this.canScript && blockedScripts.length && originalState === "loading") {
-          log("Blocked some scripts on %s even though they are actually permitted by policy.", url)
+          log("Running suspended scripts which are permitted by %s policy.", url)
           // something went wrong, e.g. with session restore.
           for (let s of blockedScripts) {
-            // reinsert the script
-            s.replaceWith(s.cloneNode(true));
+            // reinsert the script:
+            // just s.cloneNode(true) doesn't work, the script wouldn't run,
+            // let's clone it the hard way...
+            try {
+              s.replaceWith(document.createRange().createContextualFragment(s.outerHTML));
+            } catch (e) {
+              error(e);
+            }
           }
         }
       }
