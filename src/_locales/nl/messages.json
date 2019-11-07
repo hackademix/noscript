@@ -476,7 +476,7 @@
         "description": ""
     },
     "SecureCookiesForced": {
-        "message": "Alle cookies ingesteld via HTTPS door onderstaande websites dwingen versleuteling te gebruiken:",
+        "message": "Alle door onderstaande websites via HTTPS ingestelde cookies dwingen versleuteling te gebruiken:",
         "description": ""
     },
     "SecurityManager": {

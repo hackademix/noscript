@@ -1,122 +1,122 @@
 {
     "Add": {
-        "message": "Tilføj",
+        "message": "Pridėti",
         "description": ""
     },
     "Add_accesskey": {
-        "message": "T",
+        "message": "A",
         "description": ""
     },
     "AdditionalPermissions": {
-        "message": "Yderligere tilladelser for troværdige steder",
+        "message": "Papildomi leidimai patikimiems tinklalapiams",
         "description": ""
     },
     "AdditionalRestrictions": {
-        "message": "Yderligere restriktioner for utroværdige steder",
+        "message": "Papildomi apribojimai nepatikimiems tinklalapiams",
         "description": ""
     },
     "SectionAdvanced": {
-        "message": "Avanceret",
+        "message": "Išplėstiniai",
         "description": ""
     },
     "Allow": {
-        "message": "Tillad",
+        "message": "Leisti",
         "description": ""
     },
     "Allow_accesskey": {
-        "message": "T",
+        "message": "l",
         "description": ""
     },
     "AllowBookmarks": {
-        "message": "Tillad steder som åbnes gennem bogmærker",
+        "message": "Leisti tinklalapius atidarytus per žymeles",
         "description": ""
     },
     "AllowClipboard": {
-        "message": "Tillad kopiering og indsættelse af formateret tekst fra ekstern udklipsholder",
+        "message": "Leisti pilną teksto kopijavimą ir įklijavimą iš išorinės iškarpinės",
         "description": ""
     },
     "AllowLocalLinks": {
-        "message": "Tillad lokale links",
+        "message": "Leisti vietines nuorodas",
         "description": ""
     },
     "AllowPage": {
-        "message": "Tillad hele siden",
+        "message": "Leisti visą šį puslapį",
         "description": ""
     },
     "AllowPage_accesskey": {
-        "message": "T",
+        "message": "A",
         "description": ""
     },
     "AllowPing": {
-        "message": "Tillad <A PING…>",
+        "message": "Leisti <A PING…>",
         "description": ""
     },
     "AllowViaBookmarks": {
-        "message": "Tillad steder som åbnes gennem bogmærker",
+        "message": "Leisti tinklalapius atidarytus per žymeles",
         "description": ""
     },
     "AlwaysBlockUntrustedContent": {
-        "message": "Bloker alle objekter fra et sted som er markeret som utroværdig",
+        "message": "Blokuoti visus objektus ateinančius iš tinklalapio pažymėto kaip nepatikimas",
         "description": ""
     },
     "SectionAppearance": {
-        "message": "Udseende",
+        "message": "Išvaizda",
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Indstil midlertidigt topniveau-steder til TROVÆRDIG",
+        "message": "Laikinai nustatyti aukščiausio lygio tinklalapius kaip PATIKIMUS",
         "description": ""
     },
     "AutoReload": {
-        "message": "Genindlæs automatisk påvirkede sider når tilladelser ændres",
+        "message": "Automatiškai perkrauti paveiktus puslapius kai pasikeičia leidimai",
         "description": ""
     },
     "AutoReload_currentTab": {
-        "message": "Genindlæs kun det nuværende faneblad",
+        "message": "Perkrauti tik esamą skirtuką",
         "description": ""
     },
     "BaseDom": {
-        "message": "Basis 2. niveau domæner (noscript.net)",
+        "message": "2-jo lygio domenai (noscript.net)",
         "description": ""
     },
     "BlockedItems": {
-        "message": "Blokerede $1 af $2 genstande.",
+        "message": "Užblokuota $1 iš $2 elementų.",
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript-blokerede objekter",
+        "message": "NoScript užblokavo objektus",
         "description": ""
     },
     "BookmarkSync": {
-        "message": "Sikkerhedskopier NoScript-konfiguration i et bogmærke for let synkronisering",
+        "message": "Sukurti atsarginę NoScript konfigūracijos kopiją žymelėse lengvesnei sinchronizacijai",
         "description": ""
     },
     "Cancel": {
-        "message": "Annuller",
+        "message": "Atšaukti",
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Overlap øverste dokumenters tilladelser til tredjeparts scripts",
+        "message": "Naudoti viršutinio dokumento leidimus 3-ųjų šalių skriptams kaskadiškai",
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Overlap øverste dokumenters begrænsninger til underdokumenter",
+        "message": "Naudoti viršutinio dokumento apribojimus podokumenčiams kaskadiškai",
         "description": ""
     },
     "ClearClickDescription": {
-        "message": "NoScript opsnappede en muse- eller tastaturinteraktion med et delvist skjult element. Klik på billedet nedenfor for at skifte mellem den spærrede og den rene version.",
+        "message": "NoScript neleidžia pelei ar klaviatūrai sąveikauti su dalinai paslėptais elementais. Paspauskite ant žemiau esančios nuorodos kad pereitumėt iš trukdančios versijos į švarią.",
         "description": ""
     },
     "ClearClickHeader": {
-        "message": "Potentiel klikkapring/forsøg på manipulering af brugerflade!",
+        "message": "Galimas clickjacking / UI redressing bandymas!",
         "description": ""
     },
     "ClearClickOpt": {
-        "message": "ClearClick-beskyttelse på sider…",
+        "message": "ClearClick apsauga puslapiuose…",
         "description": ""
     },
     "ClearClickReport": {
-        "message": "Rapportér",
+        "message": "Pranešimas",
         "description": ""
     },
     "ClearClickReport_accesskey": {
@@ -124,71 +124,71 @@
         "description": ""
     },
     "ClearClickReportId": {
-        "message": "Rapport-ID:",
+        "message": "Pranešimo ID:",
         "description": ""
     },
     "ClearClickTitle": {
-        "message": "Advarsel om ClearClick",
+        "message": "ClearClick Įspėjimas",
         "description": ""
     },
     "Close": {
-        "message": "Luk",
+        "message": "Užverti",
         "description": ""
     },
     "CollapseBlockedObjects": {
-        "message": "Sammenfold blokerede objekter",
+        "message": "Suglausti užblokuotus objektus",
         "description": ""
     },
     "ConfirmUnblock": {
-        "message": "Spørg om bekræftelse inden midlertidig afblokering af objekt",
+        "message": "Klausti leidimo prieš laikinai atblokuojant objektą",
         "description": ""
     },
     "ContentBlocker": {
-        "message": "Anvend også restriktionerne til hvidlistede steder",
+        "message": "Apribojimus pritaikyti ir whitelisti'ntiems tinklalapiams",
         "description": ""
     },
     "CtxMenu": {
-        "message": "Genvejsmenu",
+        "message": "Kontekstinis meniu",
         "description": ""
     },
     "Custom": {
-        "message": "Tilpasset",
+        "message": "Pasirinktinas",
         "description": ""
     },
     "CustomizePresets": {
-        "message": "Forvalgt tilpasning (til alle de steder som deler et forvalg)",
+        "message": "Parengties keitimas (visiems tinklalapiams kurie dalinasi šia parengtimi)",
         "description": ""
     },
     "Default": {
-        "message": "Standard",
+        "message": "Numatytas",
         "description": ""
     },
     "DefaultPolicies": {
-        "message": "Standardpolitikker",
+        "message": "Numatytoji politika",
         "description": ""
     },
     "Description": {
-        "message": "Maksimal beskyttelse til din browser: NoScript tillader kun aktivt indhold på troværdige domæner som du vælger, for at forhindre udnyttelse.",
+        "message": "Maksimalus jūsų naršyklės apsaugojimas: Aktyvų turinį NoScript leidžia tik iš jūsų pasirinktų patikimų domenų, kad apsisaugotumėte nuo išnaudojimo.",
         "description": ""
     },
     "Donate": {
-        "message": "Donér",
+        "message": "Paaukoti",
         "description": ""
     },
     "Donate_accesskey": {
-        "message": "D",
+        "message": "o",
         "description": ""
     },
     "Embeddings": {
-        "message": "Indlejringer",
+        "message": "Įterpimai",
         "description": ""
     },
     "Exceptions": {
-        "message": "Undtagelser…",
+        "message": "Išimtys...",
         "description": ""
     },
     "Export": {
-        "message": "Eksporter",
+        "message": "Eksportuoti",
         "description": ""
     },
     "Export_accesskey": {
@@ -196,55 +196,55 @@
         "description": ""
     },
     "FixLinks": {
-        "message": "Forsøg at rette JavaScript-links",
+        "message": "Pabandyti pataisyti JavaScript nuorodas",
         "description": ""
     },
     "Hider": {
-        "message": "Slip her for at skjule.",
+        "message": "Numesti čia paslėpimui",
         "description": ""
     },
     "Reveal": {
-        "message": "Klik her for at hente manglende knapper…",
+        "message": "Spausti čia, kad atgautumėte trūkstančius mygtukus...",
         "description": ""
     },
     "ShowFullAddresses": {
-        "message": "List fulde adresser i tilladelser-pop op'en (https://www.noscript.net)",
+        "message": "Rodyti pilnus adresus iššokančiame leidimų lange (https://www.noscript.net)",
         "description": ""
     },
     "SectionGeneral": {
-        "message": "Generelt",
+        "message": "Bendras",
         "description": ""
     },
     "GlobalHttpsWhitelist": {
-        "message": "Tillad HTTPS-scripts globalt på HTTPS-dokumenter",
+        "message": "Leisti HTTPS skriptus HTTPS dokumentuose globaliai.",
         "description": ""
     },
     "NotEnforced": {
-        "message": "Restriktioner deaktiveret",
+        "message": "Apribojimai išjungti",
         "description": ""
     },
     "NoEnforcement": {
-        "message": "Aktiver restriktioner globalt (farligt)",
+        "message": "Globalus apribojimų išjungimas (pavojinga)",
         "description": ""
     },
     "Enforce": {
-        "message": "Aktiver restriktioner globalt",
+        "message": "Įjungti apribojimus globaliai",
         "description": ""
     },
     "NoEnforcementForTab": {
-        "message": "Deaktiver restriktioner for fanebladet",
+        "message": "Išjungti apribojimus šiam skirtukui",
         "description": ""
     },
     "EnforceForTab": {
-        "message": "Aktiver restriktioner for fanebladet",
+        "message": "Įjungti apribojimus šiam skirtukui",
         "description": ""
     },
     "HighContrast": {
-        "message": "Udseende med høj kontrast",
+        "message": "Didelio kontrasto išvaizda",
         "description": ""
     },
     "httpsOnly": {
-        "message": "Match kun HTTPS-indhold",
+        "message": "Lyginti tik HTTPS turinį",
         "description": ""
     },
     "Https": {
@@ -252,31 +252,31 @@
         "description": ""
     },
     "Https_always": {
-        "message": "Altid",
+        "message": "VIsada",
         "description": ""
     },
     "Https_behavior": {
-        "message": "Opførsel",
+        "message": "Elgesys",
         "description": ""
     },
     "Https_cookies": {
-        "message": "Cookies",
+        "message": "Sausainiukai",
         "description": ""
     },
     "Https_description": {
-        "message": "Forbyd aktivt webindhold, medmindre det kommer fra en sikker (HTTPS) forbindelse:",
+        "message": "Drausti aktyvų tinklo turinį, nebent ji ateina iš saugaus (HTTPS) prisijungimo:",
         "description": ""
     },
     "Https_never": {
-        "message": "Aldrig",
+        "message": "Niekada",
         "description": ""
     },
     "Https_proxy": {
-        "message": "Når der bruges en proxy (anbefales med Tor)",
+        "message": "Naudojant tarpinį serverį (rekomenduojama su Tor)",
         "description": ""
     },
     "HttpsFaq": {
-        "message": "HTTPS FAQ…",
+        "message": "HTTPS DUK…",
         "description": ""
     },
     "HttpsFaq_accesskey": {
@@ -284,15 +284,15 @@
         "description": ""
     },
     "HttpsForced": {
-        "message": "Tving følgende steder til at bruge sikre (HTTPS) forbindelser:",
+        "message": "Versti sekančius tinklalapius naudoti saugius (HTTPS) prisijungimus:",
         "description": ""
     },
     "HttpsForcedExceptions": {
-        "message": "Gennemtving aldrig sikre (HTTPS) forbindelser for følgende steder:",
+        "message": "Niekada neversti saugių (HTTPS) prisijungimų šiems tinklalapiams:",
         "description": ""
     },
     "Import": {
-        "message": "Importer",
+        "message": "Importuoti",
         "description": ""
     },
     "Import_accesskey": {
@@ -300,47 +300,47 @@
         "description": ""
     },
     "KeepLocked": {
-        "message": "Hold elementet låst (anbefales)",
+        "message": "Laikyti šį elementą užrakintą (rekomenduotina)",
         "description": ""
     },
     "MatchSample": {
-        "message": "Eksempel på match af mønster:",
+        "message": "Modelio atitikimo pavyzdys:",
         "description": ""
     },
     "Next": {
-        "message": "Næste",
+        "message": "Kitas",
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "Ingen pladsholder for objekter som kommer fra steder som er markeret som utroværdige",
+        "message": "Jokių vietos rezervavimo ženklų objektams ateinantiems iš nesaugiais pažymėtų tinklalapių",
         "description": ""
     },
     "Notifications": {
-        "message": "Underretninger",
+        "message": "Pranešimai",
         "description": ""
     },
     "Notify": {
-        "message": "Vis meddelelse om blokerede scripts",
+        "message": "Rodyti žinutes apie užblokuotus skriptus",
         "description": ""
     },
     "Notify_bottom": {
-        "message": "Placer meddelelse nederst",
+        "message": "Žinutes rodyti apačioje",
         "description": ""
     },
     "NotifyMeta": {
-        "message": "Vis meddelelse om blokerede META-omdirigeringer",
+        "message": "Rodyti žinutes apie užblokuotus META nukreipimus",
         "description": ""
     },
     "NotifyMeta_accesskey": {
-        "message": "T",
+        "message": "R",
         "description": ""
     },
     "NselForce": {
-        "message": "Vis <NOSCRIPT>-elementet som efterfølger et blokeret <SCRIPT>",
+        "message": "Rodyti <NOSCRIPT> elementą, kuris seka užblokuotą <SCRIPT>",
         "description": ""
     },
     "NselNever": {
-        "message": "Skjul <NOSCRIPT>-elementer",
+        "message": "Slėpti <NOSCRIPT> elementus",
         "description": ""
     },
     "OK": {
@@ -348,31 +348,31 @@
         "description": ""
     },
     "OptBlockCssScanners": {
-        "message": "Bloker CSS-baserede skannere",
+        "message": "Blokuoti CSS skenerius",
         "description": ""
     },
     "OptFilterXGet": {
-        "message": "Desinficer cross-site-mistænkelige anmodninger",
+        "message": "Išvalyti įtartinas kryžminės-svetainės užklausas",
         "description": ""
     },
     "OptFilterXPost": {
-        "message": "Lav cross-site POST-anmodninger om til dataløse GET-anmodninger",
+        "message": "Paversti tarptinklapines POST užklausas beduomenėmis GET užklausomis",
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Tilsidesæt Tor Browsers forudindstilling af sikkerhedsniveau",
+        "message": "Nepaisyti Tor Naršyklės Saugumo lygio parengties",
         "description": ""
     },
     "Options": {
-        "message": "Indstillinger…",
+        "message": "Parinktys...",
         "description": ""
     },
     "Options_accesskey": {
-        "message": "I",
+        "message": "O",
         "description": ""
     },
     "OptionsLong": {
-        "message": "Indstillinger for NoScript",
+        "message": "NoScript Parinktys",
         "description": ""
     },
     "OptionsWidth": {
@@ -380,75 +380,75 @@
         "description": ""
     },
     "PermanentInPrivate": {
-        "message": "Permanent \"Tillad\" kommandoer i private vinduer",
+        "message": "Visuomet \"Leisti\" komandas privačiuose languose.",
         "description": ""
     },
     "SectionSitePermissions": {
-        "message": "Tilladelser pr. sted",
+        "message": "Leidimai kiekvienam tinklalapiui",
         "description": ""
     },
     "PermissionsText": {
-        "message": "Du kan angive hvilke websteder som har tilladelse til at udføre scripts. Skriv adressen eller domænet (f.eks. \"http://www.example.com\" eller \"example.com\") på det sted du vil tillade og klike på Tillad.",
+        "message": "Jūs galite nurodyti, kuriems tinklalapiams leidžiama paleisti skriptus. Įrašykite adresą arba domeną (pvz.: \"http://www.site.com\" arba \"site.com\") to tinklalapio kuriam norite suteikti leidimą ir tada paspauskite Leisti.",
         "description": ""
     },
     "Plugins": {
-        "message": "Plugins",
+        "message": "įskiepiai",
         "description": ""
     },
     "Policies": {
-        "message": "Politikker",
+        "message": "Politika",
         "description": ""
     },
     "Preset": {
-        "message": "Sikkerhedsniveau",
+        "message": "Saugumo lygis",
         "description": ""
     },
     "Preset_high": {
-        "message": "Fæstning (fuld nedlukning)",
+        "message": "Tvirtovė (Visiškas blokavimas)",
         "description": ""
     },
     "Preset_low": {
-        "message": "Afslappet (sortlist+websikkerhed)",
+        "message": "Lengvas (Juodasis sąrašas + Tinklo apsauga)",
         "description": ""
     },
     "Preset_medium": {
-        "message": "Klassisk (hvidlist+websikkerhed)",
+        "message": "Klasikinis (Baltas sąrašas + Tinklo apsauga)",
         "description": ""
     },
     "Preset_off": {
-        "message": "Fra (seriøst?!)",
+        "message": "Išjungti (ar esate tikri?!)",
         "description": ""
     },
     "Prev": {
-        "message": "Forrige",
+        "message": "Ankstesnis",
         "description": ""
     },
     "RecentBlocked": {
-        "message": "Seneste blokerede steder",
+        "message": "Neseniai užblokuoti tinklalapiai",
         "description": ""
     },
     "Refresh": {
-        "message": "Genopfrisk",
+        "message": "Atnaujinti",
         "description": ""
     },
     "ReloadWarn": {
-        "message": "Indstillingerne træder i kraft på nye eller (manuelt) genindlæste sider",
+        "message": "Šios parinktys pradės veikti naujuose arba (rankiniu būdu) perkrautuose puslapiuose.",
         "description": ""
     },
     "RemoveSelected": {
-        "message": "Fjern valgte steder",
+        "message": "Pašalinti pasirinktus tinklalapius",
         "description": ""
     },
     "Reset": {
-        "message": "Nulstil",
+        "message": "Atstatyti",
         "description": ""
     },
     "Reset_accesskey": {
-        "message": "N",
+        "message": "s",
         "description": ""
     },
     "ResetDef": {
-        "message": "Nulstil til standard",
+        "message": "Atstatyti numatytą",
         "description": ""
     },
     "ResetDef_accesskey": {
@@ -456,63 +456,63 @@
         "description": ""
     },
     "RestrictSubdocScripting": {
-        "message": "Bloker scripting i hvidlistede underdokumenter af ikke-hvidlistede sider",
+        "message": "Blokuoti scenarijus baltojo sąrašo podokumenčiuose ne baltojo sąrašo puslapiuose.",
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Tilbagekald midlertidige tilladelser",
+        "message": "Atšaukti laikinus leidimus",
         "description": ""
     },
     "RevokeTemp_accesskey": {
-        "message": "T",
+        "message": "R",
         "description": ""
     },
     "SecureCookies": {
-        "message": "Aktiver automatisk håndtering af sikre cookies",
+        "message": "Įjungti automatinį saugų slapukų valdymą",
         "description": ""
     },
     "SecureCookiesExceptions": {
-        "message": "Ignorer usikre cookies som er indstillet over HTTPS af følgende steder:",
+        "message": "Ignoruoti nesaugius slapukus, nustatytus per HTTPS šių tinklalapių:",
         "description": ""
     },
     "SecureCookiesForced": {
-        "message": "Tving kryptering af alle cookierne som er indstillet over HTTPS af følgende steder:",
+        "message": "Versti visų slapukų nustatytų per HTTPS šių tinklalapių šifravimą:",
         "description": ""
     },
     "SecurityManager": {
-        "message": "Sikkerhedshåndtering",
+        "message": "Saugumo valdiklis",
         "description": ""
     },
     "Show": {
-        "message": "Vis…",
+        "message": "Rodyti...",
         "description": ""
     },
     "ShowConsole": {
-        "message": "Vis konsol…",
+        "message": "Rodyti konsolę...",
         "description": ""
     },
     "ShowConsole_accesskey": {
-        "message": "V",
+        "message": "S",
         "description": ""
     },
     "ShowPlaceholder": {
-        "message": "Vis pladsholderikon",
+        "message": "Rodyti vietos rezervavimo ženklo piktogramą",
         "description": ""
     },
     "ShowReleaseNotes": {
-        "message": "Vis udgivelsesnoterne når der opdateres",
+        "message": "Rodyti laidos užrašus atnaujinimams",
         "description": ""
     },
     "ShowCtxMenuItem": {
-        "message": "Vis NoScript-menupunkt i genvejsmenu",
+        "message": "Rodyti NoScript kontekstinio meniu elementus",
         "description": ""
     },
     "ShowCountBadge": {
-        "message": "Vis emblem med antal blokerede genstande",
+        "message": "Rodyti užblokuotų elementų skaičiaus ženkliuką",
         "description": ""
     },
     "SitePermissions": {
-        "message": "Stedtilladelser",
+        "message": "Tinklalapio leidimai",
         "description": ""
     },
     "SitePermissions_accessKey": {
@@ -520,11 +520,11 @@
         "description": ""
     },
     "SitePolicies": {
-        "message": "Stedspecifikke politikker",
+        "message": "Konkrečios svetainės politika",
         "description": ""
     },
     "TempTrustPage": {
-        "message": "Indstil alt på siden til midlertidigt TROVÆRDIG",
+        "message": "Viską šiame puslapyje nustatyti kaip laikinai PATIKIMA",
         "description": ""
     },
     "TempTrustPage_accesskey": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "TempToPerm": {
-        "message": "Gør sidetilladelser permanente",
+        "message": "Puslapio leidimus padaryti pastoviais",
         "description": ""
     },
     "TempToPerm_accesskey": {
@@ -540,7 +540,7 @@
         "description": ""
     },
     "Trust": {
-        "message": "Marker som troværdig",
+        "message": "Žymėti kaip patikimą",
         "description": ""
     },
     "Trust_accesskey": {
@@ -548,39 +548,39 @@
         "description": ""
     },
     "Trusted": {
-        "message": "Troværdig",
+        "message": "Patikimas",
         "description": ""
     },
     "Trusted_temporary": {
-        "message": "Midl. TROVÆRDIG",
+        "message": "Laik. PATIKIMAS",
         "description": ""
     },
     "Trusted_permanent": {
-        "message": "TROVÆRDIG",
+        "message": "PATIKIMAS",
         "description": ""
     },
     "TrustedPagesAdj": {
-        "message": "troværdig",
+        "message": "patikimas",
         "description": ""
     },
     "Uninstall": {
-        "message": "Afinstaller",
+        "message": "išdiegti",
         "description": ""
     },
     "Unknown": {
-        "message": "Ukendt",
+        "message": "Nežinoma",
         "description": ""
     },
     "UnsafeReload": {
-        "message": "Usikker genindlæsning",
+        "message": "Nesaugus perkrovimas",
         "description": ""
     },
     "UnsafeReload_accesskey": {
-        "message": "T",
+        "message": "R",
         "description": ""
     },
     "Untrust": {
-        "message": "Marker som utroværdig",
+        "message": "Pažymėti kaip nepatikimą",
         "description": ""
     },
     "Untrust_accesskey": {
@@ -588,15 +588,15 @@
         "description": ""
     },
     "Untrusted": {
-        "message": "Utroværdig",
+        "message": "Nepatikimas",
         "description": ""
     },
     "UntrustedPagesAdj": {
-        "message": "utroværdig",
+        "message": "nepatikimas",
         "description": ""
     },
     "WebAddress": {
-        "message": "Søg efter eller tilføj et websted:",
+        "message": "Ieškokite ar pridėkite tinklalapį:",
         "description": ""
     },
     "WebAddress_accesskey": {
@@ -604,43 +604,43 @@
         "description": ""
     },
     "Whitelist": {
-        "message": "Hvidlist",
+        "message": "Baltasis sąrašas",
         "description": ""
     },
     "XSS_notify": {
-        "message": "Vis XSS-underretninger",
+        "message": "Rodyti XSS pranešimus",
         "description": ""
     },
     "XSS_clearUserChoices": {
-        "message": "Ryd XSS-valg",
+        "message": "Išvalyti XSS pasirinktis",
         "description": ""
     },
     "XSS_promptTitle": {
-        "message": "Advarsel om NoScript XSS",
+        "message": "NoScript XSS Įspėjimas",
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript registrerede et potentielt cross-site-scriptingangreb\nfra $1 til $2.\nMistænkelige data:\n$3",
+        "message": "NoScript aptiko potencialią tarpsaitinę scenarijaus ataką\niš $1 į $2.\n%tartini duomenys:\n$3",
         "description": ""
     },
     "XSS_optBlock": {
-        "message": "Bloker anmodningen",
+        "message": "Blokuoti šią užklausą",
         "description": ""
     },
     "XSS_optSanitize": {
-        "message": "Desinficer anmodningen",
+        "message": "Išvalyti šią užklausą",
         "description": ""
     },
     "XSS_optAllow": {
-        "message": "Tillad anmodningen",
+        "message": "Leisti šią užklausą",
         "description": ""
     },
     "XSS_optAlwaysAllow": {
-        "message": "Tillad altid dokumentanmodninger fra $1 til $2",
+        "message": "Visada dokumentų užklausas nuo $1 iki $2",
         "description": ""
     },
     "XSS_optAlwaysBlock": {
-        "message": "Bloker altid dokumentanmodninger fra $1 til $2",
+        "message": "Visada blokuoti dokumento užklausas nuo $1 iki $2",
         "description": ""
     },
     "Xss": {
@@ -652,15 +652,15 @@
         "description": ""
     },
     "XssExceptions": {
-        "message": "Undtagelser for Anti-XSS-beskyttelse",
+        "message": "Anti-XSS apsaugos išimtys",
         "description": ""
     },
     "XssExceptions_description": {
-        "message": "Destinationer som matcher disse regulære udtryk beskyttes IKKE mod XSS.",
+        "message": "Kryptys atitinkančios šias reguliarias išraiškas NEBUS apsaugotos nuo XSS.",
         "description": ""
     },
     "XssFaq": {
-        "message": "XSS FAQ…",
+        "message": "XSS DUK…",
         "description": ""
     },
     "XssFaq_accesskey": {
@@ -668,79 +668,79 @@
         "description": ""
     },
     "about": {
-        "message": "Om $1",
+        "message": "Apie $1",
         "description": ""
     },
     "allowFrom": {
-        "message": "Tillad alle fra $1",
+        "message": "Leisti viską iš $1",
         "description": ""
     },
     "allowGlobal": {
-        "message": "Deaktiver alle kontroller af tilladelser (farligt)",
+        "message": "Išjungti visas leidimų patikras (pavojinga)",
         "description": ""
     },
     "allowLocal": {
-        "message": "Tillad $1",
+        "message": "Leisti $1",
         "description": ""
     },
     "allowTemp": {
-        "message": "Tillad midlertidigt $1",
+        "message": "Laikinai leisti $1",
         "description": ""
     },
     "allowTempFrom": {
-        "message": "Tillad midlertidigt alt fra $1",
+        "message": "Laikinai leisti viską iš $1",
         "description": ""
     },
     "allowed_no": {
-        "message": "Scripts er forbudt",
+        "message": "Dabar uždrausti scenarijai",
         "description": ""
     },
     "allowed_prt": {
-        "message": "Scripts er delvist tilladt",
+        "message": "Dalinai leidžiami scenarijai",
         "description": ""
     },
     "allowed_yes": {
-        "message": "Scripts er tilladt",
+        "message": "Dabar leidžiami scenarijai",
         "description": ""
     },
     "alwaysAsk": {
-        "message": "Spørg altid om bekræftelse",
+        "message": "Visuomet prašyti patvirtinimo",
         "description": ""
     },
     "audio_samples": {
-        "message": "Lydeksempler",
+        "message": "Audio pavyzdžiai",
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "NoScript har fundet et konfigurationsbogmærke som ser ud til at være gemt på\n$1.\nVil du virkelig overskrive din lokale NoScript-konfiguration med bogmærkets indhold?",
+        "message": "NoScript rado konfigūracijos žymę išsaugotą\n$1.\nAr tikrai norite perrašyti savo vietinę NoScript konfigūraciją su šios žymės turiniu?",
         "description": ""
     },
     "bookmarkSync_message": {
-        "message": "Bogmærket er IKKE beregnet til at blive åbnet, men til synkronisering med en tjeneste, såsom Weave eller XMarks-udvidelsen.",
+        "message": "Ši žymė NĖRA skirta atidarymui, bet sinchronizacijai, naudojant tokias paslaugas kaip Weave ar XMarks plėtinį.",
         "description": ""
     },
     "bookmarkSync_title": {
-        "message": "NoScript-konfigurationsbogmærke",
+        "message": "NoScript konfigūracijos žymė",
         "description": ""
     },
     "cap_script": {
-        "message": "script",
+        "message": "skriptas",
         "description": ""
     },
     "cap_frame": {
-        "message": "frame",
+        "message": "rėmas",
         "description": ""
     },
     "cap_object": {
-        "message": "object",
+        "message": "objektas",
         "description": ""
     },
     "cap_media": {
-        "message": "medie",
+        "message": "media",
         "description": ""
     },
     "cap_font": {
-        "message": "skrifttype",
+        "message": "šriftas",
         "description": ""
     },
     "cap_webgl": {
@@ -748,27 +748,27 @@
         "description": ""
     },
     "cap_fetch": {
-        "message": "fetch",
+        "message": "atnešti",
         "description": ""
     },
     "cap_other": {
-        "message": "andet",
+        "message": "kita",
         "description": ""
     },
     "changelog": {
-        "message": "Ændringslog",
+        "message": "Pakeitimai",
         "description": ""
     },
     "changelog_tip": {
-        "message": "Vis ændringslog",
+        "message": "Rodyti pakeitimus",
         "description": ""
     },
     "confirm": {
-        "message": "Er du sikker?",
+        "message": "Ar esate tikri?",
         "description": ""
     },
     "disable": {
-        "message": "Deaktiver $1",
+        "message": "Išjungti $1",
         "description": ""
     },
     "disable_accessKey": {
@@ -776,123 +776,123 @@
         "description": ""
     },
     "distrust": {
-        "message": "Marker $1 som utroværdig",
+        "message": "Pažymėti $1 kaip nesaugų",
         "description": ""
     },
     "extensionContributors": {
-        "message": "Bidragsydere:",
+        "message": "Pagalbininkai:",
         "description": ""
     },
     "extensionContributors_tip": {
-        "message": "Personer du bør takke for udvidelsen",
+        "message": "Žmonės kuriems turėtumėte padėkoti už šį plėtinį",
         "description": ""
     },
     "extensionCreator_tip": {
-        "message": "Besøg forfatterens hjemmeside",
+        "message": "Aplankyti autoriaus namų puslapį",
         "description": ""
     },
     "extensionCreatorLabel": {
-        "message": "Forfatter:",
+        "message": "Autorius:",
         "description": ""
     },
     "extensionHomepage_tip": {
-        "message": "Besøg udvidelsens hjemmeside",
+        "message": "Aplankyti plėtinio namų puslapį",
         "description": ""
     },
     "forbidGlobal": {
-        "message": "Forbyd scripts globalt (anbefales)",
+        "message": "Drausti scenarijus globaliai (siūloma)",
         "description": ""
     },
     "forbidLocal": {
-        "message": "Forbyd $1",
+        "message": "Drausti $1",
         "description": ""
     },
     "freshInstallReload": {
-        "message": "For at kunne arbejde på fanebladet, skal NoScript genindlæse det.\nFortsæt?",
+        "message": "Tam, kad veiktų šioje kortelėje, NoScript turi ją perkrauti.\nTęsti?",
         "description": ""
     },
     "privilegedPage": {
-        "message": "Dette er en priviligeret side, hvor tilladelserne ikke kan konfigureres.",
+        "message": "Tai privilegijuotas puslapis, kuriam leidimai negali būti sukonfigūruoti.",
         "description": ""
     },
     "incompatibleOptions": {
-        "message": "\"$1\"\ner inkompatibel med \"$2\".\nVil du aktivere den førstnævnte og deaktivere den sidstnævnte?",
+        "message": "\"$1\"\nyra nesuderinamas su \"$2\".\nAr norite įjungti ankstesnį ir išjungti vėlesnį?",
         "description": ""
     },
     "incompatibleOptions_title": {
-        "message": "Advarsel om inkompatible indstillinger",
+        "message": "Nesuderinamų pasirinkimų įspėjimas",
         "description": ""
     },
     "informaction_tip": {
-        "message": "Besøg InformActions hjemmeside",
+        "message": "Aplankyti InformAction namų puslapį",
         "description": ""
     },
     "license": {
-        "message": "Licens",
+        "message": "Licenzija",
         "description": ""
     },
     "license_tip": {
-        "message": "Læs slutbrugerlicens",
+        "message": "Skaityti galutinio naudotojo licenziją",
         "description": ""
     },
     "logo_tip": {
-        "message": "Besøg udvidelsens hjemmeside",
+        "message": "Aplankyti plėtinio namų puslapį",
         "description": ""
     },
     "metaRefresh_notify": {
-        "message": "NoScript blokerede en <META>-omdirigering i et <NOSCRIPT>-element: $1 på $2 sekunder.",
+        "message": "NoScript užblokavo <META> peradresavimą <NOSCRIPT> elemente: $1 per $2 sekundes.",
         "description": ""
     },
     "Reload": {
-        "message": "Genindlæs",
+        "message": "Perkrauti",
         "description": ""
     },
     "removal_message": {
-        "message": "Ved at deaktivere eller afinstallere NoScript, giver du afkald på ALLE de beskyttelser som NoScript giver.\n\nHvis du bare er træt af at håndtere script-tilladelser et sted af gangen, så er der en mere sikker måde at gøre det på.\n\nNoScript kan stoppe blokeringen af scripts, undtagen dem som du markere som utroværdige, mens du stadig beskyttes med den mest avancerede sikkerhedsforanstaltninger mod XSS, klikkapring, CSRF og andre webtrusler.\n",
+        "message": "Išjungdami arba ištrindami NoScript, jūs prarandate VISAS apsaugas kurias suteikia NoScript.\n\nJeigu tiesiog pavargote tvarkyti scenarijus kiekvienai svetainei atskirai, yra saugesnis pasirinkimas.\n\nNoScript gali nustoti blokuoti scenarijus, išskyrus tuos kuriuos pažymėjote kaip nepatikimus, kartu saugodama nuo XXS, paspaudimų užgrobimo, CSRF ir kitų interneto problemų.\n\nAr tikrai norite pašalinti VISAS No Script apsaugas?",
         "description": ""
     },
     "removal_no": {
-        "message": "Nej, stop blot med at blokere scripts",
+        "message": "Ne, tiesiog neblokuok scenarijų",
         "description": ""
     },
     "removal_title": {
-        "message": "Advarsel om sikkerhedsnedgradering",
+        "message": "Saugumo sumažinimo įspėjimas",
         "description": ""
     },
     "removal_yes": {
-        "message": "Ja, fjern ALLE beskyttelser",
+        "message": "Taip, pašalinti VISAS apsaugas",
         "description": ""
     },
     "reset_title": {
-        "message": "Nulstilling af NoScript",
+        "message": "NoScript atstatymas",
         "description": ""
     },
     "reset_warning": {
-        "message": "Alle NoScript-indstillingerne og stedtilladelserne nulstilles til deres standardværdier med det samme.\nHandlingen kan ikke fortrydes.\nVil du fortsætte?",
+        "message": "VISI NoScript nustatymai ir svetainių leidimai bus atstatyti į numatytąsias reikšmes nedelsiant.\nŠio veiksmo atšaukti neįmanoma.\nAr norite tęsti?",
         "description": ""
     },
     "siteInfo_confirm": {
-        "message": "Du er ved at efterspørge information om \"$1\"-stedet\nved indsendelse af en forespørgsel til $2.\nVil du fortsætte?",
+        "message": "Jūs ketinate prašyti informacijos apie \"$1\" tinklalapį\npateikdami užklausą į $2.\nAr norite tęsti?",
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Midterklik eller skift+klik for information om stedet...",
+        "message": "Svetainės informacijai pamatyti spauskite shift+pelės paspaudimas arba viduriniu pelės klavišo paspaudimu....",
         "description": ""
     },
     "sponsor_tip": {
-        "message": "Besøg sponsorens hjemmeside",
+        "message": "Aplankyti rėmėjo namų puslapį",
         "description": ""
     },
     "unsafeReload_warning": {
-        "message": "Genindlæser på USIKKER vis en mistænkelig\n\n$1 [$2]\n\nFRA [$3]\n\nNoScript beskytter IKKE anmodningen!\n",
+        "message": "NESAUGIAI perkraunama įtartina\n\n$1 [$2]\n\nIŠ [$3]\n\nNoScript NEAPSAUGOS šios užklausos!\n",
         "description": ""
     },
     "untrustedOrigin": {
-        "message": "en utroværdig oprindelse",
+        "message": "nepatikima prigimtis",
         "description": ""
     },
     "version": {
-        "message": "Version $1",
+        "message": "$1 versija",
         "description": ""
     },
     "versionShort": {
