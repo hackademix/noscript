@@ -34,6 +34,8 @@
       await ns.savePolicy();
     }
 
+    Sites.onionSecure = ns.local.isTorBrowser;
+
     await RequestGuard.start();
     await XSS.start(); // we must start it anyway to initialize sub-objects
     if (!ns.sync.xss) {

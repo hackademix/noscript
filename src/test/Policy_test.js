@@ -13,7 +13,9 @@
   let p2 = new Policy(p1.dry());
   debug("p1", JSON.stringify(p1.dry()));
   debug("p2", JSON.stringify(p2.dry()));
-
+  let onionSecureCurrent = Sites.onionSecure;
+  Sites.onionSecure = true;
+  p1.set("http://some.onion", p1.TRUSTED);
   for(let t of [
     () => p2.can("https://noscript.net"),
     () => !p2.can("http://noscript.net"),
@@ -29,7 +31,8 @@
     () => !p1.can("https://192.168.69.1"),
     () => !p1.can("https://10.0.0.1"),
     () => p1.can("http://192.168.1.2"),
+    () => p1.can("http://some.onion")
   ]) Test.run(t);
-
+  Sites.onionSecure = onionSecureCurrent;
   Test.report();
 }
