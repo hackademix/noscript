@@ -1,6 +1,7 @@
 "use strict";
 (() => {
-  let ENDPOINT_PREFIX = `https://sync-messages.invalid/${browser.extension.getURL("")}?`;
+  //let ENDPOINT_PREFIX = `https://sync-messages.invalid/${browser.extension.getURL("")}?`;
+  let ENDPOINT_PREFIX = `https://255.255.255.255/${browser.extension.getURL("")}?`;
   let MOZILLA = "mozSystem" in XMLHttpRequest.prototype;
 
   if (browser.webRequest) {
