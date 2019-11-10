@@ -10,9 +10,6 @@
     // shims for non-Mozilla browsers
     if (typeof chrome === "object" && !chrome.tabs) {
       // content script shims
-      if (typeof exportFunction === "undefined") {
-        window.exportFunction = () => {};
-      }
     }
   }
 

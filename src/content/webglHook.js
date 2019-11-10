@@ -1,4 +1,4 @@
-ns.on("capabilities", event => {
+if (typeof exportFunction === "function") ns.on("capabilities", event => {
   debug("WebGL Hook", document.URL, document.documentElement && document.documentElement.innerHTML, ns.capabilities); // DEV_ONLY
   if (ns.allows("webgl")) return;
 
