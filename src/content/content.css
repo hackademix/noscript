@@ -11,12 +11,16 @@ a.__NoScript_PlaceHolder__ {
   z-index: 2147483647 !important;
 }
 
+.__ns__pop2top {
+  z-index: 2147483647 !important;
+}
+
 a.__NoScript_PlaceHolder__:hover {
   opacity: 1;
   text-decoration: underline;
 }
 
-a.__NoScript_PlaceHolder__.closing {
+a.__NoScript_PlaceHolder__.__ns__closing {
   transition: .4s all;
   opacity: 0;
   transform: scale(0, 0);
@@ -70,7 +74,7 @@ a.__NoScript_PlaceHolder__ > span {
 .__NoScript_PlaceHolder__:hover > span > span {
   background: rgba(255, 250, 200, .8)
 }
-a.__NoScript_PlaceHolder__.document {
+a.__NoScript_PlaceHolder__.__ns__document {
   position: fixed !important;
   top: 0 !important;
   bottom: 0 !important;

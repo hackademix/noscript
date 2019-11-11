@@ -135,7 +135,7 @@ var PlaceHolder = (() => {
       let setImage = () => replacement.style.backgroundImage = `url(${ICON_URL})`;
 
       if (ns.embeddingDocument) {
-        replacement.classList.add("document");
+        replacement.classList.add("__ns__document");
         window.stop();
         setTimeout(setImage, 0); // defer to bypass window.stop();
       } else {
@@ -160,8 +160,13 @@ var PlaceHolder = (() => {
       replacement._placeHolderObj = this;
       replacement._placeHolderElement = element;
 
-
       element.replaceWith(replacement);
+
+      // do our best to bring it to front
+      for (let p = replacement; p = p.parentElement;) {
+        p.classList.add("__ns__pop2top");
+      };
+
       this.replacements.add(replacement);
     }
 
@@ -195,9 +200,14 @@ var PlaceHolder = (() => {
     }
 
     close(replacement) {
-      replacement.classList.add("closing");
+      replacement.classList.add("__ns__closing");
       this.replacements.delete(replacement);
-      window.setTimeout(() => replacement.remove(), 500);
+      window.setTimeout(() => {
+        for (let p = replacement; p = p.parentElement;) {
+          p.classList.remove("__ns__pop2top");
+        };
+        replacement.remove()
+      }, 500);
     }
   }
 
