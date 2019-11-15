@@ -83,7 +83,7 @@ var Settings = {
       reloadAffected,
       isTorBrowser,
     } = settings;
-
+    debug("Received settings ", settings);
     let oldDebug = ns.local.debug;
 
     let reloadOptionsUI = false;
