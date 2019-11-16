@@ -67,8 +67,22 @@
 
       let originalState = document.readyState;
       let blockedScripts = [];
+      let localPolicyKey, localPolicy;
+      if (UA.isMozilla && /^(?:ftp|file):/.test(url)) {
 
-      if (/^(?:ftp|file):/.test(url)) {
+        localPolicyKey = `ns.policy.${url}|${browser.runtime.getURL("")}`;
+        let localPolicy = sessionStorage.getItem(localPolicyKey);
+        sessionStorage.removeItem(localPolicyKey);
+        if (localPolicy) {
+          debug("Falling back to localPolicy", localPolicy);
+          try {
+            this.setup(JSON.parse(localPolicy));
+            return;
+          } catch(e) {
+            error(e, "Could not setup local policy", localPolicy);
+          }
+        }
+
         addEventListener("beforescriptexecute", e => {
           // safety net for synchronous loads on Firefox
           if (!this.canScript) {
@@ -86,8 +100,14 @@
         debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
         this.setup(policy);
         if (this.canScript && blockedScripts.length && originalState === "loading") {
-          log("Running suspended scripts which are permitted by %s policy.", url)
+          log("Running suspended scripts which are permitted by %s policy.", url);
           // something went wrong, e.g. with session restore.
+          if (url.startsWith("file:") && !localPolicy) {
+            stop();
+            sessionStorage.setItem(localPolicyKey, JSON.stringify(policy));
+            location.reload(false);
+            return;
+          }
           for (let s of blockedScripts) {
             // reinsert the script:
             // just s.cloneNode(true) doesn't work, the script wouldn't run,
