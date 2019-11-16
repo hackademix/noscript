@@ -67,16 +67,24 @@ if ("MediaSource" in window) {
 
   } else if ("SecurityPolicyViolationEvent" in window) {
     // Chromium
+    let createPlaceholders = () => {
+      let request = notify(false);
+      for (let me of document.querySelectorAll("video,audio")) {
+        if (!(me.src || me.currentSrc) || me.src.startsWith("blob")) {
+          createPlaceholder(me, request);
+        }
+      }
+    }
+    let processedURIs = new Set();
+    let whenReady = false;
     addEventListener("securitypolicyviolation", e => {
       if (!e.isTrusted || ns.allows("media")) return;
       let {blockedURI, violatedDirective} = e;
-      if (blockedURI.startsWith("blob") && violatedDirective.startsWith("media-src")) {
-        let request = notify(false);
-        for (let me of document.querySelectorAll("video,audio")) {
-          if (!(me.src || me.currentSrc) || me.src.startsWith("blob")) {
-            createPlaceholder(me, request);
-          }
-        }
+      if (blockedURI.startsWith("blob") &&
+          violatedDirective.startsWith("media-src") &&
+          !processedURIs.has(blockedURI)) {
+        processedURIs.add(blockedURI);
+        setTimeout(createPlaceholders, 0);
       }
     }, true);
   }
