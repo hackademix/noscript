@@ -10,7 +10,7 @@ class DocumentCSP {
     let {document} = this;
     if (!(document instanceof HTMLDocument)) {
       // this is not HTML, hence we cannot inject a <meta> CSP
-      if (!capabilites.has("script")) {
+      if (!capabilities.has("script")) {
         // safety net for XML (especially SVG) documents
         document.defaultView.addEventListener("beforescriptexecute",
           e => e.preventDefault(), true);
