@@ -181,7 +181,7 @@
     "message": "Enable restrictions for this tab"
   },
   "HighContrast": {
-    "message": "High contrast appearance"
+    "message": "High contrast"
   },
   "httpsOnly": {
     "message": "Match HTTPS content only"
