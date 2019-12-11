@@ -54,19 +54,23 @@
   };
 
   let Commands = {
-    openPageUI() {
+    async openPageUI() {
+      if (ns.popupOpening) return;
+      ns.popupOpening = true;
+      ns.popupOpened = false;
+      let openPanel = async () => {
+        ns.popupOpening = false;
+        if (ns.popupOpened) return;
+        messageHandler.openStandalonePopup();
+      };
       try {
-        browser.browserAction.openPopup();
+        await browser.browserAction.openPopup();
+        setTimeout(openPanel, 500);
         return;
       } catch (e) {
+        openPanel();
         debug(e);
       }
-      browser.windows.create({
-        url: popupURL,
-        width: 800,
-        height: 600,
-        type: "panel"
-      });
     },
 
     togglePermissions() {},

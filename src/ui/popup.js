@@ -43,10 +43,9 @@ addEventListener("unload", e => {
       tabId = tab.id;
     }
 
-
+    let port = browser.runtime.connect({name: "noscript.popup"});
     await UI.init(tabId);
 
-    let port = browser.runtime.connect({name: "noscript.popup"})
     function pendingReload(b) {
       try {
         port.postMessage({tabId, pendingReload: b});

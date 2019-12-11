@@ -1,5 +1,6 @@
 browser.runtime.onConnect.addListener(port => {
   if (port.name === "noscript.popup") {
+    ns.popupOpened = true;
     let pendingReload = false;
     let tabId = -1;
     port.onMessage.addListener(m => {
@@ -9,6 +10,7 @@ browser.runtime.onConnect.addListener(port => {
       }
     });
     port.onDisconnect.addListener(() => {
+      ns.popupOpened = false;
       if (pendingReload) {
         browser.tabs.reload(tabId);
       }
