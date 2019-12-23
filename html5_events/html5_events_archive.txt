@@ -264,7 +264,6 @@ onDOMWindowFocus
 onFullZoomChange
 onGloballyAutoplayBlocked
 onHiddenPlugin
-onImageContentLoaded
 onMozApplicationManifest
 onMozDOMFullscreen_Entered
 onMozDOMFullscreen_Exit
@@ -356,6 +355,7 @@ onupdate
 onupdateend
 onaddsourcebuffer
 onremovesourcebuffer
+onImageContentLoaded
 ona2dpstatuschanged
 onactivestatechanged
 onadapteradded
