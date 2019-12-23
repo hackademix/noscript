@@ -252,12 +252,35 @@
       url += `&msg=${encodeURIComponent(JSON.stringify(msg))}`; // adding the payload
       let r = new XMLHttpRequest();
       let result;
-      try {
-        r.open("GET", url, false);
-        r.send(null);
-        result = JSON.parse(r.responseText);
-      } catch(e) {
-        console.error(`syncMessage error in ${document.URL}: ${e.message} (response ${r.responseText})`);
+      let key = `${ENDPOINT_PREFIX}`;
+      let reloaded = sessionStorage.getItem(key) === "reloaded";
+      if (reloaded) {
+        sessionStorage.removeItem(key);
+        console.log("Syncmessage attempt aftert reloading page.");
+      }
+      for (let attempts = 3; attempts-- > 0;) {
+        try {
+          r.open("GET", url, false);
+          r.send(null);
+          result = JSON.parse(r.responseText);
+          break;
+        } catch(e) {
+          console.error(`syncMessage error in ${document.URL}: ${e.message} (response ${r.responseText}, remaining attempts ${attempts})`);
+          if (attempts === 0) {
+            if (reloaded) {
+              console.log("Already reloaded, giving up.")
+              break;
+            }
+            sessionStorage.setItem(key, "reloaded");
+            if (sessionStorage.getItem(key)) {
+              stop();
+              location.reload();
+              return {};
+            } else {
+              console.error(`Cannot set sessionStorage item ${key}`);
+            }
+          }
+        }
       }
       if (callback) callback(result);
       return result;
