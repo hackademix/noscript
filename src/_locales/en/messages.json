@@ -567,6 +567,9 @@
   "cap_fetch": {
     "message": "fetch"
   },
+  "cap_ping": {
+    "message": "ping"
+  },
   "cap_other": {
     "message": "other"
   },

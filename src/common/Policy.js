@@ -274,7 +274,7 @@ var {Permissions, Policy, Sites} = (() => {
 
   }
 
-  Permissions.ALL = ["script", "object", "media", "frame", "font", "webgl", "fetch", "other"];
+  Permissions.ALL = ["script", "object", "media", "frame", "font", "webgl", "fetch", "ping", "other"];
   Permissions.IMMUTABLE = {
     UNTRUSTED: {
       "script": false,
@@ -282,6 +282,7 @@ var {Permissions, Policy, Sites} = (() => {
       "webgl": false,
       "fetch": false,
       "other": false,
+      "ping": false,
     },
     TRUSTED: {
       "script": true,
