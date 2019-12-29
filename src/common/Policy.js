@@ -329,8 +329,12 @@ var {Permissions, Policy, Sites} = (() => {
     if (typeof dry.sites === "object" && !(dry.sites instanceof Sites)) {
       let {trusted, untrusted, temp, custom} = dry.sites;
       let sites = Sites.hydrate(custom);
-      for (let key of trusted) sites.set(key, options.TRUSTED);
-      for (let key of untrusted) sites.set(key, options.UNTRUSTED);
+      for (let key of trusted) {
+        sites.set(key, options.TRUSTED);
+      }
+      for (let key of untrusted) {
+        sites.set(Sites.toggleSecureDomainKey(key, false), options.UNTRUSTED);
+      }
       if (temp) {
         let tempPreset = options.TRUSTED.tempTwin;
         for (let key of temp) sites.set(key, tempPreset);
@@ -427,7 +431,7 @@ var {Permissions, Policy, Sites} = (() => {
 
       if (perms === this.UNTRUSTED) {
         cascade = true;
-        Sites.toggleSecureDomainKey(siteKey, false);
+        siteKey = Sites.toggleSecureDomainKey(siteKey, false);
       }
       if (cascade && !url) {
         for (let subMatch; (subMatch = sites.match(siteKey));) {
