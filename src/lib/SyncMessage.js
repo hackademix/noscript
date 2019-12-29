@@ -253,10 +253,16 @@
       let r = new XMLHttpRequest();
       let result;
       let key = `${ENDPOINT_PREFIX}`;
-      let reloaded = sessionStorage.getItem(key) === "reloaded";
-      if (reloaded) {
-        sessionStorage.removeItem(key);
-        console.log("Syncmessage attempt aftert reloading page.");
+      let reloaded;
+      try {
+        reloaded = sessionStorage.getItem(key) === "reloaded";
+        if (reloaded) {
+          sessionStorage.removeItem(key);
+          console.log("Syncmessage attempt aftert reloading page.");
+        }
+      } catch (e) {
+        // we can't access sessionStorage: let's act as we've already reloaded
+        reloaded = true;
       }
       for (let attempts = 3; attempts-- > 0;) {
         try {
@@ -268,7 +274,7 @@
           console.error(`syncMessage error in ${document.URL}: ${e.message} (response ${r.responseText}, remaining attempts ${attempts})`);
           if (attempts === 0) {
             if (reloaded) {
-              console.log("Already reloaded, giving up.")
+              console.log("Already reloaded or no sessionStorage, giving up.")
               break;
             }
             sessionStorage.setItem(key, "reloaded");
