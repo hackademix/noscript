@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Високо-контрастен изглед",
+        "message": "Висок контраст",
         "description": ""
     },
     "httpsOnly": {
@@ -749,6 +749,10 @@
     },
     "cap_fetch": {
         "message": "пренос",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "пинг",
         "description": ""
     },
     "cap_other": {

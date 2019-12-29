@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Udseende med høj kontrast",
+        "message": "Høj kontrast",
         "description": ""
     },
     "httpsOnly": {
@@ -749,6 +749,10 @@
     },
     "cap_fetch": {
         "message": "fetch",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {

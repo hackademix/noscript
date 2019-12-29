@@ -751,6 +751,10 @@
         "message": "obtenir",
         "description": ""
     },
+    "cap_ping": {
+        "message": "ping",
+        "description": ""
+    },
     "cap_other": {
         "message": "autre",
         "description": ""
