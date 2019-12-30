@@ -71,7 +71,11 @@
       let button = e.target;
       button.disabled = true;
       let settings = await UI.exportSettings();
-      let f = document.createElement("iframe");
+      let id = "noscriptExportFrame";
+      let f = document.getElementById(id);
+      if (f) f.remove();
+      f = document.createElement("iframe");
+      f.id = id;
       f.srcdoc = `<a download="noscript_data.txt" target="_blank">NoScript Export</a>`;
       f.style.position = "fixed";
       f.style.top = "-999px";
@@ -84,7 +88,6 @@
         }));
         a.click();
         setTimeout(() => {
-          f.remove();
           button.disabled = false;
         }, 1000);
 
