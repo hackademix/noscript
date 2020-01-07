@@ -263,6 +263,15 @@ var RequestGuard = (() => {
     return redirected;
   }
 
+  let normalizeRequest = UA.isMozilla ? () => {} : request => {
+    if ("initiator" in request && !("originUrl" in request)) {
+      request.originUrl = request.initiator;
+      if (request.type !== "main_frame" && !("documentUrl" in request)) {
+        request.documentUrl = request.initiator;
+      }
+    }
+  };
+
   function intersectCapabilities(perms, request) {
     let {frameId, frameAncestors, tabId} = request;
     if (frameId !== 0 && ns.sync.cascadeRestrictions) {
@@ -282,6 +291,7 @@ var RequestGuard = (() => {
   const ABORT = {cancel: true}, ALLOW = {};
   const listeners = {
     onBeforeRequest(request) {
+      normalizeRequest(request);
       try {
         let redirected = initPendingRequest(request);
         let {policy} = ns;
@@ -328,6 +338,7 @@ var RequestGuard = (() => {
       return ALLOW;
     },
     onHeadersReceived(request) {
+      normalizeRequest(request);
       let result = ALLOW;
       let promises = [];
       // called for main_frame, sub_frame and object
@@ -386,6 +397,7 @@ var RequestGuard = (() => {
       return result;
     },
     onResponseStarted(request) {
+      normalizeRequest(request);
       debug("onResponseStarted", request);
       let {requestId, url, tabId, frameId, type} = request;
       if (type === "main_frame") {
