@@ -257,7 +257,7 @@ var RequestGuard = (() => {
     let redirected = pendingRequests.get(requestId);
     let initialUrl = redirected ? redirected.initialUrl : url;
     pendingRequests.set(requestId, {
-      url, redirected,
+      initialUrl, url, redirected,
       onCompleted: new Set(),
     });
     return redirected;
