@@ -308,7 +308,7 @@ var RequestGuard = (() => {
         let {policy} = ns;
         let policyType = policyTypesMap[request.type];
         if (policyType) {
-          let {url, originUrl, documentUrl} = request;
+          let {url, originUrl, documentUrl, tabId} = request;
           let isFetch = "fetch" === policyType;
 
           if ((isFetch || "frame" === policyType) &&
@@ -329,13 +329,23 @@ var RequestGuard = (() => {
             request._dataUrl = url;
             request.url = url = documentUrl;
           }
-          let allowed = Sites.isInternal(url) ||
-            !ns.isEnforced(request.tabId) ||
-            intersectCapabilities(
+
+          let allowed = Sites.isInternal(url);
+          if (!allowed) {
+            if (tabId < 0 && documentUrl && documentUrl.startsWith("https://")) {
+              let origin = Sites.origin(documentUrl);
+              allowed = [...ns.unrestrictedTabs]
+                .some(tabId => TabStatus.hasOrigin(tabId, origin));
+            } else {
+              allowed = !ns.isEnforced(tabId);
+            }
+            if (!allowed) {
+              allowed = intersectCapabilities(
                 policy.get(url, documentUrl).perms,
                 request
               ).has(policyType);
-
+            }
+          }
           Content.reportTo(request, allowed, policyType);
           if (!allowed) {
             debug(`Blocking ${policyType}`, request);
