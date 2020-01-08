@@ -32,7 +32,19 @@ var seen = {
 
 Messages.addHandler({
   seen(event) {
-    let {allowed, policyType, request, ownFrame} = event;
+    let {allowed, policyType, request, ownFrame, serviceWorker} = event;
+    if (serviceWorker) {
+      for (let e of seen.list) {
+        let {request} = e;
+        if (e.serviceWorker === serviceWorker ||
+            (request.type === "main_frame" || request.type === "sub_frame") &&
+             new URL(request.url).origin === serviceWorker) {
+          seen.record(event);
+          break;
+        }
+      }
+      return;
+    }
     if (window.top === window) {
       seen.record(event);
     }

@@ -228,7 +228,18 @@ var RequestGuard = (() => {
           key: Policy.requestKey(url, type, documentUrl || "", /^(media|object|frame)$/.test(type)),
           type, url, documentUrl, originUrl
       };
-      if (tabId < 0) return;
+      if (tabId < 0) {
+        if (type === "script" && url.startsWith("https://") && documentUrl && documentUrl.startsWith("https://")) {
+          // service worker / importScripts()?
+          let payload = {request, allowed, policyType, serviceWorker: Sites.origin(documentUrl)};
+          let recipient = {frameId: 0};
+          for (let tab of await browser.tabs.query({url: ["http://*/*", "https://*/*"]})) {
+            recipient.tabId = tab.id;
+            Messages.send("seen", payload, recipient);
+          }
+        }
+        return;
+      }
       if (pending) request.initialUrl = pending.initialUrl;
       if (type !== "sub_frame") { // we couldn't deliver it to frameId, since it's generally not loaded yet
         try {
