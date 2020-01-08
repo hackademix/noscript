@@ -33,7 +33,12 @@ var RequestGuard = (() => {
         allowed: {},
         blocked: {},
         noscriptFrames: {},
+        origins: new Set(),
       }
+    },
+    hasOrigin(tabId, origin) {
+      let records = this.map.get(tabId);
+      return records && records.origins.has(origin);
     },
     initTab(tabId, records = this.newRecords()) {
       if (tabId < 0) return;
@@ -45,12 +50,7 @@ var RequestGuard = (() => {
       let policyType = policyTypesMap[type] || type;
       let requestKey = Policy.requestKey(url, policyType, documentUrl);
       let map = this.map;
-      let records;
-      if (map.has(tabId)) {
-        records = map.get(tabId);
-      } else {
-        records = this.initTab(tabId);
-      }
+      let records = map.has(tabId) ?  map.get(tabId) : this.initTab(tabId);
       if (what === "noscriptFrame" && type !== "object") {
         let nsf = records.noscriptFrames;
         nsf[frameId] = optValue;
@@ -59,6 +59,9 @@ var RequestGuard = (() => {
           request.type = type = "main_frame";
           Content.reportTo(request, optValue, type);
         }
+      }
+      if (type.endsWith("frame")) {
+        records.origins.add(Sites.origin(url));
       }
       let collection = records[what];
       if (collection) {
@@ -124,9 +127,6 @@ var RequestGuard = (() => {
             _("BlockedItems", [numBlocked, numAllowed + numBlocked]) + ` \n${report}`
             : _("NotEnforced")}`
       });
-    },
-    totalize(sum, value) {
-      return sum + value;
     },
     async probe(tabId) {
       if (tabId === undefined) {
