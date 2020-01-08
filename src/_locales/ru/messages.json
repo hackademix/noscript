@@ -752,7 +752,7 @@
         "description": ""
     },
     "cap_ping": {
-        "message": "ping",
+        "message": "пинг",
         "description": ""
     },
     "cap_other": {
