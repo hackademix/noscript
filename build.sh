@@ -75,7 +75,8 @@ cp -pR "$SRC" "$BUILD"
 cp -p LICENSE.txt GPL.txt "$BUILD"/
 
 BUILD_CMD="web-ext"
-BUILD_OPTS="build"
+BUILD_OPTS="build --overwrite-dest"
+CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 
 if [[ $VER == *rc* ]]; then
   sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
@@ -114,7 +115,7 @@ else
   WEBEXT_OUT="$XPI_DIR"
 fi
 
-COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js --overwrite-dest"
+COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js"
 
 "$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
@@ -133,5 +134,9 @@ ln -fs $XPI.xpi "$BASE/latest.xpi"
 # create chromium pre-release
 rm -rf "$CHROMIUM"
 strip_rc_ver "$MANIFEST_OUT"
+# skip "application" manifest key
+(grep -B1000 '"name": "NoScript"' "$MANIFEST_OUT"; \
+  grep -A2000 '"version":' "$MANIFEST_OUT") > "$MANIFEST_OUT".tmp && \
+  mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT"
 mv "$BUILD" "$CHROMIUM"
-web-ext build --source-dir="$CHROMIUM" --artifacts-dir="$WEBEXT_OUT" --ignore-files=test/XSS_test.js $COMMON_BUILD_OPTS
+web-ext $CHROMIUM_BUILD_OPTS --source-dir="$CHROMIUM" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
