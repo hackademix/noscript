@@ -1,7 +1,7 @@
 "use strict";
 (() => {
-  //let ENDPOINT_PREFIX = `https://sync-messages.invalid/${browser.extension.getURL("")}?`;
-  let ENDPOINT_PREFIX = `https://255.255.255.255/${browser.extension.getURL("")}?`;
+  let ENDPOINT_ORIGIN = "https://255.255.255.255";
+  let ENDPOINT_PREFIX = `${ENDPOINT_ORIGIN}/${browser.extension.getURL("")}?`;
   let MOZILLA = "mozSystem" in XMLHttpRequest.prototype;
 
   if (browser.webRequest) {
@@ -45,8 +45,7 @@
       let {TAB_ID_NONE} = browser.tabs;
 
 
-      let obrListener = request => {
-        try {
+      let onBeforeRequest = request => { try {
         let {url, tabId} = request;
         let params = new URLSearchParams(url.split("?")[1]);
         let msgId = params.get("id");
@@ -122,6 +121,20 @@
         return CANCEL;
       } };
 
+      let onHeaderReceived = request => {
+        let replaced = "";
+        let {responseHeaders} = request;
+        for (let h of request.responseHeaders) {
+          if (h.name === "feature-policy") {
+            h.value = h.value.replace(/\b(sync-xhr\s+)([^*][^;]*)/g,
+              (all, m1, m2) => replaced =
+                `${m1}${m2.replace(/'none'/, '')} 'self'`
+            );
+          }
+        }
+        return replaced ? {responseHeaders} : null;
+      };
+
       let ret = r => ({redirectUrl:  `data:application/json,${JSON.stringify(r)}`})
       let asyncRet = msgId => {
         let result = asyncResults.get(msgId);
@@ -148,17 +161,27 @@
         addListener(l) {
           listeners.add(l);
           if (listeners.size === 1) {
-            browser.webRequest.onBeforeRequest.addListener(obrListener,
-              {urls: [`${ENDPOINT_PREFIX}*`],
-                types: ["xmlhttprequest"]},
+            browser.webRequest.onBeforeRequest.addListener(onBeforeRequest,
+              {
+                urls: [`${ENDPOINT_PREFIX}*`],
+                types: ["xmlhttprequest"]
+              },
               ["blocking"]
+            );
+            browser.webRequest.onHeadersReceived.addListener(onHeaderReceived,
+              {
+                urls: ["<all_urls>"],
+                types: ["main_frame", "sub_frame"]
+              },
+              ["blocking", "responseHeaders"]
             );
           }
         },
         removeListener(l) {
           listeners.remove(l);
           if (listeners.size === 0) {
-            browser.webRequest.onBeforeRequest.removeListener(obrListener);
+            browser.webRequest.onBeforeRequest.removeListener(onBeforeRequest);
+            browser.webRequest.onHeadersReceived.removeListener(onHeadersReceived);
           }
         },
         hasListener(l) {
