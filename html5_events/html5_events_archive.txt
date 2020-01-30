@@ -13,6 +13,7 @@ onaudioprocess
 onauxclick
 onbeforecopy
 onbeforecut
+onbeforeinput
 onbeforepaste
 onbeforeprint
 onbeforescriptexecute
