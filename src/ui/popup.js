@@ -1,7 +1,7 @@
 'use strict';
 
 var sitesUI;
-
+var port;
 addEventListener("unload", e => {
   if (!UI.initialized) {
     Messages.send("openStandalonePopup");
@@ -43,7 +43,7 @@ addEventListener("unload", e => {
       tabId = tab.id;
     }
 
-    let port = browser.runtime.connect({name: "noscript.popup"});
+    port = browser.runtime.connect({name: "noscript.popup"});
     await UI.init(tabId);
 
     function pendingReload(b) {
@@ -272,6 +272,7 @@ addEventListener("unload", e => {
     });
     addEventListener("blur", e => {
       onCompleted.removeListener(onCompletedListener);
+      port.disconnect(); // otherwise Vivaldi keeps it after closing
     });
   } catch (e) {
     error(e, "Can't open popup");
