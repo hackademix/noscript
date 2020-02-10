@@ -60,7 +60,7 @@ var XSS = (() => {
       error(e, "XSS filter processing %o", xssReq);
       if (e instanceof TimingException) {
         // we don't want prompts if the request expired / errored first
-        return;
+        return ABORT;
       }
       reasons = { urlInjection: true };
       data = [e.toString()];
