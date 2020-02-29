@@ -890,14 +890,14 @@ XSS.InjectionChecker = (async () => {
     async checkBase64(url) {
       this.base64 = false;
 
-      this.log(url);
+      let hashPos = url.indexOf("#");
+      if (hashPos !== -1) {
+        if (await this.checkBase64FragEx(unescape(url.substring(hashPos + 1))))
+          return true;
+        url = url.substring(0, hashPos);
+      }
 
-
-      var parts = url.split("#"); // check hash
-      if (parts.length > 1 && await this.checkBase64FragEx(unescape(parts[1])))
-        return true;
-
-      parts = parts[0].split(/[&;]/); // check query string
+      let parts = url.substring(0, hashPos).split(/[&;]/); // check query string
       for (let p of parts) {
         var pos = p.indexOf("=");
         if (pos > -1) p = p.substring(pos + 1);
