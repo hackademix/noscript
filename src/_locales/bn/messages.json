@@ -1,0 +1,906 @@
+{
+    "Add": {
+        "message": "যোগ করুন",
+        "description": ""
+    },
+    "Add_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AdditionalPermissions": {
+        "message": "বিশ্বস্ত সাইটের জন্য বাড়তি নিয়ম",
+        "description": ""
+    },
+    "AdditionalRestrictions": {
+        "message": "অবিশ্বস্ত সাইটের জন্য বাড়তি নিষেধাজ্ঞা",
+        "description": ""
+    },
+    "SectionAdvanced": {
+        "message": "অ্যাডভান্সড",
+        "description": ""
+    },
+    "Allow": {
+        "message": "চলবে",
+        "description": ""
+    },
+    "Allow_accesskey": {
+        "message": "L",
+        "description": ""
+    },
+    "AllowBookmarks": {
+        "message": "বুকমার্ক থেকে খোলা সাইট চলবে",
+        "description": ""
+    },
+    "AllowClipboard": {
+        "message": "বাহ্যিক ক্লিপবোর্ড থেকে রিচ টেক্সট কপি ও পেস্ট করা যাবে",
+        "description": ""
+    },
+    "AllowLocalLinks": {
+        "message": "লোকাল লিঙ্ক চলবে",
+        "description": ""
+    },
+    "AllowPage": {
+        "message": "এই পেইজের সব চলবে",
+        "description": ""
+    },
+    "AllowPage_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AllowPing": {
+        "message": "<PING…> করা যাবে",
+        "description": ""
+    },
+    "AllowViaBookmarks": {
+        "message": "বুকমার্ক থেকে খোলা সাইট চলবে",
+        "description": ""
+    },
+    "AlwaysBlockUntrustedContent": {
+        "message": "অবিশ্বস্ত হিসাবে চিহ্নিত সাইট থেকে আসা সব অবজেক্ট আটকে দেয়া হবে",
+        "description": ""
+    },
+    "SectionAppearance": {
+        "message": "রূপ",
+        "description": ""
+    },
+    "AutoAllowTopLevel": {
+        "message": "সর্বোচ্চ স্তরের সব সাইটকে সাময়িকভাবে বিশ্বস্ত ভাবা হবে",
+        "description": ""
+    },
+    "AutoReload": {
+        "message": "অনুমতি বদলে গেলে প্রভাবিত সব পেইজ নিজে থেকেই রিলোড হবে",
+        "description": ""
+    },
+    "AutoReload_currentTab": {
+        "message": "কেবল কার্যরত ট্যাবটিই রিলোড হবে",
+        "description": ""
+    },
+    "BaseDom": {
+        "message": "২য় স্তরের ডোমেইন (noscript.net)",
+        "description": ""
+    },
+    "BlockedItems": {
+        "message": " $2-এর মধ্যে $1টি আইটেম আটকে দেয়া হয়েছে।",
+        "description": ""
+    },
+    "BlockedObjects": {
+        "message": "নোস্ক্রিপ্টের আটকে দেয়া অবজেক্ট",
+        "description": ""
+    },
+    "BookmarkSync": {
+        "message": "সিংক্রোনাইজ করার সুবিধার্থে বুকমার্কে নোস্ক্রিপ্টের কনফিগারেশনের ব্যাকআপ থাকুক",
+        "description": ""
+    },
+    "Cancel": {
+        "message": "বাতিল",
+        "description": ""
+    },
+    "CascadePermissions": {
+        "message": "সর্বোচ্চ ডকুমেন্টের সব অনুমতি ৩য় পক্ষের স্ক্রিপ্টেও প্রযোজ্য হবে",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "সর্বোচ্চ ডকুমেন্টের সব অনুমতি সাবডুকমেন্টেও প্রযোজ্য হবে",
+        "description": ""
+    },
+    "ClearClickDescription": {
+        "message": "পেইজের আংশিকভাবে লুকনো কোনো অংশের সাথে মাউস বা কীবোর্ডের তথ্য বিনিময় নোস্ক্রিপ্টে ধরা পড়েছে। আড়ালে-থাকা আর স্পষ্ট―দুটি অবস্থাই দেখতে নিচের ছবিতে ক্লিক করুন।",
+        "description": ""
+    },
+    "ClearClickHeader": {
+        "message": "ক্লিকজ্যাকিং / ইউআই রিড্রেসিংয়ের সম্ভাব্য প্রচেষ্টা!",
+        "description": ""
+    },
+    "ClearClickOpt": {
+        "message": "ক্লিয়ারক্লিকের সুরক্ষা থাকবে যে ধরনের পেইজে :",
+        "description": ""
+    },
+    "ClearClickReport": {
+        "message": "অভিযোগ",
+        "description": ""
+    },
+    "ClearClickReport_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "ClearClickReportId": {
+        "message": "অভিযোগের আইডি :",
+        "description": ""
+    },
+    "ClearClickTitle": {
+        "message": "ক্লিয়ারক্লিকের হুঁশিয়ারি",
+        "description": ""
+    },
+    "Close": {
+        "message": "বন্ধ",
+        "description": ""
+    },
+    "CollapseBlockedObjects": {
+        "message": "আটকে দেয়া অবজেক্ট কোলাপ্স করা থাকবে",
+        "description": ""
+    },
+    "ConfirmUnblock": {
+        "message": "আটকে দেয়া অবজেক্টকে সাময়িকভাবে চলতে দেবার আগে নিশ্চিত হয়ে নেয়া হবে",
+        "description": ""
+    },
+    "ContentBlocker": {
+        "message": "সাদাতালিকাভুক্ত সাইটেও এসব নিষেধাজ্ঞা প্রযোজ্য হবে",
+        "description": ""
+    },
+    "CtxMenu": {
+        "message": "কন্টেক্সচুয়াল মেনু",
+        "description": ""
+    },
+    "Custom": {
+        "message": "কাস্টম",
+        "description": ""
+    },
+    "CustomizePresets": {
+        "message": "কাস্টম পিস্রেট ঠিক করা (প্রিসেট একই যেসব সাইটে)",
+        "description": ""
+    },
+    "Default": {
+        "message": "ডিফল্ট",
+        "description": ""
+    },
+    "DefaultPolicies": {
+        "message": "ডিফল্ট নীতিমালা",
+        "description": ""
+    },
+    "Description": {
+        "message": "ব্রাউজারের জন্য সর্বোচ্চ সুরক্ষা : নোস্ক্রিপ্ট আপনার বিশ্বস্ত চিহ্নিত ডোমেইনগুলোর সক্রিয় কন্টেন্টকেই শুধু চলতে দেয়, যেন কেউ পরিস্থিতির সুযোগ নিতে না পারে।",
+        "description": ""
+    },
+    "Donate": {
+        "message": "দান",
+        "description": ""
+    },
+    "Donate_accesskey": {
+        "message": "O",
+        "description": ""
+    },
+    "Embeddings": {
+        "message": "এম্বেডিং",
+        "description": ""
+    },
+    "Exceptions": {
+        "message": "ব্যতিক্রম…",
+        "description": ""
+    },
+    "Export": {
+        "message": "এক্সপোর্ট",
+        "description": ""
+    },
+    "Export_accesskey": {
+        "message": "E",
+        "description": ""
+    },
+    "FixLinks": {
+        "message": "জাভাস্ক্রিপ্টের লিঙ্ক ঠিক করার চেষ্টা করা হবে",
+        "description": ""
+    },
+    "Hider": {
+        "message": "এখানে রাখলে আর দেখাবে না।",
+        "description": ""
+    },
+    "Reveal": {
+        "message": "সরিয়ে রাখা বাটন ফিরিয়ে আনতে ক্লিক করুন…",
+        "description": ""
+    },
+    "ShowFullAddresses": {
+        "message": "অনুমতির জন্য খোলা পপআপে পুরো ঠিকানা (https://www.noscript.net) দেখাবে",
+        "description": ""
+    },
+    "SectionGeneral": {
+        "message": "সাধারণ",
+        "description": ""
+    },
+    "GlobalHttpsWhitelist": {
+        "message": "HTTPS ডকুমেন্টের ক্ষেত্রে সব সাইটে (গ্লোবালভাবে) HTTPS স্ক্রিপ্ট চলবে",
+        "description": ""
+    },
+    "NotEnforced": {
+        "message": "নিষেধাজ্ঞা চালু নেই",
+        "description": ""
+    },
+    "NoEnforcement": {
+        "message": "সব সাইটের জন্য নিষেধাজ্ঞা বন্ধ করা হবে (বিপজ্জনক)",
+        "description": ""
+    },
+    "Enforce": {
+        "message": "সব সাইটে নিষেধাজ্ঞা চালু করা হবে",
+        "description": ""
+    },
+    "NoEnforcementForTab": {
+        "message": "এই ট্যাবে নিষেধাজ্ঞা বন্ধ করা হবে",
+        "description": ""
+    },
+    "EnforceForTab": {
+        "message": "এই ট্যাবে নিষেধাজ্ঞা চালু করা হবে",
+        "description": ""
+    },
+    "HighContrast": {
+        "message": "উচ্চ কসট্রাস্ট",
+        "description": ""
+    },
+    "httpsOnly": {
+        "message": "শুধু HTTPS-এর ক্ষেত্রেই মেলানো হবে",
+        "description": ""
+    },
+    "Https": {
+        "message": "HTTPS",
+        "description": ""
+    },
+    "Https_always": {
+        "message": "সর্বদাই",
+        "description": ""
+    },
+    "Https_behavior": {
+        "message": "আচরণ",
+        "description": ""
+    },
+    "Https_cookies": {
+        "message": "কুকি",
+        "description": ""
+    },
+    "Https_description": {
+        "message": "সংযোগ নিরাপদ (HTTPS) না হলে কোনো সাইট থেকে আসা সক্রিয় ওয়েব-কন্টেন্ট আটকে দেয়া হবে :",
+        "description": ""
+    },
+    "Https_never": {
+        "message": "কখনোই নয়",
+        "description": ""
+    },
+    "Https_proxy": {
+        "message": "প্রক্সি ব্যবহারের সময় (যা টরের ক্ষেত্রে করা উচিত)",
+        "description": ""
+    },
+    "HttpsFaq": {
+        "message": "HTTPS সম্পর্কে প্রশ্নোত্তর…",
+        "description": ""
+    },
+    "HttpsFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "HttpsForced": {
+        "message": "নিচের সাইটগুলোকে নিরাপদ (HTTPS) সংযোগ ব্যবহারে বাধ্য করা হবে :",
+        "description": ""
+    },
+    "HttpsForcedExceptions": {
+        "message": "নিচের সাইটগুলোকে কখনোই নিরাপদ (HTTPS) সংযোগ ব্যবহারে বাধ্য করা হবে না :",
+        "description": ""
+    },
+    "Import": {
+        "message": "ইমপোর্ট",
+        "description": ""
+    },
+    "Import_accesskey": {
+        "message": "I",
+        "description": ""
+    },
+    "KeepLocked": {
+        "message": "এই অংশটি আটকানোই থাকুক (উচিত)",
+        "description": ""
+    },
+    "MatchSample": {
+        "message": "প্যাটার্ন মেলাবার নমুনা :",
+        "description": ""
+    },
+    "Next": {
+        "message": "এর পরে",
+        "description": ""
+    },
+    "NoUntrustedPlaceholder": {
+        "message": "অবিশ্বস্ত হিসাবে জানা সাইট থেকে আসা অবজেক্টের কোনো প্লেসহোল্ডার থাকবে না",
+        "description": ""
+    },
+    "Notifications": {
+        "message": "নোটিফিকেশন",
+        "description": ""
+    },
+    "Notify": {
+        "message": "আটকে দেয়া স্ক্রিপ্টের জন্য মেসেজ দেখানো হবে",
+        "description": ""
+    },
+    "Notify_bottom": {
+        "message": "মেসেজ নিচে দেখানো হবে",
+        "description": ""
+    },
+    "NotifyMeta": {
+        "message": "আটকে দেয়া META রিডিরেকশনের জন্য মেসেজ দেখানো হবে",
+        "description": ""
+    },
+    "NotifyMeta_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "NselForce": {
+        "message": "আটকে দেয়া <SCRIPT>-এর পর <NOSCRIPT> এলিমেন্ট থাকলে তা দেখানো হবে",
+        "description": ""
+    },
+    "NselNever": {
+        "message": "<NOSCRIPT> এলিমেন্ট লুকনো থাকবে",
+        "description": ""
+    },
+    "OK": {
+        "message": "ঠিক আছে",
+        "description": ""
+    },
+    "OptBlockCssScanners": {
+        "message": "CSS-ভিত্তিক স্ক্যানার আটকে দেয়া হবে",
+        "description": ""
+    },
+    "OptFilterXGet": {
+        "message": "সন্দেহজনক ক্রস-সাইট রিকোয়েস্ট শোধিত হবে",
+        "description": ""
+    },
+    "OptFilterXPost": {
+        "message": "ক্রস-সাইট POST রিকোয়েস্টকে তথ্যবিহীন GET রিকোয়েস্টে পরিণত করা হবে",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "টর ব্রাউজারের নিরাপত্তার মাত্রা-সম্পর্কিত প্রিসেট ওভাররাইড করা হবে",
+        "description": ""
+    },
+    "Options": {
+        "message": "অপশন…",
+        "description": ""
+    },
+    "Options_accesskey": {
+        "message": "O",
+        "description": ""
+    },
+    "OptionsLong": {
+        "message": "নোস্ক্রিপ্টের অপশন",
+        "description": ""
+    },
+    "OptionsWidth": {
+        "message": "40em",
+        "description": ""
+    },
+    "PermanentInPrivate": {
+        "message": "প্রাইভেট উইন্ডোতে স্থায়ী \"চলবে\" অপশন",
+        "description": ""
+    },
+    "SectionSitePermissions": {
+        "message": "সাইটপ্রতি আলাদা অনুমতি",
+        "description": ""
+    },
+    "PermissionsText": {
+        "message": "কোন কোন সাইটে স্ক্রিপ্ট চলবে তা নির্দিষ্ট করে দিতে পারেন। তার জন্য সাইটের ঠিকানা বা ডোমেইন (যেমন : \"http://www.site.com\" বা \"site.com\") নিচে লিখে তারপর \"চলবে\" বাটনে ক্লিক করুন।",
+        "description": ""
+    },
+    "Plugins": {
+        "message": "প্লাগইন",
+        "description": ""
+    },
+    "Policies": {
+        "message": "নীতিমালা",
+        "description": ""
+    },
+    "Preset": {
+        "message": "নিরাপত্তার মাত্রা",
+        "description": ""
+    },
+    "Preset_high": {
+        "message": "দুর্গ (সবকিছু আটকাবে)",
+        "description": ""
+    },
+    "Preset_low": {
+        "message": "হালকাপাতলা (কালোতালিকা + ওয়েব-নিরাপত্তা)",
+        "description": ""
+    },
+    "Preset_medium": {
+        "message": "ক্লাসিক (সাদাতালিকা + ওয়েব-নিরাপত্তা)",
+        "description": ""
+    },
+    "Preset_off": {
+        "message": "বন্ধ (করছেন কী?!)",
+        "description": ""
+    },
+    "Prev": {
+        "message": "এর আগে",
+        "description": ""
+    },
+    "RecentBlocked": {
+        "message": "সম্প্রতি আটকে দেয়া সাইট",
+        "description": ""
+    },
+    "Refresh": {
+        "message": "রিফ্রেশ",
+        "description": ""
+    },
+    "ReloadWarn": {
+        "message": "এই অপশনগুলো নতুন করে খোলা কিংবা (ইউজার কর্তৃক) রিলোড-করা পেইজে কার্যকর হবে",
+        "description": ""
+    },
+    "RemoveSelected": {
+        "message": "নির্বাচিতগুলো মুছে ফেলা হবে",
+        "description": ""
+    },
+    "Reset": {
+        "message": "রিসেট",
+        "description": ""
+    },
+    "Reset_accesskey": {
+        "message": "s",
+        "description": ""
+    },
+    "ResetDef": {
+        "message": "ডিফল্টে রিসেট",
+        "description": ""
+    },
+    "ResetDef_accesskey": {
+        "message": "D",
+        "description": ""
+    },
+    "RestrictSubdocScripting": {
+        "message": "সাদাতালিকা-বহির্ভূত পেইজের সাদাতালিকাস্থ সাবডকুমেন্টে স্ক্রিপ্ট আটকে দেয়া হবে",
+        "description": ""
+    },
+    "RevokeTemp": {
+        "message": "সাময়িক সব অনুমতি বাদ",
+        "description": ""
+    },
+    "RevokeTemp_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "SecureCookies": {
+        "message": "স্বয়ংক্রিয় নিরাপদ কুকি ব্যবস্থাপনা চালু",
+        "description": ""
+    },
+    "SecureCookiesExceptions": {
+        "message": "নিচের সাইটগুলোর ক্ষেত্রে HTTPS সংযোগে অনিরাপদ কুকি আটকানো হবে না :",
+        "description": ""
+    },
+    "SecureCookiesForced": {
+        "message": "নিচের সাইটগুলোর ক্ষেত্রে HTTPS সংযোগে সব কুকির জন্য এনক্রিপশন বাধ্যতামূলক হবে :",
+        "description": ""
+    },
+    "SecurityManager": {
+        "message": "নিরাপত্তা-ম্যানেজার :",
+        "description": ""
+    },
+    "Show": {
+        "message": "যা যা দেখানো হবে :",
+        "description": ""
+    },
+    "ShowConsole": {
+        "message": "কনসোল দেখব…",
+        "description": ""
+    },
+    "ShowConsole_accesskey": {
+        "message": "S",
+        "description": ""
+    },
+    "ShowPlaceholder": {
+        "message": "প্লেসহোল্ডার আইকন দেখানো হবে",
+        "description": ""
+    },
+    "ShowReleaseNotes": {
+        "message": "হালানাগাদের পর রিলিজ নোট দেখানো হবে",
+        "description": ""
+    },
+    "ShowCtxMenuItem": {
+        "message": "কনটেক্সচুয়াল মেনুতে নোস্ক্রিপ্টের নাম দেখাবে",
+        "description": ""
+    },
+    "ShowCountBadge": {
+        "message": "কতগুলো আইটেম আটকানো হয়েছে তা ব্যাজ আকারে দেখাবে",
+        "description": ""
+    },
+    "SitePermissions": {
+        "message": "সাইটের জন্য অনুমতি",
+        "description": ""
+    },
+    "SitePermissions_accessKey": {
+        "message": "S",
+        "description": ""
+    },
+    "SitePolicies": {
+        "message": "সাইটভেদে ভিন্ন নীতিমালা",
+        "description": ""
+    },
+    "TempTrustPage": {
+        "message": "এই পেইজের সবকিছুকে সাময়িকভাবে বিশ্বস্ত ভাবা হবে",
+        "description": ""
+    },
+    "TempTrustPage_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "TempToPerm": {
+        "message": "পেইজের সব অনুমতি স্থায়ী হিসাবে জানা থাকবে",
+        "description": ""
+    },
+    "TempToPerm_accesskey": {
+        "message": "M",
+        "description": ""
+    },
+    "Trust": {
+        "message": "বিশ্বস্ত বলে জানা থাকবে",
+        "description": ""
+    },
+    "Trust_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "Trusted": {
+        "message": "বিশ্বস্ত",
+        "description": ""
+    },
+    "Trusted_temporary": {
+        "message": "সাময়িকভাবে বিশ্বস্ত",
+        "description": ""
+    },
+    "Trusted_permanent": {
+        "message": "বিশ্বস্ত",
+        "description": ""
+    },
+    "TrustedPagesAdj": {
+        "message": "বিশ্বস্ত",
+        "description": ""
+    },
+    "Uninstall": {
+        "message": "আনইনস্টল",
+        "description": ""
+    },
+    "Unknown": {
+        "message": "অজ্ঞাত",
+        "description": ""
+    },
+    "UnsafeReload": {
+        "message": "অনিরাপদ রিলোড",
+        "description": ""
+    },
+    "UnsafeReload_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "Untrust": {
+        "message": "অবিশ্বস্ত বলে জানা থাকবে",
+        "description": ""
+    },
+    "Untrust_accesskey": {
+        "message": "U",
+        "description": ""
+    },
+    "Untrusted": {
+        "message": "অবিশ্বস্ত",
+        "description": ""
+    },
+    "UntrustedPagesAdj": {
+        "message": "অবিশ্বস্ত",
+        "description": ""
+    },
+    "WebAddress": {
+        "message": "সাইট খুঁজে দেখুন বা নতুন যোগ করুন :",
+        "description": ""
+    },
+    "WebAddress_accesskey": {
+        "message": "w",
+        "description": ""
+    },
+    "Whitelist": {
+        "message": "সাদাতালিকা",
+        "description": ""
+    },
+    "XSS_notify": {
+        "message": "XSS-এর নোটিফিকেশন দেখানো হবে",
+        "description": ""
+    },
+    "XSS_clearUserChoices": {
+        "message": "XSS-এর সেভ করা সবকিছু বাদ",
+        "description": ""
+    },
+    "XSS_promptTitle": {
+        "message": "নোস্ক্রিপ্টের XSS-জনিত হুঁশিয়ারি",
+        "description": ""
+    },
+    "XSS_promptMessage": {
+        "message": " $1 থেকে $2-এ\nক্রস-সাইট স্ক্রিপ্টিংয়ের সম্ভাব্য একটি প্রচেষ্টা নোস্ক্রিপ্টে ধরা পড়েছে।\nসন্দেহজনক তথ্য :\n>;$3",
+        "description": ""
+    },
+    "XSS_optBlock": {
+        "message": "এই রিকোয়েস্টটি আটকে দেয়া হবে",
+        "description": ""
+    },
+    "XSS_optSanitize": {
+        "message": "এই রিকোয়েস্টটি শোধিত হবে",
+        "description": ""
+    },
+    "XSS_optAllow": {
+        "message": "এই রিকোয়েস্ট আটকানো হবে না",
+        "description": ""
+    },
+    "XSS_optAlwaysAllow": {
+        "message": " $1 থেকে $2-এ চাওয়া ডকুমেন্ট কখনোই আটকানো হবে না",
+        "description": ""
+    },
+    "XSS_optAlwaysBlock": {
+        "message": " $1 থেকে $2-এ চাওয়া ডকুমেন্ট সর্বদাই আটকে দেয়া হবে",
+        "description": ""
+    },
+    "Xss": {
+        "message": "XSS",
+        "description": ""
+    },
+    "Xss_accesskey": {
+        "message": "X",
+        "description": ""
+    },
+    "XssExceptions": {
+        "message": "XSS-বিরোধী সুরক্ষার ব্যতিক্রম",
+        "description": ""
+    },
+    "XssExceptions_description": {
+        "message": "এই রেগুলার এক্সপ্রেশনগুলোর সাথে যেসব গন্তব্য মিলবে সেসব সাইটে XSS-সুরক্ষা দেয়া হবে না।",
+        "description": ""
+    },
+    "XssFaq": {
+        "message": "XSS FAQ…",
+        "description": ""
+    },
+    "XssFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "about": {
+        "message": " $1 সম্পর্কে বিস্তারিত",
+        "description": ""
+    },
+    "allowFrom": {
+        "message": " $1 থেকে আসা সবই চলবে",
+        "description": ""
+    },
+    "allowGlobal": {
+        "message": "অনুমতি আছে কি না দেখে নেয়া হবে না (বিপজ্জনক)",
+        "description": ""
+    },
+    "allowLocal": {
+        "message": " $1 চলবে",
+        "description": ""
+    },
+    "allowTemp": {
+        "message": " $1 আপাতত চলবে",
+        "description": ""
+    },
+    "allowTempFrom": {
+        "message": " $1-এর সবই আপাতত চলবে",
+        "description": ""
+    },
+    "allowed_no": {
+        "message": "স্ক্রিপ্ট বন্ধ রয়েছে",
+        "description": ""
+    },
+    "allowed_prt": {
+        "message": "স্ক্রিপ্ট আংশিক চালু",
+        "description": ""
+    },
+    "allowed_yes": {
+        "message": "স্ক্রিপ্ট চালু রয়েছে",
+        "description": ""
+    },
+    "alwaysAsk": {
+        "message": "প্রতিবারই নিশ্চিত হয়ে নেওয়া হবে",
+        "description": ""
+    },
+    "audio_samples": {
+        "message": "অডিওর নমুনা",
+        "description": ""
+    },
+    "bookmarkSync_confirm": {
+        "message": "নোস্ক্রিপ্ট এমন একটি কনফিগারেশন বুকমার্ক খুঁজে পেয়েছে যা মনে হচ্ছে\n$1-এ সেভ করা আছে।\nআপনি কি সত্যিই আপনার লোকাল কনফিগারেশন বাদ দিয়ে নোস্ক্রিপ্টে এই বুকমার্কের তথ্য লোড করতে চান?",
+        "description": ""
+    },
+    "bookmarkSync_message": {
+        "message": "এই বুকমার্কটি খোলার জন্য নয়, বরং Weave-এর মত কোন সেবা কিংবা XMarks এক্সটেনশনের সাহায্যে সিংক্রোনাইজ করার জন্য।",
+        "description": ""
+    },
+    "bookmarkSync_title": {
+        "message": "নোস্ক্রিপ্টের কনফিগারেশনের বুকমার্ক",
+        "description": ""
+    },
+    "cap_script": {
+        "message": "স্ক্রিপ্ট",
+        "description": ""
+    },
+    "cap_frame": {
+        "message": "ফ্রেম",
+        "description": ""
+    },
+    "cap_object": {
+        "message": "অবজেক্ট",
+        "description": ""
+    },
+    "cap_media": {
+        "message": "মিডিয়া",
+        "description": ""
+    },
+    "cap_font": {
+        "message": "ফন্ট",
+        "description": ""
+    },
+    "cap_webgl": {
+        "message": "ওয়েবজিএল",
+        "description": ""
+    },
+    "cap_fetch": {
+        "message": "ফেচ",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "পিং",
+        "description": ""
+    },
+    "cap_other": {
+        "message": "অন্যান্য",
+        "description": ""
+    },
+    "changelog": {
+        "message": "চেঞ্জলগ",
+        "description": ""
+    },
+    "changelog_tip": {
+        "message": "চেঞ্জলগ দেখুন",
+        "description": ""
+    },
+    "confirm": {
+        "message": "আপনি নিশ্চিত?",
+        "description": ""
+    },
+    "disable": {
+        "message": " $1 বন্ধ থাকবে",
+        "description": ""
+    },
+    "disable_accessKey": {
+        "message": "D",
+        "description": ""
+    },
+    "distrust": {
+        "message": " $1 অবিশ্বস্ত বলে জানা থাকবে",
+        "description": ""
+    },
+    "extensionContributors": {
+        "message": "যাঁদের অবদান রয়েছে :",
+        "description": ""
+    },
+    "extensionContributors_tip": {
+        "message": "এই এক্সটেনশনের জন্য যাদেরকে ধন্যবাদ দেয়া উচিত",
+        "description": ""
+    },
+    "extensionCreator_tip": {
+        "message": "ডেভেলপারের হোমপেইজে যান",
+        "description": ""
+    },
+    "extensionCreatorLabel": {
+        "message": "Author:",
+        "description": ""
+    },
+    "extensionHomepage_tip": {
+        "message": "এক্সটেনশনের হোমপেইজে যান",
+        "description": ""
+    },
+    "forbidGlobal": {
+        "message": "সব সাইটে স্ক্রিপ্ট চলবে না (উচিত)",
+        "description": ""
+    },
+    "forbidLocal": {
+        "message": " $1 আটকে দেয়া হবে",
+        "description": ""
+    },
+    "freshInstallReload": {
+        "message": "এই ট্যাবে চলার জন্য নোস্ক্রিপ্ট রিলোড করতে হবে।\nরিলোড করা হবে?",
+        "description": ""
+    },
+    "privilegedPage": {
+        "message": "এটি একটি বিশেষ সুবিধাভোগী পেইজ, এর অনুমতি পরিবর্তন করা সম্ভব নয়।",
+        "description": ""
+    },
+    "incompatibleOptions": {
+        "message": "\"$1\"\n\"$2\"-র সাথে একসাথে চলবে না।\nআপনি কি প্রথমটি চালু করে পরেরটি বন্ধ রাখতে চান?",
+        "description": ""
+    },
+    "incompatibleOptions_title": {
+        "message": "অসঙ্গত অপশন সম্পর্কে হুঁশিয়ারি ?",
+        "description": ""
+    },
+    "informaction_tip": {
+        "message": "ইনফর্মঅ্যাকশনের হোমপেইজে যান",
+        "description": ""
+    },
+    "license": {
+        "message": "লাইসেন্স",
+        "description": ""
+    },
+    "license_tip": {
+        "message": "প্রান্তিক-ইউজার লাইসেন্স পড়ে দেখুন",
+        "description": ""
+    },
+    "logo_tip": {
+        "message": "এক্সটেনশনের হোমপেইজে যান",
+        "description": ""
+    },
+    "metaRefresh_notify": {
+        "message": "একটি <NOSCRIPT> এলিমেন্টের ভেতর একটি <META> রিডিরেকশন এলিমেন্ট নোস্ক্রিপ্টে ধরা পড়েছে : $2 সেকেন্ডে $1টি",
+        "description": ""
+    },
+    "Reload": {
+        "message": "রিলোড",
+        "description": ""
+    },
+    "removal_message": {
+        "message": "নোস্ক্রিপ্ট বন্ধ করলে বা আনইনস্টল করলে এটির দেয়া সব রকম সুরক্ষাই হারাবেন।\n\nবার বার সাইটের অনুমতি বদলাতে গিয়ে বিরক্ত হয়ে থাকলে এর চেয়ে আরও নিরাপদ উপায় রয়েছে।\n\nএক্ষেত্রে অবিশ্বস্ত হিসাবে চিহ্নিতগুলো ছাড়া আর কোনো সাইটের স্ক্রিপ্ট আটকানো হবে না, অথচ নিরাপত্তার দিক দিয়ে সর্বশ্রেষ্ঠ মানের অন্যান্য সব সুরক্ষা (XSS, ক্লিকজ্যাকিং, CSRF, ও ওয়েবের অন্যান্য নানা ঝুঁকির বিরুদ্ধে) চালু থাকবে।\n\nআপনি কি সত্যিই নোস্ক্রিপ্টের সব ধরনের সুরক্ষা একদম বাদ দিয়ে দিতে চান?\n",
+        "description": ""
+    },
+    "removal_no": {
+        "message": "না, শুধু স্ক্রিপ্ট আটকানো বাদ থাকুক",
+        "description": ""
+    },
+    "removal_title": {
+        "message": "নিরাপত্তা-বিষয়ক ডাউনগ্রেডের হুঁশিয়ারি",
+        "description": ""
+    },
+    "removal_yes": {
+        "message": "হ্যাঁ, সব ধরনের সুরক্ষা বাদ",
+        "description": ""
+    },
+    "reset_title": {
+        "message": "নোস্ক্রিপ্ট রিসেট",
+        "description": ""
+    },
+    "reset_warning": {
+        "message": "নোস্ক্রিপ্টে করা সব পরিবর্তন ও সব সাইটের সেভ করা অনুমতি সাথে সাথে মুছে গিয়ে ডিফল্ট অবস্থায় ফিরে যাবে।\nএকবার মুছে গেলে এসব আর ফেরত পাওয়া যাবে না।\nডিফল্ট অবস্থায় ফিরিয়ে নিতে চান?",
+        "description": ""
+    },
+    "siteInfo_confirm": {
+        "message": "\";$1\" সাইট সম্পর্কে তথ্য পাবার জন্য\n $2-এ রিকোয়েস্ট পাঠানো হবে।\nএ ব্যাপারে আপনি নিশ্চিত?",
+        "description": ""
+    },
+    "siteInfo_tooltip": {
+        "message": "সাইটের তথ্য পেতে মিডল-ক্লিক বা শিফট+ক্লিক করুন…",
+        "description": ""
+    },
+    "sponsor_tip": {
+        "message": "স্পন্সরের হোমপেইজে যান",
+        "description": ""
+    },
+    "unsafeReload_warning": {
+        "message": "[$3] থেকে\n\nসন্দেহজনক $1 [$2]\n\nঅনিরাপদ অবস্থায় রিলোড করা হচ্ছে\n\nএই রিকোয়েস্টে নোস্ক্রিপ্টের সুরক্ষা কিন্তু কার্যকর হবে না!\n",
+        "description": ""
+    },
+    "untrustedOrigin": {
+        "message": "অবিশ্বস্ত উৎস",
+        "description": ""
+    },
+    "version": {
+        "message": "সংস্করণ $1",
+        "description": ""
+    },
+    "versionShort": {
+        "message": "v $1",
+        "description": ""
+    }
+}
