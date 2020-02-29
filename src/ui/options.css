@@ -42,6 +42,7 @@ body {
   justify-content: flex-end;
   width: 100%;
   text-align: right;
+  margin: 0 0 2px 0;
 }
 
 #sect-general {

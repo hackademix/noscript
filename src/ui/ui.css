@@ -410,15 +410,13 @@ fieldset {
 
 legend {
   font-weight: bold;
-  display: inline;
+  display: block;
+}
+.customizer legend {
+  font-size: 0.75em;
   position: absolute;
   top: 0.25em;
   left: 1em;
-  white-space: nowrap;
-}
-.customizer legend {
-  font-weight: bold;
-  font-size: 0.75em;
 }
 
 #presets .https-only {

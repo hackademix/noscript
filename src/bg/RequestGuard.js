@@ -114,7 +114,7 @@ var RequestGuard = (() => {
         : (numAllowed ? "sub" : "no");
       let showBadge = ns.local.showCountBadge && numBlocked > 0;
       let browserAction = browser.browserAction;
-      if (!browserAction.setIcon) { // mobile
+      if (!browserAction.setIcon) { // Fennec
         browserAction.setTitle({tabId, title: `NoScript (${numBlocked})`});
         return;
       }
@@ -123,7 +123,7 @@ var RequestGuard = (() => {
       browserAction.setBadgeText({tabId, text: showBadge ? numBlocked.toString() : ""});
       browserAction.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
       browserAction.setTitle({tabId,
-        title: `${VERSION_LABEL} \n${enforced ?
+        title: UA.mobile ? "NoScript" : `${VERSION_LABEL} \n${enforced ?
             _("BlockedItems", [numBlocked, numAllowed + numBlocked]) + ` \n${report}`
             : _("NotEnforced")}`
       });

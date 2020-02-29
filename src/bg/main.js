@@ -109,12 +109,12 @@
       // wiring main UI
       let ba = browser.browserAction;
       if ("setIcon" in ba) {
-        //desktop
+        //desktop or Fenix
         ba.setPopup({
           popup: popupURL
         });
       } else {
-        // mobile
+        // Fennec
         ba.onClicked.addListener(async tab => {
           try {
             await browser.tabs.remove(await browser.tabs.query({
@@ -250,9 +250,10 @@
       deferWebTraffic(this.initializing = init(),
         async () => {
           Commands.install();
-
-          this.devMode = (await browser.management.getSelf()).installType === "development";
-          if (!this.local.debug) {
+          try {
+            this.devMode = (await browser.management.getSelf()).installType === "development";
+          } catch(e) {}
+          if (!(this.local.debug || this.devMode)) {
             debug = () => {}; // suppress verbosity
           }
         });

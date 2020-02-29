@@ -65,7 +65,11 @@ addEventListener("unload", e => {
     {
       let clickHandlers = {
         "options": e => {
-          browser.runtime.openOptionsPage();
+          if (UA.mobile) { // Fenix fails on openOptionsPage
+            browser.tabs.create({url: browser.extension.getURL("/ui/options.html")});
+          } else {
+            browser.runtime.openOptionsPage();
+          }
           close();
         },
         "close": close,

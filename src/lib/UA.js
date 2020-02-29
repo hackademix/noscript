@@ -1,10 +1,12 @@
 {
   let mozWebExtUrl = document.URL.startsWith("moz-");
   let isMozilla = mozWebExtUrl || typeof window.wrappedJSObject === "object";
+  let mobile = false;
   if (isMozilla) {
     if (mozWebExtUrl) {
       // help browser-specific UI styling
       document.documentElement.classList.add("mozwebext");
+      mobile = !("windows" in browser);
     }
   } else {
     // shims for non-Mozilla browsers
@@ -14,6 +16,7 @@
   }
 
   var UA = {
-    isMozilla
+    isMozilla,
+    mobile,
   };
 }

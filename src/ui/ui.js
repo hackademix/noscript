@@ -21,7 +21,7 @@ var UI = (() => {
         "/lib/tld.js",
         "/common/Policy.js",
       ];
-      this.mobile = !("windows" in browser);
+      this.mobile = UA.mobile;
       if (this.mobile) {
         document.documentElement.classList.toggle("mobile", true);
         scripts.push("/lib/fastclick.js");
