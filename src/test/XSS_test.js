@@ -1,5 +1,5 @@
 if (UA.isMozilla) {
-  let y = async (url, originUrl = '') => await XSS.maybe({originUrl, url, method: "GET"});
+  let y = async (url, originUrl = '') => await XSS.maybe(XSS.parseRequest({originUrl, url, method: "GET"}));
   let n = async (...args) => !await y(...args);
   Promise.all([
       () => y("https://noscript.net/<script"),

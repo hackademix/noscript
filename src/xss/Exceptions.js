@@ -52,14 +52,14 @@ XSS.Exceptions = (() => {
       // destination or @source matching legacy regexp
       if (this.legacyExceptions &&
           (this.legacyExceptions.test(unescapedDest) &&
-          !this.isBadException(destObj.hostname) ||
+          !this.isBadException(xssReq.destDomain) ||
           this.legacyExceptions.test("@" + unescape(srcUrl))
         )) {
         logEx("Legacy exception", this.legacyExceptions);
         return true;
       }
 
-      if (!srcObj && isGet) {
+      if (!srcOrigin && isGet) {
         if (/^https?:\/\/msdn\.microsoft\.com\/query\/[^<]+$/.test(unescapedDest)) {
           return true; // MSDN from Microsoft VS
         }

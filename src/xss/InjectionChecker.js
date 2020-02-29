@@ -1,6 +1,6 @@
-debug("Initializing InjectionChecker");
 XSS.InjectionChecker = (async () => {
   await include([
+    "/common/SyntaxChecker.js",
     "/lib/Base64.js",
     "/lib/Timing.js",
     "/xss/FlashIdiocy.js",
@@ -1031,7 +1031,7 @@ XSS.InjectionChecker = (async () => {
         return true;
 
       if (s.indexOf("&") !== -1) {
-        let unent = Entities.convertAll(s);
+        let unent = await Entities.convertAll(s);
         if (unent !== s && await this._checkRecursive(unent, depth)) return true;
       }
 
@@ -1050,7 +1050,7 @@ XSS.InjectionChecker = (async () => {
         return true;
 
       if (/[\u0000-\u001f]|&#/.test(unescaped)) {
-        let unent = Entities.convertAll(unescaped.replace(/[\u0000-\u001f]+/g, ''));
+        let unent = await Entities.convertAll(unescaped.replace(/[\u0000-\u001f]+/g, ''));
         if (unescaped != unent && await this._checkRecursive(unent, depth)) {
           this.log("Trash-stripped nested URL match!");
           return true;

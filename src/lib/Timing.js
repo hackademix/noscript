@@ -15,7 +15,7 @@ class Timing {
   }
 
   async pause() {
-    if (this.interrupted) throw new TimingException("Interrupted");
+    if (this.interrupted) throw new TimingException("Timing: interrupted");
     let now = Date.now();
     this.calls++;
     let sinceLastCall = now - this.lastCall;
@@ -28,7 +28,7 @@ class Timing {
     if (now - this.lastPause > this.workSlot || this.calls > this.maxCalls) {
       this.tooLong = this.elapsed >= this.longTime;
       if (this.tooLong && this.fatalTimeout) {
-        throw new TimingException(`Exceeded ${this.longTime}ms timeout`);
+        throw new TimingException(`Timing: exceeded ${this.longTime}ms timeout`);
       }
       this.calls = 0;
       await Timing.sleep(this.pauseTime);

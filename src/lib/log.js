@@ -1,6 +1,8 @@
 
 {
-  let PREFIX = `[${browser.runtime.getManifest().name}]`;
+  let PREFIX = typeof browser === "object"
+    ? `[${browser.runtime.getManifest().name}]` : '';
+
   let debugCount = 0;
 
   function log(msg, ...rest) {
