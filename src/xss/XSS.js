@@ -59,7 +59,7 @@ var XSS = (() => {
       data = [];
     } catch (e) {
       error(e, "XSS filter processing %o", xssReq);
-      if (/^Timing:/.test(e.message)  && !/\btimeout\b/i.test(e.message)) {
+      if (/^Timing:[^]*\binterrupted\b/.test(e.message)) {
         // we don't want prompts if the request expired / errored first
         return ABORT;
       }
@@ -255,10 +255,6 @@ var XSS = (() => {
       let {requestId} = xssReq.unparsedRequest;
       workersMap.set(requestId, worker)
       return await new Promise((resolve, reject) => {
-        let cleanup = () => {
-          workersMap.delete(requestId);
-          worker.terminate();
-        };
         worker.onmessage = e => {
           let {data} = e;
           if (data) {
@@ -267,23 +263,51 @@ var XSS = (() => {
               return;
             }
             if (data.error) {
-              reject(data.error);
               cleanup();
+              reject(data.error);
               return;
             }
           }
-          resolve(e.data);
           cleanup();
+          resolve(e.data);
         }
         worker.onerror = worker.onmessageerror = e => {
-          reject(e);
           cleanup();
+          reject(e);
         }
         worker.postMessage({handler: "check", xssReq, skip});
-        setTimeout(() => {
-          reject(new Error("Timeout! DOS attack attempt?"));
-          cleanup();
-        }, 20000)
+
+        let onNavError = details => {
+          debug("Navigation error: %o", details);
+          let {tabId, frameId, url} = details;
+          let r = xssReq.unparsedRequest;
+          if (tabId === r.tabId && frameId === r.frameId) {
+            cleanup();
+            reject(new Error("Timing: request interrupted while being filtered, no need to go on."));
+          }
+        };
+        browser.webNavigation.onErrorOccurred.addListener(onNavError,
+          {url: [{urlEquals: xssReq.destUrl}]});
+
+        let dosTimeout = setTimeout(() => {
+          if (cleanup()) { // the request might have been aborted otherwise
+            reject(new Error("Timeout! DOS attack attempt?"));
+          } else {
+            debug("[XSS] Request %s already aborted while being filtered.",
+              xssReq.destUrl);
+          }
+        }, 20000);
+
+        function cleanup() {
+          clearTimeout(dosTimeout);
+          browser.webNavigation.onErrorOccurred.removeListener(onNavError);
+          if (workersMap.has(requestId)) {
+            workersMap.delete(requestId);
+            worker.terminate();
+            return true;
+          }
+          return false;
+        };
       });
     }
   };
