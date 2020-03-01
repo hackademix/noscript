@@ -2,7 +2,7 @@
 
 function CapsCSP(baseCSP = new CSP()) {
   return Object.assign(baseCSP, {
-    types: ["script", "object", "media"],
+    types: ["script", "object", "media", "font"],
     dataUriTypes: ["font", "media", "object"],
     buildFromCapabilities(capabilities, blockHttp = false) {
       let forbidData = new Set(this.dataUriTypes.filter(t => !capabilities.has(t)));
