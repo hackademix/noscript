@@ -25,6 +25,8 @@ function ReportingCSP(reportURI, reportGroup) {
       patchHeaders(responseHeaders, capabilities) {
         let header = null;
         let needsReportTo = REPORT_TO_SUPPORTED;
+
+        let blocker = capabilities && this.buildFromCapabilities(capabilities);
         for (let h of responseHeaders) {
           if (this.isMine(h)) {
             header = h;
@@ -32,10 +34,16 @@ function ReportingCSP(reportURI, reportGroup) {
           } else if (needsReportTo &&
               h.name === REPORT_TO.name && h.value === REPORT_TO.value) {
             needsReportTo = false;
+          } else if (blocker && /^(Location|Refresh)$/i.test(h.name)) {
+            let  url = /^R/i.test(h.name)
+              ? h.value.replace(/^[^,;]*[,;]url[^\w=]*=\s*/i, "") : h.value;
+            let patched = CSP.patchDataURI(url, blocker);
+            if (patched !== url) {
+              h.value = h.value.slice(0, -url.length) + patched;
+            }
           }
         }
 
-        let blocker = capabilities && this.buildFromCapabilities(capabilities);
         if (blocker) {
           if (needsReportTo) {
             responseHeaders.push(REPORT_TO);

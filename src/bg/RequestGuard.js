@@ -305,9 +305,10 @@ var RequestGuard = (() => {
       normalizeRequest(request);
       try {
         let redirected = initPendingRequest(request);
-        let {policy} = ns;
-        let policyType = policyTypesMap[request.type];
-        if (policyType) {
+        let {policy} = ns
+        let {type} = request;
+        if (type in policyTypesMap) {
+          let policyType = policyTypesMap[type];
           let {url, originUrl, documentUrl, tabId} = request;
           let isFetch = "fetch" === policyType;
 
@@ -327,7 +328,7 @@ var RequestGuard = (() => {
 
           if (/^(?:data|blob):/.test(url)) {
             request._dataUrl = url;
-            request.url = url = documentUrl;
+            request.url = url = documentUrl || originUrl;
           }
 
           let allowed = Sites.isInternal(url);
@@ -340,10 +341,19 @@ var RequestGuard = (() => {
               allowed = !ns.isEnforced(tabId);
             }
             if (!allowed) {
-              allowed = intersectCapabilities(
+              let capabilities = intersectCapabilities(
                 policy.get(url, documentUrl).perms,
-                request
-              ).has(policyType);
+                request);
+              allowed = !policyType || capabilities.has(policyType);
+              if (allowed && request._dataUrl && type.endsWith("frame")) {
+                let blocker = csp.buildFromCapabilities(capabilities);
+                if (blocker) {
+                  let redirectUrl = CSP.patchDataURI(request._dataUrl, blocker);
+                  if (redirectUrl !== request._dataUrl) {
+                    return {redirectUrl};
+                  }
+                }
+              }
             }
           }
           Content.reportTo(request, allowed, policyType);
