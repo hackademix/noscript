@@ -1,12 +1,13 @@
 
 body {
-  font-family: Inter, sans-serif;
+  font-family: sans-serif;
   font: -moz-use-system-font;
   font-size: 12px;
   min-width: 600px;
 }
 
 .mobile > body {
+  font-family: Inter, sans-serif;
   font-size: 4mm;
   min-width: auto;
 }
