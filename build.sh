@@ -8,7 +8,7 @@ MANIFEST_OUT="$BUILD/manifest.json"
 
 strip_rc_ver() {
   MANIFEST="$1"
-  if [ "$2" = "rel" ]; then
+  if [[ "$2" == "rel" ]]; then
     replace='s/("version":.*)rc\d+/$1/'
   else
     replace='s/("version":.*)(\d+)rc(\d+)/{$1 . ($2 == "0" ? "0" : ($2-1) . ".9" . sprintf("%03d", $3))}/e'
@@ -22,7 +22,7 @@ if [ "$1" == "tag" ]; then
   git tag -a "$VER" && git push origin "$VER"
   exit 0
 fi
-if [[ "$1" == "rel" ]]; then
+if [[ "$1" =~ ^r(el(ease)?)?$ ]]; then
   strip_rc_ver "$MANIFEST_IN" rel
   "$0" && "$0" bump
   exit
