@@ -66,6 +66,7 @@ TLD="$BASE/TLD"
 
 if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') -a "$1" != "tld" ] && "$TLD/generate.sh" "$LIB/tld.js"; then
   cp -u "$TLD/tld.js" "$LIB"
+  git add src/lib/tld.js TLD && git commit -m'Updated TLDs.'
 fi
 
 ./html5_events/html5_events.pl
