@@ -22,7 +22,7 @@ class CSP {
 CSP.isEmbedType = type => /\b(?:application|video|audio)\b/.test(type) && type !== "application/xhtml+xml";
 CSP.headerName = "content-security-policy";
 CSP.patchDataURI = (uri, blocker) => {
-  let parts = /^data:(?:[^,;]*ml)(;[^,]*)?,/i.exec(uri);
+  let parts = /^data:(?:[^,;]*ml|unknown-content-type)(;[^,]*)?,/i.exec(uri);
   if (!(blocker && parts)) {
     // not an interesting data: URI, return as it is
     return uri;
@@ -33,6 +33,6 @@ CSP.patchDataURI = (uri, blocker) => {
   }
   // It's a HTML/XML page, let's prepend our CSP blocker to the document
   let patch = parts[0] + encodeURIComponent(
-    `<meta http-equiv="${CSP.headerName}" content="${blocker}">`);
+    `<meta http-equiv="${CSP.headerName}" content="${blocker}"/>`);
   return uri.startsWith(patch) ? uri : patch + uri.substring(parts[0].length);
 }

@@ -35,11 +35,11 @@ function ReportingCSP(reportURI, reportGroup) {
               h.name === REPORT_TO.name && h.value === REPORT_TO.value) {
             needsReportTo = false;
           } else if (blocker && /^(Location|Refresh)$/i.test(h.name)) {
+            // neutralize any HTTP redirection to data: URLs, like Chromium
             let  url = /^R/i.test(h.name)
               ? h.value.replace(/^[^,;]*[,;]url[^\w=]*=\s*/i, "") : h.value;
-            let patched = CSP.patchDataURI(url, blocker);
-            if (patched !== url) {
-              h.value = h.value.slice(0, -url.length) + patched;
+            if (/^data:/i.test(url)) {
+              h.value = h.value.slice(0, -url.length) + "data:";
             }
           }
         }

@@ -114,3 +114,14 @@ ns.on("capabilities", () => {
 
 ns.fetchPolicy();
 notifyPage();
+
+addEventListener("DOMContentLoaded", e => {
+  if (ns.canScript) return;
+  for (let m of document.querySelectorAll("meta[http-equiv=refresh]")) {
+    if (/^[^,;]*[,;]url[^\w=]*=\s*data:/.test(m.getAttribute("content"))) {
+      let url = m.getAttribute("content").replace(/.*?(?=data:)/, "");
+      log(`Blocking refresh to ${url}`);
+      window.stop();
+    }
+  }
+});
