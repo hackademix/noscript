@@ -118,7 +118,7 @@ notifyPage();
 addEventListener("DOMContentLoaded", e => {
   if (ns.canScript) return;
   for (let m of document.querySelectorAll("meta[http-equiv=refresh]")) {
-    if (/^[^,;]*[,;]\W*url[^=]*=[^!#$%&'()*+,/:;=?@[\]\w.,~-]*data:/i.test(m.getAttribute("content"))) {
+    if (/^[^,;]*[,;]\W*url[^=]*=[^!#$%&()*+,/:;=?@[\]\w.,~-]*data:/i.test(m.getAttribute("content"))) {
       let url = m.getAttribute("content").replace(/.*?(?=data:)/i, "");
       log(`Blocking refresh to ${url}`);
       window.stop();
