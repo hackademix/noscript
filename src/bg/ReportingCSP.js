@@ -37,7 +37,7 @@ function ReportingCSP(reportURI, reportGroup) {
           } else if (blocker && /^(Location|Refresh)$/i.test(h.name)) {
             // neutralize any HTTP redirection to data: URLs, like Chromium
             let  url = /^R/i.test(h.name)
-              ? h.value.replace(/^[^,;]*[,;]url[^\w=]*=\s*/i, "") : h.value;
+              ? h.value.replace(/^[^,;]*[,;]\W*url[^=]*=[^!#$%&()*+,/:;=?@[\]\w.,~-]*/i, "") : h.value;
             if (/^data:/i.test(url)) {
               h.value = h.value.slice(0, -url.length) + "data:";
             }
