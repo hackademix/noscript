@@ -124,8 +124,9 @@
       let onHeaderReceived = request => {
         let replaced = "";
         let {responseHeaders} = request;
+        let rxFP = /^feature-policy$/i;
         for (let h of request.responseHeaders) {
-          if (h.name === "feature-policy") {
+          if (rxFP.test(h.name)) {
             h.value = h.value.replace(/\b(sync-xhr\s+)([^*][^;]*)/g,
               (all, m1, m2) => replaced =
                 `${m1}${m2.replace(/'none'/, '')} 'self'`
