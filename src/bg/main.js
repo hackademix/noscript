@@ -296,7 +296,7 @@
 
     async collectSeen(tabId) {
       try {
-        let seen = Array.from(await Messages.send("collect", {}, {tabId, frameId: 0}));
+        let seen = Array.from(await Messages.send("collect", {uiid: ns.local.uiid}, {tabId, frameId: 0}));
         debug("Collected seen", seen);
         return seen;
       } catch (e) {

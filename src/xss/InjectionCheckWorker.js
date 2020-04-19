@@ -74,7 +74,7 @@ Entities = {
     if (msg.handler in Handlers) try {
       await Handlers[msg.handler](msg);
     } catch (e) {
-      postMessage({error: e});
+      postMessage({error: e.message});
     }
   }
 

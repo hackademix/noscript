@@ -327,7 +327,7 @@ XSS.InjectionChecker = (async () => {
     _assignmentRx: /^(?:[^()="'\s]+=(?:[^(='"\[+]+|[?a-zA-Z_0-9;,&=/]+|[\d.|]+))$/,
     _badRightHandRx: /=[\s\S]*(?:_QS_\b|[|.][\s\S]*source\b|<[\s\S]*\/[^>]*>)/,
     _wikiParensRx: /^(?:[\w.|-]+\/)*\(*[\w\s-]+\([\w\s-]+\)[\w\s-]*\)*$/,
-    _neutralDotsRx: /(?:^|[\/;&#])[\w-]+\.[\w-]+[\?;\&#]/g,
+    _neutralDotsOrParensRx: /(?:^|[\/;&#])(?:[\w-]+\.[\w-]+[\?;\&#]|[\s\d]*\()/g,
     _openIdRx: /^scope=(?:\w+\+)\w/, // OpenID authentication scope parameter, see http://forums.informaction.com/viewtopic.php?p=69851#p69851
     _gmxRx: /\$\(clientName\)-\$\(dataCenter\)\.(\w+\.)+\w+/, // GMX webmail, see http://forums.informaction.com/viewtopic.php?p=69700#p69700
 
@@ -354,7 +354,7 @@ XSS.InjectionChecker = (async () => {
         return this._singleAssignmentRx.test(expr) || this._riskyAssignmentRx.test(expr) && this._nameRx.test(expr);
 
       return this._riskyParensRx.test(expr) ||
-        this._maybeJSRx.test(expr.replace(this._neutralDotsRx, '')) &&
+        this._maybeJSRx.test(expr.replace(this._neutralDotsOrParensRx, '')) &&
         !this._wikiParensRx.test(expr);
 
     },
@@ -457,7 +457,7 @@ XSS.InjectionChecker = (async () => {
     checkLastFunction: function() {
       var fn = this.syntax.lastFunction;
       if (!fn) return false;
-      var m = fn.toSource().match(/\{([\s\S]*)\}/);
+      var m = fn.toString().match(/\{([\s\S]*)\}/);
       if (!m) return false;
       var expr = this.stripLiteralsAndComments(m[1]);
       return /=[\s\S]*cookie|\b(?:setter|document|location|(?:inn|out)erHTML|\.\W*src)[\s\S]*=|[\w$\u0080-\uffff\)\]]\s*[\[\(]/.test(expr) ||
@@ -778,7 +778,7 @@ XSS.InjectionChecker = (async () => {
       if (ret) {
         let msg = "JavaScript Injection in " + s;
         if (this.syntax.lastFunction) {
-          msg += "\n" + this.syntax.lastFunction.toSource();
+          msg += `\n${this.syntax.lastFunction}`;
         }
         this.escalate(msg);
       }
