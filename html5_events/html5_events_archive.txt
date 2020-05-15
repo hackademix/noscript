@@ -295,7 +295,6 @@ onUAWidgetSetupOrChange
 onUAWidgetTeardown
 onUnselectedTabHover_Disable
 onUnselectedTabHover_Enable
-onZoomChangeUsingMouseWheel
 onmozshowdropdown
 onmozshowdropdown_sourcetouch
 onprintPreviewUpdate
@@ -362,6 +361,7 @@ onupdate
 onupdateend
 onaddsourcebuffer
 onremovesourcebuffer
+onZoomChangeUsingMouseWheel
 onappinstalled
 onImageContentLoaded
 ona2dpstatuschanged
