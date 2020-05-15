@@ -20,9 +20,6 @@ var RequestGuard = (() => {
       media: "media",
       other: "",
   };
-  const allTypes = UA.isMozilla ? Object.keys(policyTypesMap)
-    : ["main_frame", "sub_frame", "stylesheet", "script", "image", "font",
-    "object", "xmlhttprequest", "ping", "csp_report", "media", "websocket", "other"];
 
   Object.assign(policyTypesMap, {"webgl": "webgl"}); // fake types
   const TabStatus = {
@@ -509,7 +506,7 @@ var RequestGuard = (() => {
       let allUrls = ["<all_urls>"];
       let docTypes = ["main_frame", "sub_frame", "object"];
       let filterDocs = {urls: allUrls, types: docTypes};
-      let filterAll = {urls: allUrls, types: allTypes};
+      let filterAll = {urls: allUrls};
       listen("onBeforeRequest", filterAll, ["blocking"]);
       listen("onHeadersReceived", filterDocs, ["blocking", "responseHeaders"]);
       (listeners.onHeadersReceivedLast = new LastListener(wr.onHeadersReceived, request => {
