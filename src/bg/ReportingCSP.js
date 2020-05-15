@@ -27,10 +27,10 @@ function ReportingCSP(reportURI, reportGroup) {
         let needsReportTo = REPORT_TO_SUPPORTED;
 
         let blocker = capabilities && this.buildFromCapabilities(capabilities);
-        for (let h of responseHeaders) {
+        responseHeaders.forEach((h, index) => {
           if (this.isMine(h)) {
             header = h;
-            h.value = "";
+            responseHeaders.splice(index, 1);
           } else if (needsReportTo &&
               h.name === REPORT_TO.name && h.value === REPORT_TO.value) {
             needsReportTo = false;
@@ -42,18 +42,14 @@ function ReportingCSP(reportURI, reportGroup) {
               h.value = h.value.slice(0, -url.length) + "data:";
             }
           }
-        }
+        });
 
         if (blocker) {
           if (needsReportTo) {
             responseHeaders.push(REPORT_TO);
           }
-          if (header) {
-            header.value = blocker;
-          } else {
-            header = this.asHeader(blocker);
-            responseHeaders.push(header);
-          }
+          header = this.asHeader(blocker);
+          responseHeaders.push(header);
         }
 
         return header;
