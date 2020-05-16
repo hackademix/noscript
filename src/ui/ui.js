@@ -199,7 +199,7 @@ var UI = (() => {
     <span class="preset">
       <input id="preset" class="preset" type="radio" name="preset"><label for="preset" class="preset">PRESET</label>
       <button class="options tiny">⚙</button>
-      <input id="temp" class="temp" type="checkbox"><label for="temp">Temporary</input>
+      <input id="temp" class="temp" type="checkbox"><label for="temp">Temporary</label></input>
     </span>
     </td>
 

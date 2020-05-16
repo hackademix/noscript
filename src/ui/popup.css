@@ -41,6 +41,15 @@ body {
 
 }
 
+
+.mobile #top {
+ height: 3.5em;
+}
+.mobile #top a {
+  padding: .5em .5em;
+  background-size: 80%;
+}
+
 #top > .spacer {
   flex-grow: 1;
   display: block;

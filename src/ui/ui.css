@@ -16,51 +16,112 @@ body {
   display: none !important;
 }
 
- @media (max-width: 100mm) {
-   body {
-     background-size: 4em !important;
-     padding-right: 0 !important;
-    }
+@media (max-width: 100mm) {
+  body {
+    background-size: 4em !important;
+    padding-right: 0 !important;
+  }
 
-   .presets {
-     width: 0;
-   }
+  #sites .presets {
+    width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-bottom: 1em !important;
+  }
 
-   .presets input.preset {
+  #presets .presets input.preset {
+    min-width: 5em;
+  }
+
+  #sites .presets input.preset {
      min-width: 0 !important;
      background-color: none !important;
-     margin-bottom: 0;
-     margin-top: 1mm;
+     margin-top: 0;
      font-weight: bold;
-   }
-   .presets input.temp {
-    position: static;
   }
-  .presets label.preset {
-    font-size: 50%;
-    top: -1mm;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    text-shadow: 0 0 4px #ff8;
-    position: absolute;
-    overflow: visible;
+
+
+  #sites .customizing input.preset:checked  {
+    margin-left: 0;
+  }
+
+  #presets .presets input.preset + label {
+     font-size: 60%;
+     position: absolute !important;
+     text-align: right;
+     padding: 0 !important;
+     margin: 0 !important;
+     display: block !important;
+     width: 5.5em !important;
+     z-index: 1000;
+     top: 1em;
+     left: 4em !important;
+     text-shadow: 1px 1px white, -1px -1px white;
+   }
+
+   #sites .presets input.preset:checked + label {
+     z-index: 1000;
+     font-size: 60%;
+     top: 3em;
+     left: -3em !important;
+     margin: 0 !important;
+     padding: 0 !important;
+     text-align: center !important;
+     display: block !important;
+     position: absolute;
+     width: 10em !important;
+     overflow: visible !important;
+  }
+
+  .presets input.preset:checked ~ input.temp {
+    left: 1.5em;
+    pointer-events: none;
+  }
+
+  .customizing input.preset:checked ~ input.temp {
+    pointer-events: all !important;
+    z-index: 1000;
+    top: 1.5em;
+    right: -1em;
+    padding: 1em;
+  }
+
+  .customizer-controls fieldset {
+    padding-top: 3em !important;
+  }
+
+  .customizer-controls fieldset legend {
+    top: 2em;
+  }
+
+  #sites .customizing input.preset:checked + label {
+    text-align:right !important;
+    padding-right: 1em !important;
+    right: 1em !important;
+    left: auto !important;
+    top: 3.5em;
+    pointer-events: none;
   }
 
   td.presets {
-      white-space: nowrap !important;
-      vertical-align: bottom;
-    }
-   .url {
-     white-space: wrap;
-     word-break: break-all;
-     font-size: 75%;
-     letter-spacing: -0.2mm;
-
+    white-space: nowrap !important;
+    vertical-align: bottom;
+    border: 1px solid black;
+  }
+  .url > span > span {
+    white-space: wrap;
+    word-break: break-all;
+    letter-spacing: -0.2mm;
+    font-size: 80%;
    }
 
- }
+}
+
+#sites .customizing .presets {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 
 input[type="text"] {
   border: 1px solid;
@@ -88,7 +149,8 @@ input[type="checkbox"] {
   border: none;
   font-size: 1em;
 }
-.sites > tr.site:hover, .sites > tr.sites:active {
+html:not(.mobile) .sites > tr.site:hover,
+html:not(.mobile) .sites > tr.sites:active {
   background: #abf;
 }
 .sites > tr:nth-child(even) {background: #fff}
@@ -97,7 +159,7 @@ input[type="checkbox"] {
 .site .url {
     padding: 0 0 0 0.5em;
     color: #ccc;
-    vertical-align: middle;
+    vertical-align: top;
 }
 .site .url .protocol { display: none }
 
@@ -140,15 +202,16 @@ input[type="checkbox"] {
 }
 
 input.https-only {
-  font-size: 1em;
+  font-size: 100%;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   background: url(/img/ui-http64.png) no-repeat center;
   background-size: 1.5em;
-  width: 1.5em;
-  height: 1.5em;
-  margin: 0 0 -0.13em 0.13em;
+  background-position: bottom;
+  width: 2em;
+  height: 2em;
+  margin: -.25em 0;
   padding:0;
   cursor: pointer;
 }
@@ -202,7 +265,9 @@ span.preset {
   margin: 0 .5em 0.13em .5em;
 }
 
-input.preset:active, input.preset:focus, input.preset:hover {
+html:not(.mobile) input.preset:active,
+html:not(.mobile) input.preset:focus,
+html:not(.mobile) input.preset:hover {
   background-color: #ff8;
   border-radius: .5em;
 }
@@ -303,12 +368,13 @@ button.options {
 
 }
 
+/* uncomment me if we want to restore inline preset configuration
 .preset:hover input.preset:checked ~ .options {
   display: block;
   opacity: 1;
   bottom: 0.38em;
-
 }
+*/
 input.preset[value="T_TRUSTED"] {
   background-image: url(/img/ui-temp64.png);
 }
@@ -332,6 +398,7 @@ input.temp {
   padding: 0;
   border: 0;
   opacity: 0;
+  outline: none;
   background: url(/img/ui-clock64.png) no-repeat center;
   background-size: 60%;
   width: 1.5em;
@@ -347,15 +414,19 @@ input.temp + label {
   display: none;
 }
 
+input.temp + label {
+  display: none;
+}
+
 input.preset:checked ~ input.temp {
   opacity: .5;
   right: .5em;
   pointer-events: all;
 }
-.presets input.preset:checked ~ input.temp:checked {
-  opacity: 1 !important;
-  background-size: 100%;
 
+.presets input.preset:checked ~ input.temp:checked {
+ opacity: 1 !important;
+ background-size: 100%;
 }
 
 .customizing input.preset:checked, #presets input.preset:checked, .customizer fieldset {
@@ -404,7 +475,7 @@ span.cap.needed {
 
 fieldset {
   border: 0;
-  padding: 1.5em 0.5em 0.5em 0.5em;
+  padding: 2em 0.5em 0.5em 0.5em;
   margin: 0;
   position: relative;
 }
@@ -416,8 +487,8 @@ legend {
 .customizer legend {
   font-size: 0.75em;
   position: absolute;
-  top: 0.25em;
-  left: 1em;
+  top: 1em;
+  left: 2em;
 }
 
 #presets .https-only {
