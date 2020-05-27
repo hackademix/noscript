@@ -264,14 +264,14 @@ span.preset {
   opacity: .5;
   margin: 0 .5em 0.13em .5em;
 }
-
+/*
 html:not(.mobile) input.preset:active,
 html:not(.mobile) input.preset:focus,
 html:not(.mobile) input.preset:hover {
   background-color: #ff8;
   border-radius: .5em;
 }
-
+*/
 #presets-sizer {
   visibility: hidden;
   position: absolute;
