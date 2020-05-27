@@ -8,7 +8,14 @@ class NetCSP extends CSP {
 
   isMine(header) {
     let {name, value} = header;
-    return name.toLowerCase() === CSP.headerName && value.startsWith(this.start);
+    return name.toLowerCase() === CSP.headerName &&
+      value.split(/,\s*/).some(v => v.startsWith(this.start));
+  }
+
+  unmergeExtras(header) {
+    let {name, value} = header;
+    return value.split(/,\s*/).filter(v => !v.startsWith(this.start))
+      .map(value => {name, value});
   }
 
   build(...directives) {

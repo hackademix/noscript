@@ -27,9 +27,18 @@ function ReportingCSP(reportURI, reportGroup) {
         let needsReportTo = REPORT_TO_SUPPORTED;
 
         let blocker = capabilities && this.buildFromCapabilities(capabilities);
+        let extras = [];
         responseHeaders.forEach((h, index) => {
           if (this.isMine(h)) {
             header = h;
+            if (h.value === blocker) {
+              // make this equivalent but different than the original, otherwise
+              // it won't be (re)set when deleted, see
+              // https://dxr.mozilla.org/mozilla-central/rev/882de07e4cbe31a0617d1ae350236123dfdbe17f/toolkit/components/extensions/webrequest/WebRequest.jsm#138
+              blocker += " ";
+            } else {
+              extras.push(...this.unmergeExtras(h));
+            }
             responseHeaders.splice(index, 1);
           } else if (needsReportTo &&
               h.name === REPORT_TO.name && h.value === REPORT_TO.value) {
@@ -50,6 +59,10 @@ function ReportingCSP(reportURI, reportGroup) {
           }
           header = this.asHeader(blocker);
           responseHeaders.push(header);
+        }
+
+        if (extras.length) {
+          responseHeaders.push(...extras);
         }
 
         return header;

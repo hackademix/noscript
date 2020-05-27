@@ -366,16 +366,17 @@ var RequestGuard = (() => {
       return ALLOW;
     },
     onHeadersReceived(request) {
-      normalizeRequest(request);
-      let result = ALLOW;
-      let promises = [];
       // called for main_frame, sub_frame and object
+
       // check for duplicate calls
-      let headersModified = false;
       let pending = pendingRequests.get(request.requestId);
       if (pending) {
         if (pending.headersProcessed) {
-          debug("[WARNING] already processed ", request);
+          if (!request.fromCache) {
+            debug("Headers already processed, skipping ", request);
+            return ALLOW;
+          }
+          debug("Reprocessing headers for cached request ", request);
         } else {
           debug("onHeadersReceived", request);
         }
@@ -384,6 +385,28 @@ var RequestGuard = (() => {
         initPendingRequest(request);
         pending = pendingRequests.get(request.requestId);
       }
+      if (request.fromCache && listeners.onHeadersReceived.resetCSP && !pending.resetCachedCSP) {
+        debug("Resetting CSP Headers");
+        pending.resetCachedCSP = true;
+        let {responseHeaders} = request;
+        let headersCount = responseHeaders.length;
+        let purged = false;
+        responseHeaders.forEach((h, index) => {
+          if (csp.isMine(h)) {
+            responseHeaders.splice(index, 1);
+          }
+        });
+        if (headersCount > responseHeaders.length) {
+          debug("Resetting cached NoScript CSP header(s)", request);
+          return {responseHeaders};
+        }
+      }
+
+      normalizeRequest(request);
+      let result = ALLOW;
+      let promises = [];
+      let headersModified = false;
+
       pending.headersProcessed = true;
       let {url, documentUrl, tabId, responseHeaders, type} = request;
       let isMainFrame = type === "main_frame";
@@ -414,6 +437,7 @@ var RequestGuard = (() => {
         }
         if (headersModified) {
           result = {responseHeaders};
+          debug("Headers changed ", request);
         }
       } catch (e) {
         error(e, "Error in onHeadersReceived", request);
@@ -440,7 +464,7 @@ var RequestGuard = (() => {
       if (pending) {
         pending.scriptBlocked = scriptBlocked;
         if (!(pending.headersProcessed &&
-            (scriptBlocked || !ns.requestCan(request, "script"))
+            (scriptBlocked || ns.requestCan(request, "script"))
           )) {
           debug("[WARNING] onHeadersReceived %s %o", frameId, tabId,
             pending.headersProcessed ? "has been overridden on": "could not process",
@@ -508,29 +532,36 @@ var RequestGuard = (() => {
       let filterDocs = {urls: allUrls, types: docTypes};
       let filterAll = {urls: allUrls};
       listen("onBeforeRequest", filterAll, ["blocking"]);
+
+      const mergingCSP = parseInt(navigator.userAgent.replace(/.*Firefox\/(\d+).*/, "$1")) >= 77;
+      if (mergingCSP) {
+        // In Gecko>=77 (https://bugzilla.mozilla.org/show_bug.cgi?id=1462989)
+        // we need to cleanup our own cached headers in a dedicated listener :(
+        // see also https://trac.torproject.org/projects/tor/ticket/34305
+        wr.onHeadersReceived.addListener(
+          listeners.onHeadersReceived.resetCSP = request => {
+            return listeners.onHeadersReceived(request);
+          }, filterDocs, ["blocking", "responseHeaders"]);
+      }
       listen("onHeadersReceived", filterDocs, ["blocking", "responseHeaders"]);
-      (listeners.onHeadersReceivedLast = new LastListener(wr.onHeadersReceived, request => {
+      // Still, other extensions extensions may accidentally delete our CSP
+      // if called before us, hence we try our best reinjecting in the end
+      (listeners.onHeadersReceivedLast =
+        new LastListener(wr.onHeadersReceived, request => {
         let {requestId, responseHeaders} = request;
         let pending = pendingRequests.get(request.requestId);
         if (pending && pending.headersProcessed) {
           let {cspHeader} = pending;
           if (cspHeader) {
-            debug("Safety net: injecting again %o in %o", cspHeader, request);
-            for (let h of responseHeaders) {
-              if (h.name === cspHeader.name) {
-                h.value = cspHeader.value;
-                cspHeader = null;
-                break;
-              }
-            }
-            if (cspHeader) responseHeaders.push(cspHeader);
+            responseHeaders.push(cspHeader);
             return {responseHeaders};
           }
         } else {
           debug("[WARNING] onHeadersReceived not called (yet?)", request);
         }
-        return null;
+        return ALLOW;
       }, filterDocs, ["blocking", "responseHeaders"])).install();
+
       listen("onResponseStarted", filterDocs, ["responseHeaders"]);
       listen("onCompleted", filterAll);
       listen("onErrorOccurred", filterAll);
@@ -548,6 +579,9 @@ var RequestGuard = (() => {
         }
       }
       wr.onBeforeRequest.removeListener(onViolationReport);
+      if (listeners.onHeadersReceived.resetCSP) {
+        wr.onHeadersReceived.removeListener(listeners.onHeadersReceived.resetCSP);
+      }
       Messages.removeHandler(messageHandler);
     }
   };
