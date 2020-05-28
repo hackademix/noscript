@@ -548,8 +548,8 @@ var RequestGuard = (() => {
           }, filterDocs, ["blocking", "responseHeaders"]);
       }
       listen("onHeadersReceived", filterDocs, ["blocking", "responseHeaders"]);
-      // Still, other extensions extensions may accidentally delete our CSP
-      // if called before us, hence we try our best reinjecting in the end
+      // Still, other extensions may accidentally delete our CSP header
+      // if called before us, hence we try our best reinjecting it in the end
       (listeners.onHeadersReceivedLast =
         new LastListener(wr.onHeadersReceived, request => {
         let {requestId, responseHeaders} = request;
