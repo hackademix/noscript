@@ -533,7 +533,11 @@ var RequestGuard = (() => {
       let filterAll = {urls: allUrls};
       listen("onBeforeRequest", filterAll, ["blocking"]);
 
-      const mergingCSP = parseInt(navigator.userAgent.replace(/.*Firefox\/(\d+).*/, "$1")) >= 77;
+      let mergingCSP = "getBrowserInfo" in browser.runtime;
+      if (mergingCSP) {
+        let {vendor, version} = await browser.runtime.getBrowserInfo();
+        mergingCSP = vendor === "Mozilla" && parseInt(version) >= 77;
+      }
       if (mergingCSP) {
         // In Gecko>=77 (https://bugzilla.mozilla.org/show_bug.cgi?id=1462989)
         // we need to cleanup our own cached headers in a dedicated listener :(
