@@ -14,7 +14,7 @@ body {
 }
 
 
-#top a {
+#top .icon {
   appearance: none !important;
   webkit-appearance: none !important;
   -moz-appearance: none !important;
@@ -32,20 +32,18 @@ body {
   transition: transform 0.3s;
   border: none;
   display: block;
-
   top: 0;
   padding: 0;
   text-align: left;
   vertical-align: middle;
   line-height: 1em;
-
 }
 
 
 .mobile #top {
  height: 3.5em;
 }
-.mobile #top a {
+.mobile #top .icon {
   padding: .5em .5em;
   background-size: 80%;
 }
@@ -158,11 +156,11 @@ body {
   padding: 0;
 }
 
-#top > a:hover {
+#top > .icon:hover, #top > .icon:focus, #top > .icon:active {
   transform: scale(1.2);
 }
 
-#top a.icon {
+#top .icon {
   text-indent: -500em;
   color: transparent;
 }

@@ -43,6 +43,15 @@ addEventListener("unload", e => {
       tabId = tab.id;
     }
 
+    addEventListener("keydown", e => {
+      if (e.code === "Enter") {
+        let focused = document.activeElement;
+        if (focused && focused.matches(".preset")) {
+          close();
+        }
+      }
+    })
+
     port = browser.runtime.connect({name: "noscript.popup"});
     await UI.init(tabId);
 
@@ -63,7 +72,7 @@ addEventListener("unload", e => {
 
     await include("/ui/toolbar.js");
     {
-      let clickHandlers = {
+      let handlers = {
         "options": e => {
           if (UA.mobile) { // Fenix fails on openOptionsPage
             browser.tabs.create({url: browser.extension.getURL("/ui/options.html")});
@@ -80,9 +89,35 @@ addEventListener("unload", e => {
           close();
         }
       };
-      for (let [id, handler] of Object.entries(clickHandlers)) {
-        document.getElementById(id).onclick = handler;
+
+      for (let b of document.querySelectorAll("#top > .icon")) {
+        b.tabIndex = 0;
+        if (b.id in handlers) {
+          let h = handlers[b.id];
+          b.onclick = h;
+        }
       }
+
+      let navigate = e => {
+        let sel = e.code === "ArrowUp" ? ":last-child" : "";
+        document.querySelector(`.sites tr.site${sel} input.preset:checked`).focus();
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      document.querySelector("#top").addEventListener("keydown", e => {
+        switch(e.code) {
+          case "Space":
+          case "Enter":
+            e.target.click();
+            e.preventDefault();
+            break;
+          case "ArrowDown":
+          case "ArrowUp":
+            navigate(e);
+          break;
+        }
+      }, true);
     }
     {
       let policy = UI.policy;
@@ -266,7 +301,7 @@ addEventListener("unload", e => {
     let loadSnapshot = sitesUI.snapshot;
     let onCompletedListener = navigated => {
       if (navigated.tabId === tabId) {
-        UI.pullSettings();
+        setTimeout(() => UI.pullSettings(), 500);
       }
     };
     onCompleted.addListener(onCompletedListener, {

@@ -57,7 +57,7 @@ tr.site {
   justify-content: space-around;
   height: auto;
 }
-#top a  {
+#top .icon  {
   position: static;
   width: auto;
   appearance: initial !important;
@@ -65,8 +65,6 @@ tr.site {
   width: auto;
   height: auto;
   display: block;
-}
-#top a.icon {
   font-size: 12px !important;
   font-family: sans-serif !important;
   text-indent: 0;
@@ -86,4 +84,8 @@ tr.site {
 
 #noscript-popup #high-contrast-chooser {
   display: block;
+}
+
+:focus {
+  outline: 1px dotted yellow;
 }

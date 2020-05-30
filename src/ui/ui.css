@@ -149,9 +149,11 @@ input[type="checkbox"] {
   border: none;
   font-size: 1em;
 }
-html:not(.mobile) .sites > tr.site:hover,
-html:not(.mobile) .sites > tr.sites:active {
-  background: #abf;
+html:not(.mobile) .sites > tr.site:hover {
+  background: #ff8;
+}
+html:not(.mobile) .sites > tr.site:focus-within {
+  background: #bdf;
 }
 .sites > tr:nth-child(even) {background: #fff}
 .sites > tr:nth-child(odd) {background: #eee}
@@ -264,14 +266,7 @@ span.preset {
   opacity: .5;
   margin: 0 .5em 0.13em .5em;
 }
-/*
-html:not(.mobile) input.preset:active,
-html:not(.mobile) input.preset:focus,
-html:not(.mobile) input.preset:hover {
-  background-color: #ff8;
-  border-radius: .5em;
-}
-*/
+
 #presets-sizer {
   visibility: hidden;
   position: absolute;
@@ -367,7 +362,11 @@ button.options {
   pointer-events: none;
 
 }
-
+html:not(.mobile) :focus {
+  outline: none;
+  box-shadow: inset 3px 3px 3px rgba(255,255,100, .5), -3px -3px 3px  rgba(255,255,100, .5),
+                -3px 3px 3px rgba(255,255,100, .5), 3px -3px 3px rgba(255,255,100, .5);
+}
 /* uncomment me if we want to restore inline preset configuration
 .preset:hover input.preset:checked ~ .options {
   display: block;
@@ -430,7 +429,7 @@ input.preset:checked ~ input.temp {
 }
 
 .customizing input.preset:checked, #presets input.preset:checked, .customizer fieldset {
-  background-color: #ffb !important;
+  background-color: #bdf !important;
   border-radius: 0.5em 0.5em 0 0;
   margin: 0 0.06em 0.06em 0.06em;
 }
@@ -444,7 +443,7 @@ input.preset:checked ~ input.temp {
 }
 
 .customizing, .customizer {
-  background-color: #cca !important;
+  background-color: #ddd !important;
 }
 
 .customizer div {
@@ -491,7 +490,7 @@ legend {
   left: 2em;
 }
 
-#presets .https-only {
+#presets .url {
   display: none;
 }
 

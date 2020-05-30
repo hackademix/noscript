@@ -31,6 +31,7 @@ var UI = (() => {
       let inited = new Promise(resolve => {
         Messages.addHandler({
           async settings(m) {
+            if (!UI.tabId === m.tabId) return;
             UI.policy = new Policy(m.policy);
             UI.snapshot = UI.policy.snapshot;
             UI.seen = m.seen;
@@ -198,14 +199,14 @@ var UI = (() => {
     <td class="presets">
     <span class="preset">
       <input id="preset" class="preset" type="radio" name="preset"><label for="preset" class="preset">PRESET</label>
-      <button class="options tiny">⚙</button>
-      <input id="temp" class="temp" type="checkbox"><label for="temp">Temporary</label></input>
+      <button tabindex="-1" class="options tiny">⚙</button>
+      <input tabindex="-1" id="temp" class="temp" type="checkbox"><label for="temp">Temporary</label></input>
     </span>
     </td>
 
     <td class="url" data-key="secure">
-    <input class="https-only" id="https-only" type="checkbox"><label for="https-only" class="https-only"></label>
-    <span class="full-address">
+    <input tabindex="0" class="https-only" id="https-only" type="checkbox"><label for="https-only" class="https-only"></label>
+    <span tabindex="0" class="full-address" aria-role="button">
     <span class="protocol">https://</span><span class="sub">www.</span><span class="domain">noscript.net</span><span class="path"></span>
     </span>
     </td>
@@ -213,7 +214,7 @@ var UI = (() => {
 
 
     </tr>
-    <tr class="customizer">
+    <tr tabindex="-1" class="customizer">
     <td colspan="2">
     <div class="customizer-controls">
     <fieldset><legend></legend>
@@ -357,16 +358,15 @@ var UI = (() => {
 
     clear() {
       debug("Clearing list", this.table);
-
       this.template = document.createElement("template");
       this.template.innerHTML = TEMPLATE;
       this.fragment = this.template.content;
       this.table = this.fragment.querySelector("table.sites");
       this.rowTemplate = this.initRow();
-
       for (let r of this.allSiteRows()) {
         r.remove();
       }
+
       this.customize(null);
       this.sitesCount = 0;
     }
@@ -471,6 +471,7 @@ var UI = (() => {
         this.presets[preset.value] &&
         preset !== customizer._preset)) {
            delete customizer._preset;
+           customizer.remove();
            return;
       }
 
@@ -490,17 +491,29 @@ var UI = (() => {
         row.parentNode.insertBefore(customizer, row.nextElementSibling);
         customizer.classList.toggle("closed", false);
         customizer.onkeydown = e => {
-          switch(e.keyCode) {
-            case 38:
-            case 8:
-            e.preventDefault();
+          let next = false;
+          switch(e.code) {
+            case "ArrowRight":
+              next = true;
+            case "ArrowUp":
+            preset.focus();
+            if (next) {
+              let temp = preset.parentNode.querySelector("input.temp");
+              if (temp) temp.focus();
+              else return false;
+            }
             this.onkeydown = null;
             this.customize(null);
-            preset.focus();
+            e.preventDefault();
             return false;
+            case "KeyT":
+            {
+              let temp = preset.parentNode.querySelector("input.temp");
+              if (temp) temp.checked = !temp.checked;
+            }
           }
         }
-        window.setTimeout(() => customizer.querySelector("input").focus(), 50);
+        window.setTimeout(() => customizer.querySelector("input:not(:disabled)").focus(), 50);
       }
     }
 
@@ -513,11 +526,56 @@ var UI = (() => {
       let root = parentNode.querySelector("table.sites");
       debug("Wiring", root);
       if (!root.wiredBy) {
+        root.addEventListener("keydown", e => this._keyNavHandler(e), true);
         root.addEventListener("click", this, true);
         root.addEventListener("change", this, true);
         root.wiredBy = this;
       }
       return root;
+    }
+
+    _keyNavHandler(e) {
+      let focused = document.activeElement;
+      if (!focused) return;
+      let row = focused.closest("tr");
+      if (row.matches(".customizer")) return;
+      let dir = "next";
+      let newRow;
+      switch(e.code) {
+        case "Enter":
+        case "Space":
+          if (focused.matches(".full-address")) {
+            UI.openSiteInfo(row.domain);
+          } else if (focused.matches(".preset")) {
+            if (e.code === "Enter") return; // let the popup handle closure
+            let custom = row.querySelector(".preset[value='CUSTOM']");
+            custom.focus();
+          }
+          e.preventDefault();
+          e.stopPropagation();
+        break;
+        case "Home":
+          newRow = row;
+        case "ArrowUp":
+          dir = "previous";
+        case "ArrowDown":
+          if (!newRow) {
+            this.customize(null);
+            let prop = `${dir}ElementSibling`;
+            newRow =  row[prop];
+            if (!(newRow && newRow.matches("tr"))) newRow = row;
+          }
+
+          if (newRow === row) {
+            let topButton = document.querySelector("#top > button");
+            if (top) topButton.focus();
+          } else {
+            newRow.querySelector("input.preset:checked").focus();
+          }
+          e.preventDefault();
+          e.stopPropagation();
+        break;
+      }
     }
 
     _populate(sites, sorter) {
@@ -577,7 +635,6 @@ var UI = (() => {
       }
       this.clear();
       for (let row of rows) this.table.appendChild(row);
-      this.table.appendChild(this.rowTemplate._customizer);
     }
 
     sorter(a, b) {
@@ -770,6 +827,7 @@ var UI = (() => {
         }
         let newRow = this.createSiteRow(site, site, row.perms, row.contextMatch, row.sitesCount);
         row.parentNode.replaceChild(newRow, row);
+        newRow.querySelector(".https-only").focus();
       }
     }
 
