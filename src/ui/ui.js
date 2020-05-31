@@ -548,6 +548,20 @@ var UI = (() => {
       debug("Wiring", root);
       if (!root.wiredBy) {
         root.addEventListener("keydown", e => this._keyNavHandler(e), true);
+        root.addEventListener("keyup", e => {
+          // we use a keyup listener to open the customizer from other presets
+          // because space repetion may lead to unintendedly "click" on the
+          // first cap checkbox once focused from keydown
+          switch(e.code) {
+            case "Space": {
+              let focused = document.activeElement;
+              if (focused.matches("tr .preset")) {
+                focused.closest("tr").querySelector(".preset[value='CUSTOM']").click();
+                e.preventDefault();
+              }
+            }
+          }
+        }, true);
         root.addEventListener("click", this, true);
         root.addEventListener("change", this, true);
         root.wiredBy = this;
@@ -590,11 +604,8 @@ var UI = (() => {
         case "Space":
           if (focused.matches(".full-address")) {
             UI.openSiteInfo(row.domain);
-          } else if (focused.matches(".preset")) {
+          } else {
             if (e.code === "Enter") return; // let the popup handle closure
-            let custom = row.querySelector(".preset[value='CUSTOM']");
-            custom.focus();
-            custom.click();
           }
           break;
         case "Home":
