@@ -428,10 +428,15 @@ var {Permissions, Policy, Sites} = (() => {
       let {url, siteKey} = Sites.parse(site);
 
       sites.delete(siteKey);
+      let wideSiteKey = Sites.toggleSecureDomainKey(siteKey, false);
 
       if (perms === this.UNTRUSTED) {
         cascade = true;
-        siteKey = Sites.toggleSecureDomainKey(siteKey, false);
+        siteKey = wideSiteKey;
+      } else {
+        if (wideSiteKey !== siteKey) {
+          sites.delete(wideSiteKey);
+        }
       }
       if (cascade && !url) {
         for (let subMatch; (subMatch = sites.match(siteKey));) {
