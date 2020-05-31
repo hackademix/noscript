@@ -497,7 +497,7 @@ var UI = (() => {
       customizer.classList.toggle("closed", false);
       let temp = preset.parentNode.querySelector("input.temp");
       customizer.onkeydown = e => {
-
+        if (e.shiftKey) return true;
         switch(e.code) {
           case "Tab":
             if (document.activeElement === lastInput) {

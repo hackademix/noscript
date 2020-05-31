@@ -98,6 +98,20 @@ addEventListener("unload", e => {
         }
       }
 
+     let keyHandlers = {
+        "r": "reload",
+        "o": "options",
+        "p": "temp-trust-page",
+        "f": "revoke-temp",
+        "G": "enforce",
+        "T": "enforce-tab",
+      };
+
+      window.addEventListener("keydown", e => {
+        let buttonId = keyHandlers[e.key];
+        if (buttonId) document.getElementById(buttonId).click();
+      }, true);
+
       let navigate = e => {
         let sel = e.code === "ArrowUp" ? ":last-child" : "";
         document.querySelector(`.sites tr.site${sel} input.preset:checked`).focus();
