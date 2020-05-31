@@ -471,6 +471,7 @@ var UI = (() => {
         this.presets[preset.value] &&
         preset !== customizer._preset)) {
            delete customizer._preset;
+           customizer.onkeydown = null;
            customizer.remove();
            return;
       }
@@ -478,6 +479,7 @@ var UI = (() => {
       customizer._preset = preset;
       row.classList.toggle("customizing", true);
       let immutable = Permissions.IMMUTABLE[preset.value] || {};
+      let lastInput = null;
       for (let input of customizer.querySelectorAll("input")) {
         let type = input.value;
         if (type in immutable) {
@@ -486,35 +488,54 @@ var UI = (() => {
         } else {
           input.checked = perms.allowing(type);
           input.disabled = false;
+          lastInput = input;
         }
         input.parentNode.classList.toggle("needed", this.siteNeeds(row._site, type));
-        row.parentNode.insertBefore(customizer, row.nextElementSibling);
-        customizer.classList.toggle("closed", false);
-        customizer.onkeydown = e => {
-          let next = false;
-          switch(e.code) {
-            case "ArrowRight":
-              next = true;
-            case "ArrowUp":
-            preset.focus();
-            if (next) {
-              let temp = preset.parentNode.querySelector("input.temp");
-              if (temp) temp.focus();
-              else return false;
+      }
+
+      row.parentNode.insertBefore(customizer, row.nextElementSibling);
+      customizer.classList.toggle("closed", false);
+      let temp = preset.parentNode.querySelector("input.temp");
+      customizer.onkeydown = e => {
+
+        switch(e.code) {
+          case "Tab":
+            if (document.activeElement === lastInput) {
+              if (temp) {
+                temp.tabIndex = "0";
+                temp.onblur = () => this.customize(null);
+                setTimeout(() => temp.tabIndex = "-1", 50);
+              }
+              preset.focus();
             }
+            return true;
+          case "ArrowLeft":
+          case "ArrowRight":
+          case "ArrowUp":
             this.onkeydown = null;
             this.customize(null);
-            e.preventDefault();
-            return false;
-            case "KeyT":
-            {
-              let temp = preset.parentNode.querySelector("input.temp");
-              if (temp) temp.checked = !temp.checked;
+            preset.focus();
+            switch(e.code.substring(5)) {
+              case "Left":
+                return false;
+              case "Right":
+                if (temp) {
+                  temp.focus();
+                } else {
+                  return false;
+                }
             }
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          case "KeyT":
+          {
+            let temp = preset.parentNode.querySelector("input.temp");
+            if (temp) temp.checked = !temp.checked;
           }
         }
-        window.setTimeout(() => customizer.querySelector("input:not(:disabled)").focus(), 50);
       }
+      window.setTimeout(() => customizer.querySelector("input:not(:disabled)").focus(), 50);
     }
 
     render(sites = this.sites, sorter = this.sorter) {
@@ -538,10 +559,33 @@ var UI = (() => {
       let focused = document.activeElement;
       if (!focused) return;
       let row = focused.closest("tr");
-      if (row.matches(".customizer")) return;
+      if (!row || row.matches(".customizer")) return;
       let dir = "next";
       let newRow;
+      let mappedPreset = ({
+        "+": "TRUSTED",
+        "-": "UNTRUSTED",
+        "0": "DEFAULT",
+        "t": "T_TRUSTED",
+        "c": "CUSTOM"
+      })[e.key];
+
+      if (mappedPreset) {
+        let p = row.querySelector(`.preset[value='${mappedPreset}']`);
+        if (p) {
+          p.focus();
+          p.click();
+          e.preventDefault();
+        }
+        return;
+      }
+
       switch(e.code) {
+        case "Delete":
+        case "Backspace":
+          row.querySelector(".preset[value='DEFAULT']").click();
+          e.preventDefault();
+          break;
         case "Enter":
         case "Space":
           if (focused.matches(".full-address")) {
@@ -550,10 +594,9 @@ var UI = (() => {
             if (e.code === "Enter") return; // let the popup handle closure
             let custom = row.querySelector(".preset[value='CUSTOM']");
             custom.focus();
+            custom.click();
           }
-          e.preventDefault();
-          e.stopPropagation();
-        break;
+          break;
         case "Home":
           newRow = row;
         case "ArrowUp":
@@ -568,13 +611,19 @@ var UI = (() => {
 
           if (newRow === row) {
             let topButton = document.querySelector("#top > button");
-            if (top) topButton.focus();
+            if (topButton) topButton.focus();
           } else {
             newRow.querySelector("input.preset:checked").focus();
           }
           e.preventDefault();
           e.stopPropagation();
-        break;
+          break;
+        case "KeyS":
+          row.querySelector(".https-only").click();
+          break;
+        case "KeyI":
+          UI.openSiteInfo(row.domain);
+          break;
       }
     }
 
@@ -810,13 +859,14 @@ var UI = (() => {
     }
 
     toggleSecure(row, secure = !!row.querySelector("https-only:checked")) {
-      this.customize(null);
       let site = row.siteMatch;
       site = site.replace(/^https?:/, secure ? "https:" : "http:");
       if (site === row.siteMatch) {
         site = Sites.toggleSecureDomainKey(site, secure);
       }
       if (site !== row.siteMatch) {
+        this.customize(null);
+        let focused = document.activeElement;
         let {policy} = UI;
         policy.set(row.siteMatch, policy.DEFAULT);
         policy.set(site, row.perms);
@@ -827,7 +877,11 @@ var UI = (() => {
         }
         let newRow = this.createSiteRow(site, site, row.perms, row.contextMatch, row.sitesCount);
         row.parentNode.replaceChild(newRow, row);
-        newRow.querySelector(".https-only").focus();
+        if (focused) {
+          let selector = focused.matches(".preset[value]") ?
+              `.preset[value="${focused.value}"]` : ".https-only";
+          newRow.querySelector(selector).focus();
+        }
       }
     }
 

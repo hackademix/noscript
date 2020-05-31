@@ -116,6 +116,19 @@ addEventListener("unload", e => {
           case "ArrowUp":
             navigate(e);
           break;
+          case "ArrowLeft":
+          case "ArrowRight":
+          {
+            let focused = document.activeElement;
+            let all = [...focused.parentNode.querySelectorAll(".icon")];
+            let index = all.indexOf(focused);
+            if (index === -1) return;
+            index += e.code === "ArrowRight" ? 1 : -1;
+            if (index >= all.length) index = 0;
+            else if (index < 0) index = all.length -1;
+            all[index].focus();
+            break;
+          }
         }
       }, true);
     }
