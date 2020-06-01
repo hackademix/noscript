@@ -46,7 +46,7 @@ addEventListener("unload", e => {
     addEventListener("keydown", e => {
       if (e.code === "Enter") {
         let focused = document.activeElement;
-        if (focused && focused.matches(".preset")) {
+        if (focused.closest(".sites")) {
           close();
         }
       }
@@ -308,7 +308,7 @@ addEventListener("unload", e => {
       if (sitesUI.incognito) {
         document.body.classList.add("incognito");
       }
-      
+
       sitesUI.render(sites);
     }
 

@@ -606,8 +606,6 @@ var UI = (() => {
         case "Space":
           if (focused.matches(".full-address")) {
             UI.openSiteInfo(row.domain);
-          } else {
-            if (e.code === "Enter") return; // let the popup handle closure
           }
           break;
         case "Home":
