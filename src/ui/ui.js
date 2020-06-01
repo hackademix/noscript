@@ -199,7 +199,6 @@ var UI = (() => {
     <td class="presets">
     <span class="preset">
       <input id="preset" class="preset" type="radio" name="preset"><label for="preset" class="preset">PRESET</label>
-      <button tabindex="-1" class="options tiny">⚙</button>
       <input tabindex="-1" id="temp" class="temp" type="checkbox"><label for="temp">Temporary</label></input>
     </span>
     </td>
@@ -256,9 +255,8 @@ var UI = (() => {
       // PRESETS
       {
         let presets = row.querySelector(".presets");
-        let [span, input, label, options] = presets.querySelectorAll("span.preset, input.preset, label.preset, .options");
+        let [span, input, label] = presets.querySelectorAll("span.preset, input.preset, label.preset");
         span.remove();
-        options.title = _("Options");
         for (let [preset, customizable] of Object.entries(this.presets)) {
           let messageKey = UI.presets[preset];
           input.value = preset;
@@ -273,11 +271,7 @@ var UI = (() => {
             temp.nextElementSibling.remove();
             temp.remove();
           }
-          if (customizable) {
-            clone.querySelector(".options").remove();
-          }
           presets.appendChild(clone);
-
         }
 
         if (!UI.mobile) {
