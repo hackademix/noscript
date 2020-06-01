@@ -335,6 +335,10 @@ html:not(.mobile) :focus {
                 -3px 3px 3px rgba(255,255,100, .5), 3px -3px 3px rgba(255,255,100, .5);
 }
 
+input.preset:disabled {
+  filter: grayscale(100%);
+}
+
 input.preset[value="T_TRUSTED"] {
   background-image: url(/img/ui-temp64.png);
 }

@@ -191,7 +191,7 @@ var RequestGuard = (() => {
         title: _("BlockedObjects"),
         message: _("allowLocal", TAG),
         options});
-      debug(`Prompt returned %o`);
+      debug(`Prompt returned`, ret, sender);
       if (ret.button !== 0) return;
       if (ret.option === 2) {
         return {collapse: "all"};
@@ -201,7 +201,8 @@ var RequestGuard = (() => {
       let {siteMatch, contextMatch, perms} = ns.policy.get(key, documentUrl);
       let {capabilities} = perms;
       if (!capabilities.has(policyType)) {
-        perms = new Permissions(new Set(capabilities), false);
+        let temp = sender.tab.incognito; // we don't want to store in PBM
+        perms = new Permissions(new Set(capabilities), temp);
         perms.capabilities.add(policyType);
         /* TODO: handle contextual permissions
         if (documentUrl) {

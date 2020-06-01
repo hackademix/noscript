@@ -303,7 +303,12 @@ addEventListener("unload", e => {
       sitesUI.mainUrl = new URL(mainFrame.request.url)
       sitesUI.mainSite = urlToLabel(sitesUI.mainUrl);
       sitesUI.mainDomain = tld.getDomain(sitesUI.mainUrl.hostname);
+      sitesUI.incognito = tab.incognito;
 
+      if (sitesUI.incognito) {
+        document.body.classList.add("incognito");
+      }
+      
       sitesUI.render(sites);
     }
 

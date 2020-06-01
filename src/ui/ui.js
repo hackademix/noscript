@@ -237,6 +237,7 @@ var UI = (() => {
     "UNTRUSTED": false,
     "CUSTOM": true,
   };
+  const INCOGNITO_PRESETS = ["DEFAULT", "T_TRUSTED", "CUSTOM"];
 
   UI.Sites = class {
     constructor(parentNode, presets = DEF_PRESETS) {
@@ -261,16 +262,19 @@ var UI = (() => {
           let messageKey = UI.presets[preset];
           input.value = preset;
           label.textContent = label.title = input.title = _(messageKey);
+          input.disabled = this.incognito && !INCOGNITO_PRESETS.includes(preset);
           let clone = span.cloneNode(true);
           clone.classList.add(preset);
           let temp = clone.querySelector(".temp");
           if (TEMP_PRESETS.includes(preset)) {
             temp.title = _("allowTemp", `(${label.title.toUpperCase()})`);
             temp.nextElementSibling.textContent = _("allowTemp", ""); // label;
+            temp.disabled = this.incognito;
           } else {
             temp.nextElementSibling.remove();
             temp.remove();
           }
+
           presets.appendChild(clone);
         }
 
@@ -418,6 +422,9 @@ var UI = (() => {
         }
         if (isCap) {
           perms.set(target.value, target.checked);
+          if (this.incognito) {
+            row.perms.temp = tempToggle.checked = true;
+          }
         } else if (policyPreset) {
           if (tempToggle && tempToggle.checked) {
             policyPreset = policyPreset.tempTwin;
@@ -434,8 +441,9 @@ var UI = (() => {
 
         } else if (preset.value === "CUSTOM") {
           if (isTemp) {
-            row.perms.temp = target.checked;
+            row.perms.temp = target.checked || this.incognito;
           } else {
+            if (this.incognito) row.perms.temp = true;
             let temp = row.perms.temp;
             tempToggle.checked = temp;
             let perms = row._customPerms ||
@@ -525,7 +533,7 @@ var UI = (() => {
           case "KeyT":
           {
             let temp = preset.parentNode.querySelector("input.temp");
-            if (temp) temp.checked = !temp.checked;
+            if (temp) temp.checked = !temp.checked || this.incognito;
           }
         }
       }
@@ -855,6 +863,7 @@ var UI = (() => {
             temp.checked = perms.temp;
           }
         }
+        preset.disabled = false;
       }
       return row;
     }
