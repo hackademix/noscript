@@ -35,6 +35,7 @@ addEventListener("unload", e => {
       isBrowserAction = false;
       try {
         tabId = parseInt(document.URL.match(/#.*\btab(\d+)/)[1]);
+        tab = await browser.tabs.get(tabId);
       } catch (e) {
         close();
       }
@@ -53,7 +54,7 @@ addEventListener("unload", e => {
     })
 
     port = browser.runtime.connect({name: "noscript.popup"});
-    await UI.init(tabId);
+    await UI.init(tab);
 
     function pendingReload(b) {
       try {

@@ -12,8 +12,9 @@ var UI = (() => {
       "CUSTOM": "Custom",
     },
 
-    async init(tabId = -1) {
-      UI.tabId = tabId;
+    async init(tab) {
+      UI.tabId = tab ? tab.id : -1;
+      UI.incognito = tab && tab.incognito;
       let scripts = [
         "/ui/ui.css",
         "/lib/Messages.js",
@@ -39,7 +40,7 @@ var UI = (() => {
             UI.xssUserChoices = m.xssUserChoices;
             UI.local = m.local;
             UI.sync = m.sync;
-
+            UI.forceIncognito = UI.incognito && !UI.sync.overrideTorBrowserPolicy;
             if (UI.local) {
               if (!UI.local.debug) {
                 debug = () => {}; // be quiet!
@@ -262,14 +263,14 @@ var UI = (() => {
           let messageKey = UI.presets[preset];
           input.value = preset;
           label.textContent = label.title = input.title = _(messageKey);
-          input.disabled = this.incognito && !INCOGNITO_PRESETS.includes(preset);
+          input.disabled = UI.forceIncognito && !INCOGNITO_PRESETS.includes(preset);
           let clone = span.cloneNode(true);
           clone.classList.add(preset);
           let temp = clone.querySelector(".temp");
           if (TEMP_PRESETS.includes(preset)) {
             temp.title = _("allowTemp", `(${label.title.toUpperCase()})`);
             temp.nextElementSibling.textContent = _("allowTemp", ""); // label;
-            temp.disabled = this.incognito;
+            temp.disabled = UI.forceIncognito;
           } else {
             temp.nextElementSibling.remove();
             temp.remove();
@@ -422,7 +423,7 @@ var UI = (() => {
         }
         if (isCap) {
           perms.set(target.value, target.checked);
-          if (this.incognito) {
+          if (UI.forceIncognito) {
             row.perms.temp = tempToggle.checked = true;
           }
         } else if (policyPreset) {
@@ -441,9 +442,9 @@ var UI = (() => {
 
         } else if (preset.value === "CUSTOM") {
           if (isTemp) {
-            row.perms.temp = target.checked || this.incognito;
+            row.perms.temp = target.checked || UI.forceIncognito;
           } else {
-            if (this.incognito) row.perms.temp = true;
+            if (UI.forceIncognito) row.perms.temp = true;
             let temp = row.perms.temp;
             tempToggle.checked = temp;
             let perms = row._customPerms ||
@@ -533,7 +534,7 @@ var UI = (() => {
           case "KeyT":
           {
             let temp = preset.parentNode.querySelector("input.temp");
-            if (temp) temp.checked = !temp.checked || this.incognito;
+            if (temp) temp.checked = !temp.checked || UI.forceIncognito;
           }
         }
       }
