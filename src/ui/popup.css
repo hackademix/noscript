@@ -157,6 +157,7 @@ body {
 }
 
 #top > .icon:hover, #top > .icon:focus, #top > .icon:active {
+  outline: 0;
   transform: scale(1.2);
 }
 

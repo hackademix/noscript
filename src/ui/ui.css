@@ -329,8 +329,8 @@ span.preset {
    overflow: visible;
 }
 
-html:not(.mobile) :focus {
-  outline: none;
+:focus {
+  outline: 0;
   box-shadow: inset 3px 3px 3px rgba(255,255,100, .5), -3px -3px 3px  rgba(255,255,100, .5),
                 -3px 3px 3px rgba(255,255,100, .5), 3px -3px 3px rgba(255,255,100, .5);
 }
@@ -362,7 +362,7 @@ input.temp {
   padding: 0;
   border: 0;
   opacity: 0;
-  outline: none;
+  outline: 0;
   background: url(/img/ui-clock64.png) no-repeat center;
   background-size: 60%;
   width: 1.5em;
