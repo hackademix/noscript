@@ -26,6 +26,7 @@ addEventListener("unload", e => {
         : null,
       active: true
     }))[0];
+    let pageTab = tab;
 
     if (!tab || tab.id === -1) {
       log("No tab found to open the UI for");
@@ -35,7 +36,7 @@ addEventListener("unload", e => {
       isBrowserAction = false;
       try {
         tabId = parseInt(document.URL.match(/#.*\btab(\d+)/)[1]);
-        tab = await browser.tabs.get(tabId);
+        pageTab = await browser.tabs.get(tabId);
       } catch (e) {
         close();
       }
@@ -54,7 +55,7 @@ addEventListener("unload", e => {
     })
 
     port = browser.runtime.connect({name: "noscript.popup"});
-    await UI.init(tab);
+    await UI.init(pageTab);
 
     function pendingReload(b) {
       try {
@@ -183,7 +184,7 @@ addEventListener("unload", e => {
     let mainFrame = UI.seen && UI.seen.find(thing => thing.request.type === "main_frame");
     debug("Seen: %o", UI.seen);
     if (!mainFrame) {
-      let isHttp = /^https?:/.test(tab.url);
+      let isHttp = /^https?:/.test(pageTab.url);
       try {
         await browser.tabs.executeScript(tabId, { code: "" });
         if (isHttp) {
@@ -204,11 +205,11 @@ addEventListener("unload", e => {
           return;
         }
       } catch (e) {
-        error(e, "Could not run scripts on %s: privileged page?", tab.url);
+        error(e, "Could not run scripts on %s: privileged page?", pageTab.url);
       }
 
       await include("/lib/restricted.js");
-      let isRestricted = isRestrictedURL(tab.url);
+      let isRestricted = isRestrictedURL(pageTab.url);
       if (!isHttp || isRestricted) {
         showMessage("warning", _("privilegedPage"));
         let tempTrust = document.getElementById("temp-trust-page");
@@ -217,9 +218,10 @@ addEventListener("unload", e => {
       }
       if (!UI.seen) {
         if (!isHttp) return;
+        let {url} = pageTab;
         UI.seen = [
           mainFrame = {
-            request: { url: tab.url, documentUrl: tab.url, type: "main_frame" }
+            request: { url, documentUrl: url, type: "main_frame" }
           }
         ];
       }
@@ -304,11 +306,6 @@ addEventListener("unload", e => {
       sitesUI.mainUrl = new URL(mainFrame.request.url)
       sitesUI.mainSite = urlToLabel(sitesUI.mainUrl);
       sitesUI.mainDomain = tld.getDomain(sitesUI.mainUrl.hostname);
-      sitesUI.incognito = tab.incognito;
-
-      if (sitesUI.incognito) {
-        document.body.classList.add("incognito");
-      }
 
       sitesUI.render(sites);
     }

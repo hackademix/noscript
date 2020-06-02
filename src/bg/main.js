@@ -20,7 +20,7 @@
   let ctxMenuId = "noscript-ctx-menu";
 
   async function toggleCtxMenuItem(show = ns.local.showCtxMenuItem) {
-    if (!"contextMenus" in browser) return;
+    if (!("contextMenus" in browser)) return;
     let id = ctxMenuId;
     try {
       await browser.contextMenus.remove(id);
