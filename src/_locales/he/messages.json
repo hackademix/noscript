@@ -32,7 +32,7 @@
         "description": ""
     },
     "AllowClipboard": {
-        "message": "התר העתקה והדבקה של מלל עשיר מלוח גזירה חיצוני",
+        "message": "התר העתקה והדבקה של טקסט עשיר מלוח גזירה חיצוני",
         "description": ""
     },
     "AllowLocalLinks": {
