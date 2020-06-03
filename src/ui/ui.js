@@ -508,8 +508,9 @@ var UI = (() => {
                 temp.tabIndex = "0";
                 temp.onblur = () => this.customize(null);
                 setTimeout(() => temp.tabIndex = "-1", 50);
+                preset.focus();
               }
-              preset.focus();
+
             }
             return true;
           case "ArrowLeft":
@@ -518,15 +519,12 @@ var UI = (() => {
             this.onkeydown = null;
             this.customize(null);
             preset.focus();
+            if (!temp) return true;
             switch(e.code.substring(5)) {
               case "Left":
                 return false;
               case "Right":
-                if (temp) {
-                  temp.focus();
-                } else {
-                  return false;
-                }
+                temp.focus();
             }
             e.preventDefault();
             e.stopPropagation();
