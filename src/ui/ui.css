@@ -150,10 +150,10 @@ input[type="checkbox"] {
   font-size: 1em;
 }
 html:not(.mobile) .sites > tr.site:hover {
-  background: #ff8;
+  background: #bdf;
 }
 html:not(.mobile) .sites > tr.site:focus-within {
-  background: #bdf;
+  background: #ccc;
 }
 .sites > tr:nth-child(even) {background: #fff}
 .sites > tr:nth-child(odd) {background: #eee}
@@ -330,9 +330,13 @@ span.preset {
 }
 
 :focus {
+  --focus-color: #bdf8;
   outline: 0;
-  box-shadow: inset 3px 3px 3px rgba(255,255,100, .5), -3px -3px 3px  rgba(255,255,100, .5),
-                -3px 3px 3px rgba(255,255,100, .5), 3px -3px 3px rgba(255,255,100, .5);
+  filter:
+    drop-shadow(3px 3px 3px var(--focus-color))
+    drop-shadow(-3px 3px 3px var(--focus-color))
+    drop-shadow(3px -3px 3px var(--focus-color))
+    drop-shadow(-3px -3px 3px var(--focus-color));
 }
 
 input.preset:disabled {
@@ -393,8 +397,14 @@ input.preset:checked ~ input.temp {
  background-size: 100%;
 }
 
+#presets input.preset:not(:checked) {
+  background-color: #ccc;
+}
+#presets input.preset {
+  box-shadow: 0 1px 1px #888;
+}
 .customizing input.preset:checked, #presets input.preset:checked, .customizer fieldset {
-  background-color: #bdf !important;
+  background-color: #eee;
   border-radius: 0.5em 0.5em 0 0;
   margin: 0 0.06em 0.06em 0.06em;
 }
@@ -408,9 +418,15 @@ input.preset:checked ~ input.temp {
 }
 
 .customizing, .customizer {
-  background-color: #ddd !important;
+  background-color: #ccc !important;
 }
 
+#presets .customizing, #presets .customizer {
+  background-color: #ddd !important;
+}
+.customizer fieldset {
+  box-shadow: 1px 1px 1px #888;
+}
 .customizer div {
   transition: 0.2s height;
   padding: 0;
