@@ -245,7 +245,14 @@ addEventListener("unload", e => {
     initSitesUI();
     UI.onSettings = initSitesUI;
 
-
+    if (UI.incognito) {
+      UI.wireOption("overrideTorBrowserPolicy", "sync", toggle => {
+          if (UI.forceIncognito !== !toggle) {
+            UI.forceIncognito = !toggle;
+            sitesUI.render();
+          }
+      });
+    }
 
     function initSitesUI() {
       pendingReload(false);
@@ -308,6 +315,7 @@ addEventListener("unload", e => {
       sitesUI.mainDomain = tld.getDomain(sitesUI.mainUrl.hostname);
 
       sitesUI.render(sites);
+      sitesUI.focus();
     }
 
     function reload() {

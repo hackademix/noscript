@@ -56,19 +56,6 @@ body {
   white-space: nowrap;
 }
 
-.opt-group {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  border-bottom: 1px solid rgba(255, 255, 255, .5);
-  padding: .5em 0;
-}
-
-.opt-group:last-child {
-  border-bottom: none;
-  margin-bottom: .5em;
-}
-
 section form, section fieldset {
   margin: .5em 0;
 }
@@ -77,9 +64,7 @@ fieldset:disabled {
   opacity: .5;
 }
 
-.opt-group > span {
-  margin: 0 .5em;
-}
+
 
 .sect-sites form {
   display: flex;
@@ -146,20 +131,8 @@ button.add {
   appearance: none;
 }
 
-.opt-group {
-  padding: 0.5em 0;
-}
-
 #xssFaq {
   padding: 0.5em 1em;
-}
-
-#tb-options {
-  display: none;
-}
-
-.tor #tb-options {
-  display: initial;
 }
 
 #clearclick-options {
