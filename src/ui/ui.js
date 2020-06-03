@@ -14,7 +14,9 @@ var UI = (() => {
 
     async init(tab) {
       UI.tabId = tab ? tab.id : -1;
-      UI.incognito = tab && tab.incognito;
+      document.documentElement.classList.toggle("incognito",
+        UI.incognito = tab && tab.incognito
+      );
       let scripts = [
         "/ui/ui.css",
         "/lib/Messages.js",
@@ -656,7 +658,6 @@ var UI = (() => {
         this.sites = sites;
       }
       this.sort(sorter);
-      window.setTimeout(() => this.focus(), 50);
     }
 
     focus() {

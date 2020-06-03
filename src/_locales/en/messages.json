@@ -225,6 +225,9 @@
   "Import_accesskey": {
     "message": "I"
   },
+  "OptIncognitoPerm": {
+    "message": "Enable permanent TRUSTED/UNTRUSTED in incognito/private tabs.\nBEWARE: this leaks site information!"
+  },
   "KeepLocked": {
     "message": "Keep this element locked (recommended)"
   },

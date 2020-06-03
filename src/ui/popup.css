@@ -246,3 +246,19 @@ body {
 .error {
   background-image: url("/img/error64.png");
 }
+
+#incognito-ui-chooser, html.incognito #message:not(.hidden) ~ #incognito-ui-chooser {
+  display: none;
+}
+html.incognito #incognito-ui-chooser {
+  display: initial;
+}
+
+#incognito-ui-chooser label {
+  white-space: pre-wrap;
+}
+
+#incognito-ui-chooser input:checked + label {
+  background: #ff8;
+  color: #800;
+}

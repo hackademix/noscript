@@ -6,14 +6,40 @@ body {
   min-width: 600px;
 }
 
-.mobile > body {
+html.mobile > body {
   font-family: Inter, sans-serif;
   font-size: 4mm;
   min-width: auto;
 }
 
-.mobile .desktop {
+html.mobile .desktop {
   display: none !important;
+}
+
+html:not(.tor) .tor, html.tor .not-tor {
+  display: none;
+}
+html.tor .tor, html:not(.tor) .not-tor {
+  display: initial;
+}
+
+.opt-group {
+  display: flex;
+  flex-flow: row wrap;
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
+  padding: .5em 0;
+}
+
+.opt-group:last-child {
+  border-bottom: none;
+  margin-bottom: .5em;
+}
+
+.opt-group > span {
+  margin: 0 .5em;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
 }
 
 @media (max-width: 100mm) {
