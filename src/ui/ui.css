@@ -186,7 +186,7 @@ html:not(.mobile) .sites > tr.site:focus-within {
 
 .site .url {
     padding: 0 0 0 0.5em;
-    color: #ccc;
+    color: #000;
     vertical-align: top;
 }
 .site .url .protocol { display: none }
