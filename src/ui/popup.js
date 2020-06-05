@@ -153,7 +153,7 @@ addEventListener("unload", e => {
       let pressed = policy.enforced;
       let button = document.getElementById("enforce");
       button.setAttribute("aria-pressed", pressed);
-      button.textContent = button.title = _(pressed ? "NoEnforcement" :  "Enforce");
+      button.title = _(pressed ? "NoEnforcement" :  "Enforce");
       button.onclick = async () => {
         this.disabled = true;
         policy.enforced = !pressed;
@@ -165,7 +165,7 @@ addEventListener("unload", e => {
       let pressed = !UI.unrestrictedTab;
       let button = document.getElementById("enforce-tab");
       button.setAttribute("aria-pressed", pressed);
-      button.textContent = button.title = _(pressed ? "NoEnforcementForTab" :  "EnforceForTab");
+      button.title = _(pressed ? "NoEnforcementForTab" :  "EnforceForTab");
       if (UI.policy.enforced) {
         button.onclick = async () => {
           this.disabled = true;

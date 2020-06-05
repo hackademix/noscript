@@ -16,10 +16,6 @@
     }
   }
 
-  for (let i of toolbar.querySelectorAll(".icon")) {
-    if (!i.title) i.title = i.textContent;
-  }
-
   function toggleHider(b) {
     let cl = hider.classList;
     cl.toggle("open", b);
@@ -48,6 +44,7 @@
       dt.dropEffect = "move";
       dt.setDragImage(d, 0, 0);
       toggleHider(true);
+      this.draggedElement = d;
     },
     dragend(ev)  {
       ev.target.style.opacity = "";
@@ -56,23 +53,30 @@
       ev.preventDefault();
     },
     dragenter(ev) {
-      let t = ev.target;
     },
     dragleave(ev) {
-      let t = ev.target;
     },
     drop(ev) {
       let t = ev.target;
-      let d = document.getElementById(ev.dataTransfer.getData("text/plain"));
+      let d = ev.dataTransfer ?
+        document.getElementById(ev.dataTransfer.getData("text/plain"))
+        : this.draggedElement;
+      this.draggedElement = null;
+      if (!d) return;
       switch(t) {
         case hider:
           t.appendChild(d);
           break;
-        case toolbar:
-          t.insertBefore(d, ev.clientX < hider.offsetLeft ? hider : spacer.nextElementSibling);
-          break;
         default:
-          t.parentNode.insertBefore(d, ev.clientX < (t.offsetLeft + t.offsetWidth) ? t : t.nextElementSibling);
+          if (!t.closest("#top")) return; // outside the toolbar?
+          let stop = null;
+          for (let c of toolbar.children) {
+            if (ev.clientX < c.offsetLeft + c.offsetWidth / 2) {
+              stop = c;
+              break;
+            }
+          }
+          t.insertBefore(d, stop);
       }
 
       let left = [], right = [];
@@ -103,14 +107,17 @@
       }
     }
 
-  };
+};
 
 
   for (let [action, handler] of Object.entries(dnd)) {
     toolbar.addEventListener(action, handler, true);
   }
 
+let dragDiv = document.createElement("div");
   for (let draggable of document.querySelectorAll("#top .icon")) {
     draggable.setAttribute("draggable", "true");
+    // work-around for https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+    draggable.appendChild(dragDiv.cloneNode());
   }
 }
