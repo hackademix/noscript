@@ -299,6 +299,10 @@
         "message": "I",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "保持本元素鎖定 (建議)",
         "description": ""

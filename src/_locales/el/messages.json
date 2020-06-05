@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "Μπλοκαρισμένα αντικείμενα NoScript",
+        "message": "NoScript Blocked Objects",
         "description": ""
     },
     "BookmarkSync": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Επιπλέον προστασία για τον Firefox σου: το NoScript επιτρέπει JavaScript, Flash (και άλλα πρόσθετα) μόνο από έμπιστους ιστοτόπους που εσύ επιλέγεις (για παράδειγμα την σελίδα της τράπεζάς σου). Αυτή η προσέγγιση προληπτικού μπλοκαρίσματος όλων των σελιδών εκτός των έμπιστων σελιδών, αποτρέπει την εκμετάλλευση ευπαθειών ασφάλειας (γνωστών ή και αγνώστων!) χωρίς να χάνεται χρηστικότητα.",
+        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
         "description": ""
     },
     "Donate": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Εμφάνιση με μεγάλη αντίθεση χρωμάτων",
+        "message": "Υψηλή αντίθεση",
         "description": ""
     },
     "httpsOnly": {
@@ -297,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
     "KeepLocked": {
@@ -749,6 +753,10 @@
     },
     "cap_fetch": {
         "message": "fetch",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {

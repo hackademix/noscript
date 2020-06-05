@@ -56,7 +56,7 @@
         "description": ""
     },
     "AlwaysBlockUntrustedContent": {
-        "message": "Alle Objekte von Seiten, die als nicht vertrauenswürdige markiert wurden, blockieren",
+        "message": "Alle Objekte von Seiten, die als nicht vertrauenswürdig markiert wurden, blockieren",
         "description": ""
     },
     "SectionAppearance": {
@@ -299,6 +299,10 @@
         "message": "I",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Dauerhaftes Setzen von Berechtigungen in privaten Fenstern aktivieren.\nACHTUNG: Dadurch können Seiteninformationen durchsickern!",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Dieses Element gesperrt halten (empfohlen)",
         "description": ""
@@ -312,7 +316,7 @@
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "Keine Platzhalter für Elemente von Seiten, die als nicht vertrauenswürdige markiert wurden",
+        "message": "Keine Platzhalter für Elemente von Seiten, die als nicht vertrauenswürdig markiert wurden",
         "description": ""
     },
     "Notifications": {
@@ -380,7 +384,7 @@
         "description": ""
     },
     "PermanentInPrivate": {
-        "message": "Dauerhaftes \"Zulassen\" in Privaten Fenstern ermöglichen",
+        "message": "Dauerhaftes \"Zulassen\" in privaten Fenstern ermöglichen",
         "description": ""
     },
     "SectionSitePermissions": {

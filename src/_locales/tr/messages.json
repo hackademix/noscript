@@ -299,6 +299,10 @@
         "message": "R",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Gizli/özel sekmelerde izinleri kalıcı yapar.\nDİKKAT: Bu işlem site bilgilerinin sızmasına neden olabilir!",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Bu bileşeni kilitlenmiş olarak tut (önerilir)",
         "description": ""

@@ -160,7 +160,7 @@
         "description": ""
     },
     "Default": {
-        "message": "規定",
+        "message": "既定",
         "description": ""
     },
     "DefaultPolicies": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "ハイコントラストの外観",
+        "message": "High contrast",
         "description": ""
     },
     "httpsOnly": {
@@ -297,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
     "KeepLocked": {
@@ -448,7 +452,7 @@
         "description": ""
     },
     "ResetDef": {
-        "message": "規定にリセット",
+        "message": "既定にリセット",
         "description": ""
     },
     "ResetDef_accesskey": {
@@ -751,6 +755,10 @@
         "message": "フェッチ",
         "description": ""
     },
+    "cap_ping": {
+        "message": "ping",
+        "description": ""
+    },
     "cap_other": {
         "message": "other",
         "description": ""
@@ -868,7 +876,7 @@
         "description": ""
     },
     "reset_warning": {
-        "message": "NoScript のすべての設定とサイトのアクセス許可は、すぐに規定値にリセットされます。\nこのアクションは元に戻せません。\n続行しますか？",
+        "message": "NoScript のすべての設定とサイトのアクセス許可は、すぐに既定値にリセットされます。\nこのアクションは元に戻せません。\n続行しますか？",
         "description": ""
     },
     "siteInfo_confirm": {

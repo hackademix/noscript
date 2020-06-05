@@ -299,6 +299,10 @@
         "message": "I",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Aktivizoni ujdisje lejesh të përhershme në skeda inkonjito/private.\nDIJENI: duke bërë kështu mund të rrjedhin të dhëna sajti!",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Mbaje të kyçur këtë element (e këshilluar)",
         "description": ""

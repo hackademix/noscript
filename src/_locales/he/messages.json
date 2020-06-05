@@ -60,7 +60,7 @@
         "description": ""
     },
     "SectionAppearance": {
-        "message": "מַרְאֶה",
+        "message": "מראה",
         "description": ""
     },
     "AutoAllowTopLevel": {
@@ -297,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "ב",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "אפשר קביעת הרשאות קבועות בלשוניות עילום שם או בלשוניות פרטיות.\nהיזהר: אפשור עלול להדליף מידע אתר!",
         "description": ""
     },
     "KeepLocked": {

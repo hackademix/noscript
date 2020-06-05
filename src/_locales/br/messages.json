@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript objedoù stanket",
+        "message": "NoScript Blocked Objects",
         "description": ""
     },
     "BookmarkSync": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Gwarez ouzhpenn evit ho Firefox: NoScript a aotren JavaScript, Flash (ha lugantoù all) nemetken evit an domanioù a c'heller kaout fiziañs enno diouzh ho c'hoant (da skouer, ho lec'hienn bank er gêr). An hentenn stankañ-mañ dizarbenn diazezet war ar wennlistenn a vir ouzh ar c'horvoiñ frailhoù surentez (anaveet ha dianaveet!) Hep koll arc'hweladur ebet... An dud arbennig a lavaro deoc'h: Firefox a zo suroc'h hag a galz gant NoScript :-)",
+        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
         "description": ""
     },
     "Donate": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Neuz dargemm uhel",
+        "message": "High contrast",
         "description": ""
     },
     "httpsOnly": {
@@ -297,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
     "KeepLocked": {
@@ -749,6 +753,10 @@
     },
     "cap_fetch": {
         "message": "fetch",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {

@@ -299,6 +299,10 @@
         "message": "I",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Instellen van permanente toestemmingen in incognito-/privétabbladen inschakelen.\nPAS OP: hierdoor kan website-informatie lekken!",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Dit element vergrendeld houden (aanbevolen)",
         "description": ""

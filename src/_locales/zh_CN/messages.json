@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript 被拦截的对象",
+        "message": "NoScript Blocked Objects",
         "description": ""
     },
     "BookmarkSync": {
@@ -297,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
     "KeepLocked": {
@@ -749,6 +753,10 @@
     },
     "cap_fetch": {
         "message": "获取",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {

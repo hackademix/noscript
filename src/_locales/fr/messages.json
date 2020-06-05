@@ -299,6 +299,10 @@
         "message": "l",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Permettre de définir des autorisations permanentes en mode de navigation privée.\nATTENTION : des renseignements pourraient être divulgués !",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Garder cet élément verrouillé (recommandé)",
         "description": ""

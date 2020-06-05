@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Høykontrastsutseende",
+        "message": "High contrast",
         "description": ""
     },
     "httpsOnly": {
@@ -297,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
     "KeepLocked": {
@@ -749,6 +753,10 @@
     },
     "cap_fetch": {
         "message": "hent",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {

@@ -299,6 +299,10 @@
         "message": "I",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Возможность устанавливать постоянные разрешения в инкогнито/приватных вкладках.\nОСТОРОЖНО: возможна утечка информации со страницы!",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Оставить этот элемент заблокированным (рекомендуется)",
         "description": ""
@@ -752,7 +756,7 @@
         "description": ""
     },
     "cap_ping": {
-        "message": "пинг",
+        "message": "ping",
         "description": ""
     },
     "cap_other": {
