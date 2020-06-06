@@ -197,7 +197,7 @@ addEventListener("unload", e => {
             reload();
             close();
           }
-          buttons.appendChild(b);
+          buttons.appendChild(b).focus();
           b = document.createElement("button");
           b.textContent = _("Cancel");
           b.onclick = () => close();
