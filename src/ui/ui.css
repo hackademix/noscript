@@ -355,8 +355,8 @@ span.preset {
    overflow: visible;
 }
 
-:focus {
-  --focus-color: #bdf8;
+input:focus, button:focus, input:focus, a:focus {
+  --focus-color:    #bdf8;
   outline: 0;
   filter:
     drop-shadow(3px 3px 3px var(--focus-color))

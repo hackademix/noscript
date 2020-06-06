@@ -622,7 +622,7 @@ var UI = (() => {
           }
 
           if (newRow === row) {
-            let topButton = document.querySelector("#top > button");
+            let topButton = document.querySelector("#top > .icon");
             if (topButton) topButton.focus();
           } else {
             newRow.querySelector("input.preset:checked").focus();

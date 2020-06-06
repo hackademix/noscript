@@ -169,7 +169,7 @@ body {
   padding: 0;
 }
 
-#top > .icon:hover, #top > .icon:focus, #top > .icon:active {
+#top > .icon:hover, #top > #top > .icon:active {
   outline: 0;
   transform: scale(1.2);
 }

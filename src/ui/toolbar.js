@@ -39,15 +39,19 @@
         return;
       }
       d.style.opacity = ".5";
+      d.style.filter = "none";
       let dt = ev.dataTransfer;
       dt.setData("text/plain", d.id);
       dt.dropEffect = "move";
-      dt.setDragImage(d, 0, 0);
+      dt.setDragImage(d, d.offsetWidth / 2, d.offsetHeight / 2);
       toggleHider(true);
       this.draggedElement = d;
     },
     dragend(ev)  {
-      ev.target.style.opacity = "";
+      let d = ev.target;
+      d.style.opacity = "";
+      d.style.filter = "";
+      this.draggedElement = null;
     },
     dragover(ev) {
       ev.preventDefault();
@@ -61,7 +65,6 @@
       let d = ev.dataTransfer ?
         document.getElementById(ev.dataTransfer.getData("text/plain"))
         : this.draggedElement;
-      this.draggedElement = null;
       if (!d) return;
       switch(t) {
         case hider:
@@ -76,7 +79,7 @@
               break;
             }
           }
-          t.insertBefore(d, stop);
+          toolbar.insertBefore(d, stop);
       }
 
       let left = [], right = [];
@@ -114,10 +117,7 @@
     toolbar.addEventListener(action, handler, true);
   }
 
-let dragDiv = document.createElement("div");
   for (let draggable of document.querySelectorAll("#top .icon")) {
     draggable.setAttribute("draggable", "true");
-    // work-around for https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-    draggable.appendChild(dragDiv.cloneNode());
   }
 }
