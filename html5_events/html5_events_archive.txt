@@ -353,6 +353,7 @@ onnomatch
 onresume
 onmark
 onboundary
+onsupportedkeyschange
 onsourceopen
 onsourceended
 onsourceclosed
