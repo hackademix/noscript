@@ -1,6 +1,7 @@
 input {
   transform: none !important;
   width: auto !important;
+  min-width: auto !important;
   position: static !important;
 }
 
@@ -17,6 +18,11 @@ input[type="checkbox"] {
 }
 
 
+input.preset {
+  margin: 0 .5em !important;
+  padding: 0 !important;
+}
+
 button {
   text-indent: 0 !important;
 }
@@ -32,9 +38,21 @@ label {
   padding: 4px !important;
 }
 
-span.preset {
+.url {
+  white-space: nowrap !important;
+}
+
+.full-address {
   display: block;
-  width: auto !important;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+span.preset {
+  display: inline;
   white-space: nowrap !important;
 }
 
@@ -64,7 +82,7 @@ tr.site {
   -moz-appearance: initial !important;
   width: auto;
   height: auto;
-  display: block;
+  display: inline-flex !important;
   font-size: 12px !important;
   font-family: sans-serif !important;
   text-indent: 0;
@@ -76,7 +94,6 @@ tr.site {
   border: 1px solid black;
   height: auto;
   padding: .2em;
-  vertical-align: middle;
 }
 #top a.icon:hover {
   transform: none;
