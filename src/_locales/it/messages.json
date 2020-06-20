@@ -300,7 +300,7 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "message": "Attiva l'impostazione di permessi permanenti nelle schede incognito/anonime.\nATTENZIONE: farlo potrebbe trapelare informazioni sul sito!",
         "description": ""
     },
     "KeepLocked": {

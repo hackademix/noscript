@@ -300,7 +300,7 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "message": "Овозможете поставување на постојани дозволи во инкогнито/приватни табови.\nВНИМАНИЕ: со правење на ова може да дојде до протекување на информации за веб страната! ",
         "description": ""
     },
     "KeepLocked": {
