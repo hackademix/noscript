@@ -425,9 +425,6 @@ var UI = (() => {
         }
         if (isCap) {
           perms.set(target.value, target.checked);
-          if (UI.forceIncognito) {
-            row.perms.temp = tempToggle.checked = true;
-          }
         } else if (policyPreset) {
           if (tempToggle && tempToggle.checked) {
             policyPreset = policyPreset.tempTwin;
@@ -446,8 +443,7 @@ var UI = (() => {
           if (isTemp) {
             row.perms.temp = target.checked || UI.forceIncognito;
           } else {
-            if (UI.forceIncognito) row.perms.temp = true;
-            let temp = row.perms.temp;
+            let temp = row.perms.temp || UI.forceIncognito;
             tempToggle.checked = temp;
             let perms = row._customPerms ||
               (row._customPerms = new Permissions(new Set(row.perms.capabilities), temp));

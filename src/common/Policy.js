@@ -324,8 +324,8 @@ var {Permissions, Policy, Sites} = (() => {
     let options = Object.assign({}, dry);
     for (let p of ["DEFAULT", "TRUSTED", "UNTRUSTED"]) {
       options[p] = dry[p] instanceof Permissions ? dry[p] : Permissions.hydrate(dry[p]);
+      options[p].temp = false; // preserve immutability of presets persistence
     }
-
     if (typeof dry.sites === "object" && !(dry.sites instanceof Sites)) {
       let {trusted, untrusted, temp, custom} = dry.sites;
       let sites = Sites.hydrate(custom);
