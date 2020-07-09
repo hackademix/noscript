@@ -84,6 +84,21 @@ var notifyPage = async () => {
 
 window.addEventListener("pageshow", notifyPage);
 
+let violations = new Set();
+window.addEventListener("securitypolicyviolation", e => {
+  if (!e.isTrusted) return;
+  let type = e.violatedDirective.split("-", 1)[0]; // e.g. script-src 'none' => script
+  let url = e.blockedURI;
+  if (!(url && url.includes(":"))) {
+    url = document.URL;
+  }
+  let key = type + "@" + url;
+  if (violations.has(key)) return;
+  violations.add(key);
+  if (type === "frame") type = "sub_frame";
+  Messages.send("violation", {url, type});
+}, true);
+
 ns.on("capabilities", () => {
   seen.record({
       request: {

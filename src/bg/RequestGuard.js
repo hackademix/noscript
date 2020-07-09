@@ -2,9 +2,9 @@ var RequestGuard = (() => {
   'use strict';
   const VERSION_LABEL =  `NoScript ${browser.runtime.getManifest().version}`;
   browser.browserAction.setTitle({title: VERSION_LABEL});
-  const REPORT_URI = "https://noscript-csp.invalid/__NoScript_Probe__/";
-  const REPORT_GROUP = "NoScript-Endpoint";
-  let csp = new ReportingCSP(REPORT_URI, REPORT_GROUP);
+  const CSP_REPORT_URI = "https://noscript-csp.invalid/__NoScript_Probe__/";
+  const CSP_MARKER = "noscript-marker";
+  let csp = new ReportingCSP(CSP_MARKER, CSP_REPORT_URI);
   const policyTypesMap = {
       main_frame:  "",
       sub_frame: "frame",
@@ -171,6 +171,19 @@ var RequestGuard = (() => {
     async pageshow(message, sender) {
       TabStatus.recordAll(sender.tab.id, message.seen);
       return true;
+    },
+    violation({url, type}, sender) {
+      let tabId = sender.tab.id;
+      let {frameId} = sender;
+      let r = {
+        url, type, tabId, frameId
+      };
+      Content.reportTo(r, false, policyTypesMap[type]);
+      if (type === "script" && url === sender.url) {
+        TabStatus.record(r, "noscriptFrame", true);
+      } else {
+        TabStatus.record(r, "blocked");
+      }
     },
     async blockedObjects(message, sender) {
       let {url, documentUrl, policyType} = message;
@@ -501,11 +514,14 @@ var RequestGuard = (() => {
       type,
     });
   }
+
+  let utf8Decoder = new TextDecoder("UTF-8");
   function onViolationReport(request) {
     try {
-      let decoder = new TextDecoder("UTF-8");
-      const report = JSON.parse(decoder.decode(request.requestBody.raw[0].bytes))['csp-report'];
-      let csp = report["original-policy"]
+      let text = utf8Decoder.decode(request.requestBody.raw[0].bytes);
+      if (text.includes(`"inline"`)) return ABORT;
+      let report = JSON.parse(text)["csp-report"];
+      let originalPolicy = report["original-policy"]
       debug("CSP report", report);
       let blockedURI = report['blocked-uri'];
       if (blockedURI && blockedURI !== 'self') {
@@ -513,7 +529,7 @@ var RequestGuard = (() => {
         if (!/:/.test(r.url)) r.url = request.documentUrl;
         Content.reportTo(r, false, policyTypesMap[r.type]);
         TabStatus.record(r, "blocked");
-      } else if (report["violated-directive"] === "script-src" && /; script-src 'none'/.test(report["original-policy"])) {
+      } else if (report["violated-directive"] === "script-src" && (originalPolicy.includes("; script-src 'none'"))) {
         let r =  fakeRequestFromCSP(report, request);
         Content.reportTo(r, false, "script"); // NEW
         TabStatus.record(r, "noscriptFrame", true);
@@ -570,8 +586,10 @@ var RequestGuard = (() => {
       listen("onResponseStarted", filterDocs, ["responseHeaders"]);
       listen("onCompleted", filterAll);
       listen("onErrorOccurred", filterAll);
-      wr.onBeforeRequest.addListener(onViolationReport,
-        {urls: [csp.reportURI], types: ["csp_report"]}, ["blocking", "requestBody"]);
+      if (csp.reportURI) {
+        wr.onBeforeRequest.addListener(onViolationReport,
+          {urls: [csp.reportURI], types: ["csp_report"]}, ["blocking", "requestBody"]);
+      }
       TabStatus.probe();
     },
     stop() {
