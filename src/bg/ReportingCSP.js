@@ -7,7 +7,7 @@ function ReportingCSP(marker, reportURI = "") {
   
   return Object.assign(
     new CapsCSP(new NetCSP( 
-      reportURI ? `report-uri ${reportURI};` : marker
+      reportURI ? `report-uri ${reportURI}` : marker
     )),
     {
       reportURI,
