@@ -195,6 +195,13 @@
     let uuid = () => (Math.random() * Date.now()).toString(16);
     let docUrl = document.URL;
     browser.runtime.sendSyncMessage = (msg, callback) => {
+      let canScript;
+      if (callback && typeof callback === "object") {
+         ({canScript, callback} = callback);
+      } else {
+        canScript = () => true;
+      }
+
       let msgId = `${uuid()},${docUrl}`;
       let url = `${ENDPOINT_PREFIX}id=${encodeURIComponent(msgId)}` +
         `&url=${encodeURIComponent(docUrl)}`;
@@ -203,26 +210,8 @@
         // about frameAncestors
         url += "&top=true";
       }
-      /*
-      if (document.documentElement instanceof HTMLElement && !document.head) {
-        // let's insert a head element to let userscripts work
-        document.documentElement.appendChild(document.createElement("head"));
-      }*/
 
       if (MOZILLA) {
-        // on Firefox we first need to send an async message telling the
-        // background script about the tab ID, which does not get sent
-        // with "privileged" XHR
-        let result;
-        browser.runtime.sendMessage(
-          {__syncMessage__: {id: msgId, payload: msg}}
-        ).then(r => {
-          result = r;
-          if (callback) callback(r);
-        }).catch(e => {
-          throw e;
-        });
-
         // In order to cope with inconsistencies in XHR synchronicity,
         // allowing DOM element to be inserted and script to be executed
         // (seen with file:// and ftp:// loads) we additionally suspend on
@@ -245,12 +234,32 @@
           suspend();
         });
         domSuspender.observe(document.documentElement, {childList: true});
-        addEventListener("beforescriptexecute", suspend, true);
+
+        let onBeforeScript = e => {
+          suspend();
+          if (!canScript()) e.preventDefault();
+        };
+        addEventListener("beforescriptexecute", onBeforeScript, true);
 
         let finalize = () => {
-          removeEventListener("beforescriptexecute", suspend, true);
+          removeEventListener("beforescriptexecute", onBeforeScript, true);
           domSuspender.disconnect();
         };
+
+        // on Firefox we first need to send an async message telling the
+        // background script about the tab ID, which does not get sent
+        // with "privileged" XHR
+        let result;
+        browser.runtime.sendMessage(
+          {__syncMessage__: {id: msgId, payload: msg}}
+        ).then(r => {
+          result = r;
+          if (callback) callback(r);
+        }).catch(e => {
+          throw e;
+        });
+
+
 
         if (callback) {
           let realCB = callback;
@@ -263,6 +272,7 @@
           };
           return;
         }
+
         try {
           suspend();
         } finally {

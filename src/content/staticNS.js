@@ -124,7 +124,8 @@
       for (;;) {
         try {
           policy = browser.runtime.sendSyncMessage(
-            {id: "fetchPolicy", url, contextUrl: url}, setup);
+            {id: "fetchPolicy", url, contextUrl: url}, 
+            {callback: setup, canScript: () => ns.canScript});
           break;
         } catch (e) {
           if (!Messages.isMissingEndpoint(e)) {
