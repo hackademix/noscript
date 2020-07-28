@@ -87,7 +87,10 @@ window.addEventListener("pageshow", notifyPage);
 let violations = new Set();
 window.addEventListener("securitypolicyviolation", e => {
   if (!e.isTrusted) return;
-  let type = e.violatedDirective.split("-", 1)[0]; // e.g. script-src 'none' => script
+  let {violatedDirective} = e;
+  if (violatedDirective === `script-src 'none'`) onScriptDisabled();
+
+  let type = violatedDirective.split("-", 1)[0]; // e.g. script-src 'none' => script
   let url = e.blockedURI;
   if (!(url && url.includes(":"))) {
     url = document.URL;
@@ -120,8 +123,7 @@ ns.on("capabilities", () => {
       })();
     }
 
-    if (document.readyState !== "loading") onScriptDisabled();
-    window.addEventListener("DOMContentLoaded", onScriptDisabled);
+    onScriptDisabled();
   }
 
   notifyPage();

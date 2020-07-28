@@ -1,4 +1,9 @@
 function onScriptDisabled() {
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", e => onScriptDisabled());
+    return;
+  }
+  onScriptDisabled = () => {};
   let refresh = false;
   for (let noscript of document.querySelectorAll("noscript")) {
     // force show NOSCRIPT elements content
