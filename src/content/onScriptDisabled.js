@@ -15,6 +15,7 @@ function onScriptDisabled() {
   if (refresh) {
     let html = document.documentElement.outerHTML;
     window.addEventListener("load", e => {
+      if (!e.isTrusted) return;
       let document = window.wrappedJSObject ? window.wrappedJSObject.document : window.document;
       document.open();
       document.write(html);
@@ -28,11 +29,13 @@ function onScriptDisabled() {
     };
 
     addEventListener("pagehide", ev => {
+      if (!ev.isTrusted) return;
       eraser.tapped = null;
       eraser.delKey = false;
     }, false);
 
     addEventListener("keyup", ev => {
+      if (!ev.isTrusted) return;
       let el = eraser.tapped;
       if (el && ev.keyCode === 46) {
         eraser.tapped = null;
@@ -53,6 +56,7 @@ function onScriptDisabled() {
     }, true);
 
     addEventListener("mousedown", ev => {
+      if (!ev.isTrusted) return;
       if (ev.button === 0) {
         eraser.tapped = ev.target;
         eraser.delKey = false;
@@ -60,6 +64,7 @@ function onScriptDisabled() {
     }, true);
 
     addEventListener("mouseup", ev => {
+      if (!ev.isTrusted) return;
       if (eraser.delKey) {
         eraser.delKey = false;
         ev.preventDefault();

@@ -84,6 +84,7 @@
         }
 
         addEventListener("beforescriptexecute", e => {
+          if (!e.isTrusted) return;
           // safety net for synchronous loads on Firefox
           if (!this.canScript) {
             e.preventDefault();
