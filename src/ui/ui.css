@@ -47,6 +47,9 @@ html.tor .tor, html:not(.tor) .not-tor {
     background-size: 4em !important;
     padding-right: 0 !important;
   }
+  #header {
+    margin-right: 4em !important;
+  }
 
   #sites .presets {
     width: 0 !important;
@@ -196,8 +199,7 @@ html:not(.mobile) .sites > tr.site:focus-within {
 [data-key="domain"] .full-address .host,
 [data-key="domain"] .full-address .sub,
 [data-key="domain"] .full-address .protocol,
-[data-key="host"] .full-address span .protocol,
-[data-key="host"] .full-address span .protocol, {
+[data-key="host"] .full-address span .protocol {
   background-color: #afe;
 }
 [data-key="host"] .full-address span .protocol,
