@@ -102,6 +102,7 @@ window.addEventListener("securitypolicyviolation", e => {
   Messages.send("violation", {url, type});
 }, true);
 
+
 ns.on("capabilities", () => {
   seen.record({
       request: {
