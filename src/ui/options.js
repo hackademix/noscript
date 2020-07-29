@@ -144,14 +144,17 @@
 
   // SITES UI
   let sitesUI = new UI.Sites(document.getElementById("sites"));
+  UI.onSettings = () => {
+    policy = UI.policy;
+    sitesUI.render(policy.sites);
+  }
   {
     sitesUI.onChange = () => {
       if (UI.local.debug) {
         updateRawPolicyEditor();
       }
     };
-    let sites = policy.sites;
-    sitesUI.render(sites);
+    sitesUI.render(policy.sites);
 
     let newSiteForm = document.querySelector("#form-newsite");
     let newSiteInput = newSiteForm.newsite;
@@ -194,7 +197,7 @@
     if (!policyEditor.onchange) policyEditor.onchange = (e) => {
       let ed = e.currentTarget
       try {
-        policy = new Policy(JSON.parse(ed.value));
+        UI.policy = policy = new Policy(JSON.parse(ed.value));
         UI.updateSettings({policy});
         sitesUI.render(policy.sites);
         ed.className = "";
