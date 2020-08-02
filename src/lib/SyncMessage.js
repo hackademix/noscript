@@ -195,10 +195,17 @@
     let uuid = () => (Math.random() * Date.now()).toString(16);
     let docUrl = document.URL;
     browser.runtime.sendSyncMessage = (msg, callback) => {
+      // we interrogate the canScript() callback to know whether the caller
+      // wants scripts deferred by sendSyncMessage to be eventually executed:
+      // - undefined -> too soon to tell, suspend
+      // - true -> go on and execute
+      // - false -> block
       let canScript;
       if (callback && typeof callback === "object") {
          ({canScript, callback} = callback);
-      } else {
+      }
+      if (typeof canScript !== "function") {
+        // if no canScript() callback was passed, default to execute scripts
         canScript = () => true;
       }
 
@@ -213,9 +220,10 @@
 
       if (MOZILLA) {
         // In order to cope with inconsistencies in XHR synchronicity,
-        // allowing DOM element to be inserted and script to be executed
-        // (seen with file:// and ftp:// loads) we additionally suspend on
-        // Mutation notifications and beforescriptexecute events
+        // allowing scripts to be executed (especially with synchronous loads
+        // or when other extensions manipulate the DOM early) we additionally
+        // suspend on beforescriptexecute events
+
         let suspendURL = url + "&suspend=true";
         let suspended = false;
         let suspend = () => {
@@ -230,20 +238,21 @@
           }
           suspended = false;
         };
-        let domSuspender = new MutationObserver(records => {
-          suspend();
-        });
-        domSuspender.observe(document.documentElement, {childList: true});
 
         let onBeforeScript = e => {
-          suspend();
-          if (!canScript()) e.preventDefault();
+          while(typeof canScript() === "undefined") {
+            suspend();
+          }
+          if (!canScript()) {
+            console.debug("sendSyncMessage blocked a script element", e.target);
+            e.preventDefault();
+          }
         };
+
         addEventListener("beforescriptexecute", onBeforeScript, true);
 
         let finalize = () => {
           removeEventListener("beforescriptexecute", onBeforeScript, true);
-          domSuspender.disconnect();
         };
 
         // on Firefox we first need to send an async message telling the
