@@ -87,7 +87,7 @@ addEventListener("unload", e => {
         "reload": reload,
         "temp-trust-page": e => sitesUI.tempTrustAll(),
         "revoke-temp": e => {
-          UI.revokeTemp();
+          UI.revokeTemp(sitesUI.hasTemp);
           close();
         }
       };

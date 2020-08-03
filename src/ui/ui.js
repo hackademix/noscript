@@ -90,11 +90,11 @@ var UI = (() => {
       return await Messages.send("importSettings", {data});
     },
 
-    async revokeTemp() {
+    async revokeTemp(reloadAffected = false) {
       let policy = this.policy;
       Policy.hydrate(policy.dry(), policy);
       if (this.isDirty(true)) {
-        await this.updateSettings({policy, reloadAffected: true});
+        await this.updateSettings({policy, reloadAffected});
       }
     },
 
@@ -637,9 +637,11 @@ var UI = (() => {
 
     _populate(sites, sorter) {
       this.clear();
+      let hasTemp = false;
       if (sites instanceof Sites) {
         for (let [site, perms] of sites) {
           this.append(site, site, perms);
+          if (!hasTemp) hasTemp = perms.temp;
         }
       } else {
         for (let site of sites) {
@@ -650,9 +652,11 @@ var UI = (() => {
           }
           let {siteMatch, perms, contextMatch} = UI.policy.get(site, context);
           this.append(site, siteMatch, perms, contextMatch);
+          if (!hasTemp) hasTemp = perms.temp;
         }
         this.sites = sites;
       }
+      this.hasTemp = hasTemp;
       this.sort(sorter);
     }
 
