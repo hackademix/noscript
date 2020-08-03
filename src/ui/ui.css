@@ -196,12 +196,6 @@ html:not(.mobile) .sites > tr.site:focus-within {
 
 .site .url .domain { cursor: help }
 
-[data-key="domain"] .full-address .host,
-[data-key="domain"] .full-address .sub,
-[data-key="domain"] .full-address .protocol,
-[data-key="host"] .full-address span .protocol {
-  background-color: #afe;
-}
 [data-key="host"] .full-address span .protocol,
 [data-key="domain"] .full-address span .host,
 [data-key="domain"] .full-address span .protocol {
