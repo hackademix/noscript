@@ -240,10 +240,18 @@
         };
 
         let onBeforeScript = e => {
-          while(typeof canScript() === "undefined") {
+          if(typeof canScript() === "undefined") {
             suspend();
           }
-          if (!canScript()) {
+          let allowed = canScript();
+          if (typeof allowed === "undefined") {
+            let script = e.target.cloneNode(true);
+            e.target.replaceWith(script);
+            console.debug("sendSyncMessage deferring", script);
+            e.preventDefault();
+            return;
+          }
+          if (!allowed) {
             console.debug("sendSyncMessage blocked a script element", e.target);
             e.preventDefault();
           }
