@@ -238,29 +238,44 @@
           }
           suspended = false;
         };
-
+        let deferred = [];
+        let runDeferred = () => {
+          let current = deferred;
+          deferred = []; // prevent reentrant calls
+          for (let ds of current) {
+            console.debug("sendSyncMessage running deferred", ds)
+            let replacement = document.createElement("script");
+            for (let a of ds.attributes) {
+              replacement.setAttribute(a.name, a.value);
+            }
+            replacement.textContent = ds.textContent;
+            ds.replaceWith(replacement);
+          }
+        };
         let onBeforeScript = e => {
           if(typeof canScript() === "undefined") {
             suspend();
           }
           let allowed = canScript();
+          let script = e.target;
           if (typeof allowed === "undefined") {
-            let script = e.target.cloneNode(true);
-            e.target.replaceWith(script);
             console.debug("sendSyncMessage deferring", script);
+            deferred.push(script);
+          }
+          if (!allowed) {
+            console.debug("sendSyncMessage blocked", script);
             e.preventDefault();
             return;
           }
-          if (!allowed) {
-            console.debug("sendSyncMessage blocked a script element", e.target);
-            e.preventDefault();
-          }
+          runDeferred();
+          console.debug("sendSyncMessage allowed", script);
         };
 
         addEventListener("beforescriptexecute", onBeforeScript, true);
 
         let finalize = () => {
           removeEventListener("beforescriptexecute", onBeforeScript, true);
+          runDeferred();
         };
 
         // on Firefox we first need to send an async message telling the
