@@ -62,6 +62,12 @@
               if (!wrapper.unsuspend) {
                 wrapper.unsuspend = resolve;
                 return;
+              } else {
+                let {unsuspend} = wrapper;
+                wrapper.unsuspend = () => {
+                  unsuspend();
+                  resolve();
+                }
               }
             }
             resolve();
@@ -225,10 +231,10 @@
         // suspend on beforescriptexecute events
 
         let suspendURL = url + "&suspend=true";
-        let suspended = false;
+        let suspended = 0;
         let suspend = () => {
-          if (suspended) return;
-          suspended = true;
+          suspended++;
+          console.debug("Suspended, count:", suspended)
           try {
             let r = new XMLHttpRequest();
             r.open("GET", suspendURL, false);
@@ -236,46 +242,28 @@
           } catch (e) {
             console.error(e);
           }
-          suspended = false;
+          suspended--;
+          console.debug("Unsuspended, count: ", suspended);
         };
-        let deferred = [];
-        let runDeferred = () => {
-          let current = deferred;
-          deferred = []; // prevent reentrant calls
-          for (let ds of current) {
-            console.debug("sendSyncMessage running deferred", ds)
-            let replacement = document.createElement("script");
-            for (let a of ds.attributes) {
-              replacement.setAttribute(a.name, a.value);
-            }
-            replacement.textContent = ds.textContent;
-            ds.replaceWith(replacement);
-          }
-        };
+
         let onBeforeScript = e => {
           if(typeof canScript() === "undefined") {
             suspend();
           }
           let allowed = canScript();
-          let script = e.target;
           if (typeof allowed === "undefined") {
-            console.debug("sendSyncMessage deferring", script);
-            deferred.push(script);
+            console.error("sendSyncMessage: script unsuspended before canScript() is defined!", e.target);
           }
           if (!allowed) {
-            console.debug("sendSyncMessage blocked", script);
+            console.debug("sendSyncMessage blocked a script element", e.target);
             e.preventDefault();
-            return;
           }
-          runDeferred();
-          console.debug("sendSyncMessage allowed", script);
         };
 
         addEventListener("beforescriptexecute", onBeforeScript, true);
 
         let finalize = () => {
           removeEventListener("beforescriptexecute", onBeforeScript, true);
-          runDeferred();
         };
 
         // on Firefox we first need to send an async message telling the
