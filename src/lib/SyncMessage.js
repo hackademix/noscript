@@ -261,8 +261,15 @@
         };
 
         addEventListener("beforescriptexecute", onBeforeScript, true);
+        let domSuspender = new MutationObserver(records => {
+          suspend();
+        });
+        domSuspender.observe(document.documentElement, {childList: true});
+
+
 
         let finalize = () => {
+          domSuspender.disconnect();
           removeEventListener("beforescriptexecute", onBeforeScript, true);
         };
 
