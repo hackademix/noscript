@@ -1,6 +1,6 @@
 {
     "Add": {
-        "message": "যোগ করুন",
+        "message": "যোগ করো",
         "description": ""
     },
     "Add_accesskey": {
@@ -300,7 +300,7 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "message": "ছদ্মবেশী/ব্যক্তিগত ট্যাবগুলোতে স্থায়ী অনুমতিগুলি সেট করা সক্ষম করো।\nসতর্কতা: এতে সাইটের তথ্য ছড়াতে করতে পারে!",
         "description": ""
     },
     "KeepLocked": {
