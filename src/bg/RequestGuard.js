@@ -444,6 +444,10 @@ var RequestGuard = (() => {
             capabilities && !capabilities.has("script"));
         }
         let header = csp.patchHeaders(responseHeaders, capabilities);
+        /*
+        // Uncomment me to disable networking-level CSP for debugging purposes
+        header = null;
+        */
         if (header) {
           pending.cspHeader = header;
           debug(`CSP blocker on %s:`, url, header.value);

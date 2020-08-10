@@ -8,13 +8,17 @@ class DocumentCSP {
 
   apply(capabilities, embedding = CSP.isEmbedType(this.document.contentType)) {
     let {document} = this;
+    if (!capabilities.has("script")) {
+      // safety net for XML (especially SVG) documents and synchronous scripts running
+      // while inserting the CSP <meta> element.
+      document.defaultView.addEventListener("beforescriptexecute", e => {
+        if (!e.isTrusted) return;
+        e.preventDefault();
+        debug("Fallback beforexecutescript listener blocked ", e.target);
+      }, true);
+    }
     if (!(document instanceof HTMLDocument)) {
       // this is not HTML, hence we cannot inject a <meta> CSP
-      if (!capabilities.has("script")) {
-        // safety net for XML (especially SVG) documents
-        document.defaultView.addEventListener("beforescriptexecute",
-          e => e.preventDefault(), true);
-      }
       return false;
     }
     let csp = this.builder;

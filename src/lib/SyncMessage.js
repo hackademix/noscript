@@ -21,7 +21,7 @@
           let unsuspend = result => {
             pending.delete(id);
             if (wrapper.unsuspend) {
-              setTimeout(wrapper.unsuspend, 0);
+              wrapper.unsuspend();
             }
             return result;
           }
@@ -31,7 +31,11 @@
             unsuspend();
             throw e;
           }
-          console.debug("sendSyncMessage: returning", result);
+          /*
+          // Uncomment me to add artificial delay for debugging purposes
+          let tmpResult = result;
+          result = new Promise(resolve => setTimeout(() => resolve(tmpResult), 500));
+          */
           return (result instanceof Promise ? result
             : new Promise(resolve => resolve(result))
           ).then(result => unsuspend(result));
@@ -61,7 +65,6 @@
               let wrapper = pending.get(msgId);
               if (!wrapper.unsuspend) {
                 wrapper.unsuspend = resolve;
-                return;
               } else {
                 let {unsuspend} = wrapper;
                 wrapper.unsuspend = () => {
@@ -69,6 +72,7 @@
                   resolve();
                 }
               }
+              return;
             }
             resolve();
           }).then(() => ret("go on"))
@@ -201,20 +205,6 @@
     let uuid = () => (Math.random() * Date.now()).toString(16);
     let docUrl = document.URL;
     browser.runtime.sendSyncMessage = (msg, callback) => {
-      // we interrogate the canScript() callback to know whether the caller
-      // wants scripts deferred by sendSyncMessage to be eventually executed:
-      // - undefined -> too soon to tell, suspend
-      // - true -> go on and execute
-      // - false -> block
-      let canScript;
-      if (callback && typeof callback === "object") {
-         ({canScript, callback} = callback);
-      }
-      if (typeof canScript !== "function") {
-        // if no canScript() callback was passed, default to execute scripts
-        canScript = () => true;
-      }
-
       let msgId = `${uuid()},${docUrl}`;
       let url = `${ENDPOINT_PREFIX}id=${encodeURIComponent(msgId)}` +
         `&url=${encodeURIComponent(docUrl)}`;
@@ -225,6 +215,7 @@
       }
 
       if (MOZILLA) {
+
         // In order to cope with inconsistencies in XHR synchronicity,
         // allowing scripts to be executed (especially with synchronous loads
         // or when other extensions manipulate the DOM early) we additionally
@@ -232,9 +223,11 @@
 
         let suspendURL = url + "&suspend=true";
         let suspended = 0;
+        let suspendedId = 0;
         let suspend = () => {
           suspended++;
-          console.debug("Suspended, count:", suspended)
+          let id = suspendedId++;
+          console.debug("sendSyncMessage suspend #%s/%s", id, suspended);
           try {
             let r = new XMLHttpRequest();
             r.open("GET", suspendURL, false);
@@ -243,62 +236,37 @@
             console.error(e);
           }
           suspended--;
-          console.debug("Unsuspended, count: ", suspended);
+          console.debug("sendSyncMessage resume #%s/%s", id, suspended);
         };
 
-        let onBeforeScript = e => {
-          if(typeof canScript() === "undefined") {
-            suspend();
-          }
-          let allowed = canScript();
-          if (typeof allowed === "undefined") {
-            console.error("sendSyncMessage: script unsuspended before canScript() is defined!", e.target);
-          }
-          if (!allowed) {
-            console.debug("sendSyncMessage blocked a script element", e.target);
-            e.preventDefault();
-          }
-        };
 
-        addEventListener("beforescriptexecute", onBeforeScript, true);
+
         let domSuspender = new MutationObserver(records => {
+          console.debug("sendSyncMessage suspending on ", records)
           suspend();
         });
         domSuspender.observe(document.documentElement, {childList: true});
 
 
-
         let finalize = () => {
+          console.debug("sendSyncMessage finalizing");
           domSuspender.disconnect();
-          removeEventListener("beforescriptexecute", onBeforeScript, true);
         };
 
         // on Firefox we first need to send an async message telling the
         // background script about the tab ID, which does not get sent
         // with "privileged" XHR
         let result;
+
         browser.runtime.sendMessage(
           {__syncMessage__: {id: msgId, payload: msg}}
         ).then(r => {
           result = r;
           if (callback) callback(r);
+          finalize();
         }).catch(e => {
           throw e;
         });
-
-
-
-        if (callback) {
-          let realCB = callback;
-          callback = r => {
-            try {
-              realCB(r);
-            } finally {
-              finalize();
-            }
-          };
-          return;
-        }
 
         try {
           suspend();

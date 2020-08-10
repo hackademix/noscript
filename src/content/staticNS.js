@@ -82,17 +82,6 @@
             error(e, "Could not setup local policy", localPolicy);
           }
         }
-
-        addEventListener("beforescriptexecute", e => {
-          if (!e.isTrusted) return;
-          // safety net for synchronous loads on Firefox
-          if (!this.canScript) {
-            e.preventDefault();
-            let script = e.target;
-            blockedScripts.push(script)
-            log("Some script managed to be inserted in the DOM while fetching policy, blocking it.\n", script);
-          }
-        }, true);
       }
 
       let policy = null;
@@ -125,8 +114,8 @@
       for (;;) {
         try {
           policy = browser.runtime.sendSyncMessage(
-            {id: "fetchPolicy", url, contextUrl: url}, 
-            {callback: setup, canScript: () => ns.canScript});
+            {id: "fetchPolicy", url, contextUrl: url},
+            setup);
           break;
         } catch (e) {
           if (!Messages.isMissingEndpoint(e)) {
