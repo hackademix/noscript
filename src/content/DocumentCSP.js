@@ -1,5 +1,4 @@
 'use strict';
-
 class DocumentCSP {
   constructor(document) {
     this.document = document;
@@ -33,6 +32,9 @@ class DocumentCSP {
     meta.setAttribute("http-equiv", header.name);
     meta.setAttribute("content", header.value);
     let root = document.documentElement;
+    let rootAttrs = [...root.attributes].filter(a => a.name.toLowerCase().startsWith("on"));
+    for (let a of rootAttrs) root.removeAttributeNode(a);
+
     let {head} = document;
     let parent = head ||
       (root instanceof HTMLElement
@@ -44,6 +46,9 @@ class DocumentCSP {
       debug(`Failsafe <meta> CSP inserted in %s: "%s"`, document.URL, header.value);
       meta.remove();
       if (!head) parent.remove();
+      for (let a of rootAttrs) {
+        root.setAttributeNodeNS(a);
+      }
     } catch (e) {
       error(e, "Error inserting CSP %s in %s", document.URL, header && header.value);
       return false;

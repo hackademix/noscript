@@ -66,10 +66,9 @@
       }
 
       let originalState = document.readyState;
-      let blockedScripts = [];
+      let syncLoad = UA.isMozilla && /^(?:ftp|file):/.test(url);
       let localPolicyKey, localPolicy;
-      if (UA.isMozilla && /^(?:ftp|file):/.test(url)) {
-
+      if (syncLoad) {
         localPolicyKey = `ns.policy.${url}|${browser.runtime.getURL("")}`;
         let localPolicy = sessionStorage.getItem(localPolicyKey);
         sessionStorage.removeItem(localPolicyKey);
@@ -81,39 +80,27 @@
           } catch(e) {
             error(e, "Could not setup local policy", localPolicy);
           }
+        } else {
+          addEventListener("beforescriptexecute", e => {
+            console.log("Blocking early script", e.target);
+            e.preventDefault();
+          });
+          stop();
         }
       }
-
-      let policy = null;
 
       let setup = policy => {
         debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
         this.setup(policy);
-        if (this.canScript && blockedScripts.length && originalState === "loading") {
-          log("Running suspended scripts which are permitted by %s policy.", url);
-          // something went wrong, e.g. with session restore.
-          if (url.startsWith("file:") && !localPolicy) {
-            stop();
-            sessionStorage.setItem(localPolicyKey, JSON.stringify(policy));
-            location.reload(false);
-            return;
-          }
-          for (let s of blockedScripts) {
-            // reinsert the script:
-            // just s.cloneNode(true) doesn't work, the script wouldn't run,
-            // let's clone it the hard way...
-            try {
-              s.replaceWith(document.createRange().createContextualFragment(s.outerHTML));
-            } catch (e) {
-              error(e);
-            }
-          }
+        if (syncLoad && !localPolicy) {
+          sessionStorage.setItem(localPolicyKey, JSON.stringify(policy));
+          return;
         }
       }
 
       for (;;) {
         try {
-          policy = browser.runtime.sendSyncMessage(
+          browser.runtime.sendSyncMessage(
             {id: "fetchPolicy", url, contextUrl: url},
             setup);
           break;

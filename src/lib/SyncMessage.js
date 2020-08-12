@@ -221,6 +221,7 @@
         // or when other extensions manipulate the DOM early) we additionally
         // suspend on beforescriptexecute events
 
+        let startTime = Date.now(); // DEV_ONLY
         let suspendURL = url + "&suspend=true";
         let suspended = 0;
         let suspendedId = 0;
@@ -236,7 +237,7 @@
             console.error(e);
           }
           suspended--;
-          console.debug("sendSyncMessage resume #%s/%s", id, suspended);
+          console.debug("sendSyncMessage resume #%s/%s - %sms", id, suspended, Date.now() - startTime); // DEV_ONLY
         };
 
 
