@@ -2,7 +2,8 @@
   'use strict';
   let listenersMap = new Map();
   let backlog = new Set();
-
+  let documentCSP = new DocumentCSP(document);
+  documentCSP.removeEventAttributes();
   let ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
@@ -94,6 +95,7 @@
         this.setup(policy);
         if (syncLoad && !localPolicy) {
           sessionStorage.setItem(localPolicyKey, JSON.stringify(policy));
+          location.reload(false);
           return;
         }
       }
@@ -129,9 +131,9 @@
       } else {
         let perms = policy.permissions;
         this.capabilities = new Set(perms.capabilities);
-        new DocumentCSP(document).apply(this.capabilities, this.embeddingDocument);
+        documentCSP.apply(this.capabilities, this.embeddingDocument);
       }
-
+      documentCSP.restoreEventAttributes();
       this.canScript = this.allows("script");
       this.fire("capabilities");
     },
