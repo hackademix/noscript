@@ -316,6 +316,7 @@ addEventListener("unload", e => {
 
       sitesUI.render(sites);
       sitesUI.focus();
+      window.scrollTo(0, 0);
     }
 
     function reload() {
