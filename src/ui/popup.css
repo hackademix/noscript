@@ -16,7 +16,7 @@ body {
 
 #top .icon {
   appearance: none !important;
-  webkit-appearance: none !important;
+  -webkit-appearance: none !important;
   -moz-appearance: none !important;
   width: 2em;
   height: 2em;
