@@ -71,7 +71,7 @@ var {Permissions, Policy, Sites} = (() => {
         let path = url.pathname;
         siteKey = url.origin;
         if (siteKey === "null") {
-          siteKey = site;
+          ([siteKey] = site.split(/[?#]/)); // drop any search / hash segment
         } else if (path !== '/') {
           siteKey += path;
         }
