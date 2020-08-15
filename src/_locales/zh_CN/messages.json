@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript 被拦截的对象",
+        "message": "NoScript Blocked Objects",
         "description": ""
     },
     "BookmarkSync": {
@@ -97,6 +97,10 @@
     },
     "CascadePermissions": {
         "message": "将顶级文件的权限下发到第三方脚本",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
         "description": ""
     },
     "ClearClickDescription": {
@@ -164,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "为 Firefox 提供额外的保护：NoScript 只允许在您选择的信任域执行 JavaScript、Flash 以及其他插件（比如您的家庭银行网站）。这种基于预设白名单的拦截策略可以防止（已知或未知的）安全漏洞攻击，同时不损失任何功能…专业人士也会同意：NoScript 让 Firefox 更安全 :-)",
+        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
         "description": ""
     },
     "Donate": {
@@ -236,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "High contrast appearance",
+        "message": "High contrast",
         "description": ""
     },
     "httpsOnly": {
@@ -293,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
     "KeepLocked": {
@@ -353,6 +361,10 @@
     },
     "OptFilterXPost": {
         "message": "将跨网站的 POST 请求转换为无数据的 GET 请求",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Override Tor Browser's Security Level preset",
         "description": ""
     },
     "Options": {
@@ -741,6 +753,10 @@
     },
     "cap_fetch": {
         "message": "获取",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {

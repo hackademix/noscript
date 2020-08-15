@@ -1,7 +1,7 @@
 'use strict';
 
 var sitesUI;
-
+var port;
 addEventListener("unload", e => {
   if (!UI.initialized) {
     Messages.send("openStandalonePopup");
@@ -18,7 +18,6 @@ addEventListener("unload", e => {
 
   try {
     let tabId;
-    let pendingReload = false;
     let isBrowserAction = true;
     let optionsClosed = false;
     let tab = (await browser.tabs.query({
@@ -27,6 +26,7 @@ addEventListener("unload", e => {
         : null,
       active: true
     }))[0];
+    let pageTab = tab;
 
     if (!tab || tab.id === -1) {
       log("No tab found to open the UI for");
@@ -36,6 +36,7 @@ addEventListener("unload", e => {
       isBrowserAction = false;
       try {
         tabId = parseInt(document.URL.match(/#.*\btab(\d+)/)[1]);
+        pageTab = await browser.tabs.get(tabId);
       } catch (e) {
         close();
       }
@@ -44,7 +45,26 @@ addEventListener("unload", e => {
       tabId = tab.id;
     }
 
-    await UI.init(tabId);
+    addEventListener("keydown", e => {
+      if (e.code === "Enter") {
+        let focused = document.activeElement;
+        if (focused.closest(".sites")) {
+          close();
+        }
+      }
+    })
+
+    port = browser.runtime.connect({name: "noscript.popup"});
+    await UI.init(pageTab);
+
+    function pendingReload(b) {
+      try {
+        port.postMessage({tabId, pendingReload: b});
+      } catch (e) {
+        debug(e);
+      }
+    }
+
 
     if (isBrowserAction) {
       browser.tabs.onActivated.addListener(e => {
@@ -54,29 +74,86 @@ addEventListener("unload", e => {
 
     await include("/ui/toolbar.js");
     {
-      let clickHandlers = {
+      let handlers = {
         "options": e => {
-          browser.runtime.openOptionsPage();
+          if (UA.mobile) { // Fenix fails on openOptionsPage
+            browser.tabs.create({url: browser.extension.getURL("/ui/options.html")});
+          } else {
+            browser.runtime.openOptionsPage();
+          }
           close();
         },
         "close": close,
         "reload": reload,
         "temp-trust-page": e => sitesUI.tempTrustAll(),
         "revoke-temp": e => {
-          UI.revokeTemp();
+          UI.revokeTemp(sitesUI && sitesUI.hasTemp);
           close();
         }
       };
-      for (let [id, handler] of Object.entries(clickHandlers)) {
-        document.getElementById(id).onclick = handler;
+
+      for (let b of document.querySelectorAll("#top > .icon")) {
+        b.tabIndex = 0;
+        if (b.id in handlers) {
+          let h = handlers[b.id];
+          b.onclick = h;
+        }
       }
+
+     let keyHandlers = {
+        "r": "reload",
+        "o": "options",
+        "p": "temp-trust-page",
+        "f": "revoke-temp",
+        "G": "enforce",
+        "T": "enforce-tab",
+      };
+
+      window.addEventListener("keydown", e => {
+        let buttonId = keyHandlers[e.key];
+        if (buttonId) document.getElementById(buttonId).click();
+      }, true);
+
+      let navigate = e => {
+        let sel = e.code === "ArrowUp" ? ":last-child" : "";
+        document.querySelector(`.sites tr.site${sel} input.preset:checked`).focus();
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      document.querySelector("#top").addEventListener("keydown", e => {
+        switch(e.code) {
+          case "Space":
+          case "Enter":
+            e.target.click();
+            e.preventDefault();
+            break;
+          case "ArrowDown":
+          case "ArrowUp":
+            navigate(e);
+          break;
+          case "ArrowLeft":
+          case "ArrowRight":
+          {
+            let focused = document.activeElement;
+            let all = [...focused.parentNode.querySelectorAll(".icon")];
+            let index = all.indexOf(focused);
+            if (index === -1) return;
+            index += e.code === "ArrowRight" ? 1 : -1;
+            if (index >= all.length) index = 0;
+            else if (index < 0) index = all.length -1;
+            all[index].focus();
+            break;
+          }
+        }
+      }, true);
     }
     {
       let policy = UI.policy;
       let pressed = policy.enforced;
       let button = document.getElementById("enforce");
       button.setAttribute("aria-pressed", pressed);
-      button.textContent = button.title = _(pressed ? "NoEnforcement" :  "Enforce");
+      button.title = _(pressed ? "NoEnforcement" :  "Enforce");
       button.onclick = async () => {
         this.disabled = true;
         policy.enforced = !pressed;
@@ -88,7 +165,7 @@ addEventListener("unload", e => {
       let pressed = !UI.unrestrictedTab;
       let button = document.getElementById("enforce-tab");
       button.setAttribute("aria-pressed", pressed);
-      button.textContent = button.title = _(pressed ? "NoEnforcementForTab" :  "EnforceForTab");
+      button.title = _(pressed ? "NoEnforcementForTab" :  "EnforceForTab");
       if (UI.policy.enforced) {
         button.onclick = async () => {
           this.disabled = true;
@@ -107,7 +184,7 @@ addEventListener("unload", e => {
     let mainFrame = UI.seen && UI.seen.find(thing => thing.request.type === "main_frame");
     debug("Seen: %o", UI.seen);
     if (!mainFrame) {
-      let isHttp = /^https?:/.test(tab.url);
+      let isHttp = /^https?:/.test(pageTab.url);
       try {
         await browser.tabs.executeScript(tabId, { code: "" });
         if (isHttp) {
@@ -120,7 +197,7 @@ addEventListener("unload", e => {
             reload();
             close();
           }
-          buttons.appendChild(b);
+          buttons.appendChild(b).focus();
           b = document.createElement("button");
           b.textContent = _("Cancel");
           b.onclick = () => close();
@@ -128,11 +205,11 @@ addEventListener("unload", e => {
           return;
         }
       } catch (e) {
-        error(e, "Could not run scripts on %s: privileged page?", tab.url);
+        error(e, "Could not run scripts on %s: privileged page?", pageTab.url);
       }
 
       await include("/lib/restricted.js");
-      let isRestricted = isRestrictedURL(tab.url);
+      let isRestricted = isRestrictedURL(pageTab.url);
       if (!isHttp || isRestricted) {
         showMessage("warning", _("privilegedPage"));
         let tempTrust = document.getElementById("temp-trust-page");
@@ -141,9 +218,10 @@ addEventListener("unload", e => {
       }
       if (!UI.seen) {
         if (!isHttp) return;
+        let {url} = pageTab;
         UI.seen = [
           mainFrame = {
-            request: { url: tab.url, documentUrl: tab.url, type: "main_frame" }
+            request: { url, documentUrl: url, type: "main_frame" }
           }
         ];
       }
@@ -154,10 +232,12 @@ addEventListener("unload", e => {
     sitesUI = new UI.Sites(document.getElementById("sites"));
 
     sitesUI.onChange = (row) => {
-      pendingReload = !row.temp2perm;
+      pendingReload(sitesUI.anyPermissionsChanged());
       if (optionsClosed) return;
-      browser.tabs.query({url: browser.runtime.getManifest().options_ui.page })
-        .then(tabs => {
+      browser.tabs.query({
+        url: browser.extension.getURL(
+            browser.runtime.getManifest().options_ui.page)
+        }).then(tabs => {
           browser.tabs.remove(tabs.map(t => t.id));
       });
       optionsClosed = true;
@@ -165,21 +245,34 @@ addEventListener("unload", e => {
     initSitesUI();
     UI.onSettings = initSitesUI;
 
-
+    if (UI.incognito) {
+      UI.wireOption("overrideTorBrowserPolicy", "sync", toggle => {
+          if (UI.forceIncognito !== !toggle) {
+            UI.forceIncognito = !toggle;
+            sitesUI.render();
+          }
+      });
+    }
 
     function initSitesUI() {
-      pendingReload = false;
+      pendingReload(false);
       let {
         typesMap
       } = sitesUI;
       typesMap.clear();
       let policySites = UI.policy.sites;
       let domains = new Map();
-
+      let protocols = new Set();
       function urlToLabel(url) {
         let origin = Sites.origin(url);
         let match = policySites.match(url);
-        if (match) return match;
+        if (match) {
+          if (match === url.protocol) {
+            protocols.add(match);
+          } else {
+            return match;
+          }
+        }
         if (domains.has(origin)) {
           if (justDomains) return domains.get(origin);
         } else {
@@ -207,6 +300,7 @@ addEventListener("unload", e => {
       if (!justDomains) {
         for (let domain of domains.values()) sitesSet.add(domain);
       }
+      for (let protocol of protocols) sitesSet.add(protocol);
       let sites = [...sitesSet];
       for (let parsed of parsedSeen) {
         sites.filter(s => parsed.label === s || domains.get(Sites.origin(parsed.url)) === s).forEach(m => {
@@ -221,19 +315,19 @@ addEventListener("unload", e => {
       sitesUI.mainDomain = tld.getDomain(sitesUI.mainUrl.hostname);
 
       sitesUI.render(sites);
+      sitesUI.focus();
     }
 
     function reload() {
       if (sitesUI) sitesUI.clear();
       browser.tabs.reload(tabId);
-      pendingReload = false;
+      pendingReload(false);
     }
 
     function close() {
       if (isBrowserAction) {
         window.close();
       } else {
-        //browser.windows.remove(tab.windowId);
         browser.tabs.remove(tab.id);
       }
     }
@@ -245,7 +339,7 @@ addEventListener("unload", e => {
     let loadSnapshot = sitesUI.snapshot;
     let onCompletedListener = navigated => {
       if (navigated.tabId === tabId) {
-        UI.pullSettings();
+        setTimeout(() => UI.pullSettings(), 500);
       }
     };
     onCompleted.addListener(onCompletedListener, {
@@ -253,16 +347,10 @@ addEventListener("unload", e => {
         hostContains: sitesUI.mainDomain
       }]
     });
-    addEventListener("unload", e => {
+    addEventListener("blur", e => {
       onCompleted.removeListener(onCompletedListener);
-      debug("pendingReload", pendingReload);
-      if (pendingReload) {
-        UI.updateSettings({
-          policy: UI.policy,
-          reloadAffected: true,
-        });
-      }
-    }, true);
+      port.disconnect(); // otherwise Vivaldi keeps it after closing
+    });
   } catch (e) {
     error(e, "Can't open popup");
     close();

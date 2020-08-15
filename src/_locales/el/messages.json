@@ -1,0 +1,910 @@
+{
+    "Add": {
+        "message": "Προσθήκη",
+        "description": ""
+    },
+    "Add_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AdditionalPermissions": {
+        "message": "Πρόσθετες άδειες για έμπιστες σελίδες",
+        "description": ""
+    },
+    "AdditionalRestrictions": {
+        "message": "Πρόσθετοι περιορισμοί για μη έμπιστες σελίδες",
+        "description": ""
+    },
+    "SectionAdvanced": {
+        "message": "Για προχωρημένους",
+        "description": ""
+    },
+    "Allow": {
+        "message": "Να επιτραπεί",
+        "description": ""
+    },
+    "Allow_accesskey": {
+        "message": "I",
+        "description": ""
+    },
+    "AllowBookmarks": {
+        "message": "Να επιτρέπονται σελίδες που ανοίγουν από τους σελιδοδείκτες",
+        "description": ""
+    },
+    "AllowClipboard": {
+        "message": "Να επιτρέπεται η αντιγραφή και επικόλληση εμπλουτισμένου κειμένου από εξωτερικό πρόχειρο",
+        "description": ""
+    },
+    "AllowLocalLinks": {
+        "message": "Να επιτρέπονται οι τοπικοί σύνδεσμοι",
+        "description": ""
+    },
+    "AllowPage": {
+        "message": "Να επιτρέπονται όλα σε αυτή τη σελίδα",
+        "description": ""
+    },
+    "AllowPage_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AllowPing": {
+        "message": "Να επιτρέπεται το <A PING…>",
+        "description": ""
+    },
+    "AllowViaBookmarks": {
+        "message": "Να επιτρέπονται σελίδες που ανοίγουν από τους σελιδοδείκτες",
+        "description": ""
+    },
+    "AlwaysBlockUntrustedContent": {
+        "message": "Να μπλοκάρονται όλα τα αντικείμενα που προέρχονται από μια σελίδα μαρκαρισμένη ως μη έμπιστη",
+        "description": ""
+    },
+    "SectionAppearance": {
+        "message": "Εμφάνιση",
+        "description": ""
+    },
+    "AutoAllowTopLevel": {
+        "message": "Temporarily set top-level sites to TRUSTED",
+        "description": ""
+    },
+    "AutoReload": {
+        "message": "Αυτόματη ανανέωση σελιδών που επηρεάζονται από αλλαγές αδειών",
+        "description": ""
+    },
+    "AutoReload_currentTab": {
+        "message": "Ανανέωση μόνο της τρέχουσας καρτέλας",
+        "description": ""
+    },
+    "BaseDom": {
+        "message": "Base 2nd level Domains (noscript.net)",
+        "description": ""
+    },
+    "BlockedItems": {
+        "message": "Μπλοκαρίστηκαν $1 από τα $2 αντικείμενα.",
+        "description": ""
+    },
+    "BlockedObjects": {
+        "message": "NoScript Blocked Objects",
+        "description": ""
+    },
+    "BookmarkSync": {
+        "message": "Να γίνει αντίγραφο ασφαλείας των ρυθμίσεων του NoScript σε ένα σελιδοδείκτη για εύκολο συγχρονισμό",
+        "description": ""
+    },
+    "Cancel": {
+        "message": "Ακύρωση",
+        "description": ""
+    },
+    "CascadePermissions": {
+        "message": "Cascade top document's permissions to 3rd party scripts",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
+    "ClearClickDescription": {
+        "message": "Το NoScript παρεμπόδισε μια αλληλεπίδραση ποντικιού ή πληκτρολογίου με κάποιο εν μέρει κρυμμένο στοιχείο. Πατήστε στην παρακάτω εικόνα για εναλλαγή μεταξύ της κρυμμένης και της εμφανής έκδοσης.",
+        "description": ""
+    },
+    "ClearClickHeader": {
+        "message": "Πιθανό Clickjacking (υποκλοπή κλικ) / απόπειρα μεταμφίεσης της διεπαφής",
+        "description": ""
+    },
+    "ClearClickOpt": {
+        "message": "Προστασία ClearClick στις σελίδες...",
+        "description": ""
+    },
+    "ClearClickReport": {
+        "message": "Αναφορά",
+        "description": ""
+    },
+    "ClearClickReport_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "ClearClickReportId": {
+        "message": "ID αναφοράς:",
+        "description": ""
+    },
+    "ClearClickTitle": {
+        "message": "Προειδοποίηση ClearClick",
+        "description": ""
+    },
+    "Close": {
+        "message": "Κλείσιμο",
+        "description": ""
+    },
+    "CollapseBlockedObjects": {
+        "message": "Σύμπτυξη μπλοκαρισμένων αντικειμένων",
+        "description": ""
+    },
+    "ConfirmUnblock": {
+        "message": "Να ζητείται επιβεβαίωση πριν το προσωρινό ξεμπλοκάρισμα αντικειμένων",
+        "description": ""
+    },
+    "ContentBlocker": {
+        "message": "Αυτοί οι περιορισμοί να εφαρμόζονται και σε έμπιστες σελίδες",
+        "description": ""
+    },
+    "CtxMenu": {
+        "message": "Contextual menu",
+        "description": ""
+    },
+    "Custom": {
+        "message": "Προσαρμοσμένο",
+        "description": ""
+    },
+    "CustomizePresets": {
+        "message": "Preset customization (for all the sites sharing a preset)",
+        "description": ""
+    },
+    "Default": {
+        "message": "Προκαθορισμένο",
+        "description": ""
+    },
+    "DefaultPolicies": {
+        "message": "Προκαθορισμένες πολιτικές",
+        "description": ""
+    },
+    "Description": {
+        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
+        "description": ""
+    },
+    "Donate": {
+        "message": "Δωρεά",
+        "description": ""
+    },
+    "Donate_accesskey": {
+        "message": "o",
+        "description": ""
+    },
+    "Embeddings": {
+        "message": "Ενσωματώσεις",
+        "description": ""
+    },
+    "Exceptions": {
+        "message": "Εξαιρέσεις...",
+        "description": ""
+    },
+    "Export": {
+        "message": "Εξαγωγή",
+        "description": ""
+    },
+    "Export_accesskey": {
+        "message": "E",
+        "description": ""
+    },
+    "FixLinks": {
+        "message": "Να γίνει απόπειρα επισκευής των συνδέσμων JavaScript",
+        "description": ""
+    },
+    "Hider": {
+        "message": "Drop here to hide.",
+        "description": ""
+    },
+    "Reveal": {
+        "message": "Πατήστε εδώ για να ανακτήσεις τα κουμπιά που λείπουν...",
+        "description": ""
+    },
+    "ShowFullAddresses": {
+        "message": "Να εμφανίζονται ολόκληρες οι διευθύνσεις στο παράθυρο αδειών (https://www.noscript.net)",
+        "description": ""
+    },
+    "SectionGeneral": {
+        "message": "Γενικά",
+        "description": ""
+    },
+    "GlobalHttpsWhitelist": {
+        "message": "Να επιτρέπονται οι δέσμες ενεργειών HTTPS παντού σε έγγραφα HTTPS",
+        "description": ""
+    },
+    "NotEnforced": {
+        "message": "Οι περιορισμοί έχουν απενεργοποιηθεί",
+        "description": ""
+    },
+    "NoEnforcement": {
+        "message": "Απενεργοποίηση των περιορισμών παντού (επικίνδυνο)",
+        "description": ""
+    },
+    "Enforce": {
+        "message": "Ενεργοποίηση των περιορισμών παντού",
+        "description": ""
+    },
+    "NoEnforcementForTab": {
+        "message": "Απενεργοποίηση των περιορισμών για αυτή την καρτέλα",
+        "description": ""
+    },
+    "EnforceForTab": {
+        "message": "Ενεργοποίηση των περιορισμών για αυτή την καρτέλα",
+        "description": ""
+    },
+    "HighContrast": {
+        "message": "Υψηλή αντίθεση",
+        "description": ""
+    },
+    "httpsOnly": {
+        "message": "Match HTTPS content only",
+        "description": ""
+    },
+    "Https": {
+        "message": "HTTPS",
+        "description": ""
+    },
+    "Https_always": {
+        "message": "Πάντα",
+        "description": ""
+    },
+    "Https_behavior": {
+        "message": "Συμπεριφορά",
+        "description": ""
+    },
+    "Https_cookies": {
+        "message": "Cookies",
+        "description": ""
+    },
+    "Https_description": {
+        "message": "Forbid active web content unless it comes from a secure (HTTPS) connection:",
+        "description": ""
+    },
+    "Https_never": {
+        "message": "Ποτέ",
+        "description": ""
+    },
+    "Https_proxy": {
+        "message": "Όταν χρησιμοποιείται proxy (συνίσταται με Tor)",
+        "description": ""
+    },
+    "HttpsFaq": {
+        "message": "Συχνές ερωτήσεις HTTPS...",
+        "description": ""
+    },
+    "HttpsFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "HttpsForced": {
+        "message": "Να εξαναγκάζονται να χρησιμοποιούν ασφαλείς (HTTPS) συνδέσεις οι παρακάτω σελίδες:",
+        "description": ""
+    },
+    "HttpsForcedExceptions": {
+        "message": "Να μην εξαναγκάζονται ποτέ να χρησιμοποιούν ασφαλείς (HTTPS) συνδέσεις οι παρακάτω σελίδες:",
+        "description": ""
+    },
+    "Import": {
+        "message": "Εισαγωγή",
+        "description": ""
+    },
+    "Import_accesskey": {
+        "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "description": ""
+    },
+    "KeepLocked": {
+        "message": "Να παραμείνει αυτό το στοιχείο κλειδωμένο (προτείνεται)",
+        "description": ""
+    },
+    "MatchSample": {
+        "message": "Pattern matching sample:",
+        "description": ""
+    },
+    "Next": {
+        "message": "Επόμενο",
+        "description": ""
+    },
+    "NoUntrustedPlaceholder": {
+        "message": "No placeholder for objects coming from sites marked as untrusted",
+        "description": ""
+    },
+    "Notifications": {
+        "message": "Ειδοποιήσεις",
+        "description": ""
+    },
+    "Notify": {
+        "message": "Να εμφανίζεται μήνυμα για μπλοκαρισμένες δέσμες ενεργειών",
+        "description": ""
+    },
+    "Notify_bottom": {
+        "message": "Να τοποθετείται το μήνυμα στο κάτω μέρος",
+        "description": ""
+    },
+    "NotifyMeta": {
+        "message": "Show message about blocked META redirections",
+        "description": ""
+    },
+    "NotifyMeta_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "NselForce": {
+        "message": "Να εμφανίζεται το <NOSCRIPT> στοιχείο που ακολουθεί ένα μπλοκαρισμένο <SCRIPT>",
+        "description": ""
+    },
+    "NselNever": {
+        "message": "Απόκρυψη <NOSCRIPT> στοιχείων",
+        "description": ""
+    },
+    "OK": {
+        "message": "OK",
+        "description": ""
+    },
+    "OptBlockCssScanners": {
+        "message": "Μπλοκάρισμα σαρωτών βασισμένων σε CSS",
+        "description": ""
+    },
+    "OptFilterXGet": {
+        "message": "Να γίνεται εκκαθάριση ύποπτων cross-site αιτημάτων",
+        "description": ""
+    },
+    "OptFilterXPost": {
+        "message": "Turn cross-site POST requests into data-less GET requests",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Override Tor Browser's Security Level preset",
+        "description": ""
+    },
+    "Options": {
+        "message": "Επιλογές...",
+        "description": ""
+    },
+    "Options_accesskey": {
+        "message": "O",
+        "description": ""
+    },
+    "OptionsLong": {
+        "message": "Επιλογές NoScript",
+        "description": ""
+    },
+    "OptionsWidth": {
+        "message": "40em",
+        "description": ""
+    },
+    "PermanentInPrivate": {
+        "message": "Permanent \"Allow\" commands in private windows",
+        "description": ""
+    },
+    "SectionSitePermissions": {
+        "message": "Άδειες ανά σελίδα",
+        "description": ""
+    },
+    "PermissionsText": {
+        "message": "Μπορείτε να προσδιορίσετε σε ποιές σελίδες επιτρέπεται να εκτελούν δέσμες ενεργειών. Πληκτρολογήσετε την διεύθυνση ή το όνομα (π.χ. \"http://www.site.com\" ή \"site.com\") της σελίδας που θέλετε να επιτρέψετε, και πατήστε \"Να επιτρέπεται\".",
+        "description": ""
+    },
+    "Plugins": {
+        "message": "Πρόσθετα",
+        "description": ""
+    },
+    "Policies": {
+        "message": "Πολιτικές",
+        "description": ""
+    },
+    "Preset": {
+        "message": "Επίπεδο ασφαλείας",
+        "description": ""
+    },
+    "Preset_high": {
+        "message": "Φρούριο (πλήρης αποκλεισμός)",
+        "description": ""
+    },
+    "Preset_low": {
+        "message": "Χαλαρή (λίστα μπλοκαρισμένων και ασφάλεια διαδικτύου)",
+        "description": ""
+    },
+    "Preset_medium": {
+        "message": "Κλασσική (λίστα επιτρεπόμενων και ασφάλεια διαδικτύου)",
+        "description": ""
+    },
+    "Preset_off": {
+        "message": "Απενεργοποιημένο (σοβαρολογείτε;!)",
+        "description": ""
+    },
+    "Prev": {
+        "message": "Προηγούμενο",
+        "description": ""
+    },
+    "RecentBlocked": {
+        "message": "Πρόσφατα μπλοκαρισμένες σελίδες",
+        "description": ""
+    },
+    "Refresh": {
+        "message": "Ανανέωση",
+        "description": ""
+    },
+    "ReloadWarn": {
+        "message": "Αυτές οι επιλογές θα τεθούν σε ισχύ σε νέες ή χειροκίνητα ανανεωμένες σελίδες",
+        "description": ""
+    },
+    "RemoveSelected": {
+        "message": "Αφαίρεση των επιλεγμένων σελιδών",
+        "description": ""
+    },
+    "Reset": {
+        "message": "Επαναφορά",
+        "description": ""
+    },
+    "Reset_accesskey": {
+        "message": "s",
+        "description": ""
+    },
+    "ResetDef": {
+        "message": "Επαναφορά στο προκαθορισμένο",
+        "description": ""
+    },
+    "ResetDef_accesskey": {
+        "message": "D",
+        "description": ""
+    },
+    "RestrictSubdocScripting": {
+        "message": "Block scripting in whitelisted subdocuments of non-whitelisted pages",
+        "description": ""
+    },
+    "RevokeTemp": {
+        "message": "Ανάκληση προσωρινών αδειών",
+        "description": ""
+    },
+    "RevokeTemp_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "SecureCookies": {
+        "message": "Enable Automatic Secure Cookies Management",
+        "description": ""
+    },
+    "SecureCookiesExceptions": {
+        "message": "Ignore unsafe cookies set over HTTPS by the following sites:",
+        "description": ""
+    },
+    "SecureCookiesForced": {
+        "message": "Force encryption for all the cookies set over HTTPS by the following sites:",
+        "description": ""
+    },
+    "SecurityManager": {
+        "message": "Διαχειριστής ασφαλείας",
+        "description": ""
+    },
+    "Show": {
+        "message": "Εμφάνιση...",
+        "description": ""
+    },
+    "ShowConsole": {
+        "message": "Προβολή κονσόλας…",
+        "description": ""
+    },
+    "ShowConsole_accesskey": {
+        "message": "S",
+        "description": ""
+    },
+    "ShowPlaceholder": {
+        "message": "Show placeholder icon",
+        "description": ""
+    },
+    "ShowReleaseNotes": {
+        "message": "Display the release notes on updates",
+        "description": ""
+    },
+    "ShowCtxMenuItem": {
+        "message": "Show NoScript contextual menu item",
+        "description": ""
+    },
+    "ShowCountBadge": {
+        "message": "Εμφάνιση μετρητή μπλοκαρισμένων αντικειμένων",
+        "description": ""
+    },
+    "SitePermissions": {
+        "message": "Άδειες σελίδας",
+        "description": ""
+    },
+    "SitePermissions_accessKey": {
+        "message": "S",
+        "description": ""
+    },
+    "SitePolicies": {
+        "message": "Ειδικές πολιτικές σελίδας",
+        "description": ""
+    },
+    "TempTrustPage": {
+        "message": "Ορισμός όλων σε αυτή την σελίδα ως προσωρινά έμπιστα",
+        "description": ""
+    },
+    "TempTrustPage_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "TempToPerm": {
+        "message": "Να γίνουν οι άδειες της σελίδας μόνιμες",
+        "description": ""
+    },
+    "TempToPerm_accesskey": {
+        "message": "M",
+        "description": ""
+    },
+    "Trust": {
+        "message": "Σημείωση ως έμπιστη",
+        "description": ""
+    },
+    "Trust_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "Trusted": {
+        "message": "Έμπιστη",
+        "description": ""
+    },
+    "Trusted_temporary": {
+        "message": "Προσ. ΕΜΠΙΣΤΗ",
+        "description": ""
+    },
+    "Trusted_permanent": {
+        "message": "ΕΜΠΙΣΤΗ",
+        "description": ""
+    },
+    "TrustedPagesAdj": {
+        "message": "έμπιστη",
+        "description": ""
+    },
+    "Uninstall": {
+        "message": "Απεγκατάσταση",
+        "description": ""
+    },
+    "Unknown": {
+        "message": "Άγνωστο ",
+        "description": ""
+    },
+    "UnsafeReload": {
+        "message": "Μη ασφαλής ανανέωση",
+        "description": ""
+    },
+    "UnsafeReload_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "Untrust": {
+        "message": "Σημείωση ως μη έμπιστη",
+        "description": ""
+    },
+    "Untrust_accesskey": {
+        "message": "U",
+        "description": ""
+    },
+    "Untrusted": {
+        "message": "Μη έμπιστη",
+        "description": ""
+    },
+    "UntrustedPagesAdj": {
+        "message": "μη έμπιστη",
+        "description": ""
+    },
+    "WebAddress": {
+        "message": "Αναζήτησε ή πρόσθεσε μια ιστοσελίδα:",
+        "description": ""
+    },
+    "WebAddress_accesskey": {
+        "message": "w",
+        "description": ""
+    },
+    "Whitelist": {
+        "message": "Λίστα επιτρεπόμενων",
+        "description": ""
+    },
+    "XSS_notify": {
+        "message": "Προβολή ειδοποιήσεων XSS",
+        "description": ""
+    },
+    "XSS_clearUserChoices": {
+        "message": "Εκκαθάριση επιλογών XSS",
+        "description": ""
+    },
+    "XSS_promptTitle": {
+        "message": "Προειδοποίηση XSS του NoScript",
+        "description": ""
+    },
+    "XSS_promptMessage": {
+        "message": "Το NoScript εντόπισε μια πιθανή επίθεση Cross-Site Scripting (XSS)\nαπό το $1 στο $2.\nΎποπτα δεδομένα:\n$3",
+        "description": ""
+    },
+    "XSS_optBlock": {
+        "message": "Μπλοκάρισμα αυτού του αιτήματος",
+        "description": ""
+    },
+    "XSS_optSanitize": {
+        "message": "Εκκαθάριση αυτού του αιτήματος",
+        "description": ""
+    },
+    "XSS_optAllow": {
+        "message": "Έγκριση αυτού του αιτήματος",
+        "description": ""
+    },
+    "XSS_optAlwaysAllow": {
+        "message": "Always allow document requests from $1 to $2",
+        "description": ""
+    },
+    "XSS_optAlwaysBlock": {
+        "message": "Always block document requests from $1 to $2",
+        "description": ""
+    },
+    "Xss": {
+        "message": "XSS",
+        "description": ""
+    },
+    "Xss_accesskey": {
+        "message": "X",
+        "description": ""
+    },
+    "XssExceptions": {
+        "message": "Εξαιρέσεις στην προστασία κατά του XSS",
+        "description": ""
+    },
+    "XssExceptions_description": {
+        "message": "Destinations matching these regular expressions will NOT be protected against XSS.",
+        "description": ""
+    },
+    "XssFaq": {
+        "message": "Συχνές ερωτήσεις XSS...",
+        "description": ""
+    },
+    "XssFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "about": {
+        "message": "About $1",
+        "description": ""
+    },
+    "allowFrom": {
+        "message": "Να επιτρέπονται όλα από το $1",
+        "description": ""
+    },
+    "allowGlobal": {
+        "message": "Disable all the permissions checks (dangerous)",
+        "description": ""
+    },
+    "allowLocal": {
+        "message": "Να επιτραπεί το $1",
+        "description": ""
+    },
+    "allowTemp": {
+        "message": "Να επιτραπεί προσωρινά το $1",
+        "description": ""
+    },
+    "allowTempFrom": {
+        "message": "Να επιτραπούν προσωρινά όλα από το $1",
+        "description": ""
+    },
+    "allowed_no": {
+        "message": "Οι δέσμες ενεργειών δεν επιτρέπονται προς το παρόν",
+        "description": ""
+    },
+    "allowed_prt": {
+        "message": "Οι δέσμες ενεργειών επιτρέπονται εν μέρει",
+        "description": ""
+    },
+    "allowed_yes": {
+        "message": "Οι δέσμες ενεργειών επιτρέπονται προς το παρόν",
+        "description": ""
+    },
+    "alwaysAsk": {
+        "message": "Να ερωτώμαι πάντα για επιβεβαίωση",
+        "description": ""
+    },
+    "audio_samples": {
+        "message": "Δείγματα ήχου",
+        "description": ""
+    },
+    "bookmarkSync_confirm": {
+        "message": "NoScript has found a configuration bookmark seemingly saved on\n$1.\nDo you really want to overwrite your local NoScript configuration with this bookmark's content?",
+        "description": ""
+    },
+    "bookmarkSync_message": {
+        "message": "Αυτός ο σελιδοδείκτης δεν προορίζεται για άνοιγμα αλλά για συγχρονισμό ρυθμίσεων με υπηρεσίες όπως το Weave ή η επέκταση XMarks",
+        "description": ""
+    },
+    "bookmarkSync_title": {
+        "message": "Σελιδοδείκτης ρυθμίσεων NoScript",
+        "description": ""
+    },
+    "cap_script": {
+        "message": "δέσμη ενεργειών",
+        "description": ""
+    },
+    "cap_frame": {
+        "message": "frame",
+        "description": ""
+    },
+    "cap_object": {
+        "message": "αντικείμενο",
+        "description": ""
+    },
+    "cap_media": {
+        "message": "πολυμέσο",
+        "description": ""
+    },
+    "cap_font": {
+        "message": "γραμματοσειρά",
+        "description": ""
+    },
+    "cap_webgl": {
+        "message": "webgl",
+        "description": ""
+    },
+    "cap_fetch": {
+        "message": "fetch",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
+        "description": ""
+    },
+    "cap_other": {
+        "message": "άλλο",
+        "description": ""
+    },
+    "changelog": {
+        "message": "Αρχείο καταγραφής αλλαγών",
+        "description": ""
+    },
+    "changelog_tip": {
+        "message": "Εμφάνιση αρχείου καταγραφής αλλαγών",
+        "description": ""
+    },
+    "confirm": {
+        "message": "Είστε σίγουροι για την επιλογή σας;",
+        "description": ""
+    },
+    "disable": {
+        "message": "Απενεργοποίηση του $1",
+        "description": ""
+    },
+    "disable_accessKey": {
+        "message": "D",
+        "description": ""
+    },
+    "distrust": {
+        "message": "Σημείωση του $1 ως μη έμπιστο",
+        "description": ""
+    },
+    "extensionContributors": {
+        "message": "Συνεισφέροντες:",
+        "description": ""
+    },
+    "extensionContributors_tip": {
+        "message": "Άτομα που πρέπει να ευχαριστήσετε για αυτό το πρόσθετο",
+        "description": ""
+    },
+    "extensionCreator_tip": {
+        "message": "Επισκεφθείτε την ιστοσελίδα του συντάκτη",
+        "description": ""
+    },
+    "extensionCreatorLabel": {
+        "message": "Συντάκτης:",
+        "description": ""
+    },
+    "extensionHomepage_tip": {
+        "message": "Επισκεφτείτε την ιστοσελίδα του προσθέτου",
+        "description": ""
+    },
+    "forbidGlobal": {
+        "message": "Να απαγορεύονται οι δέσμες ενεργειών παντού (προτεινόμενο)",
+        "description": ""
+    },
+    "forbidLocal": {
+        "message": "Απαγόρευση του $1",
+        "description": ""
+    },
+    "freshInstallReload": {
+        "message": "Για να λειτουργήσει σε αυτή την καρτέλα, το NoScript πρέπει να την ανανεώσει.\nΣυνέχεια;",
+        "description": ""
+    },
+    "privilegedPage": {
+        "message": "This is a privileged page, whose permissions cannot be configured.",
+        "description": ""
+    },
+    "incompatibleOptions": {
+        "message": "\"$1\"\nis incompatible with \"$2\".\nDo you want to enable the former and disable the latter?",
+        "description": ""
+    },
+    "incompatibleOptions_title": {
+        "message": "Προειδοποίηση ασύμβατων ρυθμίσεων",
+        "description": ""
+    },
+    "informaction_tip": {
+        "message": "Visit InformAction home page",
+        "description": ""
+    },
+    "license": {
+        "message": "Άδεια χρήσης",
+        "description": ""
+    },
+    "license_tip": {
+        "message": "Ανάγνωση της άδειας χρήστη",
+        "description": ""
+    },
+    "logo_tip": {
+        "message": "Επισκεφτείτε την ιστοσελίδα του προσθέτου",
+        "description": ""
+    },
+    "metaRefresh_notify": {
+        "message": "Το NoScript μπλόκαρε μια <META> ανακατεύθυνση μέσα σε ένα <NOSCRIPT> στοιχείο: $1 σε $2 δευτερόλεπτα.",
+        "description": ""
+    },
+    "Reload": {
+        "message": "Ανανέωση",
+        "description": ""
+    },
+    "removal_message": {
+        "message": "Απενεργοποιώντας ή απεγκαθιστώντας το NoScript, παραδίδετε όλες τις προστασίες που σας παρέχει το ΝοScript.\n\nΑν απλά έχετε βαρεθεί να διαχειρίζεστε τις άδειες δέσμεων ενεργειών για κάθε σελίδα χωριστά, υπάρχει μια πιο ασφαλής επιλογή.\n\nΤο NoScript μπορει να σταματήσει να μπλοκάρει τις δέσμες ενεργειών εκτός από αυτά που σημειώνετε ως μη έμπιστα, ενώ θα εξακολουθεί να σας προστατεύει με τα πιο προηγμένα αντίμετρα ασφαλείας έναντια σε επιθέσεις XSS, Clickjacking, CSRF και άλλες διαδικτυακές απειλές.\n\nΘέλετε όντως να αφαιρέσετε όλες τις προστασίες του NoScript;",
+        "description": ""
+    },
+    "removal_no": {
+        "message": "Όχι, απλά να σταματήσει το μπλοκάρισμα δέσμεων εντολώνς",
+        "description": ""
+    },
+    "removal_title": {
+        "message": "Προειδοποίηση υποβάθμισης ασφαλείας",
+        "description": ""
+    },
+    "removal_yes": {
+        "message": "Ναι, να αφαιρεθούν ΟΛΕΣ οι προστασίες",
+        "description": ""
+    },
+    "reset_title": {
+        "message": "Επαναφορά αρχικών ρυθμίσεων του NoScript",
+        "description": ""
+    },
+    "reset_warning": {
+        "message": "Θα γίνει επαναφορά στις αρχικές ρυθμίσεις όλων των επιλογών του NoScript και των δικαιωμάτων ιστότοπων..\n Αυτή η ενέργεια δεν είναι αναστρέψιμη.\n Συνέχεια;",
+        "description": ""
+    },
+    "siteInfo_confirm": {
+        "message": "You're about to ask for information about the \"$1\" site\nby submitting a query to $2.\nDo you want to continue?",
+        "description": ""
+    },
+    "siteInfo_tooltip": {
+        "message": "Πατήστε μεσαίο ή shift + κλικ για πληροφορίες ιστότοπου...",
+        "description": ""
+    },
+    "sponsor_tip": {
+        "message": "Επισκεφτείτε την ιστοσελίδα του χορηγού",
+        "description": ""
+    },
+    "unsafeReload_warning": {
+        "message": "UNSAFELY reloading a suspicious\n\n$1 [$2]\n\nFROM [$3]\n\nNoScript will NOT protect this request!\n",
+        "description": ""
+    },
+    "untrustedOrigin": {
+        "message": "μια μη έμπιστη πηγή",
+        "description": ""
+    },
+    "version": {
+        "message": "Έκδοση $1",
+        "description": ""
+    },
+    "versionShort": {
+        "message": "v $1",
+        "description": ""
+    }
+}

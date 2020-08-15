@@ -1,10 +1,10 @@
 var {Permissions, Policy, Sites} = (() => {
   'use strict';
-
   const SECURE_DOMAIN_PREFIX = "§:";
   const SECURE_DOMAIN_RX = new RegExp(`^${SECURE_DOMAIN_PREFIX}`);
   const DOMAIN_RX = new RegExp(`(?:^\\w+://|${SECURE_DOMAIN_PREFIX})?([^/]*)`, "i");
-  const SKIP_RX = /^(?:(?:about|chrome|resource|moz-.*):|\[System)/;
+  const IPV4_RX = /^(?:\d+\.){1,3}\d+/;
+  const INTERNAL_SITE_RX = /^(?:(?:about|chrome|resource|(?:moz|chrome)-.*):|\[System)/;
   const VALID_SITE_RX = /^(?:(?:(?:(?:http|ftp|ws)s?|file):)(?:(?:\/\/)[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000.](?:$|\/))?|[\w\u0100-\uf000][\w\u0100-\uf000.-]*[\w\u0100-\uf000]$)/;
 
   let rxQuote = s => s.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
@@ -24,6 +24,9 @@ var {Permissions, Policy, Sites} = (() => {
       return VALID_SITE_RX.test(site);
     }
 
+    static isInternal(site) {
+      return INTERNAL_SITE_RX.test(site);
+    }
 
     static originImplies(originKey, site) {
       return originKey === site || site.startsWith(`${originKey}/`);
@@ -62,6 +65,9 @@ var {Permissions, Policy, Sites} = (() => {
         }
       }
       if (url) {
+        if (Sites.onionSecure && url.protocol === "http:" && url.hostname.endsWith(".onion")) {
+          url.protocol = "https:";
+        }
         let path = url.pathname;
         siteKey = url.origin;
         if (siteKey === "null") {
@@ -82,11 +88,11 @@ var {Permissions, Policy, Sites} = (() => {
     static origin(site) {
       if (!site) return "";
       try {
-        let objUrl = site.href ? site : new URL(site);
-        let origin = objUrl.origin;
+        let objUrl = (typeof site === "object" && "origin" in site) ? site : site.startsWith("chrome:") ? {origin: "chrome:" } : new URL(site);
+        let {origin} = objUrl;
         return origin === "null" ? Sites.cleanUrl(objUrl) || site : origin;
       } catch (e) {
-        console.error(e);
+        error(e);
       };
       return site.origin || site;
     }
@@ -116,7 +122,7 @@ var {Permissions, Policy, Sites} = (() => {
     }
 
     set(k, v) {
-      if (!k || SKIP_RX.test(k) || k === "§:") return this;
+      if (!k || Sites.isInternal(k) || k === "§:") return this;
       let [,domain] = DOMAIN_RX.exec(k);
       if (/[^\u0000-\u007f]/.test(domain)) {
         k = k.replace(domain, punycode.toASCII(domain));
@@ -156,6 +162,7 @@ var {Permissions, Policy, Sites} = (() => {
       if (!hostname) return null;
       if (!tld.preserveFQDNs) hostname = tld.normalize(hostname);
       let secure = protocol === "https:";
+      let isIPv4 = IPV4_RX.test(hostname);
       for (let domain = hostname;;) {
         if (this.has(domain)) {
           return domain;
@@ -166,13 +173,24 @@ var {Permissions, Policy, Sites} = (() => {
             return ssDomain;
           }
         }
-        let dotPos = domain.indexOf(".");
-        if (dotPos === -1) {
-          break;
-        }
-        domain = domain.substring(dotPos + 1); // sub
-        if (!domain) {
-          break;
+
+        if (isIPv4) {
+           // subnet shortcuts
+          let dotPos = domain.lastIndexOf(".");
+          if (!(dotPos > 3 || domain.indexOf(".") < dotPos)) {
+            break; // we want at least the 2 most significant bytes
+          }
+          domain = domain.substring(0, dotPos);
+        } else {
+          // (sub)domain matching
+          let dotPos = domain.indexOf(".");
+          if (dotPos === -1) {
+            break;
+          }
+          domain = domain.substring(dotPos + 1); // upper level
+          if (!domain) {
+            break;
+          }
         }
       }
       return null;
@@ -236,13 +254,27 @@ var {Permissions, Policy, Sites} = (() => {
       }
       return enabled;
     }
-
+    sameAs(otherPerms) {
+      let otherCaps = new Set(otherPerms.capabilities);
+      let theseCaps = this.capabilities;
+      for (let c of theseCaps) {
+        if (!otherCaps.delete(c)) return false;
+      }
+      for (let c of otherCaps) {
+        if (!theseCaps.has(c)) return false;
+      }
+      return true;
+    }
+    clone() {
+      return new Permissions(this.capabilities, this.temp, this.contextual);
+    }
     get tempTwin() {
       return this._tempTwin || (this._tempTwin = new Permissions(this.capabilities, true, this.contextual));
     }
+
   }
 
-  Permissions.ALL = ["script", "object", "media", "frame", "font", "webgl", "fetch", "other"];
+  Permissions.ALL = ["script", "object", "media", "frame", "font", "webgl", "fetch", "ping", "other"];
   Permissions.IMMUTABLE = {
     UNTRUSTED: {
       "script": false,
@@ -250,6 +282,7 @@ var {Permissions, Policy, Sites} = (() => {
       "webgl": false,
       "fetch": false,
       "other": false,
+      "ping": false,
     },
     TRUSTED: {
       "script": true,
@@ -291,13 +324,17 @@ var {Permissions, Policy, Sites} = (() => {
     let options = Object.assign({}, dry);
     for (let p of ["DEFAULT", "TRUSTED", "UNTRUSTED"]) {
       options[p] = dry[p] instanceof Permissions ? dry[p] : Permissions.hydrate(dry[p]);
+      options[p].temp = false; // preserve immutability of presets persistence
     }
-
     if (typeof dry.sites === "object" && !(dry.sites instanceof Sites)) {
       let {trusted, untrusted, temp, custom} = dry.sites;
       let sites = Sites.hydrate(custom);
-      for (let key of trusted) sites.set(key, options.TRUSTED);
-      for (let key of untrusted) sites.set(key, options.UNTRUSTED);
+      for (let key of trusted) {
+        sites.set(key, options.TRUSTED);
+      }
+      for (let key of untrusted) {
+        sites.set(Sites.toggleSecureDomainKey(key, false), options.UNTRUSTED);
+      }
       if (temp) {
         let tempPreset = options.TRUSTED.tempTwin;
         for (let key of temp) sites.set(key, tempPreset);
@@ -391,10 +428,15 @@ var {Permissions, Policy, Sites} = (() => {
       let {url, siteKey} = Sites.parse(site);
 
       sites.delete(siteKey);
+      let wideSiteKey = Sites.toggleSecureDomainKey(siteKey, false);
 
       if (perms === this.UNTRUSTED) {
         cascade = true;
-        Sites.toggleSecureDomainKey(siteKey, false);
+        siteKey = wideSiteKey;
+      } else {
+        if (wideSiteKey !== siteKey) {
+          sites.delete(wideSiteKey);
+        }
       }
       if (cascade && !url) {
         for (let subMatch; (subMatch = sites.match(siteKey));) {
@@ -433,6 +475,16 @@ var {Permissions, Policy, Sites} = (() => {
 
     get snapshot() {
       return JSON.stringify(this.dry(true));
+    }
+
+    cascadeRestrictions(perms, topUrl) {
+      let topPerms = this.get(topUrl, topUrl).perms;
+      if (topPerms !== perms) {
+        let topCaps = topPerms.capabilities;
+        perms = new Permissions([...perms.capabilities].filter(c => topCaps.has(c)),
+          perms.temp, perms.contextual);
+      }
+      return perms;
     }
 
     equals(other) {

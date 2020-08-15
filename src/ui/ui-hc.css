@@ -1,17 +1,27 @@
 input {
   transform: none !important;
   width: auto !important;
+  min-width: auto !important;
   position: static !important;
 }
 
 input[type="radio"] {
+  appearance: radio !important;
+  -webkit-appearance: radio !important;
   -moz-appearance:  radio !important;
   padding-right: .2em !important;
 }
 input[type="checkbox"] {
+  appearance: checkbox !important;
+  -webkit-appearance: checkbox !important;
   -moz-appearance:  checkbox !important;
 }
 
+
+input.preset {
+  margin: 0 .5em !important;
+  padding: 0 !important;
+}
 
 button {
   text-indent: 0 !important;
@@ -28,9 +38,21 @@ label {
   padding: 4px !important;
 }
 
-span.preset {
+.url {
+  white-space: nowrap !important;
+}
+
+.full-address {
   display: block;
-  width: auto !important;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+span.preset {
+  display: inline;
   white-space: nowrap !important;
 }
 
@@ -51,17 +73,36 @@ tr.site {
   display:flex;
   flex-flow: row;
   justify-content: space-around;
-
+  height: auto;
 }
-#top button  {
+#top .icon  {
   position: static;
   width: auto;
-}
-#top button.icon {
+  appearance: initial !important;
+  -moz-appearance: initial !important;
+  width: auto;
+  height: auto;
+  display: inline-flex !important;
   font-size: 12px !important;
-  font-family: arial sans-serif !important;
+  font-family: sans-serif !important;
+  text-indent: 0;
+  color: black !important;
+  background: white !important;
+  background-image: none !important;
+  border-radius: .3em;
+  text-align: center;
+  border: 1px solid black;
+  height: auto;
+  padding: .2em;
+}
+#top a.icon:hover {
+  transform: none;
 }
 
 #noscript-popup #high-contrast-chooser {
   display: block;
+}
+
+:focus {
+  outline: 1px dotted yellow;
 }

@@ -10,9 +10,11 @@ var Defaults = {
         showFullAddresses: false,
       },
       sync: {
-        "global": false,
-        "xss": true,
-        "clearclick": true
+        global: false,
+        xss: true,
+        cascadeRestrictions : false,
+        overrideTorBrowserPolicy: false, // note: Settings.update() on reset will flip this to true
+        clearclick: true,
       }
     };
     let defaultsClone = JSON.parse(JSON.stringify(defaults));

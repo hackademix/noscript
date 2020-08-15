@@ -26,17 +26,16 @@ var Test = (() => {
         error(e);
       }
       this[r ? "passed" : "failed"]++;
-      log(`${r ? "PASSED" : "FAILED"} ${msg || uneval(test)}`);
+      log(`[TEST] ${r ? "PASSED" : "FAILED"} ${msg || test}`);
       if (typeof callback === "function") try {
-        callback(r, test, msg);
+        await callback(r, test, msg);
       } catch(e) {
-        error(e);
+        error(e, "[TEST]");
       }
     },
-
     report() {
       let {passed, failed} = this;
-      log(`FAILED: ${failed}, PASSED: ${passed}, TOTAL ${passed + failed}.`);
+      log(`[TESTS] FAILED: ${failed}, PASSED: ${passed}, TOTAL ${passed + failed}.`);
     }
   };
 

@@ -1,47 +1,53 @@
 "use strict";
+
+function ReportingCSP(marker, reportURI = "") {
+  const DOM_SUPPORTED = "SecurityPolicyViolationEvent" in window;
   
-function ReportingCSP(reportURI, reportGroup) {
-  const REPORT_TO = {
-    name: "Report-To",
-    value: JSON.stringify({ "url": reportURI,
-             "group": reportGroup,
-             "max-age": 10886400 }),
-  };
+  if (DOM_SUPPORTED) reportURI = "";
+  
   return Object.assign(
-    new CapsCSP(new NetCSP(
-      `report-uri ${reportURI};`,
-      `;report-to ${reportGroup};`
-    )), 
+    new CapsCSP(new NetCSP( 
+      reportURI ? `report-uri ${reportURI}` : marker
+    )),
     {
       reportURI,
-      reportGroup,
       patchHeaders(responseHeaders, capabilities) {
         let header = null;
-        let hasReportTo = false;
-        for (let h of responseHeaders) {
+        let blocker = capabilities && this.buildFromCapabilities(capabilities);
+        let extras = [];
+        responseHeaders.forEach((h, index) => {
           if (this.isMine(h)) {
             header = h;
-            h.value = this.inject(h.value, "");
-          } else if (h.name === REPORT_TO.name && h.value === REPORT_TO.value) {
-            hasReportTo = true;
+            if (h.value === blocker) {
+              // make this equivalent but different than the original, otherwise
+              // it won't be (re)set when deleted, see
+              // https://dxr.mozilla.org/mozilla-central/rev/882de07e4cbe31a0617d1ae350236123dfdbe17f/toolkit/components/extensions/webrequest/WebRequest.jsm#138
+              blocker += " ";
+            } else {
+              extras.push(...this.unmergeExtras(h));
+            }
+            responseHeaders.splice(index, 1);
+          } else if (blocker && /^(Location|Refresh)$/i.test(h.name)) {
+            // neutralize any HTTP redirection to data: URLs, like Chromium
+            let  url = /^R/i.test(h.name)
+              ? h.value.replace(/^[^,;]*[,;](?:\W*url[^=]*=)?[^!#$%&()*+,/:;=?@[\]\w.,~-]*/i, "") : h.value;
+            if (/^data:/i.test(url)) {
+              h.value = h.value.slice(0, -url.length) + "data:";
+            }
           }
+        });
+
+        if (blocker) {
+          header = this.asHeader(blocker);
+          responseHeaders.push(header);
         }
 
-        let blocker = capabilities && this.buildFromCapabilities(capabilities);
-        if (blocker) {
-          if (!hasReportTo) {
-            responseHeaders.push(REPORT_TO);
-          }
-          if (header) {
-            header.value = this.inject(header.value, blocker);
-          } else {
-            header = this.asHeader(blocker);
-            responseHeaders.push(header);
-          }
+        if (extras.length) {
+          responseHeaders.push(...extras);
         }
-        
+
         return header;
       }
     }
   );
-}    
+}

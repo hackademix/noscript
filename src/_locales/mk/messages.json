@@ -1,0 +1,910 @@
+{
+    "Add": {
+        "message": "Додај",
+        "description": ""
+    },
+    "Add_accesskey": {
+        "message": "Д",
+        "description": ""
+    },
+    "AdditionalPermissions": {
+        "message": "Дополнителни дозволи за доверливи веб страни",
+        "description": ""
+    },
+    "AdditionalRestrictions": {
+        "message": "Дополнителни забрани за недоверливи веб страни",
+        "description": ""
+    },
+    "SectionAdvanced": {
+        "message": "Напредно",
+        "description": ""
+    },
+    "Allow": {
+        "message": "Дозволи",
+        "description": ""
+    },
+    "Allow_accesskey": {
+        "message": "l",
+        "description": ""
+    },
+    "AllowBookmarks": {
+        "message": "Дозволи веб страни отворени преку обележувачи",
+        "description": ""
+    },
+    "AllowClipboard": {
+        "message": "Дозволи копирање и залепување на богат текст од надворешни табли со исечоци (clipboard)",
+        "description": ""
+    },
+    "AllowLocalLinks": {
+        "message": "Дозволи локални линкови",
+        "description": ""
+    },
+    "AllowPage": {
+        "message": "Дозволи се за оваа веб страна",
+        "description": ""
+    },
+    "AllowPage_accesskey": {
+        "message": "Д",
+        "description": ""
+    },
+    "AllowPing": {
+        "message": "Дозволи <A PING…>",
+        "description": ""
+    },
+    "AllowViaBookmarks": {
+        "message": "Дозволи веб страни отворени преку обележувачи",
+        "description": ""
+    },
+    "AlwaysBlockUntrustedContent": {
+        "message": "Блокирај го секој објект кој доаѓа од веб страна која е означена како небезбедна",
+        "description": ""
+    },
+    "SectionAppearance": {
+        "message": "Изглед",
+        "description": ""
+    },
+    "AutoAllowTopLevel": {
+        "message": "Привремено постави ги веб страните од највисоко-ниво на ДОВЕРЛИВО",
+        "description": ""
+    },
+    "AutoReload": {
+        "message": "Автоматски пре-вчитај погодените веб страни кога има промена на дозволите",
+        "description": ""
+    },
+    "AutoReload_currentTab": {
+        "message": "Пре-вчитај го само моменталниот таб",
+        "description": ""
+    },
+    "BaseDom": {
+        "message": "Домеини базирани на 2 ниво (noscript.net)",
+        "description": ""
+    },
+    "BlockedItems": {
+        "message": "Блокирај $1 од $2 предмети.",
+        "description": ""
+    },
+    "BlockedObjects": {
+        "message": "NoScript Блокирани  Објекти",
+        "description": ""
+    },
+    "BookmarkSync": {
+        "message": "Резервна копија на поставувањата на NoScript во обележувач за лесна синхронизација",
+        "description": ""
+    },
+    "Cancel": {
+        "message": "Исклучи",
+        "description": ""
+    },
+    "CascadePermissions": {
+        "message": "Дозволи за каскадни највисоки документи до скрипти од 3-ти страни",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "Забрани за каскадни највисоки документи до поддокументи",
+        "description": ""
+    },
+    "ClearClickDescription": {
+        "message": "NoScript ја пресретнува интеракцијата на глувчето или тастатурата со делумно сокриен елемент. Кликнете на сликата подолу за да промените помеѓу попречена и чиста верзија.",
+        "description": ""
+    },
+    "ClearClickHeader": {
+        "message": "Потенцијално клик-киднапирање / Обид за поправка на кориснички интерфејс",
+        "description": ""
+    },
+    "ClearClickOpt": {
+        "message": "ЧистКлик заштита на веб страни...",
+        "description": ""
+    },
+    "ClearClickReport": {
+        "message": "Пријави",
+        "description": ""
+    },
+    "ClearClickReport_accesskey": {
+        "message": "П",
+        "description": ""
+    },
+    "ClearClickReportId": {
+        "message": "Пријави ID:",
+        "description": ""
+    },
+    "ClearClickTitle": {
+        "message": "ЧистКлик Предупредување",
+        "description": ""
+    },
+    "Close": {
+        "message": "Затвори",
+        "description": ""
+    },
+    "CollapseBlockedObjects": {
+        "message": "Затвори ги блокираните објекти",
+        "description": ""
+    },
+    "ConfirmUnblock": {
+        "message": "Прашај за потврдра пред привремено одблокирање на објект",
+        "description": ""
+    },
+    "ContentBlocker": {
+        "message": "Примени ги овие забрани за овозможените веб стани исто така",
+        "description": ""
+    },
+    "CtxMenu": {
+        "message": "Контекстуално мени",
+        "description": ""
+    },
+    "Custom": {
+        "message": "Прилагодено",
+        "description": ""
+    },
+    "CustomizePresets": {
+        "message": "Поставување на прилагодување (за сите веб страни кои го делат поставувањето)",
+        "description": ""
+    },
+    "Default": {
+        "message": "Стандардно",
+        "description": ""
+    },
+    "DefaultPolicies": {
+        "message": "Стандардни Политики",
+        "description": ""
+    },
+    "Description": {
+        "message": "Максимална заштита за вашиот пребарувач: NoScript овозможува активна содржина само за доверливите домеини од вашиот избор за да спречи злоупотреба.",
+        "description": ""
+    },
+    "Donate": {
+        "message": "Донирај",
+        "description": ""
+    },
+    "Donate_accesskey": {
+        "message": "o",
+        "description": ""
+    },
+    "Embeddings": {
+        "message": "Вградувања",
+        "description": ""
+    },
+    "Exceptions": {
+        "message": "Исклучоци...",
+        "description": ""
+    },
+    "Export": {
+        "message": "Извези",
+        "description": ""
+    },
+    "Export_accesskey": {
+        "message": "И",
+        "description": ""
+    },
+    "FixLinks": {
+        "message": "Обид за поправка на JavaScript линковите",
+        "description": ""
+    },
+    "Hider": {
+        "message": "Пуштете овде за да сокриете.",
+        "description": ""
+    },
+    "Reveal": {
+        "message": "Кликнете овде за да ги повратите копчињата кои недостасуваат...",
+        "description": ""
+    },
+    "ShowFullAddresses": {
+        "message": "Излистај ги целосните адреси во скокачкиот прозорец за дозволи (https://www.noscript.net)",
+        "description": ""
+    },
+    "SectionGeneral": {
+        "message": "Главно",
+        "description": ""
+    },
+    "GlobalHttpsWhitelist": {
+        "message": "Дозволи ги глобално HTTPS скриптите на HTTPS документите",
+        "description": ""
+    },
+    "NotEnforced": {
+        "message": "Забраните се оневозможени",
+        "description": ""
+    },
+    "NoEnforcement": {
+        "message": "Оневозможи ги забраните глобално (опасно)",
+        "description": ""
+    },
+    "Enforce": {
+        "message": "Овозможи ги забраните глобално",
+        "description": ""
+    },
+    "NoEnforcementForTab": {
+        "message": "Оневозможи ги забраните за овој таб",
+        "description": ""
+    },
+    "EnforceForTab": {
+        "message": "Овозможи ги забраните за овој таб",
+        "description": ""
+    },
+    "HighContrast": {
+        "message": "Висок контраст",
+        "description": ""
+    },
+    "httpsOnly": {
+        "message": "Совпадни ја само HTTPS содржината",
+        "description": ""
+    },
+    "Https": {
+        "message": "HTTPS",
+        "description": ""
+    },
+    "Https_always": {
+        "message": "Секогаш",
+        "description": ""
+    },
+    "Https_behavior": {
+        "message": "Однесување",
+        "description": ""
+    },
+    "Https_cookies": {
+        "message": "Колачиња",
+        "description": ""
+    },
+    "Https_description": {
+        "message": "Забрани ја активната содржина на веб страните освен ако не доаѓа од безбедно (HTTPS) поврзување:",
+        "description": ""
+    },
+    "Https_never": {
+        "message": "Никогаш",
+        "description": ""
+    },
+    "Https_proxy": {
+        "message": "При користење на прокси (препорачано со Tor)",
+        "description": ""
+    },
+    "HttpsFaq": {
+        "message": "HTTPS ЧПП...",
+        "description": ""
+    },
+    "HttpsFaq_accesskey": {
+        "message": "Ч",
+        "description": ""
+    },
+    "HttpsForced": {
+        "message": "Присили ги следните веб страни да користат безбедни (HTTPS) поврзувања:",
+        "description": ""
+    },
+    "HttpsForcedExceptions": {
+        "message": "Никогаш не присилувај безбедни (HTTPS) поврзувања за следните веб страни:",
+        "description": ""
+    },
+    "Import": {
+        "message": "Увези",
+        "description": ""
+    },
+    "Import_accesskey": {
+        "message": "У",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Овозможете поставување на постојани дозволи во инкогнито/приватни табови.\nВНИМАНИЕ: со правење на ова може да дојде до протекување на информации за веб страната! ",
+        "description": ""
+    },
+    "KeepLocked": {
+        "message": "Задржи го овој елемент заклучен (препорачано)",
+        "description": ""
+    },
+    "MatchSample": {
+        "message": "Шема за совпаѓање примерок:",
+        "description": ""
+    },
+    "Next": {
+        "message": "Следно",
+        "description": ""
+    },
+    "NoUntrustedPlaceholder": {
+        "message": "Нема држач-на-место за објекти кои доаѓаат од веб страни кои се означени како недоверливи",
+        "description": ""
+    },
+    "Notifications": {
+        "message": "Известувања",
+        "description": ""
+    },
+    "Notify": {
+        "message": "Покажи порака за блокирани скрипти",
+        "description": ""
+    },
+    "Notify_bottom": {
+        "message": "Стави ја пораката најдолу",
+        "description": ""
+    },
+    "NotifyMeta": {
+        "message": "Покажи порака за блокирање на МЕТА препраќања",
+        "description": ""
+    },
+    "NotifyMeta_accesskey": {
+        "message": "П",
+        "description": ""
+    },
+    "NselForce": {
+        "message": "Покажи го <NOSCRIPT> елементот кој го следи блокираниот <SCRIPT>",
+        "description": ""
+    },
+    "NselNever": {
+        "message": "Сокриј <NOSCRIPT> елементи",
+        "description": ""
+    },
+    "OK": {
+        "message": "ОК",
+        "description": ""
+    },
+    "OptBlockCssScanners": {
+        "message": "Блокирај ги CSS-базираните скенери",
+        "description": ""
+    },
+    "OptFilterXGet": {
+        "message": "Прочисти ги сомнителните барања низ веб страната",
+        "description": ""
+    },
+    "OptFilterXPost": {
+        "message": "Вклучи ги ПОДОЦНЕЖНИТЕ барања низ веб страната во помалку податочните ДОБИЕНИ барања",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Преиначи го поставувањето за Безбедносното ниво на Tor Browser",
+        "description": ""
+    },
+    "Options": {
+        "message": "Опции...",
+        "description": ""
+    },
+    "Options_accesskey": {
+        "message": "О",
+        "description": ""
+    },
+    "OptionsLong": {
+        "message": "NoScript Опции",
+        "description": ""
+    },
+    "OptionsWidth": {
+        "message": "40em",
+        "description": ""
+    },
+    "PermanentInPrivate": {
+        "message": "Трајно \"Дозволи\" ги командите во приватните прозорци",
+        "description": ""
+    },
+    "SectionSitePermissions": {
+        "message": "Дозволи по-веб страна",
+        "description": ""
+    },
+    "PermissionsText": {
+        "message": "Можете да посочите на кои веб страни им е дозволено да извршуваат скрипти. Внесете ја адресата или домеинот (пр. \"http://www.site.com\" или \"site.com\") од веб страната на која што сакате да и дозволите а потоа клинете Дозволи.",
+        "description": ""
+    },
+    "Plugins": {
+        "message": "Приклучоци",
+        "description": ""
+    },
+    "Policies": {
+        "message": "Политики",
+        "description": ""
+    },
+    "Preset": {
+        "message": "Ниво на безбедност",
+        "description": ""
+    },
+    "Preset_high": {
+        "message": "Тврдина (Целосно заклучување)",
+        "description": ""
+    },
+    "Preset_low": {
+        "message": "Лесно минливи (Црна листа + Веб безбедност)",
+        "description": ""
+    },
+    "Preset_medium": {
+        "message": "Класични (Бела листа + Веб безбедност)",
+        "description": ""
+    },
+    "Preset_off": {
+        "message": "Исклучено (дали сте сериозни?!)",
+        "description": ""
+    },
+    "Prev": {
+        "message": "Претходно",
+        "description": ""
+    },
+    "RecentBlocked": {
+        "message": "Неодамна блокирани веб страни",
+        "description": ""
+    },
+    "Refresh": {
+        "message": "Освежи",
+        "description": ""
+    },
+    "ReloadWarn": {
+        "message": "Овие опции ќе имаат ефект на новите или (рачно) освежените веб страни",
+        "description": ""
+    },
+    "RemoveSelected": {
+        "message": "Острани ги одбраните веб страни",
+        "description": ""
+    },
+    "Reset": {
+        "message": "Повторно стартување",
+        "description": ""
+    },
+    "Reset_accesskey": {
+        "message": "с",
+        "description": ""
+    },
+    "ResetDef": {
+        "message": "Врати на Стандардно",
+        "description": ""
+    },
+    "ResetDef_accesskey": {
+        "message": "В",
+        "description": ""
+    },
+    "RestrictSubdocScripting": {
+        "message": "Блокирај го скриптирањето во поддокументите на белата листа на веб страните кои не се на белата листа",
+        "description": ""
+    },
+    "RevokeTemp": {
+        "message": "Отповикај ги привремените дозволи",
+        "description": ""
+    },
+    "RevokeTemp_accesskey": {
+        "message": "О",
+        "description": ""
+    },
+    "SecureCookies": {
+        "message": "Овозоможи Менаџмент на Автоматска безбедност на колачиња",
+        "description": ""
+    },
+    "SecureCookiesExceptions": {
+        "message": "Игнорирај ги небезбедните колачиња поставени преку HTTPS од следните веб страни:",
+        "description": ""
+    },
+    "SecureCookiesForced": {
+        "message": "Присили енкрипција за сите колачиња поставени преку HTTPS од следните веб страни:",
+        "description": ""
+    },
+    "SecurityManager": {
+        "message": "Менаџер за безбедност",
+        "description": ""
+    },
+    "Show": {
+        "message": "Прикажи...",
+        "description": ""
+    },
+    "ShowConsole": {
+        "message": "Покажи ја Конзолата...",
+        "description": ""
+    },
+    "ShowConsole_accesskey": {
+        "message": "К",
+        "description": ""
+    },
+    "ShowPlaceholder": {
+        "message": "Покажи ја иконата на резервираното место",
+        "description": ""
+    },
+    "ShowReleaseNotes": {
+        "message": "Прикажи ги забелешките за изданието на надградбите",
+        "description": ""
+    },
+    "ShowCtxMenuItem": {
+        "message": "Покажи го NoScript артиклот во контекстуалното мени",
+        "description": ""
+    },
+    "ShowCountBadge": {
+        "message": "Прикажи го беџот со бројот на блокирани артикли",
+        "description": ""
+    },
+    "SitePermissions": {
+        "message": "Дозволи за веб страна",
+        "description": ""
+    },
+    "SitePermissions_accessKey": {
+        "message": "Д",
+        "description": ""
+    },
+    "SitePolicies": {
+        "message": "Посебни политики за веб страни",
+        "description": ""
+    },
+    "TempTrustPage": {
+        "message": "Постави се на оваа веб страна на Привремено ДОВЕРЛИВО",
+        "description": ""
+    },
+    "TempTrustPage_accesskey": {
+        "message": "Д",
+        "description": ""
+    },
+    "TempToPerm": {
+        "message": "Направи ги дозволите трајни",
+        "description": ""
+    },
+    "TempToPerm_accesskey": {
+        "message": "Н",
+        "description": ""
+    },
+    "Trust": {
+        "message": "Означи како Доверливо",
+        "description": ""
+    },
+    "Trust_accesskey": {
+        "message": "Д",
+        "description": ""
+    },
+    "Trusted": {
+        "message": "Доверливо",
+        "description": ""
+    },
+    "Trusted_temporary": {
+        "message": "Привремено ДОВЕРЛИВО",
+        "description": ""
+    },
+    "Trusted_permanent": {
+        "message": "ДОВЕРЛИВО",
+        "description": ""
+    },
+    "TrustedPagesAdj": {
+        "message": "доверливо",
+        "description": ""
+    },
+    "Uninstall": {
+        "message": "Деинсталирај",
+        "description": ""
+    },
+    "Unknown": {
+        "message": "Непознато",
+        "description": ""
+    },
+    "UnsafeReload": {
+        "message": "Небезбедно освежување",
+        "description": ""
+    },
+    "UnsafeReload_accesskey": {
+        "message": "О",
+        "description": ""
+    },
+    "Untrust": {
+        "message": "Обележе како Недоверливо",
+        "description": ""
+    },
+    "Untrust_accesskey": {
+        "message": "Н",
+        "description": ""
+    },
+    "Untrusted": {
+        "message": "Недоверливо",
+        "description": ""
+    },
+    "UntrustedPagesAdj": {
+        "message": "недоверливо",
+        "description": ""
+    },
+    "WebAddress": {
+        "message": "Барај или додади веб страна:",
+        "description": ""
+    },
+    "WebAddress_accesskey": {
+        "message": "в",
+        "description": ""
+    },
+    "Whitelist": {
+        "message": "Бела листа",
+        "description": ""
+    },
+    "XSS_notify": {
+        "message": "Покажи XSS известувања",
+        "description": ""
+    },
+    "XSS_clearUserChoices": {
+        "message": "Исчисти XSS избори",
+        "description": ""
+    },
+    "XSS_promptTitle": {
+        "message": "NoScript XSS Предупредување",
+        "description": ""
+    },
+    "XSS_promptMessage": {
+        "message": "NoScript откри потенцијален скриптен напад низ веб страната\nод $1 до $2.\nСомнителни податоци:\n$3",
+        "description": ""
+    },
+    "XSS_optBlock": {
+        "message": "Блокирај го ова барање",
+        "description": ""
+    },
+    "XSS_optSanitize": {
+        "message": "Прочисти го ова барање",
+        "description": ""
+    },
+    "XSS_optAllow": {
+        "message": "Дозволи го ова барање",
+        "description": ""
+    },
+    "XSS_optAlwaysAllow": {
+        "message": "Секогаш дозволи барања за документ од $1 до $2 ",
+        "description": ""
+    },
+    "XSS_optAlwaysBlock": {
+        "message": "Секогаш блокирај барања за документ од $1 до $2",
+        "description": ""
+    },
+    "Xss": {
+        "message": "XSS",
+        "description": ""
+    },
+    "Xss_accesskey": {
+        "message": "X",
+        "description": ""
+    },
+    "XssExceptions": {
+        "message": "Исклучоци за Анти-XSS Заштита",
+        "description": ""
+    },
+    "XssExceptions_description": {
+        "message": "Дестинациите кои се совпаѓаат со овие регуларни изразувања НЕМА да бидат заштитени од XSS.",
+        "description": ""
+    },
+    "XssFaq": {
+        "message": "XSS ЧПП...",
+        "description": ""
+    },
+    "XssFaq_accesskey": {
+        "message": "Ч",
+        "description": ""
+    },
+    "about": {
+        "message": "За $1",
+        "description": ""
+    },
+    "allowFrom": {
+        "message": "Дозволи се од $1",
+        "description": ""
+    },
+    "allowGlobal": {
+        "message": "Оневозможи ги сите избрани дозволи (опасно)",
+        "description": ""
+    },
+    "allowLocal": {
+        "message": "Дозволи $1",
+        "description": ""
+    },
+    "allowTemp": {
+        "message": "Привремено дозволи $1",
+        "description": ""
+    },
+    "allowTempFrom": {
+        "message": "Привремено дозволи се од $1",
+        "description": ""
+    },
+    "allowed_no": {
+        "message": "Моментално забранети скрипти",
+        "description": ""
+    },
+    "allowed_prt": {
+        "message": "Парцијално дозволени скрипти",
+        "description": ""
+    },
+    "allowed_yes": {
+        "message": "Моментално дозволени скрипти",
+        "description": ""
+    },
+    "alwaysAsk": {
+        "message": "Секогаш прашувај за потврда",
+        "description": ""
+    },
+    "audio_samples": {
+        "message": "Аудио примероци",
+        "description": ""
+    },
+    "bookmarkSync_confirm": {
+        "message": "NoScript пронајде конфигуриран обележувач навидум снимен во\n$1.\nДали навистина сакате да ја презапишете вашата локална NoScript конфигурација со содржината на овој обележувач?",
+        "description": ""
+    },
+    "bookmarkSync_message": {
+        "message": "Овој обележувач НЕ Е замислно да биде отворан, туку да биде синхронизиран користејќи сервис како Weave или XMarks проширувањето.",
+        "description": ""
+    },
+    "bookmarkSync_title": {
+        "message": "NoScript конфигурирање на обележувач",
+        "description": ""
+    },
+    "cap_script": {
+        "message": "скрипта",
+        "description": ""
+    },
+    "cap_frame": {
+        "message": "рамка",
+        "description": ""
+    },
+    "cap_object": {
+        "message": "објект",
+        "description": ""
+    },
+    "cap_media": {
+        "message": "медија",
+        "description": ""
+    },
+    "cap_font": {
+        "message": "фонт",
+        "description": ""
+    },
+    "cap_webgl": {
+        "message": "webgl",
+        "description": ""
+    },
+    "cap_fetch": {
+        "message": "пренос",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "пинг",
+        "description": ""
+    },
+    "cap_other": {
+        "message": "друго",
+        "description": ""
+    },
+    "changelog": {
+        "message": "Листа на промени",
+        "description": ""
+    },
+    "changelog_tip": {
+        "message": "Покажи листа на промени",
+        "description": ""
+    },
+    "confirm": {
+        "message": "Дали сте сигурни?",
+        "description": ""
+    },
+    "disable": {
+        "message": "Оневозможи $1",
+        "description": ""
+    },
+    "disable_accessKey": {
+        "message": "О",
+        "description": ""
+    },
+    "distrust": {
+        "message": "Означи го $1 како Недоверлив",
+        "description": ""
+    },
+    "extensionContributors": {
+        "message": "Придонесувачи:",
+        "description": ""
+    },
+    "extensionContributors_tip": {
+        "message": "Луѓе на кои можеби треба да им се заблагодарите за ова проширување",
+        "description": ""
+    },
+    "extensionCreator_tip": {
+        "message": "Посети ја веб страната на авторот",
+        "description": ""
+    },
+    "extensionCreatorLabel": {
+        "message": "Автор:",
+        "description": ""
+    },
+    "extensionHomepage_tip": {
+        "message": "Посети ја веб страната на проширувањето",
+        "description": ""
+    },
+    "forbidGlobal": {
+        "message": "Забрани Скрипти Глобално (препорачано)",
+        "description": ""
+    },
+    "forbidLocal": {
+        "message": "Забрани $1",
+        "description": ""
+    },
+    "freshInstallReload": {
+        "message": "За да може да работи на овој таб, потребно е NoScript да биде освежен.\nПродолжи?",
+        "description": ""
+    },
+    "privilegedPage": {
+        "message": "Ова е привилегирана веб страна, чии дозволи не можат да бидат конфигурирани.",
+        "description": ""
+    },
+    "incompatibleOptions": {
+        "message": "\"$1\"\nе некомпатибилно со \"$2\".\nДали сакате да го овозможите претходното и да го оневозможите следното?",
+        "description": ""
+    },
+    "incompatibleOptions_title": {
+        "message": "Предупредување Некомпатибилни опции",
+        "description": ""
+    },
+    "informaction_tip": {
+        "message": "Посетете ја веб страната на InformAction",
+        "description": ""
+    },
+    "license": {
+        "message": "Лиценца",
+        "description": ""
+    },
+    "license_tip": {
+        "message": "Прочитај ја лиценцата за краен корисник",
+        "description": ""
+    },
+    "logo_tip": {
+        "message": "Посети ја веб страната на проширувањето",
+        "description": ""
+    },
+    "metaRefresh_notify": {
+        "message": "NoScript го блокираше <META> пренасочувањето внатре во <NOSCRIPT> елемент: $1 за $2 секунди.",
+        "description": ""
+    },
+    "Reload": {
+        "message": "Повторно вчитај",
+        "description": ""
+    },
+    "removal_message": {
+        "message": "Со исклучување или отстранување на NoScript, се откажувате од СИТЕ заштити овозможени од NoScript.\n\nАко само сте уморни од справување со дозволите на скриптите страна по страна, постои побезбеден избор.\n\nNoScript може да ги стопира блокирачките скрипти, освен оние кои ќе ги обележите за недоверливи, додека сеуште ќе ве штити со најнапредните безбедносни контрамерки против XSS, Клик-киднапирање, CSFR и други веб закани.\n\nДали навистина сакате да ги избришете СИТЕ NoScript заштити?\n",
+        "description": ""
+    },
+    "removal_no": {
+        "message": "Не, само стопирај ги блокирачките скрипти",
+        "description": ""
+    },
+    "removal_title": {
+        "message": "Предупредување за безбедносно уназадување",
+        "description": ""
+    },
+    "removal_yes": {
+        "message": "Да, отстрани ги СИТЕ заштити",
+        "description": ""
+    },
+    "reset_title": {
+        "message": "NoScript повторно стартување",
+        "description": ""
+    },
+    "reset_warning": {
+        "message": "СИТЕ параметри на NoScript и дозволи на веб страните ќе бидат вратени на нивните стандардни вредности веднаш.\nОваа команда е неповратна.\nДали сакате да продолжите?",
+        "description": ""
+    },
+    "siteInfo_confirm": {
+        "message": "Побаравте информација за \"$1\" веб страната\nиспраќајќи барање за $2.\nДали сакате да продолжите?",
+        "description": ""
+    },
+    "siteInfo_tooltip": {
+        "message": "Среден клик или shift + клик за информации за веб страната...",
+        "description": ""
+    },
+    "sponsor_tip": {
+        "message": "Посетете ја веб страната на спонзорот",
+        "description": ""
+    },
+    "unsafeReload_warning": {
+        "message": "НЕБЕЗБЕДНО сомнително повторно вчитување\n\n$1 [$2]\n\nОД [$3]\n\nNoScript НЕМА да го заштити ова барање!\n",
+        "description": ""
+    },
+    "untrustedOrigin": {
+        "message": "недоверливо потекло",
+        "description": ""
+    },
+    "version": {
+        "message": "Верзија $1",
+        "description": ""
+    },
+    "versionShort": {
+        "message": "в $1",
+        "description": ""
+    }
+}

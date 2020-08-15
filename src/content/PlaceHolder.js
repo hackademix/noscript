@@ -1,10 +1,11 @@
 var PlaceHolder = (() => {
   const HANDLERS = new Map();
-
+  const CLASS_NAME = "__NoScript_PlaceHolder__";
+  const SELECTOR = `a.${CLASS_NAME}`;
   let checkStyle = async () => {
     checkStyle = () => {};
     if (!ns.embeddingDocument) return;
-    let replacement = document.querySelector("a.__NoScript_PlaceHolder__");
+    let replacement = document.querySelector(SELECTOR);
     if (!replacement) return;
     if (window.getComputedStyle(replacement, null).opacity !== "0.8") {
       document.head.appendChild(createHTMLElement("style")).textContent = await
@@ -34,7 +35,7 @@ var PlaceHolder = (() => {
 
   new Handler("frame", "iframe");
   new Handler("object", "object, embed");
-  new Handler("media", "video, audio");
+  new Handler("media", "video, audio, source");
 
   function cloneStyle(src, dest,
     props = ["width", "height", "position", "*", "margin*"]) {
@@ -54,6 +55,9 @@ var PlaceHolder = (() => {
     for (let p of props) {
       destStyle[p] = srcStyle[p];
     }
+    if (src.offsetTop < 0 && src.offsetTop <= (-src.offsetHeight)) {
+      destStyle.top = "0"; // fixes video player off-display position on Youtube
+    }
     destStyle.display = srcStyle.display !== "block" ? "inline-block" : "block";
   }
 
@@ -72,9 +76,14 @@ var PlaceHolder = (() => {
     static listen() {
       PlaceHolder.listen = () => {};
       window.addEventListener("click", ev => {
-        if (ev.button === 0) {
-          let replacement = ev.target.closest("a.__NoScript_PlaceHolder__");
-          let ph = replacement && ev.isTrusted && replacement._placeHolderObj;
+        if (ev.button === 0 && ev.isTrusted) {
+          let ph, replacement;
+          for (let e of document.elementsFromPoint(ev.clientX, ev.clientY)) {
+            if (ph = e._placeHolderObj) {
+              replacement = e;
+              break;
+            }
+          }
           if (ph) {
             ev.preventDefault();
             ev.stopPropagation();
@@ -106,6 +115,10 @@ var PlaceHolder = (() => {
 
     replace(element) {
       if (!element.parentElement) return;
+      if (element.parentElement instanceof HTMLMediaElement) {
+        this.replace(element.parentElement);
+        return;
+      }
       let {
         url
       } = this.request;
@@ -117,12 +130,16 @@ var PlaceHolder = (() => {
       let TYPE = `<${this.policyType.toUpperCase()}>`;
 
       let replacement = createHTMLElement("a");
-      replacement.className = "__NoScript_PlaceHolder__";
+      replacement.className = CLASS_NAME;
       cloneStyle(element, replacement);
-      replacement.style.backgroundImage = `url(${ICON_URL})`;
+      let setImage = () => replacement.style.backgroundImage = `url(${ICON_URL})`;
 
       if (ns.embeddingDocument) {
-        replacement.classList.add("document");
+        replacement.classList.add("__ns__document");
+        window.stop();
+        setTimeout(setImage, 0); // defer to bypass window.stop();
+      } else {
+        setImage();
       }
 
       replacement.href = url;
@@ -143,27 +160,39 @@ var PlaceHolder = (() => {
       replacement._placeHolderObj = this;
       replacement._placeHolderElement = element;
 
+      element.replaceWith(replacement);
 
-      element.parentNode.replaceChild(replacement, element);
+      // do our best to bring it to front
+      for (let p = replacement; p = p.parentElement;) {
+        p.classList.add("__ns__pop2top");
+      };
+
       this.replacements.add(replacement);
     }
 
     async enable(replacement) {
       debug("Enabling %o", this.request, this.policyType);
-      let ok = await Messages.send("enable", {
+      let ret = await Messages.send("blockedObjects", {
         url: this.request.url,
         policyType: this.policyType,
         documentUrl: document.URL
       });
-      debug("Received response", ok);
-      if (!ok) return;
+      debug("Received response", ret);
+      if (!ret) return;
+      if (ret.collapse) {
+        for (let collapsing of (ret.collapse === "all" ? document.querySelectorAll(SELECTOR) : [replacement])) {
+          this.replacements.delete(collapsing);
+          collapsing.remove();
+        }
+        return;
+      }
       if (this.request.embeddingDocument) {
         window.location.reload();
         return;
       }
       try {
-        var element = replacement._placeHolderElement;
-        replacement.parentNode.replaceChild(element, replacement);
+        let element = replacement._placeHolderElement;
+        replacement.replaceWith(element.cloneNode(true));
         this.replacements.delete(replacement);
       } catch (e) {
         error(e, "While replacing");
@@ -171,9 +200,14 @@ var PlaceHolder = (() => {
     }
 
     close(replacement) {
-      replacement.classList.add("closing");
+      replacement.classList.add("__ns__closing");
       this.replacements.delete(replacement);
-      window.setTimeout(() => replacement.parentNode.removeChild(replacement), 500);
+      window.setTimeout(() => {
+        for (let p = replacement; p = p.parentElement;) {
+          p.classList.remove("__ns__pop2top");
+        };
+        replacement.remove()
+      }, 500);
     }
   }
 

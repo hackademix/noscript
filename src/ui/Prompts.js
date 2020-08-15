@@ -7,14 +7,26 @@ var Prompts = (() => {
     async open(data) {
       promptData = data;
       this.close();
-      this.currentWindow = await browser.windows.create({
+      let {width, height} = data.features;
+      let options = {
         url: browser.extension.getURL("ui/prompt.html"),
         type: "panel",
-        allowScriptsToClose: true,
-      //  titlePreface: "NoScript ",
-        width: data.features.width,
-        height: data.features.height,
-      });
+        width,
+        height,
+      };
+      if (UA.isMozilla) {
+        options.allowScriptsToClose = true;
+      }
+      this.currentWindow = await browser.windows.create(options);
+      // work around for https://bugzilla.mozilla.org/show_bug.cgi?id=1330882
+      let {left, top, width: cw, height: ch} = this.currentWindow;
+      if (width && height && cw !== width || ch !== height) {
+        left += Math.round((cw - width) / 2);
+        top += Math.round((ch - height) / 2);
+        for (let attempts = 2; attempts-- > 0;) // top gets set only 2nd time, moz bug?
+          await browser.windows.update(this.currentWindow.id,
+              {left, top, width, height});
+      }
     }
     async close() {
       if (this.currentWindow) {
@@ -53,6 +65,7 @@ var Prompts = (() => {
       multiple: "close", // or "queue", or "focus"
       width: 400,
       height: 300,
+      alwaysOnTop: true,
     },
     async prompt(features) {
       features = Object.assign({}, this.DEFAULTS, features || {});

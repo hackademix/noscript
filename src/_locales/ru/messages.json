@@ -64,7 +64,7 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Временно разрешать документы верхнего уровня по умолчанию",
+        "message": "Временно установить «ДОВЕРЕННЫЕ» для сайтов верхнего уровня",
         "description": ""
     },
     "AutoReload": {
@@ -84,11 +84,11 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "Заблокированные объекты",
+        "message": "Объекты, заблокированные NoScript’ом",
         "description": ""
     },
     "BookmarkSync": {
-        "message": "Создать резервную копию настроек NoScript в закладках для легкой синхронизации",
+        "message": "Создать резервную копию настроек в закладках для лёгкой синхронизации",
         "description": ""
     },
     "Cancel": {
@@ -97,6 +97,10 @@
     },
     "CascadePermissions": {
         "message": "Каскадное разрешение скриптов третьей стороны",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "Каскадное применение ограничений документов верхнего уровня к субдокументам",
         "description": ""
     },
     "ClearClickDescription": {
@@ -164,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Дополнительная защита для Firefox: NoScript позволяет разрешать JavaScript, Flash (и другие плагины) только для доверенных доменов, выбранных вами (например: сайт банковского обслуживания). Белый список, основанный на принципе упреждающего блокирования, позволяет предотвратить использование уязвимостей (известных и еще не известных!) без потери функциональности… Эксперты соглашаются: Firefox действительно безопаснее с NoScript :-)",
+        "message": "Максимальная защита вашего браузера: для предотвращения использования уязвимостей NoScript разрешает активное содержимое только для доверенных доменов, выбранных вами.",
         "description": ""
     },
     "Donate": {
@@ -236,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Высококонтрастная тема",
+        "message": "Высокий контраст",
         "description": ""
     },
     "httpsOnly": {
@@ -260,7 +264,7 @@
         "description": ""
     },
     "Https_description": {
-        "message": "Запрещать активное веб-содержимое, за исключением защищенных (HTTPS) соединений:",
+        "message": "Запрещать активное веб-содержимое, за исключением защищённых (HTTPS) соединений:",
         "description": ""
     },
     "Https_never": {
@@ -280,11 +284,11 @@
         "description": ""
     },
     "HttpsForced": {
-        "message": "Заставлять указанные сайты использовать защищенное (HTTPS) соединение:",
+        "message": "Заставлять указанные сайты использовать защищённое (HTTPS) соединение:",
         "description": ""
     },
     "HttpsForcedExceptions": {
-        "message": "Не принуждать указанные сайты использовать защищенное (HTTPS) соединение:",
+        "message": "Не принуждать указанные сайты использовать защищённое (HTTPS) соединение:",
         "description": ""
     },
     "Import": {
@@ -293,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Возможность устанавливать постоянные разрешения в инкогнито/приватных вкладках.\nОСТОРОЖНО: возможна утечка информации со страницы!",
         "description": ""
     },
     "KeepLocked": {
@@ -355,6 +363,10 @@
         "message": "Заменять межсайтовые POST-запросы на GET-запросы без данных",
         "description": ""
     },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Переопределить заданный уровень безопасности Tor Browser’а",
+        "description": ""
+    },
     "Options": {
         "message": "Настройки…",
         "description": ""
@@ -400,7 +412,7 @@
         "description": ""
     },
     "Preset_low": {
-        "message": "Осадный (на полную катушку)",
+        "message": "Легкое начало (чёрный список + веб-защита)",
         "description": ""
     },
     "Preset_medium": {
@@ -408,7 +420,7 @@
         "description": ""
     },
     "Preset_off": {
-        "message": "Никакой (вы серьезно?)",
+        "message": "Никакой (вы серьёзно?)",
         "description": ""
     },
     "Prev": {
@@ -500,7 +512,7 @@
         "description": ""
     },
     "ShowCountBadge": {
-        "message": "Показывать счетчик заблокированных элементов",
+        "message": "Показывать счётчик заблокированных элементов",
         "description": ""
     },
     "SitePermissions": {
@@ -516,7 +528,7 @@
         "description": ""
     },
     "TempTrustPage": {
-        "message": "Установить преднастройку \nВременно ДОВЕРЕННЫЕ \nдля всех элементов страницы",
+        "message": "Установить  «Врем. ДОВЕРЕННЫЕ» \nдля всех элементов страницы",
         "description": ""
     },
     "TempTrustPage_accesskey": {
@@ -588,7 +600,7 @@
         "description": ""
     },
     "WebAddress": {
-        "message": "Адрес веб-сайта:",
+        "message": "Найти или добавить сайт:",
         "description": ""
     },
     "WebAddress_accesskey": {
@@ -704,7 +716,7 @@
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "NoScript обнаружил сохраненную закладку-конфигурацию расширения\n$1.\nЖелаете перезаписать настройки NoScript на указанные в ней?",
+        "message": "NoScript обнаружил сохранённую закладку-конфигурацию расширения\n$1.\nЖелаете обновить настройки расширения NoScript на указанные в ней?",
         "description": ""
     },
     "bookmarkSync_message": {
@@ -741,6 +753,10 @@
     },
     "cap_fetch": {
         "message": "fetch",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {
@@ -800,7 +816,7 @@
         "description": ""
     },
     "freshInstallReload": {
-        "message": "Для функционирования в этой вкладке NoScript должен ее перезагрузить.\nПродолжить?",
+        "message": "Для функционирования в этой вкладке NoScript должен перезагрузить её.\nПродолжить?",
         "description": ""
     },
     "privilegedPage": {

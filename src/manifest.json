@@ -8,8 +8,9 @@
       "strict_min_version": "59.0"
     }
   },
-  "version": "10.1.9.6",
+  "version": "11.0.38rc2",
   "description": "__MSG_Description__",
+  "incognito": "spanning",
 
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
 
@@ -21,7 +22,6 @@
 
   "permissions": [
       "contextMenus",
-      "privacy",
       "storage",
       "tabs",
       "unlimitedStorage",
@@ -34,7 +34,10 @@
   "background": {
     "persistent": true,
     "scripts": [
+      "lib/UA.js",
+      "lib/browser-polyfill.js",
       "lib/uuid.js",
+      "lib/SyncMessage.js",
       "lib/log.js",
       "lib/include.js",
       "lib/punycode.js",
@@ -43,6 +46,7 @@
       "lib/Messages.js",
       "lib/CSP.js",
       "lib/NetCSP.js",
+      "lib/TabCache.js",
       "common/CapsCSP.js",
       "common/Policy.js",
       "common/locale.js",
@@ -53,7 +57,6 @@
       "xss/XSS.js",
       "bg/ReportingCSP.js",
       "bg/deferWebTraffic.js",
-      "bg/ChildPolicies.js",
       "bg/Defaults.js",
       "bg/RequestGuard.js",
       "bg/Settings.js",
@@ -76,18 +79,31 @@
       "match_about_blank": true,
       "all_frames": true,
       "js": [
+        "lib/UA.js",
+        "lib/browser-polyfill.js",
         "lib/log.js",
+        "lib/uuid.js",
+        "lib/SyncMessage.js",
+        "lib/sha256.js",
         "lib/Messages.js",
         "lib/CSP.js",
         "common/CapsCSP.js",
         "content/DocumentCSP.js",
         "content/onScriptDisabled.js",
         "content/staticNS.js",
-        "content/content.js",
         "content/PlaceHolder.js",
+        "content/content.js",
         "content/embeddingDocument.js",
         "content/webglHook.js",
-        "content/media.js"
+        "content/media.js",
+        "content/sanitizePaste.js"
+      ]
+    },
+    {
+      "run_at": "document_start",
+      "matches": ["ftp://*/*"],
+      "js": [
+        "content/ftp.js"
       ]
     }
   ],
@@ -107,11 +123,13 @@
 
   "commands": {
     "_execute_browser_action": {
+      "description": "NoScript UI",
       "suggested_key": {
         "default": "Alt+Shift+N"
       }
     },
     "togglePermissions": {
+      "description": "Toggle permissions",
       "suggested_key": {
         "default": "Ctrl+Shift+T"
       }

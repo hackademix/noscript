@@ -1,8 +1,9 @@
-'use strict';
 {
+  'use strict';
   let listenersMap = new Map();
   let backlog = new Set();
-
+  let documentCSP = new DocumentCSP(document);
+  documentCSP.removeEventAttributes();
   let ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
@@ -33,76 +34,111 @@
       backlog.add(eventName);
     },
 
-    async fetchPolicy() {
-        let policy = await Messages.send("fetchChildPolicy", {url: document.URL});
-        if (!policy) {
-          debug(`No answer to fetchChildPolicy message. This should not be happening.`);
-          return false;
+    fetchPolicy() {
+      let url = document.URL;
+      debug(`Fetching policy from document %s, readyState %s`,
+        url, document.readyState
+        , document.documentElement.outerHTML, // DEV_ONLY
+        document.domain, document.baseURI, window.isSecureContext // DEV_ONLY
+      );
+
+      if (!/^(?:file|ftp|https?):/i.test(url)) {
+        if (/^(javascript|about):/.test(url)) {
+          url = document.readyState === "loading"
+          ? document.baseURI
+          : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
+          debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
         }
-        this.setup(policy.permissions, policy.MARKER, true);
-        return true;
+        (async () => {
+          let policy;
+          try {
+            policy = await Messages.send("fetchChildPolicy", {url, contextUrl: url});
+          } catch (e) {
+            console.error("Error while fetching policy", e);
+          }
+          if (policy === undefined) {
+            log("Policy was undefined, retrying in 1/2 sec...");
+            setTimeout(() => this.fetchPolicy(), 500);
+            return;
+          }
+          this.setup(policy);
+        })();
+        return;
+      }
+
+      let originalState = document.readyState;
+      let syncLoad = UA.isMozilla && /^(?:ftp|file):/.test(url);
+      let localPolicyKey, localPolicy;
+      if (syncLoad) {
+        localPolicyKey = `ns.policy.${url}|${browser.runtime.getURL("")}`;
+        let localPolicy = sessionStorage.getItem(localPolicyKey);
+        sessionStorage.removeItem(localPolicyKey);
+        if (localPolicy) {
+          debug("Falling back to localPolicy", localPolicy);
+          try {
+            this.setup(JSON.parse(localPolicy));
+            return;
+          } catch(e) {
+            error(e, "Could not setup local policy", localPolicy);
+          }
+        } else {
+          addEventListener("beforescriptexecute", e => {
+            console.log("Blocking early script", e.target);
+            e.preventDefault();
+          });
+          stop();
+        }
+      }
+
+      let setup = policy => {
+        debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
+        this.setup(policy);
+        if (syncLoad && !localPolicy) {
+          sessionStorage.setItem(localPolicyKey, JSON.stringify(policy));
+          location.reload(false);
+          return;
+        }
+      }
+
+      for (;;) {
+        try {
+          browser.runtime.sendSyncMessage(
+            {id: "fetchPolicy", url, contextUrl: url},
+            setup);
+          break;
+        } catch (e) {
+          if (!Messages.isMissingEndpoint(e)) {
+            error(e);
+            break;
+          }
+          error("Background page not ready yet, retrying to fetch policy...")
+        }
+      }
+
     },
 
-    setup(permissions, MARKER, fetched = false) {
-      this.config.permissions = permissions;
-
-      // ugly hack: since now we use registerContentScript instead of the
-      // filterRequest dynamic script injection hack, we use window.name
-      // to store per-tab information. We don't want web content to
-      // mess with it, though, so we wrap it around auto-hiding accessors
-
-      if (this.config.MARKER = MARKER) {
-
-        let tabInfoRx = new RegExp(`^${MARKER}\\[([^]*?)\\]${MARKER},`);
-        let name = window.name;
-        try {
-          name = top.name;
-        } catch(e) {
-          // won't work cross-origin
-        }
-        let tabInfoMatch = name.match(tabInfoRx);
-        if (tabInfoMatch) {
-          try {
-            this.config.tabInfo = JSON.parse(tabInfoMatch[1]);
-          } catch (e) {
-            error(e);
-          }
-        }
-        let splitter = `${MARKER},`;
-        this.getWindowName = () => window.name.split(splitter).pop();
-        Reflect.defineProperty(window.wrappedJSObject, "name", {
-          get: exportFunction(() => this.getWindowName(), window.wrappedJSObject),
-          set: exportFunction(value => {
-            let tabInfoMatch = window.name.match(tabInfoRx);
-            window.name = tabInfoMatch ? `${tabInfoMatch[0]}${value}` : value;
-            return value;
-          }, window.wrappedJSObject)
-        });
+    setup(policy) {
+      debug("%s, %s, %o", document.URL, document.readyState, policy);
+      if (!policy) {
+        policy = {permissions: {capabilities: []}, localFallback: true};
       }
-      if (!this.config.permissions || this.config.tabInfo.unrestricted) {
-        debug("%s is loading unrestricted by user's choice (%o).", document.URL, this.config);
+      this.policy = policy;
+
+      if (!policy.permissions || policy.unrestricted) {
         this.allows = () => true;
         this.capabilities =  Object.assign(
           new Set(["script"]), { has() { return true; } });
       } else {
-        if (!fetched) {
-          let hostname = window.location.hostname;
-          if (hostname && hostname.startsWith("[")) {
-            // WebExt match patterns don't seem to support IPV6 (Firefox 63)...
-            debug("Ignoring child policy setup parameters for IPV6 address %s, forcing IPC...", hostname);
-            this.fetchPolicy();
-            return;
-          }
-        }
-        let perms = this.config.permissions;
+        let perms = policy.permissions;
         this.capabilities = new Set(perms.capabilities);
-        new DocumentCSP(document).apply(this.capabilities, this.embeddingDocument);
+        documentCSP.apply(this.capabilities, this.embeddingDocument);
       }
-
+      documentCSP.restoreEventAttributes();
       this.canScript = this.allows("script");
       this.fire("capabilities");
     },
-    config: { permissions: null, tabInfo: {}, MARKER: "" },
+
+    policy: null,
 
     allows(cap) {
       return this.capabilities && this.capabilities.has(cap);

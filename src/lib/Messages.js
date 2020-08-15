@@ -2,44 +2,43 @@
 {
   let handlers = new Set();
 
-  let dispatch = async (msg, sender) => {
+  let dispatch = (msg, sender) => {
     let {__meta, _messageName} = msg;
     if (!__meta) {
-      // legacy message from embedder?
+      // legacy message from embedder or library? ignore it
       if (!_messageName) {
-        throw new Error(`NoScript cannot handle message %s`, JSON.stringify(msg));
+        debug(`Message not in NoScript-specific format: %s`, JSON.stringify(msg));
+        return undefined;
       }
       __meta = {name: _messageName};
     }
     let {name} = __meta;
-    let answers = [];
+    let responderFound = false;
+    let exception = null;
     for (let h of handlers) {
       let f = h[name];
+
       if (typeof f === "function") {
-        answers.push(f(msg, sender));
+        let result;
+        try {
+          result = f(msg, sender);
+        } catch (e) {
+          error(e);
+          exception = e;
+          continue;
+        }
+        if (typeof result === "undefined") {
+          responderFound = true;
+          continue;
+        }
+        return (result instanceof Promise) ? result
+          : new Promise(r => r(result));
       }
     }
-    if (answers.length) {
-      return await (
-        answers.length === 1 ? answers.pop(): Promise.all(answers)
-      );
+    if (exception) throw exception;
+    if (!responderFound) {
+      debug("Warning: no handler for message %s %s in context %s", name, JSON.stringify(msg), document.URL);
     }
-    let context = typeof window === "object" && window.location.href || "?";
-    let originalSender = __meta.originalSender || sender;
-    let {url} = originalSender;
-
-    if (url && context.replace(/[?#].*/, '') === url.replace(/[?#].*/, '')) {
-      throw new Error(`Message ${name} ${JSON.stringify(msg)} looping to its sender (${context})`);
-    }
-    console.debug("Warning: no handler for message %o in context %s", msg, context);
-    if (originalSender.tab && originalSender.tab.id) {
-      // if we're receiving a message from content, there might be another
-      // Messages instance in a different context (e.g. background page vs
-      // options page vs browser action) capable of processing it, and we've
-      // just "steal" it. Let's rebroadcast.
-      return await Messages.send(name, msg, {originalSender});
-    }
-    throw new Error(`No handler registered for message "${name}" in context ${context}`);
   };
 
   var Messages = {
@@ -66,6 +65,10 @@
         return await browser.tabs.sendMessage(recipientInfo.tabId, args, opts);
       }
       return await browser.runtime.sendMessage(args);
+    },
+    isMissingEndpoint(error) {
+      return error && error.message ===
+        "Could not esablish connection. Receiving end does not exist.";
     }
   }
 }

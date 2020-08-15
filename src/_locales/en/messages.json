@@ -63,7 +63,7 @@
     "message": "Blocked $1 of $2 items."
   },
   "BlockedObjects": {
-    "message": "NoScript Blocked Objects"
+    "message": "NoScript Blocked\u00A0Objects"
   },
   "BookmarkSync": {
     "message": "Backup NoScript configuration in a bookmark for easy synchronization"
@@ -73,6 +73,9 @@
   },
   "CascadePermissions": {
     "message": "Cascade top document's permissions to 3rd party scripts"
+  },
+  "CascadeRestrictions": {
+    "message": "Cascade top document's restrictions to subdocuments"
   },
   "ClearClickDescription": {
     "message": "NoScript intercepted a mouse or keyboard interaction with a partially hidden element. Click on the image below to cycle between the obstructed and the clear version."
@@ -123,8 +126,8 @@
     "message": "Default Policies"
   },
   "Description": {
-    "message": "Extra protection for your Firefox: NoScript allows JavaScript, Flash (and other plugins) only for trusted domains of your choice (e.g. your home-banking web site). This whitelist based pre-emptive blocking approach prevents exploitation of security vulnerabilities (known and even unknown!) with no loss of functionality… Experts will agree: Firefox is really safer with NoScript :-)"
-  },
+    "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation."
+},
   "Donate": {
     "message": "Donate"
   },
@@ -178,7 +181,7 @@
     "message": "Enable restrictions for this tab"
   },
   "HighContrast": {
-    "message": "High contrast appearance"
+    "message": "High contrast"
   },
   "httpsOnly": {
     "message": "Match HTTPS content only"
@@ -221,6 +224,9 @@
   },
   "Import_accesskey": {
     "message": "I"
+  },
+  "OptIncognitoPerm": {
+    "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!"
   },
   "KeepLocked": {
     "message": "Keep this element locked (recommended)"
@@ -266,6 +272,9 @@
   },
   "OptFilterXPost": {
     "message": "Turn cross-site POST requests into data-less GET requests"
+  },
+  "OptOverrideTorBrowserPolicy": {
+    "message": "Override Tor Browser's Security Level preset"
   },
   "Options": {
     "message": "Options…"
@@ -560,6 +569,9 @@
   },
   "cap_fetch": {
     "message": "fetch"
+  },
+  "cap_ping": {
+    "message": "ping"
   },
   "cap_other": {
     "message": "other"

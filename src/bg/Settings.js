@@ -81,8 +81,66 @@ var Settings = {
       tabId,
       unrestrictedTab,
       reloadAffected,
+      isTorBrowser,
     } = settings;
-    if (xssUserChoices) await XSS.saveUserChoices(xssUserChoices);
+    debug("Received settings ", settings);
+    let oldDebug = ns.local.debug;
+
+    let reloadOptionsUI = false;
+
+    if (isTorBrowser) {
+      // Tor Browser-specific settings
+      ns.defaults.local.isTorBrowser = true; // prevents reset from forgetting
+      ns.defaults.sync.cascadeRestrictions = true; // we want this to be the default even on reset
+      Sites.onionSecure = true;
+
+      if (!this.gotTorBrowserInit) {
+        // First initialization message from the Tor Browser
+        this.gotTorBrowserInit = true;
+        if (ns.sync.overrideTorBrowserPolicy) {
+          // If the user chose to override Tor Browser's policy we skip
+          // copying the Security Level preset on startup (only).
+          // Manually changing the security level works as usual.
+          ns.local.isTorBrowser = true;
+          await ns.save(ns.local);
+          return;
+        }
+      } else {
+        reloadOptionsUI = true;
+      }
+
+      let torBrowserSettings = {
+        local: {
+          isTorBrowser: true,
+        },
+        sync: {
+          cascadeRestrictions: true,
+        }
+      }
+      for (let [storage, prefs] of Object.entries(torBrowserSettings)) {
+        settings[storage] = Object.assign(settings[storage] || {}, prefs);
+      }
+    }
+
+    if (settings.sync === null) {
+      // overriden defaults when user manually resets options
+
+      // we want the reset options to stick (otherwise it gets very confusing)
+      ns.defaults.sync.overrideTorBrowserPolicy = true;
+      reloadOptionsUI = true;
+    }
+
+    await Promise.all(["local", "sync"].map(
+      async storage => (settings[storage] || // changed or...
+          settings[storage] === null // ... needs reset to default
+        ) && await ns.save(settings[storage]
+            ? Object.assign(ns[storage], settings[storage]) : ns[storage] = Object.assign({}, ns.defaults[storage]))
+    ));
+    if (ns.local.debug !== oldDebug) {
+      await include("/lib/log.js");
+      if (oldDebug) debug = () => {};
+    }
+
     if (policy) {
       ns.policy = new Policy(policy);
       await ns.savePolicy();
@@ -90,28 +148,20 @@ var Settings = {
 
     if (typeof unrestrictedTab === "boolean") {
       ns.unrestrictedTabs[unrestrictedTab ? "add" : "delete"](tabId);
-      this.enforceTabRestrictions(tabId, unrestrictedTab);
     }
     if (reloadAffected) {
       browser.tabs.reload(tabId);
     }
 
-    let oldDebug = ns.local.debug;
-    await Promise.all(["local", "sync"].map(
-      storage => (settings[storage] || // changed or...
-          settings[storage] === null // ... needs reset to default
-        ) && ns.save(
-            ns[storage] = settings[storage] || ns.defaults[storage])
-    ));
-    if (ns.local.debug !== oldDebug) {
-      await include("/lib/log.js");
-      if (oldDebug) debug = () => {};
-    }
+    if (xssUserChoices) await XSS.saveUserChoices(xssUserChoices);
+
     if (ns.sync.xss) {
       XSS.start();
     } else {
       XSS.stop();
     }
+
+    if (reloadOptionsUI) await this.reloadOptionsUI();
   },
 
   export() {
@@ -123,8 +173,15 @@ var Settings = {
     }, null, 2);
   },
 
-  async enforceTabRestrictions(tabId, unrestricted = ns.unrestrictedTabs.has(tabId)) {
-    await ChildPolicies.storeTabInfo(tabId, unrestricted && {unrestricted: true});
-    return unrestricted;
+  async reloadOptionsUI() {
+    try {
+      for (let t of await browser.tabs.query({url: browser.extension.getURL(
+          browser.runtime.getManifest().options_ui.page) })
+      ) {
+        browser.tabs.reload(t.id);
+      };
+    } catch (e) {
+      error(e);
+    }
   }
 }

@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "Door NoScript geblokkeerde objecten",
+        "message": "Door NoScript geblokkeerde objecten",
         "description": ""
     },
     "BookmarkSync": {
@@ -97,6 +97,10 @@
     },
     "CascadePermissions": {
         "message": "Toestemmingen van bovenste document aan scripts van derden doorgeven",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "Beperkingen van bovenste document aan subdocumenten doorgeven",
         "description": ""
     },
     "ClearClickDescription": {
@@ -164,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Extra bescherming voor uw Firefox: NoScript staat JavaScript, Flash en andere plug-ins alleen toe voor vertrouwde domeinen van uw keuze (zoals uw website voor thuisbankieren). Deze op een toestemmingenlijst gebaseerde preventieve benadering van blokkering voorkomt exploitatie van beveiligingskwetsbaarheden (bekende en zelfs onbekende!) zonder verlies van functionaliteit… Experts zijn het ermee eens: Firefox is echt veiliger met NoScript. :-)",
+        "message": "Maximale bescherming voor uw browser: NoScript staat actieve inhoud alleen toe voor vertrouwde domeinen van uw keuze, zodat uitbuiting wordt voorkomen.",
         "description": ""
     },
     "Donate": {
@@ -236,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Hoogcontrastweergave",
+        "message": "Hoog contrast",
         "description": ""
     },
     "httpsOnly": {
@@ -295,6 +299,10 @@
         "message": "I",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Instellen van permanente toestemmingen in incognito-/privétabbladen inschakelen.\nPAS OP: hierdoor kan website-informatie lekken!",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Dit element vergrendeld houden (aanbevolen)",
         "description": ""
@@ -328,7 +336,7 @@
         "description": ""
     },
     "NotifyMeta_accesskey": {
-        "message": "r",
+        "message": "M",
         "description": ""
     },
     "NselForce": {
@@ -353,6 +361,10 @@
     },
     "OptFilterXPost": {
         "message": "Cross-site-POST-aanvragen omzetten naar gegevensarme GET-aanvragen",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Voorkeuze van beveiligingsniveau van Tor Browser negeren",
         "description": ""
     },
     "Options": {
@@ -456,7 +468,7 @@
         "description": ""
     },
     "RevokeTemp_accesskey": {
-        "message": "s",
+        "message": "T",
         "description": ""
     },
     "SecureCookies": {
@@ -468,7 +480,7 @@
         "description": ""
     },
     "SecureCookiesForced": {
-        "message": "Alle cookies ingesteld via HTTPS door onderstaande websites dwingen versleuteling te gebruiken:",
+        "message": "Alle door onderstaande websites via HTTPS ingestelde cookies dwingen versleuteling te gebruiken:",
         "description": ""
     },
     "SecurityManager": {
@@ -484,7 +496,7 @@
         "description": ""
     },
     "ShowConsole_accesskey": {
-        "message": "t",
+        "message": "C",
         "description": ""
     },
     "ShowPlaceholder": {
@@ -568,7 +580,7 @@
         "description": ""
     },
     "UnsafeReload_accesskey": {
-        "message": "h",
+        "message": "O",
         "description": ""
     },
     "Untrust": {
@@ -743,6 +755,10 @@
         "message": "fetch",
         "description": ""
     },
+    "cap_ping": {
+        "message": "ping",
+        "description": ""
+    },
     "cap_other": {
         "message": "overig",
         "description": ""
@@ -800,7 +816,7 @@
         "description": ""
     },
     "freshInstallReload": {
-        "message": "Om op deze pagina te werken, moet NoScript het opnieuw laden.\nDoorgaan?",
+        "message": "Om op dit tabblad te kunnen werken, moet NoScript het opnieuw laden.\nDoorgaan?",
         "description": ""
     },
     "privilegedPage": {

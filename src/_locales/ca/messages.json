@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "Objectes bloquejats de NoScript",
+        "message": "S'ha bloquejat el NoScript  Objectes",
         "description": ""
     },
     "BookmarkSync": {
@@ -97,6 +97,10 @@
     },
     "CascadePermissions": {
         "message": "Permisos en cascada del document superior per scripts de tercers",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "Restriccions de documents principals en cascada a subdocuments",
         "description": ""
     },
     "ClearClickDescription": {
@@ -164,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Protecció addicional per al vostre Firefox: NoScript permet JavaScript, Flash (i altres connectors) només per als dominis de confiança que trieu (p. ex. el web de banca de la llar). L'enfocament de bloqueig preventiu basat en la llista blanca evita l'explotació de vulnerabilitats de seguretat (conegudes i fins i tot desconegudes) sense pèrdua de funcionalitat... Els experts hi estan d'acord: Firefox és realment més segur amb NoScript :-)",
+        "message": "Protecció màxima per al vostre navegador: NoScript permet contingut actiu només per a dominis de confiança que escolliu per evitar l'explotació.",
         "description": ""
     },
     "Donate": {
@@ -236,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Aspecte d'alt contrast",
+        "message": "Contrast alt",
         "description": ""
     },
     "httpsOnly": {
@@ -293,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
     "KeepLocked": {
@@ -353,6 +361,10 @@
     },
     "OptFilterXPost": {
         "message": "Converteix sol·licituds «POST» entre llocs en sol·licituds «GET» sense dades",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Anul·la el nivell de seguretat del navegador Tor",
         "description": ""
     },
     "Options": {
@@ -741,6 +753,10 @@
     },
     "cap_fetch": {
         "message": "recupera",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {

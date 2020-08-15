@@ -1,13 +1,26 @@
  {
   'use strict';
-
+  {
+    let onInstalled = async details => {
+      browser.runtime.onInstalled.removeListener(onInstalled);
+      let {reason, previousVersion} = details;
+      if (reason !== "update") return;
+      let v = previousVersion.split(".").map(n => parseInt(n));
+      if (v[0] > 11 || v[1] > 0 || v[2] > 10) return;
+      log(`Upgrading from 11.0.10 or below (${previousVersion}): configure the "ping" capability.`);
+      await ns.initializing;
+      ns.policy.TRUSTED.capabilities.add("ping")
+      await ns.savePolicy();
+    };
+    browser.runtime.onInstalled.addListener(onInstalled);
+  }
   let popupURL = browser.extension.getURL("/ui/popup.html");
   let popupFor = tabId => `${popupURL}#tab${tabId}`;
 
   let ctxMenuId = "noscript-ctx-menu";
 
   async function toggleCtxMenuItem(show = ns.local.showCtxMenuItem) {
-    if (!"contextMenus" in browser) return;
+    if (!("contextMenus" in browser)) return;
     let id = ctxMenuId;
     try {
       await browser.contextMenus.remove(id);
@@ -28,12 +41,13 @@
     let policyData = (await Storage.get("sync", "policy")).policy;
     if (policyData && policyData.DEFAULT) {
       ns.policy = new Policy(policyData);
-      await ChildPolicies.update(policyData, ns.local.debug);
     } else {
       await include("/legacy/Legacy.js");
       ns.policy = await Legacy.createOrMigratePolicy();
       await ns.savePolicy();
     }
+
+    Sites.onionSecure = ns.local.isTorBrowser;
 
     await RequestGuard.start();
     await XSS.start(); // we must start it anyway to initialize sub-objects
@@ -49,23 +63,27 @@
       // no embedder to answer us
     }
     log("STARTED");
-
+    await include("/bg/popupHandler.js");
   };
 
   let Commands = {
-    openPageUI() {
+    async openPageUI() {
+      if (ns.popupOpening) return;
+      ns.popupOpening = true;
+      ns.popupOpened = false;
+      let openPanel = async () => {
+        ns.popupOpening = false;
+        if (ns.popupOpened) return;
+        messageHandler.openStandalonePopup();
+      };
       try {
-        browser.browserAction.openPopup();
+        await browser.browserAction.openPopup();
+        setTimeout(openPanel, 500);
         return;
       } catch (e) {
+        openPanel();
         debug(e);
       }
-      browser.windows.create({
-        url: popupURL,
-        width: 800,
-        height: 600,
-        type: "panel"
-      });
     },
 
     togglePermissions() {},
@@ -91,12 +109,12 @@
       // wiring main UI
       let ba = browser.browserAction;
       if ("setIcon" in ba) {
-        //desktop
+        //desktop or Fenix
         ba.setPopup({
           popup: popupURL
         });
       } else {
-        // mobile
+        // Fennec
         ba.onClicked.addListener(async tab => {
           try {
             await browser.tabs.remove(await browser.tabs.query({
@@ -142,8 +160,42 @@
     },
 
     async fetchChildPolicy({url, contextUrl}, sender) {
-      return ChildPolicies.getForDocument(ns.policy,
-        url || sender.url, contextUrl || sender.tab.url);
+      await ns.initializing;
+      return (messageHandler.fetchChildPolicy =
+        messageHandler.fetchChildPolicySync)(...arguments);
+    },
+    fetchChildPolicySync({url, contextUrl}, sender) {
+      let {tab, frameId} = sender;
+      let policy = ns.policy;
+      if (!policy) {
+        console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
+        return {
+          permissions: new Permissions(Permissions.DEFAULT).dry(),
+          unrestricted: false,
+          cascaded: false,
+          fallback: true
+        };
+      }
+      let topUrl = frameId === 0 ? contextUrl : tab && (tab.url || TabCache.get(tab.id));
+      if (Sites.isInternal(url) || !ns.isEnforced(tab ? tab.id : -1)) {
+        policy = null;
+      }
+
+      let permissions, unrestricted, cascaded;
+      if (policy) {
+        let perms = policy.get(url, contextUrl).perms;
+        cascaded = topUrl && ns.sync.cascadeRestrictions;
+        if (cascaded) {
+          perms = policy.cascadeRestrictions(perms, topUrl);
+        }
+        permissions = perms.dry();
+      } else {
+        // otherwise either internal URL or unrestricted
+        permissions = new Permissions(Permissions.ALL).dry();
+        unrestricted = true;
+        cascaded = false;
+      }
+      return {permissions, unrestricted, cascaded};
     },
 
     async openStandalonePopup() {
@@ -168,32 +220,40 @@
     },
   };
 
-
+  function onSyncMessage(msg, sender) {
+    switch(msg.id) {
+      case "fetchPolicy":
+        return messageHandler.fetchChildPolicy(msg, sender);
+      break;
+    }
+  }
 
   var ns = {
     running: false,
     policy: null,
     local: null,
     sync: null,
+    initializing: null,
     unrestrictedTabs: new Set(),
     isEnforced(tabId = -1) {
       return this.policy.enforced && (tabId === -1 || !this.unrestrictedTabs.has(tabId));
     },
 
+    requestCan(request, capability) {
+      return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, request.documentURL);
+    },
+
     start() {
       if (this.running) return;
       this.running = true;
-
-      deferWebTraffic(init(),
+      browser.runtime.onSyncMessage.addListener(onSyncMessage);
+      deferWebTraffic(this.initializing = init(),
         async () => {
           Commands.install();
-
-          this.devMode = (await browser.management.getSelf()).installType === "development";
-          if (this.local.debug) {
-            if (this.devMode) {
-              include("/test/run.js");
-            }
-          } else {
+          try {
+            this.devMode = (await browser.management.getSelf()).installType === "development";
+          } catch(e) {}
+          if (!(this.local.debug || this.devMode)) {
             debug = () => {}; // suppress verbosity
           }
         });
@@ -202,14 +262,18 @@
     stop() {
       if (!this.running) return;
       this.running = false;
+      browser.runtime.onSyncMessage.removeListener(onSyncMessage);
       Messages.removeHandler(messageHandler);
       RequestGuard.stop();
       log("STOPPED");
     },
 
+    test() {
+      include("/test/run.js");
+    },
+
     async savePolicy() {
       if (this.policy) {
-        await ChildPolicies.update(this.policy, this.local.debug);
         await Storage.set("sync", {
           policy: this.policy.dry()
         });
@@ -225,14 +289,14 @@
         let toBeSaved = {
           [obj.storage]: obj
         };
-        Storage.set(obj.storage, toBeSaved);
+        await Storage.set(obj.storage, toBeSaved);
       }
       return obj;
     },
 
     async collectSeen(tabId) {
       try {
-        let seen = Array.from(await Messages.send("collect", {}, {tabId, frameId: 0}));
+        let seen = Array.from(await Messages.send("collect", {uuid: ns.local.uuid}, {tabId, frameId: 0}));
         debug("Collected seen", seen);
         return seen;
       } catch (e) {

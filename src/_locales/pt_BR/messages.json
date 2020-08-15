@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "Objetos bloqueados pelo NoScript",
+        "message": "NoScript Blocked Objects",
         "description": ""
     },
     "BookmarkSync": {
@@ -97,6 +97,10 @@
     },
     "CascadePermissions": {
         "message": "Permissões do documento superior em cascata para scripts de terceiros",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
         "description": ""
     },
     "ClearClickDescription": {
@@ -164,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Proteção extra para o seu Firefox: NoScript permite JavaScript, Flash (e outros plugins) somente para domínios confiáveis de sua escolha (por exemplo, o site de seu home-banking). Esta abordagem de bloqueio preventivo baseada em lista de permissões impede a exploração de vulnerabilidades de segurança (conhecidas e até mesmo desconhecidas!) sem perda de funcionalidade... Especialistas vão concordar: o Firefox é muito mais seguro com o NoScript :-)",
+        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
         "description": ""
     },
     "Donate": {
@@ -236,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "High contrast appearance",
+        "message": "High contrast",
         "description": ""
     },
     "httpsOnly": {
@@ -293,6 +297,10 @@
     },
     "Import_accesskey": {
         "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
     "KeepLocked": {
@@ -353,6 +361,10 @@
     },
     "OptFilterXPost": {
         "message": "Transformar solicitações POST entre sites em solicitações GET sem dados",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Override Tor Browser's Security Level preset",
         "description": ""
     },
     "Options": {
@@ -741,6 +753,10 @@
     },
     "cap_fetch": {
         "message": "fetch",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
         "description": ""
     },
     "cap_other": {

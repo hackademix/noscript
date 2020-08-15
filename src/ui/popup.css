@@ -14,8 +14,9 @@ body {
 }
 
 
-#top a {
+#top .icon {
   appearance: none !important;
+  webkit-appearance: none !important;
   -moz-appearance: none !important;
   width: 2em;
   height: 2em;
@@ -28,16 +29,36 @@ body {
   background: transparent no-repeat center;
   background-size: 100%;
   transform: unset;
-  transition: all 0.3s;
+  transition: transform 0.3s;
   border: none;
   display: block;
-
   top: 0;
   padding: 0;
   text-align: left;
   vertical-align: middle;
   line-height: 1em;
+  position: relative;
+}
 
+#top .icon > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  top: 0;
+  left: 0;
+}
+
+#top .icon:after {
+  content: attr(title);
+}
+
+.mobile #top {
+ height: 3.5em;
+}
+.mobile #top .icon {
+  padding: .5em .5em;
+  background-size: 80%;
 }
 
 #top > .spacer {
@@ -119,8 +140,9 @@ body {
 }
 
 .hider-close {
-  -moz-appearance: none;
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   color: black;
   background: transparent;
   padding: 0;
@@ -147,11 +169,12 @@ body {
   padding: 0;
 }
 
-#top > a:hover {
+#top > .icon:hover, #top > #top > .icon:active {
+  outline: 0;
   transform: scale(1.2);
 }
 
-#top a.icon {
+#top .icon {
   text-indent: -500em;
   color: transparent;
 }
@@ -221,7 +244,6 @@ body {
   background-position: left top;
   background-repeat: no-repeat;
   min-height: 3em;
-  transition: height .5s;
   font-size: 1.2em;
   vertical-align: middle;
 }
@@ -236,4 +258,20 @@ body {
 }
 .error {
   background-image: url("/img/error64.png");
+}
+
+#incognito-ui-chooser, html.incognito #message:not(.hidden) ~ #incognito-ui-chooser {
+  display: none;
+}
+html.incognito #incognito-ui-chooser {
+  display: initial;
+}
+
+#incognito-ui-chooser label {
+  white-space: pre-wrap;
+}
+
+#incognito-ui-chooser input:checked + label {
+  background: #fff;
+  color: #800;
 }

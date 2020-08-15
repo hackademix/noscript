@@ -99,6 +99,10 @@
         "message": "Répercuter les permissions du document de plus haut niveau sur les scripts tiers",
         "description": ""
     },
+    "CascadeRestrictions": {
+        "message": "Répercuter les restrictions du document de plus haut niveau sur les sous-documents",
+        "description": ""
+    },
     "ClearClickDescription": {
         "message": "NoScript a intercepté une interaction du clavier ou de la souris dont un élément était partiellement caché. Cliquez sur l’image ci-dessous pour basculer entre la version bloquée et la version visible.",
         "description": ""
@@ -164,7 +168,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Une protection supplémentaire pour votre Firefox : NoScript autorise JavaScript, Flash (et autres greffons) seulement pour les domaines de votre choix (p. ex. le site Web de votre banque). Cette approche de blocage préemptif, fondé sur une liste blanche, prévient l’exploitation de vulnérabilités informatiques (connues et inconnues) sans perte de fonctionnalité. Les experts seront d’accord : Firefox est vraiment plus sûr avec NoScript :-)",
+        "message": "Une protection maximale pour votre navigateur. NoScript ne permet les contenus actifs que pour les domaines de votre choix, afin de prévenir l’exploitation de vulnérabilités informatiques.",
         "description": ""
     },
     "Donate": {
@@ -236,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Apparence à contraste élevé",
+        "message": "Contraste élevé",
         "description": ""
     },
     "httpsOnly": {
@@ -295,6 +299,10 @@
         "message": "l",
         "description": ""
     },
+    "OptIncognitoPerm": {
+        "message": "Permettre de définir des autorisations permanentes en mode de navigation privée.\nATTENTION : des renseignements pourraient être divulgués !",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Garder cet élément verrouillé (recommandé)",
         "description": ""
@@ -340,7 +348,7 @@
         "description": ""
     },
     "OK": {
-        "message": "D’accord",
+        "message": "Valider",
         "description": ""
     },
     "OptBlockCssScanners": {
@@ -353,6 +361,10 @@
     },
     "OptFilterXPost": {
         "message": "Transformer les requêtes POST intersites en requêtes GET sans données",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Remplacer le préréglage du niveau de sécurité du Navigateur Tor",
         "description": ""
     },
     "Options": {
@@ -408,7 +420,7 @@
         "description": ""
     },
     "Preset_off": {
-        "message": "Désactivée (sérieusement ?)",
+        "message": "Désactivée (sérieusement ?!)",
         "description": ""
     },
     "Prev": {
@@ -612,7 +624,7 @@
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript a détecté une attaque potentielle de script intersites\nde $1 vers $2. \nDonnées suspectes : \n$3",
+        "message": "NoScript a détecté une attaque potentielle par script intersites\nde $1 vers $2. \nDonnées suspectes : \n$3",
         "description": ""
     },
     "XSS_optBlock": {
@@ -743,6 +755,10 @@
         "message": "obtenir",
         "description": ""
     },
+    "cap_ping": {
+        "message": "ping",
+        "description": ""
+    },
     "cap_other": {
         "message": "autre",
         "description": ""
@@ -756,7 +772,7 @@
         "description": ""
     },
     "confirm": {
-        "message": "Êtes-vous certain ?",
+        "message": "Vraiment ?",
         "description": ""
     },
     "disable": {

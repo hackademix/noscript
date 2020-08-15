@@ -1,0 +1,910 @@
+{
+    "Add": {
+        "message": "Dodaj",
+        "description": ""
+    },
+    "Add_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AdditionalPermissions": {
+        "message": "Dodatkowe uprawnienia dla zaufanych witryn",
+        "description": ""
+    },
+    "AdditionalRestrictions": {
+        "message": "Dodatkowe ograniczenia dla niezaufanych witryn",
+        "description": ""
+    },
+    "SectionAdvanced": {
+        "message": "Zaawansowane",
+        "description": ""
+    },
+    "Allow": {
+        "message": "Zezwalaj",
+        "description": ""
+    },
+    "Allow_accesskey": {
+        "message": "l",
+        "description": ""
+    },
+    "AllowBookmarks": {
+        "message": "Zezwalaj na otwieranie witryn za pomocą zakładek",
+        "description": ""
+    },
+    "AllowClipboard": {
+        "message": "Zezwalaj na kopiowanie tekstu sformatowanego i wklejanie z zewnętrznego schowka",
+        "description": ""
+    },
+    "AllowLocalLinks": {
+        "message": "Zezwalaj na lokalne linki",
+        "description": ""
+    },
+    "AllowPage": {
+        "message": "Zezwalaj na tę całą stronę",
+        "description": ""
+    },
+    "AllowPage_accesskey": {
+        "message": "A",
+        "description": ""
+    },
+    "AllowPing": {
+        "message": "Zezwalaj <A PING…>",
+        "description": ""
+    },
+    "AllowViaBookmarks": {
+        "message": "Zezwalaj na otwieranie witryn za pomocą zakładek",
+        "description": ""
+    },
+    "AlwaysBlockUntrustedContent": {
+        "message": "Zablokuj każdy obiekt pochodzący z witryny oznaczonej jako niezaufany",
+        "description": ""
+    },
+    "SectionAppearance": {
+        "message": "Wygląd",
+        "description": ""
+    },
+    "AutoAllowTopLevel": {
+        "message": "Tymczasowo ustawić ZAUFANE strony na najwyższym poziomie",
+        "description": ""
+    },
+    "AutoReload": {
+        "message": "Automatycznie ładuj strony, których dotyczy problem, gdy zmieniają się uprawnienia",
+        "description": ""
+    },
+    "AutoReload_currentTab": {
+        "message": "Załaduj ponownie tylko bieżącą kartę",
+        "description": ""
+    },
+    "BaseDom": {
+        "message": "Podstawowe domeny drugiego poziomu (noscript.net)",
+        "description": ""
+    },
+    "BlockedItems": {
+        "message": "Zablokowane $1 z $2 pozycji.",
+        "description": ""
+    },
+    "BlockedObjects": {
+        "message": "NoScript Blocked Objects",
+        "description": ""
+    },
+    "BookmarkSync": {
+        "message": "Kopia zapasowa konfiguracji NoScript w zakładce ułatwia synchronizację",
+        "description": ""
+    },
+    "Cancel": {
+        "message": "Anuluj",
+        "description": ""
+    },
+    "CascadePermissions": {
+        "message": "Prawa kaskadowe na najwyższym dokumencie do skryptów innych firm",
+        "description": ""
+    },
+    "CascadeRestrictions": {
+        "message": "Cascade top document's restrictions to subdocuments",
+        "description": ""
+    },
+    "ClearClickDescription": {
+        "message": "NoScript przechwycił interakcję myszy lub klawiatury z częściowo ukrytym elementem. Kliknij obraz poniżej, aby przełączać się między wersją blokowaną a przejrzystą.",
+        "description": ""
+    },
+    "ClearClickHeader": {
+        "message": "Potential Clickjacking / UI Redressing Attempt!",
+        "description": ""
+    },
+    "ClearClickOpt": {
+        "message": "Ochrona ClearClick na stronach…",
+        "description": ""
+    },
+    "ClearClickReport": {
+        "message": "Zgłoś",
+        "description": ""
+    },
+    "ClearClickReport_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "ClearClickReportId": {
+        "message": "Identyfikator raportu:",
+        "description": ""
+    },
+    "ClearClickTitle": {
+        "message": "Ostrzeżenie ClearClick",
+        "description": ""
+    },
+    "Close": {
+        "message": "Zamknij",
+        "description": ""
+    },
+    "CollapseBlockedObjects": {
+        "message": "Collapse blocked objects",
+        "description": ""
+    },
+    "ConfirmUnblock": {
+        "message": "Zapytaj o potwierdzenie przed tymczasowym odblokowaniem obiektu",
+        "description": ""
+    },
+    "ContentBlocker": {
+        "message": "Zastosuj te ograniczenia również do witryn na białej liście",
+        "description": ""
+    },
+    "CtxMenu": {
+        "message": "Menu kontekstowe",
+        "description": ""
+    },
+    "Custom": {
+        "message": "Niestandardowe",
+        "description": ""
+    },
+    "CustomizePresets": {
+        "message": "Preset customization (for all the sites sharing a preset)",
+        "description": ""
+    },
+    "Default": {
+        "message": "Domyślne",
+        "description": ""
+    },
+    "DefaultPolicies": {
+        "message": "Domyślne zasady",
+        "description": ""
+    },
+    "Description": {
+        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
+        "description": ""
+    },
+    "Donate": {
+        "message": "Darowizna",
+        "description": ""
+    },
+    "Donate_accesskey": {
+        "message": "o",
+        "description": ""
+    },
+    "Embeddings": {
+        "message": "Osadzone",
+        "description": ""
+    },
+    "Exceptions": {
+        "message": "Wyjątki...",
+        "description": ""
+    },
+    "Export": {
+        "message": "Eksport",
+        "description": ""
+    },
+    "Export_accesskey": {
+        "message": "E",
+        "description": ""
+    },
+    "FixLinks": {
+        "message": "Próba naprawienia linków JavaScript",
+        "description": ""
+    },
+    "Hider": {
+        "message": "Upuść tutaj, aby się schować.",
+        "description": ""
+    },
+    "Reveal": {
+        "message": "Kliknij tutaj, aby pobrać brakujące przyciski...",
+        "description": ""
+    },
+    "ShowFullAddresses": {
+        "message": "Wyświetl pełne adresy w okienku z uprawnieniami (https://www.noscript.net)",
+        "description": ""
+    },
+    "SectionGeneral": {
+        "message": "Ogólne",
+        "description": ""
+    },
+    "GlobalHttpsWhitelist": {
+        "message": "Zezwalaj na globalne uruchamianie skryptów HTTPS w dokumentach HTTPS",
+        "description": ""
+    },
+    "NotEnforced": {
+        "message": "Ograniczenia są wyłączone",
+        "description": ""
+    },
+    "NoEnforcement": {
+        "message": "Wyłącz ograniczenia globalnie (Niebezpieczne)",
+        "description": ""
+    },
+    "Enforce": {
+        "message": "Włącz ograniczenia globalnie",
+        "description": ""
+    },
+    "NoEnforcementForTab": {
+        "message": "Wyłącz ograniczenia dla tej karty",
+        "description": ""
+    },
+    "EnforceForTab": {
+        "message": "Włącz ograniczenia dla tej karty",
+        "description": ""
+    },
+    "HighContrast": {
+        "message": "High contrast",
+        "description": ""
+    },
+    "httpsOnly": {
+        "message": "Dopasuj tylko zawartość HTTPS",
+        "description": ""
+    },
+    "Https": {
+        "message": "HTTPS",
+        "description": ""
+    },
+    "Https_always": {
+        "message": "Zawsze",
+        "description": ""
+    },
+    "Https_behavior": {
+        "message": "Zachowanie",
+        "description": ""
+    },
+    "Https_cookies": {
+        "message": "Ciasteczka",
+        "description": ""
+    },
+    "Https_description": {
+        "message": "Zablokuj aktywną zawartość, chyba że pochodzi z bezpiecznego połączenia (HTTPS)",
+        "description": ""
+    },
+    "Https_never": {
+        "message": "Nigdy",
+        "description": ""
+    },
+    "Https_proxy": {
+        "message": "Podczas korzystania z serwera proxy (zalecane w przypadku Tora)",
+        "description": ""
+    },
+    "HttpsFaq": {
+        "message": "HTTPS FAQ…",
+        "description": ""
+    },
+    "HttpsFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "HttpsForced": {
+        "message": "Zmuś następujące witryny, aby używały bezpiecznych połączeń (HTTPS):",
+        "description": ""
+    },
+    "HttpsForcedExceptions": {
+        "message": "Nigdy nie wymuszaj bezpiecznych (HTTPS) połączeń dla wybranych witryn:",
+        "description": ""
+    },
+    "Import": {
+        "message": "Import",
+        "description": ""
+    },
+    "Import_accesskey": {
+        "message": "I",
+        "description": ""
+    },
+    "OptIncognitoPerm": {
+        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "description": ""
+    },
+    "KeepLocked": {
+        "message": "Pozostaw ten element zablokowany (zalecane)",
+        "description": ""
+    },
+    "MatchSample": {
+        "message": "Pattern matching sample:",
+        "description": ""
+    },
+    "Next": {
+        "message": "Dalej",
+        "description": ""
+    },
+    "NoUntrustedPlaceholder": {
+        "message": "No placeholder for objects coming from sites marked as untrusted",
+        "description": ""
+    },
+    "Notifications": {
+        "message": "Powiadomienia",
+        "description": ""
+    },
+    "Notify": {
+        "message": "Show message about blocked scripts",
+        "description": ""
+    },
+    "Notify_bottom": {
+        "message": "Place message at the bottom",
+        "description": ""
+    },
+    "NotifyMeta": {
+        "message": "Show message about blocked META redirections",
+        "description": ""
+    },
+    "NotifyMeta_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "NselForce": {
+        "message": "Show the <NOSCRIPT> element which follows a blocked <SCRIPT>",
+        "description": ""
+    },
+    "NselNever": {
+        "message": "Ukryj <NOSCRIPT> elementy",
+        "description": ""
+    },
+    "OK": {
+        "message": "OK",
+        "description": ""
+    },
+    "OptBlockCssScanners": {
+        "message": "Blokowanie skanerów bazujących na CSS",
+        "description": ""
+    },
+    "OptFilterXGet": {
+        "message": "Sanitize cross-site suspicious requests",
+        "description": ""
+    },
+    "OptFilterXPost": {
+        "message": "Przekształć żądania POST w żądania GET bez danych",
+        "description": ""
+    },
+    "OptOverrideTorBrowserPolicy": {
+        "message": "Override Tor Browser's Security Level preset",
+        "description": ""
+    },
+    "Options": {
+        "message": "Opcje...",
+        "description": ""
+    },
+    "Options_accesskey": {
+        "message": "O",
+        "description": ""
+    },
+    "OptionsLong": {
+        "message": "Opcje NoScript",
+        "description": ""
+    },
+    "OptionsWidth": {
+        "message": "40em",
+        "description": ""
+    },
+    "PermanentInPrivate": {
+        "message": "Permanent \"Allow\" commands in private windows",
+        "description": ""
+    },
+    "SectionSitePermissions": {
+        "message": "Per-site Permissions",
+        "description": ""
+    },
+    "PermissionsText": {
+        "message": "You can specify which web sites are allowed to execute scripts. Type the address or the domain (e.g. \"http://www.site.com\" or \"site.com\") of the site you want to allow and then click Allow.",
+        "description": ""
+    },
+    "Plugins": {
+        "message": "Wtyczki",
+        "description": ""
+    },
+    "Policies": {
+        "message": "Zasady",
+        "description": ""
+    },
+    "Preset": {
+        "message": "Poziom bezpieczeństwa",
+        "description": ""
+    },
+    "Preset_high": {
+        "message": "Fortress (Full lockdown)",
+        "description": ""
+    },
+    "Preset_low": {
+        "message": "Easy going (Blacklist + Web Security)",
+        "description": ""
+    },
+    "Preset_medium": {
+        "message": "Classic (Whitelist + Web Security)",
+        "description": ""
+    },
+    "Preset_off": {
+        "message": "Off (are you serious?!)",
+        "description": ""
+    },
+    "Prev": {
+        "message": "Poprzedni",
+        "description": ""
+    },
+    "RecentBlocked": {
+        "message": "Ostatnio zablokowane witryny",
+        "description": ""
+    },
+    "Refresh": {
+        "message": "Odśwież",
+        "description": ""
+    },
+    "ReloadWarn": {
+        "message": "Te opcje będą obowiązywać na nowych lub (ręcznie) przeładowanych stronach",
+        "description": ""
+    },
+    "RemoveSelected": {
+        "message": "Usuń wybrane witryny",
+        "description": ""
+    },
+    "Reset": {
+        "message": "Resetuj",
+        "description": ""
+    },
+    "Reset_accesskey": {
+        "message": "s",
+        "description": ""
+    },
+    "ResetDef": {
+        "message": "Przywróć ustawienia domyślne",
+        "description": ""
+    },
+    "ResetDef_accesskey": {
+        "message": "W",
+        "description": ""
+    },
+    "RestrictSubdocScripting": {
+        "message": "Block scripting in whitelisted subdocuments of non-whitelisted pages",
+        "description": ""
+    },
+    "RevokeTemp": {
+        "message": "Revoke Temporary Permissions",
+        "description": ""
+    },
+    "RevokeTemp_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "SecureCookies": {
+        "message": "Enable Automatic Secure Cookies Management",
+        "description": ""
+    },
+    "SecureCookiesExceptions": {
+        "message": "Ignore unsafe cookies set over HTTPS by the following sites:",
+        "description": ""
+    },
+    "SecureCookiesForced": {
+        "message": "Force encryption for all the cookies set over HTTPS by the following sites:",
+        "description": ""
+    },
+    "SecurityManager": {
+        "message": "Menadżer ochrony",
+        "description": ""
+    },
+    "Show": {
+        "message": "Pokaż...",
+        "description": ""
+    },
+    "ShowConsole": {
+        "message": "Pokaż Konsolę...",
+        "description": ""
+    },
+    "ShowConsole_accesskey": {
+        "message": "S",
+        "description": ""
+    },
+    "ShowPlaceholder": {
+        "message": "Show placeholder icon",
+        "description": ""
+    },
+    "ShowReleaseNotes": {
+        "message": "Display the release notes on updates",
+        "description": ""
+    },
+    "ShowCtxMenuItem": {
+        "message": "Show NoScript contextual menu item",
+        "description": ""
+    },
+    "ShowCountBadge": {
+        "message": "Display blocked items count badge",
+        "description": ""
+    },
+    "SitePermissions": {
+        "message": "Uprawnienia Witryny",
+        "description": ""
+    },
+    "SitePermissions_accessKey": {
+        "message": "S",
+        "description": ""
+    },
+    "SitePolicies": {
+        "message": "Site Specific Policies",
+        "description": ""
+    },
+    "TempTrustPage": {
+        "message": "Ustaw wszystko na tej stronie na Tymczasowo ZAUFANE",
+        "description": ""
+    },
+    "TempTrustPage_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "TempToPerm": {
+        "message": "Uczyń uprawnienia witryny permanentnymi",
+        "description": ""
+    },
+    "TempToPerm_accesskey": {
+        "message": "M",
+        "description": ""
+    },
+    "Trust": {
+        "message": "Oznacz jako zaufaną",
+        "description": ""
+    },
+    "Trust_accesskey": {
+        "message": "T",
+        "description": ""
+    },
+    "Trusted": {
+        "message": "Zaufane",
+        "description": ""
+    },
+    "Trusted_temporary": {
+        "message": "Tymczas. ZAUFANE",
+        "description": ""
+    },
+    "Trusted_permanent": {
+        "message": "ZAUFANE",
+        "description": ""
+    },
+    "TrustedPagesAdj": {
+        "message": "zaufane",
+        "description": ""
+    },
+    "Uninstall": {
+        "message": "Odinstaluj",
+        "description": ""
+    },
+    "Unknown": {
+        "message": "Nieznane",
+        "description": ""
+    },
+    "UnsafeReload": {
+        "message": "Niebezpieczne Przeładowanie",
+        "description": ""
+    },
+    "UnsafeReload_accesskey": {
+        "message": "R",
+        "description": ""
+    },
+    "Untrust": {
+        "message": "Oznacz jako Niezaufane",
+        "description": ""
+    },
+    "Untrust_accesskey": {
+        "message": "U",
+        "description": ""
+    },
+    "Untrusted": {
+        "message": "Niezaufane",
+        "description": ""
+    },
+    "UntrustedPagesAdj": {
+        "message": "niezaufane",
+        "description": ""
+    },
+    "WebAddress": {
+        "message": "Znajdź lub dodaj witrynę:",
+        "description": ""
+    },
+    "WebAddress_accesskey": {
+        "message": "w",
+        "description": ""
+    },
+    "Whitelist": {
+        "message": "Biała lista",
+        "description": ""
+    },
+    "XSS_notify": {
+        "message": "Pokaż powiadomienia XSS",
+        "description": ""
+    },
+    "XSS_clearUserChoices": {
+        "message": "Wyczyść Opcje XSS",
+        "description": ""
+    },
+    "XSS_promptTitle": {
+        "message": "Ostrzeżenie XSS NoScript",
+        "description": ""
+    },
+    "XSS_promptMessage": {
+        "message": "NoScript detected a potential Cross-Site Scripting attack\nfrom $1 to $2.\nSuspicious data:\n$3",
+        "description": ""
+    },
+    "XSS_optBlock": {
+        "message": "Zablokuj to żądanie",
+        "description": ""
+    },
+    "XSS_optSanitize": {
+        "message": "Sanitize this request",
+        "description": ""
+    },
+    "XSS_optAllow": {
+        "message": "Pozwól na to żądanie",
+        "description": ""
+    },
+    "XSS_optAlwaysAllow": {
+        "message": "Always allow document requests from $1 to $2",
+        "description": ""
+    },
+    "XSS_optAlwaysBlock": {
+        "message": "Always block document requests from $1 to $2",
+        "description": ""
+    },
+    "Xss": {
+        "message": "XSS",
+        "description": ""
+    },
+    "Xss_accesskey": {
+        "message": "X",
+        "description": ""
+    },
+    "XssExceptions": {
+        "message": "Anti-XSS Protection Exceptions",
+        "description": ""
+    },
+    "XssExceptions_description": {
+        "message": "Destinations matching these regular expressions will NOT be protected against XSS.",
+        "description": ""
+    },
+    "XssFaq": {
+        "message": "XSS FAQ…",
+        "description": ""
+    },
+    "XssFaq_accesskey": {
+        "message": "Q",
+        "description": ""
+    },
+    "about": {
+        "message": "O $1",
+        "description": ""
+    },
+    "allowFrom": {
+        "message": "Zezwalaj na wszystkie z $1",
+        "description": ""
+    },
+    "allowGlobal": {
+        "message": "Wyłącz wszystkie sprawdzenia uprawnień (niebezpieczne)",
+        "description": ""
+    },
+    "allowLocal": {
+        "message": "Zezwól $1",
+        "description": ""
+    },
+    "allowTemp": {
+        "message": "Tymczasowo zezwól $1",
+        "description": ""
+    },
+    "allowTempFrom": {
+        "message": "Tymczasowo zezwól na wszystko z $1",
+        "description": ""
+    },
+    "allowed_no": {
+        "message": "Skrypty Aktualnie Zabronione",
+        "description": ""
+    },
+    "allowed_prt": {
+        "message": "Skrypty Częściowo Dozwolone",
+        "description": ""
+    },
+    "allowed_yes": {
+        "message": "Skrypty Aktualnie Dozwolone",
+        "description": ""
+    },
+    "alwaysAsk": {
+        "message": "Zawsze pytaj o potwierdzenie",
+        "description": ""
+    },
+    "audio_samples": {
+        "message": "Próbki audio",
+        "description": ""
+    },
+    "bookmarkSync_confirm": {
+        "message": "NoScript znalazł zakładkę konfiguracji pozornie zapisaną na\n$1.\nCzy na pewno chcesz zastąpić lokalną konfigurację NoScript zawartością tej zakładki?",
+        "description": ""
+    },
+    "bookmarkSync_message": {
+        "message": "Ta zakładka NIE jest przeznaczona do otwarcia, ale do synchronizacji przy użyciu usługi takiej jak Weave lub rozszerzenie XMarks.",
+        "description": ""
+    },
+    "bookmarkSync_title": {
+        "message": "Konfiguracja Zakładek NoScript",
+        "description": ""
+    },
+    "cap_script": {
+        "message": "skrypt",
+        "description": ""
+    },
+    "cap_frame": {
+        "message": "ramka",
+        "description": ""
+    },
+    "cap_object": {
+        "message": "obiekt",
+        "description": ""
+    },
+    "cap_media": {
+        "message": "media",
+        "description": ""
+    },
+    "cap_font": {
+        "message": "czcionka",
+        "description": ""
+    },
+    "cap_webgl": {
+        "message": "webgl",
+        "description": ""
+    },
+    "cap_fetch": {
+        "message": "fetch",
+        "description": ""
+    },
+    "cap_ping": {
+        "message": "ping",
+        "description": ""
+    },
+    "cap_other": {
+        "message": "inne",
+        "description": ""
+    },
+    "changelog": {
+        "message": "Dziennik zmian",
+        "description": ""
+    },
+    "changelog_tip": {
+        "message": "Pokaż dziennik zmian",
+        "description": ""
+    },
+    "confirm": {
+        "message": "Jesteś pewny?",
+        "description": ""
+    },
+    "disable": {
+        "message": "Wyłącz $1",
+        "description": ""
+    },
+    "disable_accessKey": {
+        "message": "W",
+        "description": ""
+    },
+    "distrust": {
+        "message": "Oznacz $1 jako Niezaufane",
+        "description": ""
+    },
+    "extensionContributors": {
+        "message": "Współtwórcy:",
+        "description": ""
+    },
+    "extensionContributors_tip": {
+        "message": "Ludzie którym powinieneś dziękować za to rozszerzenie",
+        "description": ""
+    },
+    "extensionCreator_tip": {
+        "message": "Odwiedź stronę główną autora",
+        "description": ""
+    },
+    "extensionCreatorLabel": {
+        "message": "Autor:",
+        "description": ""
+    },
+    "extensionHomepage_tip": {
+        "message": "Odwiedź stronę główną rozszerzenia",
+        "description": ""
+    },
+    "forbidGlobal": {
+        "message": "Zabroń Skryptów Globalnie (zalecane)",
+        "description": ""
+    },
+    "forbidLocal": {
+        "message": "Zabroń $1",
+        "description": ""
+    },
+    "freshInstallReload": {
+        "message": "Aby móc działać w tej karcie, NoScript musi ją przeładować.\nKontynuować?",
+        "description": ""
+    },
+    "privilegedPage": {
+        "message": "Jest to strona uprzywilejowana, której uprawnień nie można skonfigurować.",
+        "description": ""
+    },
+    "incompatibleOptions": {
+        "message": "\"$1\"\njest niezgodny z \"$2\".\nCzy chcesz włączyć poprzednią i wyłączyć tę ostatnią?",
+        "description": ""
+    },
+    "incompatibleOptions_title": {
+        "message": "Nie Zgodne Ustawienia",
+        "description": ""
+    },
+    "informaction_tip": {
+        "message": "Visit InformAction home page",
+        "description": ""
+    },
+    "license": {
+        "message": "Licencja",
+        "description": ""
+    },
+    "license_tip": {
+        "message": "Przeczytaj licencje użytkownika końcowego",
+        "description": ""
+    },
+    "logo_tip": {
+        "message": "Odwiedź stronę główną rozszerzenia",
+        "description": ""
+    },
+    "metaRefresh_notify": {
+        "message": "NoScript blocked a <META> redirection inside a <NOSCRIPT> element: $1 in $2 seconds.",
+        "description": ""
+    },
+    "Reload": {
+        "message": "Przeładuj",
+        "description": ""
+    },
+    "removal_message": {
+        "message": "Poprzez wyłączenie lub odinstalowanie NoScript, porzucasz WSZYSTKIE zabezpieczenia zapewniane przez NoScript.\n\nJeśli po prostu jesteś zmęczony obsługą skryptów strona po stronie, to jest bezpieczniejszy wybór.\n\nNoScript może przestać blokować skrypty, z wyjątkiem tych, które oznaczyłeś jako niezaufane, jednocześnie chroniąc cię najbardziej zaawansowanymi środkami bezpieczeństwa przeciw XSS, Clickjacking, CSRF i innym zagrożeniom internetowym.\n\nCzy na pewno chcesz usunąć WSZYSTKIE zabezpieczenia NoScript?",
+        "description": ""
+    },
+    "removal_no": {
+        "message": "Nie, po prostu przestań blokować skrypty",
+        "description": ""
+    },
+    "removal_title": {
+        "message": "Ostrzeżenie o obniżeniu poziomu bezpieczeństwa",
+        "description": ""
+    },
+    "removal_yes": {
+        "message": "Tak, usuń WSZYSTKIE zabezpieczenia",
+        "description": ""
+    },
+    "reset_title": {
+        "message": "Resetuj NoScript",
+        "description": ""
+    },
+    "reset_warning": {
+        "message": "WSZYSTKIE preferencje i pozwolenia stron NoScript zostaną zresetowane do ich domyślnych wartości.\nTa akcja nie może zostać cofnięta.\nCzy chcesz kontynuować?",
+        "description": ""
+    },
+    "siteInfo_confirm": {
+        "message": "You're about to ask for information about the \"$1\" site\nby submitting a query to $2.\nDo you want to continue?",
+        "description": ""
+    },
+    "siteInfo_tooltip": {
+        "message": "Kliknięcie środkowym przyciskiem myszy lub shift+kliknięcie w celu uzyskania informacji o witrynie ...",
+        "description": ""
+    },
+    "sponsor_tip": {
+        "message": "Odwiedź stronę główną sponsora",
+        "description": ""
+    },
+    "unsafeReload_warning": {
+        "message": "NIEBEZPIECZNE przeładowanie podejrzenia\n\n$1 [$2]\n\nZ [$3]\n\nNoScript NIE będzie chronić tego żądania!\n",
+        "description": ""
+    },
+    "untrustedOrigin": {
+        "message": "niezaufane źródło",
+        "description": ""
+    },
+    "version": {
+        "message": "Wersja $1",
+        "description": ""
+    },
+    "versionShort": {
+        "message": "v $1",
+        "description": ""
+    }
+}

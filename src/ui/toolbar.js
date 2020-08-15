@@ -4,7 +4,6 @@
   let hider = toolbar.querySelector(".hider");
 
   if (UI.local.toolbarLayout) {
-    debug(uneval(UI.local.toolbarLayout));
     let {left, right, hidden} = UI.local.toolbarLayout;
     for (let id of left) {
       toolbar.insertBefore(document.getElementById(id), hider);
@@ -15,10 +14,6 @@
     for (let id of hidden) {
       hider.appendChild(document.getElementById(id));
     }
-  }
-
-  for (let i of toolbar.querySelectorAll(".icon")) {
-    if (!i.title) i.title = i.textContent;
   }
 
   function toggleHider(b) {
@@ -44,36 +39,47 @@
         return;
       }
       d.style.opacity = ".5";
+      d.style.filter = "none";
       let dt = ev.dataTransfer;
       dt.setData("text/plain", d.id);
       dt.dropEffect = "move";
-      dt.setDragImage(d, 0, 0);
+      dt.setDragImage(d, d.offsetWidth / 2, d.offsetHeight / 2);
       toggleHider(true);
+      this.draggedElement = d;
     },
     dragend(ev)  {
-      ev.target.style.opacity = "";
+      let d = ev.target;
+      d.style.opacity = "";
+      d.style.filter = "";
+      this.draggedElement = null;
     },
     dragover(ev) {
       ev.preventDefault();
     },
     dragenter(ev) {
-      let t = ev.target;
     },
     dragleave(ev) {
-      let t = ev.target;
     },
     drop(ev) {
       let t = ev.target;
-      let d = document.getElementById(ev.dataTransfer.getData("text/plain"));
+      let d = ev.dataTransfer ?
+        document.getElementById(ev.dataTransfer.getData("text/plain"))
+        : this.draggedElement;
+      if (!d) return;
       switch(t) {
         case hider:
           t.appendChild(d);
           break;
-        case toolbar:
-          t.insertBefore(d, ev.clientX < hider.offsetLeft ? hider : spacer.nextElementSibling);
-          break;
         default:
-          t.parentNode.insertBefore(d, ev.clientX < (t.offsetLeft + t.offsetWidth) ? t : t.nextElementSibling);
+          if (!t.closest("#top")) return; // outside the toolbar?
+          let stop = null;
+          for (let c of toolbar.children) {
+            if (ev.clientX < c.offsetLeft + c.offsetWidth / 2) {
+              stop = c;
+              break;
+            }
+          }
+          toolbar.insertBefore(d, stop);
       }
 
       let left = [], right = [];
@@ -87,7 +93,7 @@
       }
       UI.local.toolbarLayout = {
         left, right,
-        hidden: Array.map(document.querySelectorAll("#top > .hider > .icon"), el => el.id),
+        hidden: Array.from(document.querySelectorAll("#top > .hider > .icon")).map(el => el.id),
       };
 
       debug("%o", UI.local);
@@ -104,7 +110,7 @@
       }
     }
 
-  };
+};
 
 
   for (let [action, handler] of Object.entries(dnd)) {

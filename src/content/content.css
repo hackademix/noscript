@@ -4,21 +4,23 @@ a.__NoScript_PlaceHolder__ {
   text-decoration: none;
   text-align: center;
   background: rgba(255,250,200, .7) no-repeat center;
-  background-size: 256px;
+  background-size: contain;
   visibility: visible !important;
   cursor: pointer;
   opacity: 0.8;
-  transition: 1s all;
+  z-index: 2147483647 !important;
+}
+
+.__ns__pop2top {
+  z-index: 2147483647 !important;
 }
 
 a.__NoScript_PlaceHolder__:hover {
   opacity: 1;
   text-decoration: underline;
-  background-size: 128px;
-  background-position: top left;
 }
 
-a.__NoScript_PlaceHolder__.closing {
+a.__NoScript_PlaceHolder__.__ns__closing {
   transition: .4s all;
   opacity: 0;
   transform: scale(0, 0);
@@ -54,7 +56,6 @@ a.__NoScript_PlaceHolder__ > span {
   transition: .2s all;
 }
 .__NoScript_PlaceHolder__  button:hover {
-
   color: white;
   text-shadow: -2px 0 2px red, 2px 0 2px red;
 }
@@ -70,8 +71,10 @@ a.__NoScript_PlaceHolder__ > span {
   overflow-wrap: break-word;
   word-break: break-all;
 }
-
-a.__NoScript_PlaceHolder__.document {
+.__NoScript_PlaceHolder__:hover > span > span {
+  background: rgba(255, 250, 200, .8)
+}
+a.__NoScript_PlaceHolder__.__ns__document {
   position: fixed !important;
   top: 0 !important;
   bottom: 0 !important;
