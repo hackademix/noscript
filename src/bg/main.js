@@ -1,18 +1,12 @@
  {
   'use strict';
   {
-    let onInstalled = async details => {
-      browser.runtime.onInstalled.removeListener(onInstalled);
-      let {reason, previousVersion} = details;
-      if (reason !== "update") return;
-      let v = previousVersion.split(".").map(n => parseInt(n));
-      if (v[0] > 11 || v[1] > 0 || v[2] > 10) return;
-      log(`Upgrading from 11.0.10 or below (${previousVersion}): configure the "ping" capability.`);
-      await ns.initializing;
-      ns.policy.TRUSTED.capabilities.add("ping")
-      await ns.savePolicy();
-    };
-    browser.runtime.onInstalled.addListener(onInstalled);
+    for (let event of ["onInstalled", "onUpdateAvailable"]) {
+      browser.runtime[event].addListener(async details => {
+        await include("/bg/LifeCycle.js");
+        LifeCycle[event](details);
+      });
+    }
   }
   let popupURL = browser.extension.getURL("/ui/popup.html");
   let popupFor = tabId => `${popupURL}#tab${tabId}`;

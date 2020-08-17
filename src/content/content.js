@@ -25,6 +25,9 @@ var seen = {
     this._map.set(key, event);
     this._list = null;
   },
+  recordAll(events) {
+    for (let e of events) this.record(e);
+  },
   get list() {
     return this._list || (this._list = [...this._map.values()]);
   }
@@ -55,10 +58,21 @@ Messages.addHandler({
       }
     }
   },
+  allSeen(event) {
+    seen.recordAll(event.seen);
+  },
   collect(event) {
     let list = seen.list;
     debug("COLLECT", list);
     return list;
+  },
+  store(event) {
+    if (document.URL !== event.url) return;
+    document.documentElement.appendChild(document.createComment(event.data));
+  },
+  retrieve(event) {
+    if (document.URL !== event.url) return;
+    return document.documentElement.lastChild.textContent;
   }
 });
 
