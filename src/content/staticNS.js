@@ -100,14 +100,14 @@
         }
       }
 
-      for (;;) {
+      for (let attempts = 3; attempts-- > 0;) {
         try {
           browser.runtime.sendSyncMessage(
             {id: "fetchPolicy", url, contextUrl: url},
             setup);
           break;
         } catch (e) {
-          if (!Messages.isMissingEndpoint(e)) {
+          if (!Messages.isMissingEndpoint(e) || document.readyState === "complete") {
             error(e);
             break;
           }

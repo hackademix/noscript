@@ -12,6 +12,8 @@
       }
       __meta = {name: _messageName};
     }
+    delete msg.__meta;
+    delete msg._messageName;
     let {name} = __meta;
     let responderFound = false;
     let exception = null;
@@ -61,14 +63,14 @@
       args._messageName = name; // legacy protocol, for embedders
       if (recipientInfo && "tabId" in recipientInfo) {
         let opts;
-        if ("frameId" in recipientInfo) opts = {frameId: recipientInfo.frameId};
-        return await browser.tabs.sendMessage(recipientInfo.tabId, args, opts);
+        if ("frameId" in recipientInfo) opts = {frameId: parseInt(recipientInfo.frameId)};
+        return await browser.tabs.sendMessage(parseInt(recipientInfo.tabId), args, opts);
       }
       return await browser.runtime.sendMessage(args);
     },
     isMissingEndpoint(error) {
       return error && error.message ===
-        "Could not esablish connection. Receiving end does not exist.";
+        "Could not establish connection. Receiving end does not exist.";
     }
   }
 }
