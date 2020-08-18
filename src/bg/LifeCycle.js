@@ -102,39 +102,67 @@ var LifeCycle = (() => {
       if (!updateInfo) return;
       await Storage.remove("local", "updateInfo");
       let {key, iv, tabId} = updateInfo;
-      key = await crypto.subtle.importKey("jwk", key, AES, true, keyUsages);
-      iv = fromBase64(iv);
-      let cypherText = fromBase64(await Messages.send("retrieve",
-        {url: SurvivalTab.url},
-        {tabId, frameId: 0}));
-      let encoded = await crypto.subtle.decrypt({
-          name: AES,
-          iv
-        }, key, cypherText
-      );
-      let {policy, allSeen, unrestrictedTabs} = JSON.parse(new TextDecoder().decode(encoded));
-      if (!policy) {
-        error("Ephemeral policy not found!");
-        return;
-      }
-      ns.unrestrictedTabs = new Set(unrestrictedTabs);
-      browser.tabs.remove(tabId);
-      await ns.initializing;
-      ns.policy = new Policy(policy);
-      await Promise.all(
-        Object.entries(allSeen).map(
-          async ([tabId, seen]) => {
-            try {
-              debug("Restoring seen %o to tab %s", seen, tabId);
-              await Messages.send("allSeen", {seen}, {tabId, frameId: 0});
-            } catch (e) {
-              error(e, "Cannot send previously seen data to tab", tabId);
+      try {
+        key = await crypto.subtle.importKey("jwk", key, AES, true, keyUsages);
+        iv = fromBase64(iv);
+        let cypherText;
+        let {url} = SurvivalTab;
+        for (let attempts = 3; attempts-- > 0;) {
+          try {
+            cypherText = await Messages.send("retrieve", {url}, {tabId, frameId: 0});
+          } catch (e) {
+            if (Messages.isMissingEndpoint(e)) {
+              debug("Cannot retrieve survival tab data, maybe content script not loaded yet. Retrying...");
+              await ns.initializing;
+              await new Promise(resolve => setTimeout(resolve, 100));
+            } else {
+              throw e;
             }
           }
-        )
-      )
+        }
+        if (!cypherText) {
+          throw new Error("Could not retrieve survival tab data!");
+        }
+        cypherText = fromBase64(cypherText);
+        let encoded = await crypto.subtle.decrypt({
+            name: AES,
+            iv
+          }, key, cypherText
+        );
+        let {policy, allSeen, unrestrictedTabs} = JSON.parse(new TextDecoder().decode(encoded));
+        if (!policy) {
+          throw new error("Ephemeral policy not found in survival tab %s!", tabId);
+        }
+        ns.unrestrictedTabs = new Set(unrestrictedTabs);
+        browser.tabs.remove(tabId);
+        tabId = -1;
+        await ns.initializing;
+        ns.policy = new Policy(policy);
+        await Promise.all(
+          Object.entries(allSeen).map(
+            async ([tabId, seen]) => {
+              try {
+                debug("Restoring seen %o to tab %s", seen, tabId);
+                await Messages.send("allSeen", {seen}, {tabId, frameId: 0});
+              } catch (e) {
+                error(e, "Cannot send previously seen data to tab", tabId);
+              }
+            }
+          )
+        );
+      } catch (e) {
+        error(e);
+      } finally {
+        if (tabId !== -1) {
+          if (ns.local.debug) {
+            debug("Failed survival tab %s left open for debugging.", tabId);
+          } else {
+            browser.tabs.remove(tabId);
+          }
+        }
+      }
     }
-  };
+  }
 
   return {
     async onInstalled(details) {
