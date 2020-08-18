@@ -165,12 +165,12 @@ var LifeCycle = (() => {
     },
 
     async onUpdateAvailable(details) {
-      await include("/lib/Ver.js");
-      if (Ver.is(details.version, "<", browser.runtime.getManifest().version)) {
-        // downgrade: temporary survival might not be supported, and we don't care
-        return;
-      }
       try {
+        await include("/lib/Ver.js");
+        if (Ver.is(details.version, "<", browser.runtime.getManifest().version)) {
+          // downgrade: temporary survival might not be supported, and we don't care
+          return;
+        }
         await SurvivalTab.createAndStore();
       } catch (e) {
         console.error(e);
