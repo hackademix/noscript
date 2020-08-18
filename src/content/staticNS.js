@@ -93,7 +93,7 @@
       let setup = policy => {
         debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
         this.setup(policy);
-        if (syncLoad && !localPolicy) {
+        if (syncLoad && !localPolicy && originalState !== "complete") {
           sessionStorage.setItem(localPolicyKey, JSON.stringify(policy));
           location.reload(false);
           return;
