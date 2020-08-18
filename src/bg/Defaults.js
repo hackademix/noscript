@@ -8,6 +8,7 @@ var Defaults = {
         showCtxMenuItem: true,
         showCountBadge: true,
         showFullAddresses: false,
+        amnesticUpdates: false,
       },
       sync: {
         global: false,

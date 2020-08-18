@@ -228,6 +228,10 @@
   "OptIncognitoPerm": {
     "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!"
   },
+  "OptAmnesticUpdates": {
+    "message": "Always forget temporary permissions across NoScript updates immediately, even if the browsers is not restarted"
+  },
+
   "KeepLocked": {
     "message": "Keep this element locked (recommended)"
   },

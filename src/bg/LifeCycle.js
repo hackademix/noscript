@@ -194,6 +194,10 @@ var LifeCycle = (() => {
 
     async onUpdateAvailable(details) {
       try {
+        if (ns.local.amnesticUpdates) {
+          // user doesn't want us to remember temporary settings across updates: bail out
+          return;
+        }
         await include("/lib/Ver.js");
         if (Ver.is(details.version, "<", browser.runtime.getManifest().version)) {
           // downgrade: temporary survival might not be supported, and we don't care

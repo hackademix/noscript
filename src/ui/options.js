@@ -38,6 +38,8 @@
 
   opt("overrideTorBrowserPolicy");
 
+  opt("amnesticUpdates", "local");
+
   {
     document.querySelector("#btn-reset").addEventListener("click", async () => {
       if (confirm(_("reset_warning"))) {
