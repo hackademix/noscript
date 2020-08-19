@@ -68,37 +68,68 @@
 
       let originalState = document.readyState;
       let syncLoad = UA.isMozilla && /^(?:ftp|file):/.test(url);
-      let localPolicyKey;
+      let localPolicy;
       if (syncLoad && originalState !== "complete") {
-        localPolicyKey = `ns.policy.${url}|${browser.runtime.getURL("")}`;
-
-        let [name, localPolicy] = window.name.split(localPolicyKey);
-        window.name = name;
-        if (localPolicy) {
-          debug("Falling back to localPolicy", localPolicy);
-          try {
-            this.setup(JSON.parse(localPolicy));
-          } catch(e) {
-            error(e, "Falling back: could not setup local policy", localPolicy);
-            localPolicyKey = null;
-            this.setup(null);
+        localPolicy = {
+          key: `[ns.policy.${url}|${browser.runtime.getURL("")}|${Math.floor(Date.now() / 10000)}]`,
+          read(resetName = false) {
+            let [policy, name] =
+              window.name.includes(this.key) ? window.name.split(this.key) : [null, window.name];
+            this.policy = policy ? (policy = JSON.parse(policy)) : null;
+            if (resetName) window.name = name;
+            return {policy, name};
+          },
+          write(policy = this.policy, name = window.name) {
+            if (name.includes(this.key)) {
+              ({name} = this.read());
+            }
+            let policyString = JSON.stringify(policy);
+            window.name = [policyString, name].join(this.key);
+            // verify
+            if (JSON.stringify(this.read(false).policy) !== policyString) {
+              throw new Error("Can't write localPolicy", policy, window.name);
+            }
           }
-          return;
-        } else {
-          addEventListener("beforescriptexecute", e => {
-            console.log("Blocking early script", e.target);
-            e.preventDefault();
-          });
-          stop();
         }
+
+        try {
+          let {policy} = localPolicy.read(true);
+          if (policy) {
+            debug("Applying localPolicy", policy);
+            this.setup(policy);
+            let onBeforeUnload = e => {
+              // this fixes infinite reload loops if Firefox decides to reload the page immediately
+              // because it needs to be reparsed (e.g. broken / late charset declaration)
+              // see https://forums.informaction.com/viewtopic.php?p=102850
+              localPolicy.write(policy);
+            };
+            addEventListener("beforeunload", onBeforeUnload, false);
+            addEventListener("DOMContentLoaded", e => removeEventListener(onBeforeUnload, false), true);
+            return;
+          }
+        } catch(e) {
+          error(e, "Falling back: could not setup local policy", localPolicy.policy);
+          this.setup(null);
+          return;
+        }
+        debug("Stopping synchronous load to fetch and apply localPolicy...");
+        addEventListener("beforescriptexecute", e => {
+          console.log("Blocking early script", e.target);
+          e.preventDefault();
+        });
+        stop();
       }
 
       let setup = policy => {
         debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
         this.setup(policy);
-        if (syncLoad && originalState !== "complete") {
-          window.name = [window.name, JSON.stringify(this.policy)].join(localPolicyKey);
-          location.reload(false);
+        if (localPolicy) {
+          try {
+            localPolicy.write(policy);
+            location.reload(false);
+          } catch (e) {
+            error(e, "Cannot write local policy, bailing out...")
+          }
           return;
         }
       }
