@@ -68,19 +68,22 @@
 
       let originalState = document.readyState;
       let syncLoad = UA.isMozilla && /^(?:ftp|file):/.test(url);
-      let localPolicyKey, localPolicy;
-      if (syncLoad) {
+      let localPolicyKey;
+      if (syncLoad && originalState !== "complete") {
         localPolicyKey = `ns.policy.${url}|${browser.runtime.getURL("")}`;
-        let localPolicy = sessionStorage.getItem(localPolicyKey);
-        sessionStorage.removeItem(localPolicyKey);
+
+        let [name, localPolicy] = window.name.split(localPolicyKey);
+        window.name = name;
         if (localPolicy) {
           debug("Falling back to localPolicy", localPolicy);
           try {
             this.setup(JSON.parse(localPolicy));
-            return;
           } catch(e) {
-            error(e, "Could not setup local policy", localPolicy);
+            error(e, "Falling back: could not setup local policy", localPolicy);
+            localPolicyKey = null;
+            this.setup(null);
           }
+          return;
         } else {
           addEventListener("beforescriptexecute", e => {
             console.log("Blocking early script", e.target);
@@ -93,8 +96,8 @@
       let setup = policy => {
         debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
         this.setup(policy);
-        if (syncLoad && !localPolicy && originalState !== "complete") {
-          sessionStorage.setItem(localPolicyKey, JSON.stringify(policy));
+        if (syncLoad && originalState !== "complete") {
+          window.name = [window.name, JSON.stringify(this.policy)].join(localPolicyKey);
           location.reload(false);
           return;
         }
