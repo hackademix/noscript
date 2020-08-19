@@ -303,6 +303,10 @@
         "message": "Permettre de définir des autorisations permanentes en mode de navigation privée.\nATTENTION : des renseignements pourraient être divulgués !",
         "description": ""
     },
+    "OptAmnesticUpdates": {
+        "message": "Révoquer les autorisations temporaires lors des mises à jour de NoScript, même si le navigateur n’est pas redémarré",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Garder cet élément verrouillé (recommandé)",
         "description": ""

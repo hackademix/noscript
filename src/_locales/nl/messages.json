@@ -303,6 +303,10 @@
         "message": "Instellen van permanente toestemmingen in incognito-/privétabbladen inschakelen.\nPAS OP: hierdoor kan website-informatie lekken!",
         "description": ""
     },
+    "OptAmnesticUpdates": {
+        "message": "Tijdelijke toestemmingen intrekken bij NoScript-updates, zelfs als de browser niet wordt herstart",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Dit element vergrendeld houden (aanbevolen)",
         "description": ""

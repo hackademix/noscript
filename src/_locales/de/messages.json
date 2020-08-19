@@ -303,6 +303,10 @@
         "message": "Dauerhaftes Setzen von Berechtigungen in privaten Fenstern aktivieren.\nACHTUNG: Dadurch können Seiteninformationen durchsickern!",
         "description": ""
     },
+    "OptAmnesticUpdates": {
+        "message": "Temporäre Berechtigungen bei NoScript-Aktualisierungen zurücksetzen, auch wenn der Browser nicht neu gestartet wird",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "Dieses Element gesperrt halten (empfohlen)",
         "description": ""

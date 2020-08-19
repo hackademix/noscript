@@ -303,6 +303,10 @@
         "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
         "description": ""
     },
+    "OptAmnesticUpdates": {
+        "message": "Revoke temporary permissions on NoScript updates, even if the browser is not restarted",
+        "description": ""
+    },
     "KeepLocked": {
         "message": "保持本元素鎖定 (建議)",
         "description": ""
