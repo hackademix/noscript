@@ -26,6 +26,7 @@ var seen = {
     this._list = null;
   },
   recordAll(events) {
+    this._map.clear();
     for (let e of events) this.record(e);
   },
   get list() {
@@ -60,6 +61,7 @@ Messages.addHandler({
   },
   allSeen(event) {
     seen.recordAll(event.seen);
+    notifyPage();
   },
   collect(event) {
     let list = seen.list;
@@ -68,11 +70,21 @@ Messages.addHandler({
   },
   store(event) {
     if (document.URL !== event.url) return;
-    document.documentElement.appendChild(document.createComment(event.data));
+    let {data} = event;
+    let attr = sha256(data.concat(Math.random()));
+    document.documentElement.dataset[attr] = data;
+    return attr;
   },
   retrieve(event) {
     if (document.URL !== event.url) return;
-    return document.documentElement.lastChild.textContent;
+    let {attr, preserve} = event;
+    if (!attr) {
+      // legacy, < 11.0.39rc8
+      return document.documentElement.lastChild.textContent;
+    }
+    let data = document.documentElement.dataset[attr];
+    if (!preserve) delete document.documentElement.dataset[attr];
+    return data;
   }
 });
 

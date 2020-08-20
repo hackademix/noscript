@@ -28,63 +28,75 @@ var LifeCycle = (() => {
     return {cypherText, key: await crypto.subtle.exportKey("jwk", key), iv};
   }
 
-  var SurvivalTab = {
+  var LifeBoat = {
     url: "about:blank",
     async createAndStore() {
       let allSeen = {};
+      let tab;
       await Promise.all((await browser.tabs.query({})).map(
         async t => {
           let seen = await ns.collectSeen(t.id);
-          if (seen) allSeen[t.id] = seen;
+          if (seen) {
+            allSeen[t.id] = seen;
+            if (!tab || !tab.incognito && t.incognito) {
+              tab = t;
+            }
+          }
         }
       ));
 
-      let {url} = SurvivalTab;
-      let tabInfo = {
-        url,
-        active: false,
-      };
-      if (browser.windows) { // it may be missing on mobile
-        // check if an incognito windows exist and open our "survival" tab there
-        for (let w of await browser.windows.getAll()) {
-          if (w.incognito) {
-            tabInfo.windowId = w.id;
-            break;
-          }
-        }
-      }
-      let tab;
-      for (;!tab;) {
-        try {
-          tab = await browser.tabs.create(tabInfo);
-        } catch (e) {
-          error(e);
-          if (tabInfo.windowId) {
-          // we might not have incognito permissions, let's try using any window
-            delete tabInfo.windowId;
-          } else {
-            return; // bailout
-          }
-        }
-      }
-      let tabId = tab.id;
 
+      if (!tab) { // no suitable existing tab, let's open a new one
+        if (!UA.isMozilla) {
+          // injecting new about:blank tabs is supported only by Mozilla: let's bailout
+          return;
+        }
+        let {url} = LifeBoat;
+        let tabInfo = {
+          url,
+          active: false,
+        };
+        if (browser.windows) { // it may be missing on mobile
+          // check if an incognito window exists and open our "survival" tab there
+          for (let w of await browser.windows.getAll()) {
+            if (w.incognito) {
+              tabInfo.windowId = w.id;
+              break;
+            }
+          }
+        }
+        for (;!tab;) {
+          try {
+            tab = await browser.tabs.create(tabInfo);
+          } catch (e) {
+            error(e);
+            if (tabInfo.windowId) {
+            // we might not have incognito permissions, let's try using any window
+              delete tabInfo.windowId;
+            } else {
+              return; // bailout
+            }
+          }
+        }
+      }
+
+      let tabId = tab.id;
+      let {url} = tab;
       let {cypherText, key, iv} = await encrypt(JSON.stringify({
         policy: ns.policy.dry(true),
         allSeen,
         unrestrictedTabs: [...ns.unrestrictedTabs]
       }));
 
+      let attr;
       try {
         await new Promise((resolve, reject) => {
-          let done = false;
           let l = async (tabId, changeInfo) => {
-            if (done || tabId !== tab.id) return;
+            if (!!attr || tabId !== tab.id) return;
             debug("Survival tab updating", changeInfo);
             if (changeInfo.status !== "complete") return;
             try {
-              await Messages.send("store", {url, data: toBase64(new Uint8Array(cypherText))}, {tabId, frameId: 0});
-              done = true;
+              attr = await Messages.send("store", {url, data: toBase64(new Uint8Array(cypherText))}, {tabId, frameId: 0});
               resolve();
               debug("Survival tab updated");
             } catch (e) {
@@ -97,18 +109,17 @@ var LifeCycle = (() => {
             return true;
           };
 
-          try {
-            browser.tabs.onUpdated.addListener(l);
-          } catch (e) {
-            reject(e);
-          }
+
+          l(tabId, tab).then(r => {
+            if (!r) browser.tabs.onUpdated.addListener(l);
+          });
         });
 
-        await Storage.set("local", { "updateInfo": {key, iv: toBase64(iv), tabId}});
+        await Storage.set("local", { "updateInfo": {key, iv: toBase64(iv), tabId, url, attr}});
         tabId = -1;
         debug("Ready to reload...", await Storage.get("local", "updateInfo"));
       } finally {
-        if (tabId !== -1 && !ns.local.debug) {
+        if (tabId !== -1 && url === LifeBoat.url && !ns.local.debug) {
           browser.tabs.remove(tabId); // cleanup on failure unless we want to debug a post-mortem
         }
       }
@@ -118,15 +129,26 @@ var LifeCycle = (() => {
       let {updateInfo} = await Storage.get("local", "updateInfo");
       if (!updateInfo) return;
       await Storage.remove("local", "updateInfo");
-      let {key, iv, tabId} = updateInfo;
+      let {key, iv, tabId, attr, url} = updateInfo;
+
+      let destroyIfNeeded = url === LifeBoat.url ? (keepIfDebug = false) => {
+        if (tabId === -1 || url !== LifeBoat.url) return;
+        if (keepIfDebug && ns.local.debug) {
+          debug("Failed survival tab %s left open for debugging.", tabId);
+        } else {
+          browser.tabs.remove(tabId);
+        }
+        tabId = -1;
+      } : () => {};
+
       try {
         key = await crypto.subtle.importKey("jwk", key, AES, true, keyUsages);
         iv = fromBase64(iv);
         let cypherText;
-        let {url} = SurvivalTab;
         for (let attempts = 3; attempts-- > 0;) {
           try {
-            cypherText = await Messages.send("retrieve", {url}, {tabId, frameId: 0});
+            cypherText = await Messages.send("retrieve", {url, attr}, {tabId, frameId: 0});
+            break;
           } catch (e) {
             if (Messages.isMissingEndpoint(e)) {
               debug("Cannot retrieve survival tab data, maybe content script not loaded yet. Retrying...");
@@ -151,10 +173,10 @@ var LifeCycle = (() => {
           throw new error("Ephemeral policy not found in survival tab %s!", tabId);
         }
         ns.unrestrictedTabs = new Set(unrestrictedTabs);
-        browser.tabs.remove(tabId);
-        tabId = -1;
-        await ns.initializing;
+
+        destroyIfNeeded();
         ns.policy = new Policy(policy);
+        await ns.initializing;
         await Promise.all(
           Object.entries(allSeen).map(
             async ([tabId, seen]) => {
@@ -170,13 +192,7 @@ var LifeCycle = (() => {
       } catch (e) {
         error(e);
       } finally {
-        if (tabId !== -1) {
-          if (ns.local.debug) {
-            debug("Failed survival tab %s left open for debugging.", tabId);
-          } else {
-            browser.tabs.remove(tabId);
-          }
-        }
+        destroyIfNeeded(true);
       }
     }
   }
@@ -184,11 +200,30 @@ var LifeCycle = (() => {
   return {
     async onInstalled(details) {
       browser.runtime.onInstalled.removeListener(this.onInstalled);
+
+      if (!UA.isMozilla) {
+        // Chromium does not inject content scripts at startup automatically for already loaded pages,
+        // let's hack it manually.
+        let contentScripts = browser.runtime.getManifest().content_scripts.find(s =>
+          s.js && s.matches.includes("<all_urls>") && s.all_frames && s.match_about_blank).js;
+
+        await Promise.all((await browser.tabs.query({})).map(async tab => {
+          for (let file of contentScripts) {
+            try {
+              await browser.tabs.executeScript(tab.id, {file, allFrames: true, matchAboutBlank: true});
+            } catch (e) {
+              error(e, "Can't run content script on tab", tab);
+              break;
+            }
+          }
+        }));
+      }
+
       let {reason, previousVersion} = details;
       if (reason !== "update") return;
 
       try {
-        await SurvivalTab.retrieveAndDestroy();
+        await LifeBoat.retrieveAndDestroy();
       } catch (e) {
         error(e);
       }
@@ -220,7 +255,7 @@ var LifeCycle = (() => {
           // downgrade: temporary survival might not be supported, and we don't care
           return;
         }
-        await SurvivalTab.createAndStore();
+        await LifeBoat.createAndStore();
       } catch (e) {
         console.error(e);
       } finally {

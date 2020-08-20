@@ -105,10 +105,10 @@ var RequestGuard = (() => {
         return s && `<${t === "sub_frame" ? "frame" : t}>: ${b}/${s}`;
       }).filter(s => s).join("\n");
       let enforced = ns.isEnforced(tabId);
-      let icon = topAllowed ?
-        (numBlocked ? "part"
-          : enforced ? "yes" : "global")
-        : (numAllowed ? "sub" : "no");
+      let icon = enforced ?
+        (topAllowed ? (numBlocked ? "part" : "yes")
+        : (numAllowed ? "sub" : "no")) // not topAllowed
+        : "global"; // not enforced
       let showBadge = ns.local.showCountBadge && numBlocked > 0;
       let browserAction = browser.browserAction;
       if (!browserAction.setIcon) { // Fennec

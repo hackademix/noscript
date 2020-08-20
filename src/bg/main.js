@@ -32,13 +32,15 @@
   async function init() {
     await Defaults.init();
 
-    let policyData = (await Storage.get("sync", "policy")).policy;
-    if (policyData && policyData.DEFAULT) {
-      ns.policy = new Policy(policyData);
-    } else {
-      await include("/legacy/Legacy.js");
-      ns.policy = await Legacy.createOrMigratePolicy();
-      await ns.savePolicy();
+    if (!ns.policy) { // it could have been already retrieved by LifeCycle
+      let policyData = (await Storage.get("sync", "policy")).policy;
+      if (policyData && policyData.DEFAULT) {
+        ns.policy = new Policy(policyData);
+      } else {
+        await include("/legacy/Legacy.js");
+        ns.policy = await Legacy.createOrMigratePolicy();
+        await ns.savePolicy();
+      }
     }
 
     Sites.onionSecure = ns.local.isTorBrowser;
