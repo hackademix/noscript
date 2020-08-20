@@ -75,26 +75,43 @@ var LifeCycle = (() => {
         unrestrictedTabs: [...ns.unrestrictedTabs]
       }));
 
-      await new Promise((resolve, reject) => {
-        let l = async (tabId, changeInfo) => {
-          debug("Survival tab updating", changeInfo);
-          if (changeInfo.status !== "complete") return;
-          try {
-            await Messages.send("store", {url, data: toBase64(new Uint8Array(cypherText))}, {tabId, frameId: 0});
-            resolve();
-            debug("Survival tab updated");
-            browser.tabs.onUpdated.removeListener(l);
-          } catch (e) {
-            if (!Messages.isMissingEndpoint(e)) {
-              error(e, "Survival tab failed");
-              reject(e);
-            } // otherwise we keep waiting for further updates from the tab until content script is ready to answer
+      try {
+        await new Promise((resolve, reject) => {
+          let done = false;
+          let l = async (tabId, changeInfo) => {
+            if (done || tabId !== tab.id) return;
+            debug("Survival tab updating", changeInfo);
+            if (changeInfo.status !== "complete") return;
+            try {
+              await Messages.send("store", {url, data: toBase64(new Uint8Array(cypherText))}, {tabId, frameId: 0});
+              done = true;
+              resolve();
+              debug("Survival tab updated");
+            } catch (e) {
+              if (!Messages.isMissingEndpoint(e)) {
+                error(e, "Survival tab failed");
+                reject(e);
+              } // otherwise we keep waiting for further updates from the tab until content script is ready to answer
+              return false;
+            };
+            return true;
           };
+
+          try {
+            browser.tabs.onUpdated.addListener(l);
+          } catch (e) {
+            reject(e);
+          }
+        });
+
+        await Storage.set("local", { "updateInfo": {key, iv: toBase64(iv), tabId}});
+        tabId = -1;
+        debug("Ready to reload...", await Storage.get("local", "updateInfo"));
+      } finally {
+        if (tabId !== -1 && !ns.local.debug) {
+          browser.tabs.remove(tabId); // cleanup on failure unless we want to debug a post-mortem
         }
-        browser.tabs.onUpdated.addListener(l, {tabId});
-      });
-      await Storage.set("local", { "updateInfo": {key, iv: toBase64(iv), tabId}});
-      debug("Ready to reload...", await Storage.get("local", "updateInfo"));
+      }
     },
 
     async retrieveAndDestroy() {
