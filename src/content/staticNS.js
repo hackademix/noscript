@@ -71,7 +71,7 @@
       let localPolicy;
       if (syncLoad && originalState !== "complete") {
         localPolicy = {
-          key: `[ns.policy.${url}|${browser.runtime.getURL("")}|${Math.floor(Date.now() / 10000)}]`,
+          key: `[${sha256(`ns.policy.${url}|${browser.runtime.getURL("")}`)}]`,
           read(resetName = false) {
             let [policy, name] =
               window.name.includes(this.key) ? window.name.split(this.key) : [null, window.name];
@@ -86,7 +86,7 @@
             let policyString = JSON.stringify(policy);
             window.name = [policyString, name].join(this.key);
             // verify
-            if (JSON.stringify(this.read(false).policy) !== policyString) {
+            if (JSON.stringify(this.read().policy) !== policyString) {
               throw new Error("Can't write localPolicy", policy, window.name);
             }
           }
@@ -97,14 +97,15 @@
           if (policy) {
             debug("Applying localPolicy", policy);
             this.setup(policy);
-            let onBeforeUnload = e => {
+            let onEarlyReload = e => {
               // this fixes infinite reload loops if Firefox decides to reload the page immediately
               // because it needs to be reparsed (e.g. broken / late charset declaration)
               // see https://forums.informaction.com/viewtopic.php?p=102850
-              localPolicy.write(policy);
+              documentCSP.apply(new Set()); // block everything to prevent leaks from page's event handlers
+              addEventListener("pagehide", e => localPolicy.write(policy), false);
             };
-            addEventListener("beforeunload", onBeforeUnload, false);
-            addEventListener("DOMContentLoaded", e => removeEventListener(onBeforeUnload, false), true);
+            addEventListener("beforeunload", onEarlyReload, false);
+            addEventListener("DOMContentLoaded", e => removeEventListener("beforeunload", onEarlyReload, false), true);
             return;
           }
         } catch(e) {
