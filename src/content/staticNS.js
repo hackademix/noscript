@@ -36,6 +36,13 @@
 
     fetchPolicy() {
       let url = document.URL;
+
+      let syncFetch = callback => {
+        browser.runtime.sendSyncMessage(
+          {id: "fetchPolicy", url, contextUrl: url},
+          callback);
+      };
+
       debug(`Fetching policy from document %s, readyState %s`,
         url, document.readyState
         , document.documentElement.outerHTML, // DEV_ONLY
@@ -102,6 +109,11 @@
               // because it needs to be reparsed (e.g. broken / late charset declaration)
               // see https://forums.informaction.com/viewtopic.php?p=102850
               documentCSP.apply(new Set()); // block everything to prevent leaks from page's event handlers
+              try {
+                syncFetch(p => policy = p); // user might have changed the permissions in the meanwhile...
+              } catch (e) {
+                error(e);
+              }
               addEventListener("pagehide", e => localPolicy.write(policy), false);
             };
             addEventListener("beforeunload", onEarlyReload, false);
@@ -137,9 +149,7 @@
 
       for (let attempts = 3; attempts-- > 0;) {
         try {
-          browser.runtime.sendSyncMessage(
-            {id: "fetchPolicy", url, contextUrl: url},
-            setup);
+          syncFetch(setup);
           break;
         } catch (e) {
           if (!Messages.isMissingEndpoint(e) || document.readyState === "complete") {
