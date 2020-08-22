@@ -240,14 +240,11 @@
           console.debug("sendSyncMessage resume #%s/%s - %sms", id, suspended, Date.now() - startTime); // DEV_ONLY
         };
 
-
-
         let domSuspender = new MutationObserver(records => {
           console.debug("sendSyncMessage suspending on ", records)
           suspend();
         });
         domSuspender.observe(document.documentElement, {childList: true});
-
 
         let finalize = () => {
           console.debug("sendSyncMessage finalizing");

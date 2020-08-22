@@ -3,7 +3,7 @@
   let listenersMap = new Map();
   let backlog = new Set();
   let documentCSP = new DocumentCSP(document);
-  documentCSP.removeEventAttributes();
+
   let ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
@@ -37,114 +37,107 @@
     fetchPolicy() {
       let url = document.URL;
 
-      let syncFetch = callback => {
-        browser.runtime.sendSyncMessage(
-          {id: "fetchPolicy", url, contextUrl: url},
-          callback);
-      };
-
       debug(`Fetching policy from document %s, readyState %s`,
         url, document.readyState
-        , document.documentElement.outerHTML, // DEV_ONLY
-        document.domain, document.baseURI, window.isSecureContext // DEV_ONLY
+        //, document.domain, document.baseURI, window.isSecureContext // DEV_ONLY
       );
 
-      if (!/^(?:file|ftp|https?):/i.test(url)) {
+      let requireDocumentCSP = /^(?:ftp|file):/.test(url);
+      if (!requireDocumentCSP) {
+        // CSP headers have been already provided by webRequest, we are not in a hurry...
         if (/^(javascript|about):/.test(url)) {
           url = document.readyState === "loading"
           ? document.baseURI
           : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
           debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
         }
-        (async () => {
-          let policy;
+        let asyncFetch = async () => {
           try {
             policy = await Messages.send("fetchChildPolicy", {url, contextUrl: url});
           } catch (e) {
-            console.error("Error while fetching policy", e);
+            error(e, "Error while fetching policy");
           }
           if (policy === undefined) {
-            log("Policy was undefined, retrying in 1/2 sec...");
-            setTimeout(() => this.fetchPolicy(), 500);
+            let delay = 300;
+            log(`Policy was undefined, retrying in ${delay}ms...`);
+            setTimeout(asyncFetch, delay);
             return;
           }
           this.setup(policy);
-        })();
+        }
+        asyncFetch();
         return;
       }
 
-      let originalState = document.readyState;
-      let syncLoad = UA.isMozilla && /^(?:ftp|file):/.test(url);
-      let localPolicy;
-      if (syncLoad && originalState !== "complete") {
-        localPolicy = {
-          key: `[${sha256(`ns.policy.${url}|${browser.runtime.getURL("")}`)}]`,
-          read(resetName = false) {
-            let [policy, name] =
-              window.name.includes(this.key) ? window.name.split(this.key) : [null, window.name];
-            this.policy = policy ? (policy = JSON.parse(policy)) : null;
-            if (resetName) window.name = name;
-            return {policy, name};
-          },
-          write(policy = this.policy, name = window.name) {
-            if (name.includes(this.key)) {
-              ({name} = this.read());
-            }
-            let policyString = JSON.stringify(policy);
-            window.name = [policyString, name].join(this.key);
-            // verify
-            if (JSON.stringify(this.read().policy) !== policyString) {
-              throw new Error("Can't write localPolicy", policy, window.name);
-            }
-          }
-        }
+      // Here we've got no CSP header yet (file: or ftp: URL), we need one
+      // injected in the DOM as soon as possible.
+      debug("No CSP yet for non-HTTP document load: fetching policy synchronously...");
+      documentCSP.removeEventAttributes();
 
-        try {
-          let {policy} = localPolicy.read(true);
-          if (policy) {
-            debug("Applying localPolicy", policy);
-            this.setup(policy);
-            let onEarlyReload = e => {
-              // this fixes infinite reload loops if Firefox decides to reload the page immediately
-              // because it needs to be reparsed (e.g. broken / late charset declaration)
-              // see https://forums.informaction.com/viewtopic.php?p=102850
-              documentCSP.apply(new Set()); // block everything to prevent leaks from page's event handlers
-              try {
-                syncFetch(p => policy = p); // user might have changed the permissions in the meanwhile...
-              } catch (e) {
-                error(e);
-              }
-              addEventListener("pagehide", e => localPolicy.write(policy), false);
-            };
-            addEventListener("beforeunload", onEarlyReload, false);
-            addEventListener("DOMContentLoaded", e => removeEventListener("beforeunload", onEarlyReload, false), true);
-            return;
-          }
-        } catch(e) {
-          error(e, "Falling back: could not setup local policy", localPolicy.policy);
-          this.setup(null);
+      let earlyScripts = [];
+      let dequeueEarlyScripts = (last = false) => {
+        if (!(ns.canScript && earlyScripts)) return;
+        if (earlyScripts.length === 0) {
+          earlyScripts = null;
           return;
         }
-        debug("Stopping synchronous load to fetch and apply localPolicy...");
+        for (let s; s = earlyScripts.shift(); ) {
+          debug("Restoring", s);
+          s.firstChild._replaced = true;
+          s._original.replaceWith(s);
+        }
+      }
+
+      let syncFetch = callback => {
+        browser.runtime.sendSyncMessage(
+          {id: "fetchPolicy", url, contextUrl: url},
+          callback);
+      };
+
+      if (UA.isMozilla && document.readyState !== "complete") {
+        // Mozilla has already parsed the <head> element, we must take extra steps...
+
+        debug("Early parsing: preemptively suppressing events and script execution.");
+        {
+          let eventTypes = [];
+          for (let p in document.documentElement) if (p.startsWith("on")) eventTypes.push(p.substring(2));
+          let eventSuppressor = e => {
+            if (!ns.canScript) {
+              e.preventDefault();
+              e.stopImmediatePropagation();
+              e.stopPropagation();
+              if (e.type === "load") debug(`Suppressing ${e.type} on `, e.target);
+            } else {
+              debug("Stopping suppression");
+              for (let et of eventTypes) document.removeEventListener(et, eventSuppressor, true);
+            }
+          }
+          for (let et of eventTypes) document.addEventListener(et, eventSuppressor, true);
+        }
+
         addEventListener("beforescriptexecute", e => {
-          console.log("Blocking early script", e.target);
-          e.preventDefault();
-        });
-        stop();
+          debug(e.type, e.target);
+          if (earlyScripts) {
+            let s = e.target;
+            if (s._replaced) {
+              debug("Replaced script found");
+              dequeueEarlyScripts(true);
+              return;
+            }
+            let replacement = document.createRange().createContextualFragment(s.outerHTML);
+            replacement._original = e.target;
+            earlyScripts.push(replacement);
+            e.preventDefault();
+            dequeueEarlyScripts(true);
+            debug("Blocked early script");
+          }
+        }, true);
       }
 
       let setup = policy => {
         debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
         this.setup(policy);
-        if (localPolicy) {
-          try {
-            localPolicy.write(policy);
-            location.reload(false);
-          } catch (e) {
-            error(e, "Cannot write local policy, bailing out...")
-          }
-          return;
-        }
+        documentCSP.restoreEventAttributes();
       }
 
       for (let attempts = 3; attempts-- > 0;) {
@@ -160,6 +153,7 @@
         }
       }
 
+      dequeueEarlyScripts();
     },
 
     setup(policy) {
@@ -178,7 +172,6 @@
         this.capabilities = new Set(perms.capabilities);
         documentCSP.apply(this.capabilities, this.embeddingDocument);
       }
-      documentCSP.restoreEventAttributes();
       this.canScript = this.allows("script");
       this.fire("capabilities");
     },
@@ -188,10 +181,6 @@
     allows(cap) {
       return this.capabilities && this.capabilities.has(cap);
     },
-
-    getWindowName() {
-      return window.name;
-    }
   };
 
   if (this.ns) {
