@@ -103,9 +103,20 @@
           let eventTypes = [];
           for (let p in document.documentElement) if (p.startsWith("on")) eventTypes.push(p.substring(2));
           let eventSuppressor = e => {
-            if (!ns.canScript) {
-              e.stopImmediatePropagation();
-              debug(`Suppressing ${e.type} on `, e.target); // DEV_ONLY
+            try {
+              debug("Event suppressor called for ", e.type, e.target, earlyScripts, e.target._earlyScript); // DEV_ONLY
+              if (!earlyScripts || document.readyState === "complete") {
+                debug("Stopping event suppression");
+                for (let et of eventTypes) document.removeEventListener(et, eventSuppressor, true);
+                return;
+              }
+
+              if (!ns.canScript || e.target._earlyScript) {
+                e.stopImmediatePropagation();
+                debug(`Suppressing ${e.type} on `, e.target); // DEV_ONLY
+              }
+            } catch (e) {
+              error(e);
             }
           }
           debug("Starting event suppression");
@@ -126,8 +137,7 @@
                 error(e);
               }
             }
-            debug("Stopping event suppression");
-            for (let et of eventTypes) document.removeEventListener(et, eventSuppressor, true);
+
           });
         }
 
@@ -142,7 +152,7 @@
             }
             let replacement = document.createRange().createContextualFragment(s.outerHTML);
             replacement._original = s;
-            s._replaced = true;
+            s._earlyScript = true;
             earlyScripts.push(replacement);
             e.preventDefault();
             dequeueEarlyScripts(true);
@@ -169,7 +179,6 @@
           error("Background page not ready yet, retrying to fetch policy...")
         }
       }
-
       dequeueEarlyScripts();
     },
 
