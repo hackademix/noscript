@@ -98,21 +98,37 @@
         // Mozilla has already parsed the <head> element, we must take extra steps...
 
         debug("Early parsing: preemptively suppressing events and script execution.");
+
         {
           let eventTypes = [];
           for (let p in document.documentElement) if (p.startsWith("on")) eventTypes.push(p.substring(2));
           let eventSuppressor = e => {
             if (!ns.canScript) {
-              e.preventDefault();
               e.stopImmediatePropagation();
-              e.stopPropagation();
-              if (e.type === "load") debug(`Suppressing ${e.type} on `, e.target);
-            } else {
-              debug("Stopping suppression");
-              for (let et of eventTypes) document.removeEventListener(et, eventSuppressor, true);
+              debug(`Suppressing ${e.type} on `, e.target); // DEV_ONLY
             }
           }
+          debug("Starting event suppression");
           for (let et of eventTypes) document.addEventListener(et, eventSuppressor, true);
+
+          ns.on("capabilities", () => {
+            if (!ns.canScript) {
+              try {
+                for (node of document.querySelectorAll("*")) {
+                  let evAttrs = [...node.attributes].filter(a => a.name.toLowerCase().startsWith("on"));
+                  for (let a of evAttrs) {
+                    debug("Reparsing event attribute after CSP", a, node);
+                    node.removeAttributeNode(a);
+                    node.setAttributeNodeNS(a);
+                  }
+                }
+              } catch (e) {
+                error(e);
+              }
+            }
+            debug("Stopping event suppression");
+            for (let et of eventTypes) document.removeEventListener(et, eventSuppressor, true);
+          });
         }
 
         addEventListener("beforescriptexecute", e => {
@@ -125,7 +141,8 @@
               return;
             }
             let replacement = document.createRange().createContextualFragment(s.outerHTML);
-            replacement._original = e.target;
+            replacement._original = s;
+            s._replaced = true;
             earlyScripts.push(replacement);
             e.preventDefault();
             dequeueEarlyScripts(true);
