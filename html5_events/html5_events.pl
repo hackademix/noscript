@@ -103,12 +103,12 @@ sub patch
   if ($must_replace) {
     rename $dst, $src;
     print "Patched.\n";
+    return 0;
   }
-  else
-  {
-    unlink $dst;
-    print "Nothing to do.\n";
-  }
+
+  unlink $dst;
+  print "Nothing to do.\n";
+  return 1;
 }
 
-patch($SOURCE_FILE);
+exit(patch($SOURCE_FILE));

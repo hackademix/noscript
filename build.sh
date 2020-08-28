@@ -69,7 +69,11 @@ if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') -a "$1" != "tld
   git add src/lib/tld.js TLD && git commit -m'Updated TLDs.'
 fi
 
-./html5_events/html5_events.pl
+if ./html5_events/html5_events.pl; then
+  # update full event list as an array in src/content/syncFetchPolicy.js
+  EVENTS=$(egrep '^on[a-z]+$' html5_events/html5_events_archive.txt | sed "s/^on//;s/.*/'&'/;H;1h;"'$!d;x;s/\n/, /g');
+  perl -pi -e 's/(\blet eventTypes\s*=\s*)\[.*?\]/$1['"$EVENTS"']/' src/content/syncFetchPolicy.js
+fi
 
 rm -rf "$BUILD" "$XPI"
 cp -pR "$SRC" "$BUILD"

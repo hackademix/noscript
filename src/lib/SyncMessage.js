@@ -244,8 +244,7 @@
           console.debug("sendSyncMessage suspending on ", records)
           suspend();
         });
-        domSuspender.observe(document.documentElement, {childList: true});
-
+        domSuspender.observe(document, {childList: true, subtree: true});
         let finalize = () => {
           console.debug("sendSyncMessage finalizing");
           domSuspender.disconnect();

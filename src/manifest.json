@@ -72,7 +72,15 @@
        "css": [
          "/content/content.css"
        ]
-     },
+    },
+    {
+      "run_at": "document_start",
+      "matches": ["file://*/*", "ftp://*/*"],
+      "js": [
+        "lib/SyncMessage.js",
+        "content/syncFetchPolicy.js"
+      ]
+    },
     {
       "run_at": "document_start",
       "matches": ["<all_urls>"],
@@ -83,7 +91,6 @@
         "lib/browser-polyfill.js",
         "lib/log.js",
         "lib/uuid.js",
-        "lib/SyncMessage.js",
         "lib/sha256.js",
         "lib/Messages.js",
         "lib/CSP.js",

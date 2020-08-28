@@ -6,13 +6,6 @@ class DocumentCSP {
     this.root = document.documentElement;
   }
 
-  removeEventAttributes() {
-    console.debug("Removing event attributes"); // DEV_ONLY
-    let {root} = this;
-    this.rootAttrs = [...root.attributes].filter(a => a.name.toLowerCase().startsWith("on"));
-    for (let a of this.rootAttrs) root.removeAttributeNode(a);
-  }
-
   apply(capabilities, embedding = CSP.isEmbedType(this.document.contentType)) {
     let {document} = this;
     if (!capabilities.has("script")) {
@@ -40,8 +33,6 @@ class DocumentCSP {
     meta.setAttribute("http-equiv", header.name);
     meta.setAttribute("content", header.value);
     let root = document.documentElement;
-    let rootAttrs = [...root.attributes].filter(a => a.name.toLowerCase().startsWith("on"));
-    for (let a of rootAttrs) root.removeAttributeNode(a);
 
     let {head} = document;
     let parent = head ||
@@ -59,14 +50,5 @@ class DocumentCSP {
       return false;
     }
     return true;
-  }
-
-  restoreEventAttributes() {
-    if (!this.rootAttrs) return;
-    console.debug("Restoring event attributes"); // DEV_ONLY
-    let {root, rootAttrs} = this;
-    for (let a of rootAttrs) {
-      root.setAttributeNodeNS(a);
-    }
   }
 }
