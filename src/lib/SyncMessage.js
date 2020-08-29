@@ -245,9 +245,17 @@
           suspend();
         });
         domSuspender.observe(document, {childList: true, subtree: true});
+
+        let bodySuspender = e => {
+          console.debug("Suspending on DOMContentLoaded");
+          suspend();
+        };
+
+        addEventListener("DOMContentLoaded", bodySuspender, true);
         let finalize = () => {
           console.debug("sendSyncMessage finalizing");
           domSuspender.disconnect();
+          removeEventListener("DOMContentLoaded", bodySuspender, true);
         };
 
         // on Firefox we first need to send an async message telling the
