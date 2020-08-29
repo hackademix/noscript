@@ -77,7 +77,6 @@
       "run_at": "document_start",
       "matches": ["file://*/*", "ftp://*/*"],
       "js": [
-        "lib/SyncMessage.js",
         "content/syncFetchPolicy.js"
       ]
     },
@@ -89,6 +88,7 @@
       "js": [
         "lib/UA.js",
         "lib/browser-polyfill.js",
+        "lib/SyncMessage.js",
         "lib/log.js",
         "lib/uuid.js",
         "lib/sha256.js",
@@ -106,6 +106,7 @@
         "content/sanitizePaste.js"
       ]
     },
+
     {
       "run_at": "document_start",
       "matches": ["ftp://*/*"],

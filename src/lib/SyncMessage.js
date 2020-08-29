@@ -216,11 +216,6 @@
 
       if (MOZILLA) {
 
-        // In order to cope with inconsistencies in XHR synchronicity,
-        // allowing scripts to be executed (especially with synchronous loads
-        // or when other extensions manipulate the DOM early) we additionally
-        // suspend on beforescriptexecute events
-
         let startTime = Date.now(); // DEV_ONLY
         let suspendURL = url + "&suspend=true";
         let suspended = 0;
@@ -240,22 +235,8 @@
           console.debug("sendSyncMessage resume #%s/%s - %sms", id, suspended, Date.now() - startTime); // DEV_ONLY
         };
 
-        let domSuspender = new MutationObserver(records => {
-          console.debug("sendSyncMessage suspending on ", records)
-          suspend();
-        });
-        domSuspender.observe(document, {childList: true, subtree: true});
-
-        let bodySuspender = e => {
-          console.debug("Suspending on DOMContentLoaded");
-          suspend();
-        };
-
-        addEventListener("DOMContentLoaded", bodySuspender, true);
         let finalize = () => {
           console.debug("sendSyncMessage finalizing");
-          domSuspender.disconnect();
-          removeEventListener("DOMContentLoaded", bodySuspender, true);
         };
 
         // on Firefox we first need to send an async message telling the
