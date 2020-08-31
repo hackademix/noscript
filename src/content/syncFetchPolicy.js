@@ -19,6 +19,7 @@
     // Mozilla has already parsed the <head> element, we must take extra steps...
 
     let softReloading = true;
+    let suppressedScripts = 0;
     debug("Early parsing: preemptively suppressing events and script execution.");
 
     try {
@@ -57,7 +58,7 @@
         }
 
         let {readyState} = document;
-        debug("Readystate: %s, canScript: ", readyState, ns.canScript);
+        debug("Readystate: %s, %suppressedScripts %s, canScript = %s", readyState, suppressedScripts, ns.canScript);
         if (!ns.canScript) {
            for (let node of document.querySelectorAll("*")) {
             let evAttrs = [...node.attributes].filter(a => a.name.toLowerCase().startsWith("on"));
@@ -67,6 +68,13 @@
               node.setAttributeNodeNS(a);
             }
           }
+          softReloading = false;
+          return;
+        }
+
+        if (suppressedScripts === 0 && readyState === "loading") {
+          // we don't care reloading, if no script has been suppressed
+          // and no readyState change has been fired yet
           softReloading = false;
           return;
         }
@@ -143,7 +151,8 @@
       debug(e.type, e.target, softReloading); // DEV_ONLY
       if (softReloading) {
         e.preventDefault();
-        debug("Blocked early script", e.target);
+        ++suppressedScripts;
+        debug(`Suppressed early script #${suppressedScripts}`, e.target);
       } else {
         removeEventListener(e.type, scriptSuppressor);
       }
