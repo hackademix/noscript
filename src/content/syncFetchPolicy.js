@@ -13,14 +13,22 @@
       {id: "fetchPolicy", url, contextUrl: url},
       callback);
   };
+  debug("Initial readyState and body", document.readyState, document.body);
 
-  if (UA.isMozilla && document.readyState !== "complete") {
+  if (UA.isMozilla) {
     // Mozilla has already parsed the <head> element, we must take extra steps...
 
     let softReloading = true;
     debug("Early parsing: preemptively suppressing events and script execution.");
 
-    {
+    try {
+
+      if (document.body && document.body.onload) {
+          // special treatment for body[onload], which could not be suppressed otherwise
+          document.body._onload = document.body.getAttribute("onload");
+          document.body.removeAttribute("onload");
+          document.body.onload = null;
+      }
 
       // List updated by build.sh from https://hg.mozilla.org/mozilla-central/raw-file/tip/xpcom/ds/StaticAtoms.py
       // whenever html5_events/html5_events.pl retrieves something new.
@@ -44,55 +52,103 @@
       for (let et of eventTypes) document.addEventListener(et, eventSuppressor, true);
 
       ns.on("capabilities", () => {
+        if (document.body && document.body._onload) {
+          document.body.setAttribute("onload", document.body._onload);
+        }
+
         let {readyState} = document;
         debug("Readystate: %s, canScript: ", readyState, ns.canScript);
-        if (ns.canScript) {
-          let softReload = e => {
-            try {
-              debug("Soft reload", e);
-              removeEventListener("DOMContentLoaded", softReload, true);
-              let document = window.wrappedJSObject.document;
-              let html = document.documentElement.outerHTML;
-              document.open();
-              softReloading = false;
-              document.write(html);
-              document.close();
-            } catch(e) {
-              error(e);
+        if (!ns.canScript) {
+           for (let node of document.querySelectorAll("*")) {
+            let evAttrs = [...node.attributes].filter(a => a.name.toLowerCase().startsWith("on"));
+            for (let a of evAttrs) {
+              debug("Reparsing event attribute", a, node);
+              node.removeAttributeNode(a);
+              node.setAttributeNodeNS(a);
             }
           }
-          if (readyState === "loading") {
-            debug("Deferring softReload to DOMContentLoaded...");
-            addEventListener("DOMContentLoaded", softReload, true);
-          } else {
-            softReload();
-          }
-        } else {
-          try {
-            for (let node of document.querySelectorAll("*")) {
-              let evAttrs = [...node.attributes].filter(a => a.name.toLowerCase().startsWith("on"));
-              for (let a of evAttrs) {
-                debug("Reparsing event attribute after CSP", a, node);
-                node.removeAttributeNode(a);
-                node.setAttributeNodeNS(a);
+          softReloading = false;
+          return;
+        }
+
+        let softReload = ev => {
+           let html = document.documentElement.outerHTML;
+           try {
+            debug("Soft reload", ev, html);
+            softReloading = false;
+            try {
+              let doc = window.wrappedJSObject.document;
+              removeEventListener("DOMContentLoaded", softReload, true);
+              doc.open();
+              doc.write(html);
+              doc.close();
+              debug("Written", html)
+            } catch (e) {
+              debug("Can't use document.write(), XML document?");
+              try {
+                Promise.all([...document.querySelectorAll("script")].map(s => {
+                  let clone = document.createElement("script");
+                  for (let a of s.attributes) {
+                    clone.setAttribute(a.name, a.value);
+                  }
+                  clone.textContent = s.textContent;
+                  let doneEvents = ["afterscriptexecute", "load", "error"];
+                  return new Promise(resolve => {
+                    let listener = ev => {
+                      if (ev.target !== clone) return;
+                      debug("Resolving on ", ev.type, ev.target);
+                      resolve(ev.target);
+                      for (let et of doneEvents) removeEventListener(et, listener, true);
+                    };
+                    for (let et of doneEvents) {
+                      addEventListener(et, listener, true);
+                     }
+                    s.replaceWith(clone);
+                    debug("Replaced", clone);
+                  });
+                })).then(r => {
+                    debug("All scripts done", r);
+                    document.dispatchEvent(new Event("readystatechange"));
+                    document.dispatchEvent(new Event("DOMContentLoaded", {
+                      bubbles: true,
+                      cancelable: true
+                    }));
+                    if (document.readyState === "complete") {
+                      window.dispatchEvent(new Event("load"));
+                    }
+                  });
+              } catch (e) {
+                error(e);
               }
             }
-            softReloading = false;
-          } catch (e) {
+          } catch(e) {
             error(e);
           }
+        };
+
+        if (readyState === "loading") {
+          debug("Deferring softReload to DOMContentLoaded...");
+          addEventListener("DOMContentLoaded", softReload, true);
+        } else {
+          softReload();
         }
+
       });
+    } catch (e) {
+      error(e);
     }
 
-    addEventListener("beforescriptexecute", e => {
+    let scriptSuppressor = e => {
       if (!e.isTrusted) return;
-      debug(e.type, e.target);
+      debug(e.type, e.target, softReloading); // DEV_ONLY
       if (softReloading) {
         e.preventDefault();
-        debug("Blocked early script", s);
+        debug("Blocked early script", e.target);
+      } else {
+        removeEventListener(e.type, scriptSuppressor);
       }
-    }, true);
+    };
+    addEventListener("beforescriptexecute", scriptSuppressor, true);
   }
 
   let setup = policy => {
