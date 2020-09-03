@@ -3,7 +3,6 @@ class DocumentCSP {
   constructor(document) {
     this.document = document;
     this.builder = new CapsCSP();
-    this.root = document.documentElement;
   }
 
   apply(capabilities, embedding = CSP.isEmbedType(this.document.contentType)) {
@@ -17,10 +16,7 @@ class DocumentCSP {
         debug("Fallback beforexecutescript listener blocked ", e.target);
       }, true);
     }
-    if (!(document instanceof HTMLDocument)) {
-      // this is not HTML, hence we cannot inject a <meta> CSP
-      return false;
-    }
+
     let csp = this.builder;
     let blocker = csp.buildFromCapabilities(capabilities, embedding);
     if (!blocker) return true;
@@ -35,10 +31,7 @@ class DocumentCSP {
     let root = document.documentElement;
 
     let {head} = document;
-    let parent = head ||
-      (root instanceof HTMLElement
-        ? document.documentElement.appendChild(createHTMLElement("head"))
-        : root);
+    let parent = head || document.documentElement.appendChild(createHTMLElement("head"))
 
     try {
       parent.insertBefore(meta, parent.firstElementChild);
