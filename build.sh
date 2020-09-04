@@ -19,7 +19,8 @@ strip_rc_ver() {
 VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
 if [ "$1" == "tag" ]; then
   echo "Tagging at $VER"
-  git tag -a "$VER" && git push origin "$VER"
+  git tag -a "$VER" 
+  git push origin "$VER"
   exit 0
 fi
 if [[ "$1" =~ ^r(el(ease)?)?$ ]]; then
