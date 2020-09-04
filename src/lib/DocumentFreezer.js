@@ -14,9 +14,8 @@ var DocumentFreezer = (() => {
   }
 
   function freezeAttributes() {
-    try {
     for (let element of document.querySelectorAll("*")) {
-      if (element._frozenAttributes) continue;
+      if (element._frozen) continue;
       let fa = [];
       let loaders = [];
       for (let a of element.attributes) {
@@ -41,16 +40,19 @@ var DocumentFreezer = (() => {
           element.replaceWith(element = element.cloneNode(true));
         }
       }
-      element._frozenAttributes = fa;
+      if (fa.length) element._frozenAttributes = fa;
+      element._frozen = true;
     }
-  } catch(e) { console.error(e )}
   }
 
   function unfreezeAttributes() {
     for (let element of document.querySelectorAll("*")) {
       if (!element._frozenAttributes) continue;
       for (let a of element._frozenAttributes) {
-        element.setAttributeNodeNS(a);
+        element.setAttributeNS(a.namespaceURI, a.name, a.value);
+      }
+      if ("contentWindow" in element) {
+        element.replaceWith(element.cloneNode(true));
       }
     }
   }
@@ -74,7 +76,11 @@ var DocumentFreezer = (() => {
       console.debug("Freezing", document.URL);
       document._frozen = true;
       for (let et of eventTypes) document.addEventListener(et, suppressEvents, true);
-      freezeAttributes();
+      try {
+        freezeAttributes();
+      } catch(e) {
+        console.error(e);
+      }
       domFreezer.observe(document, {childList: true, subtree: true});
       suppressedScripts = 0;
       addEventListener("beforescriptexecute", scriptSuppressor, true);
@@ -84,7 +90,11 @@ var DocumentFreezer = (() => {
       if (!document._frozen) return false;
       console.debug("Unfreezing", document.URL);
       domFreezer.disconnect();
-      unfreezeAttributes();
+      try {
+        unfreezeAttributes();
+      } catch(e) {
+        console.error(e);
+      }
       removeEventListener("beforescriptexecute", scriptSuppressor, true);
       for (let et of eventTypes) document.removeEventListener(et, suppressEvents, true);
       document._frozen = false;
