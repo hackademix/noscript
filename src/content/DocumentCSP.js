@@ -25,19 +25,38 @@ class DocumentCSP {
       tagName => document.createElementNS("http://www.w3.org/1999/xhtml", tagName);
 
     let header = csp.asHeader(blocker);
+
     let meta = createHTMLElement("meta");
     meta.setAttribute("http-equiv", header.name);
     meta.setAttribute("content", header.value);
+
     let root = document.documentElement;
-
-    let {head} = document;
-    let parent = head || document.documentElement.appendChild(createHTMLElement("head"))
-
     try {
+      if (!(document instanceof HTMLDocument)) {
+        // non-HTML XML documents ignore <meta> CSP unless wrapped in
+        // - <html><head></head></head> on Gecko
+        // - just <head></head> on Chromium
+        console.debug("XML Document: temporary replacing %o with <HTML>", root);
+        let htmlDoc = document.implementation.createHTMLDocument();
+        let htmlRoot = document.importNode(htmlDoc.documentElement, true);
+        document.replaceChild(htmlRoot, root);
+      }
+
+      let {head} = document;
+      let parent = head ||
+        document.documentElement.insertBefore(createHTMLElement("head"),
+                            document.documentElement.firstElementChild);
+
+
       parent.insertBefore(meta, parent.firstElementChild);
       debug(`Failsafe <meta> CSP inserted in %s: "%s"`, document.URL, header.value);
       meta.remove();
       if (!head) parent.remove();
+      if (document.documentElement !== root)
+      {
+
+        document.replaceChild(root, document.documentElement);
+      }
     } catch (e) {
       error(e, "Error inserting CSP %s in %s", document.URL, header && header.value);
       return false;

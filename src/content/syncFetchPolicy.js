@@ -25,13 +25,9 @@
 
         let {readyState} = document;
         debug("Readystate: %s, suppressedScripts = %s, canScript = %s", readyState, DocumentFreezer.suppressedScripts, ns.canScript);
-        // CSP works on HTML documents only on Mozilla: we'll keep frozen elsewhere
-        let honorsCSP = document instanceof HTMLDocument;
 
         if (!ns.canScript) {
-          if (honorsCSP) {
-            DocumentFreezer.unfreeze();
-          }
+          setTimeout(() => DocumentFreezer.unfreeze(), 0);
           return;
         }
 
