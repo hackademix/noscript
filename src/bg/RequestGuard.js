@@ -246,7 +246,11 @@ var RequestGuard = (() => {
           let recipient = {frameId: 0};
           for (let tab of await browser.tabs.query({url: ["http://*/*", "https://*/*"]})) {
             recipient.tabId = tab.id;
-            Messages.send("seen", payload, recipient);
+            try {
+              Messages.send("seen", payload, recipient);
+            } catch (e) {
+              // likely a privileged tab where our content script couldn't run
+            }
           }
         }
         return;
