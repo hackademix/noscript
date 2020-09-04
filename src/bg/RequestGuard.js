@@ -371,7 +371,9 @@ var RequestGuard = (() => {
               }
             }
           }
-          Content.reportTo(request, allowed, policyType);
+          if (type !== "main_frame") {
+            Content.reportTo(request, allowed, policyType);
+          }
           if (!allowed) {
             debug(`Blocking ${policyType}`, request);
             TabStatus.record(request, "blocked");
