@@ -33,6 +33,9 @@ class DocumentCSP {
     let root = document.documentElement;
     try {
       if (!(document instanceof HTMLDocument)) {
+        if (!(document instanceof XMLDocument)) {
+          return false; // nothing to do with ImageDocument, for instance
+        }
         // non-HTML XML documents ignore <meta> CSP unless wrapped in
         // - <html><head></head></head> on Gecko
         // - just <head></head> on Chromium

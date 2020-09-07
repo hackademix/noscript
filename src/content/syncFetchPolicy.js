@@ -24,6 +24,7 @@
       ns.on("capabilities", () => {
 
         let {readyState} = document;
+
         debug("Readystate: %s, suppressedScripts = %s, canScript = %s", readyState, DocumentFreezer.suppressedScripts, ns.canScript);
 
         if (!ns.canScript) {
@@ -45,6 +46,12 @@
             try {
               let doc = window.wrappedJSObject.document;
               removeEventListener("DOMContentLoaded", softReload, true);
+
+              let isDir = document.querySelector("link[rel=stylesheet][href^='chrome:']")
+                  && document.querySelector(`base[href^="${url}"]`);
+              if (isDir || document.contentType !== "text/html") {
+                throw new Error(`Can't document.write() on ${isDir ? "directory listings" : document.contentType}`)
+              }
               doc.open();
               console.debug("Opened", doc.documentElement);
               DocumentFreezer.unfreeze();
@@ -55,7 +62,7 @@
                 debug("Written", html)
               })();
             } catch (e) {
-              debug("Can't use document.write(), XML document?");
+              debug("Can't use document.write(), XML document?", e);
               try {
                 DocumentFreezer.unfreeze();
                 let scripts = [], deferred = [];
