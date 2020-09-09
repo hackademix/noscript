@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript bloqueado Objects",
+        "message": "NoScript Bloqueó Objetos",
         "description": ""
     },
     "BookmarkSync": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "Contraste alto",
+        "message": "Alto Contraste",
         "description": ""
     },
     "httpsOnly": {
