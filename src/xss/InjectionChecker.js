@@ -306,7 +306,7 @@ XSS.InjectionChecker = (async () => {
       '\\.' + IC_COMMENT_PATTERN + "src" + IC_COMMENT_PATTERN + '=' +
       IC_EVENT_DOS_PATTERN +
       "|\\b" + fuzzify("onerror") + "\\b[^]*=" +
-      "|=[s\\\\[ux]?\d{2}" + // escape (unicode/ascii/octal)
+      "|=\\\\[ux]?\\d{2}" + // escape (unicode/ascii/octal)
       "|\\b(?:toString|valueOf)\\b" + IC_COMMENT_PATTERN + "=[^]*(?:" + IC_EVAL_PATTERN + ")" +
       "|(?:\\)|(?:[^\\w$]|^)[$a-zA-Z_\\u0ff-\\uffff][$\\w\\u0ff-\\uffff]*)" + IC_COMMENT_PATTERN + '=>' + // concise function definition
       "|(?:[^\\w$]|^)" + IC_EVENT_PATTERN + IC_COMMENT_PATTERN + "="
