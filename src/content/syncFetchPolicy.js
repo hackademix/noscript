@@ -41,7 +41,6 @@
 
         let softReload = ev => {
            try {
-            //let html = document.documentElement.outerHTML;
             debug("Soft reload", ev); // DEV_ONLY
             try {
               let doc = window.wrappedJSObject.document;
@@ -52,15 +51,13 @@
               if (isDir || document.contentType !== "text/html") {
                 throw new Error(`Can't document.write() on ${isDir ? "directory listings" : document.contentType}`)
               }
+              DocumentFreezer.unfreeze();
+              let html = document.documentElement.outerHTML;
               doc.open();
               console.debug("Opened", doc.documentElement);
-              DocumentFreezer.unfreeze();
-              (async () => {
-                let html = await ((await fetch(document.URL)).text());
-                doc.write(html);
-                doc.close();
-                debug("Written", html)
-              })();
+              doc.write(html);
+              doc.close();
+              debug("Written", html);
             } catch (e) {
               debug("Can't use document.write(), XML document?", e);
               try {
