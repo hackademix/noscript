@@ -1,4 +1,5 @@
 if ("MediaSource" in window) {
+  let mediaBlocker;
   let notify = allowed => {
     let request = {
       id: "noscript-media",
@@ -22,12 +23,40 @@ if ("MediaSource" in window) {
       error(e);
     }
   };
+  if ("SecurityPolicyViolationEvent" in window) {
+    // "Modern" browsers
+    let createPlaceholders = () => {
+      let request = notify(false);
+      for (let me of document.querySelectorAll("video,audio")) {
+        if (!(me.src || me.currentSrc) || me.src.startsWith("blob")) {
+          createPlaceholder(me, request);
+        }
+      }
+    }
+    let processedURIs = new Set();
+    addEventListener("securitypolicyviolation", e => {
+      let {blockedURI, violatedDirective} = e;
+      if (!(e.isTrusted && violatedDirective.startsWith("media-src"))) return;
+      if (mediaBlocker === undefined && /^data\b/.test(blockedURI)) { // Firefox 81 reports just "data"
+        debug("mediaBlocker set via CSP listener.")
+        mediaBlocker = true;
+        e.stopImmediatePropagation();
+        return;
+      }
+      if (blockedURI.startsWith("blob") &&
+          !processedURIs.has(blockedURI)) {
+        processedURIs.add(blockedURI);
+        setTimeout(createPlaceholders, 0);
+      }
+    }, true);
+  }
 
   if (typeof exportFunction === "function") {
-    // Mozilla
-    let mediablocker = true;
+    // Fallback: Mozilla does not seem to trigger CSP media-src http: for blob: URIs assigned in MSE
+    window.wrappedJSObject.document.createElement("video").src = "data:"; // triggers early mediaBlocker initialization via CSP
     ns.on("capabilities", e => {
       mediaBlocker = !ns.allows("media");
+      if (mediaBlocker) debug("mediaBlocker set via fetched policy.")
     });
 
     let unpatched = new Map();
@@ -55,37 +84,23 @@ if ("MediaSource" in window) {
       if (mediaBlocker) {
         let exposedMime = `${mime} (MSE)`;
         setTimeout(() => {
-          let me = Array.from(document.querySelectorAll("video,audio"))
-            .find(e => e.srcObject === ms || urls && urls.has(e.src));
-          if (me) createPlaceholder(me, request);
+          try {
+            let allMedia = [...document.querySelectorAll("video,audio")];
+            let me = allMedia.find(e => e.srcObject === ms ||
+              urls && (urls.has(e.currentSrc) || urls.has(e.src))) ||
+              // throwing may cause src not to be assigned at all:
+              allMedia.find(e => !(e.src || e.currentSrc || e.srcObject));
+            if (me) createPlaceholder(me, request);
+          } catch (e) {
+            error(e);
+          }
         }, 0);
-        throw new Error(`${exposedMime} blocked by NoScript`);
+        let msg = `${exposedMime} blocked by NoScript`;
+        log(msg);
+        throw new Error(msg);
       }
 
       return unpatched.get(window.MediaSource.prototype).addSourceBuffer.call(ms, mime, ...args);
     });
-
-  } else if ("SecurityPolicyViolationEvent" in window) {
-    // Chromium
-    let createPlaceholders = () => {
-      let request = notify(false);
-      for (let me of document.querySelectorAll("video,audio")) {
-        if (!(me.src || me.currentSrc) || me.src.startsWith("blob")) {
-          createPlaceholder(me, request);
-        }
-      }
-    }
-    let processedURIs = new Set();
-    let whenReady = false;
-    addEventListener("securitypolicyviolation", e => {
-      if (!e.isTrusted || ns.allows("media")) return;
-      let {blockedURI, violatedDirective} = e;
-      if (blockedURI.startsWith("blob") &&
-          violatedDirective.startsWith("media-src") &&
-          !processedURIs.has(blockedURI)) {
-        processedURIs.add(blockedURI);
-        setTimeout(createPlaceholders, 0);
-      }
-    }, true);
   }
 }
