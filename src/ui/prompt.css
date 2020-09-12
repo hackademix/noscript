@@ -6,6 +6,7 @@ body {
   color: #222;
   margin: 0px;
   padding: 8px;
+  background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 41%,#9fd8ef 90%,#2ab0ed 100%) no-repeat;
 }
 
 #header {
@@ -13,10 +14,9 @@ body {
   margin: 0;
   line-height: 24px;
   color: #048;
-  position: relative;
   font-size: 24px;
   z-index: 500;
-  padding: 8px;
+  padding: 8px 8px 0 8px;
   display: block;
   background: url(/img/icon96.png) no-repeat top right;
   height: 96px;
@@ -25,23 +25,21 @@ body {
 #title {
   margin-right: 96px;
   font-size: 24px;
-  position: absolute;
   bottom: 0;
   top: 0;
 }
 
 #main {
-  background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 41%,#9fd8ef 90%,#2ab0ed 100%) no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 120px 16px 16px 16px;
+  padding: 0 16px;
   top: 0;
   left: 0;
   right:0;
   bottom: 0;
-  position: fixed;
   justify-content: center;
+  overflow: auto;
 }
 #message {
   flex-grow: 1;

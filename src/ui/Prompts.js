@@ -63,8 +63,8 @@ var Prompts = (() => {
       checks: [],
       buttons: [_("Ok"), _("Cancel")],
       multiple: "close", // or "queue", or "focus"
-      width: 400,
-      height: 300,
+      width:  500,
+      height: 400,
       alwaysOnTop: true,
     },
     async prompt(features) {

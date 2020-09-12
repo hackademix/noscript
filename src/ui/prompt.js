@@ -88,4 +88,18 @@
   for (let b of document.querySelectorAll("#buttons button")) {
     b.addEventListener("click", buttonClicked);
   }
+
+  let resize = async () => {
+    let win = await browser.windows.getCurrent();
+    let delta = document.documentElement.offsetHeight - window.innerHeight;
+    await browser.windows.update(win.id, {
+        width: win.width, height: win.height + delta,
+        left: win.left, top: win.top - Math.round(delta / 2)
+      });
+  }
+  if (document.readyState === "complete") {
+    resize();
+  } else {
+    window.addEventListener("load", resize);
+  }
 })();
