@@ -41,8 +41,14 @@
         //, document.domain, document.baseURI, window.isSecureContext // DEV_ONLY
       );
 
-      if (this.syncFetchPolicy) { // ftp: or file: - no CSP headers yet
-        this.syncFetchPolicy();
+      if (/^(ftp|file):/.test(url)) { // ftp: or file: - no CSP headers yet
+        if (this.syncFetchPolicy) {
+          this.syncFetchPolicy();
+        } else { // additional content scripts not loaded yet
+          log("Waiting for syncFetchPolicy to load...");
+          this.pendingFetchPolicy = true;
+          return;
+        }
       } else {
         // CSP headers have been already provided by webRequest, we are not in a hurry...
         if (/^(javascript|about):/.test(url)) {

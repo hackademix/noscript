@@ -143,4 +143,9 @@
       error("Background page not ready yet, retrying to fetch policy...")
     }
   }
+};
+
+if (this.ns.pendingSyncFetchPolicy) {
+  this.ns.pendingSyncFetchPolicy = false;
+  this.ns.syncFetchPolicy();
 }
