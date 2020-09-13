@@ -46,7 +46,7 @@
           this.syncFetchPolicy();
         } else { // additional content scripts not loaded yet
           log("Waiting for syncFetchPolicy to load...");
-          this.pendingFetchPolicy = true;
+          this.pendingSyncFetchPolicy = true;
           return;
         }
       } else {
