@@ -32,7 +32,7 @@
           return;
         }
 
-        if (DocumentFreezer.suppressedScripts === 0 && readyState === "loading") {
+        if (ocumentFreezer.suppressedScripts === 0 && readyState === "loading") {
           // we don't care reloading, if no script has been suppressed
           // and no readyState change has been fired yet
           DocumentFreezer.unfreeze();
@@ -75,11 +75,11 @@
                 let doneEvents = ["afterscriptexecute", "load", "error"];
                 (async () => {
                   for (let s of scripts) {
-                    let clone = document.createElement("script");
+                    let clone = document.createElementNS(s.namespaceURI, "script");
                     for (let a of s.attributes) {
-                      clone.setAttribute(a.name, a.value);
+                      clone.setAttributeNS(a.namespaceURI, a.name, a.value);
                     }
-                    clone.text = s.text;
+                    clone.innerHTML = s.innerHTML;
                     await new Promise(resolve => {
                       let listener = ev => {
                         if (ev.target !== clone) return;
