@@ -96,15 +96,15 @@
                   }
                   debug("ALl scripts done, firing completion events.");
                   document.dispatchEvent(new Event("readystatechange"));
+                  if (document.documentElement instanceof SVGElement) {
+                    document.documentElement.dispatchEvent(new Event("SVGLoad"));
+                  }
                   document.dispatchEvent(new Event("DOMContentLoaded", {
                     bubbles: true,
                     cancelable: true
                   }));
                   if (document.readyState === "complete") {
                     window.dispatchEvent(new Event("load"));
-                    if (document.documentElement instanceof SVGElement) {
-                      document.documentElement.dispatchEvent(new Event("SVGLoad"));
-                    }
                   }
                 })();
               } catch (e) {
