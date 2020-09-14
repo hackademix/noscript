@@ -102,6 +102,9 @@
                   }));
                   if (document.readyState === "complete") {
                     window.dispatchEvent(new Event("load"));
+                    if (document.documentElement instanceof SVGElement) {
+                      document.documentElement.dispatchEvent(new Event("SVGLoad"));
+                    }
                   }
                 })();
               } catch (e) {
