@@ -32,7 +32,7 @@
           return;
         }
 
-        if (ocumentFreezer.suppressedScripts === 0 && readyState === "loading") {
+        if (DocumentFreezer.suppressedScripts === 0 && readyState === "loading") {
           // we don't care reloading, if no script has been suppressed
           // and no readyState change has been fired yet
           DocumentFreezer.unfreeze();
