@@ -44,7 +44,7 @@
             debug("Soft reload", ev); // DEV_ONLY
             try {
               let doc = window.wrappedJSObject.document;
-              removeEventListener("DOMContentLoaded", softReload, true);
+              if (ev) ev.currentTarget.removeEventListener(ev.type, softReload, true);
 
               let isDir = document.querySelector("link[rel=stylesheet][href^='chrome:']")
                   && document.querySelector(`base[href^="${url}"]`);
@@ -61,6 +61,19 @@
             } catch (e) {
               debug("Can't use document.write(), XML document?", e);
               try {
+                let eventSuppressor = ev => {
+                  if (ev.isTrusted) {
+                    debug("Suppressing natural event", ev);
+                    ev.preventDefault();
+                    ev.stopImmediatePropagation();
+                    ev.currentTarget.removeEventListener(ev.type, eventSuppressor, true);
+                  }
+                };
+                let svg = document.documentElement instanceof SVGElement;
+                if (svg) {
+                  document.addEventListener("SVGLoad", eventSuppressor, true);
+                }
+                document.addEventListener("DOMContentLoaded", eventSuppressor, true);
                 DocumentFreezer.unfreeze();
                 let scripts = [], deferred = [];
                 // push deferred scripts, if any, to the end
@@ -94,9 +107,9 @@
                       debug("Replaced", clone);
                     });
                   }
-                  debug("ALl scripts done, firing completion events.");
+                  debug("All scripts done, firing completion events.");
                   document.dispatchEvent(new Event("readystatechange"));
-                  if (document.documentElement instanceof SVGElement) {
+                  if (svg) {
                     document.documentElement.dispatchEvent(new Event("SVGLoad"));
                   }
                   document.dispatchEvent(new Event("DOMContentLoaded", {
