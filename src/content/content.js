@@ -118,6 +118,7 @@ window.addEventListener("securitypolicyviolation", e => {
 
   let type = violatedDirective.split("-", 1)[0]; // e.g. script-src 'none' => script
   let url = e.blockedURI;
+  if (/^data\b/.test(url) && !document.querySelector("video,audio")) return;
   if (!(url && url.includes(":"))) {
     url = document.URL;
   }
