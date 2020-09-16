@@ -53,11 +53,15 @@
               }
               DocumentFreezer.unfreeze();
               let html = document.documentElement.outerHTML;
+              let sx = window.scrollX, sy = window.scrollY;
               doc.open();
               console.debug("Opened", doc.documentElement);
               doc.write(html);
               doc.close();
               debug("Written", html);
+              // Work-around this rendering bug: https://forums.informaction.com/viewtopic.php?p=103105#p103050
+              debug("Scrolling back to", sx, sy);
+              window.scrollTo(sx, sy);
             } catch (e) {
               debug("Can't use document.write(), XML document?", e);
               try {
