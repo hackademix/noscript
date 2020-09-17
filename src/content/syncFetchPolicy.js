@@ -51,7 +51,9 @@
               if (isDir || document.contentType !== "text/html") {
                 throw new Error(`Can't document.write() on ${isDir ? "directory listings" : document.contentType}`)
               }
+
               DocumentFreezer.unfreeze();
+
               let html = document.documentElement.outerHTML;
               let sx = window.scrollX, sy = window.scrollY;
               doc.open();
@@ -133,11 +135,11 @@
           }
         };
 
-        if (readyState === "loading") {
+        if (DocumentFreezer.firedDOMContentLoaded) {
+          softReload();
+        } else {
           debug("Deferring softReload to DOMContentLoaded...");
           addEventListener("DOMContentLoaded", softReload, true);
-        } else {
-          softReload();
         }
 
       });
