@@ -76,6 +76,7 @@
     {
       "run_at": "document_start",
       "matches": ["file://*/*", "ftp://*/*"],
+      "all_frames": true,
       "js": [
         "lib/DocumentFreezer.js",
         "content/syncFetchPolicy.js"
