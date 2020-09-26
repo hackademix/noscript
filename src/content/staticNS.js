@@ -82,13 +82,16 @@
         policy = {permissions: {capabilities: []}, localFallback: true};
       }
       this.policy = policy;
-
       if (!policy.permissions || policy.unrestricted) {
         this.allows = () => true;
         this.capabilities =  Object.assign(
           new Set(["script"]), { has() { return true; } });
       } else {
         let perms = policy.permissions;
+        if (!perms.capabilities.includes("script") && /^file:\/\/\/(?:[^#?]+\/)?$/.test(document.URL)) {
+          // allow browser UI scripts for directory navigation
+          perms.capabilities.push("script");
+        }
         this.capabilities = new Set(perms.capabilities);
         new DocumentCSP(document).apply(this.capabilities, this.embeddingDocument);
       }
