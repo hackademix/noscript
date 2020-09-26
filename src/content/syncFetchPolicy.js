@@ -15,7 +15,8 @@
   };
   debug("Initial readyState and body", document.readyState, document.body);
 
-  if (UA.isMozilla) {
+  let mustFreeze = UA.isMozilla && (!/^(?:image|video|audio)/.test(document.contentType) || document instanceof XMLDocument);
+  if (mustFreeze) {
     // Mozilla has already parsed the <head> element, we must take extra steps...
 
     try {
