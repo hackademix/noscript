@@ -29,6 +29,17 @@
 
         if (!ns.canScript) {
           setTimeout(() => DocumentFreezer.unfreeze(), 0);
+          let normalizeDir = () => {
+            // Chromium does this automatically. We need it to understand we're a directory earlier and allow browser UI scripts.
+            if (document.baseURI === document.URL + "/") {
+              location.replace(document.baseURI);
+            }
+          }
+          if (DocumentFreezer.firedDOMContentLoaded) {
+            normalizeDir();
+          } else {
+            addEventListener("readystatechange", normalizeDir);
+          }
           return;
         }
 
