@@ -1,4 +1,5 @@
 (async () => {
+  document.documentElement.classList.toggle("mobile", !!UA.isMobile);
   window.bg = await browser.runtime.getBackgroundPage();
   ["Prompts"]
     .forEach(p => window[p] = bg[p]);
@@ -90,6 +91,7 @@
   }
 
   let resize = async () => {
+    if (!("windows" in browser)) return;
     let win = await browser.windows.getCurrent();
     let delta = document.documentElement.offsetHeight - window.innerHeight;
     await browser.windows.update(win.id, {

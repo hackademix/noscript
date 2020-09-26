@@ -1,22 +1,30 @@
 
+html {
+  background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 41%,#9fd8ef 90%,#2ab0ed 100%) no-repeat;
+}
+
 body {
-  bottom: 8px;
+  bottom: .8em;
   font-family: sans-serif;
   font-size: 12px;
   color: #222;
   margin: 0px;
-  padding: 8px;
-  background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 41%,#9fd8ef 90%,#2ab0ed 100%) no-repeat;
+  padding: .8em;
+}
+
+html.mobile > body {
+  font-family: Inter, sans-serif;
+  font-size: 12mm;
+  min-width: auto;
 }
 
 #header {
   text-align: left;
   margin: 0;
-  line-height: 24px;
+  line-height: 2em;
   color: #048;
-  font-size: 24px;
   z-index: 500;
-  padding: 8px 8px 0 8px;
+  padding: .8em .8em 0 .8em;
   display: block;
   background: url(/img/icon96.png) no-repeat top right;
   height: 96px;
@@ -24,7 +32,7 @@ body {
 
 #title {
   margin-right: 96px;
-  font-size: 24px;
+  font-size: 1.3em;
   bottom: 0;
   top: 0;
 }
@@ -33,7 +41,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 1.6em;
   top: 0;
   left: 0;
   right:0;
@@ -44,19 +52,19 @@ body {
 #message {
   flex-grow: 1;
   width: 100%;
-  max-height: 300px;
-  padding: 8px;
+  max-height: 28em;
+  padding: .8em;
   text-align: center;
 }
 #message.multiline {
   overflow: auto;
-  font-size: 12px;
+  font-size: 1em;
   text-align: justify;
-  margin-bottom: 16px;
+  margin-bottom: 1.2em;
   background: rgba(255,255,255,.5);
 }
 #message.multiline p {
-  margin: 1px;
+  margin: .1em;
   padding: 0;
 }
 #options {
@@ -93,9 +101,10 @@ body {
   flex-grow: 0;
   flex-direction: row;
   align-items: center;
-  margin: 8px;
+  margin: .8em;
   justify-content: space-around;
 }
 #buttons button {
-  min-width: 100px;
+ min-width: 6em;
+ font-size: 1em;
 }

@@ -1,8 +1,8 @@
 var Prompts = (() => {
 
-
   var promptData;
   var backlog = [];
+
   class WindowManager {
     async open(data) {
       promptData = data;
@@ -16,6 +16,11 @@ var Prompts = (() => {
       };
       if (UA.isMozilla) {
         options.allowScriptsToClose = true;
+      }
+      if (!("windows" in browser)) {
+        // Android, most likely
+        this.currentTab = await browser.tabs.create({url: options.url});
+        return;
       }
       this.currentWindow = await browser.windows.create(options);
       // work around for https://bugzilla.mozilla.org/show_bug.cgi?id=1330882
@@ -36,6 +41,8 @@ var Prompts = (() => {
           debug(e);
         }
         this.currentWindow = null;
+      } else if (this.currentTab) {
+        await browser.tabs.remove(this.currentTab.id);
       }
     }
 
