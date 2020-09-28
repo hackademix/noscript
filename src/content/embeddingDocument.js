@@ -1,4 +1,5 @@
 if (ns.embeddingDocument) {
+
   let replace = () => {
     for (let policyType of ["object", "media"]) {
       let request = {
@@ -23,8 +24,9 @@ if (ns.embeddingDocument) {
       }
     }
   };
+
   ns.on("capabilities", () => {
-    if (!document.body.firstChild) { // we've been called early
+    if (!(document.body && document.body.firstChild)) { // we've been called early
       setTimeout(replace, 0);
       let types = {
         // Reminder: order is important because media matches also for

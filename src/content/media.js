@@ -35,8 +35,8 @@ if ("MediaSource" in window) {
     }
     let processedURIs = new Set();
     addEventListener("securitypolicyviolation", e => {
-      let {blockedURI, violatedDirective} = e;
-      if (!(e.isTrusted && violatedDirective.startsWith("media-src"))) return;
+      let {blockedURI, violatedDirective, originalPolicy} = e;
+      if (!(e.isTrusted && violatedDirective === "media-src" && CSP.isMediaBlocker(originalPolicy))) return;
       if (mediaBlocker === undefined && /^data\b/.test(blockedURI)) { // Firefox 81 reports just "data"
         debug("mediaBlocker set via CSP listener.")
         mediaBlocker = true;

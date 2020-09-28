@@ -1,6 +1,9 @@
 "use strict";
 
 class CSP {
+  static isMediaBlocker(csp) {
+    return /(?:^| )media-src (?:'none'|http)(?:;|$)/.test(csp);
+  }
 
   build(...directives) {
     return directives.join(';');

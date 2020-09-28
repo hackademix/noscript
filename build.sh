@@ -19,7 +19,7 @@ strip_rc_ver() {
 VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
 if [ "$1" == "tag" ]; then
   echo "Tagging at $VER"
-  git tag -a "$VER" 
+  git tag -a "$VER"
   git push origin "$VER"
   exit 0
 fi
@@ -140,9 +140,9 @@ ln -fs $XPI.xpi "$BASE/latest.xpi"
 # create chromium pre-release
 rm -rf "$CHROMIUM"
 strip_rc_ver "$MANIFEST_OUT"
-# skip "application" manifest key
+# skip "application" manifest key and embeddingDocument.js
 (grep -B1000 '"name": "NoScript"' "$MANIFEST_OUT"; \
-  grep -A2000 '"version":' "$MANIFEST_OUT") > "$MANIFEST_OUT".tmp && \
+  grep -A2000 '"version":' "$MANIFEST_OUT" | grep -v 'content/embeddingDocument.js') > "$MANIFEST_OUT".tmp && \
   mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT"
 mv "$BUILD" "$CHROMIUM"
 web-ext $CHROMIUM_BUILD_OPTS --source-dir="$CHROMIUM" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
