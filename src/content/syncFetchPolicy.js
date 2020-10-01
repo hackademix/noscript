@@ -8,6 +8,17 @@
   // injected in the DOM as soon as possible.
   debug("No CSP yet for non-HTTP document load: fetching policy synchronously...");
 
+
+  if (top !== window) {
+    if (top.wrappedJSObject._noScriptPolicy) {
+      try {
+        ns.setup(JSON.parse(top.wrappedJSObject._noScriptPolicy));
+      } catch(e) {
+        error(e);
+      }
+      return;
+    }
+  }
   let syncFetch = callback => {
     browser.runtime.sendSyncMessage(
       {id: "fetchPolicy", url, contextUrl: url},
@@ -167,6 +178,15 @@
 
   let setup = policy => {
     debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
+    if (top === window) {
+      let persistentPolicy = JSON.stringify(policy);
+      Object.freeze(persistentPolicy);
+      try {
+        Object.defineProperty(window.wrappedJSObject, "_noScriptPolicy", {value: cloneInto(persistentPolicy, window)});
+      } catch(e) {
+        error(e);
+      }
+    }
     ns.setup(policy);
   }
 
