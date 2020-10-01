@@ -2,18 +2,23 @@
 
 function ReportingCSP(marker, reportURI = "") {
   const DOM_SUPPORTED = "SecurityPolicyViolationEvent" in window;
-  
+
   if (DOM_SUPPORTED) reportURI = "";
-  
+
   return Object.assign(
-    new CapsCSP(new NetCSP( 
+    new CapsCSP(new NetCSP(
       reportURI ? `report-uri ${reportURI}` : marker
     )),
     {
       reportURI,
       patchHeaders(responseHeaders, capabilities) {
         let header = null;
-        let blocker = capabilities && this.buildFromCapabilities(capabilities);
+        let blocker;
+        if (capabilities) {
+          let contentType = responseHeaders.filter(h => h.name.toLowerCase() === "content-type");
+          let blockHTTP = contentType.lentgh === 0 || contentType.some(h => !/^(?:text|application)\/\S*\b(?:x?ht|x)ml\b/i.test(h.name));
+          blocker = this.buildFromCapabilities(capabilities, blockHTTP);
+        }
         let extras = [];
         responseHeaders.forEach((h, index) => {
           if (this.isMine(h)) {
