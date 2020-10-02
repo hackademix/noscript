@@ -72,8 +72,6 @@
             debug("Soft reload", ev); // DEV_ONLY
             try {
               let doc = window.wrappedJSObject.document;
-              if (ev) ev.currentTarget.removeEventListener(ev.type, softReload, true);
-
               let isDir = document.querySelector("link[rel=stylesheet][href^='chrome:']")
                   && document.querySelector(`base[href^="${url}"]`);
               if (isDir || document.contentType !== "text/html") {
@@ -108,6 +106,7 @@
                   document.addEventListener("SVGLoad", eventSuppressor, true);
                 }
                 document.addEventListener("DOMContentLoaded", eventSuppressor, true);
+                if (ev) eventSuppressor(ev);
                 DocumentFreezer.unfreeze();
                 let scripts = [], deferred = [];
                 // push deferred scripts, if any, to the end
@@ -148,7 +147,7 @@
                   }
                   document.dispatchEvent(new Event("DOMContentLoaded", {
                     bubbles: true,
-                    cancelable: true
+                    cancelable: false
                   }));
                   if (document.readyState === "complete") {
                     window.dispatchEvent(new Event("load"));
@@ -163,7 +162,7 @@
           }
         };
 
-        if (DocumentFreezer.firedDOMContentLoaded) {
+        if (DocumentFreezer.firedDOMContentLoaded || document.readyState !== "loading") {
           softReload();
         } else {
           debug("Deferring softReload to DOMContentLoaded...");

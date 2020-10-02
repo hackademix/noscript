@@ -235,8 +235,14 @@
           console.debug("sendSyncMessage resume #%s/%s - %sms", id, suspended, Date.now() - startTime); // DEV_ONLY
         };
 
+        let domSuspender = new MutationObserver(records => {
+          suspend();
+        });
+        domSuspender.observe(document, {childList: true, subtree: true});
+
         let finalize = () => {
           console.debug("sendSyncMessage finalizing");
+          domSuspender.disconnect();
         };
 
         // on Firefox we first need to send an async message telling the
