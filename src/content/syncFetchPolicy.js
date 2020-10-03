@@ -6,18 +6,42 @@
 
   // Here we've got no CSP header yet (file: or ftp: URL), we need one
   // injected in the DOM as soon as possible.
-  debug("No CSP yet for non-HTTP document load: fetching policy synchronously...");
+  debug("No CSP yet for non-HTTP document load: fetching policy synchronously...", ns);
 
+  ns.syncSetup = ns.setup.bind(ns);
 
-  if (top !== window) {
-    if (top.wrappedJSObject._noScriptPolicy) {
-      try {
-        ns.setup(JSON.parse(top.wrappedJSObject._noScriptPolicy));
-      } catch(e) {
-        error(e);
+  if (window.wrappedJSObject) {
+    if (top === window) {
+      ns.syncSetup = policy => {
+        if (!ns.setup(policy)) return;
+        if (top === window && window.wrappedJSObject) {
+          let persistentPolicy = JSON.stringify(policy);
+          Object.freeze(persistentPolicy);
+          try {
+            Object.defineProperty(window.wrappedJSObject, "_noScriptPolicy", {value: cloneInto(persistentPolicy, window)});
+          } catch(e) {
+            error(e);
+          }
+        }
+        ns.syncSetup = () => {};
+      };
+    } else try {
+      if (top.wrappedJSObject._noScriptPolicy) {
+        debug("Policy set in parent frame found!")
+        try {
+          ns.setup(JSON.parse(top.wrappedJSObject._noScriptPolicy));
+          return;
+        } catch(e) {
+          error(e);
+        }
       }
-      return;
+    } catch (e) {
+      // cross-origin accesss violation, ignore
     }
+  }
+  if (ns.domPolicy) {
+    ns.syncSetup(ns.domPolicy);
+    return;
   }
   let syncFetch = callback => {
     browser.runtime.sendSyncMessage(
@@ -175,23 +199,10 @@
     }
   }
 
-  let setup = policy => {
-    debug("Fetched %o, readyState %s", policy, document.readyState); // DEV_ONLY
-    if (top === window) {
-      let persistentPolicy = JSON.stringify(policy);
-      Object.freeze(persistentPolicy);
-      try {
-        Object.defineProperty(window.wrappedJSObject, "_noScriptPolicy", {value: cloneInto(persistentPolicy, window)});
-      } catch(e) {
-        error(e);
-      }
-    }
-    ns.setup(policy);
-  }
-
   for (let attempts = 3; attempts-- > 0;) {
     try {
-      syncFetch(setup);
+      if (ns.policy) break;
+      syncFetch(ns.syncSetup);
       break;
     } catch (e) {
       if (!Messages.isMissingEndpoint(e) || document.readyState === "complete") {

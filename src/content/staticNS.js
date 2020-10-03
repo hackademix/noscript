@@ -34,12 +34,14 @@
     },
 
     fetchPolicy() {
+      if (this.policy) return;
       let url = document.URL;
 
       debug(`Fetching policy from document %s, readyState %s`,
         url, document.readyState
         //, document.domain, document.baseURI, window.isSecureContext // DEV_ONLY
       );
+
 
       if (/^(ftp|file):/.test(url)) { // ftp: or file: - no CSP headers yet
         if (this.syncFetchPolicy) {
@@ -50,6 +52,15 @@
           return;
         }
       } else {
+        if (this.domPolicy) {
+          debug("File policy set in webNavigation found!");
+          try {
+            this.setup(this.domPolicy);
+            return;
+          } catch(e) {
+            error(e);
+          }
+        }
         // CSP headers have been already provided by webRequest, we are not in a hurry...
         if (/^(javascript|about):/.test(url)) {
           url = document.readyState === "loading"
@@ -77,7 +88,8 @@
     },
 
     setup(policy) {
-      debug("%s, %s, %o", document.URL, document.readyState, policy);
+      if (this.policy) return false;
+      debug("%s, %s, fetched %o", document.URL, document.readyState, policy);
       if (!policy) {
         policy = {permissions: {capabilities: []}, localFallback: true};
       }
@@ -97,6 +109,7 @@
       }
       this.canScript = this.allows("script");
       this.fire("capabilities");
+      return true;
     },
 
     policy: null,
@@ -105,6 +118,6 @@
       return this.capabilities && this.capabilities.has(cap);
     },
   };
-
-  this.ns = this.ns ? Object.assign(this.ns, ns) : ns;
+  this.ns = this.ns ? Object.assign(ns, this.ns) : ns;
+  debug("StaticNS", JSON.stringify(this.ns)); // DEV_ONLY
 }

@@ -549,6 +549,40 @@ var RequestGuard = (() => {
     }
     return ABORT;
   }
+
+  async function onNavCommitted(details) {
+    debug("onNavCommitted", details);
+    let {url, tabId, frameId} = details;
+    try {
+      let policy = ns.computeChildPolicy({url}, {tab: {tabId}, frameId});
+      policy.navigationURL = url;
+      let ret = await browser.tabs.executeScript(details.tabId, {
+        code:
+        `{
+          let domPolicy = ${JSON.stringify(policy)};
+          if (this.ns) {
+            ns.domPolicy = domPolicy;
+            if (ns.setup) {
+              if (ns.syncSetup) ns.syncSetup(domPolicy);
+              else if (!ns.pendingSyncFetchPolicy) {
+                ns.setup(domPolicy);
+              }
+            } ;
+          } else {
+            ns = {domPolicy}
+          }
+          console.debug("domPolicy", domPolicy);
+        }
+        ns;`,
+        runAt: "document_start",
+        frameId,
+      });
+      debug("onNavCommitted return: ", ret);
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
   const RequestGuard = {
     async start() {
       Messages.addHandler(messageHandler);
@@ -600,9 +634,11 @@ var RequestGuard = (() => {
         wr.onBeforeRequest.addListener(onViolationReport,
           {urls: [csp.reportURI], types: ["csp_report"]}, ["blocking", "requestBody"]);
       }
+      browser.webNavigation.onCommitted.addListener(onNavCommitted);
       TabStatus.probe();
     },
     stop() {
+      browser.webNavigation.onCommitted.removeListener(onNavCommitted);
       let wr = browser.webRequest;
       for (let [name, listener] of Object.entries(listeners)) {
         if (typeof listener === "function") {

@@ -158,40 +158,7 @@
     async fetchChildPolicy({url, contextUrl}, sender) {
       await ns.initializing;
       return (messageHandler.fetchChildPolicy =
-        messageHandler.fetchChildPolicySync)(...arguments);
-    },
-    fetchChildPolicySync({url, contextUrl}, sender) {
-      let {tab, frameId} = sender;
-      let policy = ns.policy;
-      if (!policy) {
-        console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
-        return {
-          permissions: new Permissions(Permissions.DEFAULT).dry(),
-          unrestricted: false,
-          cascaded: false,
-          fallback: true
-        };
-      }
-      let topUrl = frameId === 0 ? contextUrl : tab && (tab.url || TabCache.get(tab.id));
-      if (Sites.isInternal(url) || !ns.isEnforced(tab ? tab.id : -1)) {
-        policy = null;
-      }
-
-      let permissions, unrestricted, cascaded;
-      if (policy) {
-        let perms = policy.get(url, contextUrl).perms;
-        cascaded = topUrl && ns.sync.cascadeRestrictions;
-        if (cascaded) {
-          perms = policy.cascadeRestrictions(perms, topUrl);
-        }
-        permissions = perms.dry();
-      } else {
-        // otherwise either internal URL or unrestricted
-        permissions = new Permissions(Permissions.ALL).dry();
-        unrestricted = true;
-        cascaded = false;
-      }
-      return {permissions, unrestricted, cascaded};
+        ns.computeChildPolicy)(...arguments);
     },
 
     async openStandalonePopup() {
@@ -237,6 +204,40 @@
 
     requestCan(request, capability) {
       return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, request.documentURL);
+    },
+
+    computeChildPolicy({url, contextUrl}, sender) {
+      let {tab, frameId} = sender;
+      let policy = ns.policy;
+      if (!policy) {
+        console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
+        return {
+          permissions: new Permissions(Permissions.DEFAULT).dry(),
+          unrestricted: false,
+          cascaded: false,
+          fallback: true
+        };
+      }
+      let topUrl = frameId === 0 ? contextUrl : tab && (tab.url || TabCache.get(tab.id));
+      if (Sites.isInternal(url) || !ns.isEnforced(tab ? tab.id : -1)) {
+        policy = null;
+      }
+
+      let permissions, unrestricted, cascaded;
+      if (policy) {
+        let perms = policy.get(url, contextUrl).perms;
+        cascaded = topUrl && ns.sync.cascadeRestrictions;
+        if (cascaded) {
+          perms = policy.cascadeRestrictions(perms, topUrl);
+        }
+        permissions = perms.dry();
+      } else {
+        // otherwise either internal URL or unrestricted
+        permissions = new Permissions(Permissions.ALL).dry();
+        unrestricted = true;
+        cascaded = false;
+      }
+      return {permissions, unrestricted, cascaded};
     },
 
     start() {
