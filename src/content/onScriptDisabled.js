@@ -8,7 +8,8 @@ function onScriptDisabled() {
   for (let noscript of document.querySelectorAll("noscript")) {
 
     // force show NOSCRIPT elements content
-    let replacement = document.createRange().createContextualFragment(noscript.innerHTML);
+    let replacement = createHTMLElement("span");
+    replacement.innerHTML = noscript.innerHTML;
     // emulate meta-refresh
     for (let meta of replacement.querySelectorAll('meta[http-equiv="refresh"]')) {
       refresh = true;
@@ -25,9 +26,13 @@ function onScriptDisabled() {
     let html = document.documentElement.outerHTML;
     let rewrite = () => {
       let document = window.wrappedJSObject ? window.wrappedJSObject.document : window.document;
-      document.open();
-      document.write(html);
-      document.close();
+      try {
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (e) {
+        error(e);
+      }
     };
     if (document.readyState === "complete") {
       rewrite();
@@ -52,7 +57,7 @@ function onScriptDisabled() {
     addEventListener("keyup", ev => {
       if (!ev.isTrusted) return;
       let el = eraser.tapped;
-      if (el && ev.keyCode === 46) {
+      if (el && ev.code === "Delete" || ev.code === "Backspace") {
         eraser.tapped = null;
         eraser.delKey = true;
         let doc = el.ownerDocument;
