@@ -1,6 +1,24 @@
 if (ns.embeddingDocument) {
+  let suspended;
+  let suspender = new MutationObserver(records => {
+    suspended = document.body.firstElementChild;
+    if (suspended && !suspended._src) {
+      suspended._src = suspended.currentSrc || document.URL;
+      debug("Suspending ", suspended._src, suspended);
+      suspended.autoplay = false;
+      suspended.src = "data:";
+      suspender.disconnect();
+    }
+  });
+  suspender.observe(document, {childList: true, subtree: true});
 
   let replace = () => {
+    if (suspended) {
+      suspended.src = suspended._src;
+      suspended.autoplay = true;
+    } else {
+      suspender.disconnect();
+    }
     for (let policyType of ["object", "media"]) {
       let request = {
         id: `noscript-${policyType}-doc`,
