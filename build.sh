@@ -19,7 +19,7 @@ strip_rc_ver() {
 VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
 if [ "$1" == "tag" ]; then
   echo "Tagging at $VER"
-  git tag -a "$VER"
+  git tag -a "$VER" -e -m"$(gitcl 2>/dev/null)"
   git push origin "$VER"
   exit 0
 fi
