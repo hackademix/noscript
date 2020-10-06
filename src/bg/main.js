@@ -218,8 +218,19 @@
           fallback: true
         };
       }
-      let topUrl = frameId === 0 ? contextUrl : tab && (tab.url || TabCache.get(tab.id));
-      if (Sites.isInternal(url) || !ns.isEnforced(tab ? tab.id : -1)) {
+
+      let tabId = tab ? tab.id : -1;
+      let topUrl;
+      if (frameId === 0) {
+        topUrl = url;
+      } else if (tab) {
+        if (!tab.url) tab = TabCache.get(tabId);
+        if (tab) topUrl = tab.url;
+      }
+      if (!topUrl) topUrl = url;
+      if (!contextUrl) contextUrl = topUrl;
+
+      if (Sites.isInternal(url) || !ns.isEnforced(tabId)) {
         policy = null;
       }
 
