@@ -554,7 +554,7 @@ var RequestGuard = (() => {
     debug("onNavCommitted", details);
     let {url, tabId, frameId} = details;
     try {
-      let policy = ns.computeChildPolicy({url}, {tab: {tabId}, frameId});
+      let policy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
       policy.navigationURL = url;
       let ret = await browser.tabs.executeScript(details.tabId, {
         code:
