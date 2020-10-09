@@ -203,10 +203,7 @@ onwebkitanimationstart
 onwebkittransitionend
 onwheel
 onSVGLoad
-onSVGResize
 onSVGScroll
-onSVGUnload
-onSVGZoom
 onzoom
 onbegin
 onbeginEvent
@@ -367,6 +364,9 @@ onupdate
 onupdateend
 onaddsourcebuffer
 onremovesourcebuffer
+onSVGResize
+onSVGUnload
+onSVGZoom
 onZoomChangeUsingMouseWheel
 onappinstalled
 onImageContentLoaded
