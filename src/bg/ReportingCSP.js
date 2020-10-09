@@ -16,7 +16,7 @@ function ReportingCSP(marker, reportURI = "") {
         let blocker;
         if (capabilities) {
           let contentType = responseHeaders.filter(h => h.name.toLowerCase() === "content-type");
-          let blockHTTP = contentType.length === 0 || contentType.some(h => !/^(?:text|application)\/\S*\b(?:x?ht|x)ml\b/i.test(h.name));
+          let blockHTTP = contentType.length === 0 || contentType.some(h => !/^(?:text|application)\/\S*\b(?:x?ht|x)ml\b/i.test(h.value));
           blocker = this.buildFromCapabilities(capabilities, blockHTTP);
         }
         let extras = [];
