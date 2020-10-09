@@ -556,6 +556,7 @@ var RequestGuard = (() => {
     try {
       let policy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
       policy.navigationURL = url;
+      let debugStatement = ns.local.debug ? 'console.debug("domPolicy", domPolicy);' : '';
       let ret = await browser.tabs.executeScript(details.tabId, {
         code:
         `{
@@ -571,7 +572,7 @@ var RequestGuard = (() => {
           } else {
             ns = {domPolicy}
           }
-          console.debug("domPolicy", domPolicy);
+          ${debugStatement}
         }
         ns;`,
         runAt: "document_start",
