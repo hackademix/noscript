@@ -14,8 +14,10 @@ body {
 
 html.mobile > body {
   font-family: Inter, sans-serif;
-  font-size: 12mm;
+  font-size: 4vmin;
   min-width: auto;
+  min-height: 90vh;
+  padding-bottom: 72px; /* clear Fenix's navbar */
 }
 
 #header {
@@ -107,4 +109,10 @@ html.mobile > body {
 #buttons button {
  min-width: 6em;
  font-size: 1em;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  min-width: 1em;
+  min-height: 1em;
+  font-size: 1em;
 }

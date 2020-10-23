@@ -1,5 +1,5 @@
 (async () => {
-  document.documentElement.classList.toggle("mobile", !!UA.isMobile);
+  document.documentElement.classList.toggle("mobile", !!UA.mobile);
   window.bg = await browser.runtime.getBackgroundPage();
   ["Prompts"]
     .forEach(p => window[p] = bg[p]);
@@ -90,14 +90,19 @@
     b.addEventListener("click", buttonClicked);
   }
 
-  let resize = async () => {
-    if (!("windows" in browser)) return;
+  let resize = async e => {
+    if (!("windows" in browser)) {
+      // tabbed (mobile?) - ensure buttons are visible
+      document.querySelector("#buttons").scrollIntoView();
+      return;
+    }
     let win = await browser.windows.getCurrent();
     let delta = document.documentElement.offsetHeight - window.innerHeight;
-    await browser.windows.update(win.id, {
-        width: win.width, height: win.height + delta,
-        left: win.left, top: win.top - Math.round(delta / 2)
-      });
+    let geometry = {
+      width: win.width, height: win.height + delta,
+      left: win.left, top: win.top - Math.round(delta / 2)
+    };
+    for (let j = 2; j-- > 0;) await browser.windows.update(win.id, geometry);
   }
   if (document.readyState === "complete") {
     resize();
