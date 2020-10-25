@@ -173,10 +173,9 @@ var LifeCycle = (() => {
           throw new error("Ephemeral policy not found in survival tab %s!", tabId);
         }
         ns.unrestrictedTabs = new Set(unrestrictedTabs);
-
         destroyIfNeeded();
+        if (ns.initializing) await ns.initializing;
         ns.policy = new Policy(policy);
-        await ns.initializing;
         await Promise.all(
           Object.entries(allSeen).map(
             async ([tabId, seen]) => {
