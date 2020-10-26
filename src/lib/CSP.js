@@ -2,7 +2,7 @@
 
 class CSP {
   static isMediaBlocker(csp) {
-    return /(?:^| )media-src (?:'none'|http)(?:;|$)/.test(csp);
+    return /(?:^|[\s;])media-src (?:'none'|http:)(?:;|$)/.test(csp);
   }
 
   build(...directives) {
