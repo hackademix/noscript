@@ -7110,7 +7110,7 @@ org.zw
 
 // newGTLDs
 
-// List of new gTLDs imported from https://www.icann.org/resources/registries/gtlds/v2/gtlds.json on 2020-10-12T17:47:39Z
+// List of new gTLDs imported from https://www.icann.org/resources/registries/gtlds/v2/gtlds.json on 2020-11-03T17:59:28Z
 // This list is auto-generated, don't edit it manually.
 // aaa : 2015-02-26 American Automobile Association, Inc.
 aaa
@@ -7337,7 +7337,7 @@ avianca
 // aws : 2015-06-25 Amazon Registry Services, Inc.
 aws
 
-// axa : 2013-12-19 AXA SA
+// axa : 2013-12-19 AXA Group Operations SAS
 axa
 
 // azure : 2014-12-18 Microsoft Corporation
@@ -9242,7 +9242,7 @@ one
 // ong : 2014-03-06 Public Interest Registry
 ong
 
-// onl : 2013-09-16 I-Registry Ltd.
+// onl : 2013-09-16 iRegistry GmbH
 onl
 
 // online : 2015-01-15 DotOnline Inc.
@@ -9539,7 +9539,7 @@ reviews
 // rexroth : 2015-06-18 Robert Bosch GMBH
 rexroth
 
-// rich : 2013-11-21 I-Registry Ltd.
+// rich : 2013-11-21 iRegistry GmbH
 rich
 
 // richardli : 2015-05-14 Pacific Century Asset Management (HK) Limited
@@ -10680,12 +10680,6 @@ barsy.ca
 // Submitted by Werner Kaltofen <wk@all-inkl.com>
 kasserver.com
 
-// Algorithmia, Inc. : algorithmia.com
-// Submitted by Eli Perelman <eperelman@algorithmia.io>
-*.algorithmia.com
-!teams.algorithmia.com
-!test.algorithmia.com
-
 // Altervista: https://www.altervista.org
 // Submitted by Carlo Cannas <tech_staff@altervista.it>
 altervista.org
@@ -11802,6 +11796,10 @@ ukco.me
 // submitted by Koen Van Isterdael <k.vanisterdael@fermax.be>
 mydobiss.com
 
+// FH Muenster : https://www.fh-muenster.de
+// Submitted by Robin Naundorf <r.naundorf@fh-muenster.de>
+fh-muenster.io
+
 // Filegear Inc. : https://www.filegear.com
 // Submitted by Jason Zhu <jason@owtware.com>
 filegear.me
@@ -12057,6 +12055,10 @@ ravendb.community
 ravendb.me
 development.run
 ravendb.run
+
+// Hong Kong Productivity Council: https://www.hkpc.org/
+// Submitted by SECaaS Team <summchan@hkpc.org>
+secaas.hk
 
 // HOSTBIP REGISTRY : https://www.hostbip.com/
 // Submitted by Atanunu Igbunuroghene <publicsuffixlist@hostbip.com>
@@ -12448,11 +12450,17 @@ eu.meteorapp.com
 co.pl
 
 // Microsoft Corporation : http://microsoft.com
-// Submitted by Mostafa Elzeiny <moelzein@microsoft.com>
+// Submitted by Mitch Webster <miwebst@microsoft.com>
 *.azurecontainer.io
 azurewebsites.net
 azure-mobile.net
 cloudapp.net
+azurestaticapps.net
+centralus.azurestaticapps.net
+eastasia.azurestaticapps.net
+eastus2.azurestaticapps.net
+westeurope.azurestaticapps.net
+westus2.azurestaticapps.net
 
 // minion.systems : http://minion.systems
 // Submitted by Robert Böttinger <r@minion.systems>
@@ -12886,6 +12894,10 @@ byen.site
 // pubtls.org: https://www.pubtls.org
 // Submitted by Kor Nielsen <kor@pubtls.org>
 pubtls.org
+
+// QOTO, Org.
+// Submitted by Jeffrey Phillips Freeman <jeffrey.freeman@qoto.org>
+qoto.io
 
 // Qualifio : https://qualifio.com/
 // Submitted by Xavier De Cock <xdecock@gmail.com>
