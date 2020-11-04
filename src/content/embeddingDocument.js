@@ -1,10 +1,10 @@
 if (ns.embeddingDocument) {
   let suspended;
   let suspender = new MutationObserver(records => {
+    if (suspended) return;
     suspended = document.body.firstElementChild;
-    if (suspended && !suspended._src) {
-      suspended._src = suspended.currentSrc || document.URL;
-      debug("Suspending ", suspended._src, suspended);
+    if (suspended) {
+      debug("Suspending ", suspended.src, suspended);
       suspended.autoplay = false;
       suspended.src = "data:";
       suspender.disconnect();
@@ -14,7 +14,7 @@ if (ns.embeddingDocument) {
 
   let replace = () => {
     if (suspended) {
-      suspended.src = suspended._src;
+      suspended.src = document.URL;
       suspended.autoplay = true;
     } else {
       suspender.disconnect();
