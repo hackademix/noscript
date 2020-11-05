@@ -92,6 +92,7 @@
         }
 
         let softReload = ev => {
+           removeEventListener("DOMContentLoaded", softReload, true);
            try {
             debug("Soft reload", ev); // DEV_ONLY
             try {
