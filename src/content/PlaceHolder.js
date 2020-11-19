@@ -55,6 +55,11 @@ var PlaceHolder = (() => {
     for (let p of props) {
       destStyle[p] = srcStyle[p];
     }
+    for (let size of ["width", "height"]) {
+      if (/^0(?:\D|$)/.test(destStyle[size])) {
+        destStyle[size] = "";
+      }
+    }
     if (src.offsetTop < 0 && src.offsetTop <= (-src.offsetHeight)) {
       destStyle.top = "0"; // fixes video player off-display position on Youtube
     }
@@ -81,6 +86,10 @@ var PlaceHolder = (() => {
           for (let e of document.elementsFromPoint(ev.clientX, ev.clientY)) {
             if (ph = e._placeHolderObj) {
               replacement = e;
+              break;
+            }
+            if (replacement = e._placeHolderReplacement) {
+              ph = replacement._placeHolderObj;
               break;
             }
           }
@@ -159,6 +168,9 @@ var PlaceHolder = (() => {
 
       replacement._placeHolderObj = this;
       replacement._placeHolderElement = element;
+      for (let e of replacement.querySelectorAll("*")) {
+        e._placeHolderReplacement = replacement;
+      }
 
       element.replaceWith(replacement);
 
