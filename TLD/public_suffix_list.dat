@@ -7111,7 +7111,7 @@ org.zw
 
 // newGTLDs
 
-// List of new gTLDs imported from https://www.icann.org/resources/registries/gtlds/v2/gtlds.json on 2020-11-11T18:03:13Z
+// List of new gTLDs imported from https://www.icann.org/resources/registries/gtlds/v2/gtlds.json on 2020-11-30T20:26:10Z
 // This list is auto-generated, don't edit it manually.
 // aaa : 2015-02-26 American Automobile Association, Inc.
 aaa
@@ -8652,9 +8652,6 @@ java
 // jcb : 2014-11-20 JCB Co., Ltd.
 jcb
 
-// jcp : 2015-04-23 JCP Media, Inc.
-jcp
-
 // jeep : 2015-07-30 FCA US LLC.
 jeep
 
@@ -9758,9 +9755,6 @@ show
 
 // showtime : 2015-08-06 CBS Domains Inc.
 showtime
-
-// shriram : 2014-01-23 Shriram Capital Ltd.
-shriram
 
 // silk : 2015-06-25 Amazon Registry Services, Inc.
 silk
@@ -12170,7 +12164,7 @@ iserv.dev
 // Submitted by Yuji Minagawa <domains-admin@iodata.jp>
 iobb.net
 
-//Jelastic, Inc. : https://jelastic.com/
+// Jelastic, Inc. : https://jelastic.com/
 // Submited by Ihor Kolodyuk <ik@jelastic.com>
 mel.cloudlets.com.au
 cloud.interhostsolutions.be
@@ -12185,6 +12179,9 @@ jele.cloud
 it1.eur.aruba.jenv-aruba.cloud
 it1.jenv-aruba.cloud
 it1-eur.jenv-arubabiz.cloud
+oxa.cloud
+tn.oxa.cloud
+uk.oxa.cloud
 primetel.cloud
 uk.primetel.cloud
 ca.reclaim.cloud
@@ -12255,6 +12252,7 @@ jelastic.regruhosting.ru
 enscaled.sg
 jele.site
 jelastic.team
+orangecloud.tn
 j.layershift.co.uk
 phx.enscaled.us
 mircloud.us
