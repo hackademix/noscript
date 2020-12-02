@@ -146,6 +146,11 @@ html.tor .tor, html:not(.tor) .not-tor {
 
 }
 
+
+.site.filtered, .site.filtered + .customizer {
+  display: none;
+}
+
 #sites .customizing .presets {
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;

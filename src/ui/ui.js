@@ -921,9 +921,9 @@ var UI = (() => {
       key = Sites.toExternal(key);
       for (let r of this.allSiteRows()) {
         if (r.querySelector(".full-address").textContent.trim().includes(key)) {
-          r.style.display = "";
+          r.classList.remove("filtered");
         } else {
-          r.style.display = "none";
+          r.classList.add("filtered");
         }
       }
     }
