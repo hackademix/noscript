@@ -71,9 +71,9 @@ if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') -a "$1" != "tld
 fi
 
 if ./html5_events/html5_events.pl; then
-  # update full event list as an array in src/content/syncFetchPolicy.js
+  # update full event list as an array in src/lib/DocumentFreezer.js
   EVENTS=$(grep '^on[a-z]\+$' html5_events/html5_events_archive.txt | sed "s/^on//;s/.*/'&'/;H;1h;"'$!d;x;s/\n/, /g');
-  perl -pi -e 's/(\bconst eventTypes\s*=\s*)\[.*?\]/$1['"$EVENTS"']/' src/lib/DocumentFreezer.js
+  perl -pi -e 's/(\bconst eventTypes\s*=\s*)\[.*?\]/$1\['"$EVENTS"'\]/' src/lib/DocumentFreezer.js
 fi
 
 rm -rf "$BUILD" "$XPI"
