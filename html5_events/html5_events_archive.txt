@@ -178,6 +178,7 @@ ontransitioncancel
 ontransitionend
 ontransitionrun
 ontransitionstart
+onuncapturederror
 onunderflow
 onunhandledrejection
 onunload
