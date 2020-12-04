@@ -4,13 +4,16 @@ class CSP {
   static isMediaBlocker(csp) {
     return /(?:^|[\s;])media-src (?:'none'|http:)(?:;|$)/.test(csp);
   }
+  static normalize(csp) {
+    return csp.replace(/\s*;\s*/g, ';').replace(/\b(script-src\s+'none'.*?;)(?:script-src-\w+\s+'none';)+/, '$1');
+  }
 
   build(...directives) {
     return directives.join(';');
   }
 
   buildBlocker(...types) {
-      return this.build(...(types.map(type => `${type.name || type}-src ${type.value || "'none'"}`)));
+      return this.build(...(types.map(t => `${t.name || `${t.type || t}-src`} ${t.value || "'none'"}`)));
   }
 
   blocks(header, type) {

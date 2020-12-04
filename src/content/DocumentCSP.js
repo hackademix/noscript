@@ -19,7 +19,7 @@ class DocumentCSP {
 
     let csp = this.builder;
     let blocker = csp.buildFromCapabilities(capabilities, embedding);
-    if (!blocker) return true;
+    if (!blocker) return null;
 
     let createHTMLElement =
       tagName => document.createElementNS("http://www.w3.org/1999/xhtml", tagName);
@@ -34,7 +34,7 @@ class DocumentCSP {
     try {
       if (!(document instanceof HTMLDocument)) {
         if (!(document instanceof XMLDocument)) {
-          return false; // nothing to do with ImageDocument, for instance
+          return null; // nothing to do with ImageDocument, for instance
         }
         // non-HTML XML documents ignore <meta> CSP unless wrapped in
         // - <html><head></head></head> on Gecko
@@ -62,8 +62,8 @@ class DocumentCSP {
       }
     } catch (e) {
       error(e, "Error inserting CSP %s in %s", document.URL, header && header.value);
-      return false;
+      return null;
     }
-    return true;
+    return CSP.normalize(header.value);
   }
 }

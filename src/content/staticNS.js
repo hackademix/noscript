@@ -105,7 +105,7 @@
           perms.capabilities.push("script");
         }
         this.capabilities = new Set(perms.capabilities);
-        new DocumentCSP(document).apply(this.capabilities, this.embeddingDocument);
+        this.CSP = new DocumentCSP(document).apply(this.capabilities, this.embeddingDocument);
       }
       this.canScript = this.allows("script");
       this.fire("capabilities");

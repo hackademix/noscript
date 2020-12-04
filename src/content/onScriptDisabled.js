@@ -1,6 +1,9 @@
 function onScriptDisabled() {
   if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", e => onScriptDisabled());
+    if (!onScriptDisabled._installed) {
+      window.addEventListener("DOMContentLoaded", e => onScriptDisabled());
+      onScriptDisabled._installed = true;
+    }
     return;
   }
   onScriptDisabled = () => {};
