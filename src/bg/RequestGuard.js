@@ -176,9 +176,10 @@ var RequestGuard = (() => {
       let tabId = sender.tab.id;
       let {frameId} = sender;
       let r = {
-        url, type, tabId, frameId
+        url, type, tabId, frameId, documentUrl: sender.url
       };
       Content.reportTo(r, false, policyTypesMap[type]);
+      debug("Violation", type, url, tabId, frameId);
       if (type === "script" && url === sender.url) {
         TabStatus.record(r, "noscriptFrame", true);
       } else {
@@ -539,7 +540,7 @@ var RequestGuard = (() => {
         if (!/:/.test(r.url)) r.url = request.documentUrl;
         Content.reportTo(r, false, policyTypesMap[r.type]);
         TabStatus.record(r, "blocked");
-      } else if (report["violated-directive"] === "script-src" && (originalPolicy.includes("; script-src 'none'"))) {
+      } else if (report["violated-directive"].startsWith("script-src") && (originalPolicy.includes("script-src 'none'"))) {
         let r =  fakeRequestFromCSP(report, request);
         Content.reportTo(r, false, "script"); // NEW
         TabStatus.record(r, "noscriptFrame", true);

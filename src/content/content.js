@@ -111,23 +111,42 @@ var notifyPage = async () => {
 window.addEventListener("pageshow", notifyPage);
 
 let violations = new Set();
+let documentOrigin = new URL(document.URL).origin;
 window.addEventListener("securitypolicyviolation", e => {
   if (!e.isTrusted) return;
   let {violatedDirective, originalPolicy} = e;
-  if (violatedDirective === `script-src 'none'`) onScriptDisabled();
+  if (violatedDirective.startsWith(`script-src`) && originalPolicy.includes("script-src 'none'")) onScriptDisabled();
 
   let type = violatedDirective.split("-", 1)[0]; // e.g. script-src 'none' => script
   let url = e.blockedURI;
   if (type === "media" && /^data\b/.test(url) && (!CSP.isMediaBlocker(originalPolicy) ||
       ns.embeddingDocument || !document.querySelector("video,audio")))
     return;
-  if (!(url && url.includes(":"))) {
-    url = document.URL;
+  if (!ns.CSP || !(CSP.normalize(originalPolicy).includes(ns.CSP))) {
+    // this seems to come from page's own CSP
+    return;
   }
-  let key = type + "@" + url;
+  let documentUrl = document.URL;
+  let origin;
+  if (!(url && url.includes(":"))) {
+    url = documentUrl;
+    origin = documentOrigin;
+  } else {
+    ({origin} = new URL(url));
+  }
+  let key = RequestKey.create(origin, type, documentOrigin);
   if (violations.has(key)) return;
   violations.add(key);
   if (type === "frame") type = "sub_frame";
+  seen.record({
+    request: {
+      key,
+      url,
+      type,
+      documentUrl,
+    },
+    allowed: false
+  });
   Messages.send("violation", {url, type});
 }, true);
 
