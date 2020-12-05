@@ -570,7 +570,7 @@ var UI = (() => {
 
     _keyNavHandler(e) {
       let focused = document.activeElement;
-      if (!focused) return;
+      if (!focused || e.ctrlKey || e.metaKey) return;
       let row = focused.closest("tr");
       if (!row || row.matches(".customizer")) return;
       let dir = "next";
