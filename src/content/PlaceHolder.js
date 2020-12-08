@@ -191,6 +191,10 @@ var PlaceHolder = (() => {
       });
       debug("Received response", ret);
       if (!ret) return;
+      // bring back ancestors
+      for (let p = replacement; p = p.parentElement;) {
+        p.classList.remove("__ns__pop2top");
+      };
       if (ret.collapse) {
         for (let collapsing of (ret.collapse === "all" ? document.querySelectorAll(SELECTOR) : [replacement])) {
           this.replacements.delete(collapsing);
