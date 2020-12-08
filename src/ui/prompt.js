@@ -5,6 +5,11 @@
     .forEach(p => window[p] = bg[p]);
   let data = Prompts.promptData;
   debug(data);
+  if (!data) {
+    error("Missing promptData");
+    window.close();
+    return;
+  }
   let {title, message, options, checks, buttons} = data.features;
 
   function labelFor(el, text) {

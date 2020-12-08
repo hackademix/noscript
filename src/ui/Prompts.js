@@ -88,10 +88,11 @@ var Prompts = (() => {
             this.done = () => {};
             winMan.close();
             resolve(this.result);
-            if (backlog.length) {
-              winMan.open(backlog.shift());
-            } else {
+            if (promptData === this) {
               promptData = null;
+              if (backlog.length) {
+                winMan.open(backlog.shift());
+              }
             }
           }
         };
