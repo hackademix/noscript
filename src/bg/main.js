@@ -144,6 +144,7 @@
         local: ns.local,
         sync: ns.sync,
         unrestrictedTab: ns.unrestrictedTabs.has(tabId),
+        tabId,
       });
     },
 

@@ -34,7 +34,7 @@ var UI = (() => {
       let inited = new Promise(resolve => {
         Messages.addHandler({
           async settings(m) {
-            if (!UI.tabId === m.tabId) return;
+            if (UI.tabId !== m.tabId) return;
             UI.policy = new Policy(m.policy);
             UI.snapshot = UI.policy.snapshot;
             UI.seen = m.seen;
