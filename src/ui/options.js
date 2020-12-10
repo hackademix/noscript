@@ -57,6 +57,8 @@
           await UI.importSettings(fr.result);
         } catch (e) {
           error(e, "Importing settings %s", fr.result);
+          alert(e);
+          return;
         }
         location.reload();
       }

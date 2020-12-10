@@ -15,7 +15,8 @@ var Settings = {
         return await this.importSettings(json);
       }
     } catch (e) {
-      return await this.importLists(data);
+      if (data.includes("[UNTRUSTED]")) await this.importLists(data);
+      else throw e;
     }
   },
 
