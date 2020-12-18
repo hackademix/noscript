@@ -24,6 +24,7 @@ var RequestGuard = (() => {
   Object.assign(policyTypesMap, {"webgl": "webgl"}); // fake types
   const TabStatus = {
     map: new Map(),
+    _originsCache: new Map(),
     types: ["script", "object", "media", "frame", "font"],
     newRecords() {
       return {
@@ -36,6 +37,17 @@ var RequestGuard = (() => {
     hasOrigin(tabId, origin) {
       let records = this.map.get(tabId);
       return records && records.origins.has(origin);
+    },
+    findTabsByOrigin(origin) {
+      let tabIds = this._originsCache.get(origin);
+      if (!tabIds) {
+        tabIds = [];
+        for(let [tabId, {origins}] of [...this.map]) {
+          if (origins.has(origin)) tabIds.push(tabId);
+        }
+        this._originsCache.set(origin, tabIds);
+      }
+      return tabIds;
     },
     initTab(tabId, records = this.newRecords()) {
       if (tabId < 0) return;
@@ -59,6 +71,7 @@ var RequestGuard = (() => {
       }
       if (type.endsWith("frame")) {
         records.origins.add(Sites.origin(url));
+        TabStatus._originsCache.clear();
       }
       let collection = records[what];
       if (collection) {
@@ -163,6 +176,7 @@ var RequestGuard = (() => {
     },
     onRemovedTab(tabId) {
       TabStatus.map.delete(tabId);
+      TabStatus._originsCache.clear();
     },
   }
   browser.tabs.onActivated.addListener(TabStatus.onActivatedTab);
@@ -245,8 +259,8 @@ var RequestGuard = (() => {
           // service worker / importScripts()?
           let payload = {request, allowed, policyType, serviceWorker: Sites.origin(documentUrl)};
           let recipient = {frameId: 0};
-          for (let tab of await browser.tabs.query({url: ["http://*/*", "https://*/*"]})) {
-            recipient.tabId = tab.id;
+          for (let tabId of TabStatus.findTabsByOrigin(payload.serviceWorker)) {
+            recipient.tabId = tabId;
             try {
               Messages.send("seen", payload, recipient);
             } catch (e) {
