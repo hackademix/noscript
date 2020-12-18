@@ -15,6 +15,10 @@ a.__NoScript_PlaceHolder__ {
   z-index: 2147483647 !important;
 }
 
+.__ns__pop2top.html5-video-container {
+  display: initial !important;
+}
+
 a.__NoScript_PlaceHolder__:hover {
   opacity: 1;
   text-decoration: underline;
