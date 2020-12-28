@@ -27,7 +27,6 @@ var UI = (() => {
       this.mobile = UA.mobile;
       if (this.mobile) {
         document.documentElement.classList.toggle("mobile", true);
-        scripts.push("/lib/fastclick.js");
       }
       await include(scripts);
 
@@ -57,8 +56,6 @@ var UI = (() => {
             await HighContrast.init();
           }
         });
-
-        if (this.mobile) FastClick.attach(document.body);
         UI.pullSettings();
       });
 
