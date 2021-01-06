@@ -345,7 +345,7 @@ XSS.InjectionChecker = (async () => {
         .replace(this._arrayAccessRx, '_ARRAY_ACCESS_')
         .replace(/<([\w:]+)>[^</(="'`]+<\/\1>/g, '<$1/>') // reduce XML text nodes
         .replace(/<!--/g, '') // remove HTML comments preamble (see next line)
-        .replace(/(^(?:[^/]*[=;.+-])?)\s*[\[(]+/g, '$1') // remove leading parens and braces
+        .replace(/(^(?:[^/?]*[=;.+-])?)\s*[\[(]+/g, '$1') // remove leading parens and braces
         .replace(this._openIdRx, '_OPENID_SCOPE_=XYZ')
         .replace(/^[^=]*OPENid\.(\w+)=/gi, "OPENid_\1")
         .replace(this._gmxRx, '_GMX_-_GMX_');
