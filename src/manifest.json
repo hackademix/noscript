@@ -51,7 +51,6 @@
       "common/RequestKey.js",
       "common/Policy.js",
       "common/locale.js",
-      "common/Entities.js",
       "common/SyntaxChecker.js",
       "common/Storage.js",
       "ui/Prompts.js",
