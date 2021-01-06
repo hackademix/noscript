@@ -4,7 +4,8 @@ XSS.InjectionChecker = (async () => {
     "/lib/Base64.js",
     "/lib/Timing.js",
     "/xss/FlashIdiocy.js",
-    "/xss/ASPIdiocy.js"]
+    "/xss/ASPIdiocy.js",
+    "/lib/he.js"]
   );
 
   var {FlashIdiocy, ASPIdiocy} = XSS;
@@ -1030,9 +1031,8 @@ XSS.InjectionChecker = (async () => {
       if (await this.checkHTML(s) || await this.checkJS(s) || this.checkSQLI(s) || this.checkHeaders(s))
         return true;
 
-      if (s.indexOf("&") !== -1) {
-        let unent = await Entities.convertAll(s);
-        if (unent !== s && await this._checkRecursive(unent, depth)) return true;
+      if (await this._checkEntities(s, depth)) {
+        return true;
       }
 
       if (--depth <= 0)
@@ -1050,8 +1050,7 @@ XSS.InjectionChecker = (async () => {
         return true;
 
       if (/[\u0000-\u001f]|&#/.test(unescaped)) {
-        let unent = await Entities.convertAll(unescaped.replace(/[\u0000-\u001f]+/g, ''));
-        if (unescaped != unent && await this._checkRecursive(unent, depth)) {
+        if (await this._checkEntities(unescaped, depth, u => u.replace(/[\u0000-\u001f]+/g, ''))) {
           this.log("Trash-stripped nested URL match!");
           return true;
         }
@@ -1086,6 +1085,19 @@ XSS.InjectionChecker = (async () => {
       if (s != unescaped && await this._checkRecursive(s, depth))
         return true;
 
+      return false;
+    },
+
+    async _checkEntities(s, depth, preTransform = null) {
+      if (!(preTransform || s.includes("&"))) return false;
+      let value = preTransform ? preTransform(s) : s;
+      for (let opts = {isAttributeValue: true}; ; opts.isAttributeValue = false) {
+        let heDecoded = he.decode(value, opts);
+        if (heDecoded !== s && await this._checkRecursive(heDecoded, depth)) {
+          return true;
+        }
+        if (!(opts.isAttributeValue && heDecoded.includes("&"))) break;
+      }
       return false;
     },
 

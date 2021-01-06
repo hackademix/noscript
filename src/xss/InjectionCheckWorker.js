@@ -13,9 +13,6 @@ for (let logType of ["log", "debug", "error"]) {
 }
 
 include("InjectionChecker.js");
-Entities = {
-  convertAll(s) { return s },
-};
 
 {
   let timingsMap = new Map();
