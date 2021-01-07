@@ -64,7 +64,7 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Top-Level Seiten vorübergehend auf VERTRAUENSWÜRDIG setzen",
+        "message": "Temporär Top-Level Seiten VERTRAUEN",
         "description": ""
     },
     "AutoReload": {
@@ -696,7 +696,7 @@
         "description": ""
     },
     "allowTempFrom": {
-        "message": "Alles von $1 vorübergehend zulassen",
+        "message": "Alles von $1 temporär zulassen",
         "description": ""
     },
     "allowed_no": {
