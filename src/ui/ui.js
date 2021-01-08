@@ -897,7 +897,7 @@ var UI = (() => {
     highlight(key) {
       key = Sites.toExternal(key);
       for (let r of this.allSiteRows()) {
-        if (r.querySelector(".full-address").textContent.trim().includes(key)) {
+        if (r.querySelector(".full-address").textContent.trim().replace(/^.*:\/\/…/, '') === key) {
           let url = r.lastElementChild;
           url.style.transition = r.style.transition = "none";
           r.style.backgroundColor = "#850";
@@ -910,6 +910,7 @@ var UI = (() => {
               url.style.transform = "none";
               r.scrollIntoView();
           }, 50);
+          break;
         }
       }
     }
