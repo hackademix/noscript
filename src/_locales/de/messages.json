@@ -64,7 +64,7 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Temporär Top-Level Seiten VERTRAUEN",
+        "message": "Top-Level Seiten temporär VERTRAUEN",
         "description": ""
     },
     "AutoReload": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "TempTrustPage": {
-        "message": "Temporär allem auf dieser Seite VERTRAUEN",
+        "message": "Allem auf dieser Seite temporär VERTRAUEN",
         "description": ""
     },
     "TempTrustPage_accesskey": {
