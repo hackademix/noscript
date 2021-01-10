@@ -897,18 +897,16 @@ var UI = (() => {
     highlight(key) {
       key = Sites.toExternal(key);
       for (let r of this.allSiteRows()) {
-        if (r.querySelector(".full-address").textContent.trim().replace(/^.*:\/\/…/, '') === key) {
-          let url = r.lastElementChild;
-          url.style.transition = r.style.transition = "none";
-          r.style.backgroundColor = "#850";
-          url.style.transform = "scale(2)";
+        if (key === r.siteMatch) {
+          r.classList.add("hilite");
           r.querySelector("input.preset:checked").focus();
           window.setTimeout(() => {
-              r.style.transition = "1s background-color";
-              url.style.transition = "1s transform";
-              r.style.backgroundColor = "";
-              url.style.transform = "none";
+              r.classList.remove("hilite");
+              r.classList.add("hilite-end");
               r.scrollIntoView();
+              window.setTimeout(() => {
+                r.classList.remove("hilite-end");
+              }, 1000)
           }, 50);
           break;
         }

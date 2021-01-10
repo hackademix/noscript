@@ -505,3 +505,18 @@ legend {
 #high-contrast-chooser {
   display: none;
 }
+
+.hilite {
+  background-color: #850 !important;
+}
+.hilite-end {
+  transition: 1s background-color;
+}
+.hilite .url {
+  transform: scale(2);
+  transition: none;
+}
+.hilite-end .url {
+  transform: none;
+  transition: 1s transform;
+}
