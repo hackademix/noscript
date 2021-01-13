@@ -163,7 +163,10 @@
     let newSiteForm = document.querySelector("#form-newsite");
     let newSiteInput = newSiteForm.newsite;
     let button = newSiteForm.querySelector("button");
-    let canAdd = s => policy.get(s).siteMatch === null;
+    let canAdd = s => {
+      let match = policy.get(s).siteMatch;
+      return match === null || s.length > match.length;
+    }
 
     let validate = () => {
       let site = newSiteInput.value.trim();
