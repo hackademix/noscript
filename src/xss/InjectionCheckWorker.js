@@ -36,7 +36,7 @@ include("InjectionChecker.js");
 
       let {timing} = ic;
       timingsMap.set(request.requestId, timing);
-      timing.fatalTimeout = true;
+      timing.pauseTime = 0; // skip the default 20ms nap
 
       let postInjection = xssReq.isPost &&
           request.requestBody && request.requestBody.formData &&

@@ -31,7 +31,7 @@ class Timing {
         throw new TimingException(`Timing: exceeded ${this.longTime}ms timeout`);
       }
       this.calls = 0;
-      await Timing.sleep(this.pauseTime);
+      if (this.pauseTime > 0) await Timing.sleep(this.pauseTime);
       this.lastPause = Date.now();
       return true;
     }
