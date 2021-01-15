@@ -115,8 +115,8 @@ XSS.InjectionChecker = (async () => {
         // special treatment for quotes
         bs[c] = new RegExp("[" + def + c + "]");
       }
-      delete this.breakStops;
-      return (this.breakStops = bs);
+      Object.defineProperty(Object.getPrototypeOf(this), 'breakStops', {value: bs});
+      return bs;
     },
 
     collapseChars: (s) => s.replace(/\;+/g, ';').replace(/\/{4,}/g, '////')
@@ -283,7 +283,7 @@ XSS.InjectionChecker = (async () => {
       +fuzzify('source|toString') + ")|\\[)|" + IC_EVENT_DOS_PATTERN
     ),
     _riskyAssignmentRx: new RegExp(
-      "\\b(?:" + fuzzify('location|innerHTML|outerHTML') + ")\\b[^]*="
+      "(?:^|[^&])\\b(?:" + fuzzify('location|innerHTML|outerHTML') + ")\\b[^]*="
     ),
     _nameRx: new RegExp(
       "=[^]*\\b" + fuzzify('name') + "\\b|" +
@@ -301,7 +301,7 @@ XSS.InjectionChecker = (async () => {
       ')|(?:^|\\W)(?:' + IC_EVAL_PATTERN +
       ')(?:\\W+[^]*|)[(`]|(?:[=(]|\\{[^]+:)[^]*(?:' + // calling eval-like functions directly or...
       IC_EVAL_PATTERN + // ... assigning them to another function possibly called by the victim later
-      ')[^]*[\\n,;:|]|\\b(?:' +
+      ')[^]*[\\n,;:|]|(?:^|[^&])\\b(?:' +
       fuzzify('setter|location|innerHTML|outerHTML') + // eval-like assignments
       ')\\b[^]*=|' +
       '\\.' + IC_COMMENT_PATTERN + "src" + IC_COMMENT_PATTERN + '=' +
@@ -498,8 +498,9 @@ XSS.InjectionChecker = (async () => {
     },
 
     get invalidCharsRx() {
-      delete this.invalidCharsRx;
-      return this.invalidCharsRx = new RegExp("^[^\"'`/<>]*[" + this._createInvalidRanges() + "]");
+      let value = new RegExp("^[^\"'`/<>]*[" + this._createInvalidRanges() + "]");
+      Object.defineProperty(Object.getPrototypeOf(this), 'invalidCharsRx', {value});
+      return value;
     },
 
     async checkJSBreak(s) {
