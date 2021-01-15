@@ -47,7 +47,7 @@ XSS.InjectionChecker = (async () => {
       if (msg) msg = this._printable(msg);
       msg = `${msg} - TIME: ${this.timing.elapsed}`;
       if (iterations) msg = `${msg} - ITER: ${iterations}`;
-      debug("[InjectionChecker]", msg);
+      debug("[InjectionChecker]", msg, new Error().stack);
     },
 
     _printable: function(msg) {
@@ -57,7 +57,7 @@ XSS.InjectionChecker = (async () => {
     },
     log: function() {},
     get logEnabled() {
-      return this.log == this._log;
+      return this.log === this._log;
     },
     set logEnabled(v) {
       this.log = v ? this._log : function() {};
