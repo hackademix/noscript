@@ -7,6 +7,8 @@ var XSS = (() => {
   let workersMap = new Map();
   let promptsMap = new Map();
 
+  let requestIdCount = 0;
+
   async function getUserResponse(xssReq) {
     let {originKey} = xssReq;
     await promptsMap.get(originKey);
@@ -309,6 +311,20 @@ var XSS = (() => {
           return false;
         };
       });
+    },
+
+    async test(urlOrRequest) {
+      let r = {
+        requestId: `fake${requestIdCount++}`,
+        originUrl: '',
+        method: "GET",
+      };
+      if (typeof urlOrRequest === "string") {
+        r.url = urlOrRequest;
+      } else if (typeof urlOrRequest === "object") {
+        Object.assign(r, urlOrRequest);
+      }
+      return await XSS.maybe(XSS.parseRequest(r));
     }
   };
 })();
