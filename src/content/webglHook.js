@@ -80,7 +80,7 @@ if (typeof exportFunction === "function") ns.on("capabilities", event => {
             error(e);
           }
           notifyPage();
-          return {};
+          return null;
         }
         return getContext.call(this, type, ...rest);
       }, proto, {defineAs: "getContext"});
