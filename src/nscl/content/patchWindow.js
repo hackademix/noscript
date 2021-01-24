@@ -1,6 +1,6 @@
 "use strict";
 
-function patchWindow(patchingCallback, targetWindow = window) {
+function patchWindow(patchingCallback, env = {}) {
   let nativeExport = this && this.exportFunction || typeof exportFunction == "function";
   if (!nativeExport) {
     // Chromium
@@ -26,7 +26,7 @@ function patchWindow(patchingCallback, targetWindow = window) {
         patchWindow,
         exportFunction,
         cloneInto,
-      }).patchWindow(${patchingCallback});
+      }).patchWindow(${patchingCallback}, ${JSON.stringify(env)});
     })();
     `;
     document.documentElement.insertBefore(script, document.documentElement.firstChild);
@@ -39,7 +39,7 @@ function patchWindow(patchingCallback, targetWindow = window) {
   //                or methods. Callback must take target window as argument.
   function modifyWindow(win, modifyTarget) {
     try {
-      modifyTarget(win.wrappedJSObject || win);
+      modifyTarget(win.wrappedJSObject || win, env);
       modifyWindowOpenMethod(win, modifyTarget);
       modifyFramingElements(win, modifyTarget);
     } catch (e) {
@@ -88,6 +88,6 @@ function patchWindow(patchingCallback, targetWindow = window) {
     let wrappedProto = proto.wrappedJSObject || proto;
     Object.defineProperty(wrappedProto, property, descriptor);
   }
-  
-  return modifyWindow(targetWindow, patchingCallback);
+
+  return modifyWindow(window, patchingCallback);
 }
