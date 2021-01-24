@@ -8,7 +8,7 @@
       "strict_min_version": "59.0"
     }
   },
-  "version": "11.1.9",
+  "version": "11.2rc1",
   "description": "__MSG_Description__",
   "incognito": "spanning",
 
@@ -96,6 +96,7 @@
         "lib/sha256.js",
         "lib/Messages.js",
         "lib/CSP.js",
+        "nscl/content/patchWindow.js",
         "common/CapsCSP.js",
         "common/RequestKey.js",
         "content/DocumentCSP.js",
