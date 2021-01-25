@@ -174,9 +174,9 @@ var UI = (() => {
       }
       button.onclick = () => {
         let xssUserChoices = UI.xssUserChoices;
-        for (let o of list.selectedOptions) {
+        for (let o of [...list.selectedOptions]) {
           delete xssUserChoices[o.value];
-          list.remove(o);
+          o.remove();
         }
         if (list.options.length === 0) {
           choicesUI.classList.remove("populated");
