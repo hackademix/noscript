@@ -145,6 +145,7 @@
         sync: ns.sync,
         unrestrictedTab: ns.unrestrictedTabs.has(tabId),
         tabId,
+        xssBlockedInTab: XSS.getBlockedInTab(tabId),
       });
     },
 

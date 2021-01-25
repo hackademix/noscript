@@ -39,6 +39,7 @@ var UI = (() => {
             UI.seen = m.seen;
             UI.unrestrictedTab = m.unrestrictedTab;
             UI.xssUserChoices = m.xssUserChoices;
+            UI.xssBlockedInTab = m.xssBlockedInTab;
             UI.local = m.local;
             UI.sync = m.sync;
             UI.forceIncognito = UI.incognito && !UI.sync.overrideTorBrowserPolicy;
@@ -53,6 +54,7 @@ var UI = (() => {
             }
             resolve();
             if (UI.onSettings) UI.onSettings();
+            if (UI.tabId === -1 || UI.xssBlockedInTab) UI.createXSSChoiceManager();
             await HighContrast.init();
           }
         });
@@ -128,6 +130,61 @@ var UI = (() => {
         }
       }
       return input;
+    },
+
+    createXSSChoiceManager(parent = "#xssChoices") {
+      let choicesUI = document.querySelector(parent);
+      if (!choicesUI) return;
+      choicesUI.classList.remove("populated");
+      let choices = Object.entries(UI.xssUserChoices);
+      let choiceKeys = UI.xssBlockedInTab;
+      if (choiceKeys) {
+        choices = choices.filter(([key,])=> choiceKeys.includes(key));
+      }
+      if (!choices || Object.keys(choices).length === 0) {
+        return;
+      }
+
+      choicesUI.classList.add("populated");
+
+      choices.sort((a, b) => {
+        let x = a.join("|"), y = b.join("|");
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+      let list = choicesUI.querySelector("select") || choicesUI.appendChild(document.createElement("select"));
+      list.size = Math.min(choices.length, 6);
+      list.multiple = true;
+      for (let o of list.options) {
+        list.remove(o);
+      }
+      for (let [originKey, choice] of choices) {
+        let [source, destOrigin] = originKey.split(">");
+        let opt = document.createElement("option");
+        opt.className = choice;
+        opt.value = originKey;
+        let block = choice === "block";
+        opt.defaultSelected = block;
+        opt.text = _(`XSS_optAlways${block ? "Block" : "Allow"}`, [source || "[...]", destOrigin]);
+        list.add(opt);
+      }
+      let button = choicesUI.querySelector("button");
+      if (!button) {
+        button = choicesUI.appendChild(document.createElement("button"));
+        button.textContent = _("XSS_clearUserChoices");
+      }
+      button.onclick = () => {
+        let xssUserChoices = UI.xssUserChoices;
+        for (let o of list.selectedOptions) {
+          delete xssUserChoices[o.value];
+          list.remove(o);
+        }
+        if (list.options.length === 0) {
+          choicesUI.classList.remove("populated");
+        }
+        UI.updateSettings({
+          xssUserChoices
+        });
+      };
     }
   };
 

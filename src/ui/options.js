@@ -108,16 +108,6 @@
         url: a.href
       });
     }
-    let button = document.querySelector("#btn-delete-xss-choices");
-    let choices = UI.xssUserChoices;
-    button.disabled = !choices || Object.keys(choices).length === 0;
-    button.onclick = () => {
-      UI.updateSettings({
-        xssUserChoices: {}
-      });
-      button.disabled = true
-    };
-
   }
 
   opt("clearclick");

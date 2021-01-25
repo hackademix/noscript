@@ -19,7 +19,7 @@ include("InjectionChecker.js");
 
   let Handlers = {
     async check({xssReq, skip}) {
-      let {destUrl, unparsedRequest: request, debugging} = xssReq;
+      let {destUrl, request, debugging} = xssReq;
       let {
         skipParams,
         skipRx

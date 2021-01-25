@@ -6,19 +6,38 @@ var XSS = (() => {
 
   let workersMap = new Map();
   let promptsMap = new Map();
+  let blockedTabs = new Map();
 
   let requestIdCount = 0;
 
   async function getUserResponse(xssReq) {
-    let {originKey} = xssReq;
+    let {originKey, request} = xssReq;
+    let {tabId, frameId} = request;
+    let {browserAction} = browser;
+    if (frameId === 0) {
+      if (blockedTabs.has(tabId)) {
+        blockedTabs.delete(tabId);
+        if ("setBadgeText" in browserAction) {
+          browserAction.setBadgeText({tabId, text: ""});
+        }
+      }
+    }
     await promptsMap.get(originKey);
-    // promptsMap.delete(originKey);
+
     switch (await XSS.getUserChoice(originKey)) {
       case "allow":
         return ALLOW;
       case "block":
         log("Blocking request from %s to %s by previous XSS prompt user choice",
         xssReq.srcUrl, xssReq.destUrl);
+
+        if ("setBadgeText" in browserAction) {
+          browserAction.setBadgeText({tabId, text: "XSS"});
+          browserAction.setBadgeBackgroundColor({tabId, color: [0, 0, 128, 160]});
+        }
+        let keys = blockedTabs.get(tabId);
+        if (!keys) blockedTabs.set(tabId, keys = new Set());
+        keys.add(originKey);
         return ABORT;
     }
     return null;
@@ -215,7 +234,7 @@ var XSS = (() => {
 
       let isGet = method === "GET";
       return {
-        unparsedRequest: request,
+        request,
         srcUrl,
         destUrl,
         srcObj,
@@ -247,6 +266,10 @@ var XSS = (() => {
       return this._userChoices[originKey];
     },
 
+    getBlockedInTab(tabId) {
+      return blockedTabs.has(tabId) ? [...blockedTabs.get(tabId)] : null;
+    },
+
     async maybe(xssReq) { // return reason or null if everything seems fine
       if (await this.Exceptions.shouldIgnore(xssReq)) {
         return null;
@@ -254,7 +277,7 @@ var XSS = (() => {
 
       let skip = this.Exceptions.partial(xssReq);
       let worker = new Worker(browser.runtime.getURL("/xss/InjectionCheckWorker.js"));
-      let {requestId} = xssReq.unparsedRequest;
+      let {requestId} = xssReq.request;
       workersMap.set(requestId, worker)
       return await new Promise((resolve, reject) => {
         worker.onmessage = e => {
@@ -282,7 +305,7 @@ var XSS = (() => {
         let onNavError = details => {
           debug("Navigation error: %o", details);
           let {tabId, frameId, url} = details;
-          let r = xssReq.unparsedRequest;
+          let r = xssReq.request;
           if (tabId === r.tabId && frameId === r.frameId) {
             cleanup();
             reject(new Error("Timing: request interrupted while being filtered, no need to go on."));

@@ -520,3 +520,25 @@ legend {
   transform: none;
   transition: 1s transform;
 }
+
+#xssChoices {
+  padding: .5em;
+  display: none;
+  flex-direction: column;
+}
+
+#xssChoices.populated {
+  display: flex;
+}
+
+#xssChoices option {
+  background: white;
+}
+
+#xssChoices option.block {
+  color: #a00;
+}
+
+#xssChoices option.allow {
+  color: #080;
+}
