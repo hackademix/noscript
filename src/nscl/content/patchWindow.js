@@ -6,11 +6,12 @@ function patchWindow(patchingCallback, env = {}) {
     // Chromium
     let exportFunction = (func, targetObject, {defineAs}) => {
       let original = targetObject[defineAs];
-      if (original && original.toString) {
-        func.toString = original.toString.bind(original);
-      }
       console.log(`Setting ${targetObject}.${defineAs}`, func);
-      targetObject[defineAs] = func;
+      targetObject[defineAs] = new Proxy(original, {
+        apply(target, thisArg, args) {
+          return func.apply(thisArg, args);
+        }
+      });
     };
     let cloneInto = (obj, targetObject) => {
       return obj; // dummy for assignment
