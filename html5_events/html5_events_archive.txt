@@ -108,8 +108,6 @@ onmouseup
 onMozAfterPaint
 onmozfullscreenchange
 onmozfullscreenerror
-onmozkeydownonplugin
-onmozkeyuponplugin
 onmozpointerlockchange
 onmozpointerlockerror
 onMozMousePixelScroll
@@ -365,6 +363,8 @@ onupdate
 onupdateend
 onaddsourcebuffer
 onremovesourcebuffer
+onmozkeydownonplugin
+onmozkeyuponplugin
 onSVGResize
 onSVGUnload
 onSVGZoom
