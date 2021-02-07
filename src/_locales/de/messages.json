@@ -156,7 +156,7 @@
         "description": ""
     },
     "CustomizePresets": {
-        "message": "Voreinstellungs-Anpassung (für alle Seiten, die eine Voreinstellung teilen)",
+        "message": "Voreinstellungs-Anpassung (für alle Seiten die eine Voreinstellung teilen)",
         "description": ""
     },
     "Default": {
@@ -300,7 +300,7 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Dauerhaftes Setzen von Berechtigungen in privaten Fenstern aktivieren\n(ACHTUNG: Dadurch können Seiteninformationen durchsickern!)",
+        "message": "Dauerhaftes Setzen von Berechtigungen in privaten Fenstern aktivieren.\n(ACHTUNG: Dadurch können Seiteninformationen durchsickern!)",
         "description": ""
     },
     "OptAmnesticUpdates": {
@@ -368,7 +368,7 @@
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Die Sicherheitsstufe des Tor Browsers übersteuern",
+        "message": "Die Sicherheitsstufe des Tor-Browsers übersteuern",
         "description": ""
     },
     "Options": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "OptionsLong": {
-        "message": "NoScript Einstellungen",
+        "message": "NoScript-Einstellungen",
         "description": ""
     },
     "OptionsWidth": {
@@ -408,7 +408,7 @@
         "description": ""
     },
     "Preset": {
-        "message": "Schutzstufe",
+        "message": "Sicherheitsstufe",
         "description": ""
     },
     "Preset_high": {
@@ -488,7 +488,7 @@
         "description": ""
     },
     "SecurityManager": {
-        "message": "Sicherheits-Manager",
+        "message": "Sicherheitsmanager",
         "description": ""
     },
     "Show": {
@@ -716,7 +716,7 @@
         "description": ""
     },
     "audio_samples": {
-        "message": "Ton Beispiele",
+        "message": "Tonbeispiele",
         "description": ""
     },
     "bookmarkSync_confirm": {
@@ -728,7 +728,7 @@
         "description": ""
     },
     "bookmarkSync_title": {
-        "message": "NoScript Konfigurationslesezeichen",
+        "message": "NoScript-Konfigurationslesezeichen",
         "description": ""
     },
     "cap_script": {
@@ -860,7 +860,7 @@
         "description": ""
     },
     "removal_message": {
-        "message": "Mit der Deaktivierung oder Deinstallation von NoScript gehen ALLE von NoScript bereitgestellten Schutzfunktionen verloren.\n\nWenn es Ihnen bloß zu viel Aufwand ist, Script-Berechtigungen für jede Seite neu festzulegen, dann gibt es eine sicherere Möglichkeit.\n\nNoScript kann aufhören alle Scripte zu blockieren (ausgenommen diejenigen, die als nicht vertrauenswürdig markiert wurden) und Sie trotzdem mittels erweiterten Sicherheitsfunktionen gegen XSS, Clickjacking, CSRF und andere Bedrohungen im Internet beschützen.\n\nWollen Sie wirklich ALLE NoScript Schutzfunktionen deaktivieren?\n",
+        "message": "Mit der Deaktivierung oder Deinstallation von NoScript gehen ALLE von NoScript bereitgestellten Schutzfunktionen verloren.\n\nWenn es Ihnen bloß zu viel Aufwand ist, Script-Berechtigungen für jede Seite neu festzulegen, dann gibt es eine sicherere Möglichkeit.\n\nNoScript kann aufhören alle Scripte zu blockieren (ausgenommen diejenigen, die als nicht vertrauenswürdig markiert wurden) und Sie trotzdem mittels erweiterten Sicherheitsfunktionen gegen XSS, Clickjacking, CSRF und andere Bedrohungen im Internet beschützen.\n\nWollen Sie wirklich ALLE NoScript-Schutzfunktionen deaktivieren?\n",
         "description": ""
     },
     "removal_no": {
