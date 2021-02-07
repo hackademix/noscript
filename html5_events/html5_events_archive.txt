@@ -357,12 +357,13 @@ onpositionstatechange
 onsupportedkeyschange
 onsourceopen
 onsourceended
-onsourceclosed
+onsourceclose
 onupdatestart
 onupdate
 onupdateend
 onaddsourcebuffer
 onremovesourcebuffer
+onsourceclosed
 onmozkeydownonplugin
 onmozkeyuponplugin
 onSVGResize
