@@ -5,8 +5,6 @@ ns.on("capabilities", event => {
   if (ns.allows("webgl")) return;
   let env = {eventName: `nsWebgl:${uuid()}`};
   window.addEventListener(env.eventName, e => {
-    let canvas = e.target;
-    if (!(canvas instanceof HTMLCanvasElement)) return;
     let request = {
       id: "noscript-webgl",
       type: "webgl",
@@ -15,12 +13,15 @@ ns.on("capabilities", event => {
       embeddingDocument: true,
     };
     seen.record({policyType: "webgl", request, allowed: false});
-    try {
-      let ph = PlaceHolder.create("webgl", request);
-      ph.replace(canvas);
-      PlaceHolder.listen();
-    } catch (e) {
-      error(e);
+    let canvas = e.target;
+    if (canvas instanceof HTMLCanvasElement) {
+      try {
+        let ph = PlaceHolder.create("webgl", request);
+        ph.replace(canvas);
+        PlaceHolder.listen();
+      } catch (e) {
+        error(e);
+      }
     }
     notifyPage();
   }, true);
@@ -30,7 +31,8 @@ ns.on("capabilities", event => {
       let getContext = proto.getContext;
       exportFunction(function(type, ...rest) {
         if (type && type.toLowerCase().includes("webgl")) {
-          this.dispatchEvent(new Event(env.eventName));
+          let target = document.contains(this) ? this : window;
+          target.dispatchEvent(new Event(env.eventName, {composed: true}));
           return null;
         }
         return getContext.call(this, type, ...rest);
