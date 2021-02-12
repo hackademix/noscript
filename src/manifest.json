@@ -41,7 +41,7 @@
       "lib/log.js",
       "lib/include.js",
       "lib/punycode.js",
-      "lib/tld.js",
+      "nscl/common/tld.js",
       "lib/LastListener.js",
       "lib/Messages.js",
       "lib/CSP.js",

@@ -21,7 +21,7 @@ var UI = (() => {
         "/ui/ui.css",
         "/lib/Messages.js",
         "/lib/punycode.js",
-        "/lib/tld.js",
+        "/nscl/common/tld.js",
         "/common/Policy.js",
       ];
       this.mobile = UA.mobile;

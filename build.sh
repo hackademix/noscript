@@ -63,11 +63,20 @@ fi
 XPI_DIR="$BASE/xpi"
 XPI="$XPI_DIR/noscript-$VER"
 LIB="$SRC/lib"
-TLD="$BASE/TLD"
+NSCL_SUBMOD="$BASE/nscl"
+NSCL="$SRC/nscl"
+NSCL_SRC="$NSCL_SUBMOD/src/nscl"
+if [[ "$1" == "nscl" ]]; then
+  echo "Updating and synchronizing nscl..."
+  pushd "$NSCL_SUBMOD" && git submodule update --init && git fetch && git merge && popd || exit 1
+  cp "$NSCL_SRC/common/tld.js" "$NSCL/common/"
+  cp "$NSCL_SRC/content/patchWindow.js" "$NSCL/content/"
+  git add "$NSCL" && git commit -m'[nscl] Updated NoScript Common Library inclusions.'
+  exit
+fi
 
-if ! [ $(date -r "$LIB/tld.js"  +'%Y%m%d') -ge $(date +'%Y%m%d') -a "$1" != "tld" ] && "$TLD/generate.sh" "$LIB/tld.js"; then
-  cp -u "$TLD/tld.js" "$LIB"
-  git add src/lib/tld.js TLD && git commit -m'Updated TLDs.'
+if node "$NSCL_SUBMOD/TLD/update.js" "$NSCL/common/tld.js"; then
+  git add src/lib/tld.js && git commit -m'[nscl] Updated TLDs.'
 fi
 
 if ./html5_events/html5_events.pl; then
