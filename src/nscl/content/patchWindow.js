@@ -8,8 +8,8 @@ function patchWindow(patchingCallback, env = {}) {
       let original = targetObject[defineAs];
       console.log(`Setting ${targetObject}.${defineAs}`, func);
       targetObject[defineAs] = new Proxy(original, {
-        apply(target, thisArg, args) {
-          return func.apply(thisArg, args);
+        apply(target, thisArg, args) { 
+          return func.apply(thisArg, args); 
         }
       });
     };
