@@ -196,6 +196,7 @@ html:not(.mobile) .sites > tr.site:focus-within {
     padding: 0 0 0 0.5em;
     color: #000;
     vertical-align: top;
+    width: 80%;
 }
 .site .url .protocol { display: none }
 
@@ -263,10 +264,6 @@ label.https-only {
 td.presets {
   font-size: 1em;
   white-space: nowrap;
-}
-
-.mobile td.presets {
-  white-space: normal;
 }
 
 span.preset {
@@ -415,7 +412,7 @@ input.temp + label {
 
 input.preset:checked ~ input.temp {
   opacity: .5;
-  right: .5em;
+  right: 0;
   pointer-events: all;
 }
 
@@ -436,7 +433,7 @@ input.preset:checked ~ input.temp {
   margin: 0 0.06em 0.06em 0.06em;
 }
 .customizing input.preset:checked, #presets input.preset, #presets input.preset:checked  {
-  margin: 0 1em -0.2em 1em;
+  margin: 0 0 -0.2em 1em;
   border-radius: 0.5em 0.5em 0 0;
 }
 
