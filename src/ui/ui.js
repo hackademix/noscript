@@ -795,7 +795,7 @@ var UI = (() => {
         }
       }
 
-      let hostname = Sites.toExternal(url.hostname);
+      let {hostname} = url;
       let overrideDefault = site && url.protocol && site !== url.protocol ?
         policy.get(url.protocol, contextMatch) : null;
       if (overrideDefault && !overrideDefault.siteMatch) overrideDefault = null;
@@ -819,22 +819,22 @@ var UI = (() => {
       row.siteMatch = siteMatch;
       row.contextMatch = contextMatch;
       row.perms = perms;
-      row.domain = domain || siteMatch;
       if (domain) { // "normal" URL
         let justDomain = hostname === domain;
         let domainEntry = secure || domain === site;
-        row._label =  domainEntry ? "." + domain : site;
+        let unicodeDomain = row.domain = punycode.toUnicode(domain);
+        row._label =  domainEntry ? `.${unicodeDomain}` : Sites.toExternal(site);
         row.querySelector(".protocol").textContent = `${url.protocol}//`;
         row.querySelector(".sub").textContent = justDomain ?
           (keyStyle === "full" || keyStyle == "unsafe"
             ? "" : "…")
-            : hostname.substring(0, hostname.length - domain.length);
+            : punycode.toUnicode(hostname.substring(0, hostname.length - domain.length));
 
-        row.querySelector(".domain").textContent = domain;
+        row.querySelector(".domain").textContent = unicodeDomain;
         row.querySelector(".path").textContent = siteMatch.length > url.origin.length ? url.pathname : "";
       } else {
-        row._label = siteMatch;
-        urlContainer.querySelector(".full-address").textContent = siteMatch;
+        urlContainer.querySelector(".full-address").textContent =
+          row._label = row.domain = siteMatch;
       }
       let httpsOnly = row.querySelector("input.https-only");
       httpsOnly.checked = keyStyle === "full" || keyStyle === "secure";
