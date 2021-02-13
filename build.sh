@@ -63,32 +63,8 @@ fi
 XPI_DIR="$BASE/xpi"
 XPI="$XPI_DIR/noscript-$VER"
 LIB="$SRC/lib"
-NSCL_SUBMOD="$BASE/nscl"
-NSCL="$SRC/nscl"
-NSCL_SRC="$NSCL_SUBMOD/src/nscl"
-if [[ "$1" == "nscl" ]]; then
-  nscl_cp() {
-    nscl_from="$NSCL_SRC/$1"
-    nscl_to="$NSCL/$1/"
-    mkdir -p "$nscl_to"
-    pushd "$nscl_from" >/dev/null 2>&1
-    shift
-    echo "Copying $@ to $nscl_to..."
-    cp -Rp $@ "$nscl_to"
-    popd >/dev/null 2>&1
-  }
-  echo "Updating and synchronizing nscl..."
-  pushd "$NSCL_SUBMOD" && git submodule update --init && git fetch && git merge && popd || exit 1
-  nscl_cp common tld.js RequestKey.js Sites.js Permissions.js Policy.js
-  nscl_cp lib punycode.*
-  nscl_cp content patchWindow.js
-  git add "$NSCL" && git commit -m'[nscl] Updated NoScript Common Library inclusions.'
-  exit
-fi
 
-if node "$NSCL_SUBMOD/TLD/update.js" "$NSCL/common/tld.js"; then
-  git add src/lib/tld.js && git commit -m'[nscl] Updated TLDs.'
-fi
+NSCL="$SRC/nscl"
 
 if ./html5_events/html5_events.pl; then
   # update full event list as an array in src/lib/DocumentFreezer.js
@@ -98,6 +74,21 @@ fi
 
 rm -rf "$BUILD" "$XPI"
 cp -pR "$SRC" "$BUILD"
+# prune unused nscl stuff
+rm -rf "$BUILD/nscl"
+pushd "$SRC"
+for f in $(grep 'nscl/[^"]*\.js' "manifest.json" */*.js | sed -re"s/^nscl.*//" -e "s/.*(nscl[^'\"]*\.js).*/\\1/" -e "/^ *$/d" | sort | uniq); do
+  nscl_curdir="$BUILD/$(dirname $f)"
+  mkdir -p "$nscl_curdir"
+  cp -p "$f" "$nscl_curdir"
+  echo "Including $f."
+done
+popd
+
+if node "$NSCL/TLD/update.js" "$BUILD/nscl/common/tld.js"; then
+  echo 'Updated TLDs.'
+fi
+
 cp -p LICENSE.txt GPL.txt "$BUILD"/
 
 BUILD_CMD="web-ext"
