@@ -67,10 +67,21 @@ NSCL_SUBMOD="$BASE/nscl"
 NSCL="$SRC/nscl"
 NSCL_SRC="$NSCL_SUBMOD/src/nscl"
 if [[ "$1" == "nscl" ]]; then
+  nscl_cp() {
+    nscl_from="$NSCL_SRC/$1"
+    nscl_to="$NSCL/$1/"
+    mkdir -p "$nscl_to"
+    pushd "$nscl_from" >/dev/null 2>&1
+    shift
+    echo "Copying $@ to $nscl_to..."
+    cp -Rp $@ "$nscl_to"
+    popd >/dev/null 2>&1
+  }
   echo "Updating and synchronizing nscl..."
   pushd "$NSCL_SUBMOD" && git submodule update --init && git fetch && git merge && popd || exit 1
-  cp "$NSCL_SRC/common/tld.js" "$NSCL/common/"
-  cp "$NSCL_SRC/content/patchWindow.js" "$NSCL/content/"
+  nscl_cp common tld.js RequestKey.js Sites.js Permissions.js Policy.js
+  nscl_cp lib punycode.*
+  nscl_cp content patchWindow.js
   git add "$NSCL" && git commit -m'[nscl] Updated NoScript Common Library inclusions.'
   exit
 fi

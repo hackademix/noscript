@@ -20,9 +20,11 @@ var UI = (() => {
       let scripts = [
         "/ui/ui.css",
         "/lib/Messages.js",
-        "/lib/punycode.js",
+        "/nscl/lib/punycode.js",
         "/nscl/common/tld.js",
-        "/common/Policy.js",
+        "/nscl/common/Sites.js",
+        "/nscl/common/Permissions.js",
+        "/nscl/common/Policy.js",
       ];
       this.mobile = UA.mobile;
       if (this.mobile) {

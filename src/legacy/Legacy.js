@@ -53,7 +53,7 @@ var Legacy = {
     } catch (e) {
       error(e);
     }
-    return new Policy();
+    return new Policy(Settings.createDefaultDryPolicy());
   },
 
   extractLists(lists) {

@@ -124,6 +124,9 @@ var Settings = {
     }
 
     if (settings.sync === null) {
+      // user is resetting options
+      policy = this.createDefaultDryPolicy();
+
       // overriden defaults when user manually resets options
 
       // we want the reset options to stick (otherwise it gets very confusing)
@@ -163,6 +166,28 @@ var Settings = {
     }
 
     if (reloadOptionsUI) await this.reloadOptionsUI();
+  },
+
+  createDefaultDryPolicy() {
+    let dp = new Policy().dry();
+    dp.sites.trusted = `
+      addons.mozilla.org
+      afx.ms ajax.aspnetcdn.com
+      ajax.googleapis.com bootstrapcdn.com
+      code.jquery.com firstdata.com firstdata.lv gfx.ms
+      google.com googlevideo.com gstatic.com
+      hotmail.com live.com live.net
+      maps.googleapis.com mozilla.net
+      netflix.com nflxext.com nflximg.com nflxvideo.net
+      noscript.net
+      outlook.com passport.com passport.net passportimages.com
+      paypal.com paypalobjects.com
+      securecode.com securesuite.net sfx.ms tinymce.cachefly.net
+      wlxrs.com
+      yahoo.com yahooapis.com
+      yimg.com youtube.com ytimg.com
+    `.trim().split(/\s+/).map(Sites.secureDomainKey);
+    return dp;
   },
 
   export() {

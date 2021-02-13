@@ -41,11 +41,11 @@
   opt("amnesticUpdates", "local");
 
   {
-    document.querySelector("#btn-reset").addEventListener("click", async () => {
+    document.querySelector("#btn-reset").addEventListener("click", async ev => {
       if (confirm(_("reset_warning"))) {
-        policy = new Policy();
-        await UI.updateSettings({policy, local: null, sync: null, xssUserChoices: {}});
-        window.location.reload();
+        ev.target.disabled = true;
+        document.querySelector("#main-tabs").style.visibility = "hidden";
+        await UI.updateSettings({local: null, sync: null, xssUserChoices: {}});
       }
     });
 
