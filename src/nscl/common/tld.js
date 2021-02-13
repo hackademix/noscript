@@ -21,24 +21,24 @@ var tld = (() => {
       let excludePrivateTLD = options && options.exludePrivateTLD;
       let excludeUnknownTLD = options && options.excludeUnknownTLD;
       let preserveFQDNs = options && options.preserveFQDNs || this.preserveFQDNs;
-      
+
       if (!preserveFQDNs) host = this.normalize(host);
 
       let parts = host.split(".");
-      
+
       let stack = "";
       let level = -1;
-    
-      let roots = excludePrivateTLD ? tlds.icann 
-        : (tld.combined ||= Object.assign({}, tlds.icann, tlds.private));
-    
+
+      let roots = excludePrivateTLD ? tlds.icann :
+        (tld.combined || (tld.combined = Object.assign({}, tlds.icann, tlds.private)));
+
       for(let i = parts.length - 1, part; i >= 0; i--) {
         part = parts[i];
         stack = stack ? `${part}.${stack}` : part;
         if(roots[stack])
           level = roots[stack];
       }
-    
+
       if (!excludeUnknownTLD) {
         if(level === -1) {
           if (this.isIp(host)) {
