@@ -11,6 +11,7 @@ body {
   border-bottom: 0.06em solid #eee;
   display: flex;
   -moz-user-select: none;
+  user-select: none;
 }
 
 

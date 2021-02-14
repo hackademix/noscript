@@ -167,6 +167,7 @@ input[type="checkbox"] {
 
 .presets {
   -moz-user-select: none;
+  user-select: none;
 }
 .sites {
   border: 0;
