@@ -577,6 +577,9 @@
   "cap_ping": {
     "message": "ping"
   },
+  "cap_noscript": {
+    "message": "noscript"
+  },
   "cap_other": {
     "message": "other"
   },

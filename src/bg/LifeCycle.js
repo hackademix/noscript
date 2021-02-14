@@ -238,7 +238,19 @@ var LifeCycle = (() => {
       if (Ver.is(previousVersion, "<=", "11.0.10")) {
         log(`Upgrading from 11.0.10 or below (${previousVersion}): configure the "ping" capability.`);
         await ns.initializing;
-        ns.policy.TRUSTED.capabilities.add("ping")
+        ns.policy.TRUSTED.capabilities.add("ping");
+        await ns.savePolicy();
+      }
+      if (Ver.is(previousVersion, "<", "11.2.rc4")) {
+        log(`Upgrading from ${previousVersion}: configure the "noscript" capability.`);
+        await ns.initializing;
+        let {DEFAULT, TRUSTED, UNTRUSTED} = ns.policy;
+        // let's add "noscript" to DEFAULY, TRUSTED and any CUSTOM preset
+        let presets = [DEFAULT, TRUSTED];
+        presets = presets.concat([...ns.policy.sites.values()].filter(p => p !== TRUSTED && p !== UNTRUSTED));
+        for (let p of presets) {
+          p.capabilities.add("noscript");
+        }
         await ns.savePolicy();
       }
     },
