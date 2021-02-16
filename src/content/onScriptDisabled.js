@@ -7,6 +7,17 @@ function onScriptDisabled() {
   let emulateNoscriptElement = () => {
     if (ns.allows("noscript")) {
       NoscriptElements.emulate(true);
+    } else {
+      if (document.querySelector("noscript")) {
+        let request = {
+          id: "noscript-noscript",
+          type: "noscript",
+          url: document.URL,
+          documentUrl: document.URL,
+          embeddingDocument: true,
+        };
+        seen.record({policyType: "noscript", request, allowed: false});
+      }
     }
   };
   debug("onScriptDisabled", document.readyState, new Error().stack);
