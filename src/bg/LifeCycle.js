@@ -241,7 +241,7 @@ var LifeCycle = (() => {
         ns.policy.TRUSTED.capabilities.add("ping");
         await ns.savePolicy();
       }
-      if (Ver.is(previousVersion, "<", "11.2.rc4")) {
+      if (Ver.is(previousVersion, "<=", "11.2.1")) {
         log(`Upgrading from ${previousVersion}: configure the "noscript" capability.`);
         await ns.initializing;
         let {DEFAULT, TRUSTED, UNTRUSTED} = ns.policy;
