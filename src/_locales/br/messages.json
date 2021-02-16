@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript Blocked Objects",
+        "message": "NoScript objedoù stanket",
         "description": ""
     },
     "BookmarkSync": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "High contrast",
+        "message": "Dargemm uhel",
         "description": ""
     },
     "httpsOnly": {
@@ -761,6 +761,10 @@
     },
     "cap_ping": {
         "message": "ping",
+        "description": ""
+    },
+    "cap_noscript": {
+        "message": "noscript",
         "description": ""
     },
     "cap_other": {

@@ -763,6 +763,10 @@
         "message": "פִּינְג",
         "description": ""
     },
+    "cap_noscript": {
+        "message": "noscript",
+        "description": ""
+    },
     "cap_other": {
         "message": "אחר",
         "description": ""

@@ -763,6 +763,10 @@
         "message": "পিং",
         "description": ""
     },
+    "cap_noscript": {
+        "message": "noscript",
+        "description": ""
+    },
     "cap_other": {
         "message": "অন্যান্য",
         "description": ""
