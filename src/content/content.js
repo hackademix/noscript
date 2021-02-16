@@ -138,6 +138,7 @@ window.addEventListener("securitypolicyviolation", e => {
   violations.add(key);
   if (type === "frame") type = "sub_frame";
   seen.record({
+    policyType: type,
     request: {
       key,
       url,
