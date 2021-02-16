@@ -143,10 +143,6 @@
         "message": "Biðja um staðfestingu áður en hlutur er aftur leyfður tímabundið",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Beita þessum takmörkunum einnig á vefsvæði á leyfðum lista",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Samhengisvalmynd",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Almennt",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Leyfa HTTPS-skriftur almennt í HTTPS-skjölum",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Öryggisstig",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Virki (alger læsing)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Afslappað (bannlisti + öruggur vefur)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Hefðbundið (leyfður listi + öruggur vefur)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Slökkt (er þér alvara?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Fyrra",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Loka á skriftun í leyfðum undirskjölum ef vefsíða er á bannlista",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Listi yfir leyfilegt",
         "description": ""
     },
     "XSS_notify": {

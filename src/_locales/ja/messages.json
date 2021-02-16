@@ -143,10 +143,6 @@
         "message": "オブジェクトのブロックを一時的に解除する前に、確認を求めます",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "ホワイトリストに登録されたサイトにもこれらの制限を適用します",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "コンテキストメニュー",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "全般",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "ドキュメントで HTTPS スクリプトをグローバルに許可する",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "セキュリティレベル",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fortress（完全封鎖）",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "そこそこ（ブラックリスト + Web セキュリティ）",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "最高水準（ホワイトリスト + Web セキュリティ）",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Off （本気なの ?!）",
-        "description": ""
-    },
     "Prev": {
         "message": "直前の",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "ホワイトリストページ未登録のホワイトリスト登録サブドキュメントのスクリプトをブロックする",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "ホワイトリスト",
         "description": ""
     },
     "XSS_notify": {

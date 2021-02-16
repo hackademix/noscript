@@ -143,10 +143,6 @@
         "message": "Be om bekräftelse innan du tillfälligt blockerar ett objekt",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Tillämpa dessa begränsningar på vitlistade webbplatser också",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Kontextuell meny",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Allmänt",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Tillåt HTTPS-skript globalt på HTTPS-dokument",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Säkerhetsnivå",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fästning (Fullständig låsning)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Lättsam (svartlista + webbsäkerhet)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klassisk (vitlista + webbsäkerhet)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Av (menar du allvar?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Föregående",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Blockera skript i vitlistade deldokument av icke-vitlistade sidor",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Vitlista",
         "description": ""
     },
     "XSS_notify": {

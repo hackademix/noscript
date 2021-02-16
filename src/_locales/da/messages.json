@@ -143,10 +143,6 @@
         "message": "Spørg om bekræftelse inden midlertidig afblokering af objekt",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Anvend også restriktionerne til hvidlistede steder",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Genvejsmenu",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Generelt",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Tillad HTTPS-scripts globalt på HTTPS-dokumenter",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Sikkerhedsniveau",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fæstning (fuld nedlukning)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Afslappet (sortlist+websikkerhed)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klassisk (hvidlist+websikkerhed)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Fra (seriøst?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Forrige",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Bloker scripting i hvidlistede underdokumenter af ikke-hvidlistede sider",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Hvidlist",
         "description": ""
     },
     "XSS_notify": {

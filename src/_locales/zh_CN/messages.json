@@ -143,10 +143,6 @@
         "message": "在临时解除拦截对象前要求确认",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "对列入白名单的网站也应用这些限制",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "右键菜单",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "常规",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "全局允许 HTTPS 文档中的 HTTPS 脚本",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "安全等级",
         "description": ""
     },
-    "Preset_high": {
-        "message": "堡垒（完全封锁）",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "温和 (黑名单 + Web 安全)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "经典 (白名单 + Web 安全)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "关闭（你确定吗？！）",
-        "description": ""
-    },
     "Prev": {
         "message": "上一步",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "阻止非白名单页面中的白名单子文档运行脚本",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "白名单",
         "description": ""
     },
     "XSS_notify": {

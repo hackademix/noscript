@@ -143,10 +143,6 @@
         "message": "Να ζητείται επιβεβαίωση πριν το προσωρινό ξεμπλοκάρισμα αντικειμένων",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Αυτοί οι περιορισμοί να εφαρμόζονται και σε έμπιστες σελίδες",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Contextual menu",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Γενικά",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Να επιτρέπονται οι δέσμες ενεργειών HTTPS παντού σε έγγραφα HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Επίπεδο ασφαλείας",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Φρούριο (πλήρης αποκλεισμός)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Χαλαρή (λίστα μπλοκαρισμένων και ασφάλεια διαδικτύου)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Κλασσική (λίστα επιτρεπόμενων και ασφάλεια διαδικτύου)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Απενεργοποιημένο (σοβαρολογείτε;!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Προηγούμενο",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Block scripting in whitelisted subdocuments of non-whitelisted pages",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Λίστα επιτρεπόμενων",
         "description": ""
     },
     "XSS_notify": {

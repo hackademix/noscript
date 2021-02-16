@@ -143,10 +143,6 @@
         "message": "在暫時取消封鎖物件前，先詢問我",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "將這些限制也套用到白名單的網站",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "右鍵選單",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "一般",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "全域允許HTTPS文件裹的HTTPS指令碼",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "安全性等級",
         "description": ""
     },
-    "Preset_high": {
-        "message": "堡壘（完全封鎖）",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "柔和（黑名單＋萬維網保全）",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "經典（白名單＋萬維網保全）",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "關閉（你想清楚沒有？）",
-        "description": ""
-    },
     "Prev": {
         "message": "上一步",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "封鎖白名單外的頁面裡的白名單內的子文件的指令碼",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "白名單",
         "description": ""
     },
     "XSS_notify": {

@@ -143,10 +143,6 @@
         "message": "Goulenn ur c'hadarnadur a-raok distankañ evit ur mare un objed",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Arloañ ivez ar strishadurioù-mañ d'al lec'hiennoù a zo war ar wennlistenn",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Lañser kendestennel",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Hollek",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Aotren ar skriptoù HTTPS hollek war an teulioù HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Live surentez",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Kreñvlec'h (morailhaj klok)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Aes da vont enno (Listenn-zu + surentez Web)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klasel (Gwennlistenn + Web surentez)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Off (sirius out?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Kent",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Stankiñ ar skriptoù e-barzh is-teulioù ar wennlistenn ar pajenn hep gwennlistenn",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Gwennlistenn",
         "description": ""
     },
     "XSS_notify": {

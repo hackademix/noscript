@@ -143,10 +143,6 @@
         "message": "Kërko ripohim përpara zhbllokimit të përkohshëm të një elementi",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Këto kufizime zbatoji edhe mbi sajte të pranuar",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Menu kontekstuale",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Të përgjithshme",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Në dokumente HTTPS lejo globalisht programthe HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Shkallë Sigurie",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fortesë (Kyçje e plotë)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Jo Shtrënguar (Listë bllokimesh + Siguri Web)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klasike (Listë lejimesh + Siguri Web)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Pa (seriozisht e keni?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "I mëparshmi",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "z",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Blloko skriptim nëndokumentesh të lejuar faqesh të palejuara",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "a",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Listë të pranuarish",
         "description": ""
     },
     "XSS_notify": {

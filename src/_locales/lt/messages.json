@@ -143,10 +143,6 @@
         "message": "Klausti leidimo prieš laikinai atblokuojant objektą",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Apribojimus pritaikyti ir whitelisti'ntiems tinklalapiams",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Kontekstinis meniu",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Bendras",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Leisti HTTPS skriptus HTTPS dokumentuose globaliai.",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Saugumo lygis",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Tvirtovė (Visiškas blokavimas)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Lengvas (Juodasis sąrašas + Tinklo apsauga)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klasikinis (Baltas sąrašas + Tinklo apsauga)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Išjungti (ar esate tikri?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Ankstesnis",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Blokuoti scenarijus baltojo sąrašo podokumenčiuose ne baltojo sąrašo puslapiuose.",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Baltasis sąrašas",
         "description": ""
     },
     "XSS_notify": {

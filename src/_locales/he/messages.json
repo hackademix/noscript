@@ -143,10 +143,6 @@
         "message": "בקש אימות לפני אי־חסימה זמנית של פריט",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "החל מגבלות אלו גם על אתרים ברשימה לבנה",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "תפריט הקשר",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "כללי",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "התר תסריטי HTTPS באופן עולמי על מסמכי HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "רמת אבטחה",
         "description": ""
     },
-    "Preset_high": {
-        "message": "מבצר (נעילה מלאה)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "קליל (רשימה שחורה + אבטחת רשת)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "קלאסי (רשימה לבנה + אבטחת רשת)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "כבוי (אתה רציני?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "הקודם",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "ש",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "חסום תיסרוט בתת־מסמכים ברשימה לבנה של דפים שאינם ברשימה לבנה",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "ר",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "רשימה לבנה",
         "description": ""
     },
     "XSS_notify": {

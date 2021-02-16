@@ -143,10 +143,6 @@
         "message": "আটকে দেয়া অবজেক্টকে সাময়িকভাবে চলতে দেবার আগে নিশ্চিত হয়ে নেয়া হবে",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "সাদাতালিকাভুক্ত সাইটেও এসব নিষেধাজ্ঞা প্রযোজ্য হবে",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "কন্টেক্সচুয়াল মেনু",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "সাধারণ",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "HTTPS ডকুমেন্টের ক্ষেত্রে সব সাইটে (গ্লোবালভাবে) HTTPS স্ক্রিপ্ট চলবে",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "নিরাপত্তার মাত্রা",
         "description": ""
     },
-    "Preset_high": {
-        "message": "দুর্গ (সবকিছু আটকাবে)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "হালকাপাতলা (কালোতালিকা + ওয়েব-নিরাপত্তা)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "ক্লাসিক (সাদাতালিকা + ওয়েব-নিরাপত্তা)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "বন্ধ (করছেন কী?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "এর আগে",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "সাদাতালিকা-বহির্ভূত পেইজের সাদাতালিকাস্থ সাবডকুমেন্টে স্ক্রিপ্ট আটকে দেয়া হবে",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "সাদাতালিকা",
         "description": ""
     },
     "XSS_notify": {

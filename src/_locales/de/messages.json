@@ -143,10 +143,6 @@
         "message": "Um Erlaubnis fragen, bevor ein Element temporär entsperrt wird",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Diese Einschränkungen auch auf zugelassene Webseiten anwenden",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Kontextmenü",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Allgemein",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "HTTPS-Scripte in HTTPS-Dokumenten immer zulassen",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Sicherheitsstufe",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fort Knox (Volle Abriegelung)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Gelassen (Blacklist + Web Security)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klassisch (Whitelist + Web Security)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Aus (Ist das ihr Ernst?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Zurück",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Scripte aus zugelassenen Unterdokumenten auf nicht zugelassenen Seiten blockieren",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Whitelist",
         "description": ""
     },
     "XSS_notify": {

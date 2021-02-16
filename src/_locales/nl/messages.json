@@ -143,10 +143,6 @@
         "message": "Om bevestiging vragen voordat een objectblokkering tijdelijk wordt opgeheven",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Deze beperkingen ook op vertrouwde websites toepassen",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Contextmenu",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Algemeen",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "HTTPS-scripts op HTTPS-documenten overal toestaan",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Beveiligingsniveau",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fort (Volledige blokkering)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Gemakkelijk (Blokkeerlijst + webbeveiliging)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klassiek (Toestemmingenlijst + webbeveiliging)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Uit (serieus?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Vorige",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "S",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Scripts in toegestane subdocumenten van niet-toegestane pagina’s blokkeren",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Toestemmingenlijst",
         "description": ""
     },
     "XSS_notify": {

@@ -143,10 +143,6 @@
         "message": "Zapytaj o potwierdzenie przed tymczasowym odblokowaniem obiektu",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Zastosuj te ograniczenia również do witryn na białej liście",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Menu kontekstowe",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Ogólne",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Zezwalaj na globalne uruchamianie skryptów HTTPS w dokumentach HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Poziom bezpieczeństwa",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fortress (Full lockdown)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Easy going (Blacklist + Web Security)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Classic (Whitelist + Web Security)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Off (are you serious?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Poprzedni",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "W",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Block scripting in whitelisted subdocuments of non-whitelisted pages",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Biała lista",
         "description": ""
     },
     "XSS_notify": {

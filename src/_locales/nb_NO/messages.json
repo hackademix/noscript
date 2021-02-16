@@ -104,9 +104,6 @@
   "ConfirmUnblock": {
     "message": "Spør om bekreftelse før et objekt avblokkeres"
   },
-  "ContentBlocker": {
-    "message": "Begrens hvitlistede sider på samme måte"
-  },
   "CtxMenu": {
     "message": "Bindeleddsmeny"
   },
@@ -155,12 +152,8 @@
   "ShowFullAddresses": {
     "message": "List opp hele adresser i tilgangsoppsprett (https://www.noscript.net)"
   },
-
   "SectionGeneral": {
     "message": "Generelt"
-  },
-  "GlobalHttpsWhitelist": {
-    "message": "Tillat HTTPS-skript globalt på HTTPS-dokumenter"
   },
   "NotEnforced": {
     "message": "Begrensninger avskrudd"
@@ -297,18 +290,6 @@
   "Preset": {
     "message": "Sikkerhetsnivå"
   },
-  "Preset_high": {
-    "message": "Fort (full forskansning)"
-  },
-  "Preset_low": {
-    "message": "Lettbeint (svarteliste + vevsikkerhet)"
-  },
-  "Preset_medium": {
-    "message": "Klassisk (hvitliste + vevsikkerhet)"
-  },
-  "Preset_off": {
-    "message": "Av (er du seriøs?!)"
-  },
   "Prev": {
     "message": "Forrige"
   },
@@ -318,7 +299,6 @@
   "Refresh": {
     "message": "Gjenoppfrisk"
   },
-
   "ReloadWarn": {
     "message": "Disse valgene vil tre i effekt ved nye (eller manuelle) innlastinger av sider."
   },
@@ -336,9 +316,6 @@
   },
   "ResetDef_accesskey": {
     "message": "D"
-  },
-  "RestrictSubdocScripting": {
-    "message": "Blokker skripting i hvitlistede underdokument av ikke-hvitlistede sider"
   },
   "RevokeTemp": {
     "message": "Tilbakekall midlertidige tilganger"
@@ -400,7 +377,6 @@
   "TempToPerm_accesskey": {
     "message": "M"
   },
-
   "Trust": {
     "message": "Marker som betrodd"
   },
@@ -449,9 +425,6 @@
   "WebAddress_accesskey": {
     "message": "w"
   },
-  "Whitelist": {
-    "message": "Hvitlist"
-  },
   "XSS_notify": {
     "message": "Vis XSS-merknader"
   },
@@ -467,7 +440,7 @@
   "XSS_optBlock": {
     "message": "Blokker denne forespørselen"
   },
-   "XSS_optSanitize": {
+  "XSS_optSanitize": {
     "message": "Vask denne forespørselen"
   },
   "XSS_optAllow": {
@@ -515,7 +488,6 @@
   "allowTempFrom": {
     "message": "Tillat alt fra $1 midlertidig"
   },
-
   "allowed_no": {
     "message": "Skript er forbudt akkurat nå"
   },
@@ -606,11 +578,9 @@
   "freshInstallReload": {
     "message": "For å kunne betjene denne fanen, må NoScript gjeninnlaste den.\nFortsett?"
   },
-
   "privilegedPage": {
     "message": "Dette er en priviligert side, hvis tilganger ikke kan settes opp."
   },
-
   "incompatibleOptions": {
     "message": "\"$1\"\ngår ikke overens med \"$2\".\nØnsker du å skru på den første og skru av den siste?"
   },
@@ -632,7 +602,6 @@
   "metaRefresh_notify": {
     "message": "NoScript blokkerte en <META> -videresendelse inne i et <NOSCRIPT> -element: $1 i $2 sekunder."
   },
-
   "Reload": {
     "message": "Reload"
   },

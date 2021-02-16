@@ -143,10 +143,6 @@
         "message": "Demander une confirmation avant de débloquer temporairement un objet",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Appliquer également ces restrictions aux sites mis en liste blanche",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Menu contextuel",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Général",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Autoriser les scripts HTTPS globalement sur les documents HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Niveau de sécurité",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Forteresse (bouclage complet)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Confortable (liste noire + sécurité Web)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Classique (liste blanche + sécurité Web)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Désactivée (sérieusement ?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Précédent",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Bloquer les scripts des sous-documents mis en liste blanche pour les pages qui ne sont pas mises en liste blanche",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Liste blanche",
         "description": ""
     },
     "XSS_notify": {

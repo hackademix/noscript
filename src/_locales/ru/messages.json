@@ -143,10 +143,6 @@
         "message": "Подтверждать временную разблокировку объекта",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Применять эти ограничения и для доверенных сайтов",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Пункт в контекстном меню",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Основные",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Разрешить все HTTPS скрипты в HTTPS документах",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Уровень защиты",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Осадный (на полную катушку)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Легкое начало (чёрный список + веб-защита)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Стандартный (белый список + веб-защита)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Никакой (вы серьёзно?)",
-        "description": ""
-    },
     "Prev": {
         "message": "Предыдущий",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Блокировать скрипты в доверенных субдокументах недоверенных страниц",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Белый список",
         "description": ""
     },
     "XSS_notify": {

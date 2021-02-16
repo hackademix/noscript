@@ -143,10 +143,6 @@
         "message": "Прашај за потврдра пред привремено одблокирање на објект",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Примени ги овие забрани за овозможените веб стани исто така",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Контекстуално мени",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Главно",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Дозволи ги глобално HTTPS скриптите на HTTPS документите",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Ниво на безбедност",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Тврдина (Целосно заклучување)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Лесно минливи (Црна листа + Веб безбедност)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Класични (Бела листа + Веб безбедност)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Исклучено (дали сте сериозни?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Претходно",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "В",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Блокирај го скриптирањето во поддокументите на белата листа на веб страните кои не се на белата листа",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "в",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Бела листа",
         "description": ""
     },
     "XSS_notify": {

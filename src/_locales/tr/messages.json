@@ -143,10 +143,6 @@
         "message": "Bir nesnenin engelini geçici olarak kaldırmadan önce onay istensin",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Bu kısıtlamalar beyaz listedeki sitelere de uygulansın",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Sağ tık menüsü",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Genel",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "HTTPS belgelerinde HTTPS betiklerine genel olarak izin verilsin",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Güvenlik Düzeyi",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Kale (Tam Kilitleme)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Kontrollu (Kara Liste + Web Güvenliği)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klasik (Beyaz Liste + Web Güvenliği)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Kapalı (Ciddi misiniz?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Önceki",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "V",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Beyaz listede olmayan sayfalarda beyaz listede olan alt belgelerdeki betikler engellensin",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Beyaz Liste",
         "description": ""
     },
     "XSS_notify": {

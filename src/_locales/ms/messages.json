@@ -143,10 +143,6 @@
         "message": "Tanya pengesahan sebelum menyahsekat objek buat sementara",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Laksana sekatan ini kepada laman bersenarai putih juga",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Menu Konteks",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Am",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Benarkan HTTPS secara Sejagat pada dokumen HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Tahap Keselamatan",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Berkubu (Sepenuhnya terkunci)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Santai (Senarai Hitam + Keselamatan Sesawang)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Klasik (Senarai Putih + Keselamatan Sesawang)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Dimatikan (biar benar?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Terdahulu",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Sekat penskripan dalam subdokumen tersenarai-putih bagi halaman bukan-tersenarai-putih",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Senarai Putih",
         "description": ""
     },
     "XSS_notify": {

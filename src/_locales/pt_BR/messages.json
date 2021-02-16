@@ -143,10 +143,6 @@
         "message": "Pedir confirmação antes de desbloquear temporariamente um objeto",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Aplicar essas restrições aos sites da lista de permitidos também",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Menu de contexto",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "Geral",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Permitir scripts HTTPS globalmente em documentos HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Nível de segurança",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fortaleza (bloqueio total)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Fácil (Lista de restrições + Segurança na web)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Clássico (Lista de permissões + Segurança na web)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Desligado (fala sério?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Anterior",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "p",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Bloqueia scripts em sub-documentos autorizados de páginas não adicionadas na lista de permissões",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "s",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Lista de permissões",
         "description": ""
     },
     "XSS_notify": {

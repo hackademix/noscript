@@ -143,10 +143,6 @@
         "message": "Demana confirmació abans de desbloquejar un objecte temporalment",
         "description": ""
     },
-    "ContentBlocker": {
-        "message": "Aplica aquestes restriccions als llocs que també pertanyen a la llista blanca",
-        "description": ""
-    },
     "CtxMenu": {
         "message": "Menú contextual",
         "description": ""
@@ -213,10 +209,6 @@
     },
     "SectionGeneral": {
         "message": "General",
-        "description": ""
-    },
-    "GlobalHttpsWhitelist": {
-        "message": "Permet scripts HTTPS globalment en documents HTTPS",
         "description": ""
     },
     "NotEnforced": {
@@ -411,22 +403,6 @@
         "message": "Nivell de seguretat",
         "description": ""
     },
-    "Preset_high": {
-        "message": "Fortalesa (bloqueig total)",
-        "description": ""
-    },
-    "Preset_low": {
-        "message": "Simple (llista negra + seguretat web)",
-        "description": ""
-    },
-    "Preset_medium": {
-        "message": "Clàssic (llista blanca + seguretat web)",
-        "description": ""
-    },
-    "Preset_off": {
-        "message": "Desactivat (de debò?!)",
-        "description": ""
-    },
     "Prev": {
         "message": "Anterior",
         "description": ""
@@ -461,10 +437,6 @@
     },
     "ResetDef_accesskey": {
         "message": "D",
-        "description": ""
-    },
-    "RestrictSubdocScripting": {
-        "message": "Bloqueja scripts en subdocuments de llistes blanques de pàgines no incloses en la llista blanca",
         "description": ""
     },
     "RevokeTemp": {
@@ -609,10 +581,6 @@
     },
     "WebAddress_accesskey": {
         "message": "w",
-        "description": ""
-    },
-    "Whitelist": {
-        "message": "Llista blanca",
         "description": ""
     },
     "XSS_notify": {

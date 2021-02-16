@@ -63,7 +63,7 @@
     "message": "Blocked $1 of $2 items."
   },
   "BlockedObjects": {
-    "message": "NoScript Blocked\u00A0Objects"
+    "message": "NoScript Blocked Objects"
   },
   "BookmarkSync": {
     "message": "Backup NoScript configuration in a bookmark for easy synchronization"
@@ -107,9 +107,6 @@
   "ConfirmUnblock": {
     "message": "Ask for confirmation before temporarily unblocking an object"
   },
-  "ContentBlocker": {
-    "message": "Apply these restrictions to whitelisted sites too"
-  },
   "CtxMenu": {
     "message": "Contextual menu"
   },
@@ -127,7 +124,7 @@
   },
   "Description": {
     "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation."
-},
+  },
   "Donate": {
     "message": "Donate"
   },
@@ -158,12 +155,8 @@
   "ShowFullAddresses": {
     "message": "List full addresses in the permissions popup (https://www.noscript.net)"
   },
-
   "SectionGeneral": {
     "message": "General"
-  },
-  "GlobalHttpsWhitelist": {
-    "message": "Allow HTTPS scripts globally on HTTPS documents"
   },
   "NotEnforced": {
     "message": "Restrictions disabled"
@@ -231,7 +224,6 @@
   "OptAmnesticUpdates": {
     "message": "Revoke temporary permissions on NoScript updates, even if the browser is not restarted"
   },
-
   "KeepLocked": {
     "message": "Keep this element locked (recommended)"
   },
@@ -310,18 +302,6 @@
   "Preset": {
     "message": "Security Level"
   },
-  "Preset_high": {
-    "message": "Fortress (Full lockdown)"
-  },
-  "Preset_low": {
-    "message": "Easy going (Blacklist + Web Security)"
-  },
-  "Preset_medium": {
-    "message": "Classic (Whitelist + Web Security)"
-  },
-  "Preset_off": {
-    "message": "Off (are you serious?!)"
-  },
   "Prev": {
     "message": "Previous"
   },
@@ -331,7 +311,6 @@
   "Refresh": {
     "message": "Refresh"
   },
-
   "ReloadWarn": {
     "message": "These options will take effect on new or (manually) reloaded pages"
   },
@@ -349,9 +328,6 @@
   },
   "ResetDef_accesskey": {
     "message": "D"
-  },
-  "RestrictSubdocScripting": {
-    "message": "Block scripting in whitelisted subdocuments of non-whitelisted pages"
   },
   "RevokeTemp": {
     "message": "Revoke Temporary Permissions"
@@ -413,7 +389,6 @@
   "TempToPerm_accesskey": {
     "message": "M"
   },
-
   "Trust": {
     "message": "Mark as Trusted"
   },
@@ -462,9 +437,6 @@
   "WebAddress_accesskey": {
     "message": "w"
   },
-  "Whitelist": {
-    "message": "Whitelist"
-  },
   "XSS_notify": {
     "message": "Show XSS notifications"
   },
@@ -480,7 +452,7 @@
   "XSS_optBlock": {
     "message": "Block this request"
   },
-   "XSS_optSanitize": {
+  "XSS_optSanitize": {
     "message": "Sanitize this request"
   },
   "XSS_optAllow": {
@@ -528,7 +500,6 @@
   "allowTempFrom": {
     "message": "Temporarily allow all from $1"
   },
-
   "allowed_no": {
     "message": "Scripts Currently Forbidden"
   },
@@ -625,11 +596,9 @@
   "freshInstallReload": {
     "message": "In order to operate on this tab, NoScript needs to reload it.\nProceed?"
   },
-
   "privilegedPage": {
     "message": "This is a privileged page, whose permissions cannot be configured."
   },
-
   "incompatibleOptions": {
     "message": "\"$1\"\nis incompatible with \"$2\".\nDo you want to enable the former and disable the latter?"
   },
@@ -651,7 +620,6 @@
   "metaRefresh_notify": {
     "message": "NoScript blocked a <META> redirection inside a <NOSCRIPT> element: $1 in $2 seconds."
   },
-
   "Reload": {
     "message": "Reload"
   },
