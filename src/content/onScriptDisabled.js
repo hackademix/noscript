@@ -4,17 +4,17 @@
 function onScriptDisabled() {
   onScriptDisabled = () => {};
 
-  let emulateNoScriptElement = () => {
+  let emulateNoscriptElement = () => {
     if (ns.allows("noscript")) {
       NoscriptElements.emulate(true);
     }
   };
-
+  debug("onScriptDisabled", document.readyState, new Error().stack);
   if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", emulateNoScriptElement, true);
+    window.addEventListener("DOMContentLoaded", emulateNoscriptElement, true);
     return;
   } else {
-    emulateNoScriptElement();
+    emulateNoscriptElement();
   }
 
   let eraser = {

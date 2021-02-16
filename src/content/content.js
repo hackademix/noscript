@@ -115,7 +115,6 @@ let documentOrigin = new URL(document.URL).origin;
 window.addEventListener("securitypolicyviolation", e => {
   if (!e.isTrusted) return;
   let {violatedDirective, originalPolicy} = e;
-  if (violatedDirective.startsWith(`script-src`) && originalPolicy.includes("script-src 'none'")) onScriptDisabled();
 
   let type = violatedDirective.split("-", 1)[0]; // e.g. script-src 'none' => script
   let url = e.blockedURI;
