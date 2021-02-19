@@ -74,16 +74,9 @@ fi
 
 rm -rf "$BUILD" "$XPI"
 cp -pR "$SRC" "$BUILD"
-# prune unused nscl stuff
-rm -rf "$BUILD/nscl"
-pushd "$SRC"
-for f in $(grep 'nscl/[^"]*\.js' "manifest.json" */*.js | sed -re"s/^nscl.*//" -e "s/.*(nscl[^'\"]*\.js).*/\\1/" -e "/^ *$/d" | sort | uniq); do
-  nscl_curdir="$BUILD/$(dirname $f)"
-  mkdir -p "$nscl_curdir"
-  cp -p "$f" "$nscl_curdir"
-  echo "Including $f."
-done
-popd
+
+# include nscl dependencies
+"$NSCL/include.sh" "$BUILD"
 
 if node "$NSCL/TLD/update.js" "$BUILD/nscl/common/tld.js"; then
   echo 'Updated TLDs.'
