@@ -177,6 +177,7 @@ var RequestGuard = (() => {
     onRemovedTab(tabId) {
       TabStatus.map.delete(tabId);
       TabStatus._originsCache.clear();
+      TabStatus._pendingTabs.delete(tabId);
     },
   }
   browser.tabs.onActivated.addListener(TabStatus.onActivatedTab);
@@ -330,6 +331,49 @@ var RequestGuard = (() => {
   }
 
   const ABORT = {cancel: true}, ALLOW = {};
+  const recent = {
+    MAX_AGE: 500,
+    _pendingGC: 0,
+    _byUrl: new Map(),
+    find(request, last = this._byUrl.get(request.url)) {
+      if (!last) return null;
+      for (let j = last.length; j-- > 0;) {
+        let other = last[j];
+        if (request.timeStamp - other.timeStamp > this.MAX_AGE) {
+          last.splice(0, ++j);
+          if (last.length === 0) this._byUrl.delete(other.url);
+          break;
+        }
+        if (request.url && other.type === request.type && other.documentUrl === request.documentUrl
+          && other.tabId === request.tabId && other.frameId === request.frameId) {
+          return other;
+        }
+      }
+      return null;
+    },
+    add(request) {
+      let last = this._byUrl.get(request.url);
+      if (!last) {
+        last = [request];
+        this._byUrl.set(request.url, last);
+      } else {
+        last.push(request);
+      }
+      this._gc();
+      return;
+    },
+    _gc(now) {
+      if (!now && this._pendingGC) return;
+      debug("Recent requests garbage collection.");
+      let request = {timeStamp: Date.now()};
+      for (let last of this._byUrl.values()) {
+        this.find(request, last);
+      }
+      this._pendingGC = this._byUrl.size ?
+         setTimeout(() => this._gc(true), 1000)
+         : 0;
+    }
+  };
   const listeners = {
     onBeforeRequest(request) {
       normalizeRequest(request);
@@ -338,6 +382,14 @@ var RequestGuard = (() => {
         let {policy} = ns
         let {type} = request;
         if (type in policyTypesMap) {
+          let previous = recent.find(request);
+          if (previous) {
+            debug("Rapid fire request", previous);
+            return previous.return;
+          }
+          (previous = request).return = ALLOW;
+          recent.add(previous);
+
           let policyType = policyTypesMap[type];
           let {url, originUrl, documentUrl, tabId} = request;
           let isFetch = "fetch" === policyType;
@@ -380,7 +432,7 @@ var RequestGuard = (() => {
                 if (blocker) {
                   let redirectUrl = CSP.patchDataURI(request._dataUrl, blocker);
                   if (redirectUrl !== request._dataUrl) {
-                    return {redirectUrl};
+                    return previous.return = {redirectUrl};
                   }
                 }
               }
@@ -392,7 +444,7 @@ var RequestGuard = (() => {
           if (!allowed) {
             debug(`Blocking ${policyType}`, request);
             TabStatus.record(request, "blocked");
-            return ABORT;
+            return previous.return = ABORT;
           }
         }
       } catch (e) {
