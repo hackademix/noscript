@@ -219,13 +219,15 @@ var LifeCycle = (() => {
       }
 
       let {reason, previousVersion} = details;
-      if (reason !== "update") return;
-
-      try {
-        await LifeBoat.retrieveAndDestroy();
-      } catch (e) {
-        error(e);
+      if (reason === "update") {
+        try {
+          await LifeBoat.retrieveAndDestroy();
+        } catch (e) {
+          error(e);
+        }
       }
+
+      if (!previousVersion) return;
 
       await include("/lib/Ver.js");
       previousVersion = new Ver(previousVersion);
