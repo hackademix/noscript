@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Cascade top document's restrictions to subdocuments",
+        "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
         "description": ""
     },
     "ClearClickDescription": {

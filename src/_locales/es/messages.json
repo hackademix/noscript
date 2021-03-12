@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Heredar del documento tope las restricciones para subdocumentos",
+        "message": "Cualquier capacidad bloqueada en el documento principal debe ser bloqueada también en sus subdocumentos",
         "description": ""
     },
     "ClearClickDescription": {

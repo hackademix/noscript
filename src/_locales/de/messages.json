@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Einschränkungen des obersten Dokuments auf Unterdokumente übertragen",
+        "message": "Alle im obersten Dokument blockierten Fähigkeiten müssen auch in seinen Unterdokumenten blockiert werden",
         "description": ""
     },
     "ClearClickDescription": {
@@ -152,7 +152,7 @@
         "description": ""
     },
     "CustomizePresets": {
-        "message": "Voreinstellungs-Anpassung (für alle Seiten, die eine Voreinstellung teilen)",
+        "message": "Voreinstellungsanpassung (für alle Seiten, die eine Voreinstellung teilen)",
         "description": ""
     },
     "Default": {

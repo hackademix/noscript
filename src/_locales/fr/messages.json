@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Répercuter les restrictions du document de plus haut niveau sur les sous-documents",
+        "message": "Toute capacité bloquée dans le document de plus haut niveau doit aussi être bloquée dans ses sous-documents",
         "description": ""
     },
     "ClearClickDescription": {

@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "הדרג הגבלות ראש של מסמכים אל תת־מסמכים",
+        "message": "כל יכולת שנחסמה במסמך הראש חייבת להיחסם גם בתת־המסמכים שלו",
         "description": ""
     },
     "ClearClickDescription": {

@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Üst belgenin kısıtlamaları alt belgelere aktarılsın",
+        "message": "Üst belgede engellenen özellikler alt belgelerde de engellenmelidir",
         "description": ""
     },
     "ClearClickDescription": {

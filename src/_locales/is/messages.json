@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Flæða takmörkunum efsta-stigs skjala til undirskjala",
+        "message": "Allir eiginleikar sem lokað er á í efstastigs-skjali verður að vera lokað á í undirskjölum líka",
         "description": ""
     },
     "ClearClickDescription": {

@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Beperkingen van bovenste document aan subdocumenten doorgeven",
+        "message": "Geblokkeerde mogelijkheden in het bovenste document moeten ook in subdocumenten ervan worden geblokkeerd",
         "description": ""
     },
     "ClearClickDescription": {

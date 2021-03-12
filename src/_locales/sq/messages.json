@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Aplikoji kufizimet e dokumenteve të sipërm mbi nëndokumente",
+        "message": "Çfarëdo aftësie e bllokuar te dokumenti i epërm duhet bllokuar edhe te nëndokumentet e tij",
         "description": ""
     },
     "ClearClickDescription": {
