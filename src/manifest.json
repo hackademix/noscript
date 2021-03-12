@@ -103,6 +103,7 @@
         "nscl/common/RequestKey.js",
         "content/DocumentCSP.js",
         "nscl/content/NoscriptElements.js",
+        "/nscl/content/prefetchCSSResources.js",
         "content/onScriptDisabled.js",
         "content/staticNS.js",
         "content/PlaceHolder.js",
