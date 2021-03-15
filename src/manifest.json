@@ -57,6 +57,7 @@
       "common/Storage.js",
       "ui/Prompts.js",
       "xss/XSS.js",
+      "/nscl/service/prefetchCSSResources.js",
       "bg/ReportingCSP.js",
       "bg/deferWebTraffic.js",
       "bg/Defaults.js",
