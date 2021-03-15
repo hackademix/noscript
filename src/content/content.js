@@ -171,21 +171,20 @@ ns.on("capabilities", () => {
         }
       })();
     }
-
+    prefetchCSSResources(true, (rule, url) => {
+      debug("Prefetching %s from CSS", url, rule.cssText);
+      /* Uncomment to debug prefetching by prefixing the prefetched domains
+      url.hostname = `prefetch.${url.hostname}`;
+      new Image().src = url;
+      return true;
+      */
+    });
     onScriptDisabled();
   }
 
   notifyPage();
 });
 
-prefetchCSSResources(false, (rule, url) => {
-  debug("Prefetching %s from CSS", url, rule.cssText);
-  /* Uncomment to debug prefetching by prefixing the prefetched domains
-  url.hostname = `prefetch.${url.hostname}`;
-  new Image().src = url;
-  return true;
-  */
-});
 
 ns.fetchPolicy();
 notifyPage();
