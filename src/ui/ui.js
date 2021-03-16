@@ -19,7 +19,7 @@ var UI = (() => {
       );
       let scripts = [
         "/ui/ui.css",
-        "/lib/Messages.js",
+        "/nscl/common/Messages.js",
         "/nscl/lib/punycode.js",
         "/nscl/common/tld.js",
         "/nscl/common/Sites.js",
