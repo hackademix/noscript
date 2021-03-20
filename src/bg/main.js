@@ -310,7 +310,7 @@
         debug("Collected seen", seen);
         return seen;
       } catch (e) {
-        await include("/lib/restricted.js");
+        await include("/nscl/common/restricted.js");
         if (!isRestrictedURL((await browser.tabs.get(tabId)).url)) {
           // probably a page where content scripts cannot run, let's open the options instead
           error(e, "Cannot collect noscript activity data");

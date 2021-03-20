@@ -1,8 +1,8 @@
 XSS.InjectionChecker = (async () => {
   await include([
-    "/common/SyntaxChecker.js",
-    "/lib/Base64.js",
-    "/lib/Timing.js",
+    "/nscl/common/SyntaxChecker.js",
+    "/nscl/common/Base64.js",
+    "/nscl/common/Timing.js",
     "/xss/FlashIdiocy.js",
     "/xss/ASPIdiocy.js",
     "/lib/he.js"]

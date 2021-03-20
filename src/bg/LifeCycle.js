@@ -229,7 +229,7 @@ var LifeCycle = (() => {
 
       if (!previousVersion) return;
 
-      await include("/lib/Ver.js");
+      await include("/nscl/common/Ver.js");
       previousVersion = new Ver(previousVersion);
       let currentVersion = new Ver(browser.runtime.getManifest().version);
       let upgrading = Ver.is(previousVersion, "<=", currentVersion);
@@ -263,7 +263,7 @@ var LifeCycle = (() => {
           // user doesn't want us to remember temporary settings across updates: bail out
           return;
         }
-        await include("/lib/Ver.js");
+        await include("/nscl/common/Ver.js");
         if (Ver.is(details.version, "<", browser.runtime.getManifest().version)) {
           // downgrade: temporary survival might not be supported, and we don't care
           return;

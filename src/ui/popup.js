@@ -208,7 +208,7 @@ addEventListener("unload", e => {
         error(e, "Could not run scripts on %s: privileged page?", pageTab.url);
       }
 
-      await include("/lib/restricted.js");
+      await include("/nscl/common/restricted.js");
       let isRestricted = isRestrictedURL(pageTab.url);
       if (!isHttp || isRestricted) {
         showMessage("warning", _("privilegedPage"));

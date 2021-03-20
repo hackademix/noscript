@@ -4,7 +4,7 @@ let include = src => {
 }
 
 let XSS = {};
-include("/lib/log.js");
+include("/nscl/common/log.js");
 
 for (let logType of ["log", "debug", "error"]) {
   this[logType] = (...log) => {

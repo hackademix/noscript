@@ -141,7 +141,7 @@ var Settings = {
             ? Object.assign(ns[storage], settings[storage]) : ns[storage] = Object.assign({}, ns.defaults[storage]))
     ));
     if (ns.local.debug !== oldDebug) {
-      await include("/lib/log.js");
+      await include("/nscl/common/log.js");
       if (oldDebug) debug = () => {};
     }
 
