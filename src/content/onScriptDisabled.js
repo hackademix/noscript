@@ -20,7 +20,7 @@ function onScriptDisabled() {
       }
     }
   };
-  debug("onScriptDisabled", document.readyState, new Error().stack);
+  debug("onScriptDisabled", document.readyState, new Error().stack); // DEV ONLY
   if (document.readyState === "loading") {
     window.addEventListener("DOMContentLoaded", emulateNoscriptElement, true);
     return;
