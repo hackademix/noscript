@@ -211,13 +211,15 @@
     computeChildPolicy({url, contextUrl}, sender) {
       let {tab, frameId} = sender;
       let policy = ns.policy;
+      let {isTorBrowser} = ns.local;
       if (!policy) {
         console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
         return {
           permissions: new Permissions(Permissions.DEFAULT).dry(),
           unrestricted: false,
           cascaded: false,
-          fallback: true
+          fallback: true,
+          isTorBrowser,
         };
       }
 
@@ -250,7 +252,7 @@
         unrestricted = true;
         cascaded = false;
       }
-      return {permissions, unrestricted, cascaded};
+      return {permissions, unrestricted, cascaded, isTorBrowser};
     },
 
     start() {
