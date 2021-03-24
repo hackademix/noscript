@@ -43,7 +43,12 @@
       }
     }
 
-    Sites.onionSecure = ns.local.isTorBrowser;
+    let {isTorBrowser} = ns.local;
+    Sites.onionSecure = isTorBrowser;
+
+    if (!isTorBrowser) {
+      await include("/nscl/service/prefetchCSSResources.js");
+    }
 
     await RequestGuard.start();
     await XSS.start(); // we must start it anyway to initialize sub-objects

@@ -54,7 +54,6 @@
       "/nscl/common/Storage.js",
       "/nscl/common/include.js",
       "/nscl/service/LastListener.js",
-      "/nscl/service/prefetchCSSResources.js",
       "/nscl/service/TabCache.js",
       "ui/Prompts.js",
       "xss/XSS.js",

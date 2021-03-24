@@ -1,4 +1,5 @@
 'use strict';
+//
 // debug = () => {}; // REL_ONLY
 function _(...args) {
   let fakeLang = navigator.language === "en-US" &&
@@ -171,14 +172,19 @@ ns.on("capabilities", () => {
         }
       })();
     }
-    prefetchCSSResources(true, (rule, url) => {
-      debug("Prefetching %s from CSS", url, rule.cssText);
-      /* Uncomment to debug prefetching by prefixing the prefetched domains
-      url.hostname = `prefetch.${url.hostname}`;
-      new Image().src = url;
-      return true;
-      */
-    });
+    if (!ns.policy.isTorBrowser) {
+      // protection against CSS PP0, not needed on the Tor Browser because of its
+      // noisy DNS resolution: https://orenlab.sise.bgu.ac.il/p/PP0
+      let prefetchCallback =
+        // false && // REL_ONLY
+        (location.hostname === 'localhost' && location.search.includes("debug_prefetch"))
+        ? (rule, url) => {
+          debug("Prefetching %s from CSS", url, rule.cssText);
+          url.hostname = `prefetch.${url.hostname}`;
+          return false; // let default processing continue with the modified hostname
+        } : null;
+      prefetchCSSResources(true, prefetchCallback);
+    }
     onScriptDisabled();
   }
 
