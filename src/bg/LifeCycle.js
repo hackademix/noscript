@@ -211,7 +211,10 @@ var LifeCycle = (() => {
             try {
               await browser.tabs.executeScript(tab.id, {file, allFrames: true, matchAboutBlank: true});
             } catch (e) {
-              error(e, "Can't run content script on tab", tab);
+              await include("/nscl/common/restricted.js");
+              if (!isRestrictedURL(tab.url)) {
+                error(e, "Can't run content script on tab", tab);
+              }
               break;
             }
           }
