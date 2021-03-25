@@ -239,9 +239,7 @@ onlostpointercapture
 ondevicemotion
 ondeviceorientation
 onabsolutedeviceorientation
-ondeviceproximity
 onmozorientationchange
-onuserproximity
 ondevicelight
 ondevicechange
 onmozvisualresize
@@ -363,6 +361,8 @@ onupdate
 onupdateend
 onaddsourcebuffer
 onremovesourcebuffer
+ondeviceproximity
+onuserproximity
 onsourceclosed
 onmozkeydownonplugin
 onmozkeyuponplugin
