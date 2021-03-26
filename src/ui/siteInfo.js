@@ -1,10 +1,13 @@
 (async () => {
   let [domain, tabId] = decodeURIComponent(location.hash.replace("#", "")).split(";");
   const BASE =  "https://noscript.net";
-  await include(['/nscl/lib/punycode.js', '/common/Storage.js']);
+  await include([
+   '/nscl/lib/punycode.js',
+   '/nscl/common/Storage.js'
+  ]);
   let {siteInfoConsent} = await Storage.get("sync", "siteInfoConsent");
   if (!siteInfoConsent) {
-    await include('/common/locale.js');
+    await include('/nscl/common/locale.js');
     siteInfoConsent = confirm(_("siteInfo_confirm", [domain, BASE]));
     if (siteInfoConsent) {
       await Storage.set("sync", {siteInfoConsent});
