@@ -324,7 +324,10 @@ XSS.InjectionChecker = (async () => {
     _removeDotsRx: /^openid\.[\w.-]+(?==)|(?:[?&#\/]|^)[\w.-]+(?=[\/\?&#]|$)|[\w\.]*\.(?:\b[A-Z]+|\w*\d|[a-z][$_])[\w.-]*|=[a-z.-]+\.(?:com|net|org|biz|info|xxx|[a-z]{2})(?:[;&/]|$)/g,
     _removeDots(p) { return p.replace(this._dotRx, '|'); },
     _arrayAccessRx: /\s*\[\d+\]/g,
-    _riskyOperatorsRx: /[+-]{2}\s*(?:\/[*/][\s\S]+)?(?:\w+(?:\/[*/][\s\S]+)?[[.]|location)|(?:\]|\.\s*(?:\/[*/][\s\S]+)?\w+|location)\s*(?:\/[*/][\s\S]+)?([+-]{2}|[+*\/<>~-]+\s*(?:\/[*/][\s\S]+)?=)/, // inc/dec/self-modifying assignments on DOM props
+
+    // inc/dec/self-modifying assignments on DOM props or special properties in object literals via Symbol
+    _riskyOperatorsRx: /(?:\+\+|--)\s*(?:\/[*/][\s\S]+)?(?:[$\w]+(?:\/[*/][\s\S]+)?(?:\[|.\D)|location)|(?:\]|\.\D*(?:\/[*/][\s\S]+)?[$\w]+|location)\s*(?:\/[*/][\s\S]+)?(\+\+|--|[+*\/<>~-]+\s*(?:\/[*/][\s\S]+)?=)|\{[^]*\[[^]*Symbol[^]*(?:\.\D|\[)[^]*:/,
+
     _assignmentRx: /^(?:[^()="'\s]+=(?:[^(='"\[+]+|[?a-zA-Z_0-9;,&=/]+|[\d.|]+))$/,
     _badRightHandRx: /=[\s\S]*(?:_QS_\b|[|.][\s\S]*source\b|<[\s\S]*\/[^>]*>)/,
     _wikiParensRx: /^(?:[\w.|-]+\/)*\(*[\w\s-]+\([\w\s-]+\)[\w\s-]*\)*$/,
