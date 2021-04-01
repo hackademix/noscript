@@ -163,6 +163,20 @@ ns.on("capabilities", () => {
       allowed: ns.canScript
     });
 
+  if (!(ns.policy.isTorBrowser || ns.allows("csspp0"))) {
+    // protection against CSS PP0, not needed on the Tor Browser because of its
+    // noisy DNS resolution: https://orenlab.sise.bgu.ac.il/p/PP0
+    let prefetchCallback =
+      // false && // REL_ONLY
+      (location.hostname === 'localhost' && location.search.includes("debug_prefetch"))
+      ? (rule, url) => {
+        debug("Prefetching %s from CSS", url, rule.cssText);
+        url.hostname = `prefetch.${url.hostname}`;
+        return false; // let default processing continue with the modified hostname
+      } : null;
+    prefetchCSSResources(true, prefetchCallback);
+  }
+
   if (!ns.canScript) {
 
     if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
@@ -171,19 +185,6 @@ ns.on("capabilities", () => {
           await r.unregister();
         }
       })();
-    }
-    if (!ns.policy.isTorBrowser) {
-      // protection against CSS PP0, not needed on the Tor Browser because of its
-      // noisy DNS resolution: https://orenlab.sise.bgu.ac.il/p/PP0
-      let prefetchCallback =
-        // false && // REL_ONLY
-        (location.hostname === 'localhost' && location.search.includes("debug_prefetch"))
-        ? (rule, url) => {
-          debug("Prefetching %s from CSS", url, rule.cssText);
-          url.hostname = `prefetch.${url.hostname}`;
-          return false; // let default processing continue with the modified hostname
-        } : null;
-      prefetchCSSResources(true, prefetchCallback);
     }
     onScriptDisabled();
   }

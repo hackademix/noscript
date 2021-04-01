@@ -240,23 +240,33 @@ var LifeCycle = (() => {
 
       // put here any version specific upgrade adjustment in stored data
 
-      if (Ver.is(previousVersion, "<=", "11.0.10")) {
-        log(`Upgrading from 11.0.10 or below (${previousVersion}): configure the "ping" capability.`);
+      let configureNewCap = async(cap, presets, presetFilter) => {
+        log(`Upgrading from ${previousVersion}: configure the "${cap}" capability.`);
         await ns.initializing;
-        ns.policy.TRUSTED.capabilities.add("ping");
-        await ns.savePolicy();
-      }
-      if (Ver.is(previousVersion, "<=", "11.2.1")) {
-        log(`Upgrading from ${previousVersion}: configure the "noscript" capability.`);
-        await ns.initializing;
-        let {DEFAULT, TRUSTED, UNTRUSTED} = ns.policy;
-        // let's add "noscript" to DEFAULY, TRUSTED and any CUSTOM preset
-        let presets = [DEFAULT, TRUSTED];
-        presets = presets.concat([...ns.policy.sites.values()].filter(p => p !== TRUSTED && p !== UNTRUSTED));
+        let policy = ns.policy;
+        let customIdx = presets.indexOf("CUSTOM");
+        presets = presets.map(p => policy[p])
+        if (customIdx !== -1) {
+          let { TRUSTED, UNTRUSTED } = policy;
+          // insert custom presets, if any
+          presets.splice(customIdx, 1, ...[...policy.sites.values()].filter(p => p !== TRUSTED && p !== UNTRUSTED));
+        }
+        if (presetFilter) presets = presets.filter(presetFilter);
         for (let p of presets) {
-          p.capabilities.add("noscript");
+          p.capabilities.add(cap);
         }
         await ns.savePolicy();
+      }
+
+      if (Ver.is(previousVersion, "<=", "11.0.10")) {
+        await configureNewCap("ping", ["TRUSTED"]);
+      }
+      if (Ver.is(previousVersion, "<=", "11.2.1")) {
+        await configureNewCap("noscript", ["DEFAULT", "TRUSTED", "CUSTOM"])
+      }
+      if (Ver.is(previousVersion, "<=", "11.2.4")) {
+        // add the csspp0 capability to any preset which already has the script capability
+        await configureNewCap("csspp0", ["TRUSTED", "CUSTOM", "DEFAULT"], p => p.capabilities.has("script"));
       }
     },
 
