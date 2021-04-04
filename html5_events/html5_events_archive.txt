@@ -240,6 +240,7 @@ ondevicemotion
 ondeviceorientation
 onabsolutedeviceorientation
 onmozorientationchange
+onuserproximity
 ondevicelight
 ondevicechange
 onmozvisualresize
@@ -264,7 +265,6 @@ onDOMWindowCreated
 onDOMWindowFocus
 onFullZoomChange
 onGloballyAutoplayBlocked
-onHiddenPlugin
 onMozApplicationManifest
 onMozDOMFullscreen_Entered
 onMozDOMFullscreen_Exit
@@ -278,11 +278,7 @@ onMozLocalStorageChanged
 onMozOpenDateTimePicker
 onMozSessionStorageChanged
 onMozTogglePictureInPicture
-onPluginBindingAttached
 onPluginCrashed
-onPluginInstantiated
-onPluginOutdated
-onPluginRemoved
 onPrintingError
 onTextZoomChange
 onUAWidgetSetupOrChange
@@ -361,8 +357,12 @@ onupdate
 onupdateend
 onaddsourcebuffer
 onremovesourcebuffer
+onHiddenPlugin
+onPluginBindingAttached
+onPluginInstantiated
+onPluginOutdated
+onPluginRemoved
 ondeviceproximity
-onuserproximity
 onsourceclosed
 onmozkeydownonplugin
 onmozkeyuponplugin
