@@ -240,23 +240,37 @@ var LifeCycle = (() => {
 
       // put here any version specific upgrade adjustment in stored data
 
-      let configureNewCap = async(cap, presets, presetFilter) => {
-        log(`Upgrading from ${previousVersion}: configure the "${cap}" capability.`);
+      let forEachPreset = async (callback, presetNames = "*") => {
         await ns.initializing;
-        let policy = ns.policy;
-        let customIdx = presets.indexOf("CUSTOM");
-        presets = presets.map(p => policy[p])
-        if (customIdx !== -1) {
-          let { TRUSTED, UNTRUSTED } = policy;
-          // insert custom presets, if any
-          presets.splice(customIdx, 1, ...[...policy.sites.values()].filter(p => p !== TRUSTED && p !== UNTRUSTED));
+        let changed = false;
+        for (let p of ns.policy.getPresets(presetNames)) {
+          if (callback(p)) changed = true;
         }
-        if (presetFilter) presets = presets.filter(presetFilter);
-        for (let p of presets) {
-          p.capabilities.add(cap);
+        if (changed) {
+          await ns.savePolicy();
         }
-        await ns.savePolicy();
-      }
+      };
+
+      let configureNewCap = async (cap, presetNames, capsFilter) => {
+        log(`Upgrading from ${previousVersion}: configure the "${cap}" capability.`);
+        await forEachPreset(({capabilities}) => {
+          if (capsFilter(capabilities) && !capabilities.has(cap)) {
+            capabilities.add(cap);
+            return true;
+          }
+        }, presetNames);
+      };
+
+      let renameCap = async (oldName, newName) => {
+        log(`Upgrading from ${previousVersion}: rename capability "${oldName}" to "${newName}`);
+        await forEachPreset(({capabilities}) => {
+          if (capabilities.has(oldName)) {
+            capabilities.delete(oldName);
+            capabilities.add(newName);
+            return true;
+          }
+        });
+      };
 
       if (Ver.is(previousVersion, "<=", "11.0.10")) {
         await configureNewCap("ping", ["TRUSTED"]);
@@ -265,8 +279,11 @@ var LifeCycle = (() => {
         await configureNewCap("noscript", ["DEFAULT", "TRUSTED", "CUSTOM"])
       }
       if (Ver.is(previousVersion, "<=", "11.2.4")) {
-        // add the csspp0 capability to any preset which already has the script capability
-        await configureNewCap("csspp0", ["TRUSTED", "CUSTOM", "DEFAULT"], p => p.capabilities.has("script"));
+        // add the unchecked_css capability to any preset which already has the script capability
+        await configureNewCap("unchecked_css", ["DEFAULT", "TRUSTED", "CUSTOM"], caps => caps.has("script"));
+      }
+      if (Ver.is(previousVersion, "<=", "11.2.5rc1")) {
+        await renameCap("csspp0", "unchecked_css");
       }
     },
 

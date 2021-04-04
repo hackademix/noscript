@@ -551,6 +551,9 @@
   "cap_noscript": {
     "message": "noscript"
   },
+  "cap_unchecked_css": {
+    "message": "unchecked CSS"
+  },
   "cap_other": {
     "message": "other"
   },

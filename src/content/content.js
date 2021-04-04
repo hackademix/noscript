@@ -163,7 +163,7 @@ ns.on("capabilities", () => {
       allowed: ns.canScript
     });
 
-  if (!(ns.policy.isTorBrowser || ns.allows("csspp0"))) {
+  if (!(ns.policy.isTorBrowser || ns.allows("unchecked_css"))) {
     // protection against CSS PP0, not needed on the Tor Browser because of its
     // noisy DNS resolution: https://orenlab.sise.bgu.ac.il/p/PP0
     let prefetchCallback =
