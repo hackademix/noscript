@@ -97,7 +97,7 @@ var XSS = (() => {
       let block = !!(reasons.urlInjection || reasons.postInjection)
 
       if (reasons.protectName) {
-        await include("bg/ContentScriptOnce.js");
+        await include("/nscl/service/ContentScriptOnce.js");
         await ContentScriptOnce.execute(request, {
           js: [{file: "/xss/sanitizeName.js"}],
         });
