@@ -5,7 +5,7 @@ Allow active content to run only from sites you trust, and protect yourself agai
 Fx52? <a href="https://noscript.net/getit">https://noscript.net/getit</a>
 
 <b>IMPORTANT</b>
-<a href="https://forums.informaction.com/viewtopic.php?f=7&amp;t=23974&amp;p=94778">A Basic <b>NoScript 10 Guide</b></a>
+<a href="https://forums.informaction.com/viewtopic.php?f=7&amp;t=23974">A Basic <b>NoScript 10 Guide</b></a>
 
 Still confused by NoScript 10's new UI?
 Check this <a href="https://blog.jeaye.com/2017/11/30/noscript/">user-contributed NoScript 10 primer</a>.
