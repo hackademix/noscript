@@ -1,6 +1,6 @@
 "use strict";
 
-(this.ns || (this.ns = {})).syncFetchPolicy = function() {
+(window.ns || (window.ns = {})).syncFetchPolicy = function() {
 
   let url = document.URL;
 
@@ -218,7 +218,7 @@
   }
 };
 
-if (this.ns.pendingSyncFetchPolicy) {
-  this.ns.pendingSyncFetchPolicy = false;
-  this.ns.syncFetchPolicy();
+if (ns.pendingSyncFetchPolicy) {
+  ns.pendingSyncFetchPolicy = false;
+  ns.syncFetchPolicy();
 }

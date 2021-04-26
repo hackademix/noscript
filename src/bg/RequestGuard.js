@@ -533,10 +533,12 @@ var RequestGuard = (() => {
       } catch (e) {
         error(e, "Error in onHeadersReceived", request);
       }
+
       promises = promises.filter(p => p instanceof Promise);
       if (promises.length > 0) {
         return Promise.all(promises).then(() => result);
       }
+
       return result;
     },
     onResponseStarted(request) {
@@ -553,6 +555,7 @@ var RequestGuard = (() => {
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
       let pending = pendingRequests.get(requestId);
       if (pending) {
+
         pending.scriptBlocked = scriptBlocked;
         if (!(pending.headersProcessed &&
             (scriptBlocked || ns.requestCan(request, "script"))
@@ -617,38 +620,28 @@ var RequestGuard = (() => {
     return ABORT;
   }
 
-  async function onNavCommitted(details) {
-    debug("onNavCommitted", details);
+  function injectPolicyScript(details) {
     let {url, tabId, frameId} = details;
-    try {
-      let policy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
-      policy.navigationURL = url;
-      let debugStatement = ns.local.debug ? 'console.debug("domPolicy", domPolicy);' : '';
-      let ret = await browser.tabs.executeScript(details.tabId, {
-        code:
-        `{
-          let domPolicy = ${JSON.stringify(policy)};
-          if (this.ns) {
-            ns.domPolicy = domPolicy;
-            if (ns.setup) {
-              if (ns.syncSetup) ns.syncSetup(domPolicy);
-              else if (!ns.pendingSyncFetchPolicy) {
-                ns.setup(domPolicy);
-              }
-            } ;
-          } else {
-            ns = {domPolicy}
+    let policy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
+    policy.navigationURL = url;
+    let debugStatement = ns.local.debug ? `console.debug("domPolicy", domPolicy, mark);` : '';
+    return `
+      let mark = Date.now() + ":" + Math.random();
+      console.log("domPolicy", document.readyState, mark);
+      let domPolicy = ${JSON.stringify(policy)};
+      let {ns} = window;
+      if (ns) {
+        ns.domPolicy = domPolicy;
+        if (ns.setup) {
+          if (ns.syncSetup) ns.syncSetup(domPolicy);
+          else if (!ns.pendingSyncFetchPolicy) {
+            ns.setup(domPolicy);
           }
-          ${debugStatement}
-        }
-        ns;`,
-        runAt: "document_start",
-        frameId,
-      });
-      debug("onNavCommitted return: ", ret);
-    } catch(e) {
-      console.error(e);
-    }
+        } ;
+      } else {
+        window.ns = {domPolicy}
+      }
+      ${debugStatement}`;
   }
 
   const RequestGuard = {
@@ -702,11 +695,10 @@ var RequestGuard = (() => {
         wr.onBeforeRequest.addListener(onViolationReport,
           {urls: [csp.reportURI], types: ["csp_report"]}, ["blocking", "requestBody"]);
       }
-      browser.webNavigation.onCommitted.addListener(onNavCommitted);
+      DocStartInjection.register(injectPolicyScript);
       TabStatus.probe();
     },
     stop() {
-      browser.webNavigation.onCommitted.removeListener(onNavCommitted);
       let wr = browser.webRequest;
       for (let [name, listener] of Object.entries(listeners)) {
         if (typeof listener === "function") {
@@ -719,6 +711,7 @@ var RequestGuard = (() => {
       if (listeners.onHeadersReceived.resetCSP) {
         wr.onHeadersReceived.removeListener(listeners.onHeadersReceived.resetCSP);
       }
+      DocStartInjection.unregister(injectPolicyScript);
       Messages.removeHandler(messageHandler);
     }
   };

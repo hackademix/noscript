@@ -36,6 +36,7 @@
     "scripts": [
       "/nscl/lib/browser-polyfill.js",
       "/nscl/lib/punycode.js",
+      "/nscl/lib/sha256.js",
       "/nscl/common/UA.js",
       "/nscl/common/uuid.js",
       "/nscl/common/SyncMessage.js",
@@ -53,6 +54,7 @@
       "/nscl/common/SyntaxChecker.js",
       "/nscl/common/Storage.js",
       "/nscl/common/include.js",
+      "/nscl/service/DocStartInjection.js",
       "/nscl/service/LastListener.js",
       "/nscl/service/TabCache.js",
       "ui/Prompts.js",
@@ -74,15 +76,6 @@
        "css": [
          "/content/content.css"
        ]
-    },
-    {
-      "run_at": "document_start",
-      "matches": ["file://*/*", "ftp://*/*"],
-      "all_frames": true,
-      "js": [
-        "lib/DocumentFreezer.js",
-        "content/syncFetchPolicy.js"
-      ]
     },
     {
       "run_at": "document_start",
@@ -114,12 +107,20 @@
         "content/content.js"
       ]
     },
-
     {
       "run_at": "document_start",
       "matches": ["ftp://*/*"],
       "js": [
         "content/ftp.js"
+      ]
+    },
+    {
+      "run_at": "document_start",
+      "matches": ["file://*/*", "ftp://*/*"],
+      "all_frames": true,
+      "js": [
+        "lib/DocumentFreezer.js",
+        "content/syncFetchPolicy.js"
       ]
     }
   ],
