@@ -552,7 +552,7 @@
     "message": "noscript"
   },
   "cap_unchecked_css": {
-    "message": "unchecked CSS"
+    "message": "unrestricted CSS"
   },
   "cap_other": {
     "message": "other"
