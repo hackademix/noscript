@@ -724,7 +724,7 @@
         "description": ""
     },
     "cap_fetch": {
-        "message": "fetch",
+        "message": "CSS e pakufizuar",
         "description": ""
     },
     "cap_ping": {
@@ -733,6 +733,10 @@
     },
     "cap_noscript": {
         "message": "noscript",
+        "description": ""
+    },
+    "cap_unchecked_css": {
+        "message": "unrestricted CSS",
         "description": ""
     },
     "cap_other": {

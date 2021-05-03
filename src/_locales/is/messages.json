@@ -735,6 +735,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_unchecked_css": {
+        "message": "óskilyrt CSS",
+        "description": ""
+    },
     "cap_other": {
         "message": "annað",
         "description": ""

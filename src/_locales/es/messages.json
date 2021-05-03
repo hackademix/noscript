@@ -735,6 +735,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_unchecked_css": {
+        "message": "CSS no restringido",
+        "description": ""
+    },
     "cap_other": {
         "message": "otro",
         "description": ""

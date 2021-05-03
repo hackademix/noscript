@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "將上層文件的限制串聯至子文件",
+        "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
         "description": ""
     },
     "ClearClickDescription": {
@@ -733,6 +733,10 @@
     },
     "cap_noscript": {
         "message": "noscript",
+        "description": ""
+    },
+    "cap_unchecked_css": {
+        "message": "unrestricted CSS",
         "description": ""
     },
     "cap_other": {
