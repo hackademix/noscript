@@ -47,7 +47,7 @@ function onScriptDisabled() {
       let w = doc.defaultView;
       if (w.getSelection().isCollapsed) {
         let root = doc.body || doc.documentElement;
-        let posRx = /^(?:absolute|fixed)$/;
+        let posRx = /^(?:absolute|fixed|sticky)$/;
         do {
           if (posRx.test(w.getComputedStyle(el, '').position)) {
             (eraser.tapped = el.parentNode).removeChild(el);
