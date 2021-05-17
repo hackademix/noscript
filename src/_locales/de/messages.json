@@ -292,7 +292,7 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Dauerhaftes Setzen von Berechtigungen in privaten Fenstern aktivieren.\n(ACHTUNG: Dadurch können Seiteninformationen durchsickern!)",
+        "message": "Dauerhaftes Setzen von Berechtigungen in privaten Fenstern aktivieren\n(ACHTUNG: Dadurch können Seiteninformationen durchsickern!)",
         "description": ""
     },
     "OptAmnesticUpdates": {
@@ -736,8 +736,8 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unbeschränktes CSS",
-        "description": ""
+      "message": "alles CSS",
+      "description": ""
     },
     "cap_other": {
         "message": "sonstige",
