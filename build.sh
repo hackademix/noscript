@@ -125,7 +125,7 @@ else
   WEBEXT_OUT="$XPI_DIR"
 fi
 
-COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js"
+COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js --ignore-files=content/experiments.js"
 
 "$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
@@ -141,12 +141,20 @@ else
 fi
 echo "Created $XPI.xpi"
 ln -fs $XPI.xpi "$BASE/latest.xpi"
-# create chromium pre-release
+# create Chromium pre-release
 rm -rf "$CHROMIUM"
 strip_rc_ver "$MANIFEST_OUT"
-# skip "application" manifest key and embeddingDocument.js
+# manifest.json patching for Chromium:
+# skip "application" manifest key
 (grep -B1000 '"name": "NoScript"' "$MANIFEST_OUT"; \
-  grep -A2000 '"version":' "$MANIFEST_OUT" | grep -v 'content/embeddingDocument.js') > "$MANIFEST_OUT".tmp && \
+  grep -A2000 '"version":' "$MANIFEST_OUT" | \
+  # skip embeddingDocument.js
+  grep -v 'content/embeddingDocument.js') | \
+  # add "debugger" permission for patchWorkers.js
+  sed -re 's/( *)"webRequestBlocking",/&\n\1"debugger",/' | \
+  # add origin fallback for content scripts
+  sed -re 's/( *)"match_about_blank": *true/\1"match_origin_as_fallback": true,\n&/' > \
+  "$MANIFEST_OUT".tmp && \
   mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT"
 mv "$BUILD" "$CHROMIUM"
 web-ext $CHROMIUM_BUILD_OPTS --source-dir="$CHROMIUM" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
