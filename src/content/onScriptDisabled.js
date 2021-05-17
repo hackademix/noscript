@@ -2,12 +2,12 @@
 
 "use strict";
 function onScriptDisabled() {
-  onScriptDisabled = () => {};
-
-  let emulateNoscriptElement = () => {
-    if (ns.allows("noscript")) {
-      NoscriptElements.emulate(true);
-    } else {
+  onScriptDisabled = () => {}; // call me just once
+  debug("onScriptDisabled state", document.readyState);
+  if (ns.allows("noscript")) {
+    NoscriptElements.emulate(true);
+  } else {
+    let reportNoscriptElements = () => {
       if (document.querySelector("noscript")) {
         let request = {
           id: "noscript-noscript",
@@ -18,14 +18,12 @@ function onScriptDisabled() {
         };
         seen.record({policyType: "noscript", request, allowed: false});
       }
+    };
+    if (document.readyState === "loading") {
+      window.addEventListener("DOMContentLoaded", reportNoscriptElements, true);
+    } else {
+      reportNoscriptElements();
     }
-  };
-  debug("onScriptDisabled", document.readyState, new Error().stack); // DEV ONLY
-  if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", emulateNoscriptElement, true);
-    return;
-  } else {
-    emulateNoscriptElement();
   }
 
   let eraser = {
@@ -49,7 +47,7 @@ function onScriptDisabled() {
       let w = doc.defaultView;
       if (w.getSelection().isCollapsed) {
         let root = doc.body || doc.documentElement;
-        let posRx = /^(?:absolute|fixed)$/;
+        let posRx = /^(?:absolute|fixed|sticky)$/;
         do {
           if (posRx.test(w.getComputedStyle(el, '').position)) {
             (eraser.tapped = el.parentNode).removeChild(el);

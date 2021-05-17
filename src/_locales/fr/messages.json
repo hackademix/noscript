@@ -348,7 +348,7 @@
         "description": ""
     },
     "OptBlockCssScanners": {
-        "message": "Bloquer les analyseurs à base de CSS",
+        "message": "Bloquer les analyseurs à base de feuilles de style CSS",
         "description": ""
     },
     "OptFilterXGet": {
@@ -733,6 +733,10 @@
     },
     "cap_noscript": {
         "message": "noscript",
+        "description": ""
+    },
+    "cap_unchecked_css": {
+        "message": "unrestricted CSS",
         "description": ""
     },
     "cap_other": {

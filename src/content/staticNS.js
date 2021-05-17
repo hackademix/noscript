@@ -52,7 +52,7 @@
         }
       }
 
-      if (/^(ftp|file):/.test(url)) { // ftp: or file: - no CSP headers yet
+      if (/^(?:ftp|file):/.test(url)) { // ftp: or file: - no CSP headers yet
         if (this.syncFetchPolicy) {
           this.syncFetchPolicy();
         } else { // additional content scripts not loaded yet
@@ -62,7 +62,9 @@
         }
       } else {
         // CSP headers have been already provided by webRequest, we are not in a hurry...
-        if (/^(javascript|about):/.test(url)) {
+        if (url.startsWith("blob:")) {
+          url = location.origin;
+        } else if (/^(?:javascript|about):/.test(url)) {
           url = document.readyState === "loading"
           ? document.baseURI
           : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
@@ -119,5 +121,5 @@
     },
   };
   window.ns = window.ns ? Object.assign(ns, window.ns) : ns;
-  debug("StaticNS", window.domPolicy, Date.now(), JSON.stringify(window.ns)); // DEV_ONLY
+  debug("StaticNS", Date.now(), JSON.stringify(window.ns)); // DEV_ONLY
 }

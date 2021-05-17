@@ -320,7 +320,7 @@
         "description": ""
     },
     "Notify": {
-        "message": "Nachricht über blockierte Scripte zeigen",
+        "message": "Nachricht über blockierte Skripte zeigen",
         "description": ""
     },
     "Notify_bottom": {
@@ -388,7 +388,7 @@
         "description": ""
     },
     "PermissionsText": {
-        "message": "Sie können genau festlegen, welche Webseiten Scripte ausführen dürfen. Fügen Sie die Adresse oder die Domain (z.B. \"https://www.seite.de\" oder \"seite.de\") einer Seite ein, die Sie zulassen möchten, und klicken Sie danach auf Zulassen.",
+        "message": "Sie können genau festlegen, welche Webseiten Skripte ausführen dürfen. Fügen Sie die Adresse oder die Domain (z.B. \"https://www.seite.de\" oder \"seite.de\") einer Seite ein, die Sie zulassen möchten, und klicken Sie danach auf Zulassen.",
         "description": ""
     },
     "Plugins": {
@@ -668,15 +668,15 @@
         "description": ""
     },
     "allowed_no": {
-        "message": "Zurzeit verbotene Scripte",
+        "message": "Zurzeit verbotene Skripte",
         "description": ""
     },
     "allowed_prt": {
-        "message": "Scripte teilweise zugelassen",
+        "message": "Skripte teilweise zugelassen",
         "description": ""
     },
     "allowed_yes": {
-        "message": "Zurzeit zugelassene Scripte",
+        "message": "Zurzeit zugelassene Skripte",
         "description": ""
     },
     "alwaysAsk": {
@@ -788,7 +788,7 @@
         "description": ""
     },
     "forbidGlobal": {
-        "message": "Scripte allgemein verbieten (empfohlen)",
+        "message": "Skripte allgemein verbieten (empfohlen)",
         "description": ""
     },
     "forbidLocal": {
@@ -836,11 +836,11 @@
         "description": ""
     },
     "removal_message": {
-        "message": "Mit der Deaktivierung oder Deinstallation von NoScript gehen ALLE von NoScript bereitgestellten Schutzfunktionen verloren.\n\nWenn es Ihnen bloß zu viel Aufwand ist, Script-Berechtigungen für jede Seite neu festzulegen, dann gibt es eine sicherere Möglichkeit.\n\nNoScript kann aufhören alle Scripte zu blockieren (ausgenommen diejenigen, die als nicht vertrauenswürdig markiert wurden) und Sie trotzdem mittels erweiterten Sicherheitsfunktionen gegen XSS, Clickjacking, CSRF und andere Bedrohungen im Internet beschützen.\n\nWollen Sie wirklich ALLE NoScript-Schutzfunktionen deaktivieren?\n",
+        "message": "Mit der Deaktivierung oder Deinstallation von NoScript gehen ALLE von NoScript bereitgestellten Schutzfunktionen verloren.\n\nWenn es Ihnen bloß zu viel Aufwand ist, Skript-Berechtigungen für jede Seite neu festzulegen, dann gibt es eine sicherere Möglichkeit.\n\nNoScript kann aufhören alle Skripte zu blockieren (ausgenommen diejenigen, die als nicht vertrauenswürdig markiert wurden) und Sie trotzdem mittels erweiterten Sicherheitsfunktionen gegen XSS, Clickjacking, CSRF und andere Bedrohungen im Internet beschützen.\n\nWollen Sie wirklich ALLE NoScript-Schutzfunktionen deaktivieren?\n",
         "description": ""
     },
     "removal_no": {
-        "message": "Nein, nur aufhören Scripte zu blockieren",
+        "message": "Nein, nur aufhören Skripte zu blockieren",
         "description": ""
     },
     "removal_title": {
