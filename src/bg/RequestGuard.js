@@ -624,10 +624,10 @@ var RequestGuard = (() => {
     let {url, tabId, frameId} = details;
     let policy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
     policy.navigationURL = url;
-    let debugStatement = ns.local.debug ? `console.debug("domPolicy", domPolicy, mark);` : '';
-    return `
+    let debugStatement = ns.local.debug ? `
       let mark = Date.now() + ":" + Math.random();
-      console.log("domPolicy", document.readyState, mark);
+      console.debug("domPolicy", domPolicy, document.readyState, mark);` : '';
+    return `
       let domPolicy = ${JSON.stringify(policy)};
       let {ns} = window;
       if (ns) {
