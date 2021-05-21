@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Alle im obersten Dokument blockierten Fähigkeiten müssen auch in seinen Unterdokumenten blockiert werden",
+        "message": "Einschränkungen im Hauptdokument auch in seinen Unterdokumenten anwenden",
         "description": ""
     },
     "ClearClickDescription": {
@@ -736,8 +736,8 @@
         "description": ""
     },
     "cap_unchecked_css": {
-      "message": "alles CSS",
-      "description": ""
+        "message": "alles CSS",
+        "description": ""
     },
     "cap_other": {
         "message": "sonstige",
