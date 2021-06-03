@@ -2,7 +2,7 @@ if (ns.embeddingDocument) {
   let suspended;
   let suspender = new MutationObserver(records => {
     if (suspended) return;
-    suspended = document.body.firstElementChild;
+    suspended = document.body && document.body.firstElementChild;
     if (suspended) {
       debug("Suspending ", suspended.src, suspended);
       suspended.autoplay = false;
