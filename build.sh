@@ -82,7 +82,7 @@ if node "$NSCL/TLD/update.js" "$BUILD/nscl/common/tld.js"; then
   echo 'Updated TLDs.'
 fi
 
-cp -p LICENSE.txt GPL.txt "$BUILD"/
+cp -p LICENSE COPYING "$BUILD"/
 
 BUILD_CMD="web-ext"
 BUILD_OPTS="build --overwrite-dest"
