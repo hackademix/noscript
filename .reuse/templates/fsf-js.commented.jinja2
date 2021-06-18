@@ -1,9 +1,16 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
+{% for copyright_line in copyright_lines %}
+ * {{ copyright_line }}
+{% endfor %}
+{% if copyright_lines and spdx_expressions %}
  *
- * SPDX-License-Identifier: GPL-3.0-or-later
+{% endif %}
+{% for expression in spdx_expressions %}
+ * SPDX-License-Identifier: {{ expression }}
+{% endfor %}
+{% if "GPL-3.0-or-later" in spdx_expressions %}
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -16,20 +23,5 @@
  *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <https://www.gnu.org/licenses/>.
+{% endif %}
  */
-
-if ("windows" in browser) document.addEventListener("DOMContentLoaded", async e => {
-  // Fix for Fx57 bug where bundled page loaded using
-  // browser.windows.create won't show contents unless resized.
-  // See https://bugzilla.mozilla.org/show_bug.cgi?id=1402110
-  let win = await browser.windows.getCurrent({populate: true});
-  if (win.tabs[0].url === document.URL) {
-    debug("Resize hack");
-    await browser.windows.update(win.id, {
-      width: win.width + 1
-    });
-    await browser.windows.update(win.id, {
-      width: win.width
-    });
-  }
-});

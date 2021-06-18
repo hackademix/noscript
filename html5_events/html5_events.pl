@@ -1,4 +1,9 @@
 #!/usr/bin/perl
+
+# Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 use strict;
 
 require LWP::UserAgent;

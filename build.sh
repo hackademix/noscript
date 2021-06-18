@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 BASE="$PWD"
 SRC="$BASE/src"
 BUILD="$BASE/build"

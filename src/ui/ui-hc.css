@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 input {
   transform: none !important;
   width: auto !important;

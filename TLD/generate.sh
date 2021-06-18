@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 BASE=$(dirname "$0")
 TEMPLATE=tld_template.js
 if [ -f "$1" ]; then
