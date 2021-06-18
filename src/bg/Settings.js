@@ -221,7 +221,7 @@ var Settings = {
 
   async reloadOptionsUI() {
     try {
-      for (let t of await browser.tabs.query({url: browser.extension.getURL(
+      for (let t of await browser.tabs.query({url: browser.runtime.getURL(
           browser.runtime.getManifest().options_ui.page) })
       ) {
         browser.tabs.reload(t.id);

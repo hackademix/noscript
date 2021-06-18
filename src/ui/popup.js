@@ -97,7 +97,7 @@ addEventListener("unload", e => {
       let handlers = {
         "options": e => {
           if (UA.mobile) { // Fenix fails on openOptionsPage
-            browser.tabs.create({url: browser.extension.getURL("/ui/options.html")});
+            browser.tabs.create({url: browser.runtime.getURL("/ui/options.html")});
           } else {
             browser.runtime.openOptionsPage();
           }
@@ -255,7 +255,7 @@ addEventListener("unload", e => {
       pendingReload(sitesUI.anyPermissionsChanged());
       if (optionsClosed) return;
       browser.tabs.query({
-        url: browser.extension.getURL(
+        url: browser.runtime.getURL(
             browser.runtime.getManifest().options_ui.page)
         }).then(tabs => {
           browser.tabs.remove(tabs.map(t => t.id));

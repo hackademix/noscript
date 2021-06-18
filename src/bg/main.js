@@ -28,7 +28,7 @@
       });
     }
   }
-  let popupURL = browser.extension.getURL("/ui/popup.html");
+  let popupURL = browser.runtime.getURL("/ui/popup.html");
   let popupFor = tabId => `${popupURL}#tab${tabId}`;
 
   let ctxMenuId = "noscript-ctx-menu";

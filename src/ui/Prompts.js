@@ -29,7 +29,7 @@ var Prompts = (() => {
       this.close();
       let {width, height} = data.features;
       let options = {
-        url: browser.extension.getURL("ui/prompt.html"),
+        url: browser.runtime.getURL("ui/prompt.html"),
         type: "panel",
         width,
         height,
