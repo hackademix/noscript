@@ -96,11 +96,11 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Berechtigungen des obersten Dokuments auf Scripte von Drittanbietern übertragen",
+        "message": "Berechtigungen des Hauptdokuments auf Scripte von Drittanbietern übertragen",
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Alle im obersten Dokument blockierten Fähigkeiten müssen auch in seinen Unterdokumenten blockiert werden",
+        "message": "Alles, was im Hauptdokument nicht zugelassen ist, auch in seinen Unterdokumenten nicht zulassen",
         "description": ""
     },
     "ClearClickDescription": {
@@ -736,8 +736,8 @@
         "description": ""
     },
     "cap_unchecked_css": {
-      "message": "unbeschränktes CSS",
-      "description": ""
+        "message": "jedes CSS",
+        "description": ""
     },
     "cap_other": {
         "message": "sonstige",
