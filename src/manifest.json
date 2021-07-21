@@ -8,7 +8,7 @@
       "strict_min_version": "59.0"
     }
   },
-  "version": "11.2.9",
+  "version": "11.2.10rc1",
   "description": "__MSG_Description__",
   "incognito": "spanning",
 
@@ -57,7 +57,6 @@
       "/nscl/service/DocStartInjection.js",
       "/nscl/service/LastListener.js",
       "/nscl/service/TabCache.js",
-      "/nscl/service/patchWorkers.js",
       "ui/Prompts.js",
       "xss/XSS.js",
       "bg/ReportingCSP.js",
@@ -95,7 +94,6 @@
         "/nscl/common/CapsCSP.js",
         "/nscl/common/RequestKey.js",
         "/nscl/content/patchWindow.js",
-        "/nscl/content/patchWorkers.js",
         "/nscl/content/DocumentCSP.js",
         "/nscl/content/NoscriptElements.js",
         "/nscl/content/prefetchCSSResources.js",
