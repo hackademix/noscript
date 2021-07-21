@@ -15,7 +15,7 @@ strip_rc_ver() {
   if [[ "$2" == "rel" ]]; then
     replace='s/("version":.*)rc\d+/$1/'
   else
-    replace='s/("version":.*)(\d+)rc(\d+)/{$1 . ($2 == "0" ? "0" : ($2-1) . ".9" . sprintf("%03d", $3))}/e'
+    replace='s/("version":.*?)(\d+)rc(\d+)/{$1 . ($2 == "0" ? "0" : ($2-1) . ".9" . sprintf("%03d", $3))}/e'
   fi
   perl -pi.bak -e "$replace" "$MANIFEST" && rm -f "$MANIFEST".bak
 }
@@ -110,11 +110,14 @@ if ! grep '"id":' "$MANIFEST_OUT" >/dev/null; then
 fi
 
 if [ "$1" != "debug" ]; then
+  DBG=""
   for file in "$SRC"/content/*.js; do
     if grep -P '\/\/\s(REL|DEV)_ONLY' "$file" >/dev/null; then
       sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file" > "$BUILD/content/$(basename "$file")"
     fi
   done
+else
+  DBG="-dbg"
 fi
 
 echo "Creating $XPI.xpi..."
@@ -145,11 +148,11 @@ elif [ -f "$XPI.zip" ]; then
     echo "A signed $XPI.xpi already exists, not overwriting."
   else
     [[ "$VER" == *rc* ]] && xpicmd="mv" || xpicmd="cp"
-    $xpicmd "$XPI.zip" "$XPI.xpi"
-    echo "Created $XPI.xpi"
+    $xpicmd "$XPI.zip" "$XPI$DBG.xpi"
+    echo "Created $XPI$DBG.xpi"
   fi
 else
-  echo >&2 "ERROR: Could not create $XPI.xpi!"
+  echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
   exit 3
 fi
 ln -fs $XPI.xpi "$BASE/latest.xpi"
@@ -181,14 +184,15 @@ fi
   "$MANIFEST_OUT".tmp && \
   mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT"
 
-build
+CHROME_ZIP=$(build | grep 'ready: .*\.zip' | sed -re 's/.* ready: //')
 
-if [ -f "$XPI.zip" ]; then
-  mv "$XPI.zip" "$XPI-edge.zip"
+if [ -f "$CHROME_ZIP" ]; then
+  mv "$CHROME_ZIP" "$XPI$DBG-edge.zip"
   # remove Edge-specific manifest lines and package for generic Chromium
   grep -v '"update_url":' "$MANIFEST_OUT" > "$MANIFEST_OUT.tmp" && \
     mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT" && \
     build
+    mv "$CHROME_ZIP" "$XPI$DBG-chrome.zip"
 fi
 
 mv "$BUILD" "$CHROMIUM_UNPACKED"
