@@ -198,13 +198,16 @@ ns.on("capabilities", () => {
   }
 
   if (!ns.canScript) {
-
-    if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-      (async () => {
-        for (let r of await navigator.serviceWorker.getRegistrations()) {
-          await r.unregister();
-        }
-      })();
+    try {
+      if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
+        (async () => {
+          for (let r of await navigator.serviceWorker.getRegistrations()) {
+            await r.unregister();
+          }
+        })();
+      }
+    } catch (e) {
+      debug(e);
     }
     onScriptDisabled();
   }
