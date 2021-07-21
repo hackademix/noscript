@@ -7,7 +7,6 @@
 BASE="$PWD"
 SRC="$BASE/src"
 BUILD="$BASE/build"
-CHROMIUM="$BASE/chromium"
 MANIFEST_IN="$SRC/manifest.json"
 MANIFEST_OUT="$BUILD/manifest.json"
 
@@ -91,7 +90,6 @@ cp -p LICENSE COPYING "$BUILD"/
 
 BUILD_CMD="web-ext"
 BUILD_OPTS="build --overwrite-dest"
-CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 
 if [[ $VER == *rc* ]]; then
   sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
@@ -132,34 +130,65 @@ fi
 
 COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js --ignore-files=content/experiments.js"
 
-"$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
+build() {
+  "$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
+}
+
+build
+
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
   ../../we-publish "$XPI.xpi"
 elif [ -f "$XPI.zip" ]; then
-  [[ "$VER" == *rc* ]] && xpicmd="mv" || xpicmd="cp"
-  $xpicmd "$XPI.zip" "$XPI.xpi"
+  if unzip -l "$XPI.xpi" | grep "META-INF/mozilla.rsa" >/dev/null 2>&1; then
+    echo "A signed $XPI.xpi already exists, not overwriting."
+  else
+    [[ "$VER" == *rc* ]] && xpicmd="mv" || xpicmd="cp"
+    $xpicmd "$XPI.zip" "$XPI.xpi"
+    echo "Created $XPI.xpi"
+  fi
 else
   echo >&2 "ERROR: Could not create $XPI.xpi!"
   exit 3
 fi
-echo "Created $XPI.xpi"
 ln -fs $XPI.xpi "$BASE/latest.xpi"
+
 # create Chromium pre-release
-rm -rf "$CHROMIUM"
+
+CHROMIUM_UNPACKED="$BASE/chromium"
+EDGE_UPDATE_URL="https://edge.microsoft.com/extensionwebstorebase/v1/crx"
+rm -rf "$CHROMIUM_UNPACKED"
 strip_rc_ver "$MANIFEST_OUT"
 # manifest.json patching for Chromium:
+
+EXTRA_PERMS=""
+if grep 'patchWorkers.js' "$MANIFEST_OUT" >/dev/null 2>&1; then
+  EXTRA_PERMS='"debugger",'
+fi
+
 # skip "application" manifest key
 (grep -B1000 '"name": "NoScript"' "$MANIFEST_OUT"; \
-  grep -A2000 '"version":' "$MANIFEST_OUT" | \
+  grep -A2000 '"version":' "$MANIFEST_OUT") | \
+  # auto-update URL for the Edge version on the Microsoft Store
+  sed -e '/"name":/a\' -e '  "update_url": "'$EDGE_UPDATE_URL'",' | \
   # skip embeddingDocument.js
-  grep -v 'content/embeddingDocument.js') | \
+  grep -v 'content/embeddingDocument.js' | \
   # add "debugger" permission for patchWorkers.js
-  sed -re 's/( *)"webRequestBlocking",/&\n\1"debugger",/' | \
+  sed -re 's/( *)"webRequestBlocking",/&\n\1'"$EXTRA_PERMS"'/' | \
   # add origin fallback for content scripts
   sed -re 's/( *)"match_about_blank": *true/\1"match_origin_as_fallback": true,\n&/' > \
   "$MANIFEST_OUT".tmp && \
   mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT"
-mv "$BUILD" "$CHROMIUM"
-web-ext $CHROMIUM_BUILD_OPTS --source-dir="$CHROMIUM" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
+
+build
+
+if [ -f "$XPI.zip" ]; then
+  mv "$XPI.zip" "$XPI-edge.zip"
+  # remove Edge-specific manifest lines and package for generic Chromium
+  grep -v '"update_url":' "$MANIFEST_OUT" > "$MANIFEST_OUT.tmp" && \
+    mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT" && \
+    build
+fi
+
+mv "$BUILD" "$CHROMIUM_UNPACKED"
