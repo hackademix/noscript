@@ -20,7 +20,7 @@
         "description": ""
     },
     "Allow": {
-        "message": "İzin Ver",
+        "message": "İzin ver",
         "description": ""
     },
     "Allow_accesskey": {
@@ -48,7 +48,7 @@
         "description": ""
     },
     "AllowPing": {
-        "message": "İzin Ver <A PING…>",
+        "message": "İzin ver <A PING…>",
         "description": ""
     },
     "AllowViaBookmarks": {
@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript Engellenmiş Nesneler",
+        "message": "NoScript engellenmiş nesneler",
         "description": ""
     },
     "BookmarkSync": {
@@ -124,11 +124,11 @@
         "description": ""
     },
     "ClearClickReportId": {
-        "message": "Bildirim Kodu:",
+        "message": "Bildirim kodu:",
         "description": ""
     },
     "ClearClickTitle": {
-        "message": "Temiz Tıklama Uyarısı",
+        "message": "Temiz tıklama uyarısı",
         "description": ""
     },
     "Close": {
@@ -160,7 +160,7 @@
         "description": ""
     },
     "DefaultPolicies": {
-        "message": "Varsayılan İlkeler",
+        "message": "Varsayılan ilkeler",
         "description": ""
     },
     "Description": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "Donate": {
-        "message": "Bağış Yapın",
+        "message": "Bağış yapın",
         "description": ""
     },
     "Donate_accesskey": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "Export": {
-        "message": "Dışa Aktar",
+        "message": "Dışa aktar",
         "description": ""
     },
     "Export_accesskey": {
@@ -284,7 +284,7 @@
         "description": ""
     },
     "Import": {
-        "message": "İçe Aktar",
+        "message": "İçe aktar",
         "description": ""
     },
     "Import_accesskey": {
@@ -360,7 +360,7 @@
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Tor Browser Güvenlik Duvarı ayarı değiştirilsin",
+        "message": "Tor Browser güvenlik duvarı ayarı değiştirilsin",
         "description": ""
     },
     "Options": {
@@ -372,7 +372,7 @@
         "description": ""
     },
     "OptionsLong": {
-        "message": "NoScript Ayarları",
+        "message": "NoScript ayarları",
         "description": ""
     },
     "OptionsWidth": {
@@ -384,7 +384,7 @@
         "description": ""
     },
     "SectionSitePermissions": {
-        "message": "Siteye Özel İzinler",
+        "message": "Siteye özel izinler",
         "description": ""
     },
     "PermissionsText": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "Plugins": {
-        "message": "Uygulama Ekleri",
+        "message": "Uygulama ekleri",
         "description": ""
     },
     "Policies": {
@@ -400,7 +400,7 @@
         "description": ""
     },
     "Preset": {
-        "message": "Güvenlik Düzeyi",
+        "message": "Güvenlik düzeyi",
         "description": ""
     },
     "Prev": {
@@ -420,7 +420,7 @@
         "description": ""
     },
     "RemoveSelected": {
-        "message": "Seçilmiş Sayfaları Sil",
+        "message": "Seçilmiş sayfaları sil",
         "description": ""
     },
     "Reset": {
@@ -432,7 +432,7 @@
         "description": ""
     },
     "ResetDef": {
-        "message": "Varsayılan Değerlere Sıfırla",
+        "message": "Varsayılan değerlere sıfırla",
         "description": ""
     },
     "ResetDef_accesskey": {
@@ -440,7 +440,7 @@
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Geçici İzinleri Kaldır",
+        "message": "Geçici izinleri kaldır",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -448,7 +448,7 @@
         "description": ""
     },
     "SecureCookies": {
-        "message": "Otomatik Güvenli Çerez Yönetimi Kullanılsın",
+        "message": "Otomatik güvenli çerez yönetimi kullanılsın",
         "description": ""
     },
     "SecureCookiesExceptions": {
@@ -460,7 +460,7 @@
         "description": ""
     },
     "SecurityManager": {
-        "message": "Güvenlik Yönetimi",
+        "message": "Güvenlik yönetimi",
         "description": ""
     },
     "Show": {
@@ -468,7 +468,7 @@
         "description": ""
     },
     "ShowConsole": {
-        "message": "Konsolu Görüntüle…",
+        "message": "Konsolu görüntüle…",
         "description": ""
     },
     "ShowConsole_accesskey": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "SitePermissions": {
-        "message": "Site İzinleri",
+        "message": "Site izinleri",
         "description": ""
     },
     "SitePermissions_accessKey": {
@@ -500,7 +500,7 @@
         "description": ""
     },
     "SitePolicies": {
-        "message": "Siteye Özel İlkeler",
+        "message": "Siteye özel ilkeler",
         "description": ""
     },
     "TempTrustPage": {
@@ -520,7 +520,7 @@
         "description": ""
     },
     "Trust": {
-        "message": "Güvenilir Olarak İşaretle",
+        "message": "Güvenilir olarak işaretle",
         "description": ""
     },
     "Trust_accesskey": {
@@ -552,7 +552,7 @@
         "description": ""
     },
     "UnsafeReload": {
-        "message": "Güvenli Olmayan Yeniden Yükleme",
+        "message": "Güvenli olmayan yeniden yükleme",
         "description": ""
     },
     "UnsafeReload_accesskey": {
@@ -560,7 +560,7 @@
         "description": ""
     },
     "Untrust": {
-        "message": "Güvenilmez Olarak İşaretle",
+        "message": "Güvenilmez olarak işaretle",
         "description": ""
     },
     "Untrust_accesskey": {
@@ -588,11 +588,11 @@
         "description": ""
     },
     "XSS_clearUserChoices": {
-        "message": "XSS Seçimlerini Temizle",
+        "message": "XSS seçimlerini temizle",
         "description": ""
     },
     "XSS_promptTitle": {
-        "message": "NoScript XSS Uyarısı",
+        "message": "NoScript XSS uyarısı",
         "description": ""
     },
     "XSS_promptMessage": {
@@ -628,7 +628,7 @@
         "description": ""
     },
     "XssExceptions": {
-        "message": "Anti-XSS Korumasına Katılmayacaklar",
+        "message": "Anti-XSS korumasına katılmayacaklar",
         "description": ""
     },
     "XssExceptions_description": {
@@ -644,7 +644,7 @@
         "description": ""
     },
     "about": {
-        "message": "$1 Hakkında",
+        "message": "$1 hakkında",
         "description": ""
     },
     "allowFrom": {
@@ -668,15 +668,15 @@
         "description": ""
     },
     "allowed_no": {
-        "message": "Şu Ana Kadar Engellenmiş Betikler",
+        "message": "Şu ana kadar engellenmiş betikler",
         "description": ""
     },
     "allowed_prt": {
-        "message": "Kısmen İzin Verilmiş Betikler",
+        "message": "Kısmen izin verilmiş betikler",
         "description": ""
     },
     "allowed_yes": {
-        "message": "Şu Anda İzin Verilen Betikler",
+        "message": "Şu anda izin verilen betikler",
         "description": ""
     },
     "alwaysAsk": {
@@ -696,7 +696,7 @@
         "description": ""
     },
     "bookmarkSync_title": {
-        "message": "NoScript Yapılandırma Yer İmi",
+        "message": "NoScript yapılandırma yer imi",
         "description": ""
     },
     "cap_script": {
@@ -744,7 +744,7 @@
         "description": ""
     },
     "changelog": {
-        "message": "Değişiklik Günlüğü",
+        "message": "Değişiklik günlüğü",
         "description": ""
     },
     "changelog_tip": {
@@ -768,7 +768,7 @@
         "description": ""
     },
     "extensionContributors": {
-        "message": "Katkıda Bulunanlar:",
+        "message": "Katkıda bulunanlar:",
         "description": ""
     },
     "extensionContributors_tip": {
@@ -788,7 +788,7 @@
         "description": ""
     },
     "forbidGlobal": {
-        "message": "Betikler Genel Olarak Engellensin (Önerilir)",
+        "message": "Betikler genel olarak engellensin (önerilir)",
         "description": ""
     },
     "forbidLocal": {
@@ -808,7 +808,7 @@
         "description": ""
     },
     "incompatibleOptions_title": {
-        "message": "Uyumsuz Ayarlar Uyarısı",
+        "message": "Uyumsuz ayarlar uyarısı",
         "description": ""
     },
     "informaction_tip": {
@@ -844,7 +844,7 @@
         "description": ""
     },
     "removal_title": {
-        "message": "Güvenlik Düşürme Uyarısı",
+        "message": "Güvenlik düşürme uyarısı",
         "description": ""
     },
     "removal_yes": {
@@ -852,7 +852,7 @@
         "description": ""
     },
     "reset_title": {
-        "message": "NoScript Ayarlarını Sıfırla",
+        "message": "NoScript ayarlarını sıfırla",
         "description": ""
     },
     "reset_warning": {
@@ -880,7 +880,7 @@
         "description": ""
     },
     "version": {
-        "message": "$1 Sürümü",
+        "message": "$1 sürümü",
         "description": ""
     },
     "versionShort": {
