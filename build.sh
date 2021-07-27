@@ -90,6 +90,8 @@ cp -p LICENSE COPYING "$BUILD"/
 
 BUILD_CMD="web-ext"
 BUILD_OPTS="build --overwrite-dest"
+CHROMIUM_BUILD_CMD="$BUILD_CMD"
+CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 
 if [[ $VER == *rc* ]]; then
   sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
@@ -159,10 +161,13 @@ ln -fs $XPI.xpi "$BASE/latest.xpi"
 
 # create Chromium pre-release
 
+BUILD_CMD="$CHROMIUM_BUILD_CMD"
+BUILD_OPTS="$CHROMIUM_BUILD_OPTS"
 CHROMIUM_UNPACKED="$BASE/chromium"
 EDGE_UPDATE_URL="https://edge.microsoft.com/extensionwebstorebase/v1/crx"
 rm -rf "$CHROMIUM_UNPACKED"
 strip_rc_ver "$MANIFEST_OUT"
+
 # manifest.json patching for Chromium:
 
 EXTRA_PERMS=""
