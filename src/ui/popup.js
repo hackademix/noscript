@@ -106,6 +106,7 @@ addEventListener("unload", e => {
     } else {
       tabId = tab.id;
     }
+    let cookieStoreId = pageTab.cookieStoreId;
 
     if (!browser.windows) {
       // emulate popup over page by using blurred content as background
@@ -184,6 +185,19 @@ addEventListener("unload", e => {
       browser.tabs.onActivated.addListener(e => {
         if (e.tabId !== tabId) close();
       });
+    }
+
+    if (UI.contextStore && UI.contextStore.enabled && browser.contextualIdentities) {
+      try {
+        let containerName = (await browser.contextualIdentities.get(cookieStoreId)).name;
+        document.querySelector("#container-id").textContent = containerName;
+        debug("found container name", containerName, "for cookieStoreId", cookieStoreId);
+      } catch(err) {
+        document.querySelector("#container-id").textContent = "Default";
+        debug("no container for cookieStoreId", cookieStoreId, "error:", err.message);
+      }
+    } else {
+      document.querySelector("#container-id").style.visibility = 'hidden';
     }
 
     await include("/ui/toolbar.js");
@@ -386,7 +400,9 @@ addEventListener("unload", e => {
 
     let justDomains = !UI.local.showFullAddresses;
 
-    sitesUI = new UI.Sites(document.getElementById("sites"));
+    let policy = await UI.getPolicy(cookieStoreId);
+    debug("popup policy", policy);
+    sitesUI = new UI.Sites(document.getElementById("sites"), UI.DEF_PRESETS, policy);
 
     sitesUI.onChange = (row) => {
       const reload = sitesUI.anyPermissionsChanged()
@@ -423,7 +439,7 @@ addEventListener("unload", e => {
         typesMap
       } = sitesUI;
       typesMap.clear();
-      let policySites = UI.policy.sites;
+      let policySites = policy.sites;
       let domains = new Map();
       let protocols = new Set();
 
