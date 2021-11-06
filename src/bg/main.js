@@ -105,6 +105,19 @@
       }
     }
 
+    if (!ns.contextStore) { // it could have been already retrieved by LifeCycle
+      const contextStoreData = (await Storage.get("sync", "contextStore")).contextStore;
+      if (contextStoreData) {
+        ns.contextStore = new ContextStore(contextStoreData);
+        await ns.contextStore.updateContainers(ns.policy);
+      } else {
+        log("No container data found. Initializing new policies.")
+        ns.contextStore = new ContextStore();
+        await ns.contextStore.updateContainers(ns.policy);
+        await ns.saveContextStore();
+      }
+    }
+
     const {isTorBrowser} = ns.local;
     Sites.onionSecure = isTorBrowser;
 
@@ -175,10 +188,12 @@
       tabId = -1
     }) {
       const policy = ns.policy.dry(true);
+      const contextStore = ns.contextStore.dry(true);
       const seen = tabId !== -1 ? await ns.collectSeen(tabId) : null;
       const xssUserChoices = await XSS.getUserChoices();
       await Messages.send("settings", {
         policy,
+        contextStore,
         seen,
         xssUserChoices,
         local: ns.local,
@@ -260,6 +275,7 @@
   }
 
   let _policy = null;
+  let _contextStore = null;
 
   globalThis.ns = {
     running: false,
@@ -268,6 +284,11 @@
       RequestGuard.DNRPolicy?.update();
     },
     get policy() { return _policy; },
+    set contextStore(c) {
+      _contextStore = c;
+      RequestGuard.DNRPolicy?.update();
+    },
+    get contextStore() { return _contextStore; },
     local: null,
     sync: null,
     initializing: null,
@@ -301,13 +322,28 @@
       return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, this.policyContext(request));
     },
 
+    getPolicy(cookieStoreId){
+      if (
+        ns.contextStore &&
+        ns.contextStore.enabled &&
+        ns.contextStore.policies.hasOwnProperty(cookieStoreId)
+      ) {
+        let currentPolicy = ns.contextStore.policies[cookieStoreId];
+        debug("id", cookieStoreId, "has cookiestore", currentPolicy);
+        if (currentPolicy) return currentPolicy;
+      }
+      debug("default cookiestore", cookieStoreId);
+      return ns.policy;
+    },
+
     async computeChildPolicy({url, contextUrl}, sender) {
       await ns.initializing;
-      let {tab, origin, frameId, documentLifecycle} = sender;
+      let {tab, origin, frameId, cookieStoreId, documentLifecycle} = sender;
       if (url == sender.url && url == "about:blank") {
         url = origin;
       }
-      let policy = ns.policy;
+      if (!cookieStoreId && tab) cookieStoreId = tab.cookieStoreId;
+      let policy = ns.getPolicy(cookieStoreId);
       const {isTorBrowser} = ns.local;
       if (!policy) {
         console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
@@ -412,6 +448,19 @@
         ]);
       }
       return this.policy;
+    },
+
+    async saveContextStore() {
+      if (this.contextStore) {
+        await Promise.allSettled([
+          Storage.set("sync", {
+            policy: this.contextStore.dry()
+          }),
+          session.save(),
+          browser.webRequest.handlerBehaviorChanged()
+        ]);
+      }
+      return this.contextStore;
     },
 
     openOptionsPage({tab, focus, hilite}) {

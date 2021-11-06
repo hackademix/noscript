@@ -86,6 +86,24 @@ fieldset:disabled {
   flex: 2 2;
 }
 
+.per-site-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  width: 100%;
+  text-align: right;
+  margin: .5em 0 0 0;
+}
+#btn-clear-container {
+  margin-inline-start: .5em;
+}
+#copy-container {
+  margin-inline: .5em;
+}
+#copy-container-label {
+  margin-block: auto;
+}
+
 #policy {
   display: block;
   margin-top: .5em;
@@ -94,6 +112,12 @@ fieldset:disabled {
 }
 .hide, body:not(.debug) div.debug {
   display: none;
+}
+#context-store {
+  display: block;
+  margin-top: .5em;
+  min-height: 20em;
+  width: 90%;
 }
 
 #debug-tools {
@@ -107,6 +131,14 @@ fieldset:disabled {
 }
 
 #policy-error {
+  background: red;
+  color: #ff8;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+}
+
+#context-store-error {
   background: red;
   color: #ff8;
   padding: 0;

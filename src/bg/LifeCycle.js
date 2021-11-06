@@ -108,6 +108,7 @@ var LifeCycle = (() => {
       let {url} = tab;
       let {cypherText, key, iv} = await encrypt(JSON.stringify({
         policy: ns.policy.dry(true),
+        contextStore: ns.contextStore.dry(true),
         allSeen,
         unrestrictedTabs: [...ns.unrestrictedTabs]
       }));
@@ -208,7 +209,7 @@ var LifeCycle = (() => {
             iv
           }, key, cypherText
         );
-        let {policy, allSeen, unrestrictedTabs} = JSON.parse(new TextDecoder().decode(encoded));
+        let {policy, contextStore, allSeen, unrestrictedTabs} = JSON.parse(new TextDecoder().decode(encoded));
         if (!policy) {
           throw new error("Ephemeral policy not found in survival tab %s!", tabId);
         }
@@ -216,6 +217,7 @@ var LifeCycle = (() => {
         destroyIfNeeded();
         if (ns.initializing) await ns.initializing;
         ns.policy = new Policy(policy);
+        ns.contextStore = new ContextStore(contextStore);
         await Promise.allSettled(
           Object.entries(allSeen).map(
             async ([tabId, seen]) => {
@@ -307,6 +309,17 @@ var LifeCycle = (() => {
         }
         if (changed) {
           await ns.savePolicy();
+        }
+        if (ns.contextStore) {
+          changed = false;
+          for (let k of Object.keys(ns.contextStore.policies)){
+            for (let p of ns.contextStore.policies[k].getPresets(presetNames)) {
+              if (callback(p)) changed = true;
+            }
+          }
+          if (changed) {
+            await ns.saveContextStore();
+          }
         }
       };
 
