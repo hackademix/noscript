@@ -80,7 +80,7 @@
       if (url.startsWith("blob:")) {
         url = location.origin;
       } else if (/^(?:javascript|about):/.test(url)) {
-        url = document.readyState === "loading"
+        url = document.readyState === "loading" || !document.domain
         ? document.baseURI
         : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
         debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
