@@ -53,7 +53,7 @@
       backlog.add(eventName);
     },
 
-    fetchPolicy() {
+    fetchPolicy(sync = false) {
       if (this.policy) return;
       let url = document.URL;
 
@@ -72,40 +72,28 @@
         }
       }
 
-      if (/^(?:ftp|file):/.test(url)) { // ftp: or file: - no CSP headers yet
-        if (this.syncFetchPolicy) {
-          this.syncFetchPolicy();
-        } else { // additional content scripts not loaded yet
-          log("Waiting for syncFetchPolicy to load...");
-          this.pendingSyncFetchPolicy = true;
-          return;
-        }
-      } else {
-        // CSP headers have been already provided by webRequest, we are not in a hurry...
-        if (url.startsWith("blob:")) {
-          url = location.origin;
-        } else if (/^(?:javascript|about):/.test(url)) {
-          url = document.readyState === "loading"
-          ? document.baseURI
-          : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
-          debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
-        }
-        let asyncFetch = async () => {
-          try {
-            policy = await Messages.send("fetchChildPolicy", {url, contextUrl: url});
-          } catch (e) {
-            error(e, "Error while fetching policy");
-          }
-          if (policy === undefined) {
-            let delay = 300;
-            log(`Policy was undefined, retrying in ${delay}ms...`);
-            setTimeout(asyncFetch, delay);
-            return;
-          }
-          this.setup(policy);
-        }
-        asyncFetch();
+      if (!sync) {
+        queueMicrotask(() => this.fetchPolicy(true));
         return;
+      }
+
+      if (url.startsWith("blob:")) {
+        url = location.origin;
+      } else if (/^(?:javascript|about):/.test(url)) {
+        url = document.readyState === "loading"
+        ? document.baseURI
+        : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
+        debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
+      }
+
+      debug(`Synchronously fetching policy for ${url}.`);
+      if (this.syncFetchPolicy) {
+        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
+        this.syncFetchPolicy();
+      } else {
+        this.setup(
+          browser.runtime.sendSyncMessage({id: "fetchPolicy", url, contextUrl: url})
+        );
       }
     },
 

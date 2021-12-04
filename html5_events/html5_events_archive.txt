@@ -148,6 +148,7 @@ onRequest
 onreset
 onresize
 onscroll
+onsecuritypolicyviolation
 onselect
 onselectionchange
 onselectend
@@ -156,6 +157,7 @@ onset
 onshippingaddresschange
 onshippingoptionchange
 onshow
+onslotchange
 onsqueeze
 onsqueezeend
 onsqueezestart
@@ -163,6 +165,7 @@ onstatechange
 onstorage
 onsubmit
 onsuccess
+onsystemstatusbarclick
 ontypechange
 onterminate
 ontext
