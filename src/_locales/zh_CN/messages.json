@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript Blocked Objects",
+        "message": "NoScript 拦截了  个对象",
         "description": ""
     },
     "BookmarkSync": {
@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
+        "message": "在顶部文档中被阻止的任何功能也必须在其子文档中被阻止",
         "description": ""
     },
     "ClearClickDescription": {
@@ -164,7 +164,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
+        "message": "最大限度地保护您的浏览器：NoScript 只允许您选择的信任域名显示活动内容，以防止漏洞利用。",
         "description": ""
     },
     "Donate": {
@@ -232,7 +232,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "High contrast",
+        "message": "高对比度",
         "description": ""
     },
     "httpsOnly": {
@@ -292,11 +292,11 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "message": "允许在隐身/私密选项卡中设置永久权限。\n注意:这样做会泄露网站信息！",
         "description": ""
     },
     "OptAmnesticUpdates": {
-        "message": "Revoke temporary permissions on NoScript updates, even if the browser is not restarted",
+        "message": "NoScript 更新时撤销临时权限，即使浏览器没有重新启动",
         "description": ""
     },
     "KeepLocked": {
@@ -360,7 +360,7 @@
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Override Tor Browser's Security Level preset",
+        "message": "覆盖 Tor 浏览器的安全级别预设",
         "description": ""
     },
     "Options": {
@@ -728,15 +728,15 @@
         "description": ""
     },
     "cap_ping": {
-        "message": "ping",
+        "message": "ping 属性",
         "description": ""
     },
     "cap_noscript": {
-        "message": "noscript",
+        "message": "noscript 元素",
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unrestricted CSS",
+        "message": "不受限的 CSS",
         "description": ""
     },
     "cap_other": {

@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
+        "message": "トップドキュメントでブロックした機能をサブドキュメントでもブロックする",
         "description": ""
     },
     "ClearClickDescription": {
@@ -736,7 +736,7 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unrestricted CSS",
+        "message": "無制限の CSS",
         "description": ""
     },
     "cap_other": {

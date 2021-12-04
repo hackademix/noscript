@@ -84,7 +84,7 @@
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript Blocked Objects",
+        "message": "NoScipt Zablokowało Obiektów",
         "description": ""
     },
     "BookmarkSync": {
@@ -136,7 +136,7 @@
         "description": ""
     },
     "CollapseBlockedObjects": {
-        "message": "Collapse blocked objects",
+        "message": "Zawijaj zablokowane obiekty",
         "description": ""
     },
     "ConfirmUnblock": {
@@ -232,7 +232,7 @@
         "description": ""
     },
     "HighContrast": {
-        "message": "High contrast",
+        "message": "Wysoki kontrast",
         "description": ""
     },
     "httpsOnly": {
@@ -440,7 +440,7 @@
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Revoke Temporary Permissions",
+        "message": "Odmów Tymczasowych Uprawnień",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -476,7 +476,7 @@
         "description": ""
     },
     "ShowPlaceholder": {
-        "message": "Show placeholder icon",
+        "message": "Pokaż ikonę zastępczą",
         "description": ""
     },
     "ShowReleaseNotes": {

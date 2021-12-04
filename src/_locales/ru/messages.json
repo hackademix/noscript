@@ -736,7 +736,7 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "небезопасные CSS",
+        "message": "unrestricted CSS",
         "description": ""
     },
     "cap_other": {
