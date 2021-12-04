@@ -23,7 +23,7 @@
   let listenersMap = new Map();
   let backlog = new Set();
 
-  let ns = {
+  var ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
       delete this.embeddingDocument;
