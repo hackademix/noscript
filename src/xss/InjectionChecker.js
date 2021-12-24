@@ -493,18 +493,18 @@ XSS.InjectionChecker = (async () => {
         return '\\u' + ("0000" + n.toString(16)).slice(-4);
       }
 
-      var ret = "";
-      var first = -1;
-      var last = -1;
-      var cur = 0x7e;
+      let chunks = [];
+      let first = -1;
+      let last = -1;
+      let cur = 0x7e;
       while (cur++ <= 0xffff) {
         try {
-          eval("var _" + String.fromCharCode(cur) + "_=1");
+          Function("let _" + String.fromCharCode(cur));
         } catch (e) {
           if (!/illegal char/.test(e.message)) continue;
           if (first == -1) {
             first = last = cur;
-            ret += x(cur);
+            chunks.push(x(cur));
             continue;
           }
           if (cur - last == 1) {
@@ -512,12 +512,12 @@ XSS.InjectionChecker = (async () => {
             continue;
           }
 
-          if (last != first) ret += "-" + x(last);
-          ret += x(cur);
+          if (last != first) chunks.push(`-${x(last)}`);
+          chunks.push(x(cur));
           last = first = cur;
         }
       }
-      return ret;
+      return chunks.join('');
     },
 
     get invalidCharsRx() {
@@ -528,7 +528,6 @@ XSS.InjectionChecker = (async () => {
 
     async checkJSBreak(s) {
       // Direct script injection breaking JS string literals or comments
-
       //  preliminarily cleanup most urlencoded noise and reduce JSON/XML
       s = ';' + this.reduceXML(await this.reduceJSON(this.collapseChars(
         s.replace(/\%\d+[a-z\(]\w*/gi, '§')
@@ -775,7 +774,6 @@ XSS.InjectionChecker = (async () => {
 
     async checkJS(s, unescapedUni) {
       this.log(s);
-
       if (/[=\(](?:[\s\S]*(?:\?name\b[\s\S]*:|[^&?]\bname\b)|name\b)/.test(s)) {
         this.nameAssignment = true;
       }
