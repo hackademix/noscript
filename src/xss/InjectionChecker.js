@@ -484,8 +484,12 @@ XSS.InjectionChecker = (async () => {
       var m = fn.toString().match(/\{([\s\S]*)\}/);
       if (!m) return false;
       var expr = this.stripLiteralsAndComments(m[1]);
-      return /=[\s\S]*cookie|\b(?:setter|document|location|(?:inn|out)erHTML|\.\W*src)[\s\S]*=|[\w$\u0080-\uffff\)\]]\s*[\[\(]/.test(expr) ||
+      let ret =  /=[\s\S]*cookie|\b(?:setter|document|location|(?:inn|out)erHTML|\.\W*src)[\s\S]*=|[\w$\u0080-\uffff\)\]]\s*[\[\(]/.test(expr) ||
         this.maybeJS(expr);
+      if (ret) {
+        this.escalate(`${expr} has been flagged as dangerous JS (${RegExp.lastMatch})`);
+      }
+      return ret;
     },
 
     _createInvalidRanges: function() {
