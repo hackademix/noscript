@@ -42,6 +42,8 @@ oncompositionupdate
 onconnect
 onconnectionavailable
 oncontextmenu
+oncontextlost
+oncontextrestored
 oncopy
 oncut
 ondblclick
