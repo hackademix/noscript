@@ -346,7 +346,7 @@ XSS.InjectionChecker = (async () => {
     _arrayAccessRx: /\s*\[\d+\]/g,
 
     // inc/dec/self-modifying assignments on DOM props or special properties in object literals via Symbol
-    _riskyOperatorsRx: /(?:\+\+|--)\s*(?:\/[*/][\s\S]+)?(?:(?:\$|\w{3,})+(?:\/[*/][\s\S]+)?(?:\[|\.\D)|location)|(?:\]|(?:\$|\w{3,})+(?:\/[*/][\s\S]+)?\.[^]+|location)\s*(?:\/[*/][\s\S]+)?(\+\+|--|[+*\/<>~-]+\s*(?:\/[*/][\s\S]+)?=)|\{[^]*\[[^]*Symbol[^]*(?:\.\D|\[)[^]*:/,
+    _riskyOperatorsRx: /(?:\+\+|--)\s*(?:\/[*/][\s\S]+)?(?:(?:\$|\w{3,})(?:\/[*/][\s\S]+)?(?:\[|\.\D)|location)|(?:\]|(?:\$|\w{3,})(?:\/[*/][\s\S]+)?\.[^]+|location)\s*(?:\/[*/][\s\S]+)?(\+\+|--|[+*\/<>~-]+\s*(?:\/[*/][\s\S]+)?=)|\{[^]*\[[^]*Symbol[^]*(?:\.\D|\[)[^]*:/,
 
     _assignmentRx: /^(?:[^()="'\s]+=(?:[^(='"\[+]+|[?a-zA-Z_0-9;,&=/]+|[\d.|]+))$/,
     _badRightHandRx: /=[\s\S]*(?:_QS_\b|[|.][\s\S]*source\b|<[\s\S]*\/[^>]*>)/,
