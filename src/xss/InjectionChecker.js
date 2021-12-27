@@ -492,43 +492,8 @@ XSS.InjectionChecker = (async () => {
       return ret;
     },
 
-    _createInvalidRanges: function() {
-      function x(n) {
-        return '\\u' + ("0000" + n.toString(16)).slice(-4);
-      }
-
-      let chunks = [];
-      let first = -1;
-      let last = -1;
-      let cur = 0x7e;
-      while (cur++ <= 0xffff) {
-        try {
-          Function("let _" + String.fromCharCode(cur));
-        } catch (e) {
-          if (!/illegal char/.test(e.message)) continue;
-          if (first == -1) {
-            first = last = cur;
-            chunks.push(x(cur));
-            continue;
-          }
-          if (cur - last == 1) {
-            last = cur;
-            continue;
-          }
-
-          if (last != first) chunks.push(`-${x(last)}`);
-          chunks.push(x(cur));
-          last = first = cur;
-        }
-      }
-      return chunks.join('');
-    },
-
-    get invalidCharsRx() {
-      let value = new RegExp("^[^\"'`/<>]*[" + this._createInvalidRanges() + "]");
-      Object.defineProperty(Object.getPrototypeOf(this), 'invalidCharsRx', {value});
-      return value;
-    },
+    // see https://mathiasbynens.be/notes/javascript-identifiers-es6#acceptable-unicode-symbols
+    invalidCharsRx: /^[^"'`/<>]*[^$_\p{ID_Start}\p{ID_Continue}\u200c\u200d]/u,
 
     async checkJSBreak(s) {
       // Direct script injection breaking JS string literals or comments

@@ -33,4 +33,37 @@ if (UA.isMozilla) {
       () => y("https://vulnerabledoma.in/xss_link?url=javascript:\\u{%0A6e}ame"),
       ].map(t => Test.run(t))
     ).then(() => Test.report());
+
+    let invalidCharsTest =  async () => {
+
+      await include("xss/InjectionChecker.js");
+      let IC = await XSS.InjectionChecker;
+      let rx = new IC().invalidCharsRx;
+
+      let x = n => '\\u' + ("0000" + n.toString(16)).slice(-4);
+      function check(ch) {
+       eval(`{let _${ch}_}`);
+      }
+      let cur = 0x7e;
+      let fail = false;
+      while (cur++ < 0xffff) {
+        let ch = String.fromCharCode(cur);
+        try {
+          check(ch);
+          if (tx.test(ch)) {
+            console.error(x(cur) + " should not test invalid!");
+            fail = true;
+          }
+        } catch (e) {
+          if (!/illegal char/.test(e.message)) continue;
+          if (!rx.test(ch)) {
+            console.error(x(cur) + " must test invalid!");
+            fail = true;
+          }
+        }
+      }
+      return !fail;
+    };
+
+    Test.run(invalidCharsTest, "InjectionChecker.invalidCharsRx").then(Test.report());
 }
