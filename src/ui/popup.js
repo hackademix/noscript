@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2022 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -40,12 +40,13 @@ addEventListener("unload", e => {
     let tabId;
     let isBrowserAction = true;
     let optionsClosed = false;
-    let tab = (await browser.tabs.query({
-      windowId: browser.windows ?
-        (await browser.windows.getLastFocused()).id
-        : null,
-      active: true
-    }))[0];
+
+    let tabFlags = {active: true};
+    if (browser.windows) tabFlags.lastFocusedWindow = true; // Desktop browsers only
+    let tab = (await browser.tabs.query(tabFlags))[0] ||
+    // work-around for Firefox "forgetting" tabs on Android
+      (await browser.tabs.query({url: ["*://*/*", "file:///*", "ftp://*/*"]}))[0];
+
     let pageTab = tab;
 
     if (!tab || tab.id === -1) {
