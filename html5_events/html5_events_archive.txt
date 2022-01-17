@@ -106,6 +106,7 @@ onmousemove
 onmouseout
 onmouseover
 onMozMouseHittest
+onMozMouseExploreByTouch
 onmouseup
 onMozAfterPaint
 onmozfullscreenchange
