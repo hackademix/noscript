@@ -736,7 +736,7 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unrestricted CSS",
+        "message": "feuille de style CSS non restreinte",
         "description": ""
     },
     "cap_other": {
