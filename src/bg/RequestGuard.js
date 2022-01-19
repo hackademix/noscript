@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2022 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -54,10 +54,21 @@ var RequestGuard = (() => {
         origins: new Set(),
       }
     },
-    hasOrigin(tabId, origin) {
+    hasOrigin(tabId, url) {
       let records = this.map.get(tabId);
-      return records && records.origins.has(origin);
+      return records && records.origins.has(Sites.origin(url));
     },
+    addOrigin(tabId, url) {
+      if (tabId < 0) return;
+      let origin = Sites.origin(url);
+      if (!origin) return;
+      let {origins} = this.map.get(tabId) || this.initTab(tabId);
+      if (!origins.has(origin)) {
+        origins.add(origin);
+        this._originsCache.clear();
+      }
+    },
+
     findTabsByOrigin(origin) {
       let tabIds = this._originsCache.get(origin);
       if (!tabIds) {
@@ -78,7 +89,7 @@ var RequestGuard = (() => {
       let {tabId, frameId, type, url, documentUrl} = request;
       let policyType = policyTypesMap[type] || type;
       let requestKey = Policy.requestKey(url, policyType, documentUrl);
-      let map = this.map;
+      let {map} = this;
       let records = map.has(tabId) ?  map.get(tabId) : this.initTab(tabId);
       if (what === "noscriptFrame" && type !== "object") {
         let nsf = records.noscriptFrames;
@@ -90,8 +101,9 @@ var RequestGuard = (() => {
         }
       }
       if (type.endsWith("frame")) {
-        records.origins.add(Sites.origin(url));
-        TabStatus._originsCache.clear();
+        this.addOrigin(tabId, url);
+      } else if (documentUrl) {
+        this.addOrigin(tabId, documentUrl);
       }
       let collection = records[what];
       if (collection) {
@@ -412,12 +424,17 @@ var RequestGuard = (() => {
 
           let policyType = policyTypesMap[type];
           let {url, originUrl, documentUrl, tabId} = request;
+
+          if (ns.unrestrictedTabs.has(tabId) && type.endsWith("frame") && url.startsWith("https:")) {
+            TabStatus.addOrigin(tabId, url);
+          }
+
           let isFetch = "fetch" === policyType;
 
           if ((isFetch || "frame" === policyType) &&
               (((isFetch && (!originUrl ||
                 browser.runtime.onSyncMessage &&
-                url.includes(browser.runtime.onSyncMessage.ENDPOINT_PREFIX)
+                url.startsWith(browser.runtime.onSyncMessage.ENDPOINT_PREFIX)
                 ) || url === originUrl) && originUrl === documentUrl
                 // some extensions make them both undefined,
                 // see https://github.com/eight04/image-picka/issues/150
@@ -433,14 +450,11 @@ var RequestGuard = (() => {
             request.url = url = documentUrl || originUrl;
           }
 
-          let allowed = Sites.isInternal(url);
+          let allowed = Sites.isInternal(url) || !ns.isEnforced(tabId);
           if (!allowed) {
-            if (tabId < 0 && documentUrl && documentUrl.startsWith("https://")) {
-              let origin = Sites.origin(documentUrl);
+            if (tabId < 0 && documentUrl && documentUrl.startsWith("https:")) {
               allowed = [...ns.unrestrictedTabs]
-                .some(tabId => TabStatus.hasOrigin(tabId, origin));
-            } else {
-              allowed = !ns.isEnforced(tabId);
+                .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
             }
             if (!allowed) {
               let capabilities = intersectCapabilities(
