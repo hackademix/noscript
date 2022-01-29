@@ -92,7 +92,7 @@
         this.syncFetchPolicy();
       } else {
         this.setup(
-          browser.runtime.sendSyncMessage({id: "fetchPolicy", url, contextUrl: url})
+          browser.runtime.sendSyncMessage({id: "fetchPolicy", url})
         );
       }
     },

@@ -19,10 +19,11 @@
  */
 
 (async () => {
-  await include("/test/Test.js");
+  await include("/nscl/test/Test.js");
   Test.include([
-    "Policy",
-    "Storage",
+    "/nscl/test/Policy_test.js",
+    "/nscl/test/Storage_test.js",
+    "/nscl/test/TLD_test.js",
     "XSS",
     "embargoed/XSS",
   ]);

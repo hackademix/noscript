@@ -65,7 +65,7 @@
   }
   let syncFetch = callback => {
     browser.runtime.sendSyncMessage(
-      {id: "fetchPolicy", url, contextUrl: url},
+      {id: "fetchPolicy", url},
       callback);
   };
   debug("Initial readyState and body", document.readyState, document.body);

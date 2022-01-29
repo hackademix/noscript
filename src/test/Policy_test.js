@@ -30,7 +30,9 @@
   p1.set("10", p1.TRUSTED);
   p1.set("192.168", p1.TRUSTED);
   p1.set("192.168.69", p1.UNTRUSTED);
-  // secureDomainKey should be "downgraded" by UTRUSTED, issue #126
+  p1.set("facebook.net", new Permissions([], false,
+    new Sites([[Sites.optimalKey("https://facebook.com"), p1.TRUSTED]])));
+  // secureDomainKey should be "downgraded" by UNTRUSTED, issue #126
   p1.set(Sites.secureDomainKey("evil.com"), p1.UNTRUSTED);
   let p2 = new Policy(p1.dry());
   debug("p1", JSON.stringify(p1.dry()));
@@ -55,6 +57,9 @@
     () => p1.can("http://192.168.1.2"),
     () => p1.can("http://some.onion"),
     () => !p1.can("http://evil.com"),
+    () => !p1.can("https://facebook.net"),
+    () => p1.can("https://facebook.net", "script", "https://www.facebook.com"),
+    () => !p1.can("https://facebook.net", "script", "http://facebook.com"),
   ]) Test.run(t);
   Sites.onionSecure = onionSecureCurrent;
   Test.report();

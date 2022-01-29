@@ -259,16 +259,17 @@ var RequestGuard = (() => {
       }
       let key = [siteKey, origin][ret.option || 0];
       if (!key) return;
-      let {siteMatch, contextMatch, perms} = ns.policy.get(key, documentUrl);
+      let contextUrl = sender.tab.url || documentUrl;
+      let {siteMatch, contextMatch, perms} = ns.policy.get(key, contextUrl);
       let {capabilities} = perms;
       if (!capabilities.has(policyType)) {
         let temp = sender.tab.incognito; // we don't want to store in PBM
         perms = new Permissions(new Set(capabilities), temp);
         perms.capabilities.add(policyType);
         /* TODO: handle contextual permissions
-        if (documentUrl) {
-          let context = new URL(documentUrl).origin;
-          let contextualSites = new Sites([context, perms]);
+        if (contextUrl) {
+          let context = Sites.optimalKey(contextUrl);
+          let contextualSites = new Sites([[context, perms]]);
           perms = new Permissions(new Set(capabilities), false, contextualSites);
         }
         */

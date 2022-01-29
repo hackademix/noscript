@@ -228,9 +228,15 @@
     isEnforced(tabId = -1) {
       return this.policy.enforced && (tabId === -1 || !this.unrestrictedTabs.has(tabId));
     },
-
+    policyContext(contextualData) {
+      // contextualData (e.g. a request details object) must contain a tab, a tabId or a documentUrl
+      // (used as a fallback if tab's top URL cannot be retrieved, e.g. in service workers)
+      let {tab, tabId, documentUrl} = contextualData;
+      if (!tab) tab = tabId !== -1 && TabCache.get(tabId);
+      return tab && tab.url || documentUrl;
+    },
     requestCan(request, capability) {
-      return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, request.documentURL);
+      return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, this.policyContext(request));
     },
 
     computeChildPolicy({url, contextUrl}, sender) {
