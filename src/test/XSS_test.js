@@ -21,7 +21,7 @@
 if (UA.isMozilla) {
   let y = async (url, originUrl = '') => await XSS.test({originUrl, url, method: "GET"});
   let n = async (...args) => !await y(...args);
-  Promise.all([
+  let xssTest = Promise.all([
       () => y("https://noscript.net/<script"),
       () => n("https://noscript.net/<script", "https://noscript.net/"),
       () => y("https://vulnerabledoma.in/char_test?body=%80%3Cscript%3Ealert(1)%3C/script%3E"),
@@ -32,25 +32,25 @@ if (UA.isMozilla) {
       () => y("https://vulnerabledoma.in/xss_link?url=javascript%26colo%00n%3Balert%u00281%29"),
       () => y("https://vulnerabledoma.in/xss_link?url=javascript:\\u{%0A6e}ame"),
       ].map(t => Test.run(t))
-    ).then(() => Test.report());
+    );
 
     let invalidCharsTest =  async () => {
 
       await include("xss/InjectionChecker.js");
       let IC = await XSS.InjectionChecker;
       let rx = new IC().invalidCharsRx;
-
+      console.log("Testing invalidCharsRx", rx);
       let x = n => '\\u' + ("0000" + n.toString(16)).slice(-4);
       function check(ch) {
-       eval(`{let _${ch}_}`);
+       Function(`let _${ch}_`);
       }
       let cur = 0x7e;
       let fail = false;
-      while (cur++ < 0xffff) {
+      while (cur++ < 0xffff && !fail) {
         let ch = String.fromCharCode(cur);
         try {
           check(ch);
-          if (tx.test(ch)) {
+          if (rx.test(ch)) {
             console.error(x(cur) + " should not test invalid!");
             fail = true;
           }
@@ -64,6 +64,10 @@ if (UA.isMozilla) {
       }
       return !fail;
     };
-
-    Test.run(invalidCharsTest, "InjectionChecker.invalidCharsRx").then(Test.report());
+    (async () => {
+      await xssTest;
+      Test.report();
+      await Test.run(invalidCharsTest, "InjectionChecker.invalidCharsRx");
+      Test.report();
+    })();
 }
