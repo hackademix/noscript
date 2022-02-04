@@ -8,7 +8,7 @@
       "strict_min_version": "59.0"
     }
   },
-  "version": "11.2.16rc3",
+  "version": "11.2.19",
   "description": "__MSG_Description__",
   "incognito": "spanning",
 
@@ -51,7 +51,6 @@
       "/nscl/common/Permissions.js",
       "/nscl/common/Policy.js",
       "/nscl/common/locale.js",
-      "/nscl/common/SyntaxChecker.js",
       "/nscl/common/Storage.js",
       "/nscl/common/include.js",
       "/nscl/service/DocStartInjection.js",

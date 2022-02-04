@@ -86,14 +86,18 @@
         debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
       }
 
-      debug(`Synchronously fetching policy for ${url}.`);
       if (this.syncFetchPolicy) {
         // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
         this.syncFetchPolicy();
       } else {
-        this.setup(
-          browser.runtime.sendSyncMessage({id: "fetchPolicy", url})
-        );
+        let msg = {id: "fetchPolicy", url};
+        if (document.readyState === "complete") {
+          // no point fetching synchronously, since the document is already loaded (hot extension update?)
+          (async () => this.setup(await browser.runtime.sendMessage(msg)))();
+        } else {
+          debug(`Synchronously fetching policy for ${url}.`);
+          this.setup(browser.runtime.sendSyncMessage(msg));
+        }
       }
     },
 

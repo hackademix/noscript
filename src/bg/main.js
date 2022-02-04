@@ -315,6 +315,16 @@
       include("/test/run.js");
     },
 
+    async testIC(callbackOrUrl) {
+      await include("xss/InjectionChecker.js");
+      let IC = await XSS.InjectionChecker;
+      let ic = new IC();
+      ic.logEnabled = true;
+      return (typeof callbackOrUrl === "function")
+        ? await callbackOrUrl(ic)
+        : ic.checkUrl(callbackOrUrl);
+    },
+
     async savePolicy() {
       if (this.policy) {
         await Storage.set("sync", {

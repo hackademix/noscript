@@ -117,10 +117,14 @@ var XSS = (() => {
 
       if (reasons.protectName) {
         await include("/nscl/service/ContentScriptOnce.js");
-        await ContentScriptOnce.execute(request, {
-          js: [{file: "/xss/sanitizeName.js"}],
-        });
-        if (!block) return ALLOW;
+        try {
+          await ContentScriptOnce.execute(request, {
+            js: [{file: "/xss/sanitizeName.js"}],
+          });
+          if (!block) return ALLOW;
+        } catch (e) {
+          error(e, "Sanitizing name in request", request.url);
+        }
       }
       if (reasons.urlInjection) data.push(`(URL) ${unescapedDest}`);
       if (reasons.postInjection) data.push(`(POST) ${reasons.postInjection}`);

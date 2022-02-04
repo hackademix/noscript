@@ -526,7 +526,15 @@ XSS.InjectionChecker = (async () => {
     },
 
     get invalidCharsRx() {
-      let value = new RegExp("^[^\"'`/<>]*[" + this._createInvalidRanges() + "]");
+      let preamble = "^[^\"'`/<>]*";
+      let value;
+      try {
+        // see https://mathiasbynens.be/notes/javascript-identifiers-es6#acceptable-unicode-symbols
+        value = new RegExp(preamble + "[^$_\\p{ID_Start}\\p{ID_Continue}\\u200c\\u200d\\u2028\\u2029]", "u");
+      } catch (e) {
+        // Unicode entities are not supported in Gecko <= 77
+        value = new RegExp(preamble + `[${this._createInvalidRanges()}]`, "u");
+      }
       Object.defineProperty(Object.getPrototypeOf(this), 'invalidCharsRx', {value});
       return value;
     },
@@ -886,7 +894,7 @@ XSS.InjectionChecker = (async () => {
           l = l.replace(/[^=]*=\s*/i, '').replace(/[\u0000-\u001f]/g, '');
           l = /^["']/.test(l) ? l.replace(/^(['"])([^]*?)\1[^]*/g, '$2') : l.replace(/[\s>][^]*/, '');
 
-          if (/^(?:javascript|data):|\[[^]+\]/i.test(l) || /[<'"(]/.test(unescape(l)) && await this.checkUrl(l)) return true;
+          if (/^(?:javascript|data):/i.test(l) || /[<'"([]/.test(unescape(l)) && await this.checkUrl(l)) return true;
         }
       }
       return this._rxCheck("HTML", s) || this._rxCheck("Globals", s);
