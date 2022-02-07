@@ -524,6 +524,15 @@
   "bookmarkSync_title": {
     "message": "NoScript Configuration Bookmark"
   },
+  "caps": {
+    "message": "Enable these capabilities"
+  },
+  "capsContext": {
+    "message": "Enable these capabilities when top page matches"
+  },
+  "anySite": {
+    "message": "ANY SITE"
+  },
   "cap_script": {
     "message": "script"
   },

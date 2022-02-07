@@ -295,7 +295,11 @@ var UI = (() => {
     <tr tabindex="-1" class="customizer">
     <td colspan="2">
     <div class="customizer-controls">
-    <fieldset><legend></legend>
+    <fieldset>
+    <legend class="capsContext">
+      <label></label>
+      <select><option>ANY SITE</option></select>
+    </legend>
     <span class="cap">
       <input class="cap" type="checkbox" value="script" />
       <label class="cap">script</label>
@@ -371,12 +375,12 @@ var UI = (() => {
 
       // CUSTOMIZER ROW
       {
-        let [customizer, legend, cap, capInput, capLabel] = table.querySelectorAll(".customizer, legend, span.cap, input.cap, label.cap");
+        let [customizer, capsContext, cap, capInput, capLabel] = table.querySelectorAll(".customizer, .capsContext, span.cap, input.cap, label.cap");
         row._customizer = customizer;
         customizer.remove();
+        customizer.capsContext = capsContext;
         let capParent = cap.parentNode;
         capParent.removeChild(cap);
-        legend.textContent = _("allow");
         let idSuffix = UI.Sites.count;
         for (let capability of Permissions.ALL) {
           capInput.id = `capability-${capability}-${idSuffix}`
@@ -530,8 +534,8 @@ var UI = (() => {
         }
         row.permissionsChanged = !row.perms.sameAs(row._originalPerms);
         fireOnChange(this, row);
-      } else if (!(isCap || isTemp) && ev.type === "click") {
-          this.customize(row.perms, preset, row);
+      } else if (!(isCap || isTemp || customizer) && ev.type === "click") {
+        this.customize(row.perms, preset, row);
       }
     }
 
@@ -570,9 +574,31 @@ var UI = (() => {
         input.parentNode.classList.toggle("needed", this.siteNeeds(row._site, type));
       }
 
-      row.parentNode.insertBefore(customizer, row.nextElementSibling);
+
       customizer.classList.toggle("closed", false);
       let temp = preset.parentNode.querySelector("input.temp");
+      let contextual = !!temp;
+      customizer.classList.toggle("contextual", contextual);
+      let [ctxLabel, ctxSelect] = customizer.capsContext.querySelectorAll("label, select");
+      ctxLabel.textContent = _(contextual ? "capsContext" : "caps");
+      if (contextual) {
+        // contextual settings
+        let entry = (value, label = value) => {
+          let opt = document.createElement("option");
+          opt.value = value;
+          opt.text = label;
+          return opt;
+        }
+        let opt = document.createElement("option");
+        opt.value = "*";
+        opt.text = _("anySite");
+        ctxSelect.replaceChildren(entry("*", _("anySite")));
+        if (this.mainDomain) {
+          ctxSelect.append(entry(this.mainDomain));
+        }
+      }
+
+      row.parentNode.insertBefore(customizer, row.nextElementSibling);
       customizer.onkeydown = e => {
         if (e.shiftKey) return true;
         switch(e.code) {
@@ -584,7 +610,6 @@ var UI = (() => {
                 setTimeout(() => temp.tabIndex = "-1", 50);
                 preset.focus();
               }
-
             }
             return true;
           case "ArrowLeft":
@@ -604,10 +629,7 @@ var UI = (() => {
             e.stopPropagation();
             return false;
           case "KeyT":
-          {
-            let temp = preset.parentNode.querySelector("input.temp");
             if (temp) temp.checked = !temp.checked || UI.forceIncognito;
-          }
         }
       }
       window.setTimeout(() => customizer.querySelector("input:not(:disabled)").focus(), 50);
@@ -625,7 +647,7 @@ var UI = (() => {
         root.addEventListener("keydown", e => this._keyNavHandler(e), true);
         root.addEventListener("keyup", e => {
           // we use a keyup listener to open the customizer from other presets
-          // because space repetion may lead to unintendedly "click" on the
+          // because space repetition may lead to unintendedly "click" on the
           // first cap checkbox once focused from keydown
           switch(e.code) {
             case "Space": {

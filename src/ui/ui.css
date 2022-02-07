@@ -124,9 +124,6 @@ html.tor .tor, html:not(.tor) .not-tor {
     padding-top: 3em !important;
   }
 
-  .customizer-controls fieldset legend {
-    top: 2em;
-  }
 
   #sites .customizing input.preset:checked + label {
     text-align:right !important;
@@ -159,6 +156,13 @@ html.tor .tor, html:not(.tor) .not-tor {
 #sites .customizing .presets {
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
+}
+
+.capsContext select {
+  display: none;
+}
+.contextual .capsContext select {
+  display: initial;
 }
 
 
@@ -456,16 +460,14 @@ input.preset:checked ~ input.temp {
 }
 .customizer fieldset {
   box-shadow: 1px 1px 1px #888;
+  display: flex;
+  align-content: start;
+  flex-wrap: wrap;
 }
 .customizer div {
   transition: 0.2s height;
   padding: 0;
   margin: 0;
-}
-
-span.cap {
-  white-space: nowrap;
-  display: inline-flex;
 }
 
 .customizer.closed .customizer-controls   {
@@ -476,6 +478,7 @@ span.cap {
 span.cap {
   padding: 0.5em;
   font-weight: normal;
+  display: inline-flex;
 }
 
 span.cap.needed {
@@ -495,10 +498,10 @@ legend {
   display: block;
 }
 .customizer legend {
-  font-size: 0.75em;
+  font-size: 1em;
   position: absolute;
-  top: 1em;
-  left: 2em;
+  top: .5em;
+  left: 1em;
 }
 
 #presets .url {
