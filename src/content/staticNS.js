@@ -23,7 +23,7 @@
   let listenersMap = new Map();
   let backlog = new Set();
 
-  var ns = {
+  let ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
       delete this.embeddingDocument;
@@ -91,12 +91,13 @@
         this.syncFetchPolicy();
       } else {
         let msg = {id: "fetchPolicy", url, contextUrl: url};
-        if (document.readyState === "complete") {
-          // no point fetching synchronously, since the document is already loaded (hot extension update?)
+        debug(`Synchronously fetching policy for ${url}.`);
+        let policy = browser.runtime.sendSyncMessage(msg);
+        if (!policy) {
+          debug(`Couldn't retrieve policy synchronously, trying async.`);
           (async () => this.setup(await browser.runtime.sendMessage(msg)))();
         } else {
-          debug(`Synchronously fetching policy for ${url}.`);
-          this.setup(browser.runtime.sendSyncMessage(msg));
+          this.setup(policy);
         }
       }
     },
