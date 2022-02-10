@@ -90,21 +90,44 @@
         // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
         this.syncFetchPolicy();
       } else {
-        let msg = {id: "fetchPolicy", url, contextUrl: url};
-        debug(`Synchronously fetching policy for ${url}.`);
-        let policy = browser.runtime.sendSyncMessage(msg);
-        if (!policy) {
-          debug(`Couldn't retrieve policy synchronously, trying async.`);
-          (async () => this.setup(await browser.runtime.sendMessage(msg)))();
-        } else {
+        let msg = {id: "fetchChildPolicy", url, contextUrl: url};
+
+        let asyncFetch = (async () => {
+          let policy = null;
+          for (let attempts = 10; !(policy || this.policy) && attempts-- > 0;) {
+            try {
+              debug(`Retrieving policy asynchronously (${attempts} attempts left).`);
+              policy = await Messages.send(msg.id, msg) || this.domPolicy;
+              debug("Asynchronous policy", policy);
+            } catch (e) {
+              error(e, "(Asynchronous policy fetch)");
+            }
+          }
           this.setup(policy);
-        }
+        });
+        debug(`Synchronously fetching policy for ${url}.`);
+        let policy = null;
+        let attempts = 100;
+        let refetch = () => {
+          policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
+          if (policy) {
+            this.setup(policy);
+          } else if (attempts-- > 0) {
+            debug(`Couldn't retrieve policy synchronously (${attempts} attempts left).`);
+            if (asyncFetch) {
+              asyncFetch();
+              asyncFetch = null;
+            }
+            queueMicrotask(refetch);
+          }
+        };
+        refetch();
       }
     },
 
     setup(policy) {
       if (this.policy) return false;
-      debug("%s, %s, fetched %o", document.URL, document.readyState, policy);
+      debug("%s, %s, fetched %o", document.URL, document.readyState, policy, new Error().stack); // DEV_ONLY
       if (!policy) {
         policy = {permissions: {capabilities: []}, localFallback: true};
       }
