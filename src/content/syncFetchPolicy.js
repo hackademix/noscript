@@ -22,6 +22,9 @@
 
 (window.ns || (window.ns = {})).syncFetchPolicy = function() {
 
+  ns.pendingSyncFetchPolicy = false;
+  ns.syncFetchPolicy = () => {};
+
   let url = document.URL;
 
   // Here we've got no CSP header yet (file: or ftp: URL), we need one
@@ -32,18 +35,17 @@
 
   if (window.wrappedJSObject) {
     if (top === window) {
+      let persistentPolicy = null;
       ns.syncSetup = policy => {
-        if (!ns.setup(policy)) return;
-        if (top === window && window.wrappedJSObject) {
-          let persistentPolicy = JSON.stringify(policy);
-          Object.freeze(persistentPolicy);
-          try {
-            Object.defineProperty(window.wrappedJSObject, "_noScriptPolicy", {value: cloneInto(persistentPolicy, window)});
-          } catch(e) {
-            error(e);
-          }
+        if (persistentPolicy) return;
+        ns.setup(policy);
+        persistentPolicy = JSON.stringify(policy);
+        Object.freeze(persistentPolicy);
+        try {
+          Object.defineProperty(window.wrappedJSObject, "_noScriptPolicy", {value: cloneInto(persistentPolicy, window)});
+        } catch(e) {
+          error(e);
         }
-        ns.syncSetup = () => {};
       };
     } else try {
       if (top.wrappedJSObject._noScriptPolicy) {
@@ -239,6 +241,5 @@
 };
 
 if (ns.pendingSyncFetchPolicy) {
-  ns.pendingSyncFetchPolicy = false;
   ns.syncFetchPolicy();
 }

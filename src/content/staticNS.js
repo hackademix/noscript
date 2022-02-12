@@ -75,9 +75,10 @@
       if (this.syncFetchPolicy) {
         // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
         this.syncFetchPolicy();
-      } else {
-        this.pendingSyncFetchPolicy = true;
+        return;
       }
+
+      this.pendingSyncFetchPolicy = true;
 
       if (!sync) {
         queueMicrotask(() => this.fetchPolicy(true));
