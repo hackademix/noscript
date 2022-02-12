@@ -668,9 +668,6 @@ var RequestGuard = (() => {
         ns.domPolicy = domPolicy;
         if (ns.setup) {
           if (ns.syncSetup) ns.syncSetup(domPolicy);
-          else if (!ns.pendingSyncFetchPolicy) {
-            ns.setup(domPolicy);
-          }
         } ;
       } else {
         window.ns = {domPolicy}

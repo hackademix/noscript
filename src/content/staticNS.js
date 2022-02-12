@@ -72,6 +72,13 @@
         }
       }
 
+      if (this.syncFetchPolicy) {
+        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
+        this.syncFetchPolicy();
+      } else {
+        this.pendingSyncFetchPolicy = true;
+      }
+
       if (!sync) {
         queueMicrotask(() => this.fetchPolicy(true));
         return;
@@ -86,10 +93,8 @@
         debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
       }
 
-      if (this.syncFetchPolicy) {
-        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
-        this.syncFetchPolicy();
-      } else {
+      if (!this.syncFetchPolicy) {
+
         let msg = {id: "fetchChildPolicy", url, contextUrl: url};
 
         let asyncFetch = (async () => {
