@@ -770,8 +770,9 @@ var UI = (() => {
           if (!hasTemp) hasTemp = perms.temp;
         }
       } else {
+        let top = Sites.optimalKey(this.mainUrl);
         for (let site of sites) {
-          let context = null;
+          let context = top;
           if (site.site) {
             site = site.site;
             context = site.context;
