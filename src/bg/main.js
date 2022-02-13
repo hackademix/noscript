@@ -212,7 +212,7 @@
 
   function onSyncMessage(msg, sender) {
     switch(msg.id) {
-      case "fetchPolicy":
+      case "fetchChildPolicy":
         return messageHandler.fetchChildPolicy(msg, sender);
       break;
     }

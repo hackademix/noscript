@@ -661,7 +661,7 @@ var RequestGuard = (() => {
     policy.navigationURL = url;
     let debugStatement = ns.local.debug ? `
       let mark = Date.now() + ":" + Math.random();
-      console.debug("domPolicy", domPolicy, document.readyState, mark);` : '';
+      console.debug("domPolicy", domPolicy, document.readyState, location.href, mark, window.ns);` : '';
     return `
       let domPolicy = ${JSON.stringify(policy)};
       let {ns} = window;
@@ -669,9 +669,7 @@ var RequestGuard = (() => {
         ns.domPolicy = domPolicy;
         if (ns.setup) {
           if (ns.syncSetup) ns.syncSetup(domPolicy);
-          else if (!ns.pendingSyncFetchPolicy) {
-            ns.setup(domPolicy);
-          }
+          else ns.setup(domPolicy);
         } ;
       } else {
         window.ns = {domPolicy}

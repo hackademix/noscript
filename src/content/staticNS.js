@@ -23,7 +23,7 @@
   let listenersMap = new Map();
   let backlog = new Set();
 
-  var ns = {
+  let ns = {
     debug: true, // DEV_ONLY
     get embeddingDocument() {
       delete this.embeddingDocument;
@@ -72,6 +72,14 @@
         }
       }
 
+      if (this.syncFetchPolicy) {
+        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
+        this.syncFetchPolicy();
+        return;
+      }
+
+      this.pendingSyncFetchPolicy = true;
+
       if (!sync) {
         queueMicrotask(() => this.fetchPolicy(true));
         return;
@@ -86,24 +94,46 @@
         debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
       }
 
-      if (this.syncFetchPolicy) {
-        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
-        this.syncFetchPolicy();
-      } else {
-        let msg = {id: "fetchPolicy", url};
-        if (document.readyState === "complete") {
-          // no point fetching synchronously, since the document is already loaded (hot extension update?)
-          (async () => this.setup(await browser.runtime.sendMessage(msg)))();
-        } else {
-          debug(`Synchronously fetching policy for ${url}.`);
-          this.setup(browser.runtime.sendSyncMessage(msg));
-        }
+      if (!this.syncFetchPolicy) {
+
+        let msg = {id: "fetchChildPolicy", url};
+
+        let asyncFetch = (async () => {
+          let policy = null;
+          for (let attempts = 10; !(policy || this.policy) && attempts-- > 0;) {
+            try {
+              debug(`Retrieving policy asynchronously (${attempts} attempts left).`);
+              policy = await Messages.send(msg.id, msg) || this.domPolicy;
+              debug("Asynchronous policy", policy);
+            } catch (e) {
+              error(e, "(Asynchronous policy fetch)");
+            }
+          }
+          this.setup(policy);
+        });
+        debug(`Synchronously fetching policy for ${url}.`);
+        let policy = null;
+        let attempts = 100;
+        let refetch = () => {
+          policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
+          if (policy) {
+            this.setup(policy);
+          } else if (attempts-- > 0) {
+            debug(`Couldn't retrieve policy synchronously (${attempts} attempts left).`);
+            if (asyncFetch) {
+              asyncFetch();
+              asyncFetch = null;
+            }
+            queueMicrotask(refetch);
+          }
+        };
+        refetch();
       }
     },
 
     setup(policy) {
       if (this.policy) return false;
-      debug("%s, %s, fetched %o", document.URL, document.readyState, policy);
+      debug("%s, %s, fetched %o", document.URL, document.readyState, policy, new Error().stack); // DEV_ONLY
       if (!policy) {
         policy = {permissions: {capabilities: []}, localFallback: true};
       }
