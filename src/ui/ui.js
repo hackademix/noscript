@@ -489,11 +489,29 @@ var UI = (() => {
       let tempToggle = preset.parentNode.querySelector("input.temp");
 
       if (ev.type === "change") {
+        let {policy} = UI;
+        if (target.matches(".capsContext select")) {
+          let opt = target.querySelector("option:checked");
+          if (!opt) return;
+          let context = opt.value;
+          if (context === "*") context = null;
+          ({siteMatch, perms, contextMatch} = policy.get(siteMatch, context));
+          if (context && contextMatch !== context) {
+            let temp = row.perms.temp || UI.forceIncognito;
+            perms = new Permissions(new Set(row.perms.capabilities), temp);
+            row.perms.contextual.set(context, perms);
+          }
+          row.perms = row._customPerms = perms;
+          row.siteMatch = siteMatch;
+          row.contextMatch = context;
+          this.setupCaps(perms, preset, row);
+          return;
+        }
         row.permissionsChanged = false;
         if (!row._originalPerms) {
           row._originalPerms = row.perms.clone();
         }
-        let policy = UI.policy;
+
         let presetValue = preset.value;
         let policyPreset = presetValue.startsWith("T_") ? policy[presetValue.substring(2)].tempTwin : policy[presetValue];
 
@@ -539,6 +557,23 @@ var UI = (() => {
       }
     }
 
+    setupCaps(perms, preset, row) {
+      let immutable = Permissions.IMMUTABLE[preset.value] || {};
+      let lastInput = null;
+      for (let input of this.rowTemplate._customizer.querySelectorAll("input")) {
+        let type = input.value;
+        if (type in immutable) {
+          input.disabled = true;
+          input.checked = immutable[type];
+        } else {
+          input.checked = perms.allowing(type);
+          input.disabled = false;
+          lastInput = input;
+        }
+        input.parentNode.classList.toggle("needed", this.siteNeeds(row._site, type));
+      }
+    }
+
     customize(perms, preset, row) {
       debug("Customize preset %s (%o) - Dirty: %s", preset && preset.value, perms, this.dirty);
       for(let r of this.table.querySelectorAll("tr.customizing")) {
@@ -559,21 +594,7 @@ var UI = (() => {
 
       customizer._preset = preset;
       row.classList.toggle("customizing", true);
-      let immutable = Permissions.IMMUTABLE[preset.value] || {};
-      let lastInput = null;
-      for (let input of customizer.querySelectorAll("input")) {
-        let type = input.value;
-        if (type in immutable) {
-          input.disabled = true;
-          input.checked = immutable[type];
-        } else {
-          input.checked = perms.allowing(type);
-          input.disabled = false;
-          lastInput = input;
-        }
-        input.parentNode.classList.toggle("needed", this.siteNeeds(row._site, type));
-      }
-
+      this.setupCaps(perms, preset, row);
 
       customizer.classList.toggle("closed", false);
       let temp = preset.parentNode.querySelector("input.temp");
@@ -586,15 +607,22 @@ var UI = (() => {
         let entry = (value, label = value) => {
           let opt = document.createElement("option");
           opt.value = value;
-          opt.text = label;
+          opt.label = label;
           return opt;
         }
-        let opt = document.createElement("option");
-        opt.value = "*";
-        opt.text = _("anySite");
         ctxSelect.replaceChildren(entry("*", _("anySite")));
         if (this.mainDomain) {
-          ctxSelect.append(entry(this.mainDomain));
+          let key = Sites.optimalKey(this.mainUrl);
+          ctxSelect.appendChild(entry(key, `…${Sites.toExternal(key)}`)).selected = key === row.contextMatch;
+        } else {
+          let ctxSites = row.perms.contextual;
+          if (ctxSites) {
+            for (let [site, ctxPerms] of ctxSites.entries()) {
+              let label = Sites.toExternal(site);
+              if (!label.includes(":")) label = `…${label}`;
+              ctxSelect.appendChild(entry(site, label)).selected === perms === ctxPerms;
+            }
+          }
         }
       }
 
