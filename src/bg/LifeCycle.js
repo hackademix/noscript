@@ -265,6 +265,11 @@ var LifeCycle = (() => {
         let changed = false;
         for (let p of ns.policy.getPresets(presetNames)) {
           if (callback(p)) changed = true;
+          if (p.contextual) {
+            for (let ctxP of p.contextual.values()) {
+              if (callback(ctxP)) changed = true;
+            }
+          }
         }
         if (changed) {
           await ns.savePolicy();
@@ -304,6 +309,10 @@ var LifeCycle = (() => {
       }
       if (Ver.is(previousVersion, "<=", "11.2.5rc1")) {
         await renameCap("csspp0", "unchecked_css");
+      }
+      if (Ver.is(previousVersion, "<=", "11.3rc2")) {
+        // add the lan capability to any preset which already has the script capability
+        await configureNewCap("lan", ["DEFAULT", "TRUSTED", "CUSTOM"], caps => caps.has("script"));
       }
     },
 
