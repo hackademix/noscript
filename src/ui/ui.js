@@ -299,11 +299,15 @@ var UI = (() => {
     <legend class="capsContext">
       <label></label>
       <select><option>ANY SITE</option></select>
+      <button class="reset" disabled>Reset</button>
     </legend>
+    <div class="caps">
     <span class="cap">
       <input class="cap" type="checkbox" value="script" />
       <label class="cap">script</label>
     </span>
+    </div>
+
     </fieldset>
     </div>
     </td>
@@ -605,7 +609,7 @@ var UI = (() => {
       let temp = preset.parentNode.querySelector("input.temp");
       let contextual = !!temp;
       customizer.classList.toggle("contextual", contextual);
-      let [ctxLabel, ctxSelect] = customizer.capsContext.querySelectorAll("label, select");
+      let [ctxLabel, ctxSelect, ctxReset] = customizer.capsContext.querySelectorAll("label, select, .reset");
       ctxLabel.textContent = _(contextual ? "capsContext" : "caps");
       if (contextual) {
         // contextual settings
@@ -616,11 +620,11 @@ var UI = (() => {
           return opt;
         }
         ctxSelect.replaceChildren(entry("*", _("anySite")));
+        let ctxSites = row.perms.contextual;
         if (this.mainDomain) {
           let key = Sites.optimalKey(this.mainUrl);
           ctxSelect.appendChild(entry(key, `…${Sites.toExternal(key)}`)).selected = key === row.contextMatch;
         } else {
-          let ctxSites = row.perms.contextual;
           if (ctxSites) {
             for (let [site, ctxPerms] of ctxSites.entries()) {
               let label = Sites.toExternal(site);
@@ -629,6 +633,21 @@ var UI = (() => {
             }
           }
         }
+        let handleSelection = ctxSelect.onchange = () => {
+          let selected = ctxSelect.querySelector("option:checked");
+          ctxReset.disabled = !(selected && selected.value !== "*");
+
+          ctxReset.onclick = () => {
+            let perms = UI.policy.get(row.siteMatch).perms;
+            perms.contextual.delete(row.contextMatch);
+            row.permissionsChanged = true;
+            fireOnChange(this, row);
+            selected.previousElementSibling.selected = true;
+            selected.remove();
+            ctxSelect.dispatchEvent(new Event("change"));
+          }
+        }
+        handleSelection();
       }
 
       row.parentNode.insertBefore(customizer, row.nextElementSibling);

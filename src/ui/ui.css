@@ -120,11 +120,6 @@ html.tor .tor, html:not(.tor) .not-tor {
     padding: 1em;
   }
 
-  .customizer-controls fieldset {
-    padding-top: 3em !important;
-  }
-
-
   #sites .customizing input.preset:checked + label {
     text-align:right !important;
     padding-right: 1em !important;
@@ -434,9 +429,7 @@ input.preset:checked ~ input.temp {
 #presets input.preset:not(:checked) {
   background-color: #ccc;
 }
-#presets input.preset {
-  box-shadow: 0 1px 1px #888;
-}
+
 .customizing input.preset:checked, #presets input.preset:checked, .customizer fieldset {
   background-color: #eee;
   border-radius: 0.5em 0.5em 0 0;
@@ -460,14 +453,27 @@ input.preset:checked ~ input.temp {
 }
 .customizer fieldset {
   box-shadow: 1px 1px 1px #888;
+  max-width: 580px;
+}
+
+#presets legend select, #presets legend button {
+  display: none;
+}
+
+.caps {
   display: flex;
   align-content: start;
   flex-wrap: wrap;
+  clear: both;
+  padding: .5em;
 }
-.customizer div {
-  transition: 0.2s height;
-  padding: 0;
-  margin: 0;
+
+#presets .customizer fieldset {
+  margin-top: 0px;
+}
+
+#noscript-options .customizer fieldset {
+  max-width: fit-content;
 }
 
 .customizer.closed .customizer-controls   {
@@ -488,20 +494,18 @@ span.cap.needed {
 
 fieldset {
   border: 0;
-  padding: 2em 0.5em 0.5em 0.5em;
+  padding: 1em;
   margin: 0;
-  position: relative;
 }
 
 legend {
   font-weight: bold;
   display: block;
 }
+
 .customizer legend {
   font-size: 1em;
-  position: absolute;
-  top: .5em;
-  left: 1em;
+  float: left;
 }
 
 #presets .url {
