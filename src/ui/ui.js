@@ -576,11 +576,15 @@ var UI = (() => {
     }
 
     customize(perms, preset, row) {
+      let customizer = this.rowTemplate._customizer;
+      if (!preset) {
+        preset = customizer._preset;
+        delete customizer._preset;
+      }
       debug("Customize preset %s (%o) - Dirty: %s", preset && preset.value, perms, this.dirty);
       for(let r of this.table.querySelectorAll("tr.customizing")) {
         r.classList.toggle("customizing", false);
       }
-      let customizer = this.rowTemplate._customizer;
       customizer.classList.toggle("closed", true);
 
       if (!(perms && row && preset &&
