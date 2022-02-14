@@ -699,6 +699,18 @@
         "message": "Configurazione NoScript per i Segnalibri",
         "description": ""
     },
+    "caps": {
+        "message": "Enable these capabilities",
+        "description": ""
+    },
+    "capsContext": {
+        "message": "Enable these capabilities when top page matches",
+        "description": ""
+    },
+    "anySite": {
+        "message": "ANY SITE",
+        "description": ""
+    },
     "cap_script": {
         "message": "script",
         "description": ""

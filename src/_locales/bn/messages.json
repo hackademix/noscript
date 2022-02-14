@@ -699,6 +699,18 @@
         "message": "নোস্ক্রিপ্টের কনফিগারেশনের বুকমার্ক",
         "description": ""
     },
+    "caps": {
+        "message": "Enable these capabilities",
+        "description": ""
+    },
+    "capsContext": {
+        "message": "Enable these capabilities when top page matches",
+        "description": ""
+    },
+    "anySite": {
+        "message": "ANY SITE",
+        "description": ""
+    },
     "cap_script": {
         "message": "স্ক্রিপ্ট",
         "description": ""

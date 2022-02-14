@@ -699,6 +699,18 @@
         "message": "NoScript 配置书签",
         "description": ""
     },
+    "caps": {
+        "message": "Enable these capabilities",
+        "description": ""
+    },
+    "capsContext": {
+        "message": "Enable these capabilities when top page matches",
+        "description": ""
+    },
+    "anySite": {
+        "message": "ANY SITE",
+        "description": ""
+    },
     "cap_script": {
         "message": "脚本",
         "description": ""

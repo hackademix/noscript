@@ -699,6 +699,18 @@
         "message": "NoScript-Konfigurationslesezeichen",
         "description": ""
     },
+    "caps": {
+        "message": "Aktiviert diese Funktionalitäten",
+        "description": ""
+    },
+    "capsContext": {
+        "message": "Aktiviert diese Funktionalitäten bei Übereinstimmungen mit der Hauptseite",
+        "description": ""
+    },
+    "anySite": {
+        "message": "JEDE INTERNETSEITE",
+        "description": ""
+    },
     "cap_script": {
         "message": "script",
         "description": ""

@@ -699,6 +699,18 @@
         "message": "Marque-page de configuration NoScript",
         "description": ""
     },
+    "caps": {
+        "message": "Activer ces capacités",
+        "description": ""
+    },
+    "capsContext": {
+        "message": "Activer ces capacités en cas de correspondance de la page supérieure",
+        "description": ""
+    },
+    "anySite": {
+        "message": "N’IMPORTE QUEL SITE",
+        "description": ""
+    },
     "cap_script": {
         "message": "script",
         "description": ""
