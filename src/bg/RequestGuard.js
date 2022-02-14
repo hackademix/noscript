@@ -536,7 +536,7 @@ var RequestGuard = (() => {
         let capabilities;
         if (ns.isEnforced(tabId)) {
           let policy = ns.policy;
-          let perms = policy.get(url, documentUrl).perms;
+          let {perms} = policy.get(url, ns.policyContext(request));
           if (isMainFrame) {
             if (policy.autoAllowTop && perms === policy.DEFAULT) {
               policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
