@@ -505,6 +505,7 @@ var UI = (() => {
           row.siteMatch = siteMatch;
           row.contextMatch = context;
           this.setupCaps(perms, preset, row);
+          tempToggle.checked = perms.temp;
           return;
         }
         row.permissionsChanged = false;
