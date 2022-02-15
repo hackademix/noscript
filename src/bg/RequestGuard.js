@@ -408,12 +408,31 @@ var RequestGuard = (() => {
     }
   };
   const listeners = {
-    onBeforeRequest(request) {
+    async onBeforeRequest(request) {
       normalizeRequest(request);
       try {
         let redirected = initPendingRequest(request);
         let {policy} = ns
-        let {type} = request;
+        let {type, url, originUrl, tabId} = request;
+
+        if (type === "xmlhttprequest" &&
+          browser.runtime.onSyncMessage &&
+          url.startsWith(browser.runtime.onSyncMessage.ENDPOINT_PREFIX)) {
+          return ALLOW;
+        }
+        let enforced = ns.isEnforced(tabId);
+        // check cross-zone WAN->LAN requests
+        if (enforced && originUrl && !Sites.isInternal(originUrl) && url.startsWith("http") &&
+          !policy.can(originUrl, "lan", ns.policyContext(request)) &&
+          (await iputil.isLocalURI(url)) && !(await iputil.isLocalURI(originUrl))) {
+
+          debug("WAN->LAN request blocked", request);
+          let r = Object.assign({}, request);
+          r.url = originUrl; // we want to report the origin as needing the permission
+          Content.reportTo(r, false, "lan")
+          return ABORT;
+        }
+
         if (type in policyTypesMap) {
           let previous = recent.find(request);
           if (previous) {
@@ -424,19 +443,18 @@ var RequestGuard = (() => {
           recent.add(previous);
 
           let policyType = policyTypesMap[type];
-          let {url, originUrl, documentUrl, tabId} = request;
-
-          if (ns.unrestrictedTabs.has(tabId) && type.endsWith("frame") && url.startsWith("https:")) {
-            TabStatus.addOrigin(tabId, url);
+          let {documentUrl} = request;
+          if (!enforced) {
+            if (ns.unrestrictedTabs.has(tabId) && type.endsWith("frame") && url.startsWith("https:")) {
+              TabStatus.addOrigin(tabId, url);
+            }
+            return ALLOW;
           }
-
           let isFetch = "fetch" === policyType;
 
           if ((isFetch || "frame" === policyType) &&
-              (((isFetch && (!originUrl ||
-                browser.runtime.onSyncMessage &&
-                url.startsWith(browser.runtime.onSyncMessage.ENDPOINT_PREFIX)
-                ) || url === originUrl) && originUrl === documentUrl
+              (((isFetch && !originUrl
+                || url === originUrl) && originUrl === documentUrl
                 // some extensions make them both undefined,
                 // see https://github.com/eight04/image-picka/issues/150
               ) ||
@@ -451,7 +469,7 @@ var RequestGuard = (() => {
             request.url = url = documentUrl || originUrl;
           }
 
-          let allowed = Sites.isInternal(url) || !ns.isEnforced(tabId);
+          let allowed = Sites.isInternal(url);
           if (!allowed) {
             if (tabId < 0 && documentUrl && documentUrl.startsWith("https:")) {
               allowed = [...ns.unrestrictedTabs]

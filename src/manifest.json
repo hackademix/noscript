@@ -28,6 +28,7 @@
       "webNavigation",
       "webRequest",
       "webRequestBlocking",
+      "dns",
       "<all_urls>"
   ],
 
@@ -53,6 +54,9 @@
       "/nscl/common/locale.js",
       "/nscl/common/Storage.js",
       "/nscl/common/include.js",
+      "/nscl/common/DNS.js",
+      "/nscl/common/AddressMatcherWithDNS.js",
+      "/nscl/common/iputil.js",
       "/nscl/service/DocStartInjection.js",
       "/nscl/service/LastListener.js",
       "/nscl/service/TabCache.js",

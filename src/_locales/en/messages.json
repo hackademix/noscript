@@ -563,6 +563,9 @@
   "cap_unchecked_css": {
     "message": "unrestricted CSS"
   },
+  "cap_lan": {
+    "message": "LAN"
+  },
   "cap_other": {
     "message": "other"
   },
