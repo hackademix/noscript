@@ -156,10 +156,23 @@ html.tor .tor, html:not(.tor) .not-tor {
 .capsContext select {
   display: none;
 }
+
 .contextual .capsContext select {
   display: initial;
 }
 
+.pageTurn {
+  position: absolute;
+  outline: 3px solid #888;
+  z-index: 1000;
+  background-color: white;
+  transform-origin: bottom center;
+  transition: transform .5s;
+}
+
+.pageTurn.endgame {
+  transform: scale(.5, .1);
+}
 
 input[type="text"] {
   border: 1px solid;
@@ -454,6 +467,7 @@ input.preset:checked ~ input.temp {
 .customizer fieldset {
   box-shadow: 1px 1px 1px #888;
   max-width: 580px;
+  position: relative;
 }
 
 #presets legend select, #presets legend button {
@@ -520,7 +534,7 @@ legend {
   background-color: #850 !important;
 }
 .hilite-end {
-  transition: 1s background-color;
+  transition: background-color 1s;
 }
 .hilite .url {
   transform: scale(2);
@@ -528,7 +542,7 @@ legend {
 }
 .hilite-end .url {
   transform: none;
-  transition: 1s transform;
+  transition: transform 1s;
 }
 
 #xssChoices {

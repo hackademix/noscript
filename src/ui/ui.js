@@ -494,6 +494,12 @@ var UI = (() => {
 
       if (ev.type === "change") {
         let {policy} = UI;
+
+        row.permissionsChanged = false;
+        if (!row._originalPerms) {
+          row._originalPerms = row.perms.clone();
+        }
+
         if (target.matches(".capsContext select")) {
           let opt = target.querySelector("option:checked");
           if (!opt) return;
@@ -504,6 +510,7 @@ var UI = (() => {
             let temp = row.perms.temp || UI.forceIncognito;
             perms = new Permissions(new Set(row.perms.capabilities), temp);
             row.perms.contextual.set(context, perms);
+            fireOnChange(this, row);
           }
           row.perms = row._customPerms = perms;
           row.siteMatch = siteMatch;
@@ -512,10 +519,7 @@ var UI = (() => {
           tempToggle.checked = perms.temp;
           return;
         }
-        row.permissionsChanged = false;
-        if (!row._originalPerms) {
-          row._originalPerms = row.perms.clone();
-        }
+
 
         let presetValue = preset.value;
         let policyPreset = presetValue.startsWith("T_") ? policy[presetValue.substring(2)].tempTwin : policy[presetValue];
@@ -633,20 +637,34 @@ var UI = (() => {
             }
           }
         }
-        let handleSelection = ctxSelect.onchange = () => {
+        let handleSelection = () => {
           let selected = ctxSelect.querySelector("option:checked");
           ctxReset.disabled = !(selected && selected.value !== "*");
-
           ctxReset.onclick = () => {
             let perms = UI.policy.get(row.siteMatch).perms;
             perms.contextual.delete(row.contextMatch);
-            row.permissionsChanged = true;
+            row.permissionsChanged = row._originalPerms && !row.perms.sameAs(row._originalPerms);
             fireOnChange(this, row);
             selected.previousElementSibling.selected = true;
-            selected.remove();
+            if (!this.mainDomain) selected.remove();
             ctxSelect.dispatchEvent(new Event("change"));
           }
         }
+        ctxSelect.onchange = e => {
+          let caps = customizer.querySelector(".caps");
+          let pageTurn = caps.cloneNode(true);
+          let s = pageTurn.style;
+          s.top = `${caps.offsetTop}px`;
+          s.left =`${caps.offsetLeft}px`;
+          s.width = `${caps.offsetWidth}px`;
+          s.height = `${caps.offsetHeight}px`;
+          pageTurn.classList.add("pageTurn");
+          caps.parentNode.appendChild(pageTurn);
+          setTimeout(() => pageTurn.classList.add("endgame"), 1);
+          setTimeout(() => pageTurn.remove(), 500);
+          handleSelection();
+        }
+
         handleSelection();
       }
 
