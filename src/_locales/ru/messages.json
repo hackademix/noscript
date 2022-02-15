@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Разрешить отмеченное",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Разрешить отмеченное, если страница",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "ЛЮБАЯ",
         "description": ""
     },
     "cap_script": {
