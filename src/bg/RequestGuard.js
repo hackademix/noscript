@@ -424,8 +424,7 @@ var RequestGuard = (() => {
         // check cross-zone WAN->LAN requests
         if (enforced && originUrl && !Sites.isInternal(originUrl) && url.startsWith("http") &&
           !policy.can(originUrl, "lan", ns.policyContext(request)) &&
-          (await iputil.isLocalURI(url)) && !(await iputil.isLocalURI(originUrl))) {
-
+          (await iputil.isLocalURI(url)) && !(await iputil.isLocalURI(originUrl, true))) {
           debug("WAN->LAN request blocked", request);
           let r = Object.assign({}, request);
           r.url = originUrl; // we want to report the origin as needing the permission
