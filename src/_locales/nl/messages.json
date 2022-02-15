@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Deze mogelijkheden inschakelen",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Deze mogelijkheden inschakelen als bovenste pagina overeenkomt",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "ALLE WEBSITES",
         "description": ""
     },
     "cap_script": {

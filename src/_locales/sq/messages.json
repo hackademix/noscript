@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Aktivizoji këto aftësi",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Aktivizoji këto aftësi, kur ka përputhje te faqja e epërme",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "ÇFARËDO SAJTI",
         "description": ""
     },
     "cap_script": {
@@ -748,7 +748,7 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unrestricted CSS",
+        "message": "CSS e pakufizuar",
         "description": ""
     },
     "cap_other": {

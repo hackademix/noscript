@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Bu özellikler etkinleştirilsin",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Üst belge eşleştiğinde bu özellikler etkinleştirilsin",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "TÜM SİTELER",
         "description": ""
     },
     "cap_script": {

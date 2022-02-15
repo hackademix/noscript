@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "启用这些功能",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "当顶部页面匹配时，启用这些功能",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "任意站点",
         "description": ""
     },
     "cap_script": {
