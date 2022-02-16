@@ -615,6 +615,7 @@ var UI = (() => {
       customizer.classList.toggle("contextual", contextual);
       let [ctxLabel, ctxSelect, ctxReset] = customizer.capsContext.querySelectorAll("label, select, .reset");
       ctxLabel.textContent = _(contextual ? "capsContext" : "caps");
+      ctxReset.textContent = _("Reset");
       if (contextual) {
         // contextual settings
         let entry = (value, label = value) => {
