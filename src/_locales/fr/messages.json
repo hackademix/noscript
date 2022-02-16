@@ -751,6 +751,10 @@
         "message": "feuille de style CSS non restreinte",
         "description": ""
     },
+    "cap_lan": {
+        "message": "Réseau local",
+        "description": ""
+    },
     "cap_other": {
         "message": "autre",
         "description": ""

@@ -751,6 +751,10 @@
         "message": "不受限的 CSS",
         "description": ""
     },
+    "cap_lan": {
+        "message": "局域网",
+        "description": ""
+    },
     "cap_other": {
         "message": "其他",
         "description": ""

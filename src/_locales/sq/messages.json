@@ -751,6 +751,10 @@
         "message": "CSS e pakufizuar",
         "description": ""
     },
+    "cap_lan": {
+        "message": "LAN",
+        "description": ""
+    },
     "cap_other": {
         "message": "tjetër",
         "description": ""

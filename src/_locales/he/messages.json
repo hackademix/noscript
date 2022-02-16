@@ -751,6 +751,10 @@
         "message": "CSS בלתי מוגבל",
         "description": ""
     },
+    "cap_lan": {
+        "message": "LAN",
+        "description": ""
+    },
     "cap_other": {
         "message": "אחר",
         "description": ""

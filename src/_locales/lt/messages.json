@@ -751,6 +751,10 @@
         "message": "neribotas CSS",
         "description": ""
     },
+    "cap_lan": {
+        "message": "LAN",
+        "description": ""
+    },
     "cap_other": {
         "message": "kita",
         "description": ""

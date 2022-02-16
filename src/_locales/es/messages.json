@@ -751,6 +751,10 @@
         "message": "CSS no restringido",
         "description": ""
     },
+    "cap_lan": {
+        "message": "LAN",
+        "description": ""
+    },
     "cap_other": {
         "message": "otro",
         "description": ""
