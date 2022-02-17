@@ -621,10 +621,11 @@ var UI = (() => {
         let entry = (value, label = value) => {
           let opt = document.createElement("option");
           opt.value = value;
-          opt.label = label;
+          opt.textContent = label;
           return opt;
         }
-        ctxSelect.replaceChildren(entry("*", _("anySite")));
+        for (let child; child = ctxSelect.firstChild;) child.remove();
+        ctxSelect.appendChild(entry("*", _("anySite")));
         let ctxSites = row.perms.contextual;
         if (this.mainDomain) {
           let key = Sites.optimalKey(this.mainUrl);
