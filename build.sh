@@ -180,8 +180,8 @@ fi
   grep -A2000 '"version":' "$MANIFEST_OUT") | \
   # auto-update URL for the Edge version on the Microsoft Store
   sed -e '/"name":/a\' -e '  "update_url": "'$EDGE_UPDATE_URL'",' | \
-  # skip embeddingDocument.js
-  grep -v 'content/embeddingDocument.js' | \
+  # skip embeddingDocument.js and dns permission
+  grep -Pv 'content/embeddingDocument.js|"dns",' | \
   # add "debugger" permission for patchWorkers.js
   sed -re 's/( *)"webRequestBlocking",/&\n\1'"$EXTRA_PERMS"'/' | \
   # add origin fallback for content scripts
