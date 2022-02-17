@@ -407,30 +407,62 @@ var RequestGuard = (() => {
          : 0;
     }
   };
+
+
+  function blockLANRequest(request) {
+    debug("WAN->LAN request blocked", request);
+    let r = Object.assign({}, request);
+    r.url = request.originUrl; // we want to report the origin as needing the permission
+    Content.reportTo(r, false, "lan")
+    return ABORT;
+  }
+
+  function checkLANRequest(request) {
+    if (request._lanChecked) return false;
+    request._lanChecked = true;
+    // check cross-zone WAN->LAN requests
+    let {originUrl, url} = request;
+    if (originUrl && !Sites.isInternal(originUrl) && url.startsWith("http") &&
+      !ns.policy.can(originUrl, "lan", ns.policyContext(request))) {
+      let syncCall = !(UA.isMozilla && DNS.supported);
+      if (syncCall) {
+        // Chromium, must do synchronously, we need to sacrifice DNS resolution and check just numeric hosts :(
+        return iputil.isLocalURI(url, false, syncCall) && !iputil.isLocalURI(originUrl, true, syncCall)
+          ? blockLANRequest(request)
+          : false;
+      }
+      // Firefox does support asynchronous webRequest, let's return a Promise and perform DNS resolution
+      return new Promise(async (resolve, reject) => {
+        try {
+          resolve(await iputil.isLocalURI(url, false) && !(await iputil.isLocalURI(originUrl, true))
+            ? blockLANRequest(request)
+            : listeners.onBeforeRequest(request)
+          );
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+  }
+
   const listeners = {
-    async onBeforeRequest(request) {
+    onBeforeRequest(request) {
+      if (browser.runtime.onSyncMessage && browser.runtime.onSyncMessage.isMessageRequest(request)) return ALLOW;
       normalizeRequest(request);
       try {
-        let redirected = initPendingRequest(request);
-        let {policy} = ns
-        let {type, url, originUrl, tabId} = request;
 
-        if (type === "xmlhttprequest" &&
-          browser.runtime.onSyncMessage &&
-          url.startsWith(browser.runtime.onSyncMessage.ENDPOINT_PREFIX)) {
-          return ALLOW;
-        }
+        let {tabId} = request;
         let enforced = ns.isEnforced(tabId);
-        // check cross-zone WAN->LAN requests
-        if (enforced && originUrl && !Sites.isInternal(originUrl) && url.startsWith("http") &&
-          !policy.can(originUrl, "lan", ns.policyContext(request)) &&
-          (await iputil.isLocalURI(url)) && !(await iputil.isLocalURI(originUrl, true))) {
-          debug("WAN->LAN request blocked", request);
-          let r = Object.assign({}, request);
-          r.url = originUrl; // we want to report the origin as needing the permission
-          Content.reportTo(r, false, "lan")
-          return ABORT;
+
+        if (enforced) {
+          let lanResponse = checkLANRequest(request);
+          if (lanResponse)  return lanResponse;
         }
+
+        initPendingRequest(request);
+
+        let {policy} = ns
+        let {type, url, originUrl} = request;
 
         if (type in policyTypesMap) {
           let previous = recent.find(request);
