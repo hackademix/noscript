@@ -95,40 +95,47 @@
       }
 
       if (!this.syncFetchPolicy) {
-
-        let msg = {id: "fetchChildPolicy", url};
-
-        let asyncFetch = (async () => {
-          let policy = null;
-          for (let attempts = 10; !(policy || this.policy) && attempts-- > 0;) {
-            try {
-              debug(`Retrieving policy asynchronously (${attempts} attempts left).`);
-              policy = await Messages.send(msg.id, msg) || this.domPolicy;
-              debug("Asynchronous policy", policy);
-            } catch (e) {
-              error(e, "(Asynchronous policy fetch)");
-            }
-          }
-          this.setup(policy);
-        });
-        debug(`Synchronously fetching policy for ${url}.`);
-        let policy = null;
-        let attempts = 100;
-        let refetch = () => {
-          policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
-          if (policy) {
-            this.setup(policy);
-          } else if (attempts-- > 0) {
-            debug(`Couldn't retrieve policy synchronously (${attempts} attempts left).`);
-            if (asyncFetch) {
-              asyncFetch();
-              asyncFetch = null;
-            }
-            queueMicrotask(refetch);
-          }
-        };
-        refetch();
+        this.fetchLikeNoTomorrow(url);
       }
+    },
+
+    fetchLikeNoTomorrow(url, setup = this.setup.bind(this)) {
+      let msg = {id: "fetchChildPolicy", url};
+
+      let asyncFetch = (async () => {
+        let policy = null;
+        for (let attempts = 10; !(policy || this.policy) && attempts-- > 0;) {
+          try {
+            debug(`Retrieving policy asynchronously (${attempts} attempts left).`);
+            policy = await Messages.send(msg.id, msg) || this.domPolicy;
+            debug("Asynchronous policy", policy);
+          } catch (e) {
+            error(e, "(Asynchronous policy fetch)");
+          }
+        }
+        setup(policy);
+      });
+      debug(`Synchronously fetching policy for ${url}.`);
+      let policy = null;
+      let attempts = 100;
+      let refetch = () => {
+        try {
+          policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
+        } catch (e) {
+          error(e);
+        }
+        if (policy) {
+          setup(policy);
+        } else if (attempts-- > 0) {
+          debug(`Couldn't retrieve policy synchronously (${attempts} attempts left).`);
+          if (asyncFetch) {
+            asyncFetch();
+            asyncFetch = null;
+          }
+          queueMicrotask(refetch);
+        }
+      };
+      refetch();
     },
 
     setup(policy) {

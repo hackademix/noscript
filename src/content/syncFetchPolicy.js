@@ -31,12 +31,12 @@
   // injected in the DOM as soon as possible.
   debug("No CSP yet for non-HTTP document load: fetching policy synchronously...", ns);
 
-  ns.syncSetup = ns.setup.bind(ns);
+  let syncSetup = ns.setup.bind(ns);
 
   if (window.wrappedJSObject) {
     if (top === window) {
       let persistentPolicy = null;
-      ns.syncSetup = policy => {
+      syncSetup = policy => {
         if (persistentPolicy) return;
         ns.setup(policy);
         persistentPolicy = JSON.stringify(policy);
@@ -58,18 +58,14 @@
         }
       }
     } catch (e) {
-      // cross-origin accesss violation, ignore
+      // cross-origin access violation, ignore
     }
   }
   if (ns.domPolicy) {
-    ns.syncSetup(ns.domPolicy);
+    syncSetup(ns.domPolicy);
     return;
   }
-  let syncFetch = callback => {
-    browser.runtime.sendSyncMessage(
-      {id: "fetchPolicy", url},
-      callback);
-  };
+
   debug("Initial readyState and body", document.readyState, document.body);
 
   let mustFreeze = UA.isMozilla
@@ -225,19 +221,7 @@
     }
   }
 
-  for (let attempts = 3; attempts-- > 0;) {
-    try {
-      if (ns.policy) break;
-      syncFetch(ns.syncSetup);
-      break;
-    } catch (e) {
-      if (!Messages.isMissingEndpoint(e) || document.readyState === "complete") {
-        error(e);
-        break;
-      }
-      error("Background page not ready yet, retrying to fetch policy...")
-    }
-  }
+  ns.fetchLikeNoTomorrow(url, syncSetup);
 };
 
 if (ns.pendingSyncFetchPolicy) {
