@@ -500,7 +500,7 @@ var RequestGuard = (() => {
             }
             if (!allowed) {
               let capabilities = intersectCapabilities(
-                policy.get(url, documentUrl).perms,
+                policy.get(url, ns.policyContext(request)).perms,
                 request);
               allowed = !policyType || capabilities.has(policyType);
               if (allowed && request._dataUrl && type.endsWith("frame")) {
