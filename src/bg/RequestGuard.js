@@ -418,27 +418,26 @@ var RequestGuard = (() => {
   }
 
   function checkLANRequest(request) {
-    if (request._lanChecked) return false;
-    request._lanChecked = true;
+    if (!ns.isEnforced(request.tabId)) return ALLOW;
     let {originUrl, url} = request;
     if (originUrl && !Sites.isInternal(originUrl) && url.startsWith("http") &&
       !ns.policy.can(originUrl, "lan", ns.policyContext(request))) {
       // we want to block any request whose origin resolves to at least one external WAN IP
       // and whose destination resolves to at least one LAN IP
-      let neverDNS = ns.local.isTorBrowser || !(UA.isMozilla && DNS.supported);
+      let neverDNS = (request.proxyInfo && request.proxyInfo.proxyDNS) || !(UA.isMozilla && DNS.supported);
       if (neverDNS) {
         // On Chromium we must do it synchronously: we need to sacrifice DNS resolution and check just numeric addresses :(
         // (the Tor Browser, on the other hand, does DNS resolution and boundary checks on its own and breaks the DNS API)
         return iputil.isLocalURI(url, false, neverDNS) && !iputil.isLocalURI(originUrl, true, neverDNS)
           ? blockLANRequest(request)
-          : false;
+          : ALLOW;
       }
       // Firefox does support asynchronous webRequest: let's return a Promise and perform DNS resolution.
       return new Promise(async (resolve, reject) => {
         try {
           resolve(await iputil.isLocalURI(url, false) && !(await iputil.isLocalURI(originUrl, true))
             ? blockLANRequest(request)
-            : listeners.onBeforeRequest(request)
+            : ALLOW
           );
         } catch (e) {
           reject(e);
@@ -449,22 +448,13 @@ var RequestGuard = (() => {
 
   const listeners = {
     onBeforeRequest(request) {
-      if (browser.runtime.onSyncMessage && browser.runtime.onSyncMessage.isMessageRequest(request)) return ALLOW;
-      normalizeRequest(request);
       try {
-
-        let {tabId} = request;
-        let enforced = ns.isEnforced(tabId);
-
-        if (enforced) {
-          let lanResponse = checkLANRequest(request);
-          if (lanResponse)  return lanResponse;
-        }
-
+        if (browser.runtime.onSyncMessage && browser.runtime.onSyncMessage.isMessageRequest(request)) return ALLOW;
+        normalizeRequest(request);
         initPendingRequest(request);
 
         let {policy} = ns
-        let {type, url, originUrl} = request;
+        let {tabId, type, url, originUrl} = request;
 
         if (type in policyTypesMap) {
           let previous = recent.find(request);
@@ -477,7 +467,7 @@ var RequestGuard = (() => {
 
           let policyType = policyTypesMap[type];
           let {documentUrl} = request;
-          if (!enforced) {
+          if (!ns.isEnforced(tabId)) {
             if (ns.unrestrictedTabs.has(tabId) && type.endsWith("frame") && url.startsWith("https:")) {
               TabStatus.addOrigin(tabId, url);
             }
@@ -537,6 +527,10 @@ var RequestGuard = (() => {
         error(e);
       }
       return ALLOW;
+    },
+    onBeforeSendHeaders(request) {
+      normalizeRequest(request);
+      return checkLANRequest(request);
     },
     onHeadersReceived(request) {
       // called for main_frame, sub_frame and object
@@ -738,6 +732,7 @@ var RequestGuard = (() => {
       let filterDocs = {urls: allUrls, types: docTypes};
       let filterAll = {urls: allUrls};
       listen("onBeforeRequest", filterAll, ["blocking"]);
+      listen("onBeforeSendHeaders", filterAll, ["blocking"]);
 
       let mergingCSP = "getBrowserInfo" in browser.runtime;
       if (mergingCSP) {
