@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Habilitar estas capacidades",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Habilitar estas capacidades cuando la página tope coincide",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "CUALQUIER SITIO",
         "description": ""
     },
     "cap_script": {
