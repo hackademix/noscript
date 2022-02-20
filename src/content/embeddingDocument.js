@@ -21,24 +21,23 @@
 if (ns.embeddingDocument) {
   let suspended;
   let suspender = new MutationObserver(records => {
-    if (suspended) return;
     suspended = document.body && document.body.firstElementChild;
     if (suspended) {
-      debug("Suspending ", suspended.src, suspended);
+      debug("Suspending ", suspended);
       suspended.autoplay = false;
-      suspended.src = "data:";
-      suspender.disconnect();
+      if (suspended.pause) suspended.pause();
+      suspended.src = suspended.currentSrc = "data:";
+      if (ns.policy) replace();
     }
   });
   suspender.observe(document, {childList: true, subtree: true});
 
   let replace = () => {
     if (suspended) {
-      suspended.src = document.URL;
-      suspended.autoplay = true;
-    } else {
-      suspender.disconnect();
+      debug("Restoring suspended", suspended);
+      suspended.src = suspended.currentSrc = document.URL;
     }
+
     for (let policyType of ["object", "media"]) {
       let request = {
         id: `noscript-${policyType}-doc`,
@@ -49,6 +48,11 @@ if (ns.embeddingDocument) {
       };
 
       if (ns.allows(policyType)) {
+        suspender.disconnect();
+        if (suspended) {
+          suspended.autoplay = true;
+          if (suspended.play) suspended.play();
+        }
         let handler = PlaceHolder.handlerFor(policyType);
         if (handler && handler.selectFor(request).length > 0) {
           seen.record({policyType, request, allowed: true});
