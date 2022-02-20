@@ -115,6 +115,11 @@
         }
         setup(policy);
       });
+
+      if (!this.syncFetchPolicy && this.embeddingDocument) {
+        asyncFetch();
+        return;
+      }
       debug(`Synchronously fetching policy for ${url}.`);
       let policy = null;
       let attempts = 100;
