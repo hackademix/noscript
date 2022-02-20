@@ -624,18 +624,20 @@ var UI = (() => {
           opt.textContent = label;
           return opt;
         }
+        let toLabel = site => {
+          let label = Sites.toExternal(site);
+          return label.includes(":") ? label : `…${label}`;
+        };
         for (let child; child = ctxSelect.firstChild;) child.remove();
         ctxSelect.appendChild(entry("*", _("anySite")));
         let ctxSites = row.perms.contextual;
         if (this.mainDomain) {
           let key = Sites.optimalKey(this.mainUrl);
-          ctxSelect.appendChild(entry(key, `…${Sites.toExternal(key)}`)).selected = key === row.contextMatch;
+          ctxSelect.appendChild(entry(key, toLabel(key))).selected = key === row.contextMatch;
         } else {
           if (ctxSites) {
             for (let [site, ctxPerms] of ctxSites.entries()) {
-              let label = Sites.toExternal(site);
-              if (!label.includes(":")) label = `…${label}`;
-              ctxSelect.appendChild(entry(site, label)).selected === perms === ctxPerms;
+              ctxSelect.appendChild(entry(site, toLabel(site))).selected === perms === ctxPerms;
             }
           }
         }
