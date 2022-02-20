@@ -115,18 +115,17 @@ html.tor .tor, html:not(.tor) .not-tor {
   .customizing input.preset:checked ~ input.temp {
     pointer-events: all !important;
     z-index: 1000;
-    top: 1.5em;
+    top: .5em;
     right: -1em;
     padding: 1em;
   }
 
   #sites .customizing input.preset:checked + label {
     text-align:right !important;
-    padding-right: 1em !important;
-    right: 1em !important;
+    right: 0em !important;
     left: auto !important;
-    top: 3.5em;
     pointer-events: none;
+    transition: all .2s;
   }
 
   td.presets {
@@ -141,6 +140,9 @@ html.tor .tor, html:not(.tor) .not-tor {
     font-size: 80%;
    }
 
+   .contextual fieldset {
+     padding-top: 1.5em;
+   }
 }
 
 
