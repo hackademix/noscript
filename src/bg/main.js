@@ -232,7 +232,10 @@
       // contextualData (e.g. a request details object) must contain a tab, a tabId or a documentUrl
       // (used as a fallback if tab's top URL cannot be retrieved, e.g. in service workers)
       let {tab, tabId, documentUrl, url} = contextualData;
-      if (!tab) tab = tabId !== -1 && TabCache.get(tabId);
+      if (!tab) {
+        if (contextualData.type === "main_frame") return url;
+        tab = tabId !== -1 && TabCache.get(tabId);
+      }
       return tab && tab.url || documentUrl || url;
     },
     requestCan(request, capability) {
