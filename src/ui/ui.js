@@ -637,7 +637,7 @@ var UI = (() => {
         } else {
           if (ctxSites) {
             for (let [site, ctxPerms] of ctxSites.entries()) {
-              ctxSelect.appendChild(entry(site, toLabel(site))).selected === perms === ctxPerms;
+              ctxSelect.appendChild(entry(site, toLabel(site))).selected = perms === ctxPerms;
             }
           }
         }
