@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "אפשר יכולות אלו",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "אפשר יכולות אלו כאשר דף הראש תואם",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "כל אתר",
         "description": ""
     },
     "cap_script": {
