@@ -506,13 +506,15 @@ var UI = (() => {
           let context = opt.value;
           if (context === "*") context = null;
           ({siteMatch, perms, contextMatch} = policy.get(siteMatch, context));
-          if (context && contextMatch !== context) {
+          if (!context) {
+            row._customPerms = perms;
+          } else if (contextMatch !== context) {
             let temp = row.perms.temp || UI.forceIncognito;
             perms = new Permissions(new Set(row.perms.capabilities), temp);
             row.perms.contextual.set(context, perms);
             fireOnChange(this, row);
           }
-          row.perms = row._customPerms = perms;
+          row.perms = perms;
           row.siteMatch = siteMatch;
           row.contextMatch = context;
           this.setupCaps(perms, preset, row);
@@ -630,11 +632,12 @@ var UI = (() => {
         };
         for (let child; child = ctxSelect.firstChild;) child.remove();
         ctxSelect.appendChild(entry("*", _("anySite")));
-        let ctxSites = row.perms.contextual;
         if (this.mainDomain) {
           let key = Sites.optimalKey(this.mainUrl);
           ctxSelect.appendChild(entry(key, toLabel(key))).selected = key === row.contextMatch;
         } else {
+          if (!row._customPerms) row._customPerms = row.perms;
+          let ctxSites = row._customPerms.contextual;
           if (ctxSites) {
             for (let [site, ctxPerms] of ctxSites.entries()) {
               ctxSelect.appendChild(entry(site, toLabel(site))).selected = perms === ctxPerms;
