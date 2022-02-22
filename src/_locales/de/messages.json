@@ -48,7 +48,7 @@
         "description": ""
     },
     "AllowPing": {
-        "message": "<A PING…> zulassen",
+        "message": "<A PING …> zulassen",
         "description": ""
     },
     "AllowViaBookmarks": {
@@ -112,7 +112,7 @@
         "description": ""
     },
     "ClearClickOpt": {
-        "message": "ClearClick Schutz auf Webseiten…",
+        "message": "ClearClick-Schutz auf Webseiten …",
         "description": ""
     },
     "ClearClickReport": {
@@ -180,7 +180,7 @@
         "description": ""
     },
     "Exceptions": {
-        "message": "Ausnahmen…",
+        "message": "Ausnahmen …",
         "description": ""
     },
     "Export": {
@@ -196,11 +196,11 @@
         "description": ""
     },
     "Hider": {
-        "message": "Hierher ziehen zum Verbergen.",
+        "message": "Zum Verbergen hierher ziehen.",
         "description": ""
     },
     "Reveal": {
-        "message": "Zum Abruf fehlender Schaltflächen hier klicken…",
+        "message": "Zum Zurückholen fehlender Schaltflächen hier klicken …",
         "description": ""
     },
     "ShowFullAddresses": {
@@ -268,7 +268,7 @@
         "description": ""
     },
     "HttpsFaq": {
-        "message": "HTTPS FAQ…",
+        "message": "HTTPS-FAQ …",
         "description": ""
     },
     "HttpsFaq_accesskey": {
@@ -364,7 +364,7 @@
         "description": ""
     },
     "Options": {
-        "message": "Einstellungen…",
+        "message": "Einstellungen …",
         "description": ""
     },
     "Options_accesskey": {
@@ -464,11 +464,11 @@
         "description": ""
     },
     "Show": {
-        "message": "Zeige…",
+        "message": "Zeige …",
         "description": ""
     },
     "ShowConsole": {
-        "message": "Konsole anzeigen…",
+        "message": "Konsole anzeigen …",
         "description": ""
     },
     "ShowConsole_accesskey": {
@@ -636,7 +636,7 @@
         "description": ""
     },
     "XssFaq": {
-        "message": "XSS FAQ…",
+        "message": "XSS-FAQ …",
         "description": ""
     },
     "XssFaq_accesskey": {
@@ -704,7 +704,7 @@
         "description": ""
     },
     "capsContext": {
-        "message": "Folgendes zulassen auf …",
+        "message": "Folgendes zulassen auf ",
         "description": ""
     },
     "anySite": {
@@ -756,7 +756,7 @@
         "description": ""
     },
     "cap_other": {
-        "message": "sonstige",
+        "message": "Sonstiges",
         "description": ""
     },
     "changelog": {
@@ -880,7 +880,7 @@
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Mit mittlerer Maustaste oder Umschalt+Linke Maustaste klicken für Seiteninformationen...",
+        "message": "Klicken Sie mit mittlerer Maustaste oder Umschalttaste und linker Maustaste für Seiteninformationen …",
         "description": ""
     },
     "sponsor_tip": {
