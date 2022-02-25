@@ -30,10 +30,11 @@ addEventListener("unload", e => {
 
 (async () => {
 
-  function showMessage(className, message) {
+  function showMessage(className, message, extraUI = null) {
     let el = document.getElementById("message");
     el.textContent = message;
     el.className = className;
+    if (extraUI) el.appendChild(extraUI);
   }
 
   try {
