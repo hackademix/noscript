@@ -689,9 +689,11 @@ var UI = (() => {
               }
             }
             return true;
+          case "ArrowUp":
+            if (document.activeElement === ctxSelect)
+              return; // avoid closing the customizer on context selection change
           case "ArrowLeft":
           case "ArrowRight":
-          case "ArrowUp":
             this.onkeydown = null;
             this.customize(null);
             preset.focus();
