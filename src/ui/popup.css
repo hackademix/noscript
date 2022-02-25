@@ -30,7 +30,7 @@ body {
   padding-left: 1.6em;
   border: none;
   font-size: 1.2em;
-  background-size: contain;
+  background-size: 1.2em;
   margin: 0 1.2em 0 1.2em;
 }
 
@@ -42,6 +42,7 @@ body {
   font-size: 1em;
   font-family: sans-serif;
   font-weight: bold;
+  background-size: contain;
   background-position: center;
   transform: unset;
   transition: transform 0.3s;
