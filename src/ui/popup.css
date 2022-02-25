@@ -20,11 +20,21 @@ body {
   user-select: none;
 }
 
-
-#top .icon {
+.icon {
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
+  cursor: pointer;
+  color: #048;
+  background: transparent no-repeat left;
+  padding-left: 1.6em;
+  border: none;
+  font-size: 1.2em;
+  background-size: contain;
+  margin: 0 1.2em 0 1.2em;
+}
+
+#top .icon {
   width: 2em;
   height: 2em;
   margin: 0.25em;
@@ -32,9 +42,7 @@ body {
   font-size: 1em;
   font-family: sans-serif;
   font-weight: bold;
-  color: black;
-  background: transparent no-repeat center;
-  background-size: 100%;
+  background-position: center;
   transform: unset;
   transition: transform 0.3s;
   border: none;
@@ -55,7 +63,7 @@ body {
   left: 0;
 }
 
-#top .icon:after {
+.icon:after {
   content: attr(title);
 }
 
@@ -72,8 +80,6 @@ body {
   display: block;
   cursor: pointer;
 }
-
-
 
 #top > .hider.open  ~ .spacer {
   display: none;
@@ -187,36 +193,36 @@ body {
 }
 
 
-#top #revoke-temp {
-  background-image: url(/img/ui-revoke-temp64.png);
+#revoke-temp {
+  background-image: url(/img/ui-revoke-temp64.png) !important;
 }
-#top #temp-trust-page {
-  background-image: url(/img/ui-temp-all64.png);
-}
-
-#top #enforce-tab {
-  background-image: url(/img/ui-tab-no64.png);
-}
-#top #enforce-tab[aria-pressed="true"] {
-  background-image: url(/img/ui-tab64.png);
+#temp-trust-page {
+  background-image: url(/img/ui-temp-all64.png) !important;
 }
 
-#top #enforce {
-  background-image: url(/img/ui-global-no64.png);
+#enforce-tab {
+  background-image: url(/img/ui-tab-no64.png) !important;
 }
-#top #enforce[aria-pressed="true"] {
-  background-image: url(/img/ui-global64.png);
-}
-
-#top #options {
-  background-image: url(/img/noscript-options.png);
-}
-#top #close {
-  background-image: url(/img/ui-close64.png);
+#enforce-tab[aria-pressed="true"] {
+  background-image: url(/img/ui-tab64.png) !important;;
 }
 
-#top #reload {
-  background-image: url(/img/ui-reload64.png);
+#enforce {
+  background-image: url(/img/ui-global-no64.png) !important;
+}
+#enforce[aria-pressed="true"] {
+  background-image: url(/img/ui-global64.png) !important;
+}
+
+#options {
+  background-image: url(/img/noscript-options.png) !important;
+}
+#close {
+  background-image: url(/img/ui-close64.png) !important;
+}
+
+#reload {
+  background-image: url(/img/ui-reload64.png) !important;;
 }
 
 #sites {
@@ -247,12 +253,15 @@ body {
   height: auto;
   margin: .5em;
   padding: .8em 0 0 2.5em;
+  background-color: transparent;
   background-size: 2em;
-  background-position: left top;
+  background-position: left center;
   background-repeat: no-repeat;
   min-height: 3em;
   font-size: 1.2em;
   vertical-align: middle;
+  white-space: normal;
+  max-width: 520px;
 }
 #message.hidden {
   display: none;
