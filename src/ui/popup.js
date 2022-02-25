@@ -177,6 +177,14 @@ addEventListener("unload", e => {
       }, true);
     }
 
+    let enforcementWarning = button  => {
+      if (button) {
+        let clone = button.cloneNode(true);
+        clone.onclick = button.onclick;
+        button = clone;
+      }
+      messageBox(button ? "warning" : "hidden", _("NotEnforced"), button);
+    };
     let setupEnforcement = () => {
       let policy = UI.policy;
       let pressed = policy.enforced;
@@ -191,6 +199,7 @@ addEventListener("unload", e => {
         pendingReload(true);
       };
       button.disabled = false;
+      enforcementWarning(!policy.enforced && button);
       setupTabEnforcement();
     };
 
@@ -200,7 +209,6 @@ addEventListener("unload", e => {
       button.setAttribute("aria-pressed", pressed);
       button.title = _(pressed ? "NoEnforcementForTab" :  "EnforceForTab");
       if (UI.policy.enforced) {
-        button.disabled = false;
         button.onclick = async () => {
           this.disabled = true;
           await UI.updateSettings({
@@ -211,6 +219,8 @@ addEventListener("unload", e => {
           setupEnforcement();
           pendingReload(true);
         }
+        button.disabled = false;
+        enforcementWarning(UI.unrestrictedTab && button);
       } else {
         button.disabled = true;
       }

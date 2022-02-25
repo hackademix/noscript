@@ -159,7 +159,7 @@
     "message": "General"
   },
   "NotEnforced": {
-    "message": "Restrictions disabled"
+    "message": "Restrictions disabled by user's settings: NoScript won't block anything on this page!"
   },
   "NoEnforcement": {
     "message": "Disable restrictions globally (dangerous)"

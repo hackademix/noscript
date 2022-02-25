@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Restrizioni disattivate",
+        "message": "Restrizioni disattivate per scelta dell'utente: NoScript non bloccherà nulla in questa pagina!",
         "description": ""
     },
     "NoEnforcement": {
