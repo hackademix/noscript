@@ -30,11 +30,17 @@ addEventListener("unload", e => {
 
 (async () => {
 
-  function showMessage(className, message, extraUI = null) {
+  function messageBox(className, message, extraUI = null) {
     let el = document.getElementById("message");
-    el.textContent = message;
+    if (className === "hidden" && el._lastMessage !== message) return;
+    el._lastMessage = el.textContent = message;
     el.className = className;
-    if (extraUI) el.appendChild(extraUI);
+    if (extraUI) {
+      el.appendChild(extraUI);
+      if (typeof extraUI.focus === "function") {
+        extraUI.focus();
+      }
+    }
   }
 
   try {
@@ -221,7 +227,7 @@ addEventListener("unload", e => {
         await browser.tabs.executeScript(tabId, { code: "" });
         if (isHttp) {
           document.body.classList.add("disabled");
-          showMessage("warning", _("freshInstallReload"));
+          messageBox("warning", _("freshInstallReload"));
           let buttons = document.querySelector("#buttons");
           let b = document.createElement("button");
           b.textContent = _("OK");
@@ -243,7 +249,7 @@ addEventListener("unload", e => {
       await include("/nscl/common/restricted.js");
       let isRestricted = isRestrictedURL(pageTab.url);
       if (!isHttp || isRestricted) {
-        showMessage("warning", _("privilegedPage"));
+        messageBox("warning", _("privilegedPage"));
         let tempTrust = document.getElementById("temp-trust-page");
         tempTrust.disabled = true;
         return;
