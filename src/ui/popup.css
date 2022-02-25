@@ -175,8 +175,9 @@ body {
   padding: 0;
 }
 
-#top > .icon:hover, #top > #top > .icon:active {
+#top > .icon:hover:not(:disabled), #top > #top > .icon:active:not(:disabled) {
   outline: 0;
+  filter: none;
   transform: scale(1.2);
 }
 
@@ -238,7 +239,7 @@ body {
 }
 
 .disabled .toggle.icon, .toggle.icon:disabled {
-  opacity: .2;
+  opacity: .4;
   pointer-events: none;
 }
 
