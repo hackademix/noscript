@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Einschränkungen deaktiviert",
+        "message": "Einschränkungen sind durch die Einstellungen des Benutzers deaktiviert: NoScript wird nichts auf dieser Seite blockieren!",
         "description": ""
     },
     "NoEnforcement": {

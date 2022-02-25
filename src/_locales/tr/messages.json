@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Kısıtlamalar devre dışı bırakıldı",
+        "message": "Kısıtlamalar kullanıcı ayarlarından devre dışı bırakılmış: NoScript bu sayfadaki hiçbir şeyi engellemeyecek!",
         "description": ""
     },
     "NoEnforcement": {

@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Забраните се оневозможени",
+        "message": "Забрани оневозможени во поставки на корисник: NoScript нема да блокира ништо на оваа веб страна!",
         "description": ""
     },
     "NoEnforcement": {
@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Овозможи ги овие можности",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Овозможи ги овие можности кога главната страна одговара",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "БИЛО КОЈА ВЕБ СТРАНА",
         "description": ""
     },
     "cap_script": {

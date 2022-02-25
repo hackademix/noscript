@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Kufizimet u çaktivizuan",
+        "message": "Kufizimet janë çaktivizuar nga rregullimet e përdoruesit: NoScript s’do të bllokojë gjë në këtë faqe!",
         "description": ""
     },
     "NoEnforcement": {

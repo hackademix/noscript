@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Ограничения отключены",
+        "message": "Ограничения отключены настройками пользователя:\nNoScript ничего не блокирует на этой странице",
         "description": ""
     },
     "NoEnforcement": {
