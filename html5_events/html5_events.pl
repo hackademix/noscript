@@ -37,8 +37,9 @@ sub create_re
   {
     my $url = shift(@_);
     my $ua = LWP::UserAgent->new;
+    $ua->timeout(5);
     $ua->agent('Mozilla/5.0');
-     $ua->ssl_opts('verify_hostname' => 0);
+    $ua->ssl_opts('verify_hostname' => 0);
     my $res = $ua->get($url);
     if ($res->is_success)
     {
