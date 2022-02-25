@@ -468,7 +468,6 @@ input.preset:checked ~ input.temp {
 }
 .customizer fieldset {
   box-shadow: 1px 1px 1px #888;
-  max-width: 580px;
   position: relative;
 }
 
