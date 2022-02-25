@@ -169,7 +169,8 @@ addEventListener("unload", e => {
         }
       }, true);
     }
-    {
+
+    let setupEnforcement = () => {
       let policy = UI.policy;
       let pressed = policy.enforced;
       let button = document.getElementById("enforce");
@@ -178,28 +179,37 @@ addEventListener("unload", e => {
       button.onclick = async () => {
         this.disabled = true;
         policy.enforced = !pressed;
-        await UI.updateSettings({policy, reloadAffected: true});
-        close();
-      }
-    }
-    {
+        await UI.updateSettings({policy, reloadAffected: false});
+        setupEnforcement();
+        pendingReload(true);
+      };
+      button.disabled = false;
+      setupTabEnforcement();
+    };
+
+    let setupTabEnforcement = () => {
       let pressed = !UI.unrestrictedTab;
       let button = document.getElementById("enforce-tab");
       button.setAttribute("aria-pressed", pressed);
       button.title = _(pressed ? "NoEnforcementForTab" :  "EnforceForTab");
       if (UI.policy.enforced) {
+        button.disabled = false;
         button.onclick = async () => {
           this.disabled = true;
           await UI.updateSettings({
             unrestrictedTab: pressed,
-            reloadAffected: true,
+            reloadAffected: false,
           });
-          close();
+          UI.unrestrictedTab = pressed;
+          setupEnforcement();
+          pendingReload(true);
         }
       } else {
         button.disabled = true;
       }
-    }
+    };
+
+    setupEnforcement();
 
 
     let mainFrame = UI.seen && UI.seen.find(thing => thing.request.type === "main_frame");
