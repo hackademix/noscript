@@ -48,7 +48,7 @@
   toggleHider(false);
 
   let dnd = {
-   dragstart(ev) {
+    dragstart(ev) {
       let d = ev.target;
       if (hider.querySelectorAll(".icon").length) {
         toggleHider(true);
@@ -58,12 +58,25 @@
         ev.preventDefault();
         return;
       }
+      // work-around for Firefox unable to drag buttons, https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+      let placeHolder = document.createElement("a");
+      for (let attr of d.attributes) {
+        placeHolder.setAttribute(attr.name, attr.value);
+      }
+      placeHolder.style.position = "absolute";
+      placeHolder.style.top = "-2000px";
+      d.parentNode.appendChild(placeHolder);
+      setTimeout(() => placeHolder.remove(), 0);
+
       d.style.opacity = ".5";
       d.style.filter = "none";
+
       let dt = ev.dataTransfer;
       dt.setData("text/plain", d.id);
       dt.dropEffect = "move";
-      dt.setDragImage(d, d.offsetWidth / 2, d.offsetHeight / 2);
+
+      dt.setDragImage(placeHolder, d.offsetWidth / 2, d.offsetHeight / 2);
+
       toggleHider(true);
       this.draggedElement = d;
     },
@@ -82,10 +95,9 @@
     },
     drop(ev) {
       let t = ev.target;
-      let d = ev.dataTransfer ?
-        document.getElementById(ev.dataTransfer.getData("text/plain"))
-        : this.draggedElement;
+      let d = this.draggedElement;
       if (!d) return;
+
       switch(t) {
         case hider:
           t.appendChild(d);
@@ -138,6 +150,7 @@
   }
 
   for (let draggable of document.querySelectorAll("#top .icon")) {
+    draggable.innerHTML = "<div></div>";
     draggable.setAttribute("draggable", "true");
   }
 }

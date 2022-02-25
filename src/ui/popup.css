@@ -124,16 +124,17 @@ body {
   display: block;
   font-size: 1.2em;
   font-weight: bold;
-  padding: 0;
+  padding: .2em;
   text-align: center;
   margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: transparent;
 }
 
-.hider.open > .reveal {
-  display: none !important;
-}
-
-.hider:not(.open) > :not(.reveal) {
+.hider.open > .reveal, .hider:not(.open) > :not(.reveal) {
   display: none !important;
 }
 
