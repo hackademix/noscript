@@ -195,6 +195,11 @@ addEventListener("unload", e => {
         this.disabled = true;
         policy.enforced = !pressed;
         await UI.updateSettings({policy, reloadAffected: false});
+        if (policy.enforced || UI.local.immediateUnrestrict) {
+          reload();
+          close();
+          return;
+        }
         setupEnforcement();
         pendingReload(true);
       };
@@ -216,6 +221,11 @@ addEventListener("unload", e => {
             reloadAffected: false,
           });
           UI.unrestrictedTab = pressed;
+          if (!(UI.unrestrictedTab && UI.local.stickyUnrestrictedTab)) {
+            reload();
+            close();
+            return;
+          }
           setupEnforcement();
           pendingReload(true);
         }
