@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Beperkingen uitgeschakeld",
+        "message": "Beperkingen uitgeschakeld door instellingen van gebruiker: NoScript blokkeert niets op deze pagina!",
         "description": ""
     },
     "NoEnforcement": {

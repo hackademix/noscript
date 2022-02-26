@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "限制已解除",
+        "message": "根据用户设置禁用了限制：NoScript 在此页面上不会拦截任何东西！",
         "description": ""
     },
     "NoEnforcement": {
