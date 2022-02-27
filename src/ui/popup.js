@@ -120,7 +120,7 @@ addEventListener("unload", e => {
         }
       };
 
-      for (let b of document.querySelectorAll("#top > .icon")) {
+      for (let b of document.querySelectorAll("#top .icon")) {
         b.tabIndex = 0;
         if (b.id in handlers) {
           let h = handlers[b.id];

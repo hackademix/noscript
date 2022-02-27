@@ -194,6 +194,10 @@ body {
   color: transparent;
 }
 
+#top .icon.drag, #top .drag > .icon {
+  filter: none !important;
+  opacity: 0.6 !important;
+}
 
 #revoke-temp {
   background-image: url(/img/ui-revoke-temp64.png) !important;

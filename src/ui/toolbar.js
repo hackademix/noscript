@@ -36,7 +36,19 @@
     }
   }
 
-  function toggleHider(b) {
+
+  let makeDraggable = b => {
+    // work-around for dragging disabled buttons
+    let wrapper = document.createElement("div");
+    b.replaceWith(wrapper);
+    // work-around for dragging empty (padding only) elements
+    b.innerHTML = "<div></div>";
+    wrapper.appendChild(b);
+    b = wrapper;
+    b.setAttribute("draggable", "true");
+  }
+
+  let toggleHider = b => {
     let cl = hider.classList;
     cl.toggle("open", b);
     cl.toggle("empty", !hider.querySelector(".icon"));
@@ -49,41 +61,36 @@
 
   let dnd = {
     dragstart(ev) {
-      let d = ev.target;
       if (hider.querySelectorAll(".icon").length) {
         toggleHider(true);
       }
-
-      if (!d.classList.contains("icon")) {
+      let button = ev.target.querySelector(".icon");
+      if (!button) {
         ev.preventDefault();
         return;
       }
       // work-around for Firefox unable to drag buttons, https://bugzilla.mozilla.org/show_bug.cgi?id=568313
       let placeHolder = document.createElement("a");
-      for (let attr of d.attributes) {
+      for (let attr of button.attributes) {
         placeHolder.setAttribute(attr.name, attr.value);
       }
       placeHolder.style.position = "absolute";
       placeHolder.style.top = "-2000px";
-      d.parentNode.appendChild(placeHolder);
+      toolbar.appendChild(placeHolder);
       setTimeout(() => placeHolder.remove(), 0);
 
-      d.style.opacity = ".5";
-      d.style.filter = "none";
-
       let dt = ev.dataTransfer;
-      dt.setData("text/plain", d.id);
+      dt.setData("text/plain", button.id);
       dt.dropEffect = "move";
 
-      dt.setDragImage(placeHolder, d.offsetWidth / 2, d.offsetHeight / 2);
+      dt.setDragImage(placeHolder, button.offsetWidth / 2, button.offsetHeight / 2);
 
       toggleHider(true);
-      this.draggedElement = d;
+      this.draggedElement = ev.target; //  the draggable wrapper around the button
+      this.draggedElement.classList.add("drag");
     },
     dragend(ev)  {
-      let d = ev.target;
-      d.style.opacity = "";
-      d.style.filter = "";
+      this.draggedElement.classList.remove("drag");
       this.draggedElement = null;
     },
     dragover(ev) {
@@ -116,7 +123,7 @@
 
       let left = [], right = [];
       let side = left;
-      for (let el of document.querySelectorAll("#top > .icon, #top > .spacer")) {
+      for (let el of toolbar.querySelectorAll(":scope > .spacer, :scope > [draggable] > .icon")) {
         if (el === spacer) {
           side = right;
         } else {
@@ -125,7 +132,7 @@
       }
       UI.local.toolbarLayout = {
         left, right,
-        hidden: Array.from(document.querySelectorAll("#top > .hider > .icon")).map(el => el.id),
+        hidden: Array.from(toolbar.querySelectorAll(".hider .icon")).map(el => el.id),
       };
 
       debug("%o", UI.local);
@@ -134,10 +141,7 @@
 
     click(ev) {
       let el = ev.target;
-      if (el.parentNode === hider && el.classList.contains("icon")) {
-        ev.preventDefault();
-        ev.stopPropagation();
-      } else if (el === spacer || el.classList.contains("reveal")) {
+      if (el === spacer || el.classList.contains("reveal")) {
         toggleHider(true);
       }
     }
@@ -149,8 +153,7 @@
     toolbar.addEventListener(action, handler, true);
   }
 
-  for (let draggable of document.querySelectorAll("#top .icon")) {
-    draggable.innerHTML = "<div></div>";
-    draggable.setAttribute("draggable", "true");
+  for (let b of toolbar.querySelectorAll(".icon")) {
+    makeDraggable(b);
   }
 }
