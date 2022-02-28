@@ -76,8 +76,8 @@ var UI = (() => {
             }
             resolve();
             if (UI.onSettings) UI.onSettings();
-            if (UI.tabId === -1 || UI.xssBlockedInTab) UI.createXSSChoiceManager();
             await HighContrast.init();
+            if (UI.tabId === -1 || UI.xssBlockedInTab) UI.createXSSChoiceManager();
           }
         });
         UI.pullSettings();
@@ -155,6 +155,7 @@ var UI = (() => {
     },
 
     createXSSChoiceManager(parent = "#xssChoices") {
+      if (!UA.isMozilla) return;
       let choicesUI = document.querySelector(parent);
       if (!choicesUI) return;
       choicesUI.classList.remove("populated");
