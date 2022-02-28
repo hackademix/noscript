@@ -69,13 +69,18 @@
         ev.preventDefault();
         return;
       }
+
       // work-around for Firefox unable to drag buttons, https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-      let placeHolder = document.createElement("a");
-      for (let attr of button.attributes) {
-        placeHolder.setAttribute(attr.name, attr.value);
-      }
-      placeHolder.style.position = "absolute";
-      placeHolder.style.top = "-2000px";
+      let placeHolder = document.createElement("div");
+      let {style} = placeHolder;
+      style.backgroundImage = getComputedStyle(button).backgroundImage;
+      style.backgroundSize = "contain";
+      let width = button.offsetWidth * 1.2;
+      let height = button.offsetHeight * 1.2;
+      style.width =`${width}px`;
+      style.height = `${height}px`
+      style.position = "absolute";
+      style.top = "-2000px";
       toolbar.appendChild(placeHolder);
       setTimeout(() => placeHolder.remove(), 0);
 
@@ -83,7 +88,7 @@
       dt.setData("text/plain", button.id);
       dt.dropEffect = "move";
 
-      dt.setDragImage(placeHolder, button.offsetWidth / 2, button.offsetHeight / 2);
+      dt.setDragImage(placeHolder, width / 2, height / 2);
 
       toggleHider(true);
       this.draggedElement = ev.target; //  the draggable wrapper around the button
