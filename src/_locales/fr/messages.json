@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Les restrictions sont désactivées",
+        "message": "Les restrictions sont désactivées par les paramètres de l’utilisateur : NoScript ne bloquera rien sur cette page. ",
         "description": ""
     },
     "NoEnforcement": {
