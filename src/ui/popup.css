@@ -50,7 +50,7 @@ body {
   display: block;
   top: 0;
   padding: 0;
-  text-align: left;
+  align-items: center;
   line-height: 1em;
   position: relative;
 }

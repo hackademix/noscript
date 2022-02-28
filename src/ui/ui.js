@@ -222,6 +222,7 @@ var UI = (() => {
     },
     async toggle() {
       let hc = "highContrast" in UI ? UI.highContrast : await this.detect();
+      if (UI.toolbarInit) UI.toolbarInit();
       if (hc) {
         if (this.css) {
           document.documentElement.appendChild(this.css);

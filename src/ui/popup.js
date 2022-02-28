@@ -101,6 +101,7 @@ addEventListener("unload", e => {
     }
 
     await include("/ui/toolbar.js");
+    UI.toolbarInit();
     {
       let handlers = {
         "options": e => {

@@ -18,7 +18,10 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-{
+UI.toolbarInit = () => {
+  if (UI.toolbarInit.done || UI.highContrast || UI.local.highContrast)
+    return;
+  UI.toolbarInit.done = true;
   let toolbar = document.getElementById("top");
   let spacer = toolbar.querySelector(".spacer");
   let hider = toolbar.querySelector(".hider");
