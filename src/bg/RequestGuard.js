@@ -424,7 +424,9 @@ var RequestGuard = (() => {
       !ns.policy.can(originUrl, "lan", ns.policyContext(request))) {
       // we want to block any request whose origin resolves to at least one external WAN IP
       // and whose destination resolves to at least one LAN IP
-      let neverDNS = (request.proxyInfo && request.proxyInfo.proxyDNS) || !(UA.isMozilla && DNS.supported);
+      let {proxyInfo} = request; // see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/proxy/ProxyInfo
+      let neverDNS = (proxyInfo && (proxyInfo.type && proxyInfo.type.startsWith("http") || proxyInfo.proxyDNS))
+                     || !(UA.isMozilla && DNS.supported);
       if (neverDNS) {
         // On Chromium we must do it synchronously: we need to sacrifice DNS resolution and check just numeric addresses :(
         // (the Tor Browser, on the other hand, does DNS resolution and boundary checks on its own and breaks the DNS API)
