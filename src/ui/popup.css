@@ -4,15 +4,27 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+
+html:not(.mobile) {
+  overflow-x: hidden;
+}
+
 body {
   background: white;
+  margin: 0.5em;
+  padding: 0;
+}
+
+html:not(.mobile) > body {
+  width: 600px;
+  padding: 0 .5em 0 0;
 }
 
 #top {
   font-size: 1em;
   position: relative;
-  margin: 0;
-  height: 2.4em;
+  padding: 0 0 .4em 0;
+  height: 2.8em;
   min-width: 18.75em;
   border-bottom: 0.06em solid #eee;
   display: flex;
@@ -25,7 +37,7 @@ body {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   cursor: pointer;
-  color: #048;
+  color: #444;
   background: transparent no-repeat left;
   padding-left: 1.6em;
   border: none;
@@ -35,8 +47,8 @@ body {
 }
 
 #top .icon {
-  width: 2em;
-  height: 2em;
+  width: 2.5em;
+  height: 2.5em;
   margin: 0.25em;
   cursor: pointer;
   font-size: 1em;
@@ -94,8 +106,7 @@ body {
   position: relative;
   margin: .25em 1.5em;
   padding: 0;
-
-  height: 2em;
+  height: 2.5em;
   overflow: hidden;
   opacity: .5;
 }
@@ -263,7 +274,7 @@ body {
   background-size: 2em;
   background-position: left center;
   background-repeat: no-repeat;
-  min-height: 3em;
+  min-height: 2em;
   font-size: 1.2em;
   vertical-align: middle;
   white-space: normal;

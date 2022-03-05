@@ -25,7 +25,7 @@ body {
   text-align: right;
 }
 #header h1 {
-  color: #048;
+  color: #d12027;
   text-shadow: 0.06em 0.06em 0.06em rgba(0,0,0,.5);
   font-size: 2em;
   padding: 0;
@@ -33,7 +33,7 @@ body {
   text-align: right;
 }
 #version {
-  color: #048;
+  color: #444;
   font-size: 0.75em;
   padding: 0;
   margin: 0 0 0.5em;
@@ -168,22 +168,20 @@ button.add {
 
 .flextabs__toggle {
   -moz-appearance: none;
-  border-width: 0 1px 0 0 !important;
+  border-width: 0 !important;
   margin: 0 4px 0 0;
   background: #ccc;
-  outline-width: 1px 0 0 0 !important;
+  outline-width: 0 !important;
 }
 
 
 
 .flextabs__content {
-  border-width: 0 1px 1px 0;
-  border-radius: 0 .5em 0 0;
   padding: .5em;
 }
 
 .flextabs__toggle {
-  border-radius: .2em .2em 0 0;
+  border-radius: 1em 1em 0 0;
   padding: .2em .4em;
 }
 

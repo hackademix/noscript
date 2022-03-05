@@ -203,9 +203,7 @@ input[type="checkbox"] {
   border: none;
   font-size: 1em;
 }
-html:not(.mobile) .sites > tr.site:hover {
-  background: #bdf;
-}
+
 html:not(.mobile) .sites > tr.site:focus-within {
   background: #ccc;
 }
@@ -303,9 +301,9 @@ span.preset {
   -webkit-appearance: none;
   -moz-appearance: none;
   background: url(/img/ui-no64.png) no-repeat center left;
-  background-size: 1.5em;
-  width: 1.5em;
-  height: 1.5em;
+  background-size: 1.8em;
+  width: 2em;
+  height: 2em;
   outline: 0;
   opacity: .5;
   margin: 0 .5em 0.13em .5em;
@@ -330,7 +328,7 @@ span.preset {
   transform: none;
   min-width: 9.38em;
   background-color: #ddd;
-  border-radius: 0.5em;
+  border-radius: 1em;
 }
 
 .presets input.preset:focus {
@@ -338,8 +336,8 @@ span.preset {
 }
 .sites input + label {
   font-size: 1em;
-  line-height: 1.5em;
-  vertical-align: top;
+  line-height: 2em;
+  vertical-align: baseline;
 }
 .presets label.preset {
   padding: 0;
@@ -352,7 +350,7 @@ span.preset {
   opacity: .6;
   position: absolute;
   left: 0em;
-  padding-left: 2.5em;
+  padding-left: 3em;
 
 }
 
@@ -373,14 +371,14 @@ span.preset {
    overflow: visible;
 }
 
-input:focus, button:focus, input:focus, a:focus {
-  --focus-color:    #bdf8;
+:focus-visible {
+  --focus-color: #F777;
   outline: 0;
   filter:
-    drop-shadow(3px 3px 3px var(--focus-color))
-    drop-shadow(-3px 3px 3px var(--focus-color))
-    drop-shadow(3px -3px 3px var(--focus-color))
-    drop-shadow(-3px -3px 3px var(--focus-color));
+    drop-shadow(2px 2px 2px var(--focus-color))
+    drop-shadow(-2px 2px 2px var(--focus-color))
+    drop-shadow(2px -2px 2px var(--focus-color))
+    drop-shadow(-2px -2px 2px var(--focus-color));
 }
 
 input.preset:disabled {
@@ -445,14 +443,20 @@ input.preset:checked ~ input.temp {
   background-color: #ccc;
 }
 
-.customizing input.preset:checked, #presets input.preset:checked, .customizer fieldset {
+.customizing input.preset:checked, #presets input.preset:checked {
   background-color: #eee;
-  border-radius: 0.5em 0.5em 0 0;
-  margin: 0 0.06em 0.06em 0.06em;
 }
+
+.customizer fieldset {
+  background-color: #eee;
+  margin: 0 0.06em 0.06em 0.06em;
+  box-shadow: #ccc 0 2px 2px;
+  position: relative;
+}
+
 .customizing input.preset:checked, #presets input.preset, #presets input.preset:checked  {
   margin: 0 0 -0.2em 1em;
-  border-radius: 0.5em 0.5em 0 0;
+  border-radius: 1em 1em 0 0;
 }
 
 .customizing input.preset:checked + label.preset {
@@ -465,11 +469,6 @@ input.preset:checked ~ input.temp {
 
 #presets .customizing, #presets .customizer {
   background-color: #ddd !important;
-}
-.customizer fieldset {
-  box-shadow: 1px 1px 1px #888;
-  max-width: 580px;
-  position: relative;
 }
 
 #presets legend select, #presets legend button {
@@ -486,10 +485,6 @@ input.preset:checked ~ input.temp {
 
 #presets .customizer fieldset {
   margin-top: 0px;
-}
-
-#noscript-options .customizer fieldset {
-  max-width: fit-content;
 }
 
 .customizer.closed .customizer-controls   {
@@ -566,5 +561,5 @@ legend {
 }
 
 #xssChoices option.allow {
-  color: #080;
+  color: #222;
 }

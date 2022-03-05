@@ -5,7 +5,7 @@
  */
 
 html {
-  background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 41%,#9fd8ef 90%,#2ab0ed 100%) no-repeat;
+  background: linear-gradient(to bottom, #f7f7f7 0%,#ccc 41%,#aaa 90%,#a88 100%) no-repeat;
 }
 
 body {
@@ -29,17 +29,19 @@ html.mobile > body {
   text-align: left;
   margin: 0;
   line-height: 2em;
-  color: #048;
+  color: #d12027;
   z-index: 500;
   padding: .8em .8em 0 .8em;
   display: block;
-  background: url(/img/icon96.png) no-repeat top right;
-  height: 96px;
+  background: url(/img/logo.svg) no-repeat top right;
+  background-size: contain;
+  min-height: 5em;
 }
 
 #title {
-  margin-right: 96px;
-  font-size: 1.3em;
+  margin-right: 4em;
+  text-shadow: 0.06em 0.06em 0.06em rgba(0,0,0,.5);
+  font-size: 2em;
   bottom: 0;
   top: 0;
 }
