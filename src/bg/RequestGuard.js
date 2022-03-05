@@ -141,12 +141,17 @@ var RequestGuard = (() => {
     _updateTabNow(tabId) {
       this._pendingTabs.delete(tabId);
       let records = this.map.get(tabId) || this.initTab(tabId);
+
       let {allowed, blocked, noscriptFrames} = records;
       let topAllowed = !(noscriptFrames && noscriptFrames[0]);
       let numAllowed = 0, numBlocked = 0, sum = 0;
       let report = this.types.map(t => {
-        let a = allowed[t] && allowed[t].length || 0, b = blocked[t] && blocked[t].length || 0, s = a + b;
-        numAllowed+= a, numBlocked += b, sum += s;
+        let a = allowed[t] && allowed[t].length || 0,
+            b = blocked[t] && blocked[t].length || 0,
+            s = a + b;
+        numAllowed += a;
+        numBlocked += b;
+        sum += s;
         return s && `<${t === "sub_frame" ? "frame" : t}>: ${b}/${s}`;
       }).filter(s => s).join("\n");
       let enforced = ns.isEnforced(tabId);
@@ -206,17 +211,26 @@ var RequestGuard = (() => {
       let seen = await ns.collectSeen(tabId);
       TabStatus.recordAll(tabId, seen);
     },
+    onUpdatedTab(tabId, changeInfo) {
+      if (changeInfo.url) {
+        TabStatus.initTab(tabId);
+      }
+    },
     onRemovedTab(tabId) {
       TabStatus.map.delete(tabId);
       TabStatus._originsCache.clear();
       TabStatus._pendingTabs.delete(tabId);
     },
   }
-  browser.tabs.onActivated.addListener(TabStatus.onActivatedTab);
-  browser.tabs.onRemoved.addListener(TabStatus.onRemovedTab);
+  for (let event of ["Activated", "Updated", "Removed"]) {
+    browser.tabs[`on${event}`].addListener(TabStatus[`on${event}Tab`]);
+  }
+
   let messageHandler = {
     async pageshow(message, sender) {
-      TabStatus.recordAll(sender.tab.id, message.seen);
+      if (sender.frameId === 0) {
+        TabStatus.recordAll(sender.tab.id, message.seen);
+      }
       return true;
     },
     violation({url, type}, sender) {
