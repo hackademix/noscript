@@ -46,8 +46,11 @@ body {
   flex-flow: row wrap;
   justify-content: flex-end;
   width: 100%;
-  text-align: right;
   margin: 0 0 2px 0;
+}
+
+.buttons button {
+  margin: .5em 0 .5em 1em;
 }
 
 #sect-general {
@@ -172,18 +175,24 @@ button.add {
   margin: 0 4px 0 0;
   background: #ccc;
   outline-width: 0 !important;
+  border-radius: 1em 1em 0 0;
+  padding: .4em .8em;
 }
 
-
+@media (max-width: 100mm) {
+  .flextabs__toggle {
+    border-radius: 1em;
+  }
+  .flextabs__toggle[aria-expanded="true"] {
+    font-weight: bold;
+    box-shadow: 1px 1px 1px inset;
+  }
+}
 
 .flextabs__content {
   padding: .5em;
 }
 
-.flextabs__toggle {
-  border-radius: 1em 1em 0 0;
-  padding: .2em .4em;
-}
 
 #xss-options {
   display: none;
