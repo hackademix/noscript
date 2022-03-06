@@ -9,6 +9,7 @@ body {
   font: -moz-use-system-font;
   font-size: 12px;
   min-width: 600px;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 html.mobile > body {
