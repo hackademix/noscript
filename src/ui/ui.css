@@ -336,9 +336,9 @@ span.preset {
 }
 .sites input + label {
   font-size: 1em;
-  line-height: 2em;
   vertical-align: baseline;
 }
+
 .presets label.preset {
   padding: 0;
   letter-spacing: -0.06em;
@@ -351,7 +351,7 @@ span.preset {
   position: absolute;
   left: 0em;
   padding-left: 3em;
-
+  line-height: 2em;
 }
 
 .presets input.preset[value^="T"] + label {
@@ -496,6 +496,7 @@ span.cap {
   padding: 0.5em;
   font-weight: normal;
   display: inline-flex;
+  align-items: center;
 }
 
 span.cap.needed {
