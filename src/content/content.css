@@ -67,8 +67,9 @@ a.__NoScript_PlaceHolder__ > span {
   transition: .2s all;
 }
 .__NoScript_PlaceHolder__  button:hover {
-  color: white;
-  text-shadow: -2px 0 2px red, 2px 0 2px red;
+  color: #f00;
+  text-shadow: 0 0 4px #400;
+  cursor: pointer;
 }
 
 .__NoScript_PlaceHolder__ > span > span {
