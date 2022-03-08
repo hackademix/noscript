@@ -4,12 +4,24 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+
+ :root {
+  --accent-color: #d00a25;
+  --form-check-color: white;
+  --form-control-color: var(--accent-color);
+  --form-control-disabled: #959495;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: sistem-ui, sans-serif;
   font: -moz-use-system-font;
   font-size: 12px;
   min-width: 600px;
   image-rendering: -webkit-optimize-contrast;
+}
+
+a, a:visited {
+  color: var(--accent-color);
 }
 
 html.mobile > body {
@@ -36,7 +48,7 @@ html.tor .tor, html:not(.tor) .not-tor {
   padding: .5em 0;
 }
 
-.opt-group:last-child {
+.opt-group:last-of-type {
   border-bottom: none;
   margin-bottom: .5em;
 }
@@ -382,6 +394,10 @@ span.preset {
     drop-shadow(-2px -2px 2px var(--focus-color));
 }
 
+:disabled {
+  cursor: not-allowed !important;
+}
+
 input.preset:disabled {
   filter: grayscale(100%);
 }
@@ -559,9 +575,48 @@ legend {
 }
 
 #xssChoices option.block {
-  color: #a00;
+  color: var(--accent-color);
 }
 
 #xssChoices option.allow {
   color: #222;
+}
+
+input[type="checkbox"]:not(.https-only, .temp) {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: .4em;
+  font: inherit;
+  color: currentColor;
+  width: 1.2em;
+  height: 1.2em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.2em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  background-color: var(--form-check-color);
+}
+
+input[type="checkbox"]:not(.https-only, .temp)::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-check-color);
+
+}
+input[type="checkbox"]:not(.https-only, .temp):checked::before {
+  transform: scale(1);
+}
+input[type="checkbox"]:not(.https-only, .temp):checked {
+  background-color: var(--form-control-color);
+  border-color: var(--form-control-color);
+}
+input[type="checkbox"]:disabled {
+  --form-control-color: var(--form-control-disabled);
+  color: var(--form-control-disabled);
 }

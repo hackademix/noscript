@@ -94,13 +94,11 @@ fieldset:disabled {
   min-height: 20em;
   width: 90%;
 }
-.hide, div.debug {
+.hide, body:not(.debug) div.debug {
   display: none;
 }
 
-body.debug div.debug {
-  display: initial;
-}
+
 
 .error {
   background: #ff8;
