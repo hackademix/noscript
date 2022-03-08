@@ -12,7 +12,7 @@
         "description": ""
     },
     "AdditionalRestrictions": {
-        "message": "用於非信任網站的額外權限",
+        "message": "針對不信任網站的額外限制",
         "description": ""
     },
     "SectionAdvanced": {
@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
+        "message": "最上層文件中已封鎖的功能，也必須於子文件中套用該封鎖。",
         "description": ""
     },
     "ClearClickDescription": {
@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "已解除的限制",
+        "message": "使用者已停用限制：NoScript 不會封鎖這個頁面上的任何東西！",
         "description": ""
     },
     "NoEnforcement": {
@@ -292,11 +292,11 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "message": "允許在無痕模式的頁面設定永久權限。\n請注意：這麼做會洩漏網站資訊！",
         "description": ""
     },
     "OptAmnesticUpdates": {
-        "message": "Revoke temporary permissions on NoScript updates, even if the browser is not restarted",
+        "message": "當 NoScript 更新時撤銷臨時權限，即使沒有重新啟動瀏覽器亦同",
         "description": ""
     },
     "KeepLocked": {
@@ -312,7 +312,7 @@
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "不給予標示為不可信網站的物件佔位符",
+        "message": "對於任何來自不信任網站的物件，取消其預留空間",
         "description": ""
     },
     "Notifications": {
@@ -512,7 +512,7 @@
         "description": ""
     },
     "TempToPerm": {
-        "message": "令頁面的權限為永久\n",
+        "message": "永遠保留頁面權限",
         "description": ""
     },
     "TempToPerm_accesskey": {
@@ -560,7 +560,7 @@
         "description": ""
     },
     "Untrust": {
-        "message": "標示為不可信",
+        "message": "標示為不信任",
         "description": ""
     },
     "Untrust_accesskey": {
@@ -568,11 +568,11 @@
         "description": ""
     },
     "Untrusted": {
-        "message": "不可信",
+        "message": "不信任",
         "description": ""
     },
     "UntrustedPagesAdj": {
-        "message": "不可信",
+        "message": "不信任",
         "description": ""
     },
     "WebAddress": {
@@ -668,15 +668,15 @@
         "description": ""
     },
     "allowed_no": {
-        "message": "現時被封鎖的指令碼",
+        "message": "目前被封鎖的指令碼",
         "description": ""
     },
     "allowed_prt": {
-        "message": "局部允許的指令碼",
+        "message": "部分允許的指令碼",
         "description": ""
     },
     "allowed_yes": {
-        "message": "現時允許的指令碼",
+        "message": "目前允許的指令碼",
         "description": ""
     },
     "alwaysAsk": {
@@ -688,7 +688,7 @@
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "Noscript發現一個設定書籤擬似已儲存在$1。\n你真的想以這個設定書籤的內容覆寫本機NoScript設定嗎？",
+        "message": "NoScript 找到一個設定書籤，似乎儲存在$1。\n您真的想以這個設定書籤的內容覆寫本機 NoScript 設定嗎？",
         "description": ""
     },
     "bookmarkSync_message": {
@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "啟用這些功能",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "當最上層頁面相符，啟用這些功能",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "任何網站",
         "description": ""
     },
     "cap_script": {
@@ -748,11 +748,11 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unrestricted CSS",
+        "message": "不受限制的 CSS",
         "description": ""
     },
     "cap_lan": {
-        "message": "LAN",
+        "message": "區域網路",
         "description": ""
     },
     "cap_other": {
@@ -780,7 +780,7 @@
         "description": ""
     },
     "distrust": {
-        "message": "標示$1為不可信",
+        "message": "標記 $1 為不信任",
         "description": ""
     },
     "extensionContributors": {
@@ -812,7 +812,7 @@
         "description": ""
     },
     "freshInstallReload": {
-        "message": "Noscript需要重新載入頁面以在這分頁運作。繼續？",
+        "message": "NoScript 需要重新載入頁面，才能在這個分頁運作。\n是否繼續？",
         "description": ""
     },
     "privilegedPage": {
@@ -844,7 +844,7 @@
         "description": ""
     },
     "metaRefresh_notify": {
-        "message": "Noscript   用了$2秒封鎖了 1個在<NOSCRIPT>元素$1里的<META>重導向。",
+        "message": "NoScript 花了 $2 秒攔截了在 <NOSCRIPT> 元素中的一個 <META> 重新導向：$1。",
         "description": ""
     },
     "Reload": {
@@ -852,11 +852,11 @@
         "description": ""
     },
     "removal_message": {
-        "message": "復原或解除安裝NoScript，你即是放棄所有NoScript 提供的無保護。\n\n假如你只是厭倦逐一網站來處理權限，其實有令一安全方法。\n\n已被標示為不可信的除外，Noscript 可以暫停封鎖指令碼，而又仍然以最先進的保全防衛措施來保護你免受XSS, Clickjacking, CSRF 及其他網路威脅。\n\n你真的想復原所有Noscript的保護措施？",
+        "message": "若您停用或解除安裝 NoScript，您會失去所有由 NoScript 提供的保護。\n\n如果您只是覺得為每個網站個別設定權限太過麻煩，其實有更安全的解決方法。\n\nNoScript 可以設定為停止封鎖指令碼，除了您指定為不信任的網站以外，同時也繼續使用最先進的安全措施保護您，免於 XSS、點擊劫持、CSRF 及其他網路威脅的危害。\n\n您真的確定要移除所有的 NoScript 防護嗎？\n",
         "description": ""
     },
     "removal_no": {
-        "message": "不，只停上封鎖指令碼。",
+        "message": "不，只停用指令碼封鎖。",
         "description": ""
     },
     "removal_title": {
@@ -868,7 +868,7 @@
         "description": ""
     },
     "reset_title": {
-        "message": "NoScript 重設",
+        "message": "重設 NoScript",
         "description": ""
     },
     "reset_warning": {
@@ -892,7 +892,7 @@
         "description": ""
     },
     "untrustedOrigin": {
-        "message": "1個不可信來源",
+        "message": "不受信任的來源",
         "description": ""
     },
     "version": {
