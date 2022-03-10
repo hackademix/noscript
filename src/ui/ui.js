@@ -496,12 +496,14 @@ var UI = (() => {
 
       if (ev.type === "change") {
         let {policy} = UI;
-
-        row.permissionsChanged = false;
         if (!row._originalPerms) {
           row._originalPerms = row.perms.clone();
+          Object.defineProperty(row, "permissionsChanged", {
+            get() {
+              return this.perms && !this.perms.sameAs(this._originalPerms);
+            }
+          });
         }
-
         if (target.matches(".capsContext select")) {
           let opt = target.querySelector("option:checked");
           if (!opt) return;
@@ -543,7 +545,6 @@ var UI = (() => {
           row.contextMatch = null;
           row.perms = policyPreset;
           delete row._customPerms;
-          debug("Site match", siteMatch);
           if (siteMatch) {
             policy.set(siteMatch, policyPreset);
           } else {
@@ -563,7 +564,6 @@ var UI = (() => {
             this.customize(perms, preset, row);
           }
         }
-        row.permissionsChanged = !row.perms.sameAs(row._originalPerms);
         fireOnChange(this, row);
       } else if (!(isCap || isTemp || customizer) && ev.type === "click") {
         this.customize(row.perms, preset, row);
@@ -652,7 +652,6 @@ var UI = (() => {
           ctxReset.onclick = () => {
             let perms = UI.policy.get(row.siteMatch).perms;
             perms.contextual.delete(row.contextMatch);
-            row.permissionsChanged = row._originalPerms && !row.perms.sameAs(row._originalPerms);
             fireOnChange(this, row);
             selected.previousElementSibling.selected = true;
             if (!this.mainDomain) selected.remove();
