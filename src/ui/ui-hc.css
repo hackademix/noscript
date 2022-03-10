@@ -44,10 +44,6 @@ label {
   padding: 4px !important;
 }
 
-.url {
-  white-space: nowrap !important;
-}
-
 .full-address {
   display: block;
 }
@@ -57,9 +53,9 @@ label {
   flex-wrap: wrap;
 }
 
-span.preset {
-  display: inline;
-  white-space: nowrap !important;
+span.preset, .url {
+  display: flex;
+  align-items: center;
 }
 
 input.temp {
@@ -73,10 +69,12 @@ input.temp {
 
 tr.site {
   border-top: 1px solid #888;
+  display: flex;
+  align-items: center;
 }
 
 #top {
-  display:flex;
+  display: flex;
   flex-flow: row;
   justify-content: space-around;
   height: auto;
