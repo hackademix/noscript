@@ -572,8 +572,9 @@ var UI = (() => {
 
     setupCaps(perms, preset, row) {
       let immutable = Permissions.IMMUTABLE[preset.value] || {};
-      let lastInput = null;
-      for (let input of this.rowTemplate._customizer.querySelectorAll("input")) {
+      let customizer = this.rowTemplate._customizer;
+      customizer.lastInput = null;
+      for (let input of customizer.querySelectorAll("input")) {
         let type = input.value;
         if (type in immutable) {
           input.disabled = true;
@@ -581,7 +582,7 @@ var UI = (() => {
         } else {
           input.checked = perms.allowing(type);
           input.disabled = false;
-          lastInput = input;
+          customizer.lastInput = input;
         }
         input.parentNode.classList.toggle("needed", this.siteNeeds(row._site, type));
       }
@@ -681,7 +682,7 @@ var UI = (() => {
         if (e.shiftKey) return true;
         switch(e.code) {
           case "Tab":
-            if (document.activeElement === lastInput) {
+            if (document.activeElement === customizer.lastInput) {
               if (temp) {
                 temp.tabIndex = "0";
                 temp.onblur = () => this.customize(null);
