@@ -6,18 +6,10 @@
 
  @import url("./common.css");
 
-body {
-  min-width: 700px;
-}
-
-html.mobile > body {
-  min-width: auto;
-}
-
 .opt-group {
   display: flex;
   flex-flow: row wrap;
-  border-bottom: 1px solid rgba(255, 255, 255, .5);
+  border-bottom: 2px dotted var(--bg-color1);
   padding: .5em 0;
 }
 
@@ -181,25 +173,32 @@ input[type="checkbox"] {
   border-spacing: 0;
   width: 100%;
   overflow-y: auto;
-
+  background: var(--bg-color2);
 }
 .sites tr, .sites td {
   margin: 0;
   padding: 0;
   border: none;
   font-size: 1em;
+  vertical-align: middle;
 }
 
 html:not(.mobile) .sites > tr.site:focus-within {
   box-shadow: 0 0 2px 2px var(--focus-color);
+  border-color: transparent;
 }
-.sites > tr:nth-child(even) { background: var(--form-color1) }
-.sites > tr:nth-child(odd) { background: var(--bg-color2) }
+
+.sites > tr.site {
+  border-top: 2px dotted var(--form-color1);
+}
+.sites > tr.site:first-of-type, tr.site:focus-within + tr, .sites > tr.customizing, .sites > tr.customizing + tr.site, .customizer, .customizer + tr.site  {
+  border-color: transparent;
+}
+
 
 .site .url {
     padding: 0 0 0 0.5em;
     color: var(--fg-color2);
-    vertical-align: top;
     width: 80%;
 }
 .site .url .protocol { display: none }
@@ -445,7 +444,7 @@ input.preset:checked ~ input.temp {
   padding-left: 3em;
 }
 
-.customizing, .customizer {
+.sites .customizing, .customizer {
   background-color: var(--form-color1) !important;
 }
 

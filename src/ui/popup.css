@@ -4,13 +4,11 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-
 html:not(.mobile) {
   overflow-x: hidden;
 }
 
 body {
-  background: white;
   margin: 0.5em;
   padding: 0;
 }
@@ -24,12 +22,13 @@ html:not(.mobile) > body {
   font-size: 1em;
   position: relative;
   padding: 0 0 .4em 0;
+  margin: 0;
   height: 2.8em;
   min-width: 18.75em;
-  border-bottom: 0.06em solid #eee;
   display: flex;
   -moz-user-select: none;
   user-select: none;
+  background: linear-gradient(to bottom, transparent 0, transparent 85%, var(--form-color1) 100%) no-repeat;
 }
 
 .icon {
@@ -37,7 +36,7 @@ html:not(.mobile) > body {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   cursor: pointer;
-  color: #444;
+  color: var(--accent-color);
   background: transparent no-repeat left;
   padding-left: 1.6em;
   border: none;
@@ -65,6 +64,7 @@ html:not(.mobile) > body {
   align-items: center;
   line-height: 1em;
   position: relative;
+  border-radius: 0;
 }
 
 #top .icon > div {
@@ -99,8 +99,9 @@ html:not(.mobile) > body {
 }
 
 .hider {
-  background: #ccc;
+  background: var(--form-color1);
   box-shadow: inset 0 1px 3px #444;
+  color: var(--text-color);
   border-radius: 1em 1em 0 0;
   display: none;
   position: relative;
@@ -110,8 +111,6 @@ html:not(.mobile) > body {
   overflow: hidden;
   opacity: .5;
 }
-
-
 
 .hider.open {
   display: flex;
@@ -131,18 +130,38 @@ html:not(.mobile) > body {
 }
 
 
-#top .hider .reveal {
-  display: block;
-  font-size: 1.2em;
-  font-weight: bold;
-  padding: .2em;
-  text-align: center;
-  margin: 0;
-  appearance: none;
+.hider-close, .reveal {
   -webkit-appearance: none;
   -moz-appearance: none;
   border: none;
+  border-radius: 0;
   background: transparent;
+  color: var(--fg--color1);
+  font-weight: bold;
+  display: block;
+}
+.hider-close:hover, .reveal:hover {
+  color: var(--accent-color);
+  text-shadow: 0 0 4px var(--focus-color);
+  cursor: pointer;
+}
+
+#top .hider .reveal {
+  font-size: 1.2em;
+  padding: .2em;
+  text-align: center;
+  margin: 0;
+}
+
+.hider-close {
+  padding: 0;
+  position: absolute;
+  left: .2em;
+  top: 0;
+  font-size: 1.5em;
+  z-index: 100;
+  vertical-align: middle;
+  padding: .2em;
 }
 
 .hider.open > .reveal, .hider:not(.open) > :not(.reveal) {
@@ -154,38 +173,12 @@ html:not(.mobile) > body {
   z-index: 100;
   top: .5em;
   right: .5em;
-  color: #222;
   text-align: right;
   vertical-align: middle;
   line-height: 100%;
   font-size: 1em;
   font-weight: bold;
   pointer-events: none;
-  text-shadow: -2px 0 2px white, 2px 0 2px white;
-}
-
-.hider-close {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  color: black;
-  background: transparent;
-  padding: 0;
-  border-radius: .2em;
-  border: none;
-  position: absolute;
-  left: .2em;
-  top: 0;
-  font-size: 1.5em;
-  font-weight: bold;
-  z-index: 100;
-  vertical-align: middle;
-  padding: .2em;
-}
-
-.hider-close:hover, .reveal:hover {
-  color: white !important;
-  text-shadow: -2px 0 2px red, 2px 0 2px red;
 }
 
 .hider > .icon {
@@ -305,6 +298,6 @@ html.incognito #incognito-ui-chooser {
 }
 
 #incognito-ui-chooser input:checked + label {
-  background: #fff;
-  color: #800;
+  background: var(--bg-color1);
+  color: var(--accent-color);
 }
