@@ -4,41 +4,14 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-
- :root {
-  --accent-color: #d00a25;
-  --form-check-color: white;
-  --form-control-color: var(--accent-color);
-  --form-control-disabled: #959495;
-}
+ @import url("./common.css");
 
 body {
-  font-family: sistem-ui, sans-serif;
-  font: -moz-use-system-font;
-  font-size: 12px;
-  min-width: 600px;
-  image-rendering: -webkit-optimize-contrast;
-}
-
-a, a:visited {
-  color: var(--accent-color);
+  min-width: 700px;
 }
 
 html.mobile > body {
-  font-family: Inter, sans-serif;
-  font-size: 4mm;
   min-width: auto;
-}
-
-html.mobile .desktop {
-  display: none !important;
-}
-
-html:not(.tor) .tor, html.tor .not-tor {
-  display: none;
-}
-html.tor .tor, html:not(.tor) .not-tor {
-  display: initial;
 }
 
 .opt-group {
@@ -103,7 +76,7 @@ html.tor .tor, html:not(.tor) .not-tor {
      z-index: 1000;
      top: 1em;
      left: 4em !important;
-     text-shadow: 1px 1px white, -1px -1px white;
+     text-shadow: 1px 1px var(--bg-color2), -1px -1px var(--bg-color2);
    }
 
    #sites .presets input.preset:checked + label {
@@ -144,7 +117,7 @@ html.tor .tor, html:not(.tor) .not-tor {
   td.presets {
     white-space: nowrap !important;
     vertical-align: bottom;
-    border: 1px solid black;
+    border: 1px solid var(--fg-color2);
   }
   .url > span > span {
     white-space: wrap;
@@ -170,6 +143,7 @@ html.tor .tor, html:not(.tor) .not-tor {
 
 .capsContext select {
   display: none;
+  margin: 0 1em;
 }
 
 .contextual .capsContext select {
@@ -180,7 +154,7 @@ html.tor .tor, html:not(.tor) .not-tor {
   position: absolute;
   outline: 3px solid #888;
   z-index: 1000;
-  background-color: white;
+  background-color: var(--bg-color2);
   transform-origin: bottom center;
   transition: transform .5s;
 }
@@ -203,7 +177,6 @@ input[type="checkbox"] {
 }
 .sites {
   border: 0;
-  background: white;
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
@@ -218,14 +191,14 @@ input[type="checkbox"] {
 }
 
 html:not(.mobile) .sites > tr.site:focus-within {
-  background: #ccc;
+  box-shadow: 0 0 2px 2px var(--focus-color);
 }
-.sites > tr:nth-child(even) {background: #fff}
-.sites > tr:nth-child(odd) {background: #eee}
+.sites > tr:nth-child(even) { background: var(--form-color1) }
+.sites > tr:nth-child(odd) { background: var(--bg-color2) }
 
 .site .url {
     padding: 0 0 0 0.5em;
-    color: #000;
+    color: var(--fg-color2);
     vertical-align: top;
     width: 80%;
 }
@@ -244,13 +217,13 @@ html:not(.mobile) .sites > tr.site:focus-within {
 .site .url[data-key="host"] .domain,
 .site .url[data-key="host"] .sub,
 .site .url[data-key="unsafe"] span {
-  color: #a00;
+  color: var(--accent-color);
 }
 
 .site .url[data-key="secure"] .domain,
 .site .url[data-key="secure"] .sub,
 .site .url[data-key="full"] span {
-  color: black;
+  color: var(--fg-color2)
 }
 
 .site .url[data-key="full"] span,
@@ -284,7 +257,7 @@ label.https-only {
 }
 
 .preset label.preset.override {
-  color: #555;
+  color: var(--text-color);
 }
 
 [data-preset="UNTRUSTED"] .https-only, [data-preset="DEFAULT"] .https-only {
@@ -313,7 +286,7 @@ span.preset {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url(/img/ui-no64.png) no-repeat center left;
+  background: url(/img/ui-no64.png) no-repeat center;
   background-size: 1.8em;
   width: 2em;
   height: 2em;
@@ -340,8 +313,9 @@ span.preset {
   opacity: 1;
   transform: none;
   min-width: 9.38em;
-  background-color: #ddd;
-  border-radius: 1em;
+  background-color: var(--bg-color1);
+  background-position-x: .1em;
+  border-radius: .5em;
 }
 
 .presets input.preset:focus {
@@ -359,7 +333,7 @@ span.preset {
   overflow: hidden;
   display: none;
   text-transform: uppercase;
-  color: #000;
+  color: var(--fg-color2);
   opacity: .6;
   position: absolute;
   left: 0em;
@@ -385,21 +359,12 @@ span.preset {
 }
 
 :focus-visible, .cap:focus-within {
-  --focus-color: #faa7;
   outline: 0;
   filter:
     drop-shadow(2px 2px 2px var(--focus-color))
     drop-shadow(-2px 2px 2px var(--focus-color))
     drop-shadow(2px -2px 2px var(--focus-color))
     drop-shadow(-2px -2px 2px var(--focus-color));
-}
-
-:disabled {
-  cursor: not-allowed !important;
-}
-
-input.preset:disabled {
-  filter: grayscale(100%);
 }
 
 input.preset[value="T_TRUSTED"] {
@@ -457,17 +422,17 @@ input.preset:checked ~ input.temp {
 }
 
 #presets input.preset:not(:checked) {
-  background-color: #ccc;
+  background-color: var(--form-color1);
 }
 
 .customizing input.preset:checked, #presets input.preset:checked {
-  background-color: #eee;
+  background-color: var(--form-color2);
 }
 
 .customizer fieldset {
-  background-color: #eee;
+  background-color: var(--form-color2);
   margin: 0 0.06em 0.06em 0.06em;
-  box-shadow: #ccc 0 2px 2px;
+  box-shadow: var(--form-color1) 0 2px 2px;
   position: relative;
 }
 
@@ -481,11 +446,7 @@ input.preset:checked ~ input.temp {
 }
 
 .customizing, .customizer {
-  background-color: #ccc !important;
-}
-
-#presets .customizing, #presets .customizer {
-  background-color: #ddd !important;
+  background-color: var(--form-color1) !important;
 }
 
 #presets legend select, #presets legend button {
@@ -518,7 +479,7 @@ span.cap {
 
 span.cap.needed {
   font-weight: bold;
-  background-color: #c88;
+  background-color: var(--hilite-color);
 }
 
 fieldset {
@@ -571,7 +532,7 @@ legend {
 }
 
 #xssChoices option {
-  background: white;
+  background: var(--bg-color2);
 }
 
 #xssChoices option.block {
@@ -579,44 +540,5 @@ legend {
 }
 
 #xssChoices option.allow {
-  color: #222;
-}
-
-input[type="checkbox"]:not(.https-only, .temp) {
-  -webkit-appearance: none;
-  appearance: none;
-  margin: .4em;
-  font: inherit;
-  color: currentColor;
-  width: 1.2em;
-  height: 1.2em;
-  border: 0.15em solid currentColor;
-  border-radius: 0.2em;
-  transform: translateY(-0.075em);
-  display: grid;
-  place-content: center;
-  background-color: var(--form-check-color);
-}
-
-input[type="checkbox"]:not(.https-only, .temp)::before {
-  content: "";
-  width: 0.65em;
-  height: 0.65em;
-  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-  transform: scale(0);
-  transform-origin: bottom left;
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--form-check-color);
-
-}
-input[type="checkbox"]:not(.https-only, .temp):checked::before {
-  transform: scale(1);
-}
-input[type="checkbox"]:not(.https-only, .temp):checked {
-  background-color: var(--form-control-color);
-  border-color: var(--form-control-color);
-}
-input[type="checkbox"]:disabled {
-  --form-control-color: var(--form-control-disabled);
-  color: var(--form-control-disabled);
+  color: var(--text-color);
 }

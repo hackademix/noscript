@@ -1,0 +1,129 @@
+/*
+ * Copyright (C) 2005-2022 Giorgio Maone <https://maone.net>
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+:root, :root[data-theme="dark"] {
+  --accent-color: #d12027;
+  --fg-color1: #ccc;
+  --fg-color2: #fff;
+  --text-color: #ddd;
+  --bg-color1: #000;
+  --bg-color2: #212026;
+  --form-color1: #333;
+  --form-color2: #111;
+  --focus-color: #4007;
+  --tab-color1: #6668;
+  --tab-color2: #3348;
+  --form-check-color: var(--bg-color2);
+  --form-control-color: var(--accent-color);
+  --hilite-color: #8008;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --fg-color1: #555;
+    --fg-color2: #000;
+    --text-color: #333;
+    --bg-color1: #ddd;
+    --bg-color2: #fff;
+    --form-color1: #ccc;
+    --form-color2: #eee;
+    --tab-color1: #ddda;
+    --tab-color2: #8888;
+    --focus-color: #faa7;
+  }
+}
+
+body {
+  background-color: var(--bg-color2);
+  color: var(--text-color);
+  font-size: 12px;
+  font-family: sistem-ui, sans-serif;
+  font: use-system-font;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+html.mobile > body {
+  font-family: Inter, sans-serif;
+  font-size: 4mm;
+}
+
+html.mobile .desktop {
+  display: none !important;
+}
+
+html:not(.tor) .tor, html.tor .not-tor {
+  display: none;
+}
+html.tor .tor, html:not(.tor) .not-tor {
+  display: initial;
+}
+
+a, a:visited {
+  color: var(--accent-color);
+}
+
+button {
+  appearance: none;
+  background: var(--form-color1);
+  border: 1px solid var(--fg-color1);
+  border-radius: .5em;
+  color: var(--text-color);
+  font-weight: bold;
+  padding: .6em;
+  cursor: pointer;
+}
+
+input[type="text"], textarea {
+  color: var(--text-color);
+  background-color: var(--bg-color2);
+  border: 1px solid var(--fg-color1);
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+input[type="checkbox"]:not(.https-only, .temp) {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: .4em;
+  font: inherit;
+  color: currentColor;
+  width: 1.2em;
+  height: 1.2em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.2em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  background-color: var(--form-check-color);
+}
+
+input[type="checkbox"]:not(.https-only, .temp)::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-check-color);
+
+}
+input[type="checkbox"]:not(.https-only, .temp):checked::before {
+  transform: scale(1);
+}
+input[type="checkbox"]:not(.https-only, .temp):checked {
+  background-color: var(--form-control-color);
+  border-color: var(--form-control-color);
+}
+
+input:disabled, button:disabled, select:disabled {
+  filter: grayscale(100%);
+  opacity: .7;
+}
+
+:disabled {
+  cursor: not-allowed !important;
+}
