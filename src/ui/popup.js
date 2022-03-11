@@ -178,6 +178,7 @@ addEventListener("unload", e => {
       }, true);
     }
 
+    let originallyEnforced = UI.policy.enforced;
     let enforcementWarning = button  => {
       if (button) {
         let clone = button.cloneNode(true);
@@ -196,7 +197,8 @@ addEventListener("unload", e => {
         this.disabled = true;
         policy.enforced = !pressed;
         await UI.updateSettings({policy, reloadAffected: false});
-        if (policy.enforced || UI.local.immediateUnrestrict) {
+        if (policy.enforced !== originallyEnforced &&
+            (policy.enforced || UI.local.immediateUnrestrict)) {
           reload();
           close();
           return;
