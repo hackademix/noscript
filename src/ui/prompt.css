@@ -4,17 +4,20 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+
+@import url("./common.css");
+
+
 html {
-  background: linear-gradient(to bottom, #f7f7f7 0%,#ccc 41%,#aaa 90%,#a88 100%) no-repeat;
+  background: linear-gradient(to bottom, var(--form-color1) 0, var(--bg-color2) 41%, var(--bg-color1) 90%, var(--focus-color) 100%) no-repeat;
+  background-color: var(--bg-color1);
 }
 
 body {
   bottom: .8em;
-  font-family: sans-serif;
-  font-size: 12px;
-  color: #222;
   margin: 0px;
   padding: .8em;
+  background-color: transparent;
 }
 
 html.mobile > body {
@@ -29,7 +32,7 @@ html.mobile > body {
   text-align: left;
   margin: 0;
   line-height: 2em;
-  color: #d12027;
+  color: var(--accent-color);
   z-index: 500;
   padding: .8em .8em 0 .8em;
   display: block;
@@ -69,7 +72,7 @@ html.mobile > body {
   font-size: 1em;
   text-align: justify;
   margin-bottom: 1.2em;
-  background: rgba(255,255,255,.5);
+  background: var(--focus-color);
 }
 #message.multiline p {
   margin: .1em;

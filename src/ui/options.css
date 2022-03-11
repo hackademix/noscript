@@ -6,7 +6,7 @@
 
 /* @import url("chrome://browser/content/extension.css"); */
 body {
-  background: #eee url("/img/noscript-options.png") no-repeat fixed top right;
+  background: url("/img/noscript-options.png") no-repeat fixed top right;
   background-size: 8em;
   padding: 0 2em 0 0;
   margin: 0.5em 0.5em 0.5em 0.5em;
@@ -25,15 +25,15 @@ body {
   text-align: right;
 }
 #header h1 {
-  color: #d12027;
-  text-shadow: 0.06em 0.06em 0.06em rgba(0,0,0,.5);
+  color: var(--accent-color);
+  text-shadow: 0.06em 0.06em 0.06em #0008;
   font-size: 2em;
   padding: 0;
   margin: 0;
   text-align: right;
 }
 #version {
-  color: #444;
+  color: var(--text-color);
   font-size: 0.75em;
   padding: 0;
   margin: 0 0 0.5em;
@@ -163,15 +163,15 @@ button.add {
 }
 
 .flextabs__content, .flextabs__toggle[aria-expanded="true"] {
-  background-color: rgba(200, 200, 200, .5) !important;
-  border: 0 solid #888;
+  background-color: var(--tab-color2) !important;
+  border: 0 solid var(--fg--color1);
 }
 
 .flextabs__toggle {
   -moz-appearance: none;
   border-width: 0 !important;
   margin: 0 4px 0 0;
-  background: #ccc;
+  background-color: var(--tab-color1);
   outline-width: 0 !important;
   border-radius: 1em 1em 0 0;
   padding: .4em .8em;
@@ -198,4 +198,8 @@ button.add {
 
 .mozwebext #xss-options {
   display: block;
+}
+
+#presets .sites > .site.customizing {
+	background: transparent !important;
 }
