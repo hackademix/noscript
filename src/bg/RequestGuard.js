@@ -487,6 +487,9 @@ var RequestGuard = (() => {
             if (ns.unrestrictedTabs.has(tabId) && type.endsWith("frame") && url.startsWith("https:")) {
               TabStatus.addOrigin(tabId, url);
             }
+            if (type !== "main_frame") {
+              Content.reportTo(request, true, policyType);
+            }
             return ALLOW;
           }
           let isFetch = "fetch" === policyType;
