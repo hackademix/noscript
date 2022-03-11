@@ -5,11 +5,44 @@
  */
 
 a.__NoScript_PlaceHolder__ {
-  outline: 2px solid #d12027;
-  color: #444 !important;
-  text-decoration: none;
+  --accent-color: #d12027;
+  --fg-color1: #ccc;
+  --fg-color2: #fff;
+  --text-color: #ddd;
+  --bg-color1: #000;
+  --bg-color2: #212026;
+  --form-color1: #333;
+  --form-color2: #111;
+  --focus-color: #4007;
+  --tab-color1: #6668;
+  --tab-color2: #3348;
+  --form-check-color: var(--bg-color2);
+  --form-control-color: var(--accent-color);
+  --hilite-color: #8008;
+}
+
+@media (prefers-color-scheme: light) {
+  a.__NoScript_PlaceHolder__ {
+      --fg-color1: #555;
+      --fg-color2: #000;
+      --text-color: #333;
+      --bg-color1: #ddd;
+      --bg-color2: #fff;
+      --form-color1: #ccc;
+      --form-color2: #eee;
+      --tab-color1: #ddda;
+      --tab-color2: #8888;
+      --focus-color: #faa7;
+  }
+}
+
+
+a.__NoScript_PlaceHolder__ {
+  outline: 2px solid --var(--accent-color);
+  color: var(--text-color) !important;
+  text-decoration: none !important;
   text-align: center;
-  background: rgba(240,240,240, .7) no-repeat center;
+  background: var(--tab-color2) no-repeat center;
   background-size: contain;
   visibility: visible !important;
   cursor: pointer;
@@ -28,7 +61,7 @@ a.__NoScript_PlaceHolder__ {
 
 a.__NoScript_PlaceHolder__:hover {
   opacity: 1;
-  text-decoration: underline;
+  text-decoration: none !important;
 }
 
 a.__NoScript_PlaceHolder__.__ns__closing {
@@ -57,7 +90,7 @@ a.__NoScript_PlaceHolder__ > span {
   top: 2px;
   right: 2px;
   display: block;
-  color: #800;
+  color: var(--accent-color);
   font-size: 24px;
   font-family: sans-serif;
   font-weight: bold;
@@ -67,15 +100,15 @@ a.__NoScript_PlaceHolder__ > span {
   transition: .2s all;
 }
 .__NoScript_PlaceHolder__  button:hover {
-  color: #f00;
-  text-shadow: 0 0 4px #400;
+  color: var(--fg-color2);
+  text-shadow: 0 0 4px var(--focus-color);
   cursor: pointer;
 }
 
 .__NoScript_PlaceHolder__ > span > span {
   display: block;
   font-size: 18px;
-  background: rgba(240, 240, 240, .5);
+  background-color: var(--tab-color1);
   border-radius: 8px;
   padding: 8px;
   margin: 0;
@@ -84,7 +117,10 @@ a.__NoScript_PlaceHolder__ > span {
   word-break: break-all;
 }
 .__NoScript_PlaceHolder__:hover > span > span {
-  background: rgba(240, 240, 240, .8)
+  background-color: var(--bg-color2);
+  color: var(--accent-color);
+  box-shadow: 0 0 4px 4px var(--focus-color);
+  border: none;
 }
 a.__NoScript_PlaceHolder__.__ns__document {
   position: fixed !important;
