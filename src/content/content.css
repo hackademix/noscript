@@ -1,41 +1,8 @@
 /*
- * Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2022 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
-
-a.__NoScript_PlaceHolder__ {
-  --accent-color: #d12027;
-  --fg-color1: #ccc;
-  --fg-color2: #fff;
-  --text-color: #ddd;
-  --bg-color1: #000;
-  --bg-color2: #212026;
-  --form-color1: #333;
-  --form-color2: #111;
-  --focus-color: #4007;
-  --tab-color1: #6668;
-  --tab-color2: #3348;
-  --form-check-color: var(--bg-color2);
-  --form-control-color: var(--accent-color);
-  --hilite-color: #8008;
-}
-
-@media (prefers-color-scheme: light) {
-  a.__NoScript_PlaceHolder__ {
-      --fg-color1: #555;
-      --fg-color2: #000;
-      --text-color: #333;
-      --bg-color1: #ddd;
-      --bg-color2: #fff;
-      --form-color1: #ccc;
-      --form-color2: #eee;
-      --tab-color1: #ddda;
-      --tab-color2: #8888;
-      --focus-color: #faa7;
-  }
-}
-
 
 a.__NoScript_PlaceHolder__ {
   outline: 2px solid --var(--accent-color);

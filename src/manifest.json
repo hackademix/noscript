@@ -77,6 +77,7 @@
        "match_about_blank": true,
        "all_frames": true,
        "css": [
+         "/common/themes.css",
          "/content/content.css"
        ]
     },

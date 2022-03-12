@@ -7,9 +7,8 @@
 
 @import url("./common.css");
 
-
 html {
-  background: linear-gradient(to bottom, var(--form-color1) 0, var(--bg-color2) 41%, var(--bg-color1) 90%, var(--focus-color) 100%) no-repeat;
+  background: linear-gradient(to bottom, var(--form-color1) 0, var(--bg-color2) 41%, var(--bg-color1) 94%, var(--hilite-color) 100%) no-repeat;
   background-color: var(--bg-color1);
 }
 
@@ -98,11 +97,10 @@ html.mobile > body {
 .choices div {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
 }
 .choices label {
   display: block;
-  padding-bottom: .5em;
   word-break: break-all;
 }
 

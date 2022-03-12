@@ -25,7 +25,7 @@
   align-items: center;
 }
 
-@media (max-width: 100mm) {
+@media (max-width: 550px) {
   body {
     background-size: 4em !important;
     padding-right: 0 !important;
@@ -135,7 +135,6 @@
 
 .capsContext select {
   display: none;
-  margin: 0 1em;
 }
 
 .contextual .capsContext select {
@@ -183,8 +182,9 @@ input[type="checkbox"] {
   vertical-align: middle;
 }
 
-html:not(.mobile) .sites > tr.site:focus-within {
-  box-shadow: 0 0 2px 2px var(--focus-color);
+html:not(.mobile) .sites > tr.site:is(:focus-within, :hover) {
+  /* box-shadow: 0 0 1px 1px var(--focus-color);*/
+  background: linear-gradient(to bottom, var(--form-color1) 0, var(--bg-color2) 41%, var(--bg-color1) 100%) no-repeat;
   border-color: transparent;
 }
 
@@ -357,15 +357,6 @@ span.preset {
    overflow: visible;
 }
 
-:focus-visible, .cap:focus-within {
-  outline: 0;
-  filter:
-    drop-shadow(2px 2px 2px var(--focus-color))
-    drop-shadow(-2px 2px 2px var(--focus-color))
-    drop-shadow(2px -2px 2px var(--focus-color))
-    drop-shadow(-2px -2px 2px var(--focus-color));
-}
-
 input.preset[value="T_TRUSTED"] {
   background-image: url(/img/ui-temp64.png);
 }
@@ -430,7 +421,7 @@ input.preset:checked ~ input.temp {
 
 .customizer fieldset {
   background-color: var(--form-color2);
-  margin: 0 0.06em 0.06em 0.06em;
+  margin: 0;
   box-shadow: var(--form-color1) 0 2px 2px;
   position: relative;
 }
@@ -470,7 +461,9 @@ input.preset:checked ~ input.temp {
 }
 
 span.cap {
-  padding: 0.5em;
+  padding: 0.3em;
+  margin: 0.2em;
+  border-radius: .4em;
   font-weight: normal;
   display: inline-flex;
   align-items: center;
@@ -478,6 +471,7 @@ span.cap {
 
 span.cap.needed {
   font-weight: bold;
+  color: var(--fg-color2);
   background-color: var(--hilite-color);
 }
 

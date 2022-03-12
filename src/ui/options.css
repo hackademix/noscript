@@ -60,10 +60,6 @@ body {
   font-size: 1em;
 }
 
-#sect-general label, #sect-general button, #sect-general span {
-  white-space: nowrap;
-}
-
 section form, section fieldset {
   margin: .5em 0;
 }
@@ -98,7 +94,10 @@ fieldset:disabled {
   display: none;
 }
 
-
+#debug-tools {
+  padding-left: 2.5em;
+  font-weight: bold;
+}
 
 .error {
   background: #ff8;
@@ -118,7 +117,8 @@ input, button {
 }
 
 button.add {
-  font-weight: bold;
+  font-size: 1.4em;
+  padding: .2em .4em;
 }
 
 #import-container {
@@ -177,7 +177,7 @@ button.add {
   padding: .4em .8em;
 }
 
-@media (max-width: 100mm) {
+@media (max-width: 550px) {
   .flextabs__toggle {
     border-radius: 1em;
   }

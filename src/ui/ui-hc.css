@@ -108,5 +108,6 @@ tr.site {
 }
 
 :focus {
-  outline: 1px dotted yellow;
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
 }

@@ -47,8 +47,10 @@ var UI = (() => {
         "/nscl/common/Policy.js",
       ];
       this.mobile = UA.mobile;
+      let root = document.documentElement;
+      root.classList.add("__NoScript_Theme__");
       if (this.mobile) {
-        document.documentElement.classList.toggle("mobile", true);
+        root.classList.add("mobile");
       }
       await include(scripts);
 
