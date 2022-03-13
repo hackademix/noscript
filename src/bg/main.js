@@ -189,9 +189,8 @@
     },
 
     async openStandalonePopup() {
-      let win = await browser.windows.getLastFocused();
       let [tab] = (await browser.tabs.query({
-        lastFocusedWindow: true,
+        currentWindow: true,
         active: true
       }));
 
@@ -199,6 +198,7 @@
         log("No tab found to open the UI for");
         return;
       }
+      let win = await browser.windows.getCurrent();
       browser.windows.create({
         url: popupFor(tab.id),
         width: 800,

@@ -45,11 +45,11 @@ addEventListener("unload", e => {
 
   try {
     let tabId;
-    let isBrowserAction = true;
+    UI.isBrowserAction = true;
     let optionsClosed = false;
 
     let tabFlags = {active: true};
-    if (browser.windows) tabFlags.lastFocusedWindow = true; // Desktop browsers only
+    if (browser.windows) tabFlags.currentWindow = true; // Desktop browsers only
     let tab = (await browser.tabs.query(tabFlags))[0] ||
     // work-around for Firefox "forgetting" tabs on Android
       (await browser.tabs.query({url: ["*://*/*", "file:///*", "ftp://*/*"]}))[0];
@@ -61,7 +61,7 @@ addEventListener("unload", e => {
       close();
     }
     if (tab.url === document.URL) {
-      isBrowserAction = false;
+      UI.isBrowserAction = false;
       try {
         tabId = parseInt(document.URL.match(/#.*\btab(\d+)/)[1]);
         pageTab = await browser.tabs.get(tabId);
@@ -94,7 +94,7 @@ addEventListener("unload", e => {
     }
 
 
-    if (isBrowserAction) {
+    if (UI.isBrowserAction) {
       browser.tabs.onActivated.addListener(e => {
         if (e.tabId !== tabId) close();
       });
@@ -387,7 +387,7 @@ addEventListener("unload", e => {
     }
 
     function close() {
-      if (isBrowserAction) {
+      if (UI.isBrowserAction) {
         window.close();
       } else {
         browser.tabs.remove(tab.id);

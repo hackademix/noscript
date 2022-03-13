@@ -23,6 +23,7 @@ var UI = (() => {
 
   var UI = {
     initialized: false,
+    isBrowserAction: false,
 
     presets: {
       "DEFAULT": "Default",
