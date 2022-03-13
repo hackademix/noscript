@@ -206,11 +206,14 @@ var UI = (() => {
           delete xssUserChoices[o.value];
           o.remove();
         }
+        let reloadAffected = false;
         if (list.options.length === 0) {
           choicesUI.classList.remove("populated");
+          reloadAffected = true;
         }
         UI.updateSettings({
-          xssUserChoices
+          xssUserChoices,
+          reloadAffected,
         });
       };
     }
