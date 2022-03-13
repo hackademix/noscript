@@ -21,7 +21,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 </head>
 <body tabindex="-1" id="noscript-popup">
-<div tabindex="-1" id="main">
 <div id="top">
   <button aria-role="button" id="close" class="close icon" title="__MSG_Close__"></button>
   <button aria-role="button" id="reload" class="reload icon" title="__MSG_Reload__"></button>
@@ -37,28 +36,29 @@ SPDX-License-Identifier: GPL-3.0-or-later
   <button aria-role="button" id="temp-trust-page" class="toggle icon" title="__MSG_TempTrustPage__"></button>
   <button aria-role="button" id="revoke-temp" class="toggle icon" title="__MSG_RevokeTemp__"></button>
 </div>
-<div id="message" class="hidden"></div>
-<div id="high-contrast-chooser" class="opt-group">
-  <span id="highContrast-opt">
-  <input type="checkbox" id="opt-highContrast">
-  <label for="opt-highContrast" id="lbl-highContrast">__MSG_HighContrast__</label>
-  </span>
-</div>
-<div id="incognito-ui-chooser" class="opt-group">
-  <span id="overrideTorBrowserPolicy-opt">
-    <input type="checkbox" id="opt-overrideTorBrowserPolicy">
-      <label for="opt-overrideTorBrowserPolicy" id="lbl-opt-overrideTorBrowserPolicy"
-      ><span class="tor">__MSG_OptOverrideTorBrowserPolicy__</span><span class="not-tor">__MSG_OptIncognitoPerm__</span></label>
-  </span>
-</div>
-<div id="xssChoices">
-</div>
-<div id="content"></div>
-<div id="sites"></div>
-<div id="buttons">
 
+<div id="scrollable">
+  <div id="message" class="hidden"></div>
+  <div id="high-contrast-chooser" class="opt-group">
+    <span id="highContrast-opt">
+    <input type="checkbox" id="opt-highContrast">
+    <label for="opt-highContrast" id="lbl-highContrast">__MSG_HighContrast__</label>
+    </span>
+  </div>
+  <div id="incognito-ui-chooser" class="opt-group">
+    <span id="overrideTorBrowserPolicy-opt">
+      <input type="checkbox" id="opt-overrideTorBrowserPolicy">
+        <label for="opt-overrideTorBrowserPolicy" id="lbl-opt-overrideTorBrowserPolicy"
+        ><span class="tor">__MSG_OptOverrideTorBrowserPolicy__</span><span class="not-tor">__MSG_OptIncognitoPerm__</span></label>
+    </span>
+  </div>
+  <div id="xssChoices">
+  </div>
+  <div id="content"></div>
+  <div id="sites"></div>
+  <div id="buttons"></div>
 </div>
-</div>
+
 <script src="popup.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
  */
 
 html:not(.mobile) {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 body {
@@ -15,8 +15,14 @@ body {
 
 html:not(.mobile) > body {
   width: 600px;
-  padding: 0 .5em 0 0;
+  padding: 0;
 }
+
+html:not(.mobile) #scrollable {
+  overflow: auto;
+  max-height: 550px;
+}
+
 
 #top {
   font-size: 1em;

@@ -173,7 +173,6 @@ input[type="checkbox"] {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  overflow-y: auto;
   background: var(--bg-color2);
 }
 .sites tr, .sites td {
