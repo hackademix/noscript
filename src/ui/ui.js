@@ -727,12 +727,11 @@ var UI = (() => {
 
     render(sites = this.sites, sorter = this.sorter) {
       let parentNode = this.parentNode;
-      debug("Rendering %o inside %o", sites, parentNode);
       if (sites) this._populate(sites, sorter);
+
       parentNode.innerHTML = "";
       parentNode.appendChild(this.fragment);
       let root = parentNode.querySelector("table.sites");
-      debug("Wiring", root);
       if (!root.wiredBy) {
         root.addEventListener("keydown", e => this._keyNavHandler(e), true);
         root.addEventListener("keyup", e => {
