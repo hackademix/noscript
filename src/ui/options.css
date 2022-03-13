@@ -199,7 +199,3 @@ button.add {
 .mozwebext #xss-options {
   display: block;
 }
-
-#presets .sites > .site.customizing {
-	background: transparent !important;
-}

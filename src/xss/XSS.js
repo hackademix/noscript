@@ -53,7 +53,7 @@ var XSS = (() => {
 
         if ("setBadgeText" in browserAction) {
           browserAction.setBadgeText({tabId, text: "XSS"});
-          browserAction.setBadgeBackgroundColor({tabId, color: [0, 0, 128, 160]});
+          browserAction.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
         }
         let keys = blockedTabs.get(tabId);
         if (!keys) blockedTabs.set(tabId, keys = new Set());

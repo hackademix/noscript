@@ -47,11 +47,13 @@
 
   #sites .presets input.preset {
      min-width: 0 !important;
-     background-color: none !important;
      margin-top: 0;
      font-weight: bold;
   }
 
+  #sites .site:not(.customizing) .presets input.preset {
+    background-color: transparent;
+  }
 
   #sites .customizing input.preset:checked  {
     margin-left: 0;
@@ -182,13 +184,12 @@ input[type="checkbox"] {
   vertical-align: middle;
 }
 
-html:not(.mobile) .sites > tr.site:is(:focus-within, :hover) {
-  /* box-shadow: 0 0 1px 1px var(--focus-color);*/
+html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
   background: linear-gradient(to bottom, var(--form-color1) 0, var(--bg-color2) 41%, var(--bg-color1) 100%) no-repeat;
   border-color: transparent;
 }
 
-.sites > tr.site {
+.sites > tr.site:not(.customizing) {
   border-top: 2px dotted var(--form-color1);
 }
 .sites > tr.site:first-of-type, tr.site:focus-within + tr, .sites > tr.customizing, .sites > tr.customizing + tr.site, .customizer, .customizer + tr.site  {
@@ -313,7 +314,7 @@ span.preset {
   transform: none;
   min-width: 9.38em;
   background-color: var(--bg-color1);
-  background-position-x: .1em;
+  background-position-x: .3em;
   border-radius: .5em;
 }
 
@@ -412,7 +413,7 @@ input.preset:checked ~ input.temp {
 }
 
 #presets input.preset:not(:checked) {
-  background-color: var(--form-color1);
+  background-color: var(--tab-color1);
 }
 
 .customizing input.preset:checked, #presets input.preset:checked {
@@ -432,11 +433,11 @@ input.preset:checked ~ input.temp {
 }
 
 .customizing input.preset:checked + label.preset {
-  padding-left: 3em;
+  padding-left: 3.2em;
 }
 
 .sites .customizing, .customizer {
-  background-color: var(--form-color1) !important;
+  background-color: var(--tab-color2) !important;
 }
 
 #presets legend select, #presets legend button {
@@ -517,11 +518,15 @@ legend {
 #xssChoices {
   padding: .5em;
   display: none;
-  flex-direction: column;
 }
 
 #xssChoices.populated {
-  display: flex;
+  display: block;
+}
+
+#xssChoices select {
+  display: block;
+  margin: 0 0 .5em 0;
 }
 
 #xssChoices option {
