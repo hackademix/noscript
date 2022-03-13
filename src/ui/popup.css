@@ -267,17 +267,18 @@ html:not(.mobile) #scrollable {
 
 #message {
   height: auto;
-  margin: .5em;
-  padding: .8em 0 0 2.5em;
-  background-color: transparent;
+  margin: 1.5em 1em;
+  padding: .8em 0 0.8em 3em;
+  background-color: var(--bg-color1);
   background-size: 2em;
-  background-position: left center;
+  background-position: .5em center;
   background-repeat: no-repeat;
   min-height: 2em;
   font-size: 1.2em;
   vertical-align: middle;
   white-space: normal;
-  max-width: 520px;
+  border-radius: 1em;
+  box-shadow: 0 0 3px 3px var(--hilite-color);
 }
 #message.hidden {
   display: none;

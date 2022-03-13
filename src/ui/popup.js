@@ -41,6 +41,7 @@ addEventListener("unload", e => {
         extraUI.focus();
       }
     }
+    el.scrollIntoView();
   }
 
   try {
