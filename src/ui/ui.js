@@ -197,6 +197,9 @@ var UI = (() => {
         button = choicesUI.appendChild(document.createElement("button"));
         button.textContent = _("XSS_clearUserChoices");
       }
+      (list.onchange = () => {
+        button.disabled = list.selectedOptions.length === 0;
+      })();
       button.onclick = () => {
         let xssUserChoices = UI.xssUserChoices;
         for (let o of [...list.selectedOptions]) {
