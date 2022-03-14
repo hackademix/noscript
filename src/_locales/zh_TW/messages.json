@@ -902,5 +902,8 @@
     "versionShort": {
         "message": "第$1版",
         "description": ""
+    },
+    "settingsThemeLabel": {
+        "message": "佈景主題"
     }
 }

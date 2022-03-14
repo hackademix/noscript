@@ -902,5 +902,8 @@
     "versionShort": {
         "message": "v $1",
         "description": ""
+    },
+    "settingsThemeLabel": {
+        "message": "Тема"
     }
 }

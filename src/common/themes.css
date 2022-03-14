@@ -5,6 +5,7 @@
  */
 
 .__NoScript_Theme__, .__NoScript_Theme__[data-theme="dark"] {
+  color-scheme: light dark;
   --accent-color: #d12027;
   --fg-color1: #ccc;
   --fg-color2: #fff;

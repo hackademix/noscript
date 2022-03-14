@@ -39,7 +39,6 @@ var UI = (() => {
         UI.incognito = tab && tab.incognito
       );
       let scripts = [
-        "/ui/ui.css",
         "/nscl/common/Messages.js",
         "/nscl/lib/punycode.js",
         "/nscl/common/tld.js",
@@ -49,7 +48,6 @@ var UI = (() => {
       ];
       this.mobile = UA.mobile;
       let root = document.documentElement;
-      root.classList.add("__NoScript_Theme__");
       if (this.mobile) {
         root.classList.add("mobile");
       }
@@ -134,10 +132,37 @@ var UI = (() => {
       browser.tabs.create({url});
     },
 
+    wireChoice(name, storage = "sync", onchange) {
+      let inputs = document.querySelectorAll(`input[type=radio][name="${name}"]`);
+      if (inputs.length === 0) {
+        error(`Radio button w/ name "${name}" not found.`);
+        return;
+      }
+      if (typeof storage === "function") {
+        let value = storage(null);
+        for (let i of inputs) {
+          i.onchange = e => storage(i);
+          i.checked = value === i.value;
+        }
+      } else {
+        let obj = UI[storage];
+        let value = obj[name];
+        for (let i of inputs) {
+          if (i.value === value) i.checked = true;
+          if (onchange) onchange(i);
+          i.onchange = async() => {
+            obj[name] = i.value;
+            await UI.updateSettings({[storage]: obj});
+            if (onchange) onchange(i);
+          }
+        }
+      }
+    },
+
     wireOption(name, storage = "sync", onchange) {
       let input = document.querySelector(`#opt-${name}`);
       if (!input) {
-        debug("Checkbox not found %s", name);
+        error(`Checkbox w/ id "opt-${name}" not found.`);
         return;
       }
       if (typeof storage === "function") {
@@ -145,13 +170,12 @@ var UI = (() => {
         input.checked = storage(null);
       } else {
         let obj = UI[storage];
-        if (!obj) log(storage);
         input.checked = obj[name];
-        if (onchange) onchange(input.checked);
+        if (onchange) onchange(input);
         input.onchange = async () => {
           obj[name] = input.checked;
           await UI.updateSettings({[storage]: obj});
-          if (onchange) onchange(obj[name]);
+          if (onchange) onchange(input);
         }
       }
       return input;
@@ -223,8 +247,8 @@ var UI = (() => {
   var HighContrast = {
     css: null,
     async init() {
-      this.widget = UI.wireOption("highContrast", "local", value => {
-        UI.highContrast = value;
+      this.widget = UI.wireOption("highContrast", "local", o => {
+        UI.highContrast = o.checked;
         this.toggle();
       });
       await this.toggle();
@@ -309,8 +333,10 @@ var UI = (() => {
     <fieldset>
     <legend class="capsContext">
       <label></label>
+      <div>
       <select><option>ANY SITE</option></select>
       <button class="reset" disabled>Reset</button>
+      </div>
     </legend>
     <div class="caps">
     <span class="cap">

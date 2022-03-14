@@ -131,9 +131,10 @@
   }
 
   opt("clearclick");
-  opt("debug", "local", b => {
-    document.body.classList.toggle("debug", b);
-    if (b) updateRawPolicyEditor();
+  opt("debug", "local", o => {
+    let {checked} = o;
+    document.body.classList.toggle("debug", checked);
+    if (checked) updateRawPolicyEditor();
   });
 
   // Appearance
@@ -141,6 +142,8 @@
   opt("showCountBadge", "local");
   opt("showCtxMenuItem", "local");
   opt("showFullAddresses", "local");
+
+  UI.wireChoice("theme", o => Themes.setup(o && o.value) );
 
   // PRESET CUSTOMIZER
   {

@@ -676,5 +676,17 @@
   },
   "versionShort": {
     "message": "v $1"
+  },
+  "settingsThemeLabel": {
+    "message": "Theme"
+  },
+  "themeDark": {
+    "message": "Dark"
+  },
+  "themeLight": {
+    "message": "Light"
+  },
+  "themeAuto": {
+    "message": "Auto"
   }
 }

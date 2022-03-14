@@ -9,13 +9,10 @@
 .opt-group {
   display: flex;
   flex-flow: row wrap;
-  border-bottom: 2px dotted var(--bg-color1);
   padding: .5em 0;
 }
-
-.opt-group:last-of-type {
-  border-bottom: none;
-  margin-bottom: .5em;
+:is(section, .opt-group) ~ :is(.opt-group, section, fieldset) {
+  border-top: 2px dotted var(--bg-color1);
 }
 
 .opt-group > span {
@@ -135,12 +132,23 @@
   margin-bottom: 0 !important;
 }
 
+.capsContext, .capsContext > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.capsContext > label {
+  display: block;
+}
+
 .capsContext select {
   display: none;
 }
 
 .contextual .capsContext select {
   display: initial;
+  margin: 0 1em;
 }
 
 .pageTurn {

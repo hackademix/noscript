@@ -308,11 +308,12 @@ addEventListener("unload", e => {
     UI.onSettings = initSitesUI;
 
     if (UI.incognito) {
-      UI.wireOption("overrideTorBrowserPolicy", "sync", toggle => {
-          if (UI.forceIncognito !== !toggle) {
-            UI.forceIncognito = !toggle;
-            sitesUI.render();
-          }
+      UI.wireOption("overrideTorBrowserPolicy", "sync", o => {
+        let {checked} = o;
+        if (UI.forceIncognito !== !checked) {
+          UI.forceIncognito = !checked;
+          sitesUI.render();
+        }
       });
     }
 
