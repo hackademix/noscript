@@ -5,7 +5,7 @@
  */
 
 .__NoScript_Theme__, .__NoScript_Theme__[data-theme="dark"] {
-  color-scheme: light dark;
+  color-scheme: dark;
   --accent-color: #d12027;
   --fg-color1: #ccc;
   --fg-color2: #fff;
@@ -17,13 +17,14 @@
   --focus-color: #8007;
   --tab-color1: #6668;
   --tab-color2: #3348;
-  --form-check-color: var(--bg-color2);
-  --form-control-color: var(--accent-color);
+  --form-check-color: var(--accent-color);
+  --form-control-color: var(--form-color2);
   --hilite-color: #f008;
 }
 
 @media (prefers-color-scheme: light) {
   .__NoScript_Theme__ {
+    color-scheme: light;
     --fg-color1: #555;
     --fg-color2: #000;
     --text-color: #333;

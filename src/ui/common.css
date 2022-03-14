@@ -68,7 +68,7 @@ input[type="checkbox"]:not(.https-only, .temp) {
   transform: translateY(-0.075em);
   display: grid;
   place-content: center;
-  background-color: var(--form-check-color);
+  background-color: var(--form-color1);
 }
 
 input[type="checkbox"]:not(.https-only, .temp)::before {
@@ -87,8 +87,7 @@ input[type="checkbox"]:not(.https-only, .temp):checked::before {
 }
 input[type="checkbox"]:not(.https-only, .temp):checked {
   background-color: var(--form-control-color);
-  border-color: var(--form-control-color);
-}
+ }
 
 input[type="radio"]:not(.preset) {
   -webkit-appearance: none;
@@ -116,13 +115,17 @@ input[type="radio"]:not(.preset)::before {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--form-control-color);
+  box-shadow: inset 1em 1em var(--form-check-color);
   background-color: CanvasText;
 }
 
 input[type="radio"]:not(.preset):checked::before {
   transform: scale(1);
 }
+input[type="radio"]:not(.preset):checked {
+  background-color: var(--form-control-color);
+}
+
 
 input:disabled, button:disabled, select:disabled {
   filter: grayscale(100%);
