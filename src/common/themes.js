@@ -42,7 +42,6 @@
     return false;
   }
 
-  patchAll();
   if (!patchAll()) {
     console.error("Couldn't patch sheets while loading, deferring to onload");
     let onload = e => {
