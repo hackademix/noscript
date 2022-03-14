@@ -115,6 +115,19 @@
     b.addEventListener("click", buttonClicked);
   }
 
+  addEventListener("keydown", e => {
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+    switch(e.code) {
+      case "Escape":
+        window.close();
+        return;
+      case "Enter":
+        let defButton = document.querySelector("#buttons button[type=submit]");
+        if (defButton) defButton.click();
+        return;
+    }
+  });
+
   let resize = async e => {
     if (!("windows" in browser)) {
       // tabbed (mobile?) - ensure buttons are visible
