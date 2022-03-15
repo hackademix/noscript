@@ -19,18 +19,10 @@
   margin: 0 .5em;
   display: flex;
   flex-flow: row;
-  align-items: center;
+  align-items: baseline;
 }
 
 @media (max-width: 550px) {
-  body {
-    background-size: 4em !important;
-    padding-right: 0 !important;
-  }
-  #header {
-    margin-right: 4em !important;
-  }
-
   #sites .presets {
     width: 0 !important;
     padding: 0 !important;

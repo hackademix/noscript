@@ -97,7 +97,7 @@ html.mobile > body {
 .choices div {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
 }
 .choices label {
   display: block;

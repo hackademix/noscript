@@ -6,22 +6,18 @@
 
 body {
   background: url("/img/noscript-options.png") no-repeat fixed top right;
-  background-size: 8em;
+  background-size: 7em;
   padding: 0 2em 0 0;
   margin: 0.5em 0.5em 0.5em 0.5em;
 }
-.mobile body {
-  background-size: 4em;
-  padding-right: 0;
-}
-
 
 #header {
   display: flex;
-  flex-flow: column;
+  flex-flow: row wrap;
   padding: 0;
   margin: 0 6em 0 0;
-  text-align: right;
+  align-items: center;
+  justify-content: space-between;
 }
 #header h1 {
   color: var(--accent-color);
@@ -44,12 +40,11 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-end;
-  width: 100%;
-  margin: 0 0 2px 0;
+  margin: 0 0 1em 0;
 }
 
-.buttons button {
-  margin: .5em 0 .5em 1em;
+.buttons :is(button, .button) {
+  margin: .5em;
 }
 
 #sect-general {
@@ -123,6 +118,7 @@ button.add {
 
 #import-container {
   position: relative;
+  display: flex;
 }
 #file-import {
   position: absolute;
@@ -138,7 +134,7 @@ button.add {
 }
 
 #xssFaq {
-  padding: 0.5em 1em;
+  white-space: nowrap;
 }
 
 #clearclick-options {
@@ -177,13 +173,37 @@ button.add {
   padding: .4em .8em;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 630px) {
+  body {
+    background-size: 8em ;
+    padding: 0;
+    margin: 0;
+  }
+  #header {
+    margin: .5em 8em 0 .5em;
+  }
+}
+
+@media (max-width: 440px) {
   .flextabs__toggle {
     border-radius: 1em;
+    margin: -1em 0 0 0;
   }
   .flextabs__toggle[aria-expanded="true"] {
     font-weight: bold;
     box-shadow: 1px 1px 1px inset;
+    z-index: 1;
+    position: relative;
+  }
+
+  body {
+    background-size: 6em;
+  }
+  #header {
+    margin: 0;
+  }
+  #header > .title {
+    margin-right: 6em;
   }
 }
 

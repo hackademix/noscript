@@ -34,7 +34,7 @@ a, a:visited {
   color: var(--accent-color);
 }
 
-button {
+button, .button {
   appearance: none;
   background: var(--form-color1);
   border: 1px solid var(--fg-color1);
@@ -43,6 +43,7 @@ button {
   font-weight: bold;
   padding: .6em;
   cursor: pointer;
+  text-decoration: none;
 }
 
 input[type="text"], textarea, select {
