@@ -303,8 +303,9 @@ var RequestGuard = (() => {
           type, url, documentUrl, originUrl
       };
       if (tabId < 0) {
-        if (type === "script" && url.startsWith("https://") && documentUrl && documentUrl.startsWith("https://")) {
-          // service worker / importScripts()?
+        if ((policyType === "script" || policyType === "fetch") &&
+              url.startsWith("https://") && documentUrl && documentUrl.startsWith("https://")) {
+          // service worker request ?
           let payload = {request, allowed, policyType, serviceWorker: Sites.origin(documentUrl)};
           let recipient = {frameId: 0};
           for (let tabId of TabStatus.findTabsByOrigin(payload.serviceWorker)) {
