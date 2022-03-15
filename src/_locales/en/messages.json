@@ -688,5 +688,11 @@
   },
   "themeAuto": {
     "message": "Auto"
+  },
+  "DonateShort": {
+    "message": "Donate"
+  },
+  "DonateLong": {
+    "message": "NoScript is Free Software and can't exist without your help. Please donate now!"
   }
 }

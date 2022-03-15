@@ -145,3 +145,24 @@ input:disabled, button:disabled, select:disabled {
     drop-shadow(2px -2px 2px var(--focus-color))
     drop-shadow(-2px -2px 2px var(--focus-color));
 }
+
+
+.donate {
+  color: var(--text-color1) !important;
+  border-color: transparent;
+  background-color: transparent;
+  transform: scale(1.2);
+  transition: all .5s ease-in-out;
+  text-transform: uppercase;
+}
+
+.donate:hover {
+  transform: scale(1.8);
+}
+
+.donate:before {
+  content: "♥";
+  color: var(--accent-color);
+  padding: 0 .2em 0 .5em;
+  text-shadow: 0.04em 0.04em 0.04em #0004;
+}
