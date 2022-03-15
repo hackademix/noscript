@@ -904,6 +904,19 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Thème"
+        "message": "Thème",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "Sombre",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "Clair",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Automatique",
+        "description": ""
     }
 }

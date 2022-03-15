@@ -904,6 +904,19 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Motivi"
+        "message": "Temë",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "E errët",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "E lehtë",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Auto",
+        "description": ""
     }
 }
