@@ -51,17 +51,41 @@
     }
     addEventListener("load", onload, true);
   }
+
+
+  let root = document.documentElement;
+  root.classList.add("__NoScript_Theme__");
+
+  let update = toTheme => {
+    return root.dataset.theme = toTheme;
+  }
+
   var Themes = {
    setup(theme = null) {
       if (theme) {
-        localStorage.setItem("theme", theme);
+        if (window.localStorage) {
+          localStorage.setItem("theme", theme);
+        }
+        if (browser && browser.storage) {
+          browser.storage.local.set({theme});
+        }
       } else {
-        theme = localStorage.getItem("theme") || "auto";
+        if (localStorage) {
+          theme = localStorage.getItem("theme") || "auto";
+        }
+        if (!theme && browser && browser.storage) {
+          if (document.readyState === "loading") {
+            document.documentElement.style.visibility = "hidden";
+          }
+          return browser.storage.local.get(["theme"]).then(r => {
+              update(r.theme);
+              document.documentElement.style.visibility = "";
+              return r.theme;
+          });
+        }
       }
-      let root = document.documentElement;
-      root.classList.add("__NoScript_Theme__");
-      return root.dataset.theme = theme;
+      return update(theme);
     }
   }
-  Themes.setup();
+  Promise.resolve(Themes.setup());
 }

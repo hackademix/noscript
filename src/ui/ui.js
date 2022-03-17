@@ -139,18 +139,20 @@ var UI = (() => {
         return;
       }
       if (typeof storage === "function") {
-        let value = storage(null);
-        for (let i of inputs) {
-          i.onchange = e => storage(i);
-          i.checked = value === i.value;
-        }
+        (async() => {
+          let value = await storage(null);
+          for (let i of inputs) {
+            i.onchange = e => storage(i);
+            i.checked = value === i.value;
+          }
+        })();
       } else {
         let obj = UI[storage];
         let value = obj[name];
         for (let i of inputs) {
           if (i.value === value) i.checked = true;
           if (onchange) onchange(i);
-          i.onchange = async() => {
+          i.onchange = async () => {
             obj[name] = i.value;
             await UI.updateSettings({[storage]: obj});
             if (onchange) onchange(i);
@@ -167,7 +169,9 @@ var UI = (() => {
       }
       if (typeof storage === "function") {
         input.onchange = e => storage(input);
-        input.checked = storage(null);
+        (async () => {
+          input.checked = await storage(null);
+        })();
       } else {
         let obj = UI[storage];
         input.checked = obj[name];

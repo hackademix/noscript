@@ -19,14 +19,16 @@
  */
 
 'use strict';
+
+document.querySelector("#version").textContent = _("Version",
+  browser.runtime.getManifest().version);
+
 (async () => {
 
   await UI.init();
 
   let policy = UI.policy;
 
-  let version = browser.runtime.getManifest().version;
-  document.querySelector("#version").textContent = _("Version", version);
   // simple general options
 
   let opt = UI.wireOption;

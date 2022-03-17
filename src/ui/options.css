@@ -54,16 +54,18 @@ body {
   font-size: 1em;
 }
 
-section form, section fieldset {
+section fieldset {
   margin: 1em 0;
   padding: .5em 1em;
+}
+
+section > form {
+  padding: 0 .5em;
 }
 
 fieldset:disabled {
   opacity: .5;
 }
-
-
 
 .sect-sites form {
   display: flex;
