@@ -904,6 +904,27 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Tema"
+        "message": "Tema",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "Koyu",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "Açık",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Otomatik",
+        "description": ""
+    },
+    "DonateShort": {
+        "message": "Bağış yapın",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript özegüt bir yazılımdır ve destekleriniz olmadan var olamaz. Lütfen bağış yapın!",
+        "description": ""
     }
 }

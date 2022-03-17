@@ -918,5 +918,13 @@
     "themeAuto": {
         "message": "Auto",
         "description": ""
+    },
+    "DonateShort": {
+        "message": "Dhuroni",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript është Software i Lirë dhe s’mund të ekzistojë pa ndihmën tuaj. Ju lutemi, dhuroni që tani!",
+        "description": ""
     }
 }

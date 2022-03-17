@@ -902,5 +902,29 @@
     "versionShort": {
         "message": "в $1",
         "description": ""
+    },
+    "settingsThemeLabel": {
+        "message": "Theme",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "Dark",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "Light",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Auto",
+        "description": ""
+    },
+    "DonateShort": {
+        "message": "Донирај",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "description": ""
     }
 }

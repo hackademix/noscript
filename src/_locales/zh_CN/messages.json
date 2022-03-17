@@ -904,6 +904,27 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "主题"
+        "message": "主题",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "深色",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "亮",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "自动",
+        "description": ""
+    },
+    "DonateShort": {
+        "message": "捐赠",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript 是自由软件，没有你的帮助便无法存在。请考虑捐赠！",
+        "description": ""
     }
 }

@@ -904,6 +904,27 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Тема"
+        "message": "Тема",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "Тёмная",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "Светлая",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Автовыбор",
+        "description": ""
+    },
+    "DonateShort": {
+        "message": "Сделать пожертвование",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript — это свободное ПО и ему необходима ваша помощь. Сделайте пожертвование сейчас!",
+        "description": ""
     }
 }

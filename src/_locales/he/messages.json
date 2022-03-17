@@ -904,6 +904,27 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "ערכת נושא"
+        "message": "Theme",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "Dark",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "Light",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Auto",
+        "description": ""
+    },
+    "DonateShort": {
+        "message": "תרום",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "description": ""
     }
 }

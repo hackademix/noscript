@@ -904,6 +904,27 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Tema"
+        "message": "Tema",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "Dark",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "Luz",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Auto",
+        "description": ""
+    },
+    "DonateShort": {
+        "message": "Donar",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "description": ""
     }
 }

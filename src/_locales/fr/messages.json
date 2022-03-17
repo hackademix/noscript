@@ -918,5 +918,13 @@
     "themeAuto": {
         "message": "Automatique",
         "description": ""
+    },
+    "DonateShort": {
+        "message": "Faire un don",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript est un logiciel libre et gratuit qui ne peut pas exister sans votre aide. Veuillez faire un don dès maintenant.",
+        "description": ""
     }
 }

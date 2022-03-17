@@ -904,6 +904,27 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "テーマ"
+        "message": "テーマ",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "Dark",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "ライト",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Auto",
+        "description": ""
+    },
+    "DonateShort": {
+        "message": "寄付のお願い",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "description": ""
     }
 }
