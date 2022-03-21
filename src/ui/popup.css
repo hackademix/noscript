@@ -14,7 +14,7 @@ body {
 }
 
 html:not(.mobile) > body {
-  width: 700px;
+  width: var(--popup-size);
   padding: 0;
 }
 
@@ -23,13 +23,12 @@ html:not(.mobile) #scrollable {
   max-height: 550px;
 }
 
-
 #top {
   font-size: 1em;
   position: relative;
   padding: 0 0 .4em 0;
   margin: 0;
-  height: 2.8em;
+  height: calc(var(--icon-size) + 0.3em);
   min-width: 18.75em;
   display: flex;
   -moz-user-select: none;
@@ -52,8 +51,8 @@ html:not(.mobile) #scrollable {
 }
 
 #top .icon {
-  width: 2.5em;
-  height: 2.5em;
+  width: var(--icon-size);
+  height: var(--icon-size);
   margin: 0.25em;
   cursor: pointer;
   font-size: 1em;
@@ -113,7 +112,7 @@ html:not(.mobile) #scrollable {
   position: relative;
   margin: .25em 1.5em;
   padding: 0;
-  height: 2.5em;
+  height: var(--icon-size);
   overflow: hidden;
   opacity: .5;
 }
@@ -210,35 +209,35 @@ html:not(.mobile) #scrollable {
 }
 
 #revoke-temp {
-  background-image: url(/img/ui-revoke-temp64.png) !important;
+  background-image: var(--img-ui-revoke-temp) !important;
 }
 #temp-trust-page {
-  background-image: url(/img/ui-temp-all64.png) !important;
+  background-image: var(--img-ui-temp-all) !important;
 }
 
 #enforce-tab {
-  background-image: url(/img/ui-tab-no64.png) !important;
+  background-image: var(--img-ui-tab-no) !important;
 }
 #enforce-tab[aria-pressed="true"] {
-  background-image: url(/img/ui-tab64.png) !important;;
+  background-image: var(--img-ui-tab) !important;;
 }
 
 #enforce {
-  background-image: url(/img/ui-global-no64.png) !important;
+  background-image: var(--img-ui-global-no) !important;
 }
 #enforce[aria-pressed="true"] {
-  background-image: url(/img/ui-global64.png) !important;
+  background-image: var(--img-ui-global) !important;
 }
 
 #options {
-  background-image: url(/img/noscript-options.png) !important;
+  background-image: var(--img-noscript-options) !important;
 }
 #close {
-  background-image: url(/img/ui-close64.png) !important;
+  background-image: var(--img-ui-close) !important;
 }
 
 #reload {
-  background-image: url(/img/ui-reload64.png) !important;;
+  background-image: var(--img-ui-reload) !important;;
 }
 
 #sites {
@@ -287,10 +286,10 @@ html:not(.mobile) #scrollable {
   overflow: hidden;
 }
 .warning {
-  background-image: url("/img/warning64.png");
+  background-image: var(--img-warning);
 }
 .error {
-  background-image: url("/img/error64.png");
+  background-image: var(--img-error);
 }
 
 #incognito-ui-chooser, html.incognito #message:not(.hidden) ~ #incognito-ui-chooser {

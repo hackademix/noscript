@@ -147,6 +147,8 @@ document.querySelector("#version").textContent = _("Version",
 
   UI.wireChoice("theme", o => Themes.setup(o && o.value) );
 
+  opt("vintageTheme", o => o ? Themes.setVintage(o.checked) : Themes.isVintage());
+
   // PRESET CUSTOMIZER
   {
     let parent = document.getElementById("presets");

@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 @import url(../common/themes.css);
+@import url(images.css);
 
 body {
   background-color: var(--bg-color2);
@@ -11,7 +12,6 @@ body {
   font-size: 12px;
   font-family: sistem-ui, sans-serif;
   font: use-system-font;
-  image-rendering: -webkit-optimize-contrast;
 }
 
 html.mobile > body {
@@ -129,7 +129,7 @@ input[type="radio"]:not(.preset):checked {
 
 
 input:disabled, button:disabled, select:disabled {
-  filter: grayscale(100%);
+  filter: grayscale(100%) contrast(33%);;
   opacity: .7;
 }
 

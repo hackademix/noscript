@@ -3,9 +3,10 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
+@import url(slider.css);
 
 body {
-  background: url("/img/noscript-options.png") no-repeat fixed top right;
+  background: var(--img-noscript-options) no-repeat fixed top right;
   background-size: 7em;
   padding: 0 2em 0 0;
   margin: 0.5em 0.5em 0.5em 0.5em;
@@ -219,4 +220,10 @@ button.add {
 
 .mozwebext #xss-options {
   display: block;
+}
+
+#vintageTheme-opt {
+  padding: 0 2.2em;
+  background: url(/img/logo.svg) no-repeat center left, url(/img/vintage/logo.svg) no-repeat center right;
+  background-size: 2em auto, 2em auto;
 }

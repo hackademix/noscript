@@ -42,10 +42,13 @@
 
   #sites .site:not(.customizing) .presets input.preset {
     background-color: transparent;
+    background-position: center;
   }
 
   #sites .customizing input.preset:checked  {
     margin-left: 0;
+    background-position: center;
+    width: 2.2em;
   }
 
   #presets .presets input.preset + label {
@@ -77,15 +80,16 @@
   }
 
   .presets input.preset:checked ~ input.temp {
-    left: 1.5em;
+    left: 2em;
     pointer-events: none;
   }
 
   .customizing input.preset:checked ~ input.temp {
     pointer-events: all !important;
     z-index: 1000;
-    top: .5em;
-    right: -1em;
+    top: 1.75em;
+    left: auto;
+    right: -2.2em;
     padding: 1em;
   }
 
@@ -174,6 +178,7 @@ input[type="checkbox"] {
   border-spacing: 0;
   width: 100%;
   background: var(--bg-color2);
+  image-rendering: -webkit-optimize-contrast;
 }
 .sites tr, .sites td {
   margin: 0;
@@ -239,7 +244,7 @@ input.https-only {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url(/img/ui-http64.png) no-repeat center;
+  background: var(--img-ui-http) no-repeat center;
   background-size: 1.5em;
   background-position: bottom;
   width: 2em;
@@ -249,7 +254,7 @@ input.https-only {
   cursor: pointer;
 }
 input.https-only:checked {
-  background-image: url(/img/ui-https64.png);
+  background-image: var(--img-ui-https);
 }
 label.https-only {
   display: none;
@@ -285,13 +290,13 @@ span.preset {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url(/img/ui-no64.png) no-repeat center;
-  background-size: 1.8em;
-  width: 2em;
-  height: 2em;
+  background: var(--img-ui-no) no-repeat center;
   outline: 0;
-  opacity: .5;
+  opacity: .6;
   margin: 0 .5em 0.13em .5em;
+  background-size: var(--icon-size);
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 #presets-sizer {
@@ -333,11 +338,11 @@ span.preset {
   display: none;
   text-transform: uppercase;
   color: var(--fg-color2);
-  opacity: .6;
+  opacity: .7;
   position: absolute;
   left: 0em;
   padding-left: 3em;
-  line-height: 2em;
+  line-height: var(--line-size);
 }
 
 .presets input.preset[value^="T"] + label {
@@ -358,17 +363,17 @@ span.preset {
 }
 
 input.preset[value="T_TRUSTED"] {
-  background-image: url(/img/ui-temp64.png);
+  background-image: var(--img-ui-temp);
 }
 
 input.preset[value="TRUSTED"] {
-  background-image: url(/img/ui-yes64.png)
+  background-image: var(--img-ui-yes)
 }
 input.preset[value="UNTRUSTED"] {
-  background-image: url(/img/ui-black64.png)
+  background-image: var(--img-ui-black)
 }
 input.preset[value="CUSTOM"] {
-  background-image: url(/img/ui-custom64.png)
+  background-image: var(--img-ui-custom)
 }
 
 input.temp {
@@ -381,7 +386,7 @@ input.temp {
   border: 0;
   opacity: 0;
   outline: 0;
-  background: url(/img/ui-clock64.png) no-repeat center;
+  background: var(--img-ui-clock) no-repeat center;
   background-size: 60%;
   width: 1.5em;
   height: 1.5em;
@@ -401,7 +406,7 @@ input.temp + label {
 }
 
 input.preset:checked ~ input.temp {
-  opacity: .5;
+  opacity: .7;
   right: 0;
   pointer-events: all;
 }

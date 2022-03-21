@@ -165,8 +165,8 @@ var RequestGuard = (() => {
         browserAction.setTitle({tabId, title: `NoScript (${numBlocked})`});
         return;
       }
-
-      browserAction.setIcon({tabId, path: {64: `/img/ui-${icon}64.png`}});
+      let iconPath = ns.local.vintageTheme ? '/img/vintage' : '/img';
+      browserAction.setIcon({tabId, path: {64: `${iconPath}/ui-${icon}64.png`}});
       browserAction.setBadgeText({tabId, text: showBadge ? numBlocked.toString() : ""});
       browserAction.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
       browserAction.setTitle({tabId,

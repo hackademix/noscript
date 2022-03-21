@@ -17,10 +17,12 @@ input[type="radio"] {
   -moz-appearance:  radio !important;
   padding-right: .2em !important;
 }
+
 input[type="checkbox"] {
   appearance: checkbox !important;
   -webkit-appearance: checkbox !important;
   -moz-appearance:  checkbox !important;
+  display: initial !important;
 }
 
 

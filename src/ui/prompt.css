@@ -35,7 +35,7 @@ html.mobile > body {
   z-index: 500;
   padding: .8em .8em 0 .8em;
   display: block;
-  background: url(/img/logo.svg) no-repeat top right;
+  background: var(--img-logo) no-repeat top right;
   background-size: contain;
   min-height: 5em;
 }

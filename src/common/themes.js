@@ -56,8 +56,35 @@
   let root = document.documentElement;
   root.classList.add("__NoScript_Theme__");
 
+  const VINTAGE = "vintageTheme";
+  (async () => {
+    const key = "vintageTheme";
+
+
+  })();
+
   let update = toTheme => {
     return root.dataset.theme = toTheme;
+  }
+
+  let updateFavIcon = isVintage => {
+    let favIcon = document.querySelector("link[rel=icon]");
+    if (!favIcon) return;
+    let {href} = favIcon;
+    const BASE = new URL("/img/", location.href);
+    if (!href.startsWith(BASE)) return alert("return");
+    const SUB = BASE + "vintage/";
+    let vintageIcon = href.startsWith(SUB);
+    if (isVintage === vintageIcon) return;
+    favIcon.href = isVintage ? href.replace(BASE, SUB) : href.replace(SUB, BASE);
+  }
+
+  let refreshVintage = isVintage => {
+    document.documentElement.classList.toggle("vintage", isVintage);
+    if (browser.browserAction) {
+      browser.browserAction.setIcon({path: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.png` });
+    }
+    updateFavIcon(isVintage);
   }
 
   var Themes = {
@@ -85,7 +112,26 @@
         }
       }
       return update(theme);
-    }
-  }
+    },
+
+    async isVintage() {
+      return  (localStorage ? !!localStorage.getItem(VINTAGE)
+      : (await browser.storage.local.get([VINTAGE]))[VINTAGE]);
+    },
+
+    async setVintage(b) {
+      refreshVintage(b);
+      if (localStorage) {
+        localStorage.setItem(VINTAGE, b || "");
+      }
+      await browser.storage.local.set({[VINTAGE]: b});
+      return b;
+    },
+
+  };
+
+  (async () => {
+    refreshVintage(await Themes.isVintage());
+  })();
   Promise.resolve(Themes.setup());
 }

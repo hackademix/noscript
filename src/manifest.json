@@ -67,7 +67,8 @@
       "bg/Defaults.js",
       "bg/RequestGuard.js",
       "bg/Settings.js",
-      "bg/main.js"
+      "bg/main.js",
+      "common/themes.js"
     ]
   },
 
