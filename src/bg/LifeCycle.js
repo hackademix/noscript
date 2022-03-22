@@ -314,6 +314,16 @@ var LifeCycle = (() => {
         // add the lan capability to any preset which already has the script capability
         await configureNewCap("lan", ["DEFAULT", "TRUSTED", "CUSTOM"], caps => caps.has("script"));
       }
+
+      if (Ver.is(previousVersion, "<=", "11.4.1rc3")) {
+        // show theme switcher on update unless user has already chosen between Vintage Blue and Modern Red
+        (async () => {
+          let isVintage = await Themes.isVintage();
+          if (typeof isVintage === "boolean") return;
+          await ns.init;
+          ns.openOptionsPage({tab: 2, focus: "#opt-vintageTheme", hilite: "#sect-themes"});
+        })();
+      }
     },
 
     async onUpdateAvailable(details) {
