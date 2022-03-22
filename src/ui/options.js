@@ -147,7 +147,7 @@ document.querySelector("#version").textContent = _("Version",
 
   UI.wireChoice("theme", o => Themes.setup(o && o.value) );
 
-  opt("vintageTheme", o => o ? Themes.setVintage(o.checked) : Themes.isVintage());
+  opt("vintageTheme", async o => await (o ? Themes.setVintage(o.checked) : Themes.isVintage()));
 
   // PRESET CUSTOMIZER
   {

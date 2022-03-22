@@ -75,13 +75,14 @@
   }
 
   let refreshVintage = isVintage => {
-    document.documentElement.classList.toggle("vintage", isVintage);
+    document.documentElement.classList.toggle("vintage", isVintage === true);
     if (browser.browserAction) {
       browser.browserAction.setIcon({path: {64: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.png` }});
     }
     updateFavIcon(isVintage);
   }
 
+  const THEMES = ["dark", "light", "auto"];
   var Themes = {
    setup(theme = null) {
       if (theme) {
@@ -94,6 +95,7 @@
       } else {
         if (localStorage) {
           theme = localStorage.getItem("theme");
+          if (!THEMES.includes(theme)) theme = null;
         }
         if (!theme && browser && browser.storage) {
           if (document.readyState === "loading") {
@@ -102,8 +104,8 @@
           return browser.storage.local.get(["theme"]).then(({theme}) => {
               update(theme);
               document.documentElement.style.visibility = "";
-              if (localStorage) localStorage.setItem("theme", theme)
-              return theme;
+              if (localStorage && theme) localStorage.setItem("theme", theme)
+              return theme || "auto";
           });
         }
       }
