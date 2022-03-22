@@ -31,12 +31,14 @@
   }
 
   #presets .presets input.preset {
-    min-width: 5em;
+    min-width: 7em;
   }
 
   #sites .presets input.preset {
      min-width: 0 !important;
      margin-top: 0;
+     margin-left: 0;
+     margin-right: 1em;
      font-weight: bold;
   }
 
@@ -52,31 +54,33 @@
   }
 
   #presets .presets input.preset + label {
-     font-size: 60%;
-     position: absolute !important;
-     text-align: right;
-     padding: 0 !important;
-     margin: 0 !important;
-     display: block !important;
-     width: 5.5em !important;
-     z-index: 1000;
-     top: 1em;
-     left: 4em !important;
-     text-shadow: 1px 1px var(--bg-color2), -1px -1px var(--bg-color2);
-   }
+    font-size: 75%;
+    position: absolute !important;
+    text-align: left;
+    padding: 0px !important;
+    margin: 0px !important;
+    display: block !important;
+    width: 5.8em !important;
+    overflow: visible;
+    z-index: 1000;
+    bottom: 0px;
+    left: 4.2em;
+    text-shadow: 1px 1px var(--bg-color2), -1px -1px var(--bg-color2);
+  }
 
    #sites .presets input.preset:checked + label {
-     z-index: 1000;
-     font-size: 60%;
-     top: 3em;
-     left: -3em !important;
-     margin: 0 !important;
-     padding: 0 !important;
-     text-align: center !important;
-     display: block !important;
-     position: absolute;
-     width: 10em !important;
-     overflow: visible !important;
+    z-index: 1000;
+    font-size: 60%;
+    width: calc(var(--line-size) * 3);
+    left: -33%;
+    top: calc(var(--line-size) * 1.5);
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    display: block !important;
+    position: absolute;
+    overflow: visible !important;
+    background-image: none !important;
   }
 
   .presets input.preset:checked ~ input.temp {
@@ -87,23 +91,21 @@
   .customizing input.preset:checked ~ input.temp {
     pointer-events: all !important;
     z-index: 1000;
-    top: 1.75em;
-    left: auto;
-    right: -2.2em;
-    padding: 1em;
+    left: var(--line-size);
+    padding: calc(var(--line-size) / 2);
   }
 
   #sites .customizing input.preset:checked + label {
     text-align:right !important;
     right: 0em !important;
-    left: auto !important;
+
     pointer-events: none;
     transition: all .2s;
   }
 
   td.presets {
     white-space: nowrap !important;
-    vertical-align: bottom;
+    vertical-align: middle;
     border: 1px solid var(--fg-color2);
   }
   .url > span > span {
@@ -126,6 +128,7 @@
 #sites .customizing .presets {
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
+  vertical-align: bottom;
 }
 
 .capsContext, .capsContext > div {
@@ -277,8 +280,9 @@ td.presets {
 span.preset {
   position: relative;
   display: inline-block;
-  top: 0.13em;
   font-size: 1em;
+  height: var(--line-size);
+  top: 2px;
 }
 
 .preset label, .preset input, .preset button {
@@ -294,7 +298,7 @@ span.preset {
   outline: 0;
   opacity: .6;
   margin: 0 .5em 0.13em .5em;
-  background-size: calc(var(--line-size) - .2em);
+  background-size: var(--line-size);
   width: var(--line-size);
   height: var(--line-size);
 }
@@ -317,7 +321,7 @@ span.preset {
   opacity: 1;
   transform: none;
   min-width: 9.38em;
-  background-position-x: 0;
+  background-position-x: calc(var(--line-size) / 10);
 }
 
 .presets input.preset:focus {
@@ -331,14 +335,14 @@ span.preset {
 .presets label.preset {
   padding: 0;
   letter-spacing: -0.06em;
-  width: 0em;
+  width: 0;
   overflow: hidden;
   display: none;
   text-transform: uppercase;
   color: var(--fg-color2);
   opacity: .7;
   position: absolute;
-  left: 0em;
+  left: 0;
   padding-left: 3em;
   line-height: var(--line-size);
 }
@@ -349,9 +353,10 @@ span.preset {
 
 .presets input.preset:checked + label, #presets .presets label {
   opacity: 1;
-  width: 80%;
   display: inline-flex;
+  width: 75%;
 }
+
 :not(#presets) > .sites .site:not(.customizing) .presets input.preset:checked + label.preset {
   background-image: linear-gradient(to right, transparent calc(var(--line-size) * 1.5), var(--bg-color1) 50%);
   border-radius: calc(var(--line-size) / 2);
@@ -426,6 +431,7 @@ input.preset:checked ~ input.temp {
 
 .customizing input.preset:checked, #presets input.preset:checked {
   background-color: var(--form-color2);
+  height: calc(var(--line-size) + 0.2em);
 }
 
 .customizer fieldset {
