@@ -203,12 +203,26 @@ document.querySelector("#version").textContent = _("Version",
         UI.updateSettings({policy});
         newSiteInput.value = "";
         sitesUI.render(policy.sites);
-        sitesUI.highlight(site);
+        sitesUI.hilite(site);
         sitesUI.onChange();
       }
     }, true);
   }
 
+  window.setTimeout(() => {
+    // focus and/or hilite elements based on query string
+    let params = new URLSearchParams(location.search);
+    let el = key => {
+      let selector = params.get(key);
+      return selector && document.querySelector(selector);
+    }
+
+    let focusElement = el("focus");
+    if (focusElement) focusElement.focus();
+
+    let hiliteElement = el("hilite");
+    if (hiliteElement) UI.hilite(hiliteElement);
+  }, 1000);
 
   // UTILITY FUNCTIONS
 

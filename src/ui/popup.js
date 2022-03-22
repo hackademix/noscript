@@ -107,7 +107,7 @@ addEventListener("unload", e => {
       let handlers = {
         "options": e => {
           if (UA.mobile) { // Fenix fails on openOptionsPage
-            browser.tabs.create({url: browser.runtime.getURL("/ui/options.html")});
+            browser.tabs.create({url: browser.runtime.getManifest().options_ui.page});
           } else {
             browser.runtime.openOptionsPage();
           }

@@ -338,7 +338,17 @@
       return this.policy;
     },
 
-
+    openOptionsPage({tab, focus, hilite}) {
+      let url = new URL(browser.runtime.getManifest().options_ui.page);
+      if (tab !== undefined) {
+        url.hash += `;tab-main-tabs=${tab}`;
+      }
+      let search = new URLSearchParams(url.search);
+      if (focus) search.set("focus", focus);
+      if (hilite) search.set("hilite", hilite);
+      url.search = search;
+      browser.tabs.create({url: url.toString() });
+    },
 
     async save(obj) {
       if (obj && obj.storage) {

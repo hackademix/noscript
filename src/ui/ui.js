@@ -185,6 +185,18 @@ var UI = (() => {
       return input;
     },
 
+    hilite(el) {
+      el.classList.add("hilite");
+      window.setTimeout(() => {
+          el.classList.remove("hilite");
+          el.classList.add("hilite-end");
+          el.scrollIntoView();
+          window.setTimeout(() => {
+            el.classList.remove("hilite-end");
+          }, 1000)
+      }, 50);
+    },
+
     createXSSChoiceManager(parent = "#xssChoices") {
       if (!UA.isMozilla) return;
       let choicesUI = document.querySelector(parent);
@@ -1115,20 +1127,12 @@ var UI = (() => {
       }
     }
 
-    highlight(key) {
+    hilite(key) {
       key = Sites.toExternal(key);
       for (let r of this.allSiteRows()) {
         if (key === r.siteMatch) {
-          r.classList.add("hilite");
+          UI.hilite(r);
           r.querySelector("input.preset:checked").focus();
-          window.setTimeout(() => {
-              r.classList.remove("hilite");
-              r.classList.add("hilite-end");
-              r.scrollIntoView();
-              window.setTimeout(() => {
-                r.classList.remove("hilite-end");
-              }, 1000)
-          }, 50);
           break;
         }
       }
