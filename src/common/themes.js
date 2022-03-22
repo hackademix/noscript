@@ -57,11 +57,6 @@
   root.classList.add("__NoScript_Theme__");
 
   const VINTAGE = "vintageTheme";
-  (async () => {
-    const key = "vintageTheme";
-
-
-  })();
 
   let update = toTheme => {
     return root.dataset.theme = toTheme;
@@ -98,16 +93,17 @@
         }
       } else {
         if (localStorage) {
-          theme = localStorage.getItem("theme") || "auto";
+          theme = localStorage.getItem("theme");
         }
         if (!theme && browser && browser.storage) {
           if (document.readyState === "loading") {
             document.documentElement.style.visibility = "hidden";
           }
-          return browser.storage.local.get(["theme"]).then(r => {
-              update(r.theme);
+          return browser.storage.local.get(["theme"]).then(({theme}) => {
+              update(theme);
               document.documentElement.style.visibility = "";
-              return r.theme;
+              if (localStorage) localStorage.setItem("theme", theme)
+              return theme;
           });
         }
       }
