@@ -223,7 +223,17 @@ button.add {
 }
 
 #vintageTheme-opt {
-  padding: 0 2.2em;
   background: url(/img/logo.svg) no-repeat center left, url(/img/vintage/logo.svg) no-repeat center right;
   background-size: 2em auto, 2em auto;
+}
+label[for="opt-vintageTheme"] {
+	text-indent: -5000px;
+	padding: 0 1.2em;
+}
+
+.hc #vintageTheme-opt {
+  background: none;
+}
+.hc label[for="opt-vintageTheme"] {
+  display: none !important;
 }
