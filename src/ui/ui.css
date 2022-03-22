@@ -294,7 +294,7 @@ span.preset {
   outline: 0;
   opacity: .6;
   margin: 0 .5em 0.13em .5em;
-  background-size: contain;
+  background-size: calc(var(--line-size) - .2em);
   width: var(--line-size);
   height: var(--line-size);
 }
@@ -317,9 +317,7 @@ span.preset {
   opacity: 1;
   transform: none;
   min-width: 9.38em;
-  background-color: var(--bg-color1);
-  background-position-x: .3em;
-  border-radius: .5em;
+  background-position-x: 0;
 }
 
 .presets input.preset:focus {
@@ -354,6 +352,12 @@ span.preset {
   width: 80%;
   display: inline-flex;
 }
+:not(#presets) > .sites .site:not(.customizing) .presets input.preset:checked + label.preset {
+  background-image: linear-gradient(to right, transparent calc(var(--line-size) * 1.5), var(--bg-color1) 50%);
+  border-radius: calc(var(--line-size) / 2);
+}
+
+
 
 #presets-sizer .presets label {
    position: static;

@@ -4,6 +4,11 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+.__NoScript_Theme__ {
+  --focus-color-dark:  #8007;
+  --focus-color-light: #f787;
+}
+
 .__NoScript_Theme__, .__NoScript_Theme__[data-theme="dark"] {
   color-scheme: dark;
   --accent-color: #d12027;
@@ -14,7 +19,7 @@
   --bg-color2: #212026;
   --form-color1: #333;
   --form-color2: #111;
-  --focus-color: #8007;
+  --focus-color: var(--focus-color-dark);
   --tab-color1: #6668;
   --tab-color2: #3348;
   --form-check-color: var(--accent-color);
@@ -38,7 +43,7 @@
     --form-color2: #eee;
     --tab-color1: #ddda;
     --tab-color2: #8888;
-    --focus-color: #f787;
+    --focus-color: var(--focus-color-light);
   }
 
   .__NoScript_Theme__.vintage[data-theme="dark"] :is(input.preset, .icon) {
@@ -100,9 +105,10 @@
   --img-ui-clock: url(/img/vintage/ui-clock64.png);
 
   --icon-size: 1.8em;
-  --line-size: 1.5em;
+  --line-size: 1.7em;
   --popup-size: 600px;
 
-  --focus-color: #8cfa !important;
+  --focus-color-light: #8cf8 !important;
+  --focus-color-dark: #0468 !important;
 }
 
