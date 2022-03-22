@@ -294,9 +294,9 @@ span.preset {
   outline: 0;
   opacity: .6;
   margin: 0 .5em 0.13em .5em;
-  background-size: var(--icon-size);
-  width: var(--icon-size);
-  height: var(--icon-size);
+  background-size: contain;
+  width: var(--line-size);
+  height: var(--line-size);
 }
 
 #presets-sizer {
