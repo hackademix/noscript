@@ -76,8 +76,8 @@
   --img-ui-custom: url(/img/ui-custom64.png);
   --img-ui-clock: url(/img/ui-clock64.png);
 
-  --icon-size: 2.5em;
-  --line-size: 2em;
+  --icon-size: 2.2em;
+  --line-size: 1.7em;
   --popup-size: 640px;
 }
 
@@ -104,8 +104,8 @@
   --img-ui-custom: url(/img/vintage/ui-custom64.png);
   --img-ui-clock: url(/img/vintage/ui-clock64.png);
 
-  --icon-size: 1.8em;
-  --line-size: 1.7em;
+  --icon-size: 2em;
+  --line-size: 1.5em;
   --popup-size: 600px;
 
   --focus-color-light: #8cf8 !important;
