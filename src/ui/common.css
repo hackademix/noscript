@@ -137,7 +137,7 @@ input:disabled, button:disabled, select:disabled {
   cursor: not-allowed !important;
 }
 
-:focus-visible, .cap:focus-within {
+:focus-visible, :is(.cap, .switch):focus-within {
   outline: 0;
   filter:
     drop-shadow(2px 2px 2px var(--focus-color))
