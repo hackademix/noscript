@@ -82,7 +82,7 @@
   let refreshVintage = isVintage => {
     document.documentElement.classList.toggle("vintage", isVintage);
     if (browser.browserAction) {
-      browser.browserAction.setIcon({path: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.png` });
+      browser.browserAction.setIcon({path: {64: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.png` }});
     }
     updateFavIcon(isVintage);
   }
@@ -115,15 +115,21 @@
     },
 
     async isVintage() {
-      return  (localStorage ? !!localStorage.getItem(VINTAGE)
-      : (await browser.storage.local.get([VINTAGE]))[VINTAGE]);
+      let ret;
+      if (localStorage) {
+        ret = localStorage && localStorage.getItem(VINTAGE);
+        if (ret !== null) return !!ret;
+      }
+      ret = (await browser.storage.local.get([VINTAGE]))[VINTAGE];
+      if (localStorage && typeof ret === "boolean") localStorage.setItem(VINTAGE, ret);
+      return ret;
     },
 
     async setVintage(b) {
       refreshVintage(b);
-      if (localStorage) {
+      if (localStorage) try {
         localStorage.setItem(VINTAGE, b || "");
-      }
+      } catch (e) {}
       await browser.storage.local.set({[VINTAGE]: b});
       return b;
     },
