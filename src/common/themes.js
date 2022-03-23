@@ -19,7 +19,9 @@
  */
 
 {
+  const PARENT_CLASS = "__NoScript_Theme__";
   let patchSheet = s => {
+    const PARENT_SELECTOR = `.${PARENT_CLASS}`;
     let rules = s.cssRules;
     for (let j = 0, len = rules.length; j < len; j++) {
       let rule = rules[j];
@@ -28,7 +30,10 @@
       }
       if (rule.conditionText !== "(prefers-color-scheme: light)") continue;
       for (let r of rule.cssRules) {
-        s.insertRule(`${r.selectorText}[data-theme="light"] {${r.style.cssText}}`, j);
+        let {selectorText} = r;
+        if (selectorText.includes("[data-theme=") || !selectorText.startsWith(PARENT_SELECTOR)) continue;
+        selectorText = selectorText.replace(PARENT_SELECTOR, `${PARENT_SELECTOR}[data-theme="light"]`);
+        s.insertRule(`${selectorText} {${r.style.cssText}}`, j);
       }
       return true;
     }
@@ -37,7 +42,12 @@
 
   let patchAll = () => {
     for (let s of document.styleSheets) {
-      if (patchSheet(s)) return true;
+      try {
+        if (patchSheet(s)) return true;
+      } catch (e) {
+        // cross-site stylesheet?
+        console.error(e, s.href);
+      }
     }
     return false;
   }
@@ -54,7 +64,7 @@
 
 
   let root = document.documentElement;
-  root.classList.add("__NoScript_Theme__");
+  root.classList.add(PARENT_CLASS);
 
   const VINTAGE = "vintageTheme";
 
