@@ -80,6 +80,11 @@
   --icon-size: 2.2em;
   --line-size: 1.7em;
   --popup-size: 640px;
+
+  --bg-focused-row: linear-gradient(to bottom, var(--form-color1) 0, var(--form-color2) 70%, var(--bg-color1) 100%) no-repeat;
+  --bg-odd-row: var(--bg-color2);
+  --bg-even-row: var(--form-color1);
+  --border-row-sep: none; /* 2px dotted var(--form-color2); */
 }
 
 .vintage {
@@ -111,5 +116,10 @@
 
   --focus-color-light: #8cf8 !important;
   --focus-color-dark: #0468 !important;
+
+  --bg-focused-row: var(--focus-color);
+  --bg-odd-row: var(--bg-color2);
+  --bg-even-row: var(--bg-color1);
+  --border-row-sep: none;
 }
 

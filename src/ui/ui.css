@@ -180,7 +180,7 @@ input[type="checkbox"] {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  background: var(--bg-color2);
+  background-color: var(--bg-odd-row);
   image-rendering: -webkit-optimize-contrast;
 }
 .sites tr, .sites td {
@@ -192,13 +192,19 @@ input[type="checkbox"] {
 }
 
 html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
-  background: linear-gradient(to bottom, var(--form-color1) 0, var(--bg-color2) 41%, var(--bg-color1) 100%) no-repeat;
+  background: var(--bg-focused-row);
   border-color: transparent;
 }
 
 .sites > tr.site:not(.customizing) {
-  border-top: 2px dotted var(--form-color1);
+  /* border-top: 2px dotted var(--form-color1); */
+  border-top: var(--border-row-sep);
 }
+
+.sites > tr.site:nth-child(even):not(.customizing) {
+  background-color: var(--bg-even-row);
+}
+
 .sites > tr.site:first-of-type, tr.site:focus-within + tr, .sites > tr.customizing, .sites > tr.customizing + tr.site, .customizer, .customizer + tr.site  {
   border-color: transparent;
 }
@@ -296,7 +302,7 @@ span.preset {
   -moz-appearance: none;
   background: var(--img-ui-no) no-repeat center;
   outline: 0;
-  opacity: .6;
+  opacity: .8;
   margin: 0 .5em 0.13em .5em;
   background-size: var(--line-size);
   width: var(--line-size);
@@ -340,7 +346,7 @@ span.preset {
   display: none;
   text-transform: uppercase;
   color: var(--fg-color2);
-  opacity: .7;
+  opacity: .8;
   position: absolute;
   left: 0;
   padding-left: 3em;
@@ -358,7 +364,7 @@ span.preset {
 }
 
 :not(#presets) > .sites .site:not(.customizing) .presets input.preset:checked + label.preset {
-  background-image: linear-gradient(to right, transparent calc(var(--line-size) * 1.5), var(--bg-color1) 50%);
+  background-image: linear-gradient(to right, transparent calc(var(--line-size) * 1.5), var(--form-color2) 50%);
   border-radius: calc(var(--line-size) / 2);
 }
 
