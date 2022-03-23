@@ -26,8 +26,9 @@
   --form-control-color: var(--form-color2);
   --hilite-color: #f008;
 }
-.__NoScript_Theme__.vintage:not[data-theme="light"] :is(input.preset, .icon) {
-  filter: brightness(90%);
+
+.__NoScript_Theme__.vintage:not([data-theme="light"]) :is(input.preset, .icon) {
+  filter: brightness(85%);
 }
 
 
@@ -47,7 +48,7 @@
   }
 
   .__NoScript_Theme__.vintage[data-theme="dark"] :is(input.preset, .icon) {
-    filter: brightness(90%);
+    filter: brightness(85%);
   }
 
 }
