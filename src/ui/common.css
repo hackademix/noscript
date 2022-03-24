@@ -128,7 +128,7 @@ input[type="radio"]:not(.preset):checked {
 
 
 input:disabled, button:disabled, select:disabled {
-  filter: grayscale(100%) contrast(33%);;
+  filter: grayscale(100%) contrast(33%) !important;
   opacity: .7;
 }
 
@@ -142,7 +142,7 @@ input:disabled, button:disabled, select:disabled {
     drop-shadow(2px 2px 2px var(--focus-color))
     drop-shadow(-2px 2px 2px var(--focus-color))
     drop-shadow(2px -2px 2px var(--focus-color))
-    drop-shadow(-2px -2px 2px var(--focus-color));
+    drop-shadow(-2px -2px 2px var(--focus-color)) !important;
 }
 
 
