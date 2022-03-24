@@ -689,6 +689,15 @@
   "themeAuto": {
     "message": "Auto"
   },
+  "ModernRed": {
+    "message": "Modern Red"
+  },
+  "VintageBlue": {
+    "message": "Vintage Blue"
+  },
+  "toVintageBlue": {
+    "message": "Switch to the Vintage Blue style"
+  },
   "DonateShort": {
     "message": "Donate"
   },
