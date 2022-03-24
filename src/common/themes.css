@@ -7,7 +7,77 @@
 .__NoScript_Theme__ {
   --focus-color-dark:  #8007;
   --focus-color-light: #f787;
+
+  --img-noscript-options: url(/img/noscript-options.png);
+  --img-ui-revoke-temp: url(/img/ui-revoke-temp64.png);
+  --img-ui-temp-all: url(/img/ui-temp-all64.png);
+  --img-ui-tab-no: url(/img/ui-tab-no64.png);
+  --img-ui-tab: url(/img/ui-tab64.png);
+  --img-ui-global-no: url(/img/ui-global-no64.png);
+  --img-ui-global: url(/img/ui-global64.png);
+  --img-noscript-options: url(/img/noscript-options.png);
+  --img-ui-close: url(/img/ui-close64.png);
+  --img-ui-reload: url(/img/ui-reload64.png);
+  --img-warning: url(/img/warning64.png);
+  --img-error: url(/img/error64.png);
+  --img-logo: url(/img/logo.svg);
+  --img-ui-http: url(/img/ui-http64.png);
+  --img-ui-https: url(/img/ui-https64.png);
+  --img-ui-no: url(/img/ui-no64.png);
+  --img-ui-temp: url(/img/ui-temp64.png);
+  --img-ui-yes: url(/img/ui-yes64.png);
+  --img-ui-black: url(/img/ui-black64.png);
+  --img-ui-custom: url(/img/ui-custom64.png);
+  --img-ui-clock: url(/img/ui-clock64.png);
+
+  --icon-size: 2.2em;
+  --line-size: 1.7em;
+  --popup-size: 640px;
+
+  --bg-focused-row: linear-gradient(to bottom, var(--form-color1) 0, var(--form-color2) 70%, var(--bg-color1) 100%) no-repeat;
+  --bg-odd-row: var(--bg-color2);
+  --bg-even-row: var(--form-color1);
+  --border-row-sep: none;
 }
+
+
+.__NoScript_Theme__.vintage {
+
+  --focus-color-light: #8cf8 !important;
+  --focus-color-dark: #0468 !important;
+
+  --img-noscript-options: url(/img/vintage/noscript-options.png);
+  --img-ui-revoke-temp: url(/img/vintage/ui-revoke-temp64.png);
+  --img-ui-temp-all: url(/img/vintage/ui-temp-all64.png);
+  --img-ui-tab-no: url(/img/vintage/ui-tab-no64.png);
+  --img-ui-tab: url(/img/vintage/ui-tab64.png);
+  --img-ui-global-no: url(/img/vintage/ui-global-no64.png);
+  --img-ui-global: url(/img/vintage/ui-global64.png);
+  --img-noscript-options: url(/img/vintage/noscript-options.png);
+  --img-ui-close: url(/img/vintage/ui-close64.png);
+  --img-ui-reload: url(/img/vintage/ui-reload64.png);
+  --img-warning: url(/img/vintage/warning64.png);
+  --img-error: url(/img/vintage/error64.png);
+  --img-logo: url(/img/vintage/logo.svg);
+  --img-ui-http: url(/img/vintage/ui-http64.png);
+  --img-ui-https: url(/img/vintage/ui-https64.png);
+  --img-ui-no: url(/img/vintage/ui-no64.png);
+  --img-ui-temp: url(/img/vintage/ui-temp64.png);
+  --img-ui-yes: url(/img/vintage/ui-yes64.png);
+  --img-ui-black: url(/img/vintage/ui-black64.png);
+  --img-ui-custom: url(/img/vintage/ui-custom64.png);
+  --img-ui-clock: url(/img/vintage/ui-clock64.png);
+
+  --icon-size: 2em;
+  --line-size: 1.5em;
+  --popup-size: 600px;
+
+  --bg-focused-row: var(--focus-color);
+  --bg-odd-row: var(--bg-color2);
+  --bg-even-row: var(--bg-color1);
+  --border-row-sep: none;
+}
+
 
 .__NoScript_Theme__, .__NoScript_Theme__[data-theme="dark"] {
   color-scheme: dark;
@@ -54,72 +124,5 @@
 }
 
 
-:root {
-  --img-noscript-options: url(/img/noscript-options.png);
-  --img-ui-revoke-temp: url(/img/ui-revoke-temp64.png);
-  --img-ui-temp-all: url(/img/ui-temp-all64.png);
-  --img-ui-tab-no: url(/img/ui-tab-no64.png);
-  --img-ui-tab: url(/img/ui-tab64.png);
-  --img-ui-global-no: url(/img/ui-global-no64.png);
-  --img-ui-global: url(/img/ui-global64.png);
-  --img-noscript-options: url(/img/noscript-options.png);
-  --img-ui-close: url(/img/ui-close64.png);
-  --img-ui-reload: url(/img/ui-reload64.png);
-  --img-warning: url(/img/warning64.png);
-  --img-error: url(/img/error64.png);
-  --img-logo: url(/img/logo.svg);
-  --img-ui-http: url(/img/ui-http64.png);
-  --img-ui-https: url(/img/ui-https64.png);
-  --img-ui-no: url(/img/ui-no64.png);
-  --img-ui-temp: url(/img/ui-temp64.png);
-  --img-ui-yes: url(/img/ui-yes64.png);
-  --img-ui-black: url(/img/ui-black64.png);
-  --img-ui-custom: url(/img/ui-custom64.png);
-  --img-ui-clock: url(/img/ui-clock64.png);
 
-  --icon-size: 2.2em;
-  --line-size: 1.7em;
-  --popup-size: 640px;
-
-  --bg-focused-row: linear-gradient(to bottom, var(--form-color1) 0, var(--form-color2) 70%, var(--bg-color1) 100%) no-repeat;
-  --bg-odd-row: var(--bg-color2);
-  --bg-even-row: var(--form-color1);
-  --border-row-sep: none; /* 2px dotted var(--form-color2); */
-}
-
-.vintage {
-  --img-noscript-options: url(/img/vintage/noscript-options.png);
-  --img-ui-revoke-temp: url(/img/vintage/ui-revoke-temp64.png);
-  --img-ui-temp-all: url(/img/vintage/ui-temp-all64.png);
-  --img-ui-tab-no: url(/img/vintage/ui-tab-no64.png);
-  --img-ui-tab: url(/img/vintage/ui-tab64.png);
-  --img-ui-global-no: url(/img/vintage/ui-global-no64.png);
-  --img-ui-global: url(/img/vintage/ui-global64.png);
-  --img-noscript-options: url(/img/vintage/noscript-options.png);
-  --img-ui-close: url(/img/vintage/ui-close64.png);
-  --img-ui-reload: url(/img/vintage/ui-reload64.png);
-  --img-warning: url(/img/vintage/warning64.png);
-  --img-error: url(/img/vintage/error64.png);
-  --img-logo: url(/img/vintage/logo.svg);
-  --img-ui-http: url(/img/vintage/ui-http64.png);
-  --img-ui-https: url(/img/vintage/ui-https64.png);
-  --img-ui-no: url(/img/vintage/ui-no64.png);
-  --img-ui-temp: url(/img/vintage/ui-temp64.png);
-  --img-ui-yes: url(/img/vintage/ui-yes64.png);
-  --img-ui-black: url(/img/vintage/ui-black64.png);
-  --img-ui-custom: url(/img/vintage/ui-custom64.png);
-  --img-ui-clock: url(/img/vintage/ui-clock64.png);
-
-  --icon-size: 2em;
-  --line-size: 1.5em;
-  --popup-size: 600px;
-
-  --focus-color-light: #8cf8 !important;
-  --focus-color-dark: #0468 !important;
-
-  --bg-focused-row: var(--focus-color);
-  --bg-odd-row: var(--bg-color2);
-  --bg-even-row: var(--bg-color1);
-  --border-row-sep: none;
-}
 
