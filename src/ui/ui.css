@@ -180,9 +180,12 @@ input[type="checkbox"] {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  background-color: var(--bg-odd-row);
   image-rendering: -webkit-optimize-contrast;
 }
+.vintage .sites {
+  image-rendering: auto;
+}
+
 .sites tr, .sites td {
   margin: 0;
   padding: 0;
@@ -192,7 +195,7 @@ input[type="checkbox"] {
 }
 
 html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
-  background: var(--bg-focused-row);
+  background-image: var(--bg-focused-row);
   border-color: transparent;
 }
 
@@ -201,9 +204,14 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
   border-top: var(--border-row-sep);
 }
 
-.sites > tr.site:nth-child(even):not(.customizing) {
+.sites > tr.site:nth-of-type(even):not(.customizing) {
   background-color: var(--bg-even-row);
 }
+
+.sites > tr.site:nth-of-type(odd):not(.customizing) {
+  background-color: var(--bg-odd-row);
+}
+
 
 .sites > tr.site:first-of-type, tr.site:focus-within + tr, .sites > tr.customizing, .sites > tr.customizing + tr.site, .customizer, .customizer + tr.site  {
   border-color: transparent;
@@ -364,7 +372,7 @@ span.preset {
 }
 
 :not(#presets) > .sites .site:not(.customizing) .presets input.preset:checked + label.preset {
-  background-image: linear-gradient(to right, transparent calc(var(--line-size) * 1.5), var(--form-color2) 50%);
+  background-image: linear-gradient(to right, transparent calc(var(--line-size) * 1.5), var(--bg-preset-color) 50%);
   border-radius: calc(var(--line-size) / 2);
 }
 
