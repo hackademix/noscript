@@ -80,7 +80,7 @@
         "description": ""
     },
     "BlockedItems": {
-        "message": "$1 von $2 Elementen blockiert.",
+        "message": "$1 von $2 Elementen blockiert",
         "description": ""
     },
     "BlockedObjects": {
@@ -704,7 +704,7 @@
         "description": ""
     },
     "capsContext": {
-        "message": "Folgendes zulassen auf ",
+        "message": "Folgendes zulassen auf",
         "description": ""
     },
     "anySite": {

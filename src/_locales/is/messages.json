@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Takmarkanir eru óvirkar",
+        "message": "Takmarkanir hafa verið gerðar óvirkar í stillingum notandans: NoScript lokar ekki á neitt á þessari síðu!",
         "description": ""
     },
     "NoEnforcement": {
@@ -700,15 +700,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Virkja þessa eiginleika",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Virkja þessa eiginleika þegar efsta síða samsvarar",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "HVAÐA VEFSVÆÐI SEM ER",
         "description": ""
     },
     "cap_script": {
@@ -904,19 +904,19 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Theme",
+        "message": "Þema",
         "description": ""
     },
     "themeDark": {
-        "message": "Dark",
+        "message": "Dökkt",
         "description": ""
     },
     "themeLight": {
-        "message": "Light",
+        "message": "Ljóst",
         "description": ""
     },
     "themeAuto": {
-        "message": "Auto",
+        "message": "Sjálfvirkt",
         "description": ""
     },
     "DonateShort": {
@@ -924,7 +924,7 @@
         "description": ""
     },
     "DonateLong": {
-        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "message": "NoScript er frjáls og opinn hugbúnaður og gæti ekki verið til án hjálpar þinnar. Íhugaðu að styrkja okkur núna!",
         "description": ""
     }
 }
