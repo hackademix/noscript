@@ -46,6 +46,8 @@ document.querySelector("#version").textContent = _("Version",
     return disabled;
   });
 
+  opt("enforceOnRestart", "local");
+
   opt("auto", o => {
     if (o) {
       policy.autoAllowTop = o.checked;

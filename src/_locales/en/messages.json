@@ -167,6 +167,9 @@
   "Enforce": {
     "message": "Enable restrictions globally"
   },
+  "EnforceOnRestart": {
+    "message": "Restore restrictions on browser restart"
+  },
   "NoEnforcementForTab": {
     "message": "Disable restrictions for this tab"
   },

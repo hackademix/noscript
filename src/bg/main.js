@@ -56,6 +56,10 @@
       let policyData = (await Storage.get("sync", "policy")).policy;
       if (policyData && policyData.DEFAULT) {
         ns.policy = new Policy(policyData);
+        if (ns.local.enforceOnRestart && !ns.policy.enforced) {
+          ns.policy.enforced = true;
+          await ns.savePolicy();
+        }
       } else {
         await include("/legacy/Legacy.js");
         ns.policy = await Legacy.createOrMigratePolicy();
