@@ -919,6 +919,18 @@
         "message": "Auto",
         "description": ""
     },
+    "ModernRed": {
+        "message": "Modern rood",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Vintage blauw",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Wisselen naar de stijl Vintage blauw",
+        "description": ""
+    },
     "DonateShort": {
         "message": "Doneren",
         "description": ""

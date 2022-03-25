@@ -919,6 +919,18 @@
         "message": "Automatisch",
         "description": ""
     },
+    "ModernRed": {
+        "message": "Modern Rot",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Klassisch Blau",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Stil »Klassisch Blau« wählen",
+        "description": ""
+    },
     "DonateShort": {
         "message": "Spenden",
         "description": ""

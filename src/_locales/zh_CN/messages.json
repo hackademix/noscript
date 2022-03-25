@@ -919,6 +919,18 @@
         "message": "自动",
         "description": ""
     },
+    "ModernRed": {
+        "message": "现代红",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "古董蓝",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "切换到古董蓝样式",
+        "description": ""
+    },
     "DonateShort": {
         "message": "捐赠",
         "description": ""
