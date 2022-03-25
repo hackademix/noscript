@@ -223,6 +223,10 @@
         "message": "Aktivizoji globalisht kufizimet",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Rikthe kufizime mbi rinisje shfletuesi",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Çaktivizoji kufizimet për këtë skedë",
         "description": ""
@@ -917,6 +921,18 @@
     },
     "themeAuto": {
         "message": "Auto",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "E kuqe Moderne",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Blu e Dikurshme",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Kalo te stil Blu e Dikurshme",
         "description": ""
     },
     "DonateShort": {

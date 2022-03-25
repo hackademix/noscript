@@ -223,6 +223,10 @@
         "message": "Глобальное включение ограничений",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Восстанавливать ограничения при перезапуске браузера",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Отключить ограничения для этой вкладки",
         "description": ""
@@ -917,6 +921,18 @@
     },
     "themeAuto": {
         "message": "Автовыбор",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "Modern Red",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Vintage Blue",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Переключить на тему Vintage Blue",
         "description": ""
     },
     "DonateShort": {

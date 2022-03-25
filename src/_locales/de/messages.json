@@ -223,6 +223,10 @@
         "message": "Einschränkungen global aktivieren",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Einschränkungen bei Browser-Neustart wiederherstellen",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Einschränkungen für diesen Tab deaktivieren",
         "description": ""
@@ -928,7 +932,7 @@
         "description": ""
     },
     "toVintageBlue": {
-        "message": "Stil »Klassisch Blau« wählen",
+        "message": "Zum Stil Klassisch Blau wechseln",
         "description": ""
     },
     "DonateShort": {

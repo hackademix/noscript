@@ -223,6 +223,10 @@
         "message": "Beperkingen overal inschakelen",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Beperkingen herstellen bij browserherstart",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Beperkingen voor dit tabblad uitschakelen",
         "description": ""

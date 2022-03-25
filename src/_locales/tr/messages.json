@@ -223,6 +223,10 @@
         "message": "Kısıtlamalar genel olarak etkinleştirilsin",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Restore restrictions on browser restart",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Kısıtlamalar bu sekme için devre dışı bırakılsın",
         "description": ""
@@ -917,6 +921,18 @@
     },
     "themeAuto": {
         "message": "Otomatik",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "Modern kırmızı",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Eski mavi",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Eski mavi biçeme geç",
         "description": ""
     },
     "DonateShort": {
