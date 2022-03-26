@@ -24,7 +24,7 @@
         "description": ""
     },
     "Allow_accesskey": {
-        "message": "P",
+        "message": "l",
         "description": ""
     },
     "AllowBookmarks": {
@@ -32,7 +32,7 @@
         "description": ""
     },
     "AllowClipboard": {
-        "message": "Permitir copiar e colar texto formatado da área de transferência externa",
+        "message": "Permitir copiar e colar texto em caixa alta da área de transferência externa",
         "description": ""
     },
     "AllowLocalLinks": {
@@ -40,11 +40,11 @@
         "description": ""
     },
     "AllowPage": {
-        "message": "Permitir toda esta página",
+        "message": "Permita toda esta página",
         "description": ""
     },
     "AllowPage_accesskey": {
-        "message": "t",
+        "message": "A",
         "description": ""
     },
     "AllowPing": {
@@ -52,11 +52,11 @@
         "description": ""
     },
     "AllowViaBookmarks": {
-        "message": "Permitir sites abertos através de favoritos",
+        "message": "Permitir sites abertos através de marcadores",
         "description": ""
     },
     "AlwaysBlockUntrustedContent": {
-        "message": "Bloquear todos os objetos vindos de um site marcado como não confiável",
+        "message": "Bloqueie cada objeto proveniente de um site marcado como não confiável",
         "description": ""
     },
     "SectionAppearance": {
@@ -64,31 +64,31 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Temporariamente definir sites de alto nível como CONFIÁVEIS",
+        "message": "Configurar temporariamente sites de alto nível para CONFIÁVEL",
         "description": ""
     },
     "AutoReload": {
-        "message": "Recarregar páginas afetadas automaticamente quando permissões forem alteradas",
+        "message": "Recarregue automaticamente páginas afetadas quando as permissões mudarem",
         "description": ""
     },
     "AutoReload_currentTab": {
-        "message": "Recarregar somente a aba atual",
+        "message": "Recarregue somente a aba atual",
         "description": ""
     },
     "BaseDom": {
-        "message": "Domínios básicos de segundo nível (noscript.net)",
+        "message": "Domínios de base nível 2º (noscript.net)",
         "description": ""
     },
     "BlockedItems": {
-        "message": "Bloqueado(s) $1 de $2 itens.",
+        "message": "Bloqueado $1 de $2 itens.",
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript Blocked Objects",
+        "message": "Objetos Bloqueados NoScript",
         "description": ""
     },
     "BookmarkSync": {
-        "message": "Fazer backup da configuração do NoScript em um favorito para sincronização fácil",
+        "message": "Configuração de Backup do NoScript em favoritos para fácil sincronização",
         "description": ""
     },
     "Cancel": {
@@ -100,23 +100,23 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
+        "message": "Qualquer capacidade bloqueada no documento superior deve ser bloqueada em seus subdocumentos também",
         "description": ""
     },
     "ClearClickDescription": {
-        "message": "NoScript interceptou uma interação do mouse ou teclado com um elemento parcialmente oculto. Clique na imagem abaixo para alternar entre a versão obstruída e a limpa.",
+        "message": "NoScript interceptou uma interação de mouse ou teclado com um elemento parcialmente oculto. Clique na imagem abaixo para comparar entre a versão obstruída e a versão limpa.",
         "description": ""
     },
     "ClearClickHeader": {
-        "message": "Tentativa de Clickjacking / Alteração de interface do usuário detectada!",
+        "message": "Clickjacking Potencial / Tentativa de reparação de UI!",
         "description": ""
     },
     "ClearClickOpt": {
-        "message": "Proteção ClearClick em páginas…",
+        "message": "Proteção ClearClick nas páginas…",
         "description": ""
     },
     "ClearClickReport": {
-        "message": "Relatar",
+        "message": "Relatório",
         "description": ""
     },
     "ClearClickReport_accesskey": {
@@ -136,7 +136,7 @@
         "description": ""
     },
     "CollapseBlockedObjects": {
-        "message": "Recolher objetos bloqueados",
+        "message": "Objetos em colapso bloqueados",
         "description": ""
     },
     "ConfirmUnblock": {
@@ -148,11 +148,11 @@
         "description": ""
     },
     "Custom": {
-        "message": "Personalizado",
+        "message": "Personalizar",
         "description": ""
     },
     "CustomizePresets": {
-        "message": "Personalização predefinida (para todos os sites compartilhando uma predefinição)",
+        "message": "Personalização predefinida (para todos os sites que compartilham uma predefinição)",
         "description": ""
     },
     "Default": {
@@ -160,11 +160,11 @@
         "description": ""
     },
     "DefaultPolicies": {
-        "message": "Políticas padrão",
+        "message": "Políticas Padrão",
         "description": ""
     },
     "Description": {
-        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
+        "message": "Proteção máxima para o seu navegador: NoScript permite conteúdo ativo apenas para domínios confiáveis de sua escolha para evitar exploração.",
         "description": ""
     },
     "Donate": {
@@ -176,7 +176,7 @@
         "description": ""
     },
     "Embeddings": {
-        "message": "Embutidos",
+        "message": "Incorporações",
         "description": ""
     },
     "Exceptions": {
@@ -196,15 +196,15 @@
         "description": ""
     },
     "Hider": {
-        "message": "Arraste para cá para ocultar.",
+        "message": "Deixe aqui para se esconder.",
         "description": ""
     },
     "Reveal": {
-        "message": "Clique aqui para recuperar botões perdidos…",
+        "message": "Clique aqui para recuperar botões ausente…",
         "description": ""
     },
     "ShowFullAddresses": {
-        "message": "Listar endereços completos na janela de permissões (https://www.noscript.net)",
+        "message": "Liste endereços completos no popup de permissões (https://www.noscript.net)",
         "description": ""
     },
     "SectionGeneral": {
@@ -212,31 +212,35 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Restrições desativadas",
+        "message": "Restrições desativadas pelas configurações do usuário: o NoScript não bloqueia nada nesta página!",
         "description": ""
     },
     "NoEnforcement": {
-        "message": "Desativar restrições globalmente (perigoso)",
+        "message": "Desativar restrições globalmente (perigosa)",
         "description": ""
     },
     "Enforce": {
-        "message": "Ativar restrições globalmente",
+        "message": "Permitir restrições globalmente",
+        "description": ""
+    },
+    "EnforceOnRestart": {
+        "message": "Restaurar restrições na reinicialização do navegador",
         "description": ""
     },
     "NoEnforcementForTab": {
-        "message": "Desativar restrições nesta aba",
+        "message": "Desativar restrições para esta aba",
         "description": ""
     },
     "EnforceForTab": {
-        "message": "Ativar restrições nesta aba",
+        "message": "Ativar restrições para esta aba",
         "description": ""
     },
     "HighContrast": {
-        "message": "High contrast",
+        "message": "Alto contraste",
         "description": ""
     },
     "httpsOnly": {
-        "message": "Corresponder apenas conteúdo HTTPS",
+        "message": "Corresponder apenas à conteúdo HTTPS",
         "description": ""
     },
     "Https": {
@@ -256,7 +260,7 @@
         "description": ""
     },
     "Https_description": {
-        "message": "Proibir conteúdo web ativo, a menos que venha por uma conexão segura (HTTPS):",
+        "message": "Proibir conteúdo ativo da Web a menos que ele venha de uma conexão segura (HTTPS):",
         "description": ""
     },
     "Https_never": {
@@ -264,11 +268,11 @@
         "description": ""
     },
     "Https_proxy": {
-        "message": "Ao usar um proxy (recomendado com Tor)",
+        "message": "Ao usar um proxy (recomendado para o Tor)",
         "description": ""
     },
     "HttpsFaq": {
-        "message": "FAQ DO HTTPS…",
+        "message": "HTTPS FAQ…",
         "description": ""
     },
     "HttpsFaq_accesskey": {
@@ -276,11 +280,11 @@
         "description": ""
     },
     "HttpsForced": {
-        "message": "Força os seguintes sites para usar conexões seguras (HTTPS):",
+        "message": "Forcar os seguintes sites a usar conexões seguras (HTTPS):",
         "description": ""
     },
     "HttpsForcedExceptions": {
-        "message": "Nunca force conexões seguras (HTTPS) para os seguintes sites:",
+        "message": "Nunca forcar conexões seguras (HTTPS) para os seguintes sites:",
         "description": ""
     },
     "Import": {
@@ -292,11 +296,11 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "message": "Ativar configuração de permissões permanentes em abas anônimas/privadas.\nCUIDADO: fazer isso pode vazar informações do site!",
         "description": ""
     },
     "OptAmnesticUpdates": {
-        "message": "Revoke temporary permissions on NoScript updates, even if the browser is not restarted",
+        "message": "Revoguar permissões temporárias em atualizações do NoScript, mesmo que o navegador não seja reiniciado",
         "description": ""
     },
     "KeepLocked": {
@@ -304,7 +308,7 @@
         "description": ""
     },
     "MatchSample": {
-        "message": "Exemplo de correspondência de padrão:",
+        "message": "Exemplo padrões de correspondência:",
         "description": ""
     },
     "Next": {
@@ -312,7 +316,7 @@
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "Nenhum espaço reservado para objetos provenientes de sites marcados como não confiáveis",
+        "message": "Não há espaço reservado para objetos provenientes de sites marcados como não confiáveis",
         "description": ""
     },
     "Notifications": {
@@ -324,11 +328,11 @@
         "description": ""
     },
     "Notify_bottom": {
-        "message": "Colocar mensagem na parte inferior",
+        "message": "Colocar a mensagem na parte inferior",
         "description": ""
     },
     "NotifyMeta": {
-        "message": "Mostrar mensagem sobre META redirecionamentos bloqueados",
+        "message": "Mostrar mensagem sobre redirecionamentos META bloqueados",
         "description": ""
     },
     "NotifyMeta_accesskey": {
@@ -348,19 +352,19 @@
         "description": ""
     },
     "OptBlockCssScanners": {
-        "message": "Bloquear scanners baseados em CSS",
+        "message": "Bloqueie scanners baseados em CSS",
         "description": ""
     },
     "OptFilterXGet": {
-        "message": "Sanitize solicitações suspeitas entre sites",
+        "message": "Limpar pedidos suspeitos entre sites",
         "description": ""
     },
     "OptFilterXPost": {
-        "message": "Transformar solicitações POST entre sites em solicitações GET sem dados",
+        "message": "Transformar as solicitações POST cross-site em solicitações GET sem dados",
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Override Tor Browser's Security Level preset",
+        "message": "Substituir nível de segurança do navegador Tor",
         "description": ""
     },
     "Options": {
@@ -380,7 +384,7 @@
         "description": ""
     },
     "PermanentInPrivate": {
-        "message": "\"Permitir\" comandos permanente em janelas privativas",
+        "message": "Comando \"Permitir\" permanentes em janelas privadas",
         "description": ""
     },
     "SectionSitePermissions": {
@@ -388,7 +392,7 @@
         "description": ""
     },
     "PermissionsText": {
-        "message": "Você pode especificar quais sites estão autorizados a executar scripts. Digite o endereço ou o domínio (ex: \"http://www.site.com\" ou \"site.com\") do site que você deseja permitir e clique em Permitir.",
+        "message": "Você pode especificar quais sites podem executar scripts. Digite o endereço ou o domínio (ex. \"http://www.site.com\" ou \"site.com\") do site que você deseja permitir e, em seguida, clique em Permitir.",
         "description": ""
     },
     "Plugins": {
@@ -400,7 +404,7 @@
         "description": ""
     },
     "Preset": {
-        "message": "Nível de segurança",
+        "message": "Nível de Segurança",
         "description": ""
     },
     "Prev": {
@@ -408,19 +412,19 @@
         "description": ""
     },
     "RecentBlocked": {
-        "message": "Sites bloqueados recentemente",
+        "message": "Sites recentemente bloqueados",
         "description": ""
     },
     "Refresh": {
-        "message": "Recarregar",
+        "message": "Atualizar",
         "description": ""
     },
     "ReloadWarn": {
-        "message": "Estas opções terão efeito nas páginas novas ou recarregadas (manualmente)",
+        "message": "Essas opções terão efeito em páginas novas ou recarregadas (manualmente)",
         "description": ""
     },
     "RemoveSelected": {
-        "message": "Remover sites selecionados",
+        "message": "Remover Sites Selecionados",
         "description": ""
     },
     "Reset": {
@@ -432,11 +436,11 @@
         "description": ""
     },
     "ResetDef": {
-        "message": "Restaurar para o padrão",
+        "message": "Restaurar para Padrão",
         "description": ""
     },
     "ResetDef_accesskey": {
-        "message": "p",
+        "message": "D",
         "description": ""
     },
     "RevokeTemp": {
@@ -448,15 +452,15 @@
         "description": ""
     },
     "SecureCookies": {
-        "message": "Habilitar o gerenciamento automático de Cookies seguros",
+        "message": "Ativar Gerenciamento Automático de Cookies Seguros",
         "description": ""
     },
     "SecureCookiesExceptions": {
-        "message": "Ignore cookies inseguros definidos por HTTPS pelos seguintes sites:",
+        "message": "Ignorar cookies inseguros definidos sobre HTTPS pelos seguintes sites:",
         "description": ""
     },
     "SecureCookiesForced": {
-        "message": "Forçar criptografia para todos os cookies definidos por HTTPS pelos seguintes sites:",
+        "message": "Forçar a criptografia para todos os cookies definidos em HTTPS pelos seguintes sites:",
         "description": ""
     },
     "SecurityManager": {
@@ -464,11 +468,11 @@
         "description": ""
     },
     "Show": {
-        "message": "Exibir…",
+        "message": "Mostrar…",
         "description": ""
     },
     "ShowConsole": {
-        "message": "Exibir console…",
+        "message": "Mostrar Console…",
         "description": ""
     },
     "ShowConsole_accesskey": {
@@ -484,15 +488,15 @@
         "description": ""
     },
     "ShowCtxMenuItem": {
-        "message": "Mostrar o item de menu contextual do NoScript",
+        "message": "Mostrar  NoScript no menu de contexto",
         "description": ""
     },
     "ShowCountBadge": {
-        "message": "Exibir contagem de scripts",
+        "message": "Mostrar contagem de itens bloqueados no emblema",
         "description": ""
     },
     "SitePermissions": {
-        "message": "Permissões do site",
+        "message": "Permissões do Site",
         "description": ""
     },
     "SitePermissions_accessKey": {
@@ -500,7 +504,7 @@
         "description": ""
     },
     "SitePolicies": {
-        "message": "Políticas específicas do site",
+        "message": "Políticas Específicas de Site",
         "description": ""
     },
     "TempTrustPage": {
@@ -516,15 +520,15 @@
         "description": ""
     },
     "TempToPerm_accesskey": {
-        "message": "p",
+        "message": "M",
         "description": ""
     },
     "Trust": {
-        "message": "Marcar como confiável",
+        "message": "Marcar como Confiável",
         "description": ""
     },
     "Trust_accesskey": {
-        "message": "c",
+        "message": "T",
         "description": ""
     },
     "Trusted": {
@@ -540,7 +544,7 @@
         "description": ""
     },
     "TrustedPagesAdj": {
-        "message": "confiável",
+        "message": "Confiável",
         "description": ""
     },
     "Uninstall": {
@@ -552,7 +556,7 @@
         "description": ""
     },
     "UnsafeReload": {
-        "message": "Recarregamento inseguro",
+        "message": "Recarrgar inseguro",
         "description": ""
     },
     "UnsafeReload_accesskey": {
@@ -560,11 +564,11 @@
         "description": ""
     },
     "Untrust": {
-        "message": "Marcar como não confiável",
+        "message": "Marcar como Não confiável",
         "description": ""
     },
     "Untrust_accesskey": {
-        "message": "n",
+        "message": "U",
         "description": ""
     },
     "Untrusted": {
@@ -572,31 +576,31 @@
         "description": ""
     },
     "UntrustedPagesAdj": {
-        "message": "não confiável",
+        "message": "Não confiável",
         "description": ""
     },
     "WebAddress": {
-        "message": "Procurar ou adicionar um site:",
+        "message": "Pesquise ou adicione um site:",
         "description": ""
     },
     "WebAddress_accesskey": {
-        "message": "s",
+        "message": "w",
         "description": ""
     },
     "XSS_notify": {
-        "message": "Exibir notificações XSS",
+        "message": "Mostrar notificações de XSS",
         "description": ""
     },
     "XSS_clearUserChoices": {
-        "message": "Limpar escolhas XSS",
+        "message": "Limpar escolhas de XSS",
         "description": ""
     },
     "XSS_promptTitle": {
-        "message": "Advertência de XSS do NoScript",
+        "message": "Aviso NoScript de XSS",
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript detectou um potencial ataque Cross-Site Scripting\nde $1 para $2.\nDados suspeitos:\n$3",
+        "message": "NoScript detectou um potencial ataque de Cross-Site Scripting\nde $1 para $2.\nDados suspeitos:\n$3",
         "description": ""
     },
     "XSS_optBlock": {
@@ -604,19 +608,19 @@
         "description": ""
     },
     "XSS_optSanitize": {
-        "message": "Sanitize esse pedido",
+        "message": "Limpar este pedido",
         "description": ""
     },
     "XSS_optAllow": {
-        "message": "Permitir esta requisição",
+        "message": "Permitir esta solicitação",
         "description": ""
     },
     "XSS_optAlwaysAllow": {
-        "message": "Sempre permitir requisições de documentos de $1 para $2",
+        "message": "Sempre permitir solicitações de documentos de $1 para $2",
         "description": ""
     },
     "XSS_optAlwaysBlock": {
-        "message": "Sempre bloquear requisições de documentos de $1 para $2",
+        "message": "Sempre bloquear solicitações de documentos de $1 para $2",
         "description": ""
     },
     "Xss": {
@@ -628,11 +632,11 @@
         "description": ""
     },
     "XssExceptions": {
-        "message": "Exceções de proteção contra XSS",
+        "message": "Exceções de proteção Anti-XSS",
         "description": ""
     },
     "XssExceptions_description": {
-        "message": "Destinos que correspondem a estas expressões regulares NÃO serão protegidos contra XSS.",
+        "message": "Destinos que correspondem a essas expressões regulares NÃO serão protegidos contra XSS.",
         "description": ""
     },
     "XssFaq": {
@@ -644,15 +648,15 @@
         "description": ""
     },
     "about": {
-        "message": "Sobre o $1",
+        "message": "Sobre $1",
         "description": ""
     },
     "allowFrom": {
-        "message": "Permitir tudo de $1",
+        "message": "Permitir todo de $1",
         "description": ""
     },
     "allowGlobal": {
-        "message": "Desativar todas as verificações de permissão (perigoso)",
+        "message": "Desativar todas as verificações de permissões (perigoso)",
         "description": ""
     },
     "allowLocal": {
@@ -660,95 +664,95 @@
         "description": ""
     },
     "allowTemp": {
-        "message": "Temporariamente permitir $1",
+        "message": "Permitir temporariamente $1",
         "description": ""
     },
     "allowTempFrom": {
-        "message": "Temporariamente permitir tudo de $1",
+        "message": "Permitir temporariamente tudo de $1",
         "description": ""
     },
     "allowed_no": {
-        "message": "Scripts atualmente proibidos",
+        "message": "Scripts Atualmente Proibidos",
         "description": ""
     },
     "allowed_prt": {
-        "message": "Scripts parcialmente permitidos",
+        "message": "Scripts Parcialmente Permitidos",
         "description": ""
     },
     "allowed_yes": {
-        "message": "Scripts atualmente permitidos",
+        "message": "Scripts Atualmente Permitidos",
         "description": ""
     },
     "alwaysAsk": {
-        "message": "Sempre pedir confirmação",
+        "message": "Sempre pedir para confirmar",
         "description": ""
     },
     "audio_samples": {
-        "message": "Amostras de áudio",
+        "message": "Exemplos de Áudio",
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "NoScript encontrou um favorito de configuração aparentemente salvo em\n$1.\nVocê quer mesmo substituir sua configuração local do NoScript pelo conteúdo deste favorito?",
+        "message": "NoScript encontrou um configuração de favoritos aparentemente salvo em\n$1.\nVocê realmente deseja substituir sua configuração local NoScript com o conteúdo deste favoritos?",
         "description": ""
     },
     "bookmarkSync_message": {
-        "message": "Este favorito NÃO é para ser aberto, mas para ser sincronizado usando um serviço como Weave ou a extensão XMarks.",
+        "message": "Este favoritos NÃO deve ser aberto, mas para ser sincronizado usando um serviço como o Weave ou a extensão XMarks.",
         "description": ""
     },
     "bookmarkSync_title": {
-        "message": "Favorito de configuração do NoScript",
+        "message": "Configuração de Favoritos NoScript",
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Ativar esses recursos",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Ativar esses recursos quando as principais páginas correspondem",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "QUALQUER SITE",
         "description": ""
     },
     "cap_script": {
-        "message": "script",
+        "message": "Script",
         "description": ""
     },
     "cap_frame": {
-        "message": "quadro",
+        "message": "Frame",
         "description": ""
     },
     "cap_object": {
-        "message": "objeto",
+        "message": "Object",
         "description": ""
     },
     "cap_media": {
-        "message": "mídia",
+        "message": "Media",
         "description": ""
     },
     "cap_font": {
-        "message": "fonte",
+        "message": "Font",
         "description": ""
     },
     "cap_webgl": {
-        "message": "webgl",
+        "message": "Webgl",
         "description": ""
     },
     "cap_fetch": {
-        "message": "fetch",
+        "message": "Fetch",
         "description": ""
     },
     "cap_ping": {
-        "message": "ping",
+        "message": "Ping",
         "description": ""
     },
     "cap_noscript": {
-        "message": "noscript",
+        "message": "Noscript",
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unrestricted CSS",
+        "message": "CSS irrestrito",
         "description": ""
     },
     "cap_lan": {
@@ -756,19 +760,19 @@
         "description": ""
     },
     "cap_other": {
-        "message": "outros",
+        "message": "Outro",
         "description": ""
     },
     "changelog": {
-        "message": "Registro de alterações",
+        "message": "Registro de alteração",
         "description": ""
     },
     "changelog_tip": {
-        "message": "Mostrar registro de alterações",
+        "message": "Mostrar registro de alteração",
         "description": ""
     },
     "confirm": {
-        "message": "Tem certeza?",
+        "message": "Você tem certeza?",
         "description": ""
     },
     "disable": {
@@ -780,19 +784,19 @@
         "description": ""
     },
     "distrust": {
-        "message": "Marcar $1 como não confiável",
+        "message": "Marque $1 como Não Confiável",
         "description": ""
     },
     "extensionContributors": {
-        "message": "Contribuidores:",
+        "message": "Colaboradores:",
         "description": ""
     },
     "extensionContributors_tip": {
-        "message": "Pessoas a quem deve agradecer por esta extensão",
+        "message": "Pessoas que você deve agradecer por esta extensão",
         "description": ""
     },
     "extensionCreator_tip": {
-        "message": "Visitar página do autor",
+        "message": "Visite a página inicial do autor",
         "description": ""
     },
     "extensionCreatorLabel": {
@@ -800,11 +804,11 @@
         "description": ""
     },
     "extensionHomepage_tip": {
-        "message": "Visitar página da extensão",
+        "message": "Visite a página inicial do extensão",
         "description": ""
     },
     "forbidGlobal": {
-        "message": "Proibir scripts globalmente (aconselhado)",
+        "message": "Proibir Scripts Globalmente (aconselhado)",
         "description": ""
     },
     "forbidLocal": {
@@ -812,23 +816,23 @@
         "description": ""
     },
     "freshInstallReload": {
-        "message": "Para funcionar nessa aba, NoScript precisa recarregá-la. Continuar?",
+        "message": "Para funcionar nesta aba, o NoScript precisa recarregá-la.\nContinuar?",
         "description": ""
     },
     "privilegedPage": {
-        "message": "Esta é uma página privilegiada, cujas permissões não podem ser configuradas.",
+        "message": "Esta é uma página com privilégio, cujas permissões não podem ser configuradas.",
         "description": ""
     },
     "incompatibleOptions": {
-        "message": "\"$1\" é incompatível com o \"$2\". Você quer habilitar o antigo e desabilitar o novo?",
+        "message": "\"$1\"\né incompatível com \"$2\".\nVocê quer ativar o antigo e desativar o novo?",
         "description": ""
     },
     "incompatibleOptions_title": {
-        "message": "Avisos de opções incompatíveis",
+        "message": "Aviso de Opções Incompatíveis",
         "description": ""
     },
     "informaction_tip": {
-        "message": "Visitar a página do InformAction",
+        "message": "Visite a página inicial do InformAction",
         "description": ""
     },
     "license": {
@@ -836,15 +840,15 @@
         "description": ""
     },
     "license_tip": {
-        "message": "Ler licença do usuário final",
+        "message": "Ler a licença do usuário final",
         "description": ""
     },
     "logo_tip": {
-        "message": "Visitar página da extensão",
+        "message": "Visite a página inicial do extensão",
         "description": ""
     },
     "metaRefresh_notify": {
-        "message": "NoScript bloqueou um redirecionamento <META>, dentro de um elemento <NOSCRIPT>: $1 em $2 segundos.",
+        "message": "NoScript bloqueou um redirecionamento <META> dentro de um elemento <NOSCRIPT>: $1 em $2 segundos.",
         "description": ""
     },
     "Reload": {
@@ -852,15 +856,15 @@
         "description": ""
     },
     "removal_message": {
-        "message": "Ao desabilitar ou desinstalar o NoScript, você desativa TODAS as proteções fornecidas pelo NoScript. \n\nSe você está cansado de lidar com permissões de script, site por site, há uma escolha mais segura. \n\nO NoScript pode interromper o bloqueio de scripts, exceto aqueles marcados como não confiáveis, e ainda protegê-lo com as medidas de segurança mais avançadas contra XSS, Clickjacking, CSRF e outras ameaças da Web.\n\nVocê realmente quer remover TODAS as proteções NoScript?\n",
+        "message": "Ao desativar ou desinstalar o NoScript, você desiste de TODAS as proteções fornecidas pelo NoScript.\n\nSe você está cansado de lidar com permissões de script site por site, há uma escolha mais segura.\n\nNoScript pode parar de bloquear scripts, exceto aqueles que você marca como não confiáveis, enquanto ainda protege você com as contramedidas de segurança mais avançadas contra XSS, Clickjacking, CSRF e outras ameaças da Web.\n\nVocê realmente deseja remover TODAS as proteções do NoScript?\n",
         "description": ""
     },
     "removal_no": {
-        "message": "Não, apenas pare de bloquear scripts",
+        "message": "Não, apenas pare de bloquear os scripts.",
         "description": ""
     },
     "removal_title": {
-        "message": "Aviso de redução de Segurança",
+        "message": "Aviso de Redução de Segurança",
         "description": ""
     },
     "removal_yes": {
@@ -872,23 +876,23 @@
         "description": ""
     },
     "reset_warning": {
-        "message": "TODAS as preferências e permissões de sites do NoScript serão redefinidas para seus valores padrão imediatamente.\nEsta ação não poderá ser revertida.\nQuer continuar?",
+        "message": "TODAS as preferências do NoScript e as permissões do site serão redefinidas para seus valores padrão imediatamente.\nEsta ação não pode ser revertida.\nVocê deseja continuar?",
         "description": ""
     },
     "siteInfo_confirm": {
-        "message": "Você está prestes a pedir informações sobre o site \"$1\" ao enviar uma consulta para $2. \nVocê quer continuar?",
+        "message": "Você está prestes a pedir informações sobre o site \"$1\" \nenviando uma consulta para $2.\nVocê quer continuar?",
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Clique do meio ou Shift+clique para informações do site...",
+        "message": "Clique no botão no meio do mouse ou shift+clique para obter informações do site...",
         "description": ""
     },
     "sponsor_tip": {
-        "message": "Visitar a página inicial do patrocinador",
+        "message": "Visite a página inicial do patrocinador",
         "description": ""
     },
     "unsafeReload_warning": {
-        "message": "INSEGURO recarregando um\n\n$1 [$2] suspeito\n\nDE [$3]\n\nNoScript NÃO irá proteger essa requisição!\n",
+        "message": "Suspeito INSEGURO recarregando um\n\n$1 [$2]\n\nDE [$3]\n\nNoScript NÃO protegerá essa solicitação!\n",
         "description": ""
     },
     "untrustedOrigin": {
@@ -908,23 +912,35 @@
         "description": ""
     },
     "themeDark": {
-        "message": "Dark",
+        "message": "Escuro",
         "description": ""
     },
     "themeLight": {
-        "message": "Luz",
+        "message": "Claro",
         "description": ""
     },
     "themeAuto": {
         "message": "Auto",
         "description": ""
     },
+    "ModernRed": {
+        "message": "Vermelho Moderno",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Azul Vintage",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Mude para o estilo Azul Vintage",
+        "description": ""
+    },
     "DonateShort": {
-        "message": "Fazer uma doação",
+        "message": "Doar",
         "description": ""
     },
     "DonateLong": {
-        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "message": "NoScript é software livre e não pode existir sem sua ajuda. Por favor, doe agora!",
         "description": ""
     }
 }
