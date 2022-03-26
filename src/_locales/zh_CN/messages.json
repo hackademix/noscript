@@ -223,6 +223,10 @@
         "message": "全局启用限制",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "浏览器重启时恢复限制",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "解除此标签页的限制",
         "description": ""

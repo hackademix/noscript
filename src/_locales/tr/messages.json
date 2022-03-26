@@ -224,7 +224,7 @@
         "description": ""
     },
     "EnforceOnRestart": {
-        "message": "Restore restrictions on browser restart",
+        "message": "Web tarayıcı yeniden başlatıldığında kısıtlamalar geri yüklensin",
         "description": ""
     },
     "NoEnforcementForTab": {
