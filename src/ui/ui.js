@@ -418,10 +418,7 @@ var UI = (() => {
           presets.appendChild(clone);
         }
 
-        if (!UI.mobile) {
-          UI.Sites.correctSize(presets);
-        }
-
+        UI.Sites.correctSize(presets);
       }
 
       // URL
