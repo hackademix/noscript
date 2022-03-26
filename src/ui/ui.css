@@ -181,7 +181,9 @@ input[type="checkbox"] {
   border-spacing: 0;
   width: 100%;
   image-rendering: -webkit-optimize-contrast;
+  --extra-preset-width: 0px;
 }
+
 .vintage .sites {
   image-rendering: auto;
 }
@@ -310,8 +312,9 @@ span.preset {
   -moz-appearance: none;
   background: var(--img-ui-no) no-repeat center;
   outline: 0;
-  opacity: .8;
-  margin: 0 .5em 0.13em .5em;
+  opacity: .7;
+  margin: 0 .5em;
+  background-position: 0;
   background-size: var(--line-size);
   width: var(--line-size);
   height: var(--line-size);
@@ -334,8 +337,7 @@ span.preset {
 .presets input.preset:checked, #presets input.preset, #presets-sizer input.preset {
   opacity: 1;
   transform: none;
-  min-width: 9.38em;
-  background-position-x: calc(var(--line-size) / 10);
+  min-width: calc(var(--preset-label-width) + var(--line-size) + var(--extra-preset-width));
 }
 
 .presets input.preset:focus {
@@ -455,13 +457,22 @@ input.preset:checked ~ input.temp {
   position: relative;
 }
 
-.customizing input.preset:checked, #presets input.preset, #presets input.preset:checked  {
-  margin: 0 0 -0.2em 1em;
+.customizing input.preset:checked {
+  margin: 0 0 -0.2em 0;
   border-radius: 1em 1em 0 0;
+  background-position: 0.5em 0;
+  --extra-preset-width: 1em;
 }
 
-.customizing input.preset:checked + label.preset {
-  padding-left: 3.2em;
+#presets :is(input.preset, input.preset:checked) {
+  margin: 0 .5em -0.2em 0;
+  border-radius: 1em 1em 0 0;
+  background-position: 0.5em 0;
+  --extra-preset-width: 0px;
+}
+
+#presets .customizing input.preset:not(:checked) {
+  margin-bottom: 0;
 }
 
 .sites .customizing, .customizer {

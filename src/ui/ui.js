@@ -463,25 +463,9 @@ var UI = (() => {
       let labelWidth = 0;
       for (let l of sizer.querySelectorAll("label.preset")) {
         let lw = l.offsetWidth;
-        debug("lw", l.textContent, lw);
         if (lw > labelWidth) labelWidth = lw;
       }
-
-      debug(`Preset: %s Label: %s`, presetWidth, labelWidth);
-      labelWidth += 16;
-      if (presetWidth < labelWidth) {
-        for (let ss of document.styleSheets) {
-          if (ss.href.endsWith("/ui.css")) {
-            for (let r of ss.cssRules) {
-              if (/input\.preset:checked.*min-width:/.test(r.cssText)) {
-                r.style.minWidth = (labelWidth) + "px";
-                break;
-              }
-            }
-          }
-        }
-      }
-
+      document.documentElement.style.setProperty("--preset-label-width", (labelWidth) + "px");
       sizer.remove();
       UI.Sites.correctSize = () => {}; // just once, please!
     }

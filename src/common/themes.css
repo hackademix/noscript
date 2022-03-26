@@ -31,8 +31,8 @@
   --img-ui-clock: url(/img/ui-clock64.png);
 
   --icon-size: 2.2em;
-  --line-size: 1.7em;
-  --popup-size: 640px;
+  --line-size: 1.5em;
+  --popup-size: 600px;
 
   --bg-preset-color: var(--form-color2);
   --bg-focused-row: linear-gradient(to bottom, var(--form-color1) 0, var(--form-color2) 70%, var(--bg-color1) 100%) no-repeat;
