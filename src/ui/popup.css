@@ -192,7 +192,7 @@ html:not(.mobile) #scrollable {
   padding: 0;
 }
 
-#top > .icon:hover:not(:disabled), #top > #top > .icon:active:not(:disabled) {
+#top .icon:hover:not(:disabled), #top > #top > .icon:active:not(:disabled) {
   outline: 0;
   filter: none;
   transform: scale(1.2);
