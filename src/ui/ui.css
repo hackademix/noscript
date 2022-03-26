@@ -208,10 +208,12 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
 
 .sites > tr.site:nth-of-type(even):not(.customizing) {
   background-color: var(--bg-even-row);
+  --bg-preset-color: var(--bg-odd-row);
 }
 
 .sites > tr.site:nth-of-type(odd):not(.customizing) {
   background-color: var(--bg-odd-row);
+  --bg-preset-color: var(--bg-even-row);
 }
 
 
@@ -338,6 +340,7 @@ span.preset {
   opacity: 1;
   transform: none;
   min-width: calc(var(--preset-label-width) + var(--line-size) + var(--extra-preset-width));
+  filter: drop-shadow(0px 0px 1px var(--fg-color2));
 }
 
 .presets input.preset:focus {
@@ -448,6 +451,7 @@ input.preset:checked ~ input.temp {
 .customizing input.preset:checked, #presets input.preset:checked {
   background-color: var(--form-color2);
   height: calc(var(--line-size) + 0.2em);
+  filter: none;
 }
 
 .customizer fieldset {
@@ -469,13 +473,15 @@ input.preset:checked ~ input.temp {
   border-radius: 1em 1em 0 0;
   background-position: 0.5em 0;
   --extra-preset-width: 0px;
+  filter: none;
 }
 
 #presets .customizing input.preset:not(:checked) {
   margin-bottom: 0;
+  box-shadow: 0 0 1px var(--form-color2);
 }
 
-.sites .customizing, .customizer {
+:not(#presets) > .sites .customizing, .customizer {
   background-color: var(--tab-color2) !important;
 }
 
