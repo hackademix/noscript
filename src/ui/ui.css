@@ -57,23 +57,21 @@
     font-size: 75%;
     position: absolute !important;
     text-align: left;
-    padding: 0px !important;
     margin: 0px !important;
     display: block !important;
-    width: 5.8em !important;
     overflow: visible;
     z-index: 1000;
     bottom: 0px;
-    left: 4.2em;
+    left: 1em;
     text-shadow: 1px 1px var(--bg-color2), -1px -1px var(--bg-color2);
   }
 
    #sites .presets input.preset:checked + label {
     z-index: 1000;
     font-size: 60%;
-    width: calc(var(--line-size) * 3);
-    left: -33%;
-    top: calc(var(--line-size) * 1.5);
+    left: 0;
+    width: auto;
+    top: calc(var(--line-size) * 1.8);
     margin: 0 !important;
     padding: 0 !important;
     text-align: center !important;
@@ -96,9 +94,6 @@
   }
 
   #sites .customizing input.preset:checked + label {
-    text-align:right !important;
-    right: 0em !important;
-
     pointer-events: none;
     transition: all .2s;
   }
@@ -362,7 +357,7 @@ span.preset {
   opacity: .8;
   position: absolute;
   left: 0;
-  padding-left: 3em;
+  padding-left: calc(var(--line-size) * 1.5);
   line-height: var(--line-size);
 }
 
