@@ -139,10 +139,10 @@ input:disabled, button:disabled, select:disabled {
 :focus-visible, :is(.cap, .switch):focus-within {
   outline: 0;
   filter:
-    drop-shadow(2px 2px 2px var(--focus-color))
-    drop-shadow(-2px 2px 2px var(--focus-color))
-    drop-shadow(2px -2px 2px var(--focus-color))
-    drop-shadow(-2px -2px 2px var(--focus-color)) !important;
+    drop-shadow(1px 1px 1px var(--focus-color))
+    drop-shadow(-1px -1px 1px var(--focus-color))
+    drop-shadow(1px -1px 1px var(--focus-color))
+    drop-shadow(-1px -1px 1px var(--focus-color)) !important;
 }
 
 
