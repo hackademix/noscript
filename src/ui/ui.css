@@ -197,7 +197,6 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
 }
 
 .sites > tr.site:not(.customizing) {
-  /* border-top: 2px dotted var(--form-color1); */
   border-top: var(--border-row-sep);
 }
 
@@ -335,7 +334,10 @@ span.preset {
   opacity: 1;
   transform: none;
   min-width: calc(var(--preset-label-width) + var(--line-size) + var(--extra-preset-width));
-  filter: drop-shadow(0px 0px 1px var(--fg-color2));
+}
+
+.site:not(.customizing) .presets input.preset:checked {
+  filter: drop-shadow(0 0 2px var(--fg-color1));
 }
 
 .presets input.preset:focus {
@@ -347,7 +349,6 @@ span.preset {
 }
 
 .presets label.preset {
-  padding: 0;
   letter-spacing: -0.06em;
   width: 0;
   overflow: hidden;
@@ -357,6 +358,8 @@ span.preset {
   opacity: .8;
   position: absolute;
   left: 0;
+  top: -.1em;
+  padding: .05em 0 .05em 0;
   padding-left: calc(var(--line-size) * 1.5);
   line-height: var(--line-size);
 }
@@ -430,7 +433,7 @@ input.temp + label {
 
 input.preset:checked ~ input.temp {
   opacity: .7;
-  right: 0;
+  right: 0.4em;
   pointer-events: all;
 }
 
