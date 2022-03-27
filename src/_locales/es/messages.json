@@ -223,6 +223,10 @@
         "message": "Habilitar las restricciones globalmente",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Restaurar restricciones al reiniciar el navegador",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Deshabilitar restricciones para esta pestaña",
         "description": ""
@@ -908,7 +912,7 @@
         "description": ""
     },
     "themeDark": {
-        "message": "Dark",
+        "message": "Oscuro",
         "description": ""
     },
     "themeLight": {
@@ -916,7 +920,19 @@
         "description": ""
     },
     "themeAuto": {
-        "message": "Auto",
+        "message": "Automático",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "Rojo Moderno",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Azul Antiguo",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Conmutar al estilo Azul Antiguo",
         "description": ""
     },
     "DonateShort": {
@@ -924,7 +940,7 @@
         "description": ""
     },
     "DonateLong": {
-        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "message": "NoScript es Software Libre y no puede existir sin tu ayuda. ¡Por favor, dona ahora!",
         "description": ""
     }
 }

@@ -223,6 +223,10 @@
         "message": "Activer les restrictions globalement",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Rétablir les restrictions après redémarrage du navigateur",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Désactiver les restrictions pour cet onglet",
         "description": ""
@@ -917,6 +921,18 @@
     },
     "themeAuto": {
         "message": "Automatique",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "Rouge moderne",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Bleu ancien",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Passer au style bleu ancien",
         "description": ""
     },
     "DonateShort": {
