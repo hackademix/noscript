@@ -200,12 +200,12 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
   border-top: var(--border-row-sep);
 }
 
-.sites > tr.site:nth-of-type(even):not(.customizing) {
+.sites > tr.site:nth-of-type(even) {
   background-color: var(--bg-even-row);
   --bg-preset-color: var(--bg-odd-row);
 }
 
-.sites > tr.site:nth-of-type(odd):not(.customizing) {
+.sites > tr.site:nth-of-type(odd) {
   background-color: var(--bg-odd-row);
   --bg-preset-color: var(--bg-even-row);
 }
@@ -236,7 +236,7 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
 .site .url[data-key="host"] .domain,
 .site .url[data-key="host"] .sub,
 .site .url[data-key="unsafe"] span {
-  color: var(--accent-color);
+  color: var(--unsafe-color)
 }
 
 .site .url[data-key="secure"] .domain,
@@ -477,10 +477,6 @@ input.preset:checked ~ input.temp {
 #presets .customizing input.preset:not(:checked) {
   margin-bottom: 0;
   box-shadow: 0 0 1px var(--form-color2);
-}
-
-:not(#presets) > .sites .customizing, .customizer {
-  background-color: var(--tab-color2) !important;
 }
 
 #presets legend select, #presets legend button {

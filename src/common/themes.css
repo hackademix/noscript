@@ -92,6 +92,7 @@
   --form-check-color: var(--accent-color);
   --form-control-color: var(--form-color2);
   --hilite-color: #f008;
+  --unsafe-color: var(--accent-color);
 }
 
 .__NoScript_Theme__.vintage:not([data-theme="light"]) :is(input.preset, .icon) {
@@ -112,6 +113,7 @@
     --tab-color1: #ddd;
     --tab-color2: #8888;
     --focus-color: var(--focus-color-light);
+    --unsafe-color: #811;
   }
 
   .__NoScript_Theme__.vintage[data-theme="dark"] :is(input.preset, .icon) {
