@@ -92,12 +92,12 @@ tr.site {
   font-size: 12px !important;
   font-family: sans-serif !important;
   text-indent: 0;
-  color: black !important;
-  background: white !important;
+  color: var(--fg-color1) !important;
+  background: var(--bg-color2) !important;
   background-image: none !important;
   border-radius: .3em;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid var(--fg-color1);
   height: auto;
   padding: .2em;
 }
