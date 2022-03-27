@@ -26,9 +26,8 @@ html:not(.mobile) #scrollable {
 #top {
   font-size: 1em;
   position: relative;
-  padding: 0 0 .4em 0;
+  padding: 0 0 .3em 0;
   margin: 0;
-  height: calc(var(--icon-size) + 0.3em);
   min-width: 18.75em;
   display: flex;
   -moz-user-select: none;
@@ -83,14 +82,6 @@ html:not(.mobile) #scrollable {
 
 .icon:after {
   content: attr(title);
-}
-
-.mobile #top {
- height: 3.5em;
-}
-.mobile #top .icon {
-  padding: .5em .5em;
-  background-size: 80%;
 }
 
 #top > .spacer {
