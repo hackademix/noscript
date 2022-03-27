@@ -31,7 +31,7 @@
   }
 
   #presets .presets input.preset {
-    min-width: 7em;
+    min-width: 28vw;
   }
 
   #sites .presets input.preset {
@@ -54,7 +54,8 @@
   }
 
   #presets .presets input.preset + label {
-    font-size: 75%;
+    font-size: 60%;
+    --line-scaled: calc(var(--line-size) / 0.6);
     position: absolute !important;
     text-align: left;
     margin: 0px !important;
@@ -62,7 +63,8 @@
     overflow: visible;
     z-index: 1000;
     bottom: 0px;
-    left: 1em;
+    line-height: var(--line-scaled);
+    left: var(--line-scaled);
     text-shadow: 1px 1px var(--bg-color2), -1px -1px var(--bg-color2);
   }
 
