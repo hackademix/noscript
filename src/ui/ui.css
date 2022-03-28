@@ -476,6 +476,10 @@ input.preset:checked ~ input.temp {
   filter: none;
 }
 
+#presets .site.customizing {
+  background-color: transparent;
+}
+
 #presets .customizing input.preset:not(:checked) {
   margin-bottom: 0;
   box-shadow: 0 0 1px var(--form-color2);
