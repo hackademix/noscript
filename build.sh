@@ -141,24 +141,6 @@ build() {
 
 build
 
-SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
-if [ -f "$SIGNED" ]; then
-  mv "$SIGNED" "$XPI.xpi"
-  ../../we-publish "$XPI.xpi"
-elif [ -f "$XPI.zip" ]; then
-  if unzip -l "$XPI.xpi" | grep "META-INF/mozilla.rsa" >/dev/null 2>&1; then
-    echo "A signed $XPI.xpi already exists, not overwriting."
-  else
-    [[ "$VER" == *rc* ]] && xpicmd="mv" || xpicmd="cp"
-    $xpicmd "$XPI.zip" "$XPI$DBG.xpi"
-    echo "Created $XPI$DBG.xpi"
-  fi
-else
-  echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
-  exit 3
-fi
-ln -fs $XPI.xpi "$BASE/latest.xpi"
-
 # create Chromium pre-release
 
 BUILD_CMD="$CHROMIUM_BUILD_CMD"
@@ -201,3 +183,23 @@ if [ -f "$CHROME_ZIP" ]; then
 fi
 
 mv "$BUILD" "$CHROMIUM_UNPACKED"
+
+# Cleanup and publish
+
+SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
+if [ -f "$SIGNED" ]; then
+  mv "$SIGNED" "$XPI.xpi"
+  ../../we-publish "$XPI.xpi"
+elif [ -f "$XPI.zip" ]; then
+  if unzip -l "$XPI.xpi" | grep "META-INF/mozilla.rsa" >/dev/null 2>&1; then
+    echo "A signed $XPI.xpi already exists, not overwriting."
+  else
+    [[ "$VER" == *rc* ]] && xpicmd="mv" || xpicmd="cp"
+    $xpicmd "$XPI.zip" "$XPI$DBG.xpi"
+    echo "Created $XPI$DBG.xpi"
+  fi
+else
+  echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
+  exit 3
+fi
+ln -fs $XPI.xpi "$BASE/latest.xpi"
