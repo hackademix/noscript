@@ -158,7 +158,7 @@ var RequestGuard = (() => {
       let icon = enforced ?
         (topAllowed ? (numBlocked ? "part" : "yes")
         : (numAllowed ? "sub" : "no")) // not topAllowed
-        : "unrestricted"; // not enforced
+        : "global"; // not enforced
       let showBadge = ns.local.showCountBadge && numBlocked > 0;
       let browserAction = browser.browserAction;
       if (!browserAction.setIcon) { // Fennec
