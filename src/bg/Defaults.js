@@ -35,7 +35,6 @@ var Defaults = {
         xss: true,
         cascadeRestrictions : false,
         overrideTorBrowserPolicy: false, // note: Settings.update() on reset will flip this to true
-        clearclick: true,
       }
     };
     let defaultsClone = JSON.parse(JSON.stringify(defaults));
