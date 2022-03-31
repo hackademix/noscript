@@ -223,6 +223,10 @@
         "message": "Овозможи ги забраните глобално",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Врати ги забраните при повторно стартување на прелистувачот",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Оневозможи ги забраните за овој таб",
         "description": ""
@@ -904,19 +908,31 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Theme",
+        "message": "Тема",
         "description": ""
     },
     "themeDark": {
-        "message": "Dark",
+        "message": "Темна",
         "description": ""
     },
     "themeLight": {
-        "message": "Light",
+        "message": "Светла",
         "description": ""
     },
     "themeAuto": {
-        "message": "Auto",
+        "message": "Автоматски",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "Модерна црвена",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Старомодна плава",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Промени во Старомодно плав стил",
         "description": ""
     },
     "DonateShort": {
@@ -924,7 +940,7 @@
         "description": ""
     },
     "DonateLong": {
-        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "message": "NoScript е Слободен Софтвер и не може да постои без твоја помош. Ве молиме донирајте сега!",
         "description": ""
     }
 }
