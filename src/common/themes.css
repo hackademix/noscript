@@ -116,6 +116,10 @@
     --unsafe-color: #811;
   }
 
+
+  .__NoScript_Theme__.vintage:not([data-theme="light"]) :is(input.preset, .icon) {
+    filter: none;
+  }
   .__NoScript_Theme__.vintage[data-theme="dark"] :is(input.preset, .icon) {
     filter: brightness(85%);
   }
