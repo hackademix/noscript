@@ -23,6 +23,11 @@
 }
 
 @media (max-width: 550px) {
+
+  .sites td.url {
+    vertical-align: top;
+  }
+
   #sites .presets {
     width: 0 !important;
     padding: 0 !important;
@@ -42,6 +47,10 @@
      font-weight: bold;
   }
 
+  #sites .presets input.preset:checked {
+    filter: drop-shadow(0 0 2px var(--fg-color1));
+  }
+
   #sites .site:not(.customizing) .presets input.preset {
     background-color: transparent;
     background-position: center;
@@ -49,23 +58,17 @@
 
   #sites .customizing input.preset:checked  {
     margin-left: 0;
-    background-position: center;
-    width: 2.2em;
   }
 
   #presets .presets input.preset + label {
-    font-size: 60%;
-    --line-scaled: calc(var(--line-size) / 0.6);
+    font-size: 80%;
+    --line-scaled: calc(var(--line-size) / 0.8);
     position: absolute !important;
     text-align: left;
     margin: 0px !important;
     display: block !important;
     overflow: visible;
-    z-index: 1000;
     bottom: 0px;
-    line-height: var(--line-scaled);
-    left: var(--line-scaled);
-    text-shadow: 1px 1px var(--bg-color2), -1px -1px var(--bg-color2);
   }
 
    #sites .presets input.preset:checked + label {
@@ -80,18 +83,18 @@
     display: block !important;
     position: absolute;
     overflow: visible !important;
-    background-image: none !important;
+    background: none !important;
   }
 
   .presets input.preset:checked ~ input.temp {
-    left: 2em;
+    left: var(--line-size);
+    right: auto;
     pointer-events: none;
   }
 
   .customizing input.preset:checked ~ input.temp {
     pointer-events: all !important;
     z-index: 1000;
-    left: var(--line-size);
     padding: calc(var(--line-size) / 2);
   }
 
@@ -193,7 +196,7 @@ input[type="checkbox"] {
   vertical-align: middle;
 }
 
-html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
+html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
   background-image: var(--bg-focused-row);
   border-color: transparent;
 }
@@ -204,12 +207,10 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within, :hover) {
 
 .sites > tr.site:nth-of-type(even) {
   background-color: var(--bg-even-row);
-  --bg-preset-color: var(--bg-odd-row);
 }
 
 .sites > tr.site:nth-of-type(odd) {
   background-color: var(--bg-odd-row);
-  --bg-preset-color: var(--bg-even-row);
 }
 
 
@@ -296,7 +297,7 @@ span.preset {
   display: inline-block;
   font-size: 1em;
   height: var(--line-size);
-  top: 2px;
+  top: 0.2em;
 }
 
 .preset label, .preset input, .preset button {
@@ -308,14 +309,16 @@ span.preset {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: var(--img-ui-no) no-repeat center;
+  background: transparent var(--img-ui-no) no-repeat center;
   outline: 0;
   opacity: .7;
-  margin: 0 .5em;
+  margin: 0 1em 0 0;
   background-position: 0;
   background-size: var(--line-size);
   width: var(--line-size);
   height: var(--line-size);
+  position: relative;
+  z-index: 1;
 }
 
 #presets-sizer {
@@ -338,10 +341,6 @@ span.preset {
   min-width: calc(var(--preset-label-width) + var(--line-size) + var(--extra-preset-width));
 }
 
-.site:not(.customizing) .presets input.preset:checked {
-  filter: drop-shadow(0 0 2px var(--fg-color1));
-}
-
 .presets input.preset:focus {
   transform: none;
 }
@@ -360,10 +359,10 @@ span.preset {
   opacity: .8;
   position: absolute;
   left: 0;
-  top: -.1em;
-  padding: .05em 0 .05em 0;
-  padding-left: calc(var(--line-size) * 1.5);
-  line-height: var(--line-size);
+  padding: .05em 0.4em .05em 0;
+  --line-scaled: var(--line-size);
+  line-height: var(--line-scaled);
+  padding-left: calc(var(--line-scaled) * 1.5);
 }
 
 .presets input.preset[value^="T"] + label {
@@ -374,14 +373,22 @@ span.preset {
   opacity: 1;
   display: inline-flex;
   width: 75%;
-}
-
-:not(#presets) > .sites .site:not(.customizing) .presets input.preset:checked + label.preset {
-  background-image: linear-gradient(to right, transparent calc(var(--line-size) * 1.5), var(--bg-preset-color) 50%);
-  border-radius: calc(var(--line-size) / 2);
+  background-color: var(--form-color2);
+  border-radius: 1em 1em 0 0;
 }
 
 
+@media (min-width: 550px) {
+  :not(#presets) > .sites .site:not(.customizing) .presets input.preset:checked + label.preset {
+    background-color: var(--bg-preset-color);
+    border-radius: calc(var(--line-size) / 2);
+    filter: drop-shadow(0 0 2px var(--fg-color1));
+  }
+}
+
+#presets :is(.presets input.preset + label, .customizer-controls) {
+  box-shadow: 0 0 .2em var(--fg-color1);
+}
 
 #presets-sizer .presets label {
    position: static;
@@ -423,6 +430,7 @@ input.temp {
   top: 0;
   pointer-events: none;
   position: absolute;
+  z-index: 100;
 }
 
 input.temp + label {
@@ -444,12 +452,7 @@ input.preset:checked ~ input.temp {
  background-size: 100%;
 }
 
-#presets input.preset:not(:checked) {
-  background-color: var(--tab-color1);
-}
-
 .customizing input.preset:checked, #presets input.preset:checked {
-  background-color: var(--form-color2);
   height: calc(var(--line-size) + 0.2em);
   filter: none;
 }
@@ -463,26 +466,27 @@ input.preset:checked ~ input.temp {
 
 .customizing input.preset:checked {
   margin: 0 0 -0.2em 0;
-  border-radius: 1em 1em 0 0;
-  background-position: 0.5em 0;
+  background-position: 0 0;
   --extra-preset-width: 1em;
 }
 
+#presets span.preset {
+  margin-right: .8em;
+  max-width: 28vw;
+}
+
 #presets :is(input.preset, input.preset:checked) {
-  margin: 0 .5em -0.2em 0;
-  border-radius: 1em 1em 0 0;
-  background-position: 0.5em 0;
-  --extra-preset-width: 0px;
   filter: none;
+  background-position: .2em 0;
 }
 
 #presets .site.customizing {
   background-color: transparent;
 }
 
-#presets .customizing input.preset:not(:checked) {
+#presets .customizing input.preset:not(:checked) + label {
   margin-bottom: 0;
-  box-shadow: 0 0 1px var(--form-color2);
+  background-color: var(--form-color1);
 }
 
 #presets legend select, #presets legend button {

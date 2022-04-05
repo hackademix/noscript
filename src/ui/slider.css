@@ -57,13 +57,13 @@
 }
 
 input:checked + .slider {
-  background-color: var(--form-control-color);
+  background-color: var(--form-radio-bg-color);
 }
 
 
 input:checked + .slider:before {
   transform: translateX(1em);
-  background-color: var(--form-check-color);
+  background-color: var(--form-radio-color);
 }
 
 /* Rounded sliders */

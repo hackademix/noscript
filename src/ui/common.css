@@ -86,7 +86,8 @@ input[type="checkbox"]:not(.https-only, .temp):checked::before {
   transform: scale(1);
 }
 input[type="checkbox"]:not(.https-only, .temp):checked {
-  background-color: var(--form-control-color);
+  background-color: var(--form-check-bg-color);
+  border-color: var(--form-check-bg-color);
  }
 
 input[type="radio"]:not(.preset) {
@@ -115,7 +116,7 @@ input[type="radio"]:not(.preset)::before {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--form-check-color);
+  box-shadow: inset 1em 1em var(--form-radio-color);
   background-color: CanvasText;
 }
 
@@ -123,7 +124,7 @@ input[type="radio"]:not(.preset):checked::before {
   transform: scale(1);
 }
 input[type="radio"]:not(.preset):checked {
-  background-color: var(--form-control-color);
+  background-color: var(--form-radio-bg-color);
 }
 
 
