@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "הגבלות מושבתות",
+        "message": "הגבלות מושבתות ע״י הגדרות משתמש: NoScript לא יחסום שום דבר בדף זה!",
         "description": ""
     },
     "NoEnforcement": {
@@ -221,6 +221,10 @@
     },
     "Enforce": {
         "message": "אפשר הגבלות באופן עולמי",
+        "description": ""
+    },
+    "EnforceOnRestart": {
+        "message": "שחזר הגבלות בהזנק הדפדפן",
         "description": ""
     },
     "NoEnforcementForTab": {
@@ -904,19 +908,31 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Theme",
+        "message": "ערכת נושא",
         "description": ""
     },
     "themeDark": {
-        "message": "Dark",
+        "message": "כהה",
         "description": ""
     },
     "themeLight": {
-        "message": "Light",
+        "message": "בהירה",
         "description": ""
     },
     "themeAuto": {
-        "message": "Auto",
+        "message": "אוטומטית",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "אדום מודרני",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "כחול וינטג'",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "החלף אל הסגנון כחול וינטג'",
         "description": ""
     },
     "DonateShort": {
@@ -924,7 +940,7 @@
         "description": ""
     },
     "DonateLong": {
-        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "message": "NoScript הוא תוכנה חינמית והוא לא יכול להתקיים בלי העזרה שלך. אנא תרום עכשיו!",
         "description": ""
     }
 }
