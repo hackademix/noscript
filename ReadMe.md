@@ -6,10 +6,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # NoScript Security Suite
 
-The __NoScript Security Suite__ is Free Open Source Software (FOSS) providing extra protection for [Firefox]({{ links.moz }}) (on Android, too!), [Chrome]({{ links.chrome }}), Edge, Brave
-and other web browsers.
+The __NoScript Security Suite__ is Free Open Source Software (FOSS) providing extra protection for Firefox (on Android, too!), Chrome, Edge, Brave and other web browsers.
 
-More informaaton on [the NoScript web site](https://noscript.net)
+More information on [the NoScript web site](https://noscript.net)
 
 #### Security reports
 
