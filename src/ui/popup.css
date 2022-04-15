@@ -32,7 +32,7 @@ html:not(.mobile) #scrollable {
   display: flex;
   -moz-user-select: none;
   user-select: none;
-  background: linear-gradient(to bottom, transparent 0, transparent 85%, var(--form-color1) 100%) no-repeat;
+  background: linear-gradient(to bottom, transparent 0, transparent 95%, var(--form-color1) 100%) no-repeat;
 }
 
 .icon {
