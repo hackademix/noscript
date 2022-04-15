@@ -418,7 +418,7 @@ var UI = (() => {
           presets.appendChild(clone);
         }
 
-        UI.Sites.correctSize(presets);
+        this.correctSize(presets);
       }
 
       // URL
@@ -450,21 +450,26 @@ var UI = (() => {
       return row;
     }
 
-    static correctSize(presets) {
+    correctSize(presets) {
+      if (this.sizeCorrected) return;
+      this.sizeCorrected = true;
       // adapt button to label if needed
       let sizer = document.createElement("div");
       sizer.id = "presets-sizer";
+      sizer.classList.add("sites");
       sizer.appendChild(presets.cloneNode(true));
       document.body.appendChild(sizer);
-      let presetWidth = sizer.querySelector("input.preset").offsetWidth;
       let labelWidth = 0;
+      let biggest = "";
       for (let l of sizer.querySelectorAll("label.preset")) {
         let lw = l.offsetWidth;
-        if (lw > labelWidth) labelWidth = lw;
+        if (lw > labelWidth) {
+          labelWidth = lw;
+          biggest = l.textContent;
+        }
       }
-      document.documentElement.style.setProperty("--preset-label-width", (labelWidth) + "px");
+      this.parentNode.style.setProperty("--preset-label-width", (labelWidth) + "px");
       sizer.remove();
-      UI.Sites.correctSize = () => {}; // just once, please!
     }
 
     allSiteRows() {

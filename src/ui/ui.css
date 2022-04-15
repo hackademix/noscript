@@ -328,17 +328,17 @@ span.preset {
   width: 5000px;
   height: 500px;
   top: -5000px;
+
 }
 
 #presets-sizer span.preset {
   display: block;
-
 }
 
 .presets input.preset:checked, #presets input.preset, #presets-sizer input.preset {
   opacity: 1;
   transform: none;
-  min-width: calc(var(--preset-label-width) + var(--line-size) + var(--extra-preset-width));
+  min-width: calc(var(--preset-label-width) + var(--line-size) * 1.5 + var(--extra-preset-width));
 }
 
 .presets input.preset:focus {
@@ -362,7 +362,7 @@ span.preset {
   padding: .05em 0.4em .05em 0;
   --line-scaled: var(--line-size);
   line-height: var(--line-scaled);
-  padding-left: calc(var(--line-scaled) * 1.5);
+  padding-left: calc(var(--line-scaled) * 1.4);
 }
 
 .presets input.preset[value^="T"] + label {
@@ -372,7 +372,7 @@ span.preset {
 .presets input.preset:checked + label, #presets .presets label {
   opacity: 1;
   display: inline-flex;
-  width: 75%;
+  width: var(--preset-label-width);
   background-color: var(--form-color2);
   border-radius: 1em 1em 0 0;
 }
@@ -391,10 +391,11 @@ span.preset {
 }
 
 #presets-sizer .presets label {
-   position: static;
-   display: block;
+   position: absolute;
+   display: inline;
    width: auto;
    overflow: visible;
+   padding: 0;
 }
 
 input.preset[value="T_TRUSTED"] {
