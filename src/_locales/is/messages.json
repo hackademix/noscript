@@ -223,6 +223,10 @@
         "message": "Virkja takmarkanir almennt",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Endurheimta takmarkanir við endurræsingu vafra",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Gera takmarkanir óvirkar í þessum flipa",
         "description": ""
@@ -917,6 +921,18 @@
     },
     "themeAuto": {
         "message": "Sjálfvirkt",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "Nútímalegt rautt",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Gamaldags blátt",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Skipta yfir í gamaldags bláa stílinn",
         "description": ""
     },
     "DonateShort": {
