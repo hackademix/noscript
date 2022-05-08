@@ -138,6 +138,7 @@ onpopuppositioned
 onpopupshowing
 onpopupshown
 onprocessorerror
+onprioritychange
 onpush
 onpushsubscriptionchange
 onRadioStateChange
