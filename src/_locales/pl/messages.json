@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
+        "message": "Każda funkcja zablokowana w dokumencie nadrzędnym musi również zostać zablokowana w dokumentach podrzędnych",
         "description": ""
     },
     "ClearClickDescription": {
@@ -108,7 +108,7 @@
         "description": ""
     },
     "ClearClickHeader": {
-        "message": "Potential Clickjacking / UI Redressing Attempt!",
+        "message": "Możliwe przechwytywanie kliknięć / Próba przywrócenia interfejsu użytkownika!",
         "description": ""
     },
     "ClearClickOpt": {
@@ -152,7 +152,7 @@
         "description": ""
     },
     "CustomizePresets": {
-        "message": "Preset customization (for all the sites sharing a preset)",
+        "message": "Personalizacja ustawień wstępnych (dla wszystkich witryn korzystających z ustawień wstępnych)",
         "description": ""
     },
     "Default": {
@@ -164,7 +164,7 @@
         "description": ""
     },
     "Description": {
-        "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation.",
+        "message": "Maksymalna ochrona dla twojej przeglądarki: NoScript zezwala na aktywne treści tylko w zaufanych domenach, aby zapobiec ich wykorzystaniu.",
         "description": ""
     },
     "Donate": {
@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "Ograniczenia są wyłączone",
+        "message": "Ograniczenia wyłączone przez ustawienia użytkownika: NoScript nie zablokuje niczego na tej stronie!",
         "description": ""
     },
     "NoEnforcement": {
@@ -221,6 +221,10 @@
     },
     "Enforce": {
         "message": "Włącz ograniczenia globalnie",
+        "description": ""
+    },
+    "EnforceOnRestart": {
+        "message": "Przywróć ograniczenia przy ponownym uruchomieniu przeglądarki",
         "description": ""
     },
     "NoEnforcementForTab": {
@@ -292,11 +296,11 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Enable setting permanent permissions in incognito/private tabs.\nBEWARE: doing this can leak site information!",
+        "message": "Włącz możliwość ustawiania stałych uprawnień w zakładkach incognito/prywatnych.\nUWAGA: może to spowodować wyciek informacji o witrynie!",
         "description": ""
     },
     "OptAmnesticUpdates": {
-        "message": "Revoke temporary permissions on NoScript updates, even if the browser is not restarted",
+        "message": "Cofnij tymczasowe uprawnienia do aktualizacji NoScript, nawet jeśli przeglądarka nie zostanie ponownie uruchomiona",
         "description": ""
     },
     "KeepLocked": {
@@ -304,7 +308,7 @@
         "description": ""
     },
     "MatchSample": {
-        "message": "Pattern matching sample:",
+        "message": "Przykład dopasowania wzorców:",
         "description": ""
     },
     "Next": {
@@ -312,7 +316,7 @@
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "No placeholder for objects coming from sites marked as untrusted",
+        "message": "Brak symbolu zastępczego dla obiektów pochodzących z witryn oznaczonych jako niezaufane",
         "description": ""
     },
     "Notifications": {
@@ -320,15 +324,15 @@
         "description": ""
     },
     "Notify": {
-        "message": "Show message about blocked scripts",
+        "message": "Pokaż komunikat o zablokowanych skryptach",
         "description": ""
     },
     "Notify_bottom": {
-        "message": "Place message at the bottom",
+        "message": "Umieść komunikat na dole",
         "description": ""
     },
     "NotifyMeta": {
-        "message": "Show message about blocked META redirections",
+        "message": "Pokaż komunikat o zablokowanych przekierowaniach META",
         "description": ""
     },
     "NotifyMeta_accesskey": {
@@ -336,7 +340,7 @@
         "description": ""
     },
     "NselForce": {
-        "message": "Show the <NOSCRIPT> element which follows a blocked <SCRIPT>",
+        "message": "Pokaż <NOSCRIPT> element który następuje po zablokowanym <SCRIPT>",
         "description": ""
     },
     "NselNever": {
@@ -352,7 +356,7 @@
         "description": ""
     },
     "OptFilterXGet": {
-        "message": "Sanitize cross-site suspicious requests",
+        "message": "Oczyszczanie z podejrzanych żądań typu cross-site",
         "description": ""
     },
     "OptFilterXPost": {
@@ -360,7 +364,7 @@
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Override Tor Browser's Security Level preset",
+        "message": "Zastąpić ustawienia poziomu bezpieczeństwa przeglądarki Tor",
         "description": ""
     },
     "Options": {
@@ -380,15 +384,15 @@
         "description": ""
     },
     "PermanentInPrivate": {
-        "message": "Permanent \"Allow\" commands in private windows",
+        "message": "Stałe polecenia \"Zezwalaj\" w oknach prywatnych",
         "description": ""
     },
     "SectionSitePermissions": {
-        "message": "Per-site Permissions",
+        "message": "Uprawnienia witryn",
         "description": ""
     },
     "PermissionsText": {
-        "message": "You can specify which web sites are allowed to execute scripts. Type the address or the domain (e.g. \"http://www.site.com\" or \"site.com\") of the site you want to allow and then click Allow.",
+        "message": "Możesz określić, które witryny internetowe mogą wykonywać skrypty. Wpisz adres lub domenę (np. \"http://www.site.com\" lub \"site.com\") witryny, którą chcesz zezwolić, a następnie kliknij przycisk Zezwalaj.",
         "description": ""
     },
     "Plugins": {
@@ -448,15 +452,15 @@
         "description": ""
     },
     "SecureCookies": {
-        "message": "Enable Automatic Secure Cookies Management",
+        "message": "Włącz automatyczne zarządzanie bezpiecznymi plikami cookie",
         "description": ""
     },
     "SecureCookiesExceptions": {
-        "message": "Ignore unsafe cookies set over HTTPS by the following sites:",
+        "message": "Zignoruj niebezpieczne pliki cookie ustawione przez protokół HTTPS w następujących witrynach:",
         "description": ""
     },
     "SecureCookiesForced": {
-        "message": "Force encryption for all the cookies set over HTTPS by the following sites:",
+        "message": "Wymuś szyfrowanie wszystkich plików cookie ustawionych przez protokół HTTPS w następujących witrynach:",
         "description": ""
     },
     "SecurityManager": {
@@ -480,15 +484,15 @@
         "description": ""
     },
     "ShowReleaseNotes": {
-        "message": "Display the release notes on updates",
+        "message": "Wyświetlaj informacje o wydaniu podczas aktualizacji",
         "description": ""
     },
     "ShowCtxMenuItem": {
-        "message": "Show NoScript contextual menu item",
+        "message": "Pokaż element menu kontekstowego NoScript",
         "description": ""
     },
     "ShowCountBadge": {
-        "message": "Display blocked items count badge",
+        "message": "Wyświetlaj licznik zablokowanych elementów",
         "description": ""
     },
     "SitePermissions": {
@@ -500,7 +504,7 @@
         "description": ""
     },
     "SitePolicies": {
-        "message": "Site Specific Policies",
+        "message": "Sprecyzowane zasady witryny",
         "description": ""
     },
     "TempTrustPage": {
@@ -596,7 +600,7 @@
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript detected a potential Cross-Site Scripting attack\nfrom $1 to $2.\nSuspicious data:\n$3",
+        "message": "NoScript wykrył potencjalny atak typu \"Cross-Site Scripting\"\nz $1 do $2.\nPodejrzane dane:\n$3",
         "description": ""
     },
     "XSS_optBlock": {
@@ -604,7 +608,7 @@
         "description": ""
     },
     "XSS_optSanitize": {
-        "message": "Sanitize this request",
+        "message": "Wyczyść to żądanie",
         "description": ""
     },
     "XSS_optAllow": {
@@ -612,11 +616,11 @@
         "description": ""
     },
     "XSS_optAlwaysAllow": {
-        "message": "Always allow document requests from $1 to $2",
+        "message": "Zawsze zezwalaj na żądania dokumentów z $1 do $2",
         "description": ""
     },
     "XSS_optAlwaysBlock": {
-        "message": "Always block document requests from $1 to $2",
+        "message": "Zawsze blokuj żądania dokumentów z $1 do $2",
         "description": ""
     },
     "Xss": {
@@ -628,11 +632,11 @@
         "description": ""
     },
     "XssExceptions": {
-        "message": "Anti-XSS Protection Exceptions",
+        "message": "Wyjątki ochrony przed XSS",
         "description": ""
     },
     "XssExceptions_description": {
-        "message": "Destinations matching these regular expressions will NOT be protected against XSS.",
+        "message": "Miejsca docelowe pasujące do tych wyrażeń regularnych NIE będą chronione przed XSS.",
         "description": ""
     },
     "XssFaq": {
@@ -700,15 +704,15 @@
         "description": ""
     },
     "caps": {
-        "message": "Enable these capabilities",
+        "message": "Włącz te funkcje",
         "description": ""
     },
     "capsContext": {
-        "message": "Enable these capabilities when top page matches",
+        "message": "Włącz te funkcje, gdy strona główna jest dopasowana",
         "description": ""
     },
     "anySite": {
-        "message": "ANY SITE",
+        "message": "DOWOLNA WITRYNA",
         "description": ""
     },
     "cap_script": {
@@ -736,7 +740,7 @@
         "description": ""
     },
     "cap_fetch": {
-        "message": "fetch",
+        "message": "pobieranie",
         "description": ""
     },
     "cap_ping": {
@@ -744,11 +748,11 @@
         "description": ""
     },
     "cap_noscript": {
-        "message": "noscript",
+        "message": "bez skryptu",
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unrestricted CSS",
+        "message": "nieograniczony CSS",
         "description": ""
     },
     "cap_lan": {
@@ -828,7 +832,7 @@
         "description": ""
     },
     "informaction_tip": {
-        "message": "Visit InformAction home page",
+        "message": "Odwiedź stronę główną InformAction",
         "description": ""
     },
     "license": {
@@ -844,7 +848,7 @@
         "description": ""
     },
     "metaRefresh_notify": {
-        "message": "NoScript blocked a <META> redirection inside a <NOSCRIPT> element: $1 in $2 seconds.",
+        "message": "NoScript zablokował <META> przekierowanie wewnątrz <NOSCRIPT> elementu: $1 w $2 sekund(y).",
         "description": ""
     },
     "Reload": {
@@ -876,7 +880,7 @@
         "description": ""
     },
     "siteInfo_confirm": {
-        "message": "You're about to ask for information about the \"$1\" site\nby submitting a query to $2.\nDo you want to continue?",
+        "message": "Zamierzasz poprosić o informacje na temat witryny \"$1\"\nwysyłając zapytanie do $2.\nChcesz kontynuować?",
         "description": ""
     },
     "siteInfo_tooltip": {
@@ -904,6 +908,39 @@
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Motyw"
+        "message": "Motyw",
+        "description": ""
+    },
+    "themeDark": {
+        "message": "Ciemny",
+        "description": ""
+    },
+    "themeLight": {
+        "message": "Jasny",
+        "description": ""
+    },
+    "themeAuto": {
+        "message": "Auto",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "Nowoczesny czerwony",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Vintage niebieski",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Przełącz na styl niebieski vintage",
+        "description": ""
+    },
+    "DonateShort": {
+        "message": "Darowizna",
+        "description": ""
+    },
+    "DonateLong": {
+        "message": "NoScript jest wolnym oprogramowaniem i nie może istnieć bez twojej pomocy. Prosimy o datki!",
+        "description": ""
     }
 }
