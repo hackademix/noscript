@@ -82,10 +82,6 @@ cp -pR "$SRC" "$BUILD"
 # include nscl dependencies
 "$NSCL/include.sh" "$BUILD"
 
-if node "$NSCL/TLD/update.js" "$BUILD/nscl/common/tld.js"; then
-  echo 'Updated TLDs.'
-fi
-
 cp -p LICENSE COPYING "$BUILD"/
 
 BUILD_CMD="web-ext"
