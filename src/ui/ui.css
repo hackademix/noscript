@@ -297,7 +297,7 @@ span.preset {
   display: inline-block;
   font-size: 1em;
   height: var(--line-size);
-  top: 0.2em;
+  top: 0.1em;
 }
 
 .preset label, .preset input, .preset button {
@@ -359,7 +359,7 @@ span.preset {
   opacity: .8;
   position: absolute;
   left: 0;
-  padding: .05em 0.4em .05em 0;
+  padding: .05em 0.4em 0 0;
   --line-scaled: var(--line-size);
   line-height: var(--line-scaled);
   padding-left: calc(var(--line-scaled) * 1.4);
@@ -382,7 +382,7 @@ span.preset {
   :not(#presets) > .sites .site:not(.customizing) .presets input.preset:checked + label.preset {
     background-color: var(--bg-preset-color);
     border-radius: calc(var(--line-size) / 2);
-    filter: drop-shadow(0 0 2px var(--fg-color1));
+    box-shadow: 0 0 1px var(--fg-color1);
   }
 }
 
@@ -454,7 +454,6 @@ input.preset:checked ~ input.temp {
 }
 
 .customizing input.preset:checked, #presets input.preset:checked {
-  height: calc(var(--line-size) + 0.2em);
   filter: none;
 }
 
