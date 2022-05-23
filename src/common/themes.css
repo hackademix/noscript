@@ -5,8 +5,8 @@
  */
 
 .__NoScript_Theme__ {
-  --focus-color-dark:  #8007;
-  --focus-color-light: #f787;
+  --focus-color-dark: #c35a;
+  --focus-color-light: #f68a;
 
   --img-noscript-options: url(/img/noscript-options.png);
   --img-ui-revoke-temp: url(/img/ui-revoke-temp64.png);
@@ -37,15 +37,15 @@
   --bg-preset-color: var(--form-color2);
   --bg-odd-row: var(--bg-color2);
   --bg-even-row: var(--tab-color1);
-  --bg-focused-row: linear-gradient(to bottom, var(--focus-color) 0, transparent 20%, transparent 80%, var(--focus-color) 100%);
+  --bg-focused-row: linear-gradient(to bottom, var(--focus-color) 0, transparent 10%, transparent 90%, var(--focus-color) 100%);
   --border-row-sep: none;
 }
 
 
 .__NoScript_Theme__.vintage {
 
-  --focus-color-light: #8cf8 !important;
-  --focus-color-dark: #2488 !important;
+  --focus-color-dark: #35Ca !important;
+  --focus-color-light: #8cfa !important;
 
   --img-noscript-options: url(/img/vintage/noscript-options.png);
   --img-ui-revoke-temp: url(/img/vintage/ui-revoke-temp64.png);

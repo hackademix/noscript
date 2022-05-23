@@ -137,7 +137,7 @@ input:disabled, button:disabled, select:disabled {
   cursor: not-allowed !important;
 }
 
-:focus-visible, :is(.cap, .switch):focus-within {
+:focus-visible, :is(.cap.needed, .switch):focus-within {
   outline: 0;
   filter:
     drop-shadow(1px 1px 1px var(--focus-color))
@@ -146,6 +146,10 @@ input:disabled, button:disabled, select:disabled {
     drop-shadow(-1px -1px 1px var(--focus-color)) !important;
 }
 
+:is(label, .full-address, .full-address *):is(:focus, :focus-visible) {
+  text-shadow: 0 0 .1em var(--focus-color);
+  filter: none !important;
+}
 
 .donate {
   color: var(--text-color1) !important;
