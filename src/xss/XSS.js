@@ -24,6 +24,8 @@ var XSS = (() => {
 
   const ABORT = {cancel: true}, ALLOW = {};
 
+  let baseTTL = 20000; // timeout in milliseconds for each worker to perform
+
   let workersMap = new Map();
   let promptsMap = new Map();
   let blockedTabs = new Map();
@@ -198,7 +200,7 @@ var XSS = (() => {
 
       this._userChoices = (await Storage.get("sync", "xssUserChoices")).xssUserChoices || {};
 
-      // conver old style whitelist if stored
+      // convert old style whitelist if stored
       let oldWhitelist = await XSS.Exceptions.getWhitelist();
       if (oldWhitelist) {
         for (let [destOrigin, sources] of Object.entries(oldWhitelist)) {
@@ -337,14 +339,30 @@ var XSS = (() => {
         browser.webNavigation.onErrorOccurred.addListener(onNavError,
           {url: [{urlEquals: xssReq.destUrl}]});
 
-        let dosTimeout = setTimeout(() => {
+        let startTime = Date.now(), elapsed = 0, dosTimeout;
+        let ttlCheck = async () => {
+          let workersCount = workersMap.size;
+          if (workersCount < 1) return;
+
+          let userResponse = await getUserResponse(xssReq);
+          if (userResponse) return resolve(userResponse);
+
+          let now = Date.now();
+          elapsed += (now - startTime) / workersCount; // divide to take in account concurrency overhead
+          if (elapsed < baseTTL) {
+            startTime = now;
+            dosTimeout = setTimeout(ttlCheck, 2000);
+            return;
+          }
           if (cleanup()) { // the request might have been aborted otherwise
             reject(new Error("Timeout! DOS attack attempt?"));
           } else {
             debug("[XSS] Request %s already aborted while being filtered.",
               xssReq.destUrl);
           }
-        }, 20000);
+        };
+
+        ttlCheck();
 
         function cleanup() {
           clearTimeout(dosTimeout);
