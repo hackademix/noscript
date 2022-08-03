@@ -45,6 +45,8 @@ Please report privately to **[security@noscript.net]**
 To ensure confidentiality and protect users, <br>
 please encrypt your report with this **PGP key**.
 
+<br>
+
 ```
 3359 0391 70A3 CD9B 25CF 5A46 231A 83AF DA9C 2434
 ```
@@ -78,4 +80,4 @@ please encrypt your report with this **PGP key**.
 
 <!---------------------------------[ Buttons ]--------------------------------->
 
-[Button Website]: https://img.shields.io/badge/Website-d12027?style=for-the-badge
+[Button Website]: https://img.shields.io/badge/Ｗｅｂｓｉｔｅ-d12027?style=for-the-badge
