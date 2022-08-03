@@ -1,7 +1,11 @@
 
 root = true
 
-
-[ReadMe.md]
-end_of_line = lf
+[*]
 insert_final_newline = true
+end_of_line = lf
+
+[*.{md}]
+indent_style = space
+indent_size = 4
+charset = utf-8
