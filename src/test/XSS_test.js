@@ -31,6 +31,8 @@ if (UA.isMozilla) {
       () => y("https://vulnerabledoma.in/char_test?body=%3Ca%20href=javascript%26colo%u0000n%3balert%281%u0029%3ECLICK"),
       () => y("https://vulnerabledoma.in/xss_link?url=javascript%26colo%00n%3Balert%u00281%29"),
       () => y("https://vulnerabledoma.in/xss_link?url=javascript:\\u{%0A6e}ame"),
+      () => y("https://sandbox.hack.vet/issue/noscript/bypass/multibyte/?q=alert(document.cookie)//＜"),
+      () => y("https://sandbox.hack.vet/issue/noscript/bypass/multibyte/?q=/**🚫*/alert(document.cookie)"),
       ].map(t => Test.run(t))
     );
 

@@ -530,7 +530,7 @@ XSS.InjectionChecker = (async () => {
       let value;
       try {
         // see https://mathiasbynens.be/notes/javascript-identifiers-es6#acceptable-unicode-symbols
-        value = new RegExp(preamble + "[^$_\\p{ID_Start}\\p{ID_Continue}\\u200c\\u200d\\u2028\\u2029]", "u");
+        value = new RegExp(preamble + "[^\\x00-\\x7E\\p{ID_Start}\\p{ID_Continue}\\u200c\\u200d\\u2028\\u2029]", "u");
       } catch (e) {
         // Unicode entities are not supported in Gecko <= 77
         value = new RegExp(preamble + `[${this._createInvalidRanges()}]`, "u");
@@ -665,12 +665,13 @@ XSS.InjectionChecker = (async () => {
 
           lastExpr = expr;
 
-          if (invalidCharsRx && invalidCharsRx.test(expr)) {
-            this.log("Quick skipping invalid chars");
-            break;
+          if (invalidCharsRx) {
+            let m = invalidCharsRx.test(expr);
+            if (m) {
+              this.log(`Quick skipping invalid chars on ${expr}, (${JSON.stringify(m)}).`);
+              break;
+            }
           }
-
-
 
           if (quote) {
             if (this.checkNonTrivialJSSyntax(expr)) {
