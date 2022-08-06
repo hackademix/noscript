@@ -149,11 +149,11 @@ elif [ -f "$XPI.zip" ]; then
     $xpicmd "$XPI.zip" "$XPI$DBG.xpi"
     echo "Created $XPI$DBG.xpi"
   fi
-else
+elif ! [ -f "$XPI.xpi" ]; then
   echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
   exit 3
 fi
-ln -fs $XPI.xpi "$BASE/latest.xpi"
+ln -fs "$XPI.xpi" "$BASE/latest.xpi"
 
 # create Chromium pre-release
 
