@@ -33,6 +33,7 @@ var Defaults = {
       sync: {
         global: false,
         xss: true,
+        TabGuardMode: "incognito",
         cascadeRestrictions : false,
         overrideTorBrowserPolicy: false, // note: Settings.update() on reset will flip this to true
       }

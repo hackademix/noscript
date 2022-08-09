@@ -141,6 +141,13 @@ document.querySelector("#version").textContent = _("Version",
     if (checked) updateRawPolicyEditor();
   });
 
+  UI.wireChoice("TabGuardMode");
+
+  document.querySelector("#tgForgetButton").onclick = e => {
+    e.target.disabled = true;
+    UI.updateSettings({command: "tg-forget"});
+  };
+
   // Appearance
 
   opt("showCountBadge", "local");

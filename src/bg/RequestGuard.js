@@ -550,10 +550,16 @@ var RequestGuard = (() => {
       }
       return ALLOW;
     },
+
     onBeforeSendHeaders(request) {
       normalizeRequest(request);
-      return checkLANRequest(request);
+      let lanRes = checkLANRequest(request);
+      if (!UA.isMozilla) return lanRes; // Chromium doesn't support async blocking suspension, stop here
+      if (lanRes === ABORT) return ABORT;
+      let chainNext = r => r === ABORT ? r : TabGuard.check(request);
+      return lanRes instanceof Promise ? lanRes.then(chainNext) : chainNext(lanRes);
     },
+
     onHeadersReceived(request) {
       // called for main_frame, sub_frame and object
 
@@ -754,7 +760,7 @@ var RequestGuard = (() => {
       let filterDocs = {urls: allUrls, types: docTypes};
       let filterAll = {urls: allUrls};
       listen("onBeforeRequest", filterAll, ["blocking"]);
-      listen("onBeforeSendHeaders", filterAll, ["blocking"]);
+      listen("onBeforeSendHeaders", filterAll, ["blocking",  "requestHeaders"]);
 
       let mergingCSP = "getBrowserInfo" in browser.runtime;
       if (mergingCSP) {

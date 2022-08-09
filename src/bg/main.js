@@ -156,6 +156,10 @@
 
   let messageHandler = {
     async updateSettings(settings, sender) {
+      if (settings.command === "tg-forget") {
+        TabGuard.forget();
+        delete settings.tabGuardCommand;
+      }
       await Settings.update(settings);
       toggleCtxMenuItem();
     },

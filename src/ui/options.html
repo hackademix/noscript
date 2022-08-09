@@ -167,6 +167,22 @@ SPDX-License-Identifier: GPL-3.0-or-later
     </span>
   </div>
 
+  <section id="sect-TabGuard">
+    <fieldset id="TabGuard">
+      <legend>__MSG_TabGuard_label__</legend>
+    <div class="opt-group">
+      <span id="tgMode">
+       <input id="tgm-global" type="radio" name="TabGuardMode" value="global" /><label for="tgm-global">__MSG_TabGuard_optEnabled__</label>
+       <input id="tgm-incognito" type="radio"  name="TabGuardMode" value="incognito" checked="checked"/><label for="tgm-incognito">__MSG_TabGuard_optIncognito__</label>
+       <input id="tgm-off" type="radio" name="TabGuardMode" value="off"/><label for="tgm-off">__MSG_TabGuard_optDisabled__</label>
+      </span>
+      <div id="tgForget"><button id="tgForgetButton">__MSG_TabGuard_forget__</button></div>
+    </div>
+
+
+    </fieldset>
+  </section>
+
   <section id="debug" class="browser-style">
   <div class="opt-group">
     <span><input type="checkbox" id="opt-debug"><label id="label-debug" for="opt-debug">Debug</label></span>
