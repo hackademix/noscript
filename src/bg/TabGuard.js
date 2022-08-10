@@ -32,8 +32,16 @@ var TabGuard = (() => {
   const AUTH_HEADERS_RX = /^(?:authorization|cookie)/i;
 
   function getDomain(u) {
-    let {url} = Sites.parse(u);
-    return url && url.protocol.startsWith("http") && tld.getDomain(url.hostname);
+    let {url, siteKey} = Sites.parse(u);
+    return url && url.protocol.startsWith("http") && tld.getDomain(url.hostname) || Sites.origin(siteKey);
+  }
+
+  function flattenHeaders(headers) {
+    let flat = {};
+    for (let h of headers) {
+      flat[h.name.toLowerCase()] = h.value;
+    }
+    return flat;
   }
 
   return {
@@ -42,26 +50,44 @@ var TabGuard = (() => {
       const mode = ns.sync.TabGuardMode;
       if (mode === "off" || !request.incognito && mode!== "global") return;
 
-      const {tabId, type, url} = request;
+      const {tabId, type, url, originUrl} = request;
 
       if (tabId < 0) return; // no tab, no party
+
+      if (!ns.isEnforced(tabId)) return; // leave unrestricted tabs alone
+
+      let {requestHeaders} = request;
+
+      const mainFrame = type === "main_frame";
+      if (mainFrame) {
+        let headers = flattenHeaders(requestHeaders);
+        if (headers["sec-fetch-user"] === "?1" && /^(?:same-(?:site|origin)|none)$/i.test(headers["sec-fetch-site"])) {
+          debug("[TabGuard] User-typed, bookmark, reload or user-activated same-site navigation: cutting tab ties.", request);
+          TabTies.cut(tabId);
+          return;
+        }
+      }
 
       let targetDomain = getDomain(url);
       if (!targetDomain) return; // no domain, no cookies
 
-      const mainFrame = type === "main_frame";
-      let tabDomain = getDomain(mainFrame ? url : TabCache.get(tabId).url);
+      let tab = TabCache.get(tabId);
+      let tabDomain = getDomain(mainFrame ? url : tab && tab.url);
       if (!tabDomain) return; // no domain, no cookies
 
       let ties = TabTies.get(tabId);
       if (ties.size === 0) return; // no ties, no party
 
+      // we suspect tabs which 1) have not been removed/discarded, 2) are restricted by policy, 3) can run JavaScript
+      let suspiciousTabs = [...ties].map(TabCache.get).filter(
+        tab => tab && !tab.discarded && ns.isEnforced(tab.tabId) &&
+        (tab.url === "about:blank" || ns.policy.can(tab.url, "script")) // TODO: replace about:blank with actual document.domain / window.opener by injecting a content script
+      );
+
       let legitDomains = allowedGroups[tabDomain] || new Set([tabDomain]);
 
-      let otherDomains = new Set([...ties].map(id => getDomain(TabCache.get(id).url)).filter(d => !legitDomains.has(d)));
+      let otherDomains = new Set(suspiciousTabs.map(tab => getDomain(tab.url)).filter(d => d && !legitDomains.has(d)));
       if (otherDomains.size === 0) return; // no cross-site ties, no party
-
-     let {requestHeaders} = request;
 
       if (!requestHeaders.some(h => AUTH_HEADERS_RX.test(h.name))) return; // no auth, no party
 
@@ -69,7 +95,7 @@ var TabGuard = (() => {
 
       let filterAuth = () => {
         requestHeaders = requestHeaders.filter(h => !AUTH_HEADERS_RX.test(h.name));
-        debug("TabGuard removing auth headers from %o (%o)", request, requestHeaders);
+        debug("[TabGuard] Removing auth headers from %o (%o)", request, requestHeaders);
         return {requestHeaders};
       };
 
