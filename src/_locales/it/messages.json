@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
+        "message": "Qualsiasi funzionalità bloccata nel documento superiore deve essere bloccata anche nei suoi sotto-documenti. ",
         "description": ""
     },
     "ClearClickDescription": {
@@ -223,6 +223,10 @@
         "message": "Attiva le restrizioni a livello globale",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Ripristino delle restrizioni al riavvio del browser",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Disattiva le restrizioni per questa scheda",
         "description": ""
@@ -296,7 +300,7 @@
         "description": ""
     },
     "OptAmnesticUpdates": {
-        "message": "Revoke temporary permissions on NoScript updates, even if the browser is not restarted",
+        "message": "Revoca delle autorizzazioni temporanee sugli aggiornamenti di NoScript, anche se il browser non viene riavviato",
         "description": ""
     },
     "KeepLocked": {
@@ -748,7 +752,7 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "unrestricted CSS",
+        "message": "CSS non vincolato",
         "description": ""
     },
     "cap_lan": {
@@ -919,12 +923,60 @@
         "message": "Automatico",
         "description": ""
     },
+    "ModernRed": {
+        "message": "Modern Red",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Vintage Blue",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Passa allo stile Vintage Blue",
+        "description": ""
+    },
     "DonateShort": {
         "message": "Dona",
         "description": ""
     },
     "DonateLong": {
         "message": "NoScript è un software libero e gratuito: non esisterebbe senza il tuo aiuto. Dona ora!",
+        "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Protezione dallo svelamento dell'identità nella navigazione tra schede",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Abilitata in tutte le finestre",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Abilitata solo nelle finestre di navigazione privata",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Disabilitata",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Dimentica le eccezioni",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Pericolo di svelamento dell'identità",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Stai per caricare una pagina dal sito $1.\nSe sei utente registrato su $1, informazioni sulla tua identità potrebbero essere acquisite dal sito $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Rendi anonimo il caricamento",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Carica normalmente",
         "description": ""
     }
 }
