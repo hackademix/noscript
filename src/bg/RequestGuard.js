@@ -556,6 +556,11 @@ var RequestGuard = (() => {
       let lanRes = checkLANRequest(request);
       if (!UA.isMozilla) return lanRes; // Chromium doesn't support async blocking suspension, stop here
       if (lanRes === ABORT) return ABORT;
+      // redirection loop test
+      let pending = pendingRequests.get(request.requestId);
+      if (pending && pending.redirected && pending.redirected.url === request.url) {
+        return lanRes; // don't go on stripping cookies if we're in a redirection loop
+      }
       let chainNext = r => r === ABORT ? r : TabGuard.check(request);
       return lanRes instanceof Promise ? lanRes.then(chainNext) : chainNext(lanRes);
     },
