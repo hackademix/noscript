@@ -942,5 +942,41 @@
     "DonateLong": {
         "message": "NoScript is gratis software en kan niet bestaan zonder uw hulp. Doneer nu!",
         "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Bescherming tegen cross-tab-identiteitslekken",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Overal ingeschakeld",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Alleen ingeschakeld in Privénavigatie",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Uitgeschakeld",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Beslissingen vergeten",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Potentieel identiteitslek",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "U gaat een pagina laden vanaf $1.\nAls u een bij $1 aangemelde gebruiker bent, kan mogelijk informatie over uw identiteit worden verkregen door $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Anoniem laden",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Normaal laden",
+        "description": ""
     }
 }

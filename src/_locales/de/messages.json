@@ -942,5 +942,41 @@
     "DonateLong": {
         "message": "NoScript ist Freie Software und kann ohne Ihre Hilfe nicht fortbestehen. Bitte spenden Sie jetzt!",
         "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Tab-übergreifender Schutz vor Identitätslecks",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Stets aktiviert",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Nur im privaten Modus aktiviert",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Deaktiviert",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Entscheidungen verwerfen",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Mögliches Identitätsleck",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Sie sind im Begriff, eine Seite von $1 zu laden.\nWenn Sie ein angemeldeter Benutzer bei $1 sind, könnte auch $2 Informationen über Ihre Identität erlangen.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Anonym laden",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Normal laden",
+        "description": ""
     }
 }

@@ -942,5 +942,41 @@
     "DonateLong": {
         "message": "NoScript është Software i Lirë dhe s’mund të ekzistojë pa ndihmën tuaj. Ju lutemi, dhuroni që tani!",
         "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Mbrojtje nga rrjedhje identiteti nga skeda në skedë",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": " E aktivizuar kudo",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "E aktivizuar vetëm në Shfletim Privat",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "E çaktivizuar",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Harroji vendimet",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Rrjedhje Potenciale Identiteti",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Ju ndan një hap nga ngarkimi i një faqeje prej $1.\nNëse jeni një përdorues $1 që ka bërë hyrjen, nga $2 mund të shtihen në dorë hollësi rreth identitetit tuaj.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Ngarkoje në mënyrë anonime",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Ngarkoje si zakonisht",
+        "description": ""
     }
 }

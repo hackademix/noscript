@@ -942,5 +942,41 @@
     "DonateLong": {
         "message": "NoScript — это свободное ПО и ему необходима ваша помощь. Сделайте пожертвование сейчас!",
         "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Защита от утечки идентификации в другую вкладку",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Включено везде",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Включено только в приватном режиме",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Отключено",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Забыть все решения (анонимно/нормально)",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Потенциальная утечка \nданных идентификации",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Вы собираетесь загрузить страницу с $1.\nЕсли вы вошли в учётную запись $1, ваша идентификационная информация может быть получена $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Загрузить анонимно",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Загрузить нормально",
+        "description": ""
     }
 }
