@@ -44,6 +44,8 @@ var TabGuard = (() => {
     return flat;
   }
 
+  let cutRequestIds = new Set();
+
   return {
     forget,
     check(request) {
@@ -62,9 +64,12 @@ var TabGuard = (() => {
       if (mainFrame) {
         let headers = flattenHeaders(requestHeaders);
         if (headers["sec-fetch-user"] === "?1" && /^(?:same-(?:site|origin)|none)$/i.test(headers["sec-fetch-site"])) {
-          debug("[TabGuard] User-typed, bookmark, reload or user-activated same-site navigation: cutting tab ties.", request);
-          TabTies.cut(tabId);
+          debug("[TabGuard] User-typed, bookmark, reload or user-activated same-site navigation: scheduling tab ties cut.", tabId, request);
+          cutRequestIds.add(tabId);
           return;
+        } else {
+          debug("[TabGuard] Automatic or cross-site navigation, keeping tab ties.", tabId, request);
+          cutRequestIds.delete(tabId);
         }
       }
 
@@ -122,6 +127,13 @@ var TabGuard = (() => {
       }
       let mustFilter = mainFrame || quietDomains && [...otherDomains].some(d => quietDomains.has(d))
       return mustFilter ? filterAuth() : null;
-    }
+    },
+    postCheck(request) {
+      let {requestId, tabId} = request;
+      if (cutRequestIds.has(requestId)) {
+        cutRequestIds.remove(requestId);
+        TabTies.cut(tabId);
+      }
+    },
   }
 })();

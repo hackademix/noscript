@@ -655,6 +655,7 @@ var RequestGuard = (() => {
       let {requestId, url, tabId, frameId, type} = request;
       if (type === "main_frame") {
         TabStatus.initTab(tabId);
+        TabGuard.postCheck(request);
       }
       let scriptBlocked = request.responseHeaders.some(
         h => csp.isMine(h) && csp.blocks(h.value, "script")
@@ -687,9 +688,11 @@ var RequestGuard = (() => {
           }
         }
       }
+      TabGuard.postCheck(request);
     },
     onErrorOccurred(request) {
       pendingRequests.delete(request.requestId);
+      TabGuard.postCheck(request);
     }
   };
   function fakeRequestFromCSP(report, request) {
