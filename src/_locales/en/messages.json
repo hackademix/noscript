@@ -721,7 +721,7 @@
     "message": "Disabled"
   },
   "TabGuard_forget": {
-    "message": "Forget decisions."
+    "message": "Forget decisions"
   },
   "TabGuard_title": {
     "message": "Potential Identity Leak"

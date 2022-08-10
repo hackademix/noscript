@@ -73,8 +73,8 @@ var TabGuard = (() => {
         return {requestHeaders};
       };
 
+      let quietDomains = filteredGroups[tabDomain];
       if (mainFrame) {
-        let quietDomains = filteredGroups[tabDomain];
         let mustPrompt = (!quietDomains || [...otherDomains].some(d => !quietDomains.has(d)));
         if (mustPrompt) {
           return (async () => {
@@ -94,9 +94,8 @@ var TabGuard = (() => {
           })();
         }
       }
-
-      return filterAuth();
-
+      let mustFilter = mainFrame || quietDomains && [...otherDomains].some(d => quietDomains.has(d))
+      return mustFilter ? filterAuth() : null;
     }
   }
 })();
