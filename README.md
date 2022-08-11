@@ -7,10 +7,16 @@
 [![Badge Release]][Releases]
 
 <br>
+<br>
+
+[<img
+    src = 'src/img/icon256.png'
+    width = 120
+/>][Website]
 
 # NoScript Security Suite
 
-*A **F**ree **O**pen **S**ource **S**oftware providing* <br>
+*Free Open Source Software providing* <br>
 *extra protection for various browsers.*
 
 <br>
@@ -68,16 +74,16 @@ please encrypt your report with this **PGP key**.
 
 <!----------------------------------[ Badges ]--------------------------------->
 
-[Badge Release]: https://img.shields.io/github/v/release/hackademix/noscript?style=for-the-badge&labelColor=569A31&color=407225
-[Badge License]: https://img.shields.io/badge/License-GPL3+-015d93.svg?style=for-the-badge&labelColor=blue
+[Badge Release]: https://img.shields.io/github/v/release/hackademix/noscript?style=for-the-badge&labelColor=569A31&color=407225&logoColor=white&logo=GitLFS
+[Badge License]: https://img.shields.io/badge/License-GPL3+-015d93.svg?style=for-the-badge&labelColor=blue&logoColor=white&logo=GNU
 
-[Badge Firefox]: https://img.shields.io/badge/Firefox-FF7139.svg?style=for-the-badge&logoColor=white&logo=FirefoxBrowser
-[Badge Android]: https://img.shields.io/badge/Android-3DDC84.svg?style=for-the-badge&logoColor=white&logo=Android
+[Badge Firefox]: https://img.shields.io/badge/Firefox-e86434.svg?style=for-the-badge&logoColor=white&logo=FirefoxBrowser
+[Badge Android]: https://img.shields.io/badge/Android-2b9a5b.svg?style=for-the-badge&logoColor=white&logo=Android
 [Badge Chrome]: https://img.shields.io/badge/Chrome-4285F4.svg?style=for-the-badge&logoColor=white&logo=GoogleChrome
-[Badge Brave]: https://img.shields.io/badge/Brave-FB542B.svg?style=for-the-badge&logoColor=white&logo=Brave
+[Badge Brave]: https://img.shields.io/badge/Brave-e84b28.svg?style=for-the-badge&logoColor=white&logo=Brave
 [Badge Edge]: https://img.shields.io/badge/Edge-0078D7.svg?style=for-the-badge&logoColor=white&logo=MicrosoftEdge
 
 
 <!---------------------------------[ Buttons ]--------------------------------->
 
-[Button Website]: https://img.shields.io/badge/Ｗｅｂｓｉｔｅ-d12027?style=for-the-badge
+[Button Website]: https://img.shields.io/badge/Ｗｅｂｓｉｔｅ-d12027?style=for-the-badge&logoColor=white&logo=ONLYOFFICE
