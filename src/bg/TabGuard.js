@@ -60,11 +60,30 @@ var TabGuard = (() => {
 
       let {requestHeaders} = request;
 
+      let tab = TabCache.get(tabId);
+
       const mainFrame = type === "main_frame";
       if (mainFrame) {
         let headers = flattenHeaders(requestHeaders);
-        if (headers["sec-fetch-user"] === "?1" && /^(?:same-(?:site|origin)|none)$/i.test(headers["sec-fetch-site"])) {
-          debug("[TabGuard] User-typed, bookmark, reload or user-activated same-site navigation: scheduling tab ties cut.", tabId, request);
+        let shouldCut = false;
+        if (headers["sec-fetch-user"] === "?1") {
+          // user-activated navigation
+          switch(headers["sec-fetch-site"]) {
+            case "same-site":
+            case "same-origin":
+              // cut only if same site & same tab
+              shouldCut = tab && originUrl === tab.url && ![...TabTies.get(tabId)]
+                .filter(tid => tid !== tabId).map(TabCache.get)
+                .some(t => t && t.url === originUrl);
+              break;
+            case "none":
+              // nav bar or bookmark
+              shouldCut = true;
+              break;
+          }
+        }
+        if (shouldCut) {
+          debug("[TabGuard] User-typed, bookmark or user-activated same-site-same-tab navigation: scheduling tab ties cut.", tabId, request);
           scheduledCuts.add(request.requestId);
           return;
         } else {
@@ -76,7 +95,6 @@ var TabGuard = (() => {
       let targetDomain = getDomain(url);
       if (!targetDomain) return; // no domain, no cookies
 
-      let tab = TabCache.get(tabId);
       let tabDomain = getDomain(mainFrame ? url : tab && tab.url);
       if (!tabDomain) return; // no domain, no cookies
 
