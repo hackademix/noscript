@@ -64,7 +64,7 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Tymczasowo ustawić ZAUFANE strony na najwyższym poziomie",
+        "message": "Tymczasowo ustaw strony najwyższego poziomu jako ZAUFANE",
         "description": ""
     },
     "AutoReload": {
@@ -148,7 +148,7 @@
         "description": ""
     },
     "Custom": {
-        "message": "Niestandardowe",
+        "message": "Własne",
         "description": ""
     },
     "CustomizePresets": {
@@ -196,7 +196,7 @@
         "description": ""
     },
     "Hider": {
-        "message": "Upuść tutaj, aby się schować.",
+        "message": "Upuść tutaj, aby ukryć.",
         "description": ""
     },
     "Reveal": {
@@ -388,7 +388,7 @@
         "description": ""
     },
     "SectionSitePermissions": {
-        "message": "Uprawnienia witryn",
+        "message": "Uprawnienia poszczególnych witryn",
         "description": ""
     },
     "PermissionsText": {
@@ -428,7 +428,7 @@
         "description": ""
     },
     "Reset": {
-        "message": "Resetuj",
+        "message": "Reset",
         "description": ""
     },
     "Reset_accesskey": {
@@ -444,7 +444,7 @@
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Odmów Tymczasowych Uprawnień",
+        "message": "Cofnij tymczasowe uprawnienia",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -488,7 +488,7 @@
         "description": ""
     },
     "ShowCtxMenuItem": {
-        "message": "Pokaż element menu kontekstowego NoScript",
+        "message": "Pokazuj element menu kontekstowego NoScript",
         "description": ""
     },
     "ShowCountBadge": {
@@ -496,7 +496,7 @@
         "description": ""
     },
     "SitePermissions": {
-        "message": "Uprawnienia Witryny",
+        "message": "Uprawnienia witryny",
         "description": ""
     },
     "SitePermissions_accessKey": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "TempToPerm": {
-        "message": "Uczyń uprawnienia witryny permanentnymi",
+        "message": "Nadaj uprawnienia do stron na stałe",
         "description": ""
     },
     "TempToPerm_accesskey": {
@@ -556,7 +556,7 @@
         "description": ""
     },
     "UnsafeReload": {
-        "message": "Niebezpieczne Przeładowanie",
+        "message": "Niebezpieczne przeładowanie",
         "description": ""
     },
     "UnsafeReload_accesskey": {
@@ -700,7 +700,7 @@
         "description": ""
     },
     "bookmarkSync_title": {
-        "message": "Konfiguracja Zakładek NoScript",
+        "message": "Konfiguracja zakładek NoScript",
         "description": ""
     },
     "caps": {
@@ -772,7 +772,7 @@
         "description": ""
     },
     "confirm": {
-        "message": "Jesteś pewny?",
+        "message": "Na pewno?",
         "description": ""
     },
     "disable": {
@@ -808,7 +808,7 @@
         "description": ""
     },
     "forbidGlobal": {
-        "message": "Zabroń Skryptów Globalnie (zalecane)",
+        "message": "Zabroń skryptów globalnie (zalecane)",
         "description": ""
     },
     "forbidLocal": {
@@ -828,7 +828,7 @@
         "description": ""
     },
     "incompatibleOptions_title": {
-        "message": "Nie Zgodne Ustawienia",
+        "message": "Ostrzeżenie o niezgodności opcji",
         "description": ""
     },
     "informaction_tip": {
@@ -856,7 +856,7 @@
         "description": ""
     },
     "removal_message": {
-        "message": "Poprzez wyłączenie lub odinstalowanie NoScript, porzucasz WSZYSTKIE zabezpieczenia zapewniane przez NoScript.\n\nJeśli po prostu jesteś zmęczony obsługą skryptów strona po stronie, to jest bezpieczniejszy wybór.\n\nNoScript może przestać blokować skrypty, z wyjątkiem tych, które oznaczyłeś jako niezaufane, jednocześnie chroniąc cię najbardziej zaawansowanymi środkami bezpieczeństwa przeciw XSS, Clickjacking, CSRF i innym zagrożeniom internetowym.\n\nCzy na pewno chcesz usunąć WSZYSTKIE zabezpieczenia NoScript?",
+        "message": "Poprzez wyłączenie lub odinstalowanie NoScript, porzucasz WSZYSTKIE zabezpieczenia zapewniane przez NoScript.\n\nJeśli po prostu zmęczyła cię obsługa uprawnień skryptów strona po stronie, istnieje bezpieczniejszy wybór.\n\nNoScript może przestać blokować skrypty, z wyjątkiem tych, które oznaczono jako niezaufane, jednocześnie chroniąc cię najbardziej zaawansowanymi środkami bezpieczeństwa przeciw XSS, Clickjacking, CSRF i innym zagrożeniom internetowym.\n\nCzy na pewno chcesz usunąć WSZYSTKIE zabezpieczenia NoScript?\n",
         "description": ""
     },
     "removal_no": {
@@ -920,7 +920,7 @@
         "description": ""
     },
     "themeAuto": {
-        "message": "Auto",
+        "message": "Automatyczny",
         "description": ""
     },
     "ModernRed": {
@@ -932,7 +932,7 @@
         "description": ""
     },
     "toVintageBlue": {
-        "message": "Przełącz na styl niebieski vintage",
+        "message": "Przełącz na styl Vintage niebieski",
         "description": ""
     },
     "DonateShort": {
@@ -941,6 +941,42 @@
     },
     "DonateLong": {
         "message": "NoScript jest wolnym oprogramowaniem i nie może istnieć bez twojej pomocy. Prosimy o datki!",
+        "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Ochrona przed wyciekiem tożsamości w tabelach krzyżowych",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Włączono wszędzie",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Włączono tylko w Trybie prywatnym",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Wyłączono",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Zapomnij wybory",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Potencjalny wyciek tożsamości",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Zamierzasz załadować stronę z $1.\nJeżeli jesteś zalogowanym użytkownikiem $1, informacje o twojej tożsamości mogą być pozyskane przez $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Ładuj anonimowo",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Ładuj normalnie",
         "description": ""
     }
 }

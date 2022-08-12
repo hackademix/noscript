@@ -942,5 +942,41 @@
     "DonateLong": {
         "message": "NoScript özegüt bir yazılımdır ve destekleriniz olmadan var olamaz. Lütfen bağış yapın!",
         "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Sekmeler arası kimlik sızıntısı koruması",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Heryerde etkin",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Yalnızca gizli gezinme için etkin",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Devre dışı",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Kararları unut",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Kimlik sızıntısı olasılığı",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "$1 üzerinden bir sayfa yüklemek üzeresiniz.\n$1 oturumu açmış bir kullanıcı iseniz kimliğiniz hakkınızdaki bilgiler $2 tarafından elde edilebilir.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Anonim olarak yükle",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Normal olarak yükle",
+        "description": ""
     }
 }

@@ -942,5 +942,41 @@
     "DonateLong": {
         "message": "NoScript 是自由软件，没有你的帮助便无法存在。请考虑捐赠！",
         "description": ""
+    },
+    "TabGuard_label": {
+        "message": "跨标签页身份泄露保护",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "始终开启",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "仅在“无痕浏览”模式下启用",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "已禁用",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "忘记决定",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "潜在身份泄露",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "你打算从 $1 加载一个页面。\n如果你是$1已登录用户，你的身份信息可能被$2获取。",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "匿名加载",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "正常加载",
+        "description": ""
     }
 }
