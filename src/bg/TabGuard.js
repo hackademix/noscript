@@ -135,7 +135,7 @@ var TabGuard = (() => {
               title: _("TabGuard_title"),
               message: _("TabGuard_message", [tabDomain, [...otherDomains].join(", ")]),
               options});
-            if (ret.button === 1) return {cancel: true};
+            if (ret.button !== 0) return {cancel: true};
             let list = ret.option === 0 ? filteredGroups : allowedGroups;
             otherDomains.add(tabDomain);
             for (let d of otherDomains) list[d] = otherDomains;
