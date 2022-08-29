@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 # Copyright (C) 2005-2021 Giorgio Maone <https://maone.net>
 #
@@ -70,6 +70,8 @@ LIB="$SRC/lib"
 
 NSCL="$SRC/nscl"
 
+# install html5_events.pl dependencies if needed
+cpan Regexp::List List::MoreUtils
 if ./html5_events/html5_events.pl; then
   # update full event list as an array in src/lib/DocumentFreezer.js
   EVENTS=$(grep '^on[a-z]\+$' html5_events/html5_events_archive.txt | sed "s/^on//;s/.*/'&'/;H;1h;"'$!d;x;s/\n/, /g');
@@ -82,7 +84,7 @@ cp -pR "$SRC" "$BUILD"
 # include nscl dependencies
 "$NSCL/include.sh" "$BUILD"
 
-cp -p LICENSE COPYING "$BUILD"/
+cp -p LICENSE "$BUILD"/
 
 BUILD_CMD="web-ext"
 BUILD_OPTS="build --overwrite-dest"
