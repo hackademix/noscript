@@ -355,12 +355,28 @@ var RequestGuard = (() => {
     return redirected;
   }
 
-  let normalizeRequest = UA.isMozilla ? () => {} : request => {
+  let normalizeRequest = request => {
     if ("initiator" in request && !("originUrl" in request)) {
+      if (request.frameId > 0 && request.initiator === "null") {
+        // Chromium sandboxed frame?
+        try {
+          request.initiator = request.originUrl = request.documentUrl = TabCache.get(request.tabId).url;
+        } catch (e) {}
+      }
       request.originUrl = request.initiator;
       if (request.type !== "main_frame" && !("documentUrl" in request)) {
         request.documentUrl = request.initiator;
       }
+    }
+    if ("frameAncestors" in request && (!request.originUrl || request.documentUrl) && request.frameAncestors.length > 0) {
+      // Gecko sandboxed frame?
+      for (let f of request.frameAncestors) {
+        if (f.url !== "null" && !f.url.startsWith("moz-nullprincipal:")) {
+          request.originUrl = request.documentUrl = f.url;
+          break;
+        }
+      }
+
     }
   };
 
