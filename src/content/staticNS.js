@@ -55,11 +55,11 @@
 
     fetchPolicy(sync = false) {
       if (this.policy) return;
-      let url = document.URL;
+      let url = window.location.href;
+      let origin = window.origin;
 
-      debug(`Fetching policy from document %s, readyState %s`,
-        url, document.readyState
-        //, document.domain, document.baseURI, window.isSecureContext // DEV_ONLY
+      debug(`Fetching policy from document %s (origin %s), readyState %s`,
+        url, origin, document.readyState
       );
 
       if (this.domPolicy) {
@@ -85,13 +85,9 @@
         return;
       }
 
-      if (url.startsWith("blob:")) {
-        url = location.origin;
-      } else if (/^(?:javascript|about):/.test(url)) {
-        url = document.readyState === "loading" || !document.domain
-        ? document.baseURI
-        : `${window.isSecureContext ? "https" : "http"}://${document.domain}`;
-        debug("Fetching policy for actual URL %s (was %s)", url, document.URL);
+      if (origin !== 'null' && window.location.origin !== origin) {
+        debug("Fetching policy for actual URL %s (was %s)", origin, url);
+        url = origin;
       }
 
       if (!this.syncFetchPolicy) {
