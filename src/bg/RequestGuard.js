@@ -356,27 +356,35 @@ var RequestGuard = (() => {
   }
 
   let normalizeRequest = request => {
+
+    function fakeOriginFromTab({tabId} = request) {
+      let tab = tabId !== -1 && TabCache.get(tabId);
+      if (tab) {
+        return request.initiator = request.originUrl = request.documentUrl = tab.url;
+      }
+    }
+
     if ("initiator" in request && !("originUrl" in request)) {
-      if (request.frameId > 0 && request.initiator === "null") {
-        // Chromium sandboxed frame?
-        try {
-          request.initiator = request.originUrl = request.documentUrl = TabCache.get(request.tabId).url;
-        } catch (e) {}
+      if (request.initiator === "null") {
+        // Chromium sandboxed content?
+        fakeOriginFromTab();
       }
       request.originUrl = request.initiator;
       if (request.type !== "main_frame" && !("documentUrl" in request)) {
         request.documentUrl = request.initiator;
       }
     }
-    if ("frameAncestors" in request && (!request.originUrl || request.documentUrl) && request.frameAncestors.length > 0) {
-      // Gecko sandboxed frame?
+    if ("frameAncestors" in request && (!request.originUrl || request.documentUrl)) {
+      // Gecko sandboxed content?
       for (let f of request.frameAncestors) {
         if (f.url !== "null" && !f.url.startsWith("moz-nullprincipal:")) {
           request.originUrl = request.documentUrl = f.url;
           break;
         }
       }
-
+      if (!request.originUrl) {
+        fakeOriginFromTab();
+      }
     }
   };
 
