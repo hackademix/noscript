@@ -116,15 +116,28 @@ var TabGuard = (() => {
             tab._externalUrl = tab.url;
             tab._isExplicitOrigin = true;
             try {
-             tab.url = await browser.tabs.executeScript(tab.id, {
+              tab.url = await browser.tabs.executeScript(tab.id, {
                 runAt: "document_start",
                 code: "window.origin === 'null' ? window.location.href : window.origin"
               });
             } catch (e) {
+              // We don't have permissions to run in this tab, probably because it has been left empty.
               debug(e);
             }
-            debug(`Real origin for ${tab._externalUrl} (tab ${tab.id}) is ${tab.url}.`);
-            if (!ns.policy.can(tab.url, "script")) return;
+            // If it's about:blank and it has got an opener, let's assume the opener
+            // is the real origin and it's using the empty tab to run scripts.
+            if (tab.url === "about:blank")  {
+              if (tab.openerTabId > 0) {
+                let openerTab = TabCache.get(tab.openerTabId);
+                if (openerTab) {
+                  tab.url = openerTab.url;
+                }
+              }
+            }
+            if (tab.url !== "about:blank") {
+              debug(`Real origin for ${tab._externalUrl} (tab ${tab.id}) is ${tab.url}.`);
+              if (!ns.policy.can(tab.url, "script")) return;
+            }
           }
           suspiciousDomains.push(getDomain(tab.url));
         }));
