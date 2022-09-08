@@ -357,11 +357,14 @@ var RequestGuard = (() => {
 
   let normalizeRequest = request => {
 
-    function fakeOriginFromTab({tabId} = request) {
-      let tab = tabId !== -1 && TabCache.get(tabId);
-      if (tab) {
-        return request.initiator = request.originUrl = request.documentUrl = tab.url;
+    function fakeOriginFromTab({tabId, type} = request) {
+      if (type !== "main_frame") {
+        let tab = tabId !== -1 && TabCache.get(tabId);
+        if (tab) {
+          return request.initiator = request.originUrl = request.documentUrl = tab.url;
+        }
       }
+      return request.initiator || request.originUrl;
     }
 
     if ("initiator" in request && !("originUrl" in request)) {
