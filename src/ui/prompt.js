@@ -20,15 +20,15 @@
 
 (async () => {
   document.documentElement.classList.toggle("mobile", !!UA.mobile);
-  window.bg = await browser.runtime.getBackgroundPage();
-  ["Prompts"]
-    .forEach(p => window[p] = bg[p]);
-  let data = Prompts.promptData;
+  let data = await Messages.send("getPromptData");
   debug(data);
   if (!data) {
     error("Missing promptData");
     window.close();
     return;
+  }
+  let done = () => {
+    Messages.send("promptDone", data);
   }
   let {title, message, options, checks, buttons} = data.features;
 
@@ -99,7 +99,7 @@
   renderInputs("#checks", checks, "checkbox", "flag");
   renderInputs("#buttons", buttons, "button", "button");
   addEventListener("unload", e => {
-    data.done();
+    done();
   });
 
   let buttonClicked = e => {
@@ -109,7 +109,7 @@
     result.option = option && parseInt(option.value);
     result.checks = [...document.querySelectorAll('#checks [type="checkbox"]:checked')]
       .map(c => parseInt(c.value));
-    data.done();
+    done();
   };
   for (let b of document.querySelectorAll("#buttons button")) {
     b.addEventListener("click", buttonClicked);

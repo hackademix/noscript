@@ -23,6 +23,16 @@ var Prompts = (() => {
   var promptData;
   var backlog = [];
 
+  Messages.addHandler({
+    getPromptData() { return Prompts.promptData },
+    promptDone(data) {
+      let promptData = promptDataMap.get(data.id);
+      if (promptData) {
+        Object.assign(promptData, data).done();
+      }
+    }
+  });
+
   class WindowManager {
     async open(data) {
       promptData = data;
@@ -82,6 +92,8 @@ var Prompts = (() => {
   }
 
   var winMan = new WindowManager();
+  var id = 0;
+  var promptDataMap = new Map();
   var Prompts = {
     DEFAULTS: {
       title: "",
@@ -97,7 +109,9 @@ var Prompts = (() => {
     async prompt(features) {
       features = Object.assign({}, this.DEFAULTS, features || {});
       return new Promise((resolve, reject) => {
+        ++id;
         let data = {
+          id,
           features,
           result: {
             button: -1,
@@ -105,6 +119,7 @@ var Prompts = (() => {
             option: null,
           },
           done() {
+            promptDataMap.delete(this.id);
             this.done = () => {};
             winMan.close();
             resolve(this.result);
@@ -116,6 +131,7 @@ var Prompts = (() => {
             }
           }
         };
+        promptDataMap.set(id, data);
         if (promptData) {
           backlog.push(data);
           switch(promptData.features.multiple) {
