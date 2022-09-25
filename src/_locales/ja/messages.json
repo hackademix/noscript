@@ -212,7 +212,7 @@
         "description": ""
     },
     "NotEnforced": {
-        "message": "制限事項は無効",
+        "message": "制限事項は設定によって無効になっています。NoScriptはこのページの何もブロックしません。",
         "description": ""
     },
     "NoEnforcement": {
@@ -908,7 +908,7 @@
         "description": ""
     },
     "themeDark": {
-        "message": "Dark",
+        "message": "ダーク",
         "description": ""
     },
     "themeLight": {
@@ -916,7 +916,7 @@
         "description": ""
     },
     "themeAuto": {
-        "message": "Auto",
+        "message": "自動",
         "description": ""
     },
     "DonateShort": {
