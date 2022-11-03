@@ -942,5 +942,41 @@
     "DonateLong": {
         "message": "NoScript er frjáls og opinn hugbúnaður og gæti ekki verið til án hjálpar þinnar. Íhugaðu að styrkja okkur núna!",
         "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Vörn gegn auðkennaleka milli flipa",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Virkjað allsstaðar",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Einungis virkjað í einkavafri",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Óvirkt",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Gleyma fyrri ákvörðunum",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Mögulegur auðkennaleki",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Þú ert að fara að hlaða inn síðu frá $1.\nEf þú ert notandi skráður inn á $1, geta upplýsingar um auðkennin þín komist í hendurnar á $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Hlaða nafnlaust",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Hlaða eðlilega",
+        "description": ""
     }
 }
