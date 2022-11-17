@@ -218,7 +218,21 @@
     },
     async getTheme() {
       return (await Themes.isVintage()) ? "vintage" : "";
-    }
+    },
+    async fetchResource({url}) {
+      url = browser.runtime.getURL(url);
+      const blob = await (await fetch(url)).blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          resolve(reader.result);
+        };
+        reader.onerror = e => {
+          reject(reader.error);
+        };
+        reader.readAsDataURL(blob);
+      });
+    },
   };
 
   function onSyncMessage(msg, sender) {
