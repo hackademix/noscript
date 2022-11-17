@@ -216,6 +216,9 @@
         type: "panel"
       });
     },
+    async getTheme() {
+      return (await Themes.isVintage()) ? "vintage" : "";
+    }
   };
 
   function onSyncMessage(msg, sender) {
