@@ -15,6 +15,10 @@ a.__NoScript_PlaceHolder__ {
   cursor: pointer;
   opacity: 0.8;
   z-index: 2147483647 !important;
+  background-image: none;
+}
+
+a.__NoScript_PlaceHolder__.mozilla {
   background-image: var(--img-logo);
 }
 
