@@ -128,7 +128,7 @@
     }
   });
 
-  let resize = async e => {
+  let fitHeight = async e => {
     if (!("windows" in browser)) {
       // tabbed (mobile?) - ensure buttons are visible
       document.querySelector("#buttons").scrollIntoView();
@@ -136,15 +136,16 @@
     }
     let win = await browser.windows.getCurrent();
     let delta = document.documentElement.offsetHeight - window.innerHeight;
-    let geometry = {
-      width: win.width, height: win.height + delta,
-      left: win.left, top: win.top - Math.round(delta / 2)
-    };
-    for (let j = 2; j-- > 0;) await browser.windows.update(win.id, geometry);
+    await browser.windows.update(win.id, {
+      height: win.height + delta,
+      top: win.top + Math.round(delta / 2),
+      focused: false
+    });
+    await browser.windows.update(win.id, {focused: true});
   }
   if (document.readyState === "complete") {
-    resize();
+    fitHeight();
   } else {
-    window.addEventListener("load", resize);
+    window.addEventListener("load", fitHeight);
   }
 })();
