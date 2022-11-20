@@ -125,11 +125,11 @@
     async isVintage() {
       let ret;
       if (localStorage) {
-        ret = localStorage && localStorage.getItem(VINTAGE);
-        if (ret !== null) return !!ret;
+        ret = localStorage.getItem(VINTAGE);
+        if (ret !== null) return !(ret === "false" || !ret);
       }
       ret = (await browser.storage.local.get([VINTAGE]))[VINTAGE];
-      if (localStorage && typeof ret === "boolean") localStorage.setItem(VINTAGE, ret);
+      if (localStorage && typeof ret === "boolean") localStorage.setItem(VINTAGE, ret || "");
       return ret;
     },
 
