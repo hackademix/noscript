@@ -133,12 +133,11 @@ var UI = (() => {
       browser.tabs.create({url});
     },
 
+    getChoiceElements(name) {
+      return document.querySelectorAll(`input[type=radio][name="${name}"]`);
+    },
     wireChoice(name, storage = "sync", onchange) {
-      let inputs = document.querySelectorAll(`input[type=radio][name="${name}"]`);
-      if (inputs.length === 0) {
-        error(`Radio button w/ name "${name}" not found.`);
-        return;
-      }
+      let inputs = UI.getChoiceElements(name);
       if (typeof storage === "function") {
         (async() => {
           let value = await storage(null);
@@ -162,8 +161,11 @@ var UI = (() => {
       }
     },
 
+    getOptionElement(name) {
+      return document.querySelector(`#opt-${name}`);
+    },
     wireOption(name, storage = "sync", onchange) {
-      let input = document.querySelector(`#opt-${name}`);
+      let input = UI.getOptionElement(name);
       if (!input) {
         error(`Checkbox w/ id "opt-${name}" not found.`);
         return;
