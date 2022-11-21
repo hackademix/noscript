@@ -136,11 +136,13 @@
     }
     let win = await browser.windows.getCurrent();
     let delta = document.documentElement.offsetHeight - window.innerHeight;
-    await browser.windows.update(win.id, {
-      height: win.height + delta,
-      top: win.top - Math.round(delta / 2),
-      focused: false
-    });
+    for (let attempts = 2; attempts-- > 0;) {
+      await browser.windows.update(win.id, {
+        height: win.height + delta,
+        top: win.top - Math.round(delta / 2),
+        focused: false
+      });
+    }
     await browser.windows.update(win.id, {focused: true});
   }
   if (document.readyState === "complete") {
