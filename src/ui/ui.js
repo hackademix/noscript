@@ -90,7 +90,12 @@ var UI = (() => {
       debug("Imported", Policy);
     },
     async pullSettings() {
-      Messages.send("broadcastSettings", {tabId: UI.tabId});
+      try {
+        Messages.send("broadcastSettings", {tabId: UI.tabId});
+      } catch (e) {
+        // brutal work-around for background page misteriously being unloaded sometimes by Firefox
+        browser.runtime.reload();
+      }
     },
     async updateSettings({policy, xssUserChoices, unrestrictedTab, local, sync, reloadAffected, command}) {
       if (policy) policy = policy.dry(true);
