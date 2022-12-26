@@ -1,6 +1,6 @@
 {
     "Add": {
-        "message": "Bæta við",
+        "message": "Lisää",
         "description": ""
     },
     "Add_accesskey": {
@@ -8,19 +8,19 @@
         "description": ""
     },
     "AdditionalPermissions": {
-        "message": "Viðbótarheimildir fyrir treyst vefsvæði",
+        "message": "Lisäkäyttöoikeudet luotetuille sivustoille",
         "description": ""
     },
     "AdditionalRestrictions": {
-        "message": "Viðbótarheimildir fyrir vantreyst vefsvæði",
+        "message": "Lisärajoituksia epäluotettaville sivustoille",
         "description": ""
     },
     "SectionAdvanced": {
-        "message": "Ítarlegt",
+        "message": "Kehittynyt",
         "description": ""
     },
     "Allow": {
-        "message": "Leyfa",
+        "message": "Salli",
         "description": ""
     },
     "Allow_accesskey": {
@@ -28,19 +28,19 @@
         "description": ""
     },
     "AllowBookmarks": {
-        "message": "Leyfa vefsvæði sem opnuð eru úr bókamerkjum",
+        "message": "Salli kirjanmerkkien kautta avatut sivustot",
         "description": ""
     },
     "AllowClipboard": {
-        "message": "Leyfa að afrita/líma sniðinn texta af utanaðkomandi klippispjaldi",
+        "message": "Salli Rich Text:n kopioiminen ja liittäminen ulkoisesta leikepöydästä",
         "description": ""
     },
     "AllowLocalLinks": {
-        "message": "Leyfa staðværa tengla",
+        "message": "Salli paikalliset linkit",
         "description": ""
     },
     "AllowPage": {
-        "message": "Leyfa allt á þessari síðu",
+        "message": "Salli kaikki tämä sivu",
         "description": ""
     },
     "AllowPage_accesskey": {
@@ -48,75 +48,75 @@
         "description": ""
     },
     "AllowPing": {
-        "message": "Leyfa <A PING…>",
+        "message": "Salli <A PING…>",
         "description": ""
     },
     "AllowViaBookmarks": {
-        "message": "Leyfa vefsvæði sem opnuð eru úr bókamerkjum",
+        "message": "Salli kirjanmerkkien kautta avatut sivustot",
         "description": ""
     },
     "AlwaysBlockUntrustedContent": {
-        "message": "Útiloka öll atriði sem koma frá vefsvæði sem ekki er treyst",
+        "message": "Estä jokainen kohde, joka tulee sivustolta, joka on merkitty epäluotettaviksi",
         "description": ""
     },
     "SectionAppearance": {
-        "message": "Útlit",
+        "message": "Ulkoasu",
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Setja efsta-stigs vefsvæði tímabundið sem TREYST",
+        "message": "Aseta huipputason sivustot tilapäisesti arvoon LUOTETTU",
         "description": ""
     },
     "AutoReload": {
-        "message": "Endurhlaða viðkomandi síðum sjálfkrafa þegar heimildum er breytt",
+        "message": "Lataa vaikutuksen alaiset sivut automaattisesti uudelleen, kun käyttöoikeudet muuttuvat",
         "description": ""
     },
     "AutoReload_currentTab": {
-        "message": "Endurhlaða einungis núverandi flipa",
+        "message": "Lataa vain nykyinen välilehti uudelleen",
         "description": ""
     },
     "BaseDom": {
-        "message": "Annars-stigs grunnlén (noscript.net)",
+        "message": "2. tason perustoimialueet (noscript.net)",
         "description": ""
     },
     "BlockedItems": {
-        "message": "Lokaði á $1 af $2 atriðum.",
+        "message": "Estetty $1 $2 kohteesta.",
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript lokaði á  hluti",
+        "message": "NoScript estt objektia",
         "description": ""
     },
     "BookmarkSync": {
-        "message": "Taka öryggisafrit af uppsetningu NoScript til að einfalda samstillingu",
+        "message": "Varmuuskopioi NoScript-kokoonpano kirjanmerkkiin synkronoinnin helpottamiseksi",
         "description": ""
     },
     "Cancel": {
-        "message": "Hætta við",
+        "message": "Peruuta",
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Flæða heimildum efsta-stigs skjala til utanaðkomandi skrifta",
+        "message": "Aseta peräkkäin ylimmän tason asiakirjan käyttöoikeudet kolmannen osapuolen komentosarjoille",
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Allir eiginleikar sem lokað er á í efstastigs-skjali verður að vera lokað á í undirskjölum líka",
+        "message": "Jokainen ylimmässä asiakirjassa estetty kyky on estettävä myös sen aliasiakirjoissa",
         "description": ""
     },
     "ClearClickDescription": {
-        "message": "NoScript greip inn í samskipti músar eða lyklaborðs við hálfhulið einindi. Smelltu á myndina hér fyrir neðan til að víxla á milli hindraðrar og hreinnar útfærslu.",
+        "message": "NoScript sieppasi hiiren tai näppäimistön vuorovaikutuksen osittain piilotetun elementin kanssa. Napsauta alla olevaa kuvaa vaihtaaksesi estetyn ja selkeän version välillä.",
         "description": ""
     },
     "ClearClickHeader": {
-        "message": "Hugsanlegt smellrán (clickjacking) / tilraun til viðmótsþjófnaðar (UI-redressing)!",
+        "message": "Mahdollinen napsautuksen kaappaus / Käyttöliittymän korjausyritys!",
         "description": ""
     },
     "ClearClickOpt": {
-        "message": "ClearClick-varnir á síðum…",
+        "message": "ClearClick-suojaus sivuilla…",
         "description": ""
     },
     "ClearClickReport": {
-        "message": "Tilkynning",
+        "message": "Raportoi",
         "description": ""
     },
     "ClearClickReport_accesskey": {
@@ -124,51 +124,51 @@
         "description": ""
     },
     "ClearClickReportId": {
-        "message": "Auðkenni skýrslu:",
+        "message": "Raportin tunnus:",
         "description": ""
     },
     "ClearClickTitle": {
-        "message": "ClearClick aðvörun",
+        "message": "ClearClick-varoitus",
         "description": ""
     },
     "Close": {
-        "message": "Loka",
+        "message": "Sulje",
         "description": ""
     },
     "CollapseBlockedObjects": {
-        "message": "Fella saman bannaða hluti",
+        "message": "Kutista estetyt objektit",
         "description": ""
     },
     "ConfirmUnblock": {
-        "message": "Biðja um staðfestingu áður en hlutur er aftur leyfður tímabundið",
+        "message": "Pyydä vahvistusta ennen kuin poistat esteen väliaikaisesti",
         "description": ""
     },
     "CtxMenu": {
-        "message": "Samhengisvalmynd",
+        "message": "Asiayhteysvalikko",
         "description": ""
     },
     "Custom": {
-        "message": "Sérsniðið",
+        "message": "Mukauta",
         "description": ""
     },
     "CustomizePresets": {
-        "message": "Forstilla sérsníðingu (fyrir öll vefsvæði sem deila forstillingu)",
+        "message": "Esiasetuksen mukauttaminen (kaikille sivustoille, jotka jakavat esiasetuksen)",
         "description": ""
     },
     "Default": {
-        "message": "Sjálfgefið",
+        "message": "Oletus",
         "description": ""
     },
     "DefaultPolicies": {
-        "message": "Sjálfgefnar stefnur",
+        "message": "Oletuskäytännöt",
         "description": ""
     },
     "Description": {
-        "message": "Hámarksvarnir fyrir vafrann þinn: NoScript leyfir virkt efni einungis frá þeim lénum sem þú hefur ákveðið að treysta, svo koma megi í veg fyrir misnotkun.",
+        "message": "Maksimaalinen suojaus selaimellesi: NoScript sallii aktiivisen sisällön vain valitsemillesi luotetuille toimialueille hyväksikäytön estämiseksi.",
         "description": ""
     },
     "Donate": {
-        "message": "Styrkja",
+        "message": "Lahjoita",
         "description": ""
     },
     "Donate_accesskey": {
@@ -176,15 +176,15 @@
         "description": ""
     },
     "Embeddings": {
-        "message": "Ívafningar",
+        "message": "Upotukset",
         "description": ""
     },
     "Exceptions": {
-        "message": "Undantekningar…",
+        "message": "Poikkeukset…",
         "description": ""
     },
     "Export": {
-        "message": "Flytja út",
+        "message": "Vie",
         "description": ""
     },
     "Export_accesskey": {
@@ -192,55 +192,55 @@
         "description": ""
     },
     "FixLinks": {
-        "message": "Reyna að laga JavaScript tengla",
+        "message": "Yritä korjata JavaScript-linkit",
         "description": ""
     },
     "Hider": {
-        "message": "Slepptu hingað til að fela.",
+        "message": "Pudota tänne piilottaakseen.",
         "description": ""
     },
     "Reveal": {
-        "message": "Smelltu hér til að endurheimta hnappa sem vantar…",
+        "message": "Napsauta tästä hakeaksesi puuttuvat painikkeet…",
         "description": ""
     },
     "ShowFullAddresses": {
-        "message": "Birta lista með fullum vistföngum í heimildaglugga (https://www.noscript.net)",
+        "message": "Luettele täydelliset osoitteet käyttöoikeusponnahdusikkunassa (https://www.noscript.net)",
         "description": ""
     },
     "SectionGeneral": {
-        "message": "Almennt",
+        "message": "Yleinen",
         "description": ""
     },
     "NotEnforced": {
-        "message": "Takmarkanir hafa verið gerðar óvirkar í stillingum notandans: NoScript lokar ekki á neitt á þessari síðu!",
+        "message": "Rajoitukset poistettu käytöstä käyttäjän asetuksista: NoScript ei estä mitään tällä sivulla!",
         "description": ""
     },
     "NoEnforcement": {
-        "message": "Gera takmarkanir almennt óvirkar (hættulegt)",
+        "message": "Poista rajoitukset käytöstä laajamittaisesti (vaarallinen)",
         "description": ""
     },
     "Enforce": {
-        "message": "Virkja takmarkanir almennt",
+        "message": "Ota rajoitukset käyttöön laajamittaisesti",
         "description": ""
     },
     "EnforceOnRestart": {
-        "message": "Endurheimta takmarkanir við endurræsingu vafra",
+        "message": "Palauta rajoitukset, kun selain käynnistetään uudelleen",
         "description": ""
     },
     "NoEnforcementForTab": {
-        "message": "Gera takmarkanir óvirkar í þessum flipa",
+        "message": "Poista tämän välilehden rajoitukset käytöstä",
         "description": ""
     },
     "EnforceForTab": {
-        "message": "Virkja takmarkanir í þessum flipa",
+        "message": "Ota rajoitukset käyttöön tälle välilehdelle",
         "description": ""
     },
     "HighContrast": {
-        "message": "Mikil birtuskil",
+        "message": "Korkea kontrasti",
         "description": ""
     },
     "httpsOnly": {
-        "message": "Samsvara einungis HTTPS-efni",
+        "message": "Vastaa vain HTTPS-sisältöä",
         "description": ""
     },
     "Https": {
@@ -248,31 +248,31 @@
         "description": ""
     },
     "Https_always": {
-        "message": "Alltaf",
+        "message": "Aina",
         "description": ""
     },
     "Https_behavior": {
-        "message": "Hegðun",
+        "message": "Käytös",
         "description": ""
     },
     "Https_cookies": {
-        "message": "Vefkökur",
+        "message": "Evästeet",
         "description": ""
     },
     "Https_description": {
-        "message": "Banna virkt vefefni nema það komi frá öruggri (HTTPS) tengingu:",
+        "message": "Kiellä aktiivinen verkkosisältö, ellei se tule suojatun yhteyden välitykseltä, eli HTTPS:",
         "description": ""
     },
     "Https_never": {
-        "message": "Aldrei",
+        "message": "Koskaan",
         "description": ""
     },
     "Https_proxy": {
-        "message": "Þegar notaður er milliþjónn (ráðlagt með Tor)",
+        "message": "Kun käytät välityspalvelinta (suositellaan Tor-selaimen kanssa)",
         "description": ""
     },
     "HttpsFaq": {
-        "message": "Algengar spurningar um HTTPS…",
+        "message": "HTTPS:sta usein kysytyt",
         "description": ""
     },
     "HttpsFaq_accesskey": {
@@ -280,15 +280,15 @@
         "description": ""
     },
     "HttpsForced": {
-        "message": "Þvinga eftirfarandi vefsvæði til að nota öruggar (HTTPS) tengingar:",
+        "message": "Pakota seuraavat sivustot käyttämään suojattuja (HTTPS) yhteyksiä:",
         "description": ""
     },
     "HttpsForcedExceptions": {
-        "message": "Aldrei þvinga fram öruggar (HTTPS) tengingar fyrir eftirfarandi vefsvæði:",
+        "message": "Älä koskaan pakota suojattuja (HTTPS) yhteyksiä seuraaville sivustoille:<br>",
         "description": ""
     },
     "Import": {
-        "message": "Flytja inn",
+        "message": "Tuo",
         "description": ""
     },
     "Import_accesskey": {
@@ -296,43 +296,43 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Leyfa að stilltar séu varanlegar heimildir í huliðs/einkaflipum.\nAÐVÖRUN: þetta getur lekið upplýsingum vefsvæðis!",
+        "message": "Ota käyttöön pysyvien käyttöoikeuksien määrittäminen incognito-/yksityisillä välilehdillä.\nVAROITUS: tämä voi vuotaa sivuston tietoja!",
         "description": ""
     },
     "OptAmnesticUpdates": {
-        "message": "Afturkalla tímabundnar heimildir við uppfærslu NoScript, jafnvel þótt vafrinn sé ekki endurræstur",
+        "message": "Peruuta väliaikaiset käyttöoikeudet NoScript-päivityksille, vaikka selainta ei käynnistettäisi uudelleen",
         "description": ""
     },
     "KeepLocked": {
-        "message": "Halda þessi einindi læstu (mælt með þessu)",
+        "message": "Pidä tämä elementti lukittuna (suositus)",
         "description": ""
     },
     "MatchSample": {
-        "message": "Dæmi um samsvörunarmynstur:",
+        "message": "Mallia vastaava lauseke:",
         "description": ""
     },
     "Next": {
-        "message": "Næsta",
+        "message": "Seuraava",
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "Ekkert frátökumerki fyrir atriði sem koma frá vefsvæði sem ekki er treyst",
+        "message": "Ei paikkamerkkiä kohteille, jotka tulevat epäluotettaviksi merkityistä sivustoista",
         "description": ""
     },
     "Notifications": {
-        "message": "Tilkynningar",
+        "message": "Ilmoitukset",
         "description": ""
     },
     "Notify": {
-        "message": "Sýna skilaboð um bannaðar skriftur",
+        "message": "Näytä viesti estetyistä komentosarjoista",
         "description": ""
     },
     "Notify_bottom": {
-        "message": "Setja skilaboð neðst",
+        "message": "Aseta viesti alareunaan",
         "description": ""
     },
     "NotifyMeta": {
-        "message": "Sýna skilaboð um bannaðar META-endurbeiningar",
+        "message": "Näytä viesti estetyistä META-uudelleenohjauksista",
         "description": ""
     },
     "NotifyMeta_accesskey": {
@@ -340,35 +340,35 @@
         "description": ""
     },
     "NselForce": {
-        "message": "Birta <NOSCRIPT> einindið sem fylgir á eftir útilokuðu <SCRIPT>",
+        "message": "Näytä elementti <NOSCRIPT>, joka seuraa estettyä <SCRIPT>",
         "description": ""
     },
     "NselNever": {
-        "message": "Fela <NOSCRIPT> einindi",
+        "message": "Piilota <NOSCRIPT> elementtejä",
         "description": ""
     },
     "OK": {
-        "message": "Í lagi",
+        "message": "Hyvä on",
         "description": ""
     },
     "OptBlockCssScanners": {
-        "message": "Loka á skanna sem byggja á CSS",
+        "message": "Estä CSS-pohjaiset skannerit",
         "description": ""
     },
     "OptFilterXGet": {
-        "message": "Hreinsa beiðnir sem mögulega eru tilraunir til skriftunar á milli vefja",
+        "message": "Puhdista epäilyttävät sivustojen ylittävät pyynnöt",
         "description": ""
     },
     "OptFilterXPost": {
-        "message": "Breyta milli-vefja POST-beiðnum í gagna-lausari GET-beiðnir",
+        "message": "Turn cross-site POST requests into data-less GET requests",
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Taka yfir forstillingu á öryggisstigi Tor-vafrans",
+        "message": "Ohita Tor-selaimen suojaustason esiasetus",
         "description": ""
     },
     "Options": {
-        "message": "Valkostir…",
+        "message": "Vaihtoehdot",
         "description": ""
     },
     "Options_accesskey": {
@@ -376,7 +376,7 @@
         "description": ""
     },
     "OptionsLong": {
-        "message": "Valkostir NoScript",
+        "message": "NoScriptin vaihtoehdot",
         "description": ""
     },
     "OptionsWidth": {
@@ -384,51 +384,51 @@
         "description": ""
     },
     "PermanentInPrivate": {
-        "message": "Viðvarandi 'Leyfa'-skipanir í einkagluggum",
+        "message": "Pysyvät \"Salli\"-komennot yksityisissä ikkunoissa",
         "description": ""
     },
     "SectionSitePermissions": {
-        "message": "Heimildir á hvert vefsvæði",
+        "message": "Sivustokohtaiset käyttöoikeudet",
         "description": ""
     },
     "PermissionsText": {
-        "message": "Þú getur tiltekið hvaða vefsvæðum sé leyft að keyra skriftur. Settu inn vistfang eða lén (e.g. \"http://www.site.com\" or \"site.com\") vefsins sem þú vilt heimila og smelltu síðan á 'Leyfa' .",
+        "message": "Voit määrittää, mitkä verkkosivustot saavat suorittaa komentosarjoja. Kirjoita sallitun sivuston URL-osoite tai toimialue (esim. \"https://www.sivusto.com\" tai \"sivusto.com\") ja napsauta sitten Salli.",
         "description": ""
     },
     "Plugins": {
-        "message": "Viðbætur",
+        "message": "Lisäosat",
         "description": ""
     },
     "Policies": {
-        "message": "Stefnur",
+        "message": "Käytännöt",
         "description": ""
     },
     "Preset": {
-        "message": "Öryggisstig",
+        "message": "Turvallisuustaso",
         "description": ""
     },
     "Prev": {
-        "message": "Fyrra",
+        "message": "Edellinen",
         "description": ""
     },
     "RecentBlocked": {
-        "message": "Nýlega útilokuð vefsvæði",
+        "message": "Äskettäin estetyt sivustot",
         "description": ""
     },
     "Refresh": {
-        "message": "Endurlesa",
+        "message": "Virkistä",
         "description": ""
     },
     "ReloadWarn": {
-        "message": "Þessi stilling tekur gildi á nýjum eða (handvirkt) endurlesnum síðum",
+        "message": "Nämä vaihtoehdot tulevat voimaan uusilla tai manuaalisesti uudelleenladatuilla sivuilla",
         "description": ""
     },
     "RemoveSelected": {
-        "message": "Fjarlægja valin vefsvæði",
+        "message": "Poista valitut sivustot",
         "description": ""
     },
     "Reset": {
-        "message": "Endurstilla",
+        "message": "Nollaa",
         "description": ""
     },
     "Reset_accesskey": {
@@ -436,7 +436,7 @@
         "description": ""
     },
     "ResetDef": {
-        "message": "Setja aftur á sjálfgefið",
+        "message": "Nollaa oletukseen",
         "description": ""
     },
     "ResetDef_accesskey": {
@@ -444,7 +444,7 @@
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Afturkalla tímabundnar heimildir",
+        "message": "Peruuta tilapäiset käyttöoikeudet",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -452,27 +452,27 @@
         "description": ""
     },
     "SecureCookies": {
-        "message": "Virkja sjálfvirka örugga umsýslu á vefkökum",
+        "message": "Ota käyttöön automaattinen suojattu evästeiden hallinta",
         "description": ""
     },
     "SecureCookiesExceptions": {
-        "message": "Hunsa óöruggar vefkökur sem settar eru yfir HTTPS fyrir eftirfarandi vefsvæði:",
+        "message": "Ohita seuraavien sivustojen HTTPS:n välityksellä asettamat vaaralliset evästeet:",
         "description": ""
     },
     "SecureCookiesForced": {
-        "message": "Þvinga fram dulritun á öllum vefkökum sem settar eru yfir HTTPS fyrir eftirfarandi vefsvæði:",
+        "message": "Pakota salaus kaikille seuraavien sivustojen HTTPS:n välityksellä asettamille evästeille:",
         "description": ""
     },
     "SecurityManager": {
-        "message": "Öryggisstýring",
+        "message": "Turvallisuuden hallitsin",
         "description": ""
     },
     "Show": {
-        "message": "Sýna…",
+        "message": "Näytä",
         "description": ""
     },
     "ShowConsole": {
-        "message": "Sýna stjórnborð…",
+        "message": "Näytä konsoli",
         "description": ""
     },
     "ShowConsole_accesskey": {
@@ -480,23 +480,23 @@
         "description": ""
     },
     "ShowPlaceholder": {
-        "message": "Birta frátökutáknmynd",
+        "message": "Näytä paikkamerkin kuvake",
         "description": ""
     },
     "ShowReleaseNotes": {
-        "message": "Birta útgáfuupplýsingar þegar uppfærslur eiga sér stað",
+        "message": "Näytä julkaisutiedot päivitysten yhteydessä",
         "description": ""
     },
     "ShowCtxMenuItem": {
-        "message": "Birta NoScript-færslu í samhengisvalmynd",
+        "message": "Näytä NoScriptin asiayhteysvalikkokohta",
         "description": ""
     },
     "ShowCountBadge": {
-        "message": "Birta merki með fjöldi útilokaðra atriða",
+        "message": "Näytä estettyjen kohteiden määrämerkki",
         "description": ""
     },
     "SitePermissions": {
-        "message": "Heimildir vefsvæðis",
+        "message": "Sivuston käyttöoikeudet",
         "description": ""
     },
     "SitePermissions_accessKey": {
@@ -504,11 +504,11 @@
         "description": ""
     },
     "SitePolicies": {
-        "message": "Stefnur fyrir hvert vefsvæði",
+        "message": "Sivustokohtaiset käytännöt",
         "description": ""
     },
     "TempTrustPage": {
-        "message": "Setja allt á þessari síðu tímabundið sem TREYST",
+        "message": "Aseta kaikki tällä sivulla tilaksi tilapäisesti LUOTETTU",
         "description": ""
     },
     "TempTrustPage_accesskey": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "TempToPerm": {
-        "message": "Gera heimildir síðu varanlegar",
+        "message": "Tee sivun käyttöoikeuksista pysyviä",
         "description": ""
     },
     "TempToPerm_accesskey": {
@@ -524,7 +524,7 @@
         "description": ""
     },
     "Trust": {
-        "message": "Merkja sem treyst",
+        "message": "Merkitse luotetuksi",
         "description": ""
     },
     "Trust_accesskey": {
@@ -532,31 +532,31 @@
         "description": ""
     },
     "Trusted": {
-        "message": "Treyst",
+        "message": "Luotettu",
         "description": ""
     },
     "Trusted_temporary": {
-        "message": "TREYST tímabundið",
+        "message": "Tila. LUOTETTU",
         "description": ""
     },
     "Trusted_permanent": {
-        "message": "TREYST",
+        "message": "LUOTETTU",
         "description": ""
     },
     "TrustedPagesAdj": {
-        "message": "treyst",
+        "message": "luotettu",
         "description": ""
     },
     "Uninstall": {
-        "message": "Taka út",
+        "message": "Poista asennus",
         "description": ""
     },
     "Unknown": {
-        "message": "Óþekkt",
+        "message": "Tuntematon",
         "description": ""
     },
     "UnsafeReload": {
-        "message": "Óöruggur endurlestur",
+        "message": "Vaarallinen uudelleenlataus",
         "description": ""
     },
     "UnsafeReload_accesskey": {
@@ -564,7 +564,7 @@
         "description": ""
     },
     "Untrust": {
-        "message": "Merkja sem ótreyst",
+        "message": "Merkitse ei-luotetuksi",
         "description": ""
     },
     "Untrust_accesskey": {
@@ -572,15 +572,15 @@
         "description": ""
     },
     "Untrusted": {
-        "message": "Ótreyst",
+        "message": "Ei-luotettu",
         "description": ""
     },
     "UntrustedPagesAdj": {
-        "message": "ótreyst",
+        "message": "ei-luotettu",
         "description": ""
     },
     "WebAddress": {
-        "message": "Leita eða bæta við vefsvæði:",
+        "message": "Hae tai lisää verkkosivusto:",
         "description": ""
     },
     "WebAddress_accesskey": {
@@ -588,39 +588,39 @@
         "description": ""
     },
     "XSS_notify": {
-        "message": "Birta XSS-tilkynningar",
+        "message": "Näytä XSS-ilmoitukset",
         "description": ""
     },
     "XSS_clearUserChoices": {
-        "message": "Hreinsa XSS-valkosti",
+        "message": "Tyhjennä XSS-valinnat",
         "description": ""
     },
     "XSS_promptTitle": {
-        "message": "NoScript XSS-aðvörun",
+        "message": "NoScriptin XSS-varoitus",
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript síaði mögulega tilraun til skriftunar á milli vefja (cross-site scripting - XSS) frá $1 til $2.\nGrunsamleg gögn:\n$3",
+        "message": "NoScript detected a potential Cross-Site Scripting attack\nfrom $1 to $2.\nSuspicious data:\n$3",
         "description": ""
     },
     "XSS_optBlock": {
-        "message": "Loka á þessa beiðni",
+        "message": "Estä tämä pyyntö",
         "description": ""
     },
     "XSS_optSanitize": {
-        "message": "Hreinsa þessa beiðni",
+        "message": "Puhdista tämä pyyntö",
         "description": ""
     },
     "XSS_optAllow": {
-        "message": "Leyfa þessa beiðni",
+        "message": "Salli tämä pyyntö",
         "description": ""
     },
     "XSS_optAlwaysAllow": {
-        "message": "Alltaf leyfa beiðnir um skjöl frá $1 til $2",
+        "message": "Salli aina  $1 :n ja $2 :n väliset asiakirjapyynnöt",
         "description": ""
     },
     "XSS_optAlwaysBlock": {
-        "message": "Alltaf loka á beiðnir um skjöl frá $1 til $2",
+        "message": "Estä aina $1 :n ja $2 :n väliset asiakirjapyynnöt",
         "description": ""
     },
     "Xss": {
@@ -632,15 +632,15 @@
         "description": ""
     },
     "XssExceptions": {
-        "message": "Undantekningar frá XSS-vörnum",
+        "message": "XSS-torjuntasuojauksen poikkeukset",
         "description": ""
     },
     "XssExceptions_description": {
-        "message": "Áfangastaðir sem samsvara þessum reglulegu segðum verða EKKI varðir gegn skriftun á milli vefja - XSS",
+        "message": "Näitä säännöllisiä lausekkeita vastaavia kohteita EI suojata XSS:ltä.",
         "description": ""
     },
     "XssFaq": {
-        "message": "Algengar spurningar um XSS…",
+        "message": "XSS:sta usein kysytyr:",
         "description": ""
     },
     "XssFaq_accesskey": {
@@ -648,91 +648,91 @@
         "description": ""
     },
     "about": {
-        "message": "Um $1",
+        "message": "$1:sta",
         "description": ""
     },
     "allowFrom": {
-        "message": "Leyfa allt frá $1",
+        "message": "Salli kaikki $1:sta",
         "description": ""
     },
     "allowGlobal": {
-        "message": "Gera allar athuganir á heimildum óvirkar (hættulegt)",
+        "message": "Poista kaikki käyttöoikeuksien tarkistukset käytöstä (vaarallinen)",
         "description": ""
     },
     "allowLocal": {
-        "message": "Leyfa $1",
+        "message": "Salli $1",
         "description": ""
     },
     "allowTemp": {
-        "message": "Leyfa $1 tímabundið",
+        "message": "Tilapäisesti salli $1",
         "description": ""
     },
     "allowTempFrom": {
-        "message": "Leyfa tímabundið allt frá $1",
+        "message": "Tilapäisesti salli kaikki $1:sta",
         "description": ""
     },
     "allowed_no": {
-        "message": "Skriftur bannaðar í augnablikinu",
+        "message": "Komentosarjat tällä hetkellä kielletty",
         "description": ""
     },
     "allowed_prt": {
-        "message": "Skriftur leyfðar að hluta til",
+        "message": "Komentosarjat osittain sallittu",
         "description": ""
     },
     "allowed_yes": {
-        "message": "Skriftur leyfðar í augnablikinu",
+        "message": "Komentosarjat tällä hetkellä sallittu",
         "description": ""
     },
     "alwaysAsk": {
-        "message": "Alltaf biðja um staðfestingu",
+        "message": "Pyydä aina vahvistusta",
         "description": ""
     },
     "audio_samples": {
-        "message": "Hljóðdæmi",
+        "message": "Ääninäytteet",
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "NoScript fann uppsetningarbókamerki sem lítur út fyrir að hafa verið vistað á\n$1.\nErtu viss um að þú viljir skrifa yfir NoScript-uppsetninguna á þessari tölvu með efni þessa bókamerkis?",
+        "message": "NoScript on löytänyt määrityskirjanmerkin, joka on ilmeisesti tallennettu\n$1:lla.\nHaluatko todella korvata paikallisen NoScript-määrityksen tämän kirjanmerkin sisällöllä?",
         "description": ""
     },
     "bookmarkSync_message": {
-        "message": "EKKI er ætlast til þess að þetta bókamerki sé opnað, heldur á að samstilla það með þjónustu á borð við Weave eða með XMarks-viðaukanum.",
+        "message": "Tätä kirjanmerkkiä EI ole tarkoitettu avattavaksi, vaan synkronoitavaksi käyttämällä palvelua, kuten Weave tai XMarks-laajennus.",
         "description": ""
     },
     "bookmarkSync_title": {
-        "message": "NoScript uppsetningarbókamerki",
+        "message": "NoScript-määrityksen kirjanmerkki",
         "description": ""
     },
     "caps": {
-        "message": "Virkja þessa eiginleika",
+        "message": "Ota nämä kyvyt käyttöön",
         "description": ""
     },
     "capsContext": {
-        "message": "Virkja þessa eiginleika þegar efsta síða samsvarar",
+        "message": "Ota nämä kyvyt käyttöön, kun ylimmän sivu vastaa",
         "description": ""
     },
     "anySite": {
-        "message": "HVAÐA VEFSVÆÐI SEM ER",
+        "message": "Mikä tahansa sivusto",
         "description": ""
     },
     "cap_script": {
-        "message": "skrifta",
+        "message": "komentosarja",
         "description": ""
     },
     "cap_frame": {
-        "message": "rammi",
+        "message": "kehys",
         "description": ""
     },
     "cap_object": {
-        "message": "hlutur",
+        "message": "objekti",
         "description": ""
     },
     "cap_media": {
-        "message": "margmiðlunargögn",
+        "message": "media",
         "description": ""
     },
     "cap_font": {
-        "message": "letur",
+        "message": "fontti",
         "description": ""
     },
     "cap_webgl": {
@@ -740,11 +740,11 @@
         "description": ""
     },
     "cap_fetch": {
-        "message": "sækja (fetch)",
+        "message": "nouda",
         "description": ""
     },
     "cap_ping": {
-        "message": "ping",
+        "message": "kaiku (ping)",
         "description": ""
     },
     "cap_noscript": {
@@ -752,7 +752,7 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "óskilyrt CSS",
+        "message": "rajoittamaton CSS",
         "description": ""
     },
     "cap_lan": {
@@ -760,23 +760,23 @@
         "description": ""
     },
     "cap_other": {
-        "message": "annað",
+        "message": "muu",
         "description": ""
     },
     "changelog": {
-        "message": "Breytingaskrá",
+        "message": "Muutosloki",
         "description": ""
     },
     "changelog_tip": {
-        "message": "Birta breytingaskrá",
+        "message": "Näytä muutosloki",
         "description": ""
     },
     "confirm": {
-        "message": "Ertu viss?",
+        "message": "Oletko varma?",
         "description": ""
     },
     "disable": {
-        "message": "Gera $1 óvirkt",
+        "message": "Poista käytöstä $1",
         "description": ""
     },
     "disable_accessKey": {
@@ -784,199 +784,199 @@
         "description": ""
     },
     "distrust": {
-        "message": "Merkja $1 sem ótreyst",
+        "message": "Merkitse $1 ei-luotetuksi",
         "description": ""
     },
     "extensionContributors": {
-        "message": "Framlög frá:",
+        "message": "Osallistujat:",
         "description": ""
     },
     "extensionContributors_tip": {
-        "message": "Fólk sem þú ættir að þakka fyrir þessa viðbót",
+        "message": "Ihmiset, joita sinun tulee kiittää tästä laajennuksesta",
         "description": ""
     },
     "extensionCreator_tip": {
-        "message": "Heimsækja vefsíðu höfundar",
+        "message": "Vieraile tekijän kotisivulla",
         "description": ""
     },
     "extensionCreatorLabel": {
-        "message": "Höfundur:",
+        "message": "Tekijä",
         "description": ""
     },
     "extensionHomepage_tip": {
-        "message": "Heimsækja vefsíðu viðbótar",
+        "message": "Vieraile laajennuksen kotisivulla",
         "description": ""
     },
     "forbidGlobal": {
-        "message": "Banna skriftur almennt (ráðlagt)",
+        "message": "Kiellä komentosarjat laajamittaisesti (suositus)",
         "description": ""
     },
     "forbidLocal": {
-        "message": "Banna $1",
+        "message": "Kiellä $1",
         "description": ""
     },
     "freshInstallReload": {
-        "message": "Til að vinna með þennan flipa þarf NoScript að endurhlaða hann. Halda áfram?",
+        "message": "NoScriptin on ladattava välilehti uudelleen voidakseen käyttää sitä. Edetäänkö?",
         "description": ""
     },
     "privilegedPage": {
-        "message": "Þetta er síða með sérheimildum sem ekki er hægt að stilla.",
+        "message": "Tämä on etuoikeutettu sivu, jonka käyttöoikeuksia ei voi määrittää.",
         "description": ""
     },
     "incompatibleOptions": {
-        "message": "\"$1\"\ner ekki samhæft við \"$2\".\nViltu virkja þetta fyrra og gera það síðara óvirkt?",
+        "message": "\"$1\" ei ole yhteensopiva \"$2\":n kanssa.\nHaluatko ottaa edellisen käyttöön ja poistaa jälkimmäisen käytöstä?",
         "description": ""
     },
     "incompatibleOptions_title": {
-        "message": "Aðvörun vegna ósamhæfðra valkosta",
+        "message": "Varoitus yhteensopimattomista vaihtoehdoista",
         "description": ""
     },
     "informaction_tip": {
-        "message": "Heimsækja vefsíðu InformAction",
+        "message": "Vieraile InformAction-kotisivulla",
         "description": ""
     },
     "license": {
-        "message": "Notkunarleyfi",
+        "message": "Lisenssi",
         "description": ""
     },
     "license_tip": {
-        "message": "Lesa notkunarleyfi endanotenda",
+        "message": "Lue loppukäyttäjälisenssi",
         "description": ""
     },
     "logo_tip": {
-        "message": "Heimsækja vefsíðu viðbótar",
+        "message": "Vieraile laajennuksen kotisivulla",
         "description": ""
     },
     "metaRefresh_notify": {
-        "message": "NoScript lokaði á <META> endurbeiningu innan í <NOSCRIPT> einindi: $1 á $2 sekúndum.",
+        "message": "NoScript esti <META>:n uudelleenohjauksen elementin <NOSCRIPT>:n sisällä:: $1 $2 sekunnissa..",
         "description": ""
     },
     "Reload": {
-        "message": "Endurhlaða",
+        "message": "Lataa uudelleen",
         "description": ""
     },
     "removal_message": {
-        "message": "Með því að fjarlægja eða gera NoScript óvirkt, gefur þú á bátinn ALLAR þær varnir sem NoScript býður.\n\nEf þú ert bara þreytt(ur) á að gefa skriftum heimildir fyrir hvert vefsvæði fyrir sig, þá er samt til öruggari kostur.\n\nNoScript getur hætt að loka á skriftur, nema þær sem þú treystir ekki, en samt notað þróaðar varnaraðgerðir til að verja þig fyrir XSS, Clickjacking, CSRF og fleiri ógnum á veraldarvefnum.\n\nErtu viss um að þú viljir fjarlægja ALLAR varnir NoScript?\n",
+        "message": "Poistamalla NoScriptin käytöstä tai poistamalla asennuksen luovut KAIKISTA NoScriptin tarjoamista suojauksista.\n\nJos olet vain kyllästynyt käsittelemään komentosarjan käyttöoikeuksia sivustoittain, onhan vielä turvallisempi vaihtoehto.\n\nNoScript voi lopettaa komentosarjojen estämisen, lukuun ottamatta niitä, jotka merkitset epäluotettaviksi, mutta silti suojella sinua edistyneimmillä suojaustoimilla XSS:ta, napsautussieppausta, CSRF:ta ja muita verkkouhkia vastaan.\n\nHaluatko todella poistaa KAIKKI NoScript-suojaukset?",
         "description": ""
     },
     "removal_no": {
-        "message": "Nei, bara hætta að loka á skriftur",
+        "message": "Ei, lopeta komentosarjojen estäminen",
         "description": ""
     },
     "removal_title": {
-        "message": "Aðvörun vegna rýrnunar á öryggi",
+        "message": "Varoitus suojauksen alentamisesta",
         "description": ""
     },
     "removal_yes": {
-        "message": "Já, fjarlægja ALLAR varnir",
+        "message": "Kyllä, poista KAIKKI suojat",
         "description": ""
     },
     "reset_title": {
-        "message": "Endurstilla NoScript",
+        "message": "NoScriptin nollaus",
         "description": ""
     },
     "reset_warning": {
-        "message": "ALLAR kjörstillingar og heimildir vefsvæða í NoScript verða tafarlaust frumstilltar á sjálfgefin gildi.\nEkki er hægt að afturkalla þessa aðgerð.\nErtu viss um að þú viljir halda áfram?",
+        "message": "KAIKKI NoScript-asetukset ja sivuston käyttöoikeudet palautetaan oletusarvoihinsa välittömästi. Tätä toimintoa ei voi peruuttaa. Haluatko jatkaa?",
         "description": ""
     },
     "siteInfo_confirm": {
-        "message": "Þú ert í þann mund að fara að biðja um upplýsingar um \"$1\" vefsvæðið\nmeð því að senda beiðni til $2.\nViltu halda áfram?",
+        "message": "Olet aikeissa pyytää tietoja sivustosta \"$1\" \nlähettämällä pyynnön $2:een.\nHaluatko jatkaa?",
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Miðju-músarsmellur eða Shift-smella til að sjá upplýsingar um vefsvæði...",
+        "message": "Keski- tai vaihto-napsauta nähdäksesi sivuston tiedot.",
         "description": ""
     },
     "sponsor_tip": {
-        "message": "Heimsækja vefsíðu stuðningsaðila",
+        "message": "Vieraile sponsorin kotisivulla",
         "description": ""
     },
     "unsafeReload_warning": {
-        "message": "Endurhleð ÓÖRUGGT grunsamlegu\n\n$1 [$2]\n\nFRÁ [$3]\n\nNoScript mun EKKI verja þessa beiðni!\n",
+        "message": "Epäilyttävän elementin lataaminen uudelleen epäturvallisesti\n\n$1 [$2]\n[$3]:sta\n\nNoScript EI suojaa tätä pyyntöä!\n",
         "description": ""
     },
     "untrustedOrigin": {
-        "message": "ótreystur uppruni",
+        "message": "ei-luotetttu alkuperä",
         "description": ""
     },
     "version": {
-        "message": "Útgáfa $1",
+        "message": "Versio $1",
         "description": ""
     },
     "versionShort": {
-        "message": "útg. $1",
+        "message": "v. $1",
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Þema",
+        "message": "Teema",
         "description": ""
     },
     "themeDark": {
-        "message": "Dökkt",
+        "message": "Tumma",
         "description": ""
     },
     "themeLight": {
-        "message": "Ljóst",
+        "message": "Vaalea",
         "description": ""
     },
     "themeAuto": {
-        "message": "Sjálfvirkt",
+        "message": "Automaattinen",
         "description": ""
     },
     "ModernRed": {
-        "message": "Nútímalegt rautt",
+        "message": "Moderni punainen",
         "description": ""
     },
     "VintageBlue": {
-        "message": "Gamaldags blátt",
+        "message": "Vintage-sininen",
         "description": ""
     },
     "toVintageBlue": {
-        "message": "Skipta yfir í gamaldags bláa stílinn",
+        "message": "Vaihda tyyliin Vintage-sininen",
         "description": ""
     },
     "DonateShort": {
-        "message": "Styrkja",
+        "message": "Lahjoita",
         "description": ""
     },
     "DonateLong": {
-        "message": "NoScript er frjáls og opinn hugbúnaður og gæti ekki verið til án hjálpar þinnar. Íhugaðu að styrkja okkur núna!",
+        "message": "NoScript on ilmainen ohjelmisto, eikä se voi olla olemassa ilman apuasi. Ole hyvä ja lahjoita nyt!",
         "description": ""
     },
     "TabGuard_label": {
-        "message": "Vörn gegn auðkennaleka milli flipa",
+        "message": "Välilehden-ylittävä-identiteettivuotosuojaus",
         "description": ""
     },
     "TabGuard_optEnabled": {
-        "message": "Virkjað allsstaðar",
+        "message": "Käytössä kaikkialla",
         "description": ""
     },
     "TabGuard_optIncognito": {
-        "message": "Einungis virkjað í einkavafri",
+        "message": "Käytössä vain yksityisessä selauksessa",
         "description": ""
     },
     "TabGuard_optDisabled": {
-        "message": "Óvirkt",
+        "message": "Ei käytössä",
         "description": ""
     },
     "TabGuard_forget": {
-        "message": "Gleyma fyrri ákvörðunum",
+        "message": "Unohda päätökset",
         "description": ""
     },
     "TabGuard_title": {
-        "message": "Mögulegur auðkennaleki",
+        "message": "Mahdollinen identiteettivuoto",
         "description": ""
     },
     "TabGuard_message": {
-        "message": "Þú ert að fara að hlaða inn síðu frá $1.\nEf þú ert notandi skráður inn á $1, geta upplýsingar um auðkennin þín komist í hendurnar á $2.",
+        "message": "Olet aikeissa lataa sivua $1:sta.\nJos olet $1 sisäänkirjautunut käyttäjä, henkilöllisyyttäsi koskevia tietoja saattaa saada $2.",
         "description": ""
     },
     "TabGuard_optAnonymize": {
-        "message": "Hlaða nafnlaust",
+        "message": "Lataa anonyymisti",
         "description": ""
     },
     "TabGuard_optAllow": {
-        "message": "Hlaða eðlilega",
+        "message": "Lataa normaalisti",
         "description": ""
     }
 }

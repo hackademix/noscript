@@ -69,6 +69,9 @@
   const VINTAGE = "vintageTheme";
 
   let update = toTheme => {
+    if (window.localStorage) try {
+      localStorage.setItem("theme", toTheme);
+    } catch (e) {}
     return root.dataset.theme = toTheme;
   }
 
@@ -85,6 +88,9 @@
   }
 
   let refreshVintage = isVintage => {
+    if (localStorage) try {
+      localStorage.setItem(VINTAGE, isVintage || "");
+    } catch (e) {}
     document.documentElement.classList.toggle("vintage", isVintage === true);
     if (browser.browserAction) {
       browser.browserAction.setIcon({path: {64: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.png` }});
@@ -94,11 +100,9 @@
 
   const THEMES = ["dark", "light", "auto"];
   var Themes = {
-   setup(theme = null) {
+    VINTAGE,
+    setup(theme = null) {
       if (theme) {
-        if (window.localStorage) {
-          localStorage.setItem("theme", theme);
-        }
         if (browser && browser.storage) {
           browser.storage.local.set({theme});
         }
@@ -114,7 +118,6 @@
           return browser.storage.local.get(["theme"]).then(({theme}) => {
               update(theme);
               document.documentElement.style.visibility = "";
-              if (localStorage && theme) localStorage.setItem("theme", theme)
               return theme || "auto";
           });
         }
@@ -125,19 +128,15 @@
     async isVintage() {
       let ret;
       if (localStorage) {
-        ret = localStorage && localStorage.getItem(VINTAGE);
-        if (ret !== null) return !!ret;
+        ret = localStorage.getItem(VINTAGE);
+        if (ret !== null) return !(ret === "false" || !ret);
       }
       ret = (await browser.storage.local.get([VINTAGE]))[VINTAGE];
-      if (localStorage && typeof ret === "boolean") localStorage.setItem(VINTAGE, ret);
       return ret;
     },
 
     async setVintage(b) {
       refreshVintage(b);
-      if (localStorage) try {
-        localStorage.setItem(VINTAGE, b || "");
-      } catch (e) {}
       await browser.storage.local.set({[VINTAGE]: b});
       return b;
     },
@@ -148,4 +147,19 @@
     refreshVintage(await Themes.isVintage());
   })();
   Promise.resolve(Themes.setup());
+
+  browser.storage.onChanged.addListener((changes, area) => {
+    if (area !== "local") return;
+    const ifChanged = (key, callback) => {
+      if (key in changes) {
+        let {oldValue, newValue} = changes[key];
+        if (oldValue !== newValue) {
+          callback(newValue);
+          window.dispatchEvent(new CustomEvent("NoScriptThemeChanged", {detail: {[key]: newValue}}));
+        }
+      }
+    }
+    ifChanged("theme", update);
+    ifChanged(VINTAGE, refreshVintage);
+  });
 }

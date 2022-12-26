@@ -1,6 +1,6 @@
 {
     "Add": {
-        "message": "Bæta við",
+        "message": "Add",
         "description": ""
     },
     "Add_accesskey": {
@@ -8,19 +8,19 @@
         "description": ""
     },
     "AdditionalPermissions": {
-        "message": "Viðbótarheimildir fyrir treyst vefsvæði",
+        "message": "Permisiuni suplimentare pentru site-uri de încredere",
         "description": ""
     },
     "AdditionalRestrictions": {
-        "message": "Viðbótarheimildir fyrir vantreyst vefsvæði",
+        "message": "Restricții suplimentare pentru site-uri nesigure",
         "description": ""
     },
     "SectionAdvanced": {
-        "message": "Ítarlegt",
+        "message": "Advanced",
         "description": ""
     },
     "Allow": {
-        "message": "Leyfa",
+        "message": "Permiteți",
         "description": ""
     },
     "Allow_accesskey": {
@@ -28,19 +28,19 @@
         "description": ""
     },
     "AllowBookmarks": {
-        "message": "Leyfa vefsvæði sem opnuð eru úr bókamerkjum",
+        "message": "Permiteți site-uri deschise prin marcaje",
         "description": ""
     },
     "AllowClipboard": {
-        "message": "Leyfa að afrita/líma sniðinn texta af utanaðkomandi klippispjaldi",
+        "message": "Permiteți copierea și lipirea textului bogat din clipboard-ul extern",
         "description": ""
     },
     "AllowLocalLinks": {
-        "message": "Leyfa staðværa tengla",
+        "message": "Permiteți legături locale",
         "description": ""
     },
     "AllowPage": {
-        "message": "Leyfa allt á þessari síðu",
+        "message": "Permiteți toate această pagină",
         "description": ""
     },
     "AllowPage_accesskey": {
@@ -48,75 +48,75 @@
         "description": ""
     },
     "AllowPing": {
-        "message": "Leyfa <A PING…>",
+        "message": "Permiteți <A PING…>",
         "description": ""
     },
     "AllowViaBookmarks": {
-        "message": "Leyfa vefsvæði sem opnuð eru úr bókamerkjum",
+        "message": "Permiteți site-urile deschise prin marcaje",
         "description": ""
     },
     "AlwaysBlockUntrustedContent": {
-        "message": "Útiloka öll atriði sem koma frá vefsvæði sem ekki er treyst",
+        "message": "Blochează orice obiect care provine de pe un site marcat ca fiind de neîncredere",
         "description": ""
     },
     "SectionAppearance": {
-        "message": "Útlit",
+        "message": "Aspect",
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Setja efsta-stigs vefsvæði tímabundið sem TREYST",
+        "message": "Setați temporar site-uri de nivel superior la TRUSTED (de încredere)",
         "description": ""
     },
     "AutoReload": {
-        "message": "Endurhlaða viðkomandi síðum sjálfkrafa þegar heimildum er breytt",
+        "message": "Reîncarcă automat paginile afectate atunci când se schimbă permisiunile",
         "description": ""
     },
     "AutoReload_currentTab": {
-        "message": "Endurhlaða einungis núverandi flipa",
+        "message": "Reîncarcă doar fila curentă",
         "description": ""
     },
     "BaseDom": {
-        "message": "Annars-stigs grunnlén (noscript.net)",
+        "message": "Domenii de bază de nivel 2 (noscript.net)",
         "description": ""
     },
     "BlockedItems": {
-        "message": "Lokaði á $1 af $2 atriðum.",
+        "message": "Blocat $1 de $2 itemi.",
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript lokaði á  hluti",
+        "message": "NoScript Blocat Obiecte",
         "description": ""
     },
     "BookmarkSync": {
-        "message": "Taka öryggisafrit af uppsetningu NoScript til að einfalda samstillingu",
+        "message": "Salvarea configurației NoScript într-un bookmark pentru o sincronizare ușoară",
         "description": ""
     },
     "Cancel": {
-        "message": "Hætta við",
+        "message": "Cancel",
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Flæða heimildum efsta-stigs skjala til utanaðkomandi skrifta",
+        "message": "Permisiuni în cascadă ale documentului de top pentru scripturile de la 3rd părți",
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Allir eiginleikar sem lokað er á í efstastigs-skjali verður að vera lokað á í undirskjölum líka",
+        "message": "Orice capacitate blocată în documentul principal trebuie să fie blocată și în subdocumentele sale",
         "description": ""
     },
     "ClearClickDescription": {
-        "message": "NoScript greip inn í samskipti músar eða lyklaborðs við hálfhulið einindi. Smelltu á myndina hér fyrir neðan til að víxla á milli hindraðrar og hreinnar útfærslu.",
+        "message": "NoScript a interceptat o interacțiune a mouse-ului sau a tastaturii cu un element parțial ascuns. Faceți clic pe imaginea de mai jos pentru a trece de la o versiune obstrucționată la cea clară.",
         "description": ""
     },
     "ClearClickHeader": {
-        "message": "Hugsanlegt smellrán (clickjacking) / tilraun til viðmótsþjófnaðar (UI-redressing)!",
+        "message": "Potențial Clickjacking / Încercare de Redresare UI!",
         "description": ""
     },
     "ClearClickOpt": {
-        "message": "ClearClick-varnir á síðum…",
+        "message": "Protecția ClearClick pe paginile...",
         "description": ""
     },
     "ClearClickReport": {
-        "message": "Tilkynning",
+        "message": "Raport",
         "description": ""
     },
     "ClearClickReport_accesskey": {
@@ -124,51 +124,51 @@
         "description": ""
     },
     "ClearClickReportId": {
-        "message": "Auðkenni skýrslu:",
+        "message": "Raport ID:",
         "description": ""
     },
     "ClearClickTitle": {
-        "message": "ClearClick aðvörun",
+        "message": "Avertisment ClearClick",
         "description": ""
     },
     "Close": {
-        "message": "Loka",
+        "message": "Close",
         "description": ""
     },
     "CollapseBlockedObjects": {
-        "message": "Fella saman bannaða hluti",
+        "message": "Colapsul obiectelor blocate",
         "description": ""
     },
     "ConfirmUnblock": {
-        "message": "Biðja um staðfestingu áður en hlutur er aftur leyfður tímabundið",
+        "message": "Cereți o confirmare înainte de a debloca temporar un obiect",
         "description": ""
     },
     "CtxMenu": {
-        "message": "Samhengisvalmynd",
+        "message": "Meniul contextual",
         "description": ""
     },
     "Custom": {
-        "message": "Sérsniðið",
+        "message": "Personalizat",
         "description": ""
     },
     "CustomizePresets": {
-        "message": "Forstilla sérsníðingu (fyrir öll vefsvæði sem deila forstillingu)",
+        "message": "Personalizare a presetului (pentru site-uri care împart un preset)",
         "description": ""
     },
     "Default": {
-        "message": "Sjálfgefið",
+        "message": "Default",
         "description": ""
     },
     "DefaultPolicies": {
-        "message": "Sjálfgefnar stefnur",
+        "message": "Politici default",
         "description": ""
     },
     "Description": {
-        "message": "Hámarksvarnir fyrir vafrann þinn: NoScript leyfir virkt efni einungis frá þeim lénum sem þú hefur ákveðið að treysta, svo koma megi í veg fyrir misnotkun.",
+        "message": "Protecție maximă pentru browser: NoScript permite conținut activ numai pentru domenii de încredere la alegerea dumneavoastră, pentru a preveni o exploatare.",
         "description": ""
     },
     "Donate": {
-        "message": "Styrkja",
+        "message": "Donate",
         "description": ""
     },
     "Donate_accesskey": {
@@ -176,15 +176,15 @@
         "description": ""
     },
     "Embeddings": {
-        "message": "Ívafningar",
+        "message": "Încorporări",
         "description": ""
     },
     "Exceptions": {
-        "message": "Undantekningar…",
+        "message": "Excepții...",
         "description": ""
     },
     "Export": {
-        "message": "Flytja út",
+        "message": "Export",
         "description": ""
     },
     "Export_accesskey": {
@@ -192,55 +192,55 @@
         "description": ""
     },
     "FixLinks": {
-        "message": "Reyna að laga JavaScript tengla",
+        "message": "Încercarea de a repara legăturile JavaScript",
         "description": ""
     },
     "Hider": {
-        "message": "Slepptu hingað til að fela.",
+        "message": "Aruncați aici pentru a vă ascunde.",
         "description": ""
     },
     "Reveal": {
-        "message": "Smelltu hér til að endurheimta hnappa sem vantar…",
+        "message": "Faceți clic aici pentru a recupera butoanele lipsă...",
         "description": ""
     },
     "ShowFullAddresses": {
-        "message": "Birta lista með fullum vistföngum í heimildaglugga (https://www.noscript.net)",
+        "message": "Afișarea adreselor complete în fereastra popup a permisiunilor (https://www.noscript.net)",
         "description": ""
     },
     "SectionGeneral": {
-        "message": "Almennt",
+        "message": "General",
         "description": ""
     },
     "NotEnforced": {
-        "message": "Takmarkanir hafa verið gerðar óvirkar í stillingum notandans: NoScript lokar ekki á neitt á þessari síðu!",
+        "message": "Restricții dezactivate de setările utilizatorului: NoScript nu va bloca nimic de pe această pagină!",
         "description": ""
     },
     "NoEnforcement": {
-        "message": "Gera takmarkanir almennt óvirkar (hættulegt)",
+        "message": "Dezactiveaza restricțiile la nivel global (periculos)",
         "description": ""
     },
     "Enforce": {
-        "message": "Virkja takmarkanir almennt",
+        "message": "Activați restricțiile la nivel global",
         "description": ""
     },
     "EnforceOnRestart": {
-        "message": "Endurheimta takmarkanir við endurræsingu vafra",
+        "message": "Restabilirea restricțiilor la repornirea browserului",
         "description": ""
     },
     "NoEnforcementForTab": {
-        "message": "Gera takmarkanir óvirkar í þessum flipa",
+        "message": "Dezactiveaza restricțiile pentru acest tab",
         "description": ""
     },
     "EnforceForTab": {
-        "message": "Virkja takmarkanir í þessum flipa",
+        "message": "Activați restricțiile pentru acest tab",
         "description": ""
     },
     "HighContrast": {
-        "message": "Mikil birtuskil",
+        "message": "Contrast ridicat",
         "description": ""
     },
     "httpsOnly": {
-        "message": "Samsvara einungis HTTPS-efni",
+        "message": "Se potriveste numai conținutul HTTPS",
         "description": ""
     },
     "Https": {
@@ -248,31 +248,31 @@
         "description": ""
     },
     "Https_always": {
-        "message": "Alltaf",
+        "message": "Întotdeauna",
         "description": ""
     },
     "Https_behavior": {
-        "message": "Hegðun",
+        "message": "Comportament",
         "description": ""
     },
     "Https_cookies": {
-        "message": "Vefkökur",
+        "message": "Cookies",
         "description": ""
     },
     "Https_description": {
-        "message": "Banna virkt vefefni nema það komi frá öruggri (HTTPS) tengingu:",
+        "message": "Interziceți conținutul web activ dacă nu provine de la o conexiune securizată (HTTPS):",
         "description": ""
     },
     "Https_never": {
-        "message": "Aldrei",
+        "message": "Niciodată",
         "description": ""
     },
     "Https_proxy": {
-        "message": "Þegar notaður er milliþjónn (ráðlagt með Tor)",
+        "message": "Când folosiți un proxy (recomandat cu Tor)",
         "description": ""
     },
     "HttpsFaq": {
-        "message": "Algengar spurningar um HTTPS…",
+        "message": "HTTPS FAQ…",
         "description": ""
     },
     "HttpsFaq_accesskey": {
@@ -280,15 +280,15 @@
         "description": ""
     },
     "HttpsForced": {
-        "message": "Þvinga eftirfarandi vefsvæði til að nota öruggar (HTTPS) tengingar:",
+        "message": "Forțați următoarele site-uri să utilizeze conexiuni securizate (HTTPS):",
         "description": ""
     },
     "HttpsForcedExceptions": {
-        "message": "Aldrei þvinga fram öruggar (HTTPS) tengingar fyrir eftirfarandi vefsvæði:",
+        "message": "Nu forțați niciodată conexiuni securizate (HTTPS) pentru următoarele site-uri:",
         "description": ""
     },
     "Import": {
-        "message": "Flytja inn",
+        "message": "Import",
         "description": ""
     },
     "Import_accesskey": {
@@ -296,43 +296,43 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Leyfa að stilltar séu varanlegar heimildir í huliðs/einkaflipum.\nAÐVÖRUN: þetta getur lekið upplýsingum vefsvæðis!",
+        "message": "Activați setarea permisiunilor permanente în filele incognito/private.\nATENȚIE: dacă faceți acest lucru, este posibil să apară o scurgere de informații despre site!",
         "description": ""
     },
     "OptAmnesticUpdates": {
-        "message": "Afturkalla tímabundnar heimildir við uppfærslu NoScript, jafnvel þótt vafrinn sé ekki endurræstur",
+        "message": "Revocarea permisiunilor temporare la actualizările NoScript, chiar dacă browser-ul nu este repornit",
         "description": ""
     },
     "KeepLocked": {
-        "message": "Halda þessi einindi læstu (mælt með þessu)",
+        "message": "Păstrați acest element blocat (recomandat)",
         "description": ""
     },
     "MatchSample": {
-        "message": "Dæmi um samsvörunarmynstur:",
+        "message": "Eșantion care se potriveste unui șablon:",
         "description": ""
     },
     "Next": {
-        "message": "Næsta",
+        "message": "Următorul",
         "description": ""
     },
     "NoUntrustedPlaceholder": {
-        "message": "Ekkert frátökumerki fyrir atriði sem koma frá vefsvæði sem ekki er treyst",
+        "message": "Nu există un marcaj pentru obiectele care provin de pe site-uri marcate ca nefiabile",
         "description": ""
     },
     "Notifications": {
-        "message": "Tilkynningar",
+        "message": "Notificări",
         "description": ""
     },
     "Notify": {
-        "message": "Sýna skilaboð um bannaðar skriftur",
+        "message": "Arata mesajul despre script-urile blocate",
         "description": ""
     },
     "Notify_bottom": {
-        "message": "Setja skilaboð neðst",
+        "message": "Puneți mesajul în partea de jos",
         "description": ""
     },
     "NotifyMeta": {
-        "message": "Sýna skilaboð um bannaðar META-endurbeiningar",
+        "message": "Arata mesajul despre redirecționările META blocate",
         "description": ""
     },
     "NotifyMeta_accesskey": {
@@ -340,35 +340,35 @@
         "description": ""
     },
     "NselForce": {
-        "message": "Birta <NOSCRIPT> einindið sem fylgir á eftir útilokuðu <SCRIPT>",
+        "message": "Arata <NOSCRIPT> elementul care urmează unui blocat <SCRIPT>",
         "description": ""
     },
     "NselNever": {
-        "message": "Fela <NOSCRIPT> einindi",
+        "message": "Ascunde <NOSCRIPT> elemente",
         "description": ""
     },
     "OK": {
-        "message": "Í lagi",
+        "message": "OK",
         "description": ""
     },
     "OptBlockCssScanners": {
-        "message": "Loka á skanna sem byggja á CSS",
+        "message": "Blocheaza scanerele bazate pe CSS",
         "description": ""
     },
     "OptFilterXGet": {
-        "message": "Hreinsa beiðnir sem mögulega eru tilraunir til skriftunar á milli vefja",
+        "message": "Curățați cererile suspicioase cross-site",
         "description": ""
     },
     "OptFilterXPost": {
-        "message": "Breyta milli-vefja POST-beiðnum í gagna-lausari GET-beiðnir",
+        "message": "Transformați cererile POSTARE cross-site în cereri GET fără date",
         "description": ""
     },
     "OptOverrideTorBrowserPolicy": {
-        "message": "Taka yfir forstillingu á öryggisstigi Tor-vafrans",
+        "message": "Suprascrieți nivelul de securitate prestabilit de Tor Browser",
         "description": ""
     },
     "Options": {
-        "message": "Valkostir…",
+        "message": "Opțiuni...",
         "description": ""
     },
     "Options_accesskey": {
@@ -376,7 +376,7 @@
         "description": ""
     },
     "OptionsLong": {
-        "message": "Valkostir NoScript",
+        "message": "Opțiuni NoScript",
         "description": ""
     },
     "OptionsWidth": {
@@ -384,51 +384,51 @@
         "description": ""
     },
     "PermanentInPrivate": {
-        "message": "Viðvarandi 'Leyfa'-skipanir í einkagluggum",
+        "message": "Comenzi permanente \"Permite\" în ferestrele private",
         "description": ""
     },
     "SectionSitePermissions": {
-        "message": "Heimildir á hvert vefsvæði",
+        "message": "Permisiuni per site",
         "description": ""
     },
     "PermissionsText": {
-        "message": "Þú getur tiltekið hvaða vefsvæðum sé leyft að keyra skriftur. Settu inn vistfang eða lén (e.g. \"http://www.site.com\" or \"site.com\") vefsins sem þú vilt heimila og smelltu síðan á 'Leyfa' .",
+        "message": "Puteți specifica site-uri web cărora li se permite să execute scripturi. Introduceți adresa sau domeniul (de exemplu, \"http://www.site.com\" sau \"site.com\") un site pe care doriți să îl permiteți și apoi faceți clic pe Allow (Permiteți).",
         "description": ""
     },
     "Plugins": {
-        "message": "Viðbætur",
+        "message": "Plugin-uri",
         "description": ""
     },
     "Policies": {
-        "message": "Stefnur",
+        "message": "Politici",
         "description": ""
     },
     "Preset": {
-        "message": "Öryggisstig",
+        "message": "Nivelul de securitate",
         "description": ""
     },
     "Prev": {
-        "message": "Fyrra",
+        "message": "Anterior",
         "description": ""
     },
     "RecentBlocked": {
-        "message": "Nýlega útilokuð vefsvæði",
+        "message": "Site-uri blocate recent",
         "description": ""
     },
     "Refresh": {
-        "message": "Endurlesa",
+        "message": "Refresh",
         "description": ""
     },
     "ReloadWarn": {
-        "message": "Þessi stilling tekur gildi á nýjum eða (handvirkt) endurlesnum síðum",
+        "message": "Aceste opțiuni vor avea efect pe paginile noi sau reîncărcate (manual)",
         "description": ""
     },
     "RemoveSelected": {
-        "message": "Fjarlægja valin vefsvæði",
+        "message": "Eliminați site-uri selectate",
         "description": ""
     },
     "Reset": {
-        "message": "Endurstilla",
+        "message": "Reset",
         "description": ""
     },
     "Reset_accesskey": {
@@ -436,7 +436,7 @@
         "description": ""
     },
     "ResetDef": {
-        "message": "Setja aftur á sjálfgefið",
+        "message": "Reseteaza la setările Default",
         "description": ""
     },
     "ResetDef_accesskey": {
@@ -444,7 +444,7 @@
         "description": ""
     },
     "RevokeTemp": {
-        "message": "Afturkalla tímabundnar heimildir",
+        "message": "Revocarea permisiunilor temporare",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -452,27 +452,27 @@
         "description": ""
     },
     "SecureCookies": {
-        "message": "Virkja sjálfvirka örugga umsýslu á vefkökum",
+        "message": "Activați gestionarea automată a cookie-urilor securizate",
         "description": ""
     },
     "SecureCookiesExceptions": {
-        "message": "Hunsa óöruggar vefkökur sem settar eru yfir HTTPS fyrir eftirfarandi vefsvæði:",
+        "message": "Ignorați modulele cookie nesigure setate prin HTTPS de către următoarele site-uri:",
         "description": ""
     },
     "SecureCookiesForced": {
-        "message": "Þvinga fram dulritun á öllum vefkökum sem settar eru yfir HTTPS fyrir eftirfarandi vefsvæði:",
+        "message": "Forțați criptarea tuturor cookie-urilor setate prin HTTPS de către următoarele site-uri:",
         "description": ""
     },
     "SecurityManager": {
-        "message": "Öryggisstýring",
+        "message": "Manager de securitate",
         "description": ""
     },
     "Show": {
-        "message": "Sýna…",
+        "message": "Arata…",
         "description": ""
     },
     "ShowConsole": {
-        "message": "Sýna stjórnborð…",
+        "message": "Arata consola...",
         "description": ""
     },
     "ShowConsole_accesskey": {
@@ -480,23 +480,23 @@
         "description": ""
     },
     "ShowPlaceholder": {
-        "message": "Birta frátökutáknmynd",
+        "message": "Arata pictograma de locțiitor",
         "description": ""
     },
     "ShowReleaseNotes": {
-        "message": "Birta útgáfuupplýsingar þegar uppfærslur eiga sér stað",
+        "message": "Afișarea notelor de deblocare privind actualizările",
         "description": ""
     },
     "ShowCtxMenuItem": {
-        "message": "Birta NoScript-færslu í samhengisvalmynd",
+        "message": "Arata elementul de meniu contextual NoScript",
         "description": ""
     },
     "ShowCountBadge": {
-        "message": "Birta merki með fjöldi útilokaðra atriða",
+        "message": "Afișarea insignei cu numărul de elemente blocate",
         "description": ""
     },
     "SitePermissions": {
-        "message": "Heimildir vefsvæðis",
+        "message": "Permisiuni Site",
         "description": ""
     },
     "SitePermissions_accessKey": {
@@ -504,11 +504,11 @@
         "description": ""
     },
     "SitePolicies": {
-        "message": "Stefnur fyrir hvert vefsvæði",
+        "message": "Politici specifice pentru fiecare site",
         "description": ""
     },
     "TempTrustPage": {
-        "message": "Setja allt á þessari síðu tímabundið sem TREYST",
+        "message": "Setați toate informațiile de pe această pagină la Temporarily TRUSTED (Încredere temporară)",
         "description": ""
     },
     "TempTrustPage_accesskey": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "TempToPerm": {
-        "message": "Gera heimildir síðu varanlegar",
+        "message": "Faceți permisiunile de pagină permanente",
         "description": ""
     },
     "TempToPerm_accesskey": {
@@ -524,7 +524,7 @@
         "description": ""
     },
     "Trust": {
-        "message": "Merkja sem treyst",
+        "message": "Marcați ca fiind de încredere",
         "description": ""
     },
     "Trust_accesskey": {
@@ -532,31 +532,31 @@
         "description": ""
     },
     "Trusted": {
-        "message": "Treyst",
+        "message": "De încredere",
         "description": ""
     },
     "Trusted_temporary": {
-        "message": "TREYST tímabundið",
+        "message": "Temp. ÎNCREDERE",
         "description": ""
     },
     "Trusted_permanent": {
-        "message": "TREYST",
+        "message": "ÎNCREDERE",
         "description": ""
     },
     "TrustedPagesAdj": {
-        "message": "treyst",
+        "message": "de încredere",
         "description": ""
     },
     "Uninstall": {
-        "message": "Taka út",
+        "message": "Dezinstalați",
         "description": ""
     },
     "Unknown": {
-        "message": "Óþekkt",
+        "message": "Necunoscut",
         "description": ""
     },
     "UnsafeReload": {
-        "message": "Óöruggur endurlestur",
+        "message": "O reîncărcare nesigură",
         "description": ""
     },
     "UnsafeReload_accesskey": {
@@ -564,7 +564,7 @@
         "description": ""
     },
     "Untrust": {
-        "message": "Merkja sem ótreyst",
+        "message": "Marcați ca fiind de neîncredere",
         "description": ""
     },
     "Untrust_accesskey": {
@@ -572,15 +572,15 @@
         "description": ""
     },
     "Untrusted": {
-        "message": "Ótreyst",
+        "message": "Nu este de încredere",
         "description": ""
     },
     "UntrustedPagesAdj": {
-        "message": "ótreyst",
+        "message": "nu este de încredere",
         "description": ""
     },
     "WebAddress": {
-        "message": "Leita eða bæta við vefsvæði:",
+        "message": "Cauta sau adauga un site web:",
         "description": ""
     },
     "WebAddress_accesskey": {
@@ -588,39 +588,39 @@
         "description": ""
     },
     "XSS_notify": {
-        "message": "Birta XSS-tilkynningar",
+        "message": "Arata XSS notificari",
         "description": ""
     },
     "XSS_clearUserChoices": {
-        "message": "Hreinsa XSS-valkosti",
+        "message": "Ștergeți opțiunile XSS",
         "description": ""
     },
     "XSS_promptTitle": {
-        "message": "NoScript XSS-aðvörun",
+        "message": "Avertisment NoScript XSS",
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "NoScript síaði mögulega tilraun til skriftunar á milli vefja (cross-site scripting - XSS) frá $1 til $2.\nGrunsamleg gögn:\n$3",
+        "message": "NoScript a detectat un potențial atac Cross-Site Scripting\nde la $1 la $2.\nDate suspecte:\n$3",
         "description": ""
     },
     "XSS_optBlock": {
-        "message": "Loka á þessa beiðni",
+        "message": "Blocheaza această cerere",
         "description": ""
     },
     "XSS_optSanitize": {
-        "message": "Hreinsa þessa beiðni",
+        "message": "Curățați această cerere",
         "description": ""
     },
     "XSS_optAllow": {
-        "message": "Leyfa þessa beiðni",
+        "message": "Permiteți această cerere",
         "description": ""
     },
     "XSS_optAlwaysAllow": {
-        "message": "Alltaf leyfa beiðnir um skjöl frá $1 til $2",
+        "message": "Permiteți întotdeauna cererile de documente de la $1 la $2",
         "description": ""
     },
     "XSS_optAlwaysBlock": {
-        "message": "Alltaf loka á beiðnir um skjöl frá $1 til $2",
+        "message": "Blocheaza întotdeauna cererile de documente de la $1 la $2",
         "description": ""
     },
     "Xss": {
@@ -632,15 +632,15 @@
         "description": ""
     },
     "XssExceptions": {
-        "message": "Undantekningar frá XSS-vörnum",
+        "message": "Anti-XSS Excepții de protecție",
         "description": ""
     },
     "XssExceptions_description": {
-        "message": "Áfangastaðir sem samsvara þessum reglulegu segðum verða EKKI varðir gegn skriftun á milli vefja - XSS",
+        "message": "Destinațiile care se potrivesc acestor expresii regulate NU vor fi protejate contra XSS.",
         "description": ""
     },
     "XssFaq": {
-        "message": "Algengar spurningar um XSS…",
+        "message": "XSS FAQ…",
         "description": ""
     },
     "XssFaq_accesskey": {
@@ -648,91 +648,91 @@
         "description": ""
     },
     "about": {
-        "message": "Um $1",
+        "message": "Despre $1",
         "description": ""
     },
     "allowFrom": {
-        "message": "Leyfa allt frá $1",
+        "message": "Permiteți toate din $1",
         "description": ""
     },
     "allowGlobal": {
-        "message": "Gera allar athuganir á heimildum óvirkar (hættulegt)",
+        "message": "Dezactiveaza toate verificările de permisiuni (periculos)",
         "description": ""
     },
     "allowLocal": {
-        "message": "Leyfa $1",
+        "message": "Allow $1",
         "description": ""
     },
     "allowTemp": {
-        "message": "Leyfa $1 tímabundið",
+        "message": "Permite temporar $1",
         "description": ""
     },
     "allowTempFrom": {
-        "message": "Leyfa tímabundið allt frá $1",
+        "message": "Permite temporar accesul tuturor din $1",
         "description": ""
     },
     "allowed_no": {
-        "message": "Skriftur bannaðar í augnablikinu",
+        "message": "Scripturile sunt interzise momentan",
         "description": ""
     },
     "allowed_prt": {
-        "message": "Skriftur leyfðar að hluta til",
+        "message": "Scripturile sunt permise partial",
         "description": ""
     },
     "allowed_yes": {
-        "message": "Skriftur leyfðar í augnablikinu",
+        "message": "Scripturile sunt momentan permise",
         "description": ""
     },
     "alwaysAsk": {
-        "message": "Alltaf biðja um staðfestingu",
+        "message": "Cerere permanenta pentru confirmare",
         "description": ""
     },
     "audio_samples": {
-        "message": "Hljóðdæmi",
+        "message": "Audio samples",
         "description": ""
     },
     "bookmarkSync_confirm": {
-        "message": "NoScript fann uppsetningarbókamerki sem lítur út fyrir að hafa verið vistað á\n$1.\nErtu viss um að þú viljir skrifa yfir NoScript-uppsetninguna á þessari tölvu með efni þessa bókamerkis?",
+        "message": "NoScript a găsit un bookmark de configurare aparent salvat pe\n$1.\nChiar doriți să suprascrieți configurația locală NoScript cu conținutul acestui bookmark?",
         "description": ""
     },
     "bookmarkSync_message": {
-        "message": "EKKI er ætlast til þess að þetta bókamerki sé opnað, heldur á að samstilla það með þjónustu á borð við Weave eða með XMarks-viðaukanum.",
+        "message": "Acest bookmark nu este valabil deschiderii, ci sincronizarii folosind servicii ca spre exemplu Weave sau extensia XMarks.",
         "description": ""
     },
     "bookmarkSync_title": {
-        "message": "NoScript uppsetningarbókamerki",
+        "message": "Configurare Bookmark in NoScript",
         "description": ""
     },
     "caps": {
-        "message": "Virkja þessa eiginleika",
+        "message": "Activați aceste capacități",
         "description": ""
     },
     "capsContext": {
-        "message": "Virkja þessa eiginleika þegar efsta síða samsvarar",
+        "message": "Activați aceste capacități atunci când pagina de sus se potrivește",
         "description": ""
     },
     "anySite": {
-        "message": "HVAÐA VEFSVÆÐI SEM ER",
+        "message": "ORICE SITE",
         "description": ""
     },
     "cap_script": {
-        "message": "skrifta",
+        "message": "script",
         "description": ""
     },
     "cap_frame": {
-        "message": "rammi",
+        "message": "context",
         "description": ""
     },
     "cap_object": {
-        "message": "hlutur",
+        "message": "obiect",
         "description": ""
     },
     "cap_media": {
-        "message": "margmiðlunargögn",
+        "message": "media",
         "description": ""
     },
     "cap_font": {
-        "message": "letur",
+        "message": "font",
         "description": ""
     },
     "cap_webgl": {
@@ -740,7 +740,7 @@
         "description": ""
     },
     "cap_fetch": {
-        "message": "sækja (fetch)",
+        "message": "preluare",
         "description": ""
     },
     "cap_ping": {
@@ -752,7 +752,7 @@
         "description": ""
     },
     "cap_unchecked_css": {
-        "message": "óskilyrt CSS",
+        "message": "CSS nerestricționat",
         "description": ""
     },
     "cap_lan": {
@@ -760,23 +760,23 @@
         "description": ""
     },
     "cap_other": {
-        "message": "annað",
+        "message": "altele",
         "description": ""
     },
     "changelog": {
-        "message": "Breytingaskrá",
+        "message": "Jurnal de modificări",
         "description": ""
     },
     "changelog_tip": {
-        "message": "Birta breytingaskrá",
+        "message": "Arata jurnalul modificărilor",
         "description": ""
     },
     "confirm": {
-        "message": "Ertu viss?",
+        "message": "Esti sigur?",
         "description": ""
     },
     "disable": {
-        "message": "Gera $1 óvirkt",
+        "message": "Dezactiveaza $1",
         "description": ""
     },
     "disable_accessKey": {
@@ -784,199 +784,199 @@
         "description": ""
     },
     "distrust": {
-        "message": "Merkja $1 sem ótreyst",
+        "message": "Marcați $1 ca fiind de neîncredere",
         "description": ""
     },
     "extensionContributors": {
-        "message": "Framlög frá:",
+        "message": "Colaboratori:",
         "description": ""
     },
     "extensionContributors_tip": {
-        "message": "Fólk sem þú ættir að þakka fyrir þessa viðbót",
+        "message": "Oameni cărora ar trebui să le mulțumiți pentru această extensie",
         "description": ""
     },
     "extensionCreator_tip": {
-        "message": "Heimsækja vefsíðu höfundar",
+        "message": "Vizitați pagina de start a autorului",
         "description": ""
     },
     "extensionCreatorLabel": {
-        "message": "Höfundur:",
+        "message": "Autor:",
         "description": ""
     },
     "extensionHomepage_tip": {
-        "message": "Heimsækja vefsíðu viðbótar",
+        "message": "Vizitați pagina principală a extensiei",
         "description": ""
     },
     "forbidGlobal": {
-        "message": "Banna skriftur almennt (ráðlagt)",
+        "message": "Interzi scripturile in general (recomandat)",
         "description": ""
     },
     "forbidLocal": {
-        "message": "Banna $1",
+        "message": "Interzis $1",
         "description": ""
     },
     "freshInstallReload": {
-        "message": "Til að vinna með þennan flipa þarf NoScript að endurhlaða hann. Halda áfram?",
+        "message": "Pentru a opera pe această filă, NoScript trebuie să o reîncarce.\nContinuați?",
         "description": ""
     },
     "privilegedPage": {
-        "message": "Þetta er síða með sérheimildum sem ekki er hægt að stilla.",
+        "message": "Aceasta este o pagină privilegiată, ale cărei permisiuni nu pot fi configurate.",
         "description": ""
     },
     "incompatibleOptions": {
-        "message": "\"$1\"\ner ekki samhæft við \"$2\".\nViltu virkja þetta fyrra og gera það síðara óvirkt?",
+        "message": "\"$1\"\neste incompatibilă cu \"$2\".\nDoriți să îl activați pe primul și se dezactiveaza al doilea?",
         "description": ""
     },
     "incompatibleOptions_title": {
-        "message": "Aðvörun vegna ósamhæfðra valkosta",
+        "message": "Atentionarea unei optiuni incompatibile",
         "description": ""
     },
     "informaction_tip": {
-        "message": "Heimsækja vefsíðu InformAction",
+        "message": "Vizitați pagina de pornire InformAction",
         "description": ""
     },
     "license": {
-        "message": "Notkunarleyfi",
+        "message": "License",
         "description": ""
     },
     "license_tip": {
-        "message": "Lesa notkunarleyfi endanotenda",
+        "message": "Citiți licența de utilizator final",
         "description": ""
     },
     "logo_tip": {
-        "message": "Heimsækja vefsíðu viðbótar",
+        "message": "Vizitați pagina principală a acestei extensii",
         "description": ""
     },
     "metaRefresh_notify": {
-        "message": "NoScript lokaði á <META> endurbeiningu innan í <NOSCRIPT> einindi: $1 á $2 sekúndum.",
+        "message": "NoScript a blocat un <META> redirecționarea în interiorul unui <NOSCRIPT> element: $1 în $2 secunde.",
         "description": ""
     },
     "Reload": {
-        "message": "Endurhlaða",
+        "message": "Reincarca",
         "description": ""
     },
     "removal_message": {
-        "message": "Með því að fjarlægja eða gera NoScript óvirkt, gefur þú á bátinn ALLAR þær varnir sem NoScript býður.\n\nEf þú ert bara þreytt(ur) á að gefa skriftum heimildir fyrir hvert vefsvæði fyrir sig, þá er samt til öruggari kostur.\n\nNoScript getur hætt að loka á skriftur, nema þær sem þú treystir ekki, en samt notað þróaðar varnaraðgerðir til að verja þig fyrir XSS, Clickjacking, CSRF og fleiri ógnum á veraldarvefnum.\n\nErtu viss um að þú viljir fjarlægja ALLAR varnir NoScript?\n",
+        "message": "Prin a dezactiva sau dezinstala NoScript, predai protectia oferita de catre NoScript.\n\nDaca te-ai plictisit de a controla permisiunea scripturilor pagina cu pagina, exista o varianta mai sigura.\n\nNoScript poate bloca scripturile, inafara de cele pe care le marchezii ca fiind sigure, continuand protejarea ta prin intermediul celor mai avansate masuri de siguranta impotriva XSS, Clickjacking, CSRF si a altor amenintari web.\n\nChiar doresti sa stergi TOATA protectia oferita de NoScript?\n",
         "description": ""
     },
     "removal_no": {
-        "message": "Nei, bara hætta að loka á skriftur",
+        "message": "Nu, inceteaza blocarea scripturilor.",
         "description": ""
     },
     "removal_title": {
-        "message": "Aðvörun vegna rýrnunar á öryggi",
+        "message": "Atentionare pentru un downgrade al securitatii",
         "description": ""
     },
     "removal_yes": {
-        "message": "Já, fjarlægja ALLAR varnir",
+        "message": "Da, sterge TOATE protectiile",
         "description": ""
     },
     "reset_title": {
-        "message": "Endurstilla NoScript",
+        "message": "Reseteaza NoScript",
         "description": ""
     },
     "reset_warning": {
-        "message": "ALLAR kjörstillingar og heimildir vefsvæða í NoScript verða tafarlaust frumstilltar á sjálfgefin gildi.\nEkki er hægt að afturkalla þessa aðgerð.\nErtu viss um að þú viljir halda áfram?",
+        "message": "TOATE preferintele si permisiunile ale NoScript catre site-uri vor fii resetate la valorile initiale imediat.\nAceasta actiune nu poate fi reversata.\nDoresti sa continui?",
         "description": ""
     },
     "siteInfo_confirm": {
-        "message": "Þú ert í þann mund að fara að biðja um upplýsingar um \"$1\" vefsvæðið\nmeð því að senda beiðni til $2.\nViltu halda áfram?",
+        "message": "Sunteți pe cale să solicitați informații despre \"$1\" site\nprin trimiterea unei cereri de informații la $2.\nDoriți să continuați?",
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Miðju-músarsmellur eða Shift-smella til að sjá upplýsingar um vefsvæði...",
+        "message": "Middle-click sau shift+click pentru a informatii despre site...",
         "description": ""
     },
     "sponsor_tip": {
-        "message": "Heimsækja vefsíðu stuðningsaðila",
+        "message": "Vizitați pagina de start a sponsorului",
         "description": ""
     },
     "unsafeReload_warning": {
-        "message": "Endurhleð ÓÖRUGGT grunsamlegu\n\n$1 [$2]\n\nFRÁ [$3]\n\nNoScript mun EKKI verja þessa beiðni!\n",
+        "message": "UNSAFELY reîncărcare a ceva suspect\n\n$1 [$2]\n\nDE LA [$3]\n\nNoScript NU va proteja această cerere!\n",
         "description": ""
     },
     "untrustedOrigin": {
-        "message": "ótreystur uppruni",
+        "message": "origine necunoscuta",
         "description": ""
     },
     "version": {
-        "message": "Útgáfa $1",
+        "message": "Versiune $1",
         "description": ""
     },
     "versionShort": {
-        "message": "útg. $1",
+        "message": "v $1",
         "description": ""
     },
     "settingsThemeLabel": {
-        "message": "Þema",
+        "message": "Temă",
         "description": ""
     },
     "themeDark": {
-        "message": "Dökkt",
+        "message": "Întunecat",
         "description": ""
     },
     "themeLight": {
-        "message": "Ljóst",
+        "message": "Lumină",
         "description": ""
     },
     "themeAuto": {
-        "message": "Sjálfvirkt",
+        "message": "Auto",
         "description": ""
     },
     "ModernRed": {
-        "message": "Nútímalegt rautt",
+        "message": "Roșu modern",
         "description": ""
     },
     "VintageBlue": {
-        "message": "Gamaldags blátt",
+        "message": "Albastru de epocă",
         "description": ""
     },
     "toVintageBlue": {
-        "message": "Skipta yfir í gamaldags bláa stílinn",
+        "message": "Treci la stilul Vintage Blue",
         "description": ""
     },
     "DonateShort": {
-        "message": "Styrkja",
+        "message": "Donație",
         "description": ""
     },
     "DonateLong": {
-        "message": "NoScript er frjáls og opinn hugbúnaður og gæti ekki verið til án hjálpar þinnar. Íhugaðu að styrkja okkur núna!",
+        "message": "NoScript este un software gratuit și nu poate exista fără ajutorul dumneavoastră. Vă rugăm să donați acum!",
         "description": ""
     },
     "TabGuard_label": {
-        "message": "Vörn gegn auðkennaleka milli flipa",
+        "message": "Protecție împotriva scurgerii de identitate Cross-tab",
         "description": ""
     },
     "TabGuard_optEnabled": {
-        "message": "Virkjað allsstaðar",
+        "message": "Activat peste tot",
         "description": ""
     },
     "TabGuard_optIncognito": {
-        "message": "Einungis virkjað í einkavafri",
+        "message": "Activat numai în Navigare privată",
         "description": ""
     },
     "TabGuard_optDisabled": {
-        "message": "Óvirkt",
+        "message": "Dezactivat",
         "description": ""
     },
     "TabGuard_forget": {
-        "message": "Gleyma fyrri ákvörðunum",
+        "message": "Uitați de decizii",
         "description": ""
     },
     "TabGuard_title": {
-        "message": "Mögulegur auðkennaleki",
+        "message": "Scurgere potențială de identitate",
         "description": ""
     },
     "TabGuard_message": {
-        "message": "Þú ert að fara að hlaða inn síðu frá $1.\nEf þú ert notandi skráður inn á $1, geta upplýsingar um auðkennin þín komist í hendurnar á $2.",
+        "message": "Sunteți pe cale să încărcați o pagină din $1.\nDacă sunteți un $1 utilizator logat, informațiile despre identitatea dumneavoastră pot fi obținute de către$2.",
         "description": ""
     },
     "TabGuard_optAnonymize": {
-        "message": "Hlaða nafnlaust",
+        "message": "Încărcați în mod anonim",
         "description": ""
     },
     "TabGuard_optAllow": {
-        "message": "Hlaða eðlilega",
+        "message": "Încărcați normal",
         "description": ""
     }
 }

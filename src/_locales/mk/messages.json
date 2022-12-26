@@ -876,7 +876,7 @@
         "description": ""
     },
     "reset_warning": {
-        "message": "СИТЕ параметри на NoScript и дозволи на веб страните ќе бидат вратени на нивните стандардни вредности веднаш.\nОваа команда е неповратна.\nДали сакате да продолжите?",
+        "message": "СИТЕ преферирања на NoScript и дозволи на веб страните ќе бидат вратени на нивните стандардни вредности веднаш.\nОваа команда е неповратна.\nДали сакате да продолжите?",
         "description": ""
     },
     "siteInfo_confirm": {
@@ -941,6 +941,42 @@
     },
     "DonateLong": {
         "message": "NoScript е Слободен Софтвер и не може да постои без твоја помош. Ве молиме донирајте сега!",
+        "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Заштита од протекување на идентитетот меѓу табовите",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Овозможи насекаде",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Овозможи само во Приватно прелистување",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Оневозможено",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Заборави одлуки",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Потенцијално протекување на идентитет",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Ќе отворите страна од $1.\nАко сте $1 најавен корисник, информацијата за вашиот идентитет може да биде здобиена од $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Отвори анонимно",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Отвори нормално",
         "description": ""
     }
 }

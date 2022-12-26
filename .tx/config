@@ -1,9 +1,10 @@
 [main]
 host = https://www.transifex.com
 
-[noscript.messagesjson]
-file_filter = src/_locales/<lang>/messages.json
-minimum_perc = 100 
-source_file = src/_locales/en/messages.json
-source_lang = en_US
-type = CHROME
+[o:otf:p:noscript:r:messagesjson]
+file_filter  = src/_locales/<lang>/messages.json
+source_file  = src/_locales/en/messages.json
+source_lang  = en_US
+type         = CHROME
+minimum_perc = 100
+
