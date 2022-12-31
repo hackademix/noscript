@@ -245,7 +245,7 @@ ongotpointercapture
 onlostpointercapture
 ondevicemotion
 ondeviceorientation
-onabsolutedeviceorientation
+ondeviceorientationabsolute
 onmozorientationchange
 onuserproximity
 ondevicelight
@@ -364,6 +364,7 @@ onupdate
 onupdateend
 onaddsourcebuffer
 onremovesourcebuffer
+onabsolutedeviceorientation
 onHiddenPlugin
 onPluginBindingAttached
 onPluginInstantiated
