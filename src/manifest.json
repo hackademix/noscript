@@ -114,16 +114,10 @@
     },
     {
       "run_at": "document_start",
-      "matches": ["ftp://*/*"],
-      "js": [
-        "content/ftp.js"
-      ]
-    },
-    {
-      "run_at": "document_start",
       "matches": ["file://*/*", "ftp://*/*"],
       "all_frames": true,
       "js": [
+        "content/ftp.js",
         "lib/DocumentFreezer.js",
         "content/syncFetchPolicy.js"
       ]

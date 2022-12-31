@@ -19,13 +19,13 @@
  */
 
 if (UA.isMozilla) (() => {
-  // see https://dxr.mozilla.org/mozilla-central/rev/d03b538b6b417ba892d0a92fd693945b741246e1/netwerk/streamconv/converters/nsIndexedToHTML.cpp#381
+  // see https://searchfox.org/mozilla-central/rev/76c1ff5f0de23366fe952ab228610ee695a56e68/netwerk/streamconv/converters/nsIndexedToHTML.cpp#334
   'use strict';
   var gTable, gOrderBy, gTBody, gRows, gUI_showHidden;
   document.addEventListener("DOMContentLoaded", function() {
     if ("gUI_showHidden" in window.wrappedJSObject || // scripts are enabled
         !(document.scripts[0] &&
-          /\bgUI_showHidden\b/.test(document.scripts[0].textContent)) // not a FTP dir listing
+          /\bgUI_showHidden\b/.test(document.scripts[0].textContent)) // not a FTP / file:// dir listing
     ) {
       return;
     }

@@ -152,8 +152,10 @@
           new Set(["script"]), { has() { return true; } });
       } else {
         let perms = policy.permissions;
-        if (!perms.capabilities.includes("script") && /^file:\/\/\/(?:[^#?]+\/)?$/.test(document.URL)) {
-          // allow browser UI scripts for directory navigation
+        if (!(UA.isMozilla || perms.capabilities.includes("script")) &&
+          /^file:\/\/\/(?:[^#?]+\/)?$/.test(document.URL)) {
+          // Allow Chromium browser UI scripts for directory navigation
+          // (for Firefox we rely on emulation in content/ftp.js).
           perms.capabilities.push("script");
         }
         this.capabilities = new Set(perms.capabilities);
