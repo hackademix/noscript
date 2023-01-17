@@ -126,7 +126,7 @@
         toggleCtxMenuItem();
         browser.contextMenus.onClicked.addListener((info, tab) => {
           if (info.menuItemId == ctxMenuId) {
-            this.openPageUI();
+            messageHandler.openStandalonePopup(tab);
           }
         });
       }
@@ -196,23 +196,24 @@
         ns.computeChildPolicy)(...arguments);
     },
 
-    async openStandalonePopup() {
-      let [tab] = (await browser.tabs.query({
+    async openStandalonePopup(tab) {
+      if (!tab) tab = (await browser.tabs.query({
         currentWindow: true,
         active: true
-      }));
+      }))[0];
 
       if (!tab || tab.id === -1) {
         log("No tab found to open the UI for");
         return;
       }
-      let win = await browser.windows.getCurrent();
+      let win = await browser.windows.get(tab.windowId);
+      let width = 610, height = 400;
       browser.windows.create({
         url: popupFor(tab.id),
-        width: 800,
-        height: 600,
-        top: win.top + 48,
-        left: win.left + 48,
+        width,
+        height,
+        top: win.top + Math.round((win.height - height) / 2),
+        left: win.left +  Math.round((win.width - width) / 2),
         type: "panel"
       });
     },
