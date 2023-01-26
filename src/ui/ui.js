@@ -70,8 +70,13 @@ var UI = (() => {
               if (!UI.local.debug) {
                 debug = () => {}; // be quiet!
               }
-              document.documentElement.classList.toggle("tor", !!UI.local.isTorBrowser);
               if (UI.local.isTorBrowser) {
+                let label = document.querySelector("span.tor");
+                if (label) {
+                  label.textContent = label.textContent.replace(/\bTor Browser\b/g,
+                    (await browser.runtime.getBrowserInfo()).name)
+                }
+                document.documentElement.classList.add("tor");
                 Sites.onionSecure = true;
               }
             }
