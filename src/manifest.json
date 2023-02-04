@@ -138,8 +138,8 @@
   },
 
   "commands": {
-    "_execute_browser_action": {
-      "description": "NoScript UI",
+    "openPageUI": {
+      "description": "__MSG_pagePermissionsUI__",
       "suggested_key": {
         "default": "Alt+Shift+N"
       }

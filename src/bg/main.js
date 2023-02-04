@@ -92,23 +92,8 @@
   };
 
   let Commands = {
-    async openPageUI() {
-      if (ns.popupOpening) return;
-      ns.popupOpening = true;
-      ns.popupOpened = false;
-      let openPanel = async () => {
-        ns.popupOpening = false;
-        if (ns.popupOpened) return;
-        messageHandler.openStandalonePopup();
-      };
-      try {
-        await browser.browserAction.openPopup();
-        setTimeout(openPanel, 500);
-        return;
-      } catch (e) {
-        openPanel();
-        debug(e);
-      }
+    openPageUI() {
+      messageHandler.openStandalonePopup();
     },
 
     async toggleEnforcementForTab() {
