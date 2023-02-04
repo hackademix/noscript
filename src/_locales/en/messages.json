@@ -176,6 +176,9 @@
   "EnforceForTab": {
     "message": "Enable restrictions for this tab"
   },
+  "toggleEnforcementForTab": {
+    "message": "Toggle restrictions enforcement for current tab"
+  },
   "HighContrast": {
     "message": "High contrast"
   },

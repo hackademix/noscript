@@ -144,10 +144,10 @@
         "default": "Alt+Shift+N"
       }
     },
-    "togglePermissions": {
-      "description": "Toggle permissions",
+    "toggleEnforcementForTab": {
+      "description": "__MSG_toggleEnforcementForTab__",
       "suggested_key": {
-        "default": "Ctrl+Shift+T"
+        "default": "Alt+Shift+Space"
       }
     }
   }

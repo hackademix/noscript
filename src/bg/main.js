@@ -111,9 +111,19 @@
       }
     },
 
-    togglePermissions() {},
-    install() {
-      if ("command" in browser) {
+    async toggleEnforcementForTab() {
+      let [tab] = (await browser.tabs.query({
+        currentWindow: true,
+        active: true
+      }));
+      if (tab) {
+        let toggle = ns.unrestrictedTabs.has(tab.id) ? "delete" : "add";
+        ns.unrestrictedTabs[toggle](tab.id);
+        browser.tabs.reload(tab.id);
+      }
+    },
+    async install() {
+      if ("commands" in browser) {
         // keyboard shortcuts
         browser.commands.onCommand.addListener(cmd => {
           if (cmd in Commands) {
