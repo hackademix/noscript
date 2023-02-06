@@ -235,6 +235,14 @@
         "message": "启用此标签页的限制",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "切换当前标签页限制的强制执行",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "配置当前页面的权限",
+        "description": ""
+    },
     "HighContrast": {
         "message": "高对比度",
         "description": ""

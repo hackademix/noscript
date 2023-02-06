@@ -235,6 +235,14 @@
         "message": "Aktivizoji kufizimet për këtë skedë",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Aktivizoni/çaktivizoni detyrim kufizimesh për skedën e tanishme",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Formësoni leje të faqes së tanishme",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Me shumë kontrast",
         "description": ""

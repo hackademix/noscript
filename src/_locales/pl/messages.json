@@ -235,6 +235,14 @@
         "message": "Włącz ograniczenia dla tej karty",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Przełącz egzekwowanie ograniczeń dla bieżącej karty",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Skonfiguruj uprawnienia dla bieżącej strony",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Wysoki kontrast",
         "description": ""
@@ -300,7 +308,7 @@
         "description": ""
     },
     "OptAmnesticUpdates": {
-        "message": "Cofnij tymczasowe uprawnienia do aktualizacji NoScript, nawet jeśli przeglądarka nie zostanie ponownie uruchomiona",
+        "message": "Cofnij tymczasowe uprawnienia podczas aktualizacji NoScript, nawet jeśli przeglądarka nie jest ponownie uruchomiona",
         "description": ""
     },
     "KeepLocked": {

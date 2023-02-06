@@ -235,6 +235,14 @@
         "message": "Включить ограничения для этой вкладки",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Принудительное переключение ограничений для текущей вкладки",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Настройка разрешений текущей страницы",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Высокий контраст",
         "description": ""

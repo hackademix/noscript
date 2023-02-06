@@ -235,6 +235,14 @@
         "message": "Einschränkungen für diesen Tab aktivieren",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Einschränkungen für diesen Tab umschalten",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Berechtigungen für die aktuelle Seite konfigurieren",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Hoher Kontrast",
         "description": ""

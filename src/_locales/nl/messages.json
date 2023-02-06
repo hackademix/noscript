@@ -235,6 +235,14 @@
         "message": "Beperkingen voor dit tabblad inschakelen",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Afdwingen van beperkingen voor huidige tabblad in-/uitschakelen",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Toestemmingen voor huidige pagina configureren",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Hoog contrast",
         "description": ""
