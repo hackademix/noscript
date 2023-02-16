@@ -235,6 +235,14 @@
         "message": "Kısıtlamalar bu sekme için etkinleştirilsin",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Geçerli sekme için uygulanacak kısıtlamaları değiştir",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Geçerli sayfanın izinlerini yapılandır",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Yüksek karşıtlık",
         "description": ""

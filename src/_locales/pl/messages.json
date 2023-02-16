@@ -56,7 +56,7 @@
         "description": ""
     },
     "AlwaysBlockUntrustedContent": {
-        "message": "Zablokuj każdy obiekt pochodzący z witryny oznaczonej jako niezaufany",
+        "message": "Zablokuj każdy obiekt pochodzący z witryny oznaczonej jako niezaufana",
         "description": ""
     },
     "SectionAppearance": {
@@ -156,7 +156,7 @@
         "description": ""
     },
     "Default": {
-        "message": "Domyślne",
+        "message": "Domyślnie",
         "description": ""
     },
     "DefaultPolicies": {
@@ -540,19 +540,19 @@
         "description": ""
     },
     "Trusted": {
-        "message": "Zaufane",
+        "message": "Zaufana",
         "description": ""
     },
     "Trusted_temporary": {
-        "message": "Tymczas. ZAUFANE",
+        "message": "Tymczas. ZAUFANA",
         "description": ""
     },
     "Trusted_permanent": {
-        "message": "ZAUFANE",
+        "message": "ZAUFANA",
         "description": ""
     },
     "TrustedPagesAdj": {
-        "message": "zaufane",
+        "message": "zaufana",
         "description": ""
     },
     "Uninstall": {
@@ -572,7 +572,7 @@
         "description": ""
     },
     "Untrust": {
-        "message": "Oznacz jako Niezaufane",
+        "message": "Oznacz jako Niezaufaną",
         "description": ""
     },
     "Untrust_accesskey": {
@@ -580,11 +580,11 @@
         "description": ""
     },
     "Untrusted": {
-        "message": "Niezaufane",
+        "message": "Niezaufana",
         "description": ""
     },
     "UntrustedPagesAdj": {
-        "message": "niezaufane",
+        "message": "niezaufana",
         "description": ""
     },
     "WebAddress": {
