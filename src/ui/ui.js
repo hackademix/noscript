@@ -71,10 +71,12 @@ var UI = (() => {
                 debug = () => {}; // be quiet!
               }
               if (UI.local.isTorBrowser) {
-                let label = document.querySelector("span.tor");
+                const label = document.querySelector("span.tor");
                 if (label) {
-                  label.textContent = label.textContent.replace(/\bTor Browser\b/g,
-                    (await browser.runtime.getBrowserInfo()).name)
+                  const browserName = (await browser.runtime.getBrowserInfo()).name;
+                  if (browserName !== "Firefox") {
+                    label.textContent = browserName;
+                  }
                 }
                 document.documentElement.classList.add("tor");
                 Sites.onionSecure = true;
