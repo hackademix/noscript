@@ -147,7 +147,8 @@
     "toggleEnforcementForTab": {
       "description": "__MSG_toggleEnforcementForTab__",
       "suggested_key": {
-        "default": "Alt+Shift+Space"
+        "default": "Alt+Shift+Space",
+        "windows": "Alt+Shift+Comma"
       }
     }
   }
