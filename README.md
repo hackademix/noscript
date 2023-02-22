@@ -1,3 +1,8 @@
+<!--
+Copyright (C) 2005-2023 Giorgio Maone <https://maone.net>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 
 <br>
 
