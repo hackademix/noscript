@@ -235,6 +235,14 @@
         "message": "Activer les restrictions pour cet onglet",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Activer ou désactiver l’application de restrictions pour l’onglet actuel",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Configurer les autorisations de la page actuelle",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Contraste élevé",
         "description": ""
@@ -296,7 +304,7 @@
         "description": ""
     },
     "OptIncognitoPerm": {
-        "message": "Permettre de définir des autorisations permanentes en mode de navigation privée.\nATTENTION : des renseignements pourraient être divulgués !",
+        "message": "Permettre de définir des autorisations permanentes en mode de navigation privée.\nATTENTION : des renseignements pourraient être divulgués.",
         "description": ""
     },
     "OptAmnesticUpdates": {
@@ -941,6 +949,42 @@
     },
     "DonateLong": {
         "message": "NoScript est un logiciel libre et gratuit qui ne peut pas exister sans votre aide. Veuillez faire un don dès maintenant.",
+        "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Protection contre la fuite d’identité interonglets",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Activer partout",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Activer seulement en navigation privée",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Désactivée",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Oublier les décisions",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Fuite possible d’identité",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Vous êtes sur le point de charger une page de $1.\nSi vous êtes un utilisateur connecté à $1, des renseignements sur votre identité pourraient être recueillis par $2",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Charger anonymement",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Chargé normalement",
         "description": ""
     }
 }
