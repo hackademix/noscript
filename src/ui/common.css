@@ -9,7 +9,7 @@ body {
   background-color: var(--bg-color2);
   color: var(--text-color);
   font-size: 12px;
-  font-family: sistem-ui, sans-serif;
+  font-family: system-ui, sans-serif;
   font: use-system-font;
 }
 
