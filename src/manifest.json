@@ -108,6 +108,7 @@
         "content/staticNS.js",
         "/nscl/content/media.js",
         "/nscl/content/webglHook.js",
+        "/nscl/content/promptHook.js",
         "content/embeddingDocument.js",
         "content/content.js"
       ]
