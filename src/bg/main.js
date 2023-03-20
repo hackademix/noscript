@@ -229,6 +229,14 @@
         reader.readAsDataURL(blob);
       });
     },
+
+    async promptHook(msg, {tabId}) {
+      await browser.tabs.executeScript(tabId, {
+        code: "try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}",
+        matchAboutBlank: true,
+        allFrames: true,
+      });
+    }
   };
 
   function onSyncMessage(msg, sender) {
