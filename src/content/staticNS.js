@@ -85,7 +85,7 @@
         return;
       }
 
-      if (origin !== 'null' && window.location.origin !== origin) {
+      if (origin !== 'null' && (window.location.origin !== origin || url.startsWith(`blob:${origin}/`))) {
         debug("Fetching policy for actual URL %s (was %s)", origin, url);
         url = origin;
       }
