@@ -235,6 +235,14 @@
         "message": "Овозможи ги забраните за овој таб",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Вклучи присилни забрани за моменталниот таб",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Конфигурирај ги дозволоите за моменталната страна",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Висок контраст",
         "description": ""
