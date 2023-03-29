@@ -75,7 +75,7 @@ var UI = (() => {
                 if (label) {
                   const browserName = (await browser.runtime.getBrowserInfo()).name;
                   if (browserName !== "Firefox") {
-                    label.textContent = browserName;
+                    label.textContent = label.textContent.replace(/\bTor Browser\b/g, browserName);
                   }
                 }
                 document.documentElement.classList.add("tor");
