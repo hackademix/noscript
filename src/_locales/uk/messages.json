@@ -235,6 +235,14 @@
         "message": "Увімкнути обмеження для цієї вкладки",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Ввімкнути обмеження для поточної вкладки",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Налаштувати дозволи поточної сторінки",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Високий контраст",
         "description": ""
