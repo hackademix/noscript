@@ -10,7 +10,6 @@ body {
   color: var(--text-color);
   font-size: 12px;
   font-family: system-ui, sans-serif;
-  font: use-system-font;
 }
 
 html.mobile > body {
