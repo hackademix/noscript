@@ -70,11 +70,15 @@ var Prompts = (() => {
       if (width && height && (popupWidth !== width || popupHeight !== height)) {
         left += Math.round((popupWidth - width) / 2);
         top += Math.round((popupHeight - height) / 2);
-      }
-
-      for (let attempts = 2; attempts-- > 0;) // position gets set only 2nd time, moz bug?
         await browser.windows.update(popup.id,
           {left, top, width, height, focused: false});
+      }
+
+      for (let attempts = 2; attempts-- > 0;) {
+        // position gets set only 2nd time, moz bug?
+        await browser.windows.update(popup.id,
+          {left, top, focused: false});
+      }
       if (parent) {
         await browser.windows.update(parent.id, {focused: true});
       }
