@@ -959,6 +959,15 @@
         "message": "Disabilitata",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Se necessario anonimizza le richieste senza avvisare"
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Avvisa prima di anonimizzare le richieste con invio di dati (POST)"
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Avvisa prima di anonimizzare qualunque richiesta"
+    },
     "TabGuard_forget": {
         "message": "Dimentica le eccezioni",
         "description": ""

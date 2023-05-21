@@ -34,6 +34,7 @@ var Defaults = {
         global: false,
         xss: true,
         TabGuardMode: "incognito",
+        TabGuardPrompt: "post",
         cascadeRestrictions : false,
         overrideTorBrowserPolicy: false, // note: Settings.update() on reset will flip this to true
       }

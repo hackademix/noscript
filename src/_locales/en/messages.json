@@ -720,6 +720,15 @@
   "TabGuard_optEnabled": {
     "message": "Enabled everywhere"
   },
+  "TabGuard_optPromptNever": {
+    "message": "Never prompt before anonymization"
+  },
+  "TabGuard_optPromptPost": {
+    "message": "Prompt before anonymizing POST submissions"
+  },
+  "TabGuard_optPromptAlways": {
+    "message": "Prompt before anonymizing any request"
+  },
   "TabGuard_optIncognito": {
     "message": "Enabled in Private Browsing only"
   },

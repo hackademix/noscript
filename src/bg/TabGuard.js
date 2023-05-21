@@ -158,7 +158,12 @@ var TabGuard = (() => {
 
         let quietDomains = filteredGroups[tabDomain];
         if (mainFrame) {
-          let mustPrompt = (!quietDomains || [...otherDomains].some(d => !quietDomains.has(d)));
+          const promptOption = ns.sync.TabGuardPrompt;
+
+          const mustPrompt = promptOption !== "never" &&
+            (promptOption !== "post" || request.method === "POST") &&
+            (!quietDomains || [...otherDomains].some(d => !quietDomains.has(d)));
+
           if (mustPrompt) {
             return (async () => {
               let options = [
@@ -169,7 +174,9 @@ var TabGuard = (() => {
                 title: _("TabGuard_title"),
                 message: _("TabGuard_message", [tabDomain, [...otherDomains].join(", ")]),
                 options});
-              if (ret.button !== 0) return {cancel: true};
+              if (ret.button !== 0) {
+                return {cancel: true};
+              }
               let list = ret.option === 0 ? filteredGroups : allowedGroups;
               otherDomains.add(tabDomain);
               for (let d of otherDomains) list[d] = otherDomains;

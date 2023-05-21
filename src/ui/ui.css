@@ -11,8 +11,13 @@
   flex-flow: row wrap;
   padding: .5em 0;
 }
+
 :is(section, .opt-group) ~ :is(.opt-group, section, fieldset) {
-  border-top: 2px dotted var(--bg-color1);
+  border-top: 2px solid var(--tab-color1);
+}
+
+fieldset > .opt-group ~ .opt-group {
+  border: none;
 }
 
 .opt-group > span {
@@ -21,6 +26,8 @@
   flex-flow: row;
   align-items: baseline;
 }
+
+.opt-group input[type="radio"] ~ label { margin-right: 1em};
 
 @media (max-width: 550px) {
 
