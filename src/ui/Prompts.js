@@ -43,7 +43,6 @@ var Prompts = (() => {
         type: "popup",
         width,
         height,
-        focused: false, // initially in the background while sizing
       };
       if (UA.isMozilla) {
         options.allowScriptsToClose = true;
