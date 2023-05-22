@@ -632,7 +632,6 @@ var RequestGuard = (() => {
 
       normalizeRequest(request);
       let result = ALLOW;
-      let promises = [];
       let headersModified = false;
 
       pending.headersProcessed = true;
@@ -673,11 +672,6 @@ var RequestGuard = (() => {
         }
       } catch (e) {
         error(e, "Error in onHeadersReceived", request);
-      }
-
-      promises = promises.filter(p => p instanceof Promise);
-      if (promises.length > 0) {
-        return Promise.all(promises).then(() => result);
       }
 
       return result;
