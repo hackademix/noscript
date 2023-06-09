@@ -27,6 +27,8 @@ var TabGuard = (() => {
     anonymizedTabs.delete(tab.id);
   });
 
+  const anonymizedRequests = new Set();
+
   let allowedGroups, filteredGroups;
   let forget = () => {
     allowedGroups = {};
@@ -53,9 +55,11 @@ var TabGuard = (() => {
 
   return {
     forget,
-    check(request) {
+    onSend(request) {
       const mode = ns.sync.TabGuardMode;
       if (mode === "off" || !request.incognito && mode!== "global") return;
+
+      anonymizedRequests.delete(request.id);
 
       const {tabId, type, url, originUrl} = request;
 
@@ -160,6 +164,7 @@ var TabGuard = (() => {
           requestHeaders = requestHeaders.filter(h => !AUTH_HEADERS_RX.test(h.name));
           debug("[TabGuard] Removing auth headers from %o (%o)", request, requestHeaders);
           anonymizedTabs.set(tabId, {tabDomain, otherDomains: [...otherDomains]});
+          anonymizedRequests.add(request.id);
           return {requestHeaders};
         };
 
@@ -195,12 +200,16 @@ var TabGuard = (() => {
         return mustFilter ? filterAuth() : null;
       })();
     },
-    postCheck(request) {
+    onCleanup(request) {
       let {requestId, tabId} = request;
       if (scheduledCuts.has(requestId)) {
         scheduledCuts.delete(requestId);
         TabTies.cut(tabId);
       }
+      anonymizedRequests.delete(request.id);
+    },
+    isAnonymizedRequest(requestId) {
+      return anonymizedRequests.has(requestId);
     },
     isAnonymizedTab(tabId) {
       return anonymizedTabs.has(tabId);

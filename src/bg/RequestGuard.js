@@ -589,7 +589,7 @@ var RequestGuard = (() => {
       if (pending && pending.redirected && pending.redirected.url === request.url) {
         return lanRes; // don't go on stripping cookies if we're in a redirection loop
       }
-      let chainNext = r => r === ABORT ? r : TabGuard.check(request);
+      let chainNext = r => r === ABORT ? r : TabGuard.onSend(request);
       return lanRes instanceof Promise ? lanRes.then(chainNext) : chainNext(lanRes);
     },
 
@@ -688,7 +688,7 @@ var RequestGuard = (() => {
       let {requestId, url, tabId, frameId, type} = request;
       if (type === "main_frame") {
         TabStatus.initTab(tabId);
-        TabGuard.postCheck(request);
+        TabGuard.onCleanup(request);
       }
       let scriptBlocked = request.responseHeaders.some(
         h => csp.isMine(h) && csp.blocks(h.value, "script")
@@ -721,11 +721,11 @@ var RequestGuard = (() => {
           }
         }
       }
-      TabGuard.postCheck(request);
+      TabGuard.onCleanup(request);
     },
     onErrorOccurred(request) {
       pendingRequests.delete(request.requestId);
-      TabGuard.postCheck(request);
+      TabGuard.onCleanup(request);
     }
   };
   function fakeRequestFromCSP(report, request) {
