@@ -91,6 +91,9 @@ var TabGuard = (() => {
               // nav bar or bookmark
               shouldCut = true;
               break;
+            default:
+              // manual reload?
+              shouldCut = tab && tab.url === request.url && tab.active;
           }
         }
         if (shouldCut) {
