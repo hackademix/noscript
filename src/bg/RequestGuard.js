@@ -633,7 +633,6 @@ var RequestGuard = (() => {
       normalizeRequest(request);
       let result = ALLOW;
       let promises = [];
-      let headersModified = false;
 
       pending.headersProcessed = true;
       let {url, documentUrl, tabId, responseHeaders, type} = request;
@@ -658,6 +657,7 @@ var RequestGuard = (() => {
             capabilities && !capabilities.has("script"));
         }
         let header = csp.patchHeaders(responseHeaders, capabilities);
+        let headersModified = TabGuard.onReceive(request);
         /*
         // Uncomment me to disable networking-level CSP for debugging purposes
         header = null;

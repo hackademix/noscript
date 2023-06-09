@@ -55,6 +55,7 @@ var TabGuard = (() => {
 
   return {
     forget,
+    // must be called from a webRequest.onBeforeSendHeaders blocking listener
     onSend(request) {
       const mode = ns.sync.TabGuardMode;
       if (mode === "off" || !request.incognito && mode!== "global") return;
@@ -200,6 +201,21 @@ var TabGuard = (() => {
         return mustFilter ? filterAuth() : null;
       })();
     },
+    // must be called from a webRequest.onHeadersReceived blocking listener
+    onReceive(request) {
+      if (!anonymizedRequests.has(request.id)) return false;
+      let headersModified = false;
+      let {responseHeaders} = request;
+      for (let j = responseHeaders.length; j-- > 0;) {
+        let h = responseHeaders[j];
+        if (h.name.toLowerCase() === "set-cookie") {
+          responseHeaders.splice(j, 1);
+          headersModified = true;
+        }
+      }
+      return headersModified;
+    },
+    // must be called after response headers have been processed or the load has been otherwise terminated
     onCleanup(request) {
       let {requestId, tabId} = request;
       if (scheduledCuts.has(requestId)) {
