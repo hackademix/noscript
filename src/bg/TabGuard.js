@@ -22,6 +22,11 @@
 var TabGuard = (() => {
   (async () => { await include(["/nscl/service/TabCache.js", "/nscl/service/TabTies.js"]); })();
 
+  const anonymizedTabs = new Map();
+  browser.tabs.onRemoved.addListener(tab => {
+    anonymizedTabs.delete(tab.id);
+  });
+
   let allowedGroups, filteredGroups;
   let forget = () => {
     allowedGroups = {};
@@ -64,6 +69,7 @@ var TabGuard = (() => {
 
       const mainFrame = type === "main_frame";
       if (mainFrame) {
+        anonymizedTabs.delete(tabId);
         let headers = flattenHeaders(requestHeaders);
         let shouldCut = false;
         if (headers["sec-fetch-user"] === "?1") {
@@ -153,6 +159,7 @@ var TabGuard = (() => {
         let filterAuth = () => {
           requestHeaders = requestHeaders.filter(h => !AUTH_HEADERS_RX.test(h.name));
           debug("[TabGuard] Removing auth headers from %o (%o)", request, requestHeaders);
+          anonymizedTabs.set(tabId, {tabDomain, otherDomains: [...otherDomains]});
           return {requestHeaders};
         };
 
@@ -195,5 +202,16 @@ var TabGuard = (() => {
         TabTies.cut(tabId);
       }
     },
+    isAnonymizedTab(tabId) {
+      return anonymizedTabs.has(tabId);
+    },
+    getAnonymizedTabInfo(tabId) {
+      // return a deep copy
+      return JSON.parse(JSON.stringify(anonymizedTabs.get(tabId)));
+    },
+    reloadNormally(tabId) {
+      TabTies.cut(tabId);
+      browser.tabs.reload(tabId);
+    }
   }
 })();
