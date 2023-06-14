@@ -165,6 +165,7 @@
       let policy = ns.policy.dry(true);
       let seen = tabId !== -1 ? await ns.collectSeen(tabId) : null;
       let xssUserChoices = await XSS.getUserChoices();
+      let anonymyzedTabInfo =
       await Messages.send("settings", {
         policy,
         seen,
@@ -174,6 +175,7 @@
         unrestrictedTab: ns.unrestrictedTabs.has(tabId),
         tabId,
         xssBlockedInTab: XSS.getBlockedInTab(tabId),
+        anonymyzedTabInfo: TabGuard.isAnonymizedTab(tabId) && TabGuard.getAnonymizedTabInfo(tabId),
       });
     },
 
@@ -236,6 +238,13 @@
         matchAboutBlank: true,
         allFrames: true,
       });
+    },
+
+    async reloadWithCredentials({tabId, remember}) {
+      if (remember) {
+        TabGuard.allow(tabId);
+      }
+      await TabGuard.reloadNormally(tabId);
     }
   };
 

@@ -36,6 +36,18 @@ var TabGuard = (() => {
   };
   forget();
 
+  function mergeGroups(groups, {tabDomain, otherDomains} /* anonymizedTabInfo */) {
+    if (!(tabDomain in groups)) groups[tabDomain] = new Set();
+    let currentGroup = groups[tabDomain];
+    for (let d of otherDomains) {
+      if (!(d in groups)) groups[d] = new Set();
+      // add this domain to the allow/block group of the other tied ones...
+      groups[d].add(tabDomain);
+      // ... and vice-versa
+      currentGroup.add(d);
+    }
+  }
+
   const AUTH_HEADERS_RX = /^(?:authorization|cookie)/i;
 
   function getDomain(u) {
@@ -193,10 +205,9 @@ var TabGuard = (() => {
               if (ret.button !== 0) {
                 return {cancel: true};
               }
-              let list = ret.option === 0 ? filteredGroups : allowedGroups;
-              otherDomains.add(tabDomain);
-              for (let d of otherDomains) list[d] = otherDomains;
-              return list === filteredGroups ? filterAuth() : null;
+              const groups = ret.option === 0 ? filteredGroups : allowedGroups;
+              mergeGroups(groups, {tabDomain, otherDomains});
+              return groups === filteredGroups ? filterAuth() : null;
             })();
           }
         }
@@ -237,9 +248,14 @@ var TabGuard = (() => {
       // return a deep copy
       return JSON.parse(JSON.stringify(anonymizedTabs.get(tabId)));
     },
-    reloadNormally(tabId) {
+    async reloadNormally(tabId) {
       TabTies.cut(tabId);
-      browser.tabs.reload(tabId);
+      await browser.tabs.reload(tabId);
+    },
+    allow(tabId) {
+      if (!TabGuard.isAnonymizedTab(tabId)) return;
+      const info = this.getAnonymizedTabInfo(tabId);
+      mergeGroups(allowedGroups, info);
     }
   }
 })();

@@ -389,9 +389,9 @@ addEventListener("unload", e => {
       window.scrollTo(0, 0);
     }
 
-    function reload() {
+    async function  reload() {
       if (sitesUI) sitesUI.clear();
-      browser.tabs.reload(tabId);
+      await Messages.send("reloadWithCredentials", {tabId});
       pendingReload(false);
     }
 
