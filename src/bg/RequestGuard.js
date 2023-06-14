@@ -169,7 +169,11 @@ var RequestGuard = (() => {
         let iconPath = (await Themes.isVintage()) ? '/img/vintage' : '/img';
         browserAction.setIcon({tabId, path: {64: `${iconPath}/ui-${icon}64.png`}});
       })();
-      browserAction.setBadgeText({tabId, text: showBadge ? numBlocked.toString() : ""});
+
+      browserAction.setBadgeText({
+        tabId,
+        text: TabGuard.isAnonymizedTab(tabId) ? "TG" : showBadge ? numBlocked.toString() : ""
+      });
       browserAction.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
       browserAction.setTitle({tabId,
         title: UA.mobile ? "NoScript" : `${VERSION_LABEL} \n${enforced ?
