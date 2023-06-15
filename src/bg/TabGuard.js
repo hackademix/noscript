@@ -123,6 +123,9 @@ var TabGuard = (() => {
           debug("[TabGuard] User-activated same-site navigation, loading with auth.", tabId, request);
           return;
         }
+      } else if (!anonymizedTabs.has(tabId)) {
+        // short circuit requests in non-anonymized tabs
+        return;
       }
 
       let targetDomain = getDomain(url);
