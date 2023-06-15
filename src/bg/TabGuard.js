@@ -89,32 +89,39 @@ var TabGuard = (() => {
         anonymizedTabs.delete(tabId);
         let headers = flattenHeaders(requestHeaders);
         let shouldCut = false;
+        let safeAuth = false;
         if (headers["sec-fetch-user"] === "?1") {
           // user-activated navigation
           switch(headers["sec-fetch-site"]) {
             case "same-site":
             case "same-origin":
-              // cut only if same site & same tab
+              // Same site manual navigation:
+              // cut only if same tab (prevents automatic redirections to victim sites in new tabs)
               shouldCut = tab && originUrl === tab.url && ![...TabTies.get(tabId)]
                 .filter(tid => tid !== tabId).map(TabCache.get)
                 .some(t => t && t.url === originUrl);
+              // either way we can send authorization data
+              safeAuth = true;
               break;
             case "none":
               // nav bar or bookmark
-              shouldCut = true;
+              safeAuth = shouldCut = true;
               break;
             default:
-              // manual reload?
-              shouldCut = tab && tab.url === request.url && tab.active;
+              // cut only on manual reloads
+              safeAuth = shouldCut = tab && tab.url === request.url && tab.active;
           }
         }
         if (shouldCut) {
-          debug("[TabGuard] User-typed, bookmark or user-activated same-site-same-tab navigation: scheduling tab ties cut.", tabId, request);
+          debug("[TabGuard] User-typed, bookmark or user-activated same-site-same-tab navigation: scheduling tab ties cut and loading with auth.", tabId, request);
           scheduledCuts.add(request.requestId);
-          return;
         } else {
           debug("[TabGuard] Automatic or cross-site navigation, keeping tab ties.", tabId, request);
           scheduledCuts.delete(request.requestId);
+        }
+        if (safeAuth) {
+          debug("[TabGuard] User-activated same-site navigation, loading with auth.", tabId, request);
+          return;
         }
       }
 
