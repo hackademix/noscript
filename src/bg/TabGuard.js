@@ -162,12 +162,15 @@ var TabGuard = (() => {
             }
             // If it's about:blank and it has got an opener, let's assume the opener
             // is the real origin and it's using the empty tab to run scripts.
-            if (tab.url === "about:blank")  {
-              if (tab.openerTabId > 0) {
-                let openerTab = TabCache.get(tab.openerTabId);
-                if (openerTab) {
-                  tab.url = openerTab.url;
-                }
+            while (tab.url === "about:blank")  {
+              if (!tab.openerTabId) {
+                break;
+              }
+              const openerTab = TabCache.get(tab.openerTabId);
+              if (openerTab) {
+                tab.url = openerTab.url;
+              } else {
+                break;
               }
             }
             if (tab.url !== "about:blank") {
