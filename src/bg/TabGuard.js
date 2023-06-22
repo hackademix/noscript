@@ -178,6 +178,22 @@ var TabGuard = (() => {
               if (!ns.policy.can(tab.url, "script")) return;
             }
           }
+          if (!tab._contentType) {
+            try {
+              tab._contentType = await browser.tabs.executeScript(tab.id, {
+                runAt: "document_start",
+                code: "document.contentType"
+              });
+            } catch (e) {
+              // We don't have permissions to run in this tab: privileged!
+              debug(e);
+              return;
+            }
+          }
+          if (!/(?:(?:x|ht)ml|svg)\b/i.test(tab._contentType)) {
+            // not a scripting-capable document - maybe a PDF?
+            return;
+          }
           suspiciousDomains.push(getDomain(tab.url));
         }));
 
