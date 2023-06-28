@@ -197,7 +197,9 @@ var TabGuard = (() => {
           suspiciousDomains.push(getDomain(tab.url));
         }));
 
-        let legitDomains = allowedGroups[tabDomain] || new Set([tabDomain]);
+        const legitDomains = allowedGroups[tabDomain] || new Set();
+        legitDomains.add(tabDomain);
+
         let otherDomains = new Set(suspiciousDomains.filter(d => d && !legitDomains.has(d)));
         if (otherDomains.size === 0) return; // no cross-site ties, no party
 
