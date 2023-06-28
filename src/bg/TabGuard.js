@@ -36,15 +36,17 @@ var TabGuard = (() => {
   };
   forget();
 
-  function mergeGroups(groups, {tabDomain, otherDomains} /* anonymizedTabInfo */) {
-    if (!(tabDomain in groups)) groups[tabDomain] = new Set();
-    let currentGroup = groups[tabDomain];
+  function mergeGroups(groups,
+    {tabDomain, otherDomains}, /* anonymizedTabInfo */
+    bidirectional = false) {
+    const currentGroup = groups[tabDomain] || (groups[tabDomain] = new Set());
     for (let d of otherDomains) {
-      if (!(d in groups)) groups[d] = new Set();
-      // add this domain to the allow/block group of the other tied ones...
-      groups[d].add(tabDomain);
-      // ... and vice-versa
       currentGroup.add(d);
+    }
+    if (bidirectional) {
+      for (let d of otherDomains)  {
+        (groups[d] || (groups[d] = new Set())).add(tabDomain);
+      }
     }
   }
 
