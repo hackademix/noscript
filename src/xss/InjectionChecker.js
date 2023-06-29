@@ -934,7 +934,7 @@ XSS.InjectionChecker = (async () => {
         url = url.substring(0, hashPos);
       }
 
-      let parts = url.substring(0, hashPos).split(/[&;]/); // check query string
+      let parts = url.split(/[&;]/); // check query string
       for (let p of parts) {
         var pos = p.indexOf("=");
         if (pos > -1) p = p.substring(pos + 1);
