@@ -690,8 +690,8 @@ var UI = (() => {
         for (let child; child = ctxSelect.firstChild;) child.remove();
         ctxSelect.appendChild(entry("*", _("anySite")));
         if (this.mainDomain) {
-          let key = Sites.optimalKey(this.mainUrl);
-          ctxSelect.appendChild(entry(key, toLabel(key))).selected = key === row.contextMatch;
+          const key = row.contextMatch || Sites.optimalKey(this.mainUrl);
+          ctxSelect.appendChild(entry(key, toLabel(key))).selected = !!row.contextMatch;
         } else {
           if (!row._customPerms) row._customPerms = row.perms;
           let ctxSites = row._customPerms.contextual;
@@ -876,7 +876,7 @@ var UI = (() => {
           if (!hasTemp) hasTemp = perms.temp;
         }
       } else {
-        let top = Sites.optimalKey(this.mainUrl);
+        const top =  this.mainUrl;
         for (let site of sites) {
           let context = top;
           if (site.site) {
