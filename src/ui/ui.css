@@ -27,7 +27,10 @@ fieldset > .opt-group ~ .opt-group {
   align-items: baseline;
 }
 
-.opt-group input[type="radio"] ~ label { margin-right: 1em};
+.opt-group input[type="radio"] ~ label
+{
+  margin-right: 1em;
+}
 
 @media (max-width: 550px) {
 
