@@ -370,7 +370,7 @@ XSS.InjectionChecker = (async () => {
         .replace(/<!--/g, '') // remove HTML comments preamble (see next line)
         .replace(/(^(?:[^/?]*[=;.+-])?)\s*[\[(]+/g, '$1') // remove leading parens and braces
         .replace(this._openIdRx, '_OPENID_SCOPE_=XYZ')
-        .replace(/^[^=]*OPENid\.(\w+)=/gi, "OPENid_\1")
+        .replace(/^[^=]*OPENid\.(\w+)=/gi, "OPENid_$1")
         .replace(this._gmxRx, '_GMX_-_GMX_');
 
       if (expr.indexOf(")") !== -1) expr += ")"; // account for externally balanced parens
