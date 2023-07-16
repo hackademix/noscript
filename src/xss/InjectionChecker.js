@@ -22,6 +22,7 @@ XSS.InjectionChecker = (async () => {
   await include([
     "/nscl/common/SyntaxChecker.js",
     "/nscl/common/Base64.js",
+    "/nscl/common/DebuggableRegExp.js",
     "/nscl/common/Timing.js",
     "/xss/FlashIdiocy.js",
     "/xss/ASPIdiocy.js",
@@ -81,6 +82,18 @@ XSS.InjectionChecker = (async () => {
     },
     set logEnabled(v) {
       this.log = v ? this._log : function() {};
+    },
+
+    _debugging: false,
+    get debugging() {
+      return this._debugging;
+    },
+    set debugging(b) {
+      this.logEnabled = b;
+      for (const rx of ["_maybeJSRx", "_riskyOperatorsRx"]) {
+        if (this[rx].originalRx) this[rx] = this[rx].originalRx;
+        if (b) this[rx] = new DebuggableRegExp(this[rx]);
+      }
     },
 
     escalate: function(msg) {

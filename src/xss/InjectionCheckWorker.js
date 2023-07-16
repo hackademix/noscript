@@ -47,7 +47,7 @@ include("InjectionChecker.js");
       let ic = new (await XSS.InjectionChecker)();
 
       if (debugging) {
-        ic.logEnabled = true;
+        ic.debugging = true;
         debug("[XSS] InjectionCheckWorker started in %s ms (%s).",
           Date.now() - xssReq.timestamp, destUrl);
       } else {
@@ -91,7 +91,7 @@ include("InjectionChecker.js");
     if (msg.handler in Handlers) try {
       await Handlers[msg.handler](msg);
     } catch (e) {
-      postMessage({error: e.message});
+      postMessage({error: `${e.message}\n${e.stack}`});
     }
   }
 
