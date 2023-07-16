@@ -22,6 +22,7 @@ XSS.InjectionChecker = (async () => {
   await include([
     "/nscl/common/SyntaxChecker.js",
     "/nscl/common/Base64.js",
+    "/nscl/common/AsyncRegExp.js",
     "/nscl/common/DebuggableRegExp.js",
     "/nscl/common/Timing.js",
     "/xss/ASPIdiocy.js",
@@ -89,9 +90,17 @@ XSS.InjectionChecker = (async () => {
     },
     set debugging(b) {
       this.logEnabled = b;
+
       for (const rx of ["_maybeJSRx", "_riskyOperatorsRx"]) {
         if (this[rx].originalRx) this[rx] = this[rx].originalRx;
-        if (b) this[rx] = new DebuggableRegExp(this[rx]);
+        if (b) {
+          this[rx] = new DebuggableRegExp(this[rx], rx => {
+            rx = new AsyncRegExp(rx);
+            // uncomment the following to unconditionally offload to the shared worker
+            // rx.forceRemote = true;
+            return rx;
+          });
+        }
       }
     },
 
@@ -123,20 +132,20 @@ XSS.InjectionChecker = (async () => {
       return false;
     },
 
-    checkTemplates(script) {
+    async checkTemplates(script) {
       let templateExpressions = script.replace(/[[\]{}]/g, ";");
       return templateExpressions !== script &&
-        (this.maybeMavo(script) ||
-          (this.maybeJS(templateExpressions, true) &&
+        (await this.maybeMavo(script) ||
+          (await this.maybeJS(templateExpressions, true) &&
             (this.syntax.check(templateExpressions) ||
               /[^><=]=[^=]/.test(templateExpressions) && this.syntax.check(
                 templateExpressions.replace(/([^><=])=(?=[^=])/g, '$1=='))
             )));
     },
 
-    maybeMavo(s) {
+    async maybeMavo(s) {
       return /\[[^]*\([^]*\)[^]*\]/.test(s) && /\b(?:and|or|mod|\$url\b)/.test(s) &&
-        this.maybeJS(s.replace(/\b(?:and|or|mod|[[\]])/g, ',').replace(/\$url\b/g, 'location'), true);
+        await this.maybeJS(s.replace(/\b(?:and|or|mod|[[\]])/g, ',').replace(/\$url\b/g, 'location'), true);
     },
     get breakStops() {
       var def = "\\/\\?&#;\\s\\x00}<>"; // we stop on URL, JS and HTML delimiters
@@ -325,7 +334,7 @@ XSS.InjectionChecker = (async () => {
       "=[^]+\\[" + IC_EVAL_PATTERN + "\\W*\\]" // TODO: check if it can be coalesced into _maybeJSRx
     ),
 
-    _maybeJSRx: new RegExp(
+    _maybeJSRx: new AsyncRegExp(
       '(?:(?:\\[[^]+\\]|\\.\\D)[^;&/\'"]*(?:/[^]*|)' +
       '(?:\\([^]*\\)|[^]*`[^]+`|=[^=][^]*\\S)' +
       // double function call
@@ -358,7 +367,9 @@ XSS.InjectionChecker = (async () => {
     _arrayAccessRx: /\s*\[\d+\]/g,
 
     // inc/dec/self-modifying assignments on DOM props or special properties in object literals via Symbol
-    _riskyOperatorsRx: /(?:\+\+|--)\s*(?:\/[*/][\s\S]+)?(?:(?:\$|\w{3,})(?:\/[*/][\s\S]+)?(?:\[|\.\D)|location)|(?:\]|(?:\$|\w{3,})(?:\/[*/][\s\S]+)?\.[^]+|location)\s*(?:\/[*/][\s\S]+)?(\+\+|--|[+*\/<>~-]+\s*(?:\/[*/][\s\S]+)?=)|\{[^]*\[[^]*Symbol[^]*(?:\.\D|\[)[^]*:/,
+    _riskyOperatorsRx: new AsyncRegExp(
+      /(?:\+\+|--)\s*(?:\/[*/][\s\S]+)?(?:(?:\$|\w{3,})(?:\/[*/][\s\S]+)?(?:\[|\.\D)|location)|(?:\]|(?:\$|\w{3,})(?:\/[*/][\s\S]+)?\.[^]+|location)\s*(?:\/[*/][\s\S]+)?(\+\+|--|[+*\/<>~-]+\s*(?:\/[*/][\s\S]+)?=)|\{[^]*\[[^]*Symbol[^]*(?:\.\D|\[)[^]*:/
+    ),
 
     _assignmentRx: /^(?:[^()="'\s]+=(?:[^(='"\[+]+|[?a-zA-Z_0-9;,&=/]+|[\d.|]+))$/,
     _badRightHandRx: /=[\s\S]*(?:_QS_\b|[|.][\s\S]*source\b|<[\s\S]*\/[^>]*>)/,
@@ -367,12 +378,12 @@ XSS.InjectionChecker = (async () => {
     _openIdRx: /^scope=(?:\w+\+)\w/, // OpenID authentication scope parameter, see http://forums.informaction.com/viewtopic.php?p=69851#p69851
     _gmxRx: /\$\(clientName\)-\$\(dataCenter\)\.(\w+\.)+\w+/, // GMX webmail, see http://forums.informaction.com/viewtopic.php?p=69700#p69700
 
-    maybeJS(expr, mavoChecked = false) {
-      if (!mavoChecked && this.maybeMavo(expr)) return true;
+    async maybeJS(expr, mavoChecked = false) {
+      if (!mavoChecked && await this.maybeMavo(expr)) return true;
 
       if (/`[\s\S]*`/.test(expr) || // ES6 templates, extremely insidious!!!
         this._evalAliasingRx.test(expr) ||
-        this._riskyOperatorsRx.test(expr) // this must be checked before removing dots...
+        await this._riskyOperatorsRx.asyncTest(expr) // this must be checked before removing dots...
       ) return true;
 
       expr = // dotted URL components can lead to false positives, let's remove them
@@ -390,13 +401,13 @@ XSS.InjectionChecker = (async () => {
         return this._singleAssignmentRx.test(expr) || this._riskyAssignmentRx.test(expr) && this._nameRx.test(expr);
 
       return this._riskyParensRx.test(expr) ||
-        this._maybeJSRx.test(expr.replace(this._neutralDotsOrParensRx, '')) &&
+        await this._maybeJSRx.asyncTest(expr.replace(this._neutralDotsOrParensRx, '')) &&
         !this._wikiParensRx.test(expr);
 
     },
 
-    checkNonTrivialJSSyntax: function(expr) {
-      return this.maybeJS(this.reduceQuotes(expr)) && this.checkJSSyntax(expr);
+    async checkNonTrivialJSSyntax(expr) {
+      return await this.maybeJS(this.reduceQuotes(expr)) && this.checkJSSyntax(expr);
     },
 
 
@@ -490,14 +501,14 @@ XSS.InjectionChecker = (async () => {
       return res.join('');
     },
 
-    checkLastFunction: function() {
+    async checkLastFunction() {
       var fn = this.syntax.lastFunction;
       if (!fn) return false;
       var m = fn.toString().match(/\{([\s\S]*)\}/);
       if (!m) return false;
       var expr = this.stripLiteralsAndComments(m[1]);
       let ret =  /=[\s\S]*cookie|\b(?:setter|document|location|(?:inn|out)erHTML|\.\W*src)[\s\S]*=|[\w$\u0080-\uffff\)\]]\s*[\[\(]/.test(expr) ||
-        this.maybeJS(expr);
+        await this.maybeJS(expr);
       if (ret) {
         this.escalate(`${expr} has been flagged as dangerous JS (${RegExp.lastMatch})`);
       }
@@ -563,7 +574,7 @@ XSS.InjectionChecker = (async () => {
         s += ';' + s.match(/\*\/[\s\S]+/);
       }
 
-      if (!this.maybeJS(s)) return false;
+      if (!await this.maybeJS(s)) return false;
 
       const MAX_LOOPS = 1200;
 
@@ -601,7 +612,7 @@ XSS.InjectionChecker = (async () => {
         let breakSeq = m[1];
         let quote = breakSeq in this.breakStops ? breakSeq : '';
 
-        if (!this.maybeJS(quote ? quote + subj : subj)) {
+        if (!await this.maybeJS(quote ? quote + subj : subj)) {
           this.log("Fast escape on " + subj, iterations);
           return false;
         }
@@ -609,7 +620,7 @@ XSS.InjectionChecker = (async () => {
         let script = this.reduceURLs(subj);
 
         if (script.length < subj.length) {
-          if (!this.maybeJS(script)) {
+          if (!await this.maybeJS(script)) {
             this.log("Skipping to first nested URL in " + subj, iterations);
             injectionFinderRx.lastIndex += subj.indexOf("://") + 1;
             continue;
@@ -686,16 +697,16 @@ XSS.InjectionChecker = (async () => {
           }
 
           if (quote) {
-            if (this.checkNonTrivialJSSyntax(expr)) {
+            if (await this.checkNonTrivialJSSyntax(expr)) {
               this.log("Non-trivial JS inside quoted string detected", iterations);
               return true;
             }
             script = this.syntax.unquote(quote + expr, quote);
-            if (script && this.maybeJS(script) &&
-              (this.checkNonTrivialJSSyntax(script) ||
-                /'./.test(script) && this.checkNonTrivialJSSyntax("''" + script + "'") ||
-                /"./.test(script) && this.checkNonTrivialJSSyntax('""' + script + '"')
-              ) && this.checkLastFunction()
+            if (script && await this.maybeJS(script) &&
+              (await this.checkNonTrivialJSSyntax(script) ||
+                /'./.test(script) && await this.checkNonTrivialJSSyntax("''" + script + "'") ||
+                /"./.test(script) && await this.checkNonTrivialJSSyntax('""' + script + '"')
+              ) && await this.checkLastFunction()
             ) {
               this.log("JS quote Break Injection detected", iterations);
               return true;
@@ -715,14 +726,14 @@ XSS.InjectionChecker = (async () => {
             }
           }
 
-          if (this.maybeJS(this.reduceQuotes(script))) {
+          if (await this.maybeJS(this.reduceQuotes(script))) {
 
-            if (this.checkJSSyntax(script) && this.checkLastFunction()) {
+            if (this.checkJSSyntax(script) && await this.checkLastFunction()) {
               this.log("JS Break Injection detected", iterations);
               return true;
             }
 
-            if (this.checkTemplates(script)) {
+            if (await this.checkTemplates(script)) {
               this.log("JS template expression injection detected", iterations);
               return true;
             }
@@ -822,7 +833,7 @@ XSS.InjectionChecker = (async () => {
 
       this.syntax.lastFunction = null;
       let ret = await this.checkAttributes(s) ||
-        (/[\\\(]|=[^=]/.test(s) || this._riskyOperatorsRx.test(s)) && await this.checkJSBreak(s) || // MAIN
+        (/[\\\(]|=[^=]/.test(s) || await this._riskyOperatorsRx.asyncTest(s)) && await this.checkJSBreak(s) || // MAIN
         hasUnicodeEscapes && await this.checkJS(this.unescapeJS(s), true); // optional unescaped recursion
       if (ret) {
         let msg = "JavaScript Injection in " + s;

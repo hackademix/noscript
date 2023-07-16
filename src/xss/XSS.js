@@ -195,8 +195,11 @@ var XSS = (() => {
 
       if (onBeforeRequest.hasListener(requestListener)) return;
 
-      await include("/legacy/Legacy.js");
-      await include("/xss/Exceptions.js");
+      await include([
+        "/nscl/common/AsyncRegExp.js",
+        "/legacy/Legacy.js",
+        "/xss/Exceptions.js"
+      ]);
 
       this._userChoices = (await Storage.get("sync", "xssUserChoices")).xssUserChoices || {};
 
@@ -301,10 +304,13 @@ var XSS = (() => {
       }
 
       let skip = this.Exceptions.partial(xssReq);
+
       let worker = new Worker(browser.runtime.getURL("/xss/InjectionCheckWorker.js"));
+
       let {requestId} = xssReq.request;
-      workersMap.set(requestId, worker)
-      return await new Promise((resolve, reject) => {
+      workersMap.set(requestId, worker);
+      AsyncRegExp.connectWorker(worker);
+      return new Promise((resolve, reject) => {
         worker.onmessage = e => {
           let {data} = e;
           if (data) {
@@ -317,9 +323,17 @@ var XSS = (() => {
               reject(data.error);
               return;
             }
+            if (!("xss" in data)) {
+              // someone else's message to handle
+              return;
+            }
+            if (!data.xss) {
+              // let's simplify the returned value
+              data = null;
+            }
           }
           cleanup();
-          resolve(e.data);
+          resolve(data);
         }
         worker.onerror = worker.onmessageerror = e => {
           cleanup();

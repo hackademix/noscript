@@ -35,9 +35,9 @@ for (let logType of ["log", "debug", "error"]) {
 include("InjectionChecker.js");
 
 {
-  let timingsMap = new Map();
+  const timingsMap = new Map();
 
-  let Handlers = {
+  const Handlers = {
     async check({xssReq, skip}) {
       let {destUrl, request, debugging} = xssReq;
       let {
@@ -72,8 +72,9 @@ include("InjectionChecker.js");
           Date.now() - xssReq.timestamp, destUrl);
       }
 
-      postMessage(!(protectName || postInjection || urlInjection) ? null
-        : { protectName, postInjection, urlInjection }
+      postMessage(!(protectName || postInjection || urlInjection)
+        ? { xss: false }
+        : { xss: true, protectName, postInjection, urlInjection }
       );
     },
 
