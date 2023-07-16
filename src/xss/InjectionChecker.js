@@ -24,12 +24,11 @@ XSS.InjectionChecker = (async () => {
     "/nscl/common/Base64.js",
     "/nscl/common/DebuggableRegExp.js",
     "/nscl/common/Timing.js",
-    "/xss/FlashIdiocy.js",
     "/xss/ASPIdiocy.js",
     "/lib/he.js"]
   );
 
-  var {FlashIdiocy, ASPIdiocy} = XSS;
+  var {ASPIdiocy} = XSS;
 
   const wordCharRx = /\w/g;
 
@@ -1041,14 +1040,6 @@ XSS.InjectionChecker = (async () => {
           return true;
       } else if (ASPIdiocy.hasBadPercents(s) && await this.checkRecursive(ASPIdiocy.removeBadPercents(s), depth, isPost)) {
         return true;
-      }
-      if (FlashIdiocy.affects(s)) {
-        let purged = FlashIdiocy.purgeBadEncodings(s);
-        if (purged !== s && await this.checkRecursive(purged, depth, isPost))
-          return true;
-        let decoded = FlashIdiocy.platformDecode(purged);
-        if (decoded !== purged && await this.checkRecursive(decoded, depth, isPost))
-          return true;
       }
 
       if (!isPost && s.indexOf("coalesced:") !== 0) {
