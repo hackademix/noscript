@@ -1043,7 +1043,7 @@ var UI = (() => {
               break;
             case preset.tempTwin:
               presetName = `T_${p}`;
-              if (!presetName in UI.presets) {
+              if (!(presetName in UI.presets)) {
                 presetName = p;
               }
               break;
