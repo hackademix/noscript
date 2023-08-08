@@ -89,10 +89,10 @@ Messages.addHandler({
     debug("COLLECT", list);
     return list;
   },
-  store(event) {
+  async store(event) {
     if (document.URL !== event.url) return;
-    let {data} = event;
-    let attr = sha256(data.concat(Math.random()));
+    const {data} = event;
+    const attr = await sha256(data.concat(Math.random()));
     document.documentElement.dataset[attr] = data;
     return attr;
   },
