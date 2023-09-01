@@ -24,6 +24,7 @@ XSS.InjectionChecker = (async () => {
     "/nscl/common/Base64.js",
     "/nscl/common/AsyncRegExp.js",
     "/nscl/common/DebuggableRegExp.js",
+    "/nscl/common/RegExpCombo.js",
     "/nscl/common/Timing.js",
     "/xss/ASPIdiocy.js",
     "/lib/he.js"]
@@ -886,13 +887,20 @@ XSS.InjectionChecker = (async () => {
       return false;
     },
 
-    AttributesChecker: new RegExp(
-      "(?:\\W|^)(?:javascript:(?:[^]+[=\\\\\\(`\\[\\.<]|[^]*(?:\\bname\\b|\\\\[ux]\\d))|" +
-      "data:(?:(?:[a-z]\\w+/\\w[\\w+-]+\\w)?[;,]|[^]*;[^]*\\b(?:base64|charset=)|[^]*,[^]*<[^]*\\w[^]*>))|@" +
-      ("import\\W*(?:\\/\\*[^]*)?(?:[\"']|url[^]*\\()" +
-        "|-moz-binding[^]*:[^]*url[^]*\\(|\\{\\{[^]+\\}\\}")
-      .replace(/[a-rt-z\-]/g, "\\W*$&"),
-      "i"),
+    AttributesChecker: RegExp.combo(
+      /(?:\W|^)/i, // beginning or after non-space
+      '(?:',
+        // executable URLs
+        /javascript:(?:[^]+[=\\\(`\[\.<]|[^]*(?:\bname\b|\\[ux]\d))/,
+        /|data:(?:(?:[a-z]\w+\/\w[\w+-]+\w)?[;,]|[^]*;[^]*\b(?:base64|charset=)|[^]*,[^]*<[^]*\w[^]*>)/,
+      ')|',
+      // CSS injection
+      /@import\W*(?:\/\*[^]*)?(?:["']|url[^]*\()|-moz-binding[^]*:[^]*url[^]*\(/
+        .source.replace(/[@a-rt-z\-]/g, "\\W*$&"), // fuzzify keywords
+      // potential JS fragmentation in client-side template framework
+      /|(?:\{\{[^]*\S[^]*}}[^]*){2,}/
+    ),
+
     async checkAttributes(s) {
       s = this.reduceDashPlus(s);
       if (this._rxCheck("Attributes", s)) return true;
