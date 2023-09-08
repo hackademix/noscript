@@ -916,7 +916,7 @@ XSS.InjectionChecker = (async () => {
     GlobalsChecker: /https?:\/\/[\S\s]+["'\s\0](?:id|class|data-\w+)[\s\0]*=[\s\0]*("')?\w{3,}(?:[\s\0]|\1|$)|(?:id|class|data-\w+)[\s\0]*=[\s\0]*("')?\w{3,}(?:[\s\0]|\1)[\s\S]*["'\s\0]href[\s\0]*=[\s\0]*(?:"')?https?:\/\//i,
     HTMLChecker: new RegExp("<[^\\w<>]*(?:[^<>\"'\\s]*:)?[^\\w<>]*(?:" + // take in account quirks and namespaces
       fuzzify("script|form|style|svg|marquee|(?:link|object|embed|applet|param|i?frame|base|body|meta|ima?ge?|video|audio|bindings|set|isindex|animate|template") +
-      ")[^>\\w])|['\"\\s\\0/](?:style|innerhtml|data-bind|(?:data-)?mv-(?:\\w+[\\w-]*)|" + IC_EVENT_PATTERN +
+      ")[^>\\w][^>]+=)|['\"\\s\\0/](?:style|innerhtml|data-bind|(?:data-)?mv-(?:\\w+[\\w-]*)|" + IC_EVENT_PATTERN +
       ")[\\s\\0]*=|<%[^]+[=(][^]+%>", "i"),
 
     async checkHTML(s) {
