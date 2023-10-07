@@ -62,6 +62,7 @@
     addEventListener("load", onload, true);
   }
 
+  let contentCSS;
 
   let root = document.documentElement;
   root.classList.add(PARENT_CLASS);
@@ -141,6 +142,43 @@
       return b;
     },
 
+    async getContentCSS() {
+      contentCSS = contentCSS || (async () => {
+        const replaceAsync = async (string, regexp, replacerFunction) => {
+          const replacements = await Promise.all(
+              Array.from(string.matchAll(regexp),
+                  match => replacerFunction(...match)));
+          let i = 0;
+          return string.replace(regexp, () => replacements[i++]);
+        }
+        const fetchAsDataURL = async (url) => {
+          const blob = await (await fetch(browser.runtime.getURL(url))).blob();
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = e => {
+              resolve(reader.result);
+            };
+            reader.onerror = e => {
+              reject(reader.error);
+            };
+            reader.readAsDataURL(blob);
+          });
+        }
+        const fetchAsText = async (url) => await (await fetch(browser.runtime.getURL(url))).text();
+
+        const themesCSS = (await replaceAsync(await fetchAsText("/common/themes.css"),
+            /(--img-logo:.*url\("?)(.*\.svg)"?/g,
+            async (s, prop, url) => `${prop}"${await fetchAsDataURL(url)}"`
+          ))
+          .replace(/.*\burl\(\.*\/.*\n/g, '')
+          .replace(/\/\*[^]*?\*\//g, '')
+          .replace(/\n+/g, "\n");
+        return (await fetchAsText("/content/content.css"))
+          .replace(/\b(THEMES_START\b.*\n)[^]*(\n.*\bTHEMES_END)\b/g,
+                  `$1${themesCSS}$2`);
+      })();
+      return await contentCSS;
+    }
   };
 
   (async () => {

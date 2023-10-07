@@ -4,6 +4,15 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+ /* THEMES_START */
+
+/*
+  This section gets replaced at runtime with an extract of /themes/themes.css
+  stripped of all the references to extension URLs.
+*/
+
+ /* THEMES_END */
+
 a.__NoScript_PlaceHolder__ {
   outline: 2px solid --var(--accent-color);
   color: var(--text-color) !important;
@@ -15,7 +24,7 @@ a.__NoScript_PlaceHolder__ {
   cursor: pointer;
   opacity: 0.8;
   z-index: 2147483647 !important;
-  background-image: none;
+  background-image: var(--img-logo);
 }
 
 a.__NoScript_PlaceHolder__.mozilla {
