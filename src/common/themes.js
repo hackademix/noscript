@@ -145,9 +145,13 @@
     async getContentCSS() {
       contentCSS = contentCSS || (async () => {
         const replaceAsync = async (string, regexp, replacerFunction) => {
-          const replacements = await Promise.all(
-              Array.from(string.matchAll(regexp),
-                  match => replacerFunction(...match)));
+          regexp.lastIndex = 0;
+          const promises = [];
+          for (let match; match = regexp.exec(string);) {
+            promises.push(replacerFunction(...match));
+          }
+          const replacements = await Promise.all(promises);
+          regexp.lastIndex = 0;
           let i = 0;
           return string.replace(regexp, () => replacements[i++]);
         }
