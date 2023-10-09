@@ -8,6 +8,9 @@
       "strict_min_version": "59.0"
     }
   },
+  "browser_specific_settings": {
+    "gecko_android": {}
+  },
   "version": "11.4.29rc1",
   "description": "__MSG_Description__",
   "incognito": "spanning",
