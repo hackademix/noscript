@@ -959,6 +959,18 @@
         "message": "Włączono wszędzie",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Nigdy nie pytaj przed anonimizacją",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Pytaj przed anonimizowaniem zgłoszeń POST",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Zapytaj przed anonimizacją jakiejkolwiek prośby",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Włączono tylko w Trybie prywatnym",
         "description": ""

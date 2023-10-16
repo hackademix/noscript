@@ -959,6 +959,18 @@
         "message": "Stets aktiviert",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Vor einer Anonymisierung nie nachfragen",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Vor der Anonymisierung von POST-Übertragungen nachfragen",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Vor jeder Anonymisierung nachfragen",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Nur im privaten Modus aktiviert",
         "description": ""

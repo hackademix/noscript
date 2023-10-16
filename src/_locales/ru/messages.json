@@ -959,6 +959,18 @@
         "message": "Включено везде",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Не предупреждать перед анонимизацией",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Предупреждать перед анонимизацией POST запросов",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Предупреждать перед анонимизацией любых запросов",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Включено только в приватном режиме",
         "description": ""

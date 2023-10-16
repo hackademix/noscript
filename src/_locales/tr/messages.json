@@ -959,6 +959,18 @@
         "message": "Heryerde etkin",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Anonimleştirmeden önce onay istenmesin",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "POST gönderimleri anonimleştirilmeden önce onay istensin",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Tüm istekler anonimleştirilmeden önce onay istensin",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Yalnızca gizli gezinme için etkin",
         "description": ""

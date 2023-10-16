@@ -959,6 +959,18 @@
         "message": "Овозможи насекаде",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Никогаш не известувај пред анонимизација",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Известувај пред анонимизирање на објавување на ОБЈАВИ",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Известувај пред анонимизирање на секое барање",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Овозможи само во Приватно прелистување",
         "description": ""

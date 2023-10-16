@@ -959,6 +959,18 @@
         "message": " E aktivizuar kudo",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Mos pyet kurrë përpara anonimizimesh",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Pyet, përpara anonimizimi parashtrimesh POST",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Pyet, përpara anonimizimi të çfarëdo kërkese",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "E aktivizuar vetëm në Shfletim Privat",
         "description": ""

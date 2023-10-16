@@ -959,6 +959,18 @@
         "message": "始终开启",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "匿名化前从不提示",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "匿名化 POST 提交前进行提示",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "匿名化任何请求前进行提示",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "仅在“无痕浏览”模式下启用",
         "description": ""

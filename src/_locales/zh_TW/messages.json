@@ -80,11 +80,11 @@
         "description": ""
     },
     "BlockedItems": {
-        "message": "已封鎖 $2 物件中的 $1 個。",
+        "message": "已封鎖 $2 個物件中的 $1 個。",
         "description": ""
     },
     "BlockedObjects": {
-        "message": "NoScript 阻擋的項目",
+        "message": "NoScript 已封鎖了 個物件",
         "description": ""
     },
     "BookmarkSync": {
@@ -112,7 +112,7 @@
         "description": ""
     },
     "ClearClickOpt": {
-        "message": "ClearClick 頁面保護",
+        "message": "ClearClick 頁面保護…",
         "description": ""
     },
     "ClearClickReport": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "ClearClickReportId": {
-        "message": "報告ID:",
+        "message": "報告 ID：",
         "description": ""
     },
     "ClearClickTitle": {
@@ -164,7 +164,7 @@
         "description": ""
     },
     "Description": {
-        "message": "給您的瀏覽器最大保護：NoScript 僅允許您選擇之信任網域的主動式內容，以防止入侵。",
+        "message": "為您的瀏覽器提供最大防護：NoScript 僅允許來自您指定的受信任網域的主動式內容，以防止漏洞遭利用。",
         "description": ""
     },
     "Donate": {
@@ -180,7 +180,7 @@
         "description": ""
     },
     "Exceptions": {
-        "message": "例外",
+        "message": "例外…",
         "description": ""
     },
     "Export": {
@@ -192,19 +192,19 @@
         "description": ""
     },
     "FixLinks": {
-        "message": "嘗試修理JavaScript連結",
+        "message": "嘗試修正 JavaScript 連結",
         "description": ""
     },
     "Hider": {
-        "message": "拖到這裹來隱藏",
+        "message": "拖到這裡來隱藏",
         "description": ""
     },
     "Reveal": {
-        "message": "點擊這裹找回消失的按鈕",
+        "message": "按這裡找回消失的按鈕…",
         "description": ""
     },
     "ShowFullAddresses": {
-        "message": "在權限彈出視窗裹列出完整網址",
+        "message": "在權限的彈出式選單中顯示完整網址 (https://www.noscript.net)",
         "description": ""
     },
     "SectionGeneral": {
@@ -220,7 +220,11 @@
         "description": ""
     },
     "Enforce": {
-        "message": "全域實施限制",
+        "message": "全域啟用限制",
+        "description": ""
+    },
+    "EnforceOnRestart": {
+        "message": "當瀏覽器重新啟動時恢復限制",
         "description": ""
     },
     "NoEnforcementForTab": {
@@ -228,7 +232,15 @@
         "description": ""
     },
     "EnforceForTab": {
-        "message": "僅在本分頁實施限制",
+        "message": "僅在本分頁啟用限制",
+        "description": ""
+    },
+    "toggleEnforcementForTab": {
+        "message": "切換是否在目前頁面實施限制",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "設定目前頁面的權限",
         "description": ""
     },
     "HighContrast": {
@@ -236,7 +248,7 @@
         "description": ""
     },
     "httpsOnly": {
-        "message": "僅在有關的HTTPS內容實施",
+        "message": "僅套用在 HTTPS 內容",
         "description": ""
     },
     "Https": {
@@ -256,7 +268,7 @@
         "description": ""
     },
     "Https_description": {
-        "message": "禁止動態網頁內容（除非來自安全（HTTPS）連接）",
+        "message": "禁止網頁的主動式內容，除非來自安全（HTTPS）連線",
         "description": ""
     },
     "Https_never": {
@@ -276,11 +288,11 @@
         "description": ""
     },
     "HttpsForced": {
-        "message": "強制以下網站使用安全（HTTPS）連接",
+        "message": "強制在以下網站使用安全（HTTPS）連線：",
         "description": ""
     },
     "HttpsForcedExceptions": {
-        "message": "永不強制以下網站使用安全（HTTPS）連接",
+        "message": "永不強制在以下網站使用安全（HTTPS）連線：",
         "description": ""
     },
     "Import": {
@@ -320,7 +332,7 @@
         "description": ""
     },
     "Notify": {
-        "message": "顯示有關已被封鎖的指令碼的訊息",
+        "message": "顯示關於已被封鎖的指令碼的訊息",
         "description": ""
     },
     "Notify_bottom": {
@@ -328,7 +340,7 @@
         "description": ""
     },
     "NotifyMeta": {
-        "message": "顯示有關已被封鎖的META重導向的訊息",
+        "message": "顯示關於已被封鎖的 META 重新導向的訊息",
         "description": ""
     },
     "NotifyMeta_accesskey": {
@@ -380,7 +392,7 @@
         "description": ""
     },
     "PermanentInPrivate": {
-        "message": "在隱私視窗裹的永久「允許」指令",
+        "message": "在無痕模式中永遠「允許」指令",
         "description": ""
     },
     "SectionSitePermissions": {
@@ -388,7 +400,7 @@
         "description": ""
     },
     "PermissionsText": {
-        "message": "你可以指示那些網站是被允許執行指令碼。輸入該網站的網址或網域名（例：http://www.site.com\" 或 \"site.com\"）解後點擊「允許」。",
+        "message": "您可以指定哪些網站被允許執行指令碼。輸入您想要允許的網址或網域名稱 (例如 \"http://www.site.com\" 或 \"site.com\") 之後點選「允許」。",
         "description": ""
     },
     "Plugins": {
@@ -440,7 +452,7 @@
         "description": ""
     },
     "RevokeTemp": {
-        "message": "復原臨時權限",
+        "message": "撤銷臨時權限",
         "description": ""
     },
     "RevokeTemp_accesskey": {
@@ -448,7 +460,7 @@
         "description": ""
     },
     "SecureCookies": {
-        "message": "實施自動安全Cookie管理",
+        "message": "啟用自動 Secure Cookies 管理",
         "description": ""
     },
     "SecureCookiesExceptions": {
@@ -456,7 +468,7 @@
         "description": ""
     },
     "SecureCookiesForced": {
-        "message": "強制加密由以下網站經HTTPS發出的Cookie：",
+        "message": "強制加密由以下網站經 HTTPS 設定的 Cookies：",
         "description": ""
     },
     "SecurityManager": {
@@ -468,7 +480,7 @@
         "description": ""
     },
     "ShowConsole": {
-        "message": "顯示控制台⋯⋯\n",
+        "message": "顯示控制台…",
         "description": ""
     },
     "ShowConsole_accesskey": {
@@ -552,7 +564,7 @@
         "description": ""
     },
     "UnsafeReload": {
-        "message": "不安全地再載入",
+        "message": "不安全的重新載入",
         "description": ""
     },
     "UnsafeReload_accesskey": {
@@ -576,7 +588,7 @@
         "description": ""
     },
     "WebAddress": {
-        "message": "搜尋或增加一個網站",
+        "message": "搜尋或新增一個網站：",
         "description": ""
     },
     "WebAddress_accesskey": {
@@ -584,11 +596,11 @@
         "description": ""
     },
     "XSS_notify": {
-        "message": "顯示XSS通知",
+        "message": "顯示 XSS 通知",
         "description": ""
     },
     "XSS_clearUserChoices": {
-        "message": "請除XSS選擇",
+        "message": "清除 XSS 設定",
         "description": ""
     },
     "XSS_promptTitle": {
@@ -596,7 +608,7 @@
         "description": ""
     },
     "XSS_promptMessage": {
-        "message": "Noscript 偵測到一個由$1到$2潛在跨網站指令碼攻擊。可疑資料：$3",
+        "message": "NoScript 偵測到一個潛在的跨網站指令碼攻擊\n從 $1 到 $2.\n可疑資料：\n$3",
         "description": ""
     },
     "XSS_optBlock": {
@@ -604,7 +616,7 @@
         "description": ""
     },
     "XSS_optSanitize": {
-        "message": "不理這個要求",
+        "message": "淨化這個要求",
         "description": ""
     },
     "XSS_optAllow": {
@@ -612,11 +624,11 @@
         "description": ""
     },
     "XSS_optAlwaysAllow": {
-        "message": "永遠允許從$1到$2的文件要求",
+        "message": "永遠允許從 $1 到 $2 的文件要求",
         "description": ""
     },
     "XSS_optAlwaysBlock": {
-        "message": "永遠封鎖從$1到$2的文件要求",
+        "message": "永遠封鎖從 $1 到 $2 的文件要求",
         "description": ""
     },
     "Xss": {
@@ -628,15 +640,15 @@
         "description": ""
     },
     "XssExceptions": {
-        "message": "反-XSS保護例外",
+        "message": "防止跨網站指令碼 (Anti-XSS) 保護例外",
         "description": ""
     },
     "XssExceptions_description": {
-        "message": "終點名稱若與這些字串吻合不會免疫於跨網站指令碼（XSS）攻擊。",
+        "message": "如果目標名稱與這些字串吻合，就會被排除在跨網站指令碼攻擊 (XSS) 的保護之外。",
         "description": ""
     },
     "XssFaq": {
-        "message": "XSS 常見問題⋯⋯",
+        "message": "XSS 常見問題…",
         "description": ""
     },
     "XssFaq_accesskey": {
@@ -644,27 +656,27 @@
         "description": ""
     },
     "about": {
-        "message": " 關於$1",
+        "message": "關於 $1",
         "description": ""
     },
     "allowFrom": {
-        "message": "允許由$1來的所有物件",
+        "message": "允許來自 $1 的所有物件",
         "description": ""
     },
     "allowGlobal": {
-        "message": "復原所有權限檢查（危險）",
+        "message": "停用所有權限檢查（危險）",
         "description": ""
     },
     "allowLocal": {
-        "message": "允許$1",
+        "message": "允許 $1",
         "description": ""
     },
     "allowTemp": {
-        "message": "暫時允許$1",
+        "message": "暫時允許 $1",
         "description": ""
     },
     "allowTempFrom": {
-        "message": "暫時允許由$1來的所有物件",
+        "message": "暫時允許來自 $1 的所有物件",
         "description": ""
     },
     "allowed_no": {
@@ -768,11 +780,11 @@
         "description": ""
     },
     "confirm": {
-        "message": "你想清楚沒有？",
+        "message": "您確定嗎？",
         "description": ""
     },
     "disable": {
-        "message": "復原$1",
+        "message": "停用 $1",
         "description": ""
     },
     "disable_accessKey": {
@@ -780,7 +792,7 @@
         "description": ""
     },
     "distrust": {
-        "message": "標記 $1 為不信任",
+        "message": "標示 $1 為不信任",
         "description": ""
     },
     "extensionContributors": {
@@ -788,7 +800,7 @@
         "description": ""
     },
     "extensionContributors_tip": {
-        "message": "為你帶來此擴充套件的人們",
+        "message": "為您帶來此擴充套件的人們",
         "description": ""
     },
     "extensionCreator_tip": {
@@ -820,7 +832,7 @@
         "description": ""
     },
     "incompatibleOptions": {
-        "message": "「$1」並不相容「$2」。你想啟用前者並復原後者嗎？ ",
+        "message": "「$1」並不相容「$2」。您想啟用前者並停用後者嗎？ ",
         "description": ""
     },
     "incompatibleOptions_title": {
@@ -828,7 +840,7 @@
         "description": ""
     },
     "informaction_tip": {
-        "message": "造訪InformAction首頁",
+        "message": "造訪 InformAction 首頁",
         "description": ""
     },
     "license": {
@@ -860,7 +872,7 @@
         "description": ""
     },
     "removal_title": {
-        "message": "保全降級警告",
+        "message": "降低安全性警告",
         "description": ""
     },
     "removal_yes": {
@@ -872,15 +884,15 @@
         "description": ""
     },
     "reset_warning": {
-        "message": "所有NoScript設定及網站權限即將會被被重設到各自的預設值。\n這個動作無法還原。\n你還想繼續嗎？\n",
+        "message": "所有 NoScript 偏好設定將會立即重設為預設值。\n這個動作無法還原。\n您確定要繼續？",
         "description": ""
     },
     "siteInfo_confirm": {
-        "message": "你即將會透過提交查詢到$2來詢問「$1」網站的資料。\n你想繼續嗎？",
+        "message": "您即將向 $2 提交查詢\n關於 \"$1\" 網站的資訊。\n您確定要繼續？",
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "點擊滑鼠中鍵或SHIFT＋點擊來看網站資料\n",
+        "message": "點選滑鼠中鍵或 Shift+左鍵 以查看網站資訊…",
         "description": ""
     },
     "sponsor_tip": {
@@ -888,7 +900,7 @@
         "description": ""
     },
     "unsafeReload_warning": {
-        "message": "不安全地由 [$3]重新載入一個可疑$1 [$2]\n\nNoScript將不會保護這個要求。",
+        "message": "以不安全的方式重新載入一項可疑的\n\n$1 [$2]\n\n來自 [$3]\n\nNoScript 將不會保護這項請求！\n",
         "description": ""
     },
     "untrustedOrigin": {
@@ -908,15 +920,27 @@
         "description": ""
     },
     "themeDark": {
-        "message": "Dark",
+        "message": "深色",
         "description": ""
     },
     "themeLight": {
-        "message": "Light",
+        "message": "淺色",
         "description": ""
     },
     "themeAuto": {
-        "message": "Auto",
+        "message": "自動",
+        "description": ""
+    },
+    "ModernRed": {
+        "message": "現代紅",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "復古藍",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "切換為復古藍風格",
         "description": ""
     },
     "DonateShort": {
@@ -924,7 +948,55 @@
         "description": ""
     },
     "DonateLong": {
-        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "message": "NoScript 是自由軟體，沒有您的幫助就無法存在。Please donate now!",
+        "description": ""
+    },
+    "TabGuard_label": {
+        "message": "跨分頁個資外洩保護",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "永遠啟用",
+        "description": ""
+    },
+    "TabGuard_optPromptNever": {
+        "message": "一律匿名化，不再提示",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "匿名化提交 POST 前，先提示我",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "匿名化任何請求前，先提示我",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "僅在無痕瀏覽時啟用",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "已停用",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "忘記已儲存的設定",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "潛在個資外洩",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "您正要從 $1 載入一個頁面。\n如果您已經登入 $1 的帳號，您的個人資料可能會被 $2 取得。",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "匿名載入",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "正常載入",
         "description": ""
     }
 }

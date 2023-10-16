@@ -959,6 +959,18 @@
         "message": "Увімкнено скрізь",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Не попереджати до анонімізації",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Попереджати перед анонімізацією POST запитів",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Попереджати перед анонімізацією будь-яких запитів",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Увімкнено лише у приватному режимі",
         "description": ""

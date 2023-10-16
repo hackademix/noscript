@@ -959,6 +959,18 @@
         "message": "Overal ingeschakeld",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Nooit vragen voor het anoniem maken",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Vragen voor het anoniem maken van POST-inzendingen",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Vragen voor het anoniem maken van aanvragen",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Alleen ingeschakeld in Privénavigatie",
         "description": ""
