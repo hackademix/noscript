@@ -66,15 +66,14 @@
     return;
   }
 
-  debug("Initial readyState and body", document.readyState, document.body);
+  debug("Initial document state",  document.readyState, document.documentElement, document.head, document.body); // DEV_ONLY
 
-  let mustFreeze = UA.isMozilla
+  let mustFreeze = document.head && UA.isMozilla
     && (!/^(?:image|video|audio)/.test(document.contentType) || document instanceof XMLDocument)
     && document.readyState !== "complete";
 
   if (mustFreeze) {
     // Mozilla has already parsed the <head> element, we must take extra steps...
-
     try {
       DocumentFreezer.freeze();
 
@@ -85,7 +84,7 @@
         debug("Readystate: %s, suppressedScripts = %s, canScript = %s", readyState, DocumentFreezer.suppressedScripts, ns.canScript);
 
         if (!ns.canScript) {
-          setTimeout(() => DocumentFreezer.unfreeze(), 0);
+          queueMicrotask(() => DocumentFreezer.unfreeze());
           let normalizeDir = e => {
             // Chromium does this automatically. We need it to understand we're a directory earlier and allow browser UI scripts.
             if (document.baseURI === document.URL + "/") {
@@ -156,7 +155,7 @@
                 DocumentFreezer.unfreeze();
                 let scripts = [], deferred = [];
                 // push deferred scripts, if any, to the end
-                for (let s of [...document.querySelectorAll("script")]) {
+                for (let s of document.getElementsByTagName("script")) {
                    (s.defer && !s.text ? deferred : scripts).push(s);
                    s.addEventListener("beforescriptexecute", e => {
                     console.debug("Suppressing", script);
