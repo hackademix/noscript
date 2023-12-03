@@ -147,6 +147,14 @@
         "default": "Alt+Shift+Space",
         "windows": "Alt+Shift+Comma"
       }
-    }
+    },
+    "tempTrustPage": {
+      "description": "__MSG_TempTrustPage__"
+    },
+    "revokeTemp": {
+      "description": "__MSG_RevokeTemp__"
+    },
+
+    "_execute_browser_action": {}
   }
 }
