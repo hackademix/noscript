@@ -115,7 +115,7 @@
       "js": [
         "/nscl/common/UA.js",
         "content/ftp.js",
-        "lib/DocumentFreezer.js",
+        "/nscl/content/DocumentFreezer.js",
         "content/syncFetchPolicy.js"
       ]
     }
