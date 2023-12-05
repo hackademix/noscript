@@ -959,6 +959,18 @@
         "message": "Käytössä kaikkialla",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Älä vahvista anonymisointia koskaan",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Vahvista POST-lähetysten anonymisointi",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Vahvista kaikkien pyyntöjen anonymisointi",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Käytössä vain yksityisessä selauksessa",
         "description": ""

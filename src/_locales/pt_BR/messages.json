@@ -235,6 +235,14 @@
         "message": "Ativar restrições para esta aba",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Alternar aplicação de restrições para a aba atual",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Configurar as permissões da página atual",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Alto contraste",
         "description": ""
@@ -941,6 +949,54 @@
     },
     "DonateLong": {
         "message": "NoScript é software livre e não pode existir sem sua ajuda. Por favor, doe agora!",
+        "description": ""
+    },
+    "TabGuard_label": {
+        "message": "Proteção contra vazamento de identidade entre tabulações cruzadas",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Ativado em qualquer lugar",
+        "description": ""
+    },
+    "TabGuard_optPromptNever": {
+        "message": "Nunca avisar antes da anonimização",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Avisar antes de anonimizar envios de POST",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Avisar antes de anonimizar qualquer solicitação",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Ativado apenas na Navegação Privada",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Desativada",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Esqueça decisões",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Possível vazamento de identidade",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "Você está prestes a carregar uma página de $1. Se você é um $1 usuário conectado, as informações sobre sua identidade podem ser adquiridas por $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Carregar anonimamente",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Carregue normalmente",
         "description": ""
     }
 }
