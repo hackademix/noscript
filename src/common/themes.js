@@ -46,14 +46,14 @@
         if (patchSheet(s)) return true;
       } catch (e) {
         // cross-site stylesheet?
-        console.error(e, s.href);
+       debug(e, s.href); // DEV_ONLY
       }
     }
     return false;
   }
 
   if (!patchAll()) {
-    console.error("Couldn't patch sheets while loading, deferring to onload");
+    debug("Couldn't patch sheets while loading, deferring to onload"); // DEV_ONLY
     let onload = e => {
       if (patchAll()) {
         removeEventListener(e.type, onload, true);
