@@ -35,8 +35,8 @@ var RequestGuard = (() => {
       object: "object",
       object_subrequest: "fetch",
       xmlhttprequest: "fetch",
+      beacon: "fetch",
       ping: "ping",
-      beacon: "ping",
       media: "media",
       other: "",
   };
