@@ -280,8 +280,10 @@ var RequestGuard = (() => {
       }
       let key = [siteKey, origin][ret.option || 0];
       if (!key) return;
+      let cookieStoreId = sender.tab && sender.tab.cookieStoreId;
+      let policy = ns.getPolicy(cookieStoreId);
       let contextUrl = sender.tab.url || documentUrl;
-      let {siteMatch, contextMatch, perms} = ns.policy.get(key, contextUrl);
+      let {siteMatch, contextMatch, perms} = policy.get(key, contextUrl);
       let {capabilities} = perms;
       if (!capabilities.has(policyType)) {
         let temp = sender.tab.incognito; // we don't want to store in PBM
@@ -294,8 +296,9 @@ var RequestGuard = (() => {
           perms = new Permissions(new Set(capabilities), false, contextualSites);
         }
         */
-        ns.policy.set(key, perms);
+        policy.set(key, perms);
         await ns.savePolicy();
+        await ns.saveContextStore();
       }
       return {enable: key};
     },
@@ -397,7 +400,7 @@ var RequestGuard = (() => {
   };
 
   function intersectCapabilities(perms, request) {
-    let {frameId, frameAncestors, tabId} = request;
+    let {frameId, frameAncestors, tabId, cookieStoreId} = request;
     if (frameId !== 0 && ns.sync.cascadeRestrictions) {
       let topUrl = frameAncestors && frameAncestors.length
         && frameAncestors[frameAncestors.length - 1].url;
@@ -406,7 +409,8 @@ var RequestGuard = (() => {
         if (tab) topUrl = tab.url;
       }
       if (topUrl) {
-        return ns.policy.cascadeRestrictions(perms, topUrl).capabilities;
+        let policy = ns.getPolicy(cookieStoreId);
+        return policy.cascadeRestrictions(perms, topUrl).capabilities;
       }
     }
     return perms.capabilities;
@@ -468,9 +472,10 @@ var RequestGuard = (() => {
 
   function checkLANRequest(request) {
     if (!ns.isEnforced(request.tabId)) return ALLOW;
-    let {originUrl, url} = request;
+    let {originUrl, url, cookieStoreId} = request;
+    let policy = ns.getPolicy(cookieStoreId);
     if (originUrl && !Sites.isInternal(originUrl) && url.startsWith("http") &&
-      !ns.policy.can(originUrl, "lan", ns.policyContext(request))) {
+      !policy.can(originUrl, "lan", ns.policyContext(request))) {
       // we want to block any request whose origin resolves to at least one external WAN IP
       // and whose destination resolves to at least one LAN IP
       let {proxyInfo} = request; // see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/proxy/ProxyInfo
@@ -504,7 +509,6 @@ var RequestGuard = (() => {
         normalizeRequest(request);
         initPendingRequest(request);
 
-        let {policy} = ns
         let {tabId, type, url, originUrl} = request;
 
         if (type in policyTypesMap) {
@@ -527,7 +531,9 @@ var RequestGuard = (() => {
             }
             return ALLOW;
           }
+          let {cookieStoreId} = request;
           let isFetch = "fetch" === policyType;
+          let policy = ns.getPolicy(cookieStoreId);
 
           if ((isFetch || "frame" === policyType) &&
               (((isFetch && !originUrl
@@ -639,12 +645,12 @@ var RequestGuard = (() => {
       let promises = [];
 
       pending.headersProcessed = true;
-      let {url, documentUrl, tabId, responseHeaders, type} = request;
+      let {url, documentUrl, tabId, cookieStoreId, responseHeaders, type} = request;
       let isMainFrame = type === "main_frame";
       try {
         let capabilities;
         if (ns.isEnforced(tabId)) {
-          let policy = ns.policy;
+          let policy = ns.getPolicy(cookieStoreId);
           let {perms} = policy.get(url, ns.policyContext(request));
           if (isMainFrame) {
             if (policy.autoAllowTop && perms === policy.DEFAULT) {
@@ -769,8 +775,8 @@ var RequestGuard = (() => {
   }
 
   function injectPolicyScript(details) {
-    let {url, tabId, frameId} = details;
-    let policy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
+    let {url, tabId, frameId, cookieStoreId} = details;
+    let policy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId, cookieStoreId});
     policy.navigationURL = url;
     let debugStatement = ns.local.debug ? `
       let mark = Date.now() + ":" + Math.random();

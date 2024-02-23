@@ -1,3 +1,4 @@
 [submodule "nscl"]
 	path = src/nscl
 	url = ../nscl.git
+	branch = container-tabs
