@@ -688,7 +688,6 @@ var UI = (() => {
           return label.includes(":") ? label : `…${label}`;
         };
         for (let child; child = ctxSelect.firstChild;) child.remove();
-        ctxSelect.appendChild(entry("*", _("anySite")));
         if (this.mainDomain) {
           const key = row.contextMatch || Sites.optimalKey(this.mainUrl);
           ctxSelect.appendChild(entry(key, toLabel(key))).selected = !!row.contextMatch;
@@ -701,6 +700,7 @@ var UI = (() => {
             }
           }
         }
+        ctxSelect.appendChild(entry("*", _("anySite")));
         let handleSelection = () => {
           let selected = ctxSelect.querySelector("option:checked");
           ctxReset.disabled = !(selected && selected.value !== "*");
