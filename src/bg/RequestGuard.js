@@ -236,6 +236,13 @@ var RequestGuard = (() => {
     async pageshow(message, sender) {
       if (sender.frameId === 0) {
         TabStatus.recordAll(sender.tab.id, message.seen);
+      } else {
+        // merge subframes records back into main frame's seen report
+        const tabId = sender.tab.id;
+        for (const {request, allowed, policyType} of message.seen) {
+          request.tabId = tabId;
+          Content.reportTo(request, allowed, policyType);
+        }
       }
       return true;
     },
