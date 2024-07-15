@@ -112,3 +112,17 @@ a.__NoScript_PlaceHolder__.__ns__document {
   height: 100% !important;
   margin: 0 !important;
 }
+.__NoScript_Offscreen_PlaceHolders__ {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+.__NoScript_Offscreen_PlaceHolders__ a.__NoScript_PlaceHolder__ {
+  height: 64px !important;
+  width: auto !important;
+}
+.__NoScript_Offscreen_PlaceHolders__ a.__NoScript_PlaceHolder__ > span {
+  align-items: bottom;
+}
