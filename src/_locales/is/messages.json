@@ -235,6 +235,14 @@
         "message": "Virkja takmarkanir í þessum flipa",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Víxla af/á takmörkunum á fyrirliggjandi flipa",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Stilla heimildir fyrirliggjandi síðu",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Mikil birtuskil",
         "description": ""
@@ -949,6 +957,18 @@
     },
     "TabGuard_optEnabled": {
         "message": "Virkjað allsstaðar",
+        "description": ""
+    },
+    "TabGuard_optPromptNever": {
+        "message": "Ekki spyrja áður en farið er í nafnleysi",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Spyrja áður en notað er nafnleysi í POST-innsendingum",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Spyrja áður en notað er nafnleysi í hverkyns beiðnum",
         "description": ""
     },
     "TabGuard_optIncognito": {

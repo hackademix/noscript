@@ -959,6 +959,18 @@
         "message": "Activer partout",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Ne jamais demander avant l’anonymisation",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Demander avant d’anonymiser les envois POST",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Demander avant d’anonymiser une demande",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Activer seulement en navigation privée",
         "description": ""
