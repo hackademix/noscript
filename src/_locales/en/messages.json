@@ -155,6 +155,9 @@
   "ShowFullAddresses": {
     "message": "List full addresses in the permissions popup (https://www.noscript.net)"
   },
+  "ShowProbePlaceholders": {
+    "message": "Show synthetic placeholders for invisible capability probes"
+  },
   "SectionGeneral": {
     "message": "General"
   },

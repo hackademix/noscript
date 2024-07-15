@@ -230,9 +230,13 @@
       });
     },
     async getTheme(msg, {tab, frameId}) {
+      let code = await Themes.getContentCSS();
+      if (!ns.local.showProbePlaceholders) {
+        code += `\n.__NoScript_Offscreen_PlaceHolders__ {display: none }`;
+      }
       try {
         browser.tabs.insertCSS(tab.id, {
-          code: await Themes.getContentCSS(),
+          code,
           frameId,
           runAt: "document_start",
           matchAboutBlank: true,

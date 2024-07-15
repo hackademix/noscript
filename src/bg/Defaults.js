@@ -28,6 +28,7 @@ var Defaults = {
         showCtxMenuItem: true,
         showCountBadge: true,
         showFullAddresses: false,
+        showProbePlaceholders: true,
         amnesticUpdates: false,
       },
       sync: {
