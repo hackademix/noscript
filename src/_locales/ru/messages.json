@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Любые разрешения, заблокированные в документе верхнего уровня, \nдолжны быть заблокированы и в его субдокументах",
+        "message": "Всё, что заблокировано в документе верхнего уровня, \nдолжно быть заблокировано и в его субдокументах",
         "description": ""
     },
     "ClearClickDescription": {
@@ -205,6 +205,10 @@
     },
     "ShowFullAddresses": {
         "message": "Полные адреса в раскрывающемся списке разрешений (https://www.noscript.net)",
+        "description": ""
+    },
+    "ShowProbePlaceholders": {
+        "message": "Показывать синтетические заполнители \nв качестве датчиков наличия невидимых функций",
         "description": ""
     },
     "SectionGeneral": {
