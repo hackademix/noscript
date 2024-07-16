@@ -24,7 +24,7 @@ VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
 if [ "$1" == "tag" ]; then
   echo "Tagging at $VER"
   git tag -a "$VER" -e -m"$(gitcl 2>/dev/null)"
-  git push origin "$VER"
+  git push && git push origin "$VER"
   exit 0
 fi
 if [[ "$1" =~ ^r(el(ease)?)?$ ]]; then
@@ -193,5 +193,9 @@ fi
 mv "$BUILD" "$CHROMIUM_UNPACKED"
 
 if [ "$SIGNED" ]; then
+  # ensure nscl is up-to-date git-wise
+  ./nscl_gitsync.sh
+  "$0" tag
+  nscl
   ../../we-publish "$XPI.xpi"
 fi
