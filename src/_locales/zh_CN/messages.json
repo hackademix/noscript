@@ -207,6 +207,10 @@
         "message": "在授权弹窗里显示完整网址（https://www.noscript.net）。",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "对不可见的能力探测显示合成占位符",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "常规",
         "description": ""
