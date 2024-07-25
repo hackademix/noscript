@@ -22,6 +22,9 @@ strip_rc_ver() {
 
 VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
 if [ "$1" == "tag" ]; then
+  # ensure nscl is up-to-date git-wise
+  ./nscl_gitsync.sh
+
   echo "Tagging at $VER"
   git tag -a "$VER" -e -m"$(gitcl 2>/dev/null)"
   git push && git push origin "$VER"
@@ -193,8 +196,6 @@ fi
 mv "$BUILD" "$CHROMIUM_UNPACKED"
 
 if [ "$SIGNED" ]; then
-  # ensure nscl is up-to-date git-wise
-  ./nscl_gitsync.sh
   "$0" tag
   nscl
   ../../we-publish "$XPI.xpi"
