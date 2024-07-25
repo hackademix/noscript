@@ -207,6 +207,10 @@
         "message": "Vollständige Adresse im Berechtigungs-Popup anzeigen (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Künstliche Platzhalter für unterdrückte Elemente anzeigen",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Allgemein",
         "description": ""
