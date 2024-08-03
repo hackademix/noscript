@@ -207,6 +207,10 @@
         "message": "İzinler penceresinde tam adresler görüntülensin (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Görünmez yetenek araştırmaları için sentetik yer belirticiler görüntülensin",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Genel",
         "description": ""
