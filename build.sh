@@ -64,7 +64,11 @@ if [[ "$1" == "bump" ]]; then
   echo "Bumping to $VER"
   git add "$MANIFEST_IN"
   git commit -m "Version bump: $VER."
-  [[ $VER == *rc* ]] || "$0" tag
+  if ! [[ $VER == *rc* ]]; then
+    # it's a stable release: let's lock nscl and tag
+    git submodule update
+   "$0" tag
+  fi
   exit
 fi
 XPI_DIR="$BASE/xpi"
