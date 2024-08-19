@@ -207,6 +207,10 @@
         "message": "Перелік повних адрес у спливаючому вікні дозволів (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Показати синтетичні заповнювачі для зондів невидимих можливостей",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Загальні",
         "description": ""
