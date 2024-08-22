@@ -183,10 +183,17 @@ ns.on("capabilities", () => {
       allowed: ns.canScript
     });
 
-  if (!(ns.policy.isTorBrowser || ns.allows("unchecked_css"))) {
-    // protection against CSS PP0, not needed on the Tor Browser because of its
-    // noisy DNS resolution: https://orenlab.sise.bgu.ac.il/p/PP0
-    let prefetchCallback =
+  if (!ns.allows("unchecked_css")) {
+    // protection against CSS PP0 (https://orenlab.sise.bgu.ac.il/p/PP0)
+
+    // In Tor Browser / private windows, with scripts disabled,
+    // preload also 1st party CSS resources in order to mitigate
+    // scriptless user interaction tracking.
+    // See https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42829
+
+    const only3rdParty = ns.canScript || !browser.extension.inIncognitoContext;
+
+    const prefetchCallback =
       // false && // REL_ONLY
       (location.hostname === 'localhost' && location.search.includes("debug_prefetch"))
       ? (rule, url) => {
@@ -194,7 +201,7 @@ ns.on("capabilities", () => {
         url.hostname = `prefetch.${url.hostname}`;
         return false; // let default processing continue with the modified hostname
       } : null;
-    prefetchCSSResources(true, prefetchCallback);
+    prefetchCSSResources(only3rdParty, prefetchCallback);
   }
 
   if (!ns.canScript) {
