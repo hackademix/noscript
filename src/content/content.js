@@ -183,6 +183,43 @@ ns.on("capabilities", () => {
       allowed: ns.canScript
     });
 
+  if (!ns.allows("lazy_load")) {
+    // Force loading attributes to "eager", since CSP-based script blocking
+    // does not disable lazy loading as it should to address the privacy
+    // concerns mentioned in the specification.
+    // See https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42805
+
+    const toEager = el => el.setAttribute("loading", "eager");
+    const toEagerAll = parent => [... parent.querySelectorAll("[loading=lazy]")].forEach(toEager);
+
+    toEagerAll(document);
+    if (document.readyState === "loading") {
+
+      const observer = new MutationObserver(records => {
+        for (const r of records) {
+          console.log(r);
+          switch(r.type) {
+            case "attributes":
+              if (r.attributeName === "loading") {
+                toEager(r.target);
+              }
+              break;
+            case "subtree":
+              toEagerAll(r.target);
+              break;
+          }
+
+        }
+      });
+
+      observer.observe(document.documentElement, {subtree: true, attributeFilter: ["loading"]});
+      addEventListener("DOMContentLoaded", e => {
+        toEagerAll(document);
+        observer.disconnect();
+      });
+    }
+  }
+
   if (!ns.allows("unchecked_css")) {
     // protection against CSS PP0 (https://orenlab.sise.bgu.ac.il/p/PP0)
 

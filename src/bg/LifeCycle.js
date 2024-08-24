@@ -324,6 +324,11 @@ var LifeCycle = (() => {
           ns.openOptionsPage({tab: 2, focus: "#opt-vintageTheme", hilite: "#sect-themes"});
         })();
       }
+
+      if (Ver.is(previousVersion, "<=", "11.4.35rc2")) {
+        // add the lazy_load capability to any preset which already has the script capability
+        await configureNewCap("lazy_load", ["DEFAULT", "TRUSTED", "CUSTOM"], caps => caps.has("script"));
+      }
     },
 
     async onUpdateAvailable(details) {

@@ -572,6 +572,9 @@
   "cap_noscript": {
     "message": "noscript"
   },
+  "cap_lazy_load": {
+    "message": "lazy load"
+  },
   "cap_unchecked_css": {
     "message": "unrestricted CSS"
   },
