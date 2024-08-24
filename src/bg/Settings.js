@@ -103,6 +103,7 @@ var Settings = {
       unrestrictedTab,
       reloadAffected,
       isTorBrowser,
+      settingsHost,
     } = settings;
     debug("Received settings ", settings);
     let oldDebug = ns.local.debug;
@@ -128,6 +129,25 @@ var Settings = {
         }
       } else {
         reloadOptionsUI = true;
+      }
+
+      if (policy && policy.TRUSTED) {
+        // Gracefully handle "new" capabilities still unknown to our settings host
+        const knownCapabilities = settingsHost && settingsHost.knownCapabilities
+          || policy.TRUSTED.capabilities;
+
+        for (const cap of ["lazy_load", "unchecked_css"]) {
+          // Scripting far exceeds the security/privacy concerns around these capabilities,
+          // so enable them on script-capable presets unless our settingsHost knows better.
+          if (cap in knownCapabilities) continue;
+          for (const preset of ["TRUSTED", "UNTRUSTED", "DEFAULT"]) {
+            if (!policy[preset]) continue;
+            const {capabilities} = policy[preset];
+            if (capabilities.includes("script") && !capabilities.includes(cap)) {
+              capabilities.push(cap);
+            }
+          }
+        }
       }
 
       let torBrowserSettings = {
