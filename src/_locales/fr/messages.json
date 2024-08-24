@@ -207,6 +207,10 @@
         "message": "Lister les adresses complètes dans la fenêtre contextuelle des autorisations (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Afficher des espaces réservés synthétiques pour les sondes de capacité invisibles",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Général",
         "description": ""
