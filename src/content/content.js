@@ -189,33 +189,54 @@ ns.on("capabilities", () => {
     // concerns mentioned in the specification.
     // See https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42805
 
-    const toEager = el => el.setAttribute("loading", "eager");
-    const toEagerAll = parent => [... parent.querySelectorAll("[loading=lazy]")].forEach(toEager);
+    let notify = () => {
+      notify = () => {}; // once per document
+      const request = {
+        id: "noscript-lazy_load",
+        type: "lazy_load",
+        url: document.URL,
+        documentUrl: document.URL,
+      };
+      seen.record({ policyType: request.type, request, allowed: false });
+    };
 
-    toEagerAll(document);
-    if (document.readyState === "loading") {
+    const toEager = (...nodes) => {
+      for (var n of nodes) {
+        if (n.loading === "lazy") {
+          n.loading = "eager";
+          notify();
+        }
+      }
+    };
 
-      const observer = new MutationObserver(records => {
-        for (const r of records) {
-          console.log(r);
-          switch(r.type) {
+    toEager(...document.querySelectorAll("[loading]"));
+
+    if (ns.canScript || document.readyState === "loading") {
+      // handle new nodes / attributes as they're added or modified
+      const mutationsCallback = (records) => {
+        for (var r of records) {
+          switch (r.type) {
             case "attributes":
-              if (r.attributeName === "loading") {
-                toEager(r.target);
-              }
+              toEager(r.target);
               break;
-            case "subtree":
-              toEagerAll(r.target);
+            case "childList":
+              toEager(...r.addedNodes);
               break;
           }
-
         }
+      };
+      const observer = new MutationObserver(mutationsCallback);
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+        attributeFilter: ["loading"],
       });
-
-      observer.observe(document.documentElement, {subtree: true, attributeFilter: ["loading"]});
-      addEventListener("DOMContentLoaded", e => {
-        toEagerAll(document);
-        observer.disconnect();
+      addEventListener("DOMContentLoaded", (e) => {
+        if (!ns.canScript) {
+          // if scripting is disabled nothing interesting should happen anymore
+          mutationsCallback(observer.takeRecords());
+          observer.disconnect();
+        }
       });
     }
   }
