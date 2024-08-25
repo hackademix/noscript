@@ -763,6 +763,10 @@
         "message": "noscript 元素",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "懒加载",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "不受限的 CSS",
         "description": ""

@@ -763,6 +763,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "yavaş yükleme",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "kısıtlanmamış CSS",
         "description": ""

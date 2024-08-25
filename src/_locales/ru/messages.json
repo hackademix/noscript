@@ -763,6 +763,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "lazy load",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "unrestricted CSS",
         "description": ""

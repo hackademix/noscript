@@ -763,6 +763,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "chargement asynchrone",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "feuille de style CSS non restreinte",
         "description": ""
