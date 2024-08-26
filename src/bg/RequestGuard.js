@@ -41,7 +41,13 @@ var RequestGuard = (() => {
       other: "",
   };
 
-  Object.assign(policyTypesMap, {"webgl": "webgl"}); // fake types
+  // add "fake" mappings for reporting capabilities handled outside of RequestGuard
+  for (const cap of Permissions.ALL) {
+    if (!(cap in policyTypesMap)) {
+      policyTypesMap[cap] = cap;
+    }
+  }
+
   const TabStatus = {
     map: new Map(),
     _originsCache: new Map(),
