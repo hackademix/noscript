@@ -26,6 +26,8 @@ var XSS = (() => {
 
   let baseTTL = 20000; // timeout in milliseconds for each worker to perform
 
+  const redirMap = new Map();
+
   let workersMap = new Map();
   let promptsMap = new Map();
   let blockedTabs = new Map();
@@ -67,6 +69,7 @@ var XSS = (() => {
 
   function doneListener(request) {
     let {requestId} = request;
+    redirMap.delete(requestId);
     let worker = workersMap.get(requestId);
     if (worker) {
       worker.terminate();
@@ -233,10 +236,19 @@ var XSS = (() => {
 
     parseRequest(request) {
       let {
+        requestId,
         url: destUrl,
         originUrl: srcUrl,
         method
       } = request;
+
+      let redirects;
+      if (redirMap.has(requestId)) {
+        redirects = redirMap.get(requestId);
+      } else {
+        redirMap.set(requestId, redirects = []);
+      }
+
       let destObj;
       try {
         destObj = parseUrl(destUrl);
@@ -253,16 +265,31 @@ var XSS = (() => {
         srcUrl = "";
       }
 
-      let unescapedDest = unescape(destUrl);
       let srcOrigin = srcObj ? srcObj.origin : "";
       if (srcOrigin === "null") {
         srcOrigin = srcObj.href.replace(/[\?#].*/, '');
       }
       let destOrigin = destObj.origin;
 
-      let isGet = method === "GET";
-      return {
+      let isCrossSite = srcOrigin !== destOrigin;
+
+      if (!isCrossSite) {
+        // check the whole redirection chain, if any
+        for (let r of redirects) {
+          if (r.destOrigin !== destOrigin) {
+            ({destUrl: srcUrl, destObj: srcObj, destOrigin: srcOrigin} = r);
+            isCrossSite = true;
+            break;
+          }
+        }
+      }
+
+      const isGet = method === "GET";
+
+      const xssReq = {
         request,
+        redirects,
+        isCrossSite,
         srcUrl,
         destUrl,
         srcObj,
@@ -272,12 +299,14 @@ var XSS = (() => {
         srcDomain: srcObj && srcObj.hostname && tld.getDomain(srcObj.hostname) || "",
         destDomain: tld.getDomain(destObj.hostname),
         originKey: `${srcOrigin}>${destOrigin}`,
-        unescapedDest,
+        unescapedDest: unescape(destUrl),
         isGet,
         isPost: !isGet && method === "POST",
         timestamp: Date.now(),
         debugging: ns.local.debug,
       }
+      redirects.unshift(xssReq);
+      return xssReq;
     },
 
     async saveUserChoices(xssUserChoices = this._userChoices || {}) {

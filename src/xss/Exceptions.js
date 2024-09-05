@@ -42,8 +42,9 @@ XSS.Exceptions = (() => {
       function logEx(...args) {
         debug("[XSS preprocessing] Ignoring %o", xssReq, ...args);
       }
-
+      log(`Processing exceptions for `, xssReq);
       let {
+        isCrossSite,
         srcObj,
         destObj,
         srcUrl,
@@ -55,8 +56,9 @@ XSS.Exceptions = (() => {
         isPost
       } = xssReq;
 
-      // same srcUrl
-      if (srcOrigin === destOrigin) {
+      // let same-site requests alone
+      if (!isCrossSite ||
+          /^https:/.test(srcOrigin) && xssReq.srcDomain === xssReq.destDomain) {
         return true;
       }
 
