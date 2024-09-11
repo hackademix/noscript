@@ -130,7 +130,7 @@ else
   WEBEXT_OUT="$XPI_DIR"
 fi
 
-COMMON_BUILD_OPTS="--ignore-files=test/XSS_test.js --ignore-files=content/experiments.js"
+COMMON_BUILD_OPTS="--ignore-files='test/**' 'embargoed/**' content/experiments.js"
 
 build() {
   "$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
