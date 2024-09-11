@@ -25,6 +25,7 @@ var RequestGuard = (() => {
   const CSP_REPORT_URI = "https://noscript-csp.invalid/__NoScript_Probe__/";
   const CSP_MARKER = "noscript-marker";
   let csp = new ReportingCSP(CSP_MARKER, CSP_REPORT_URI);
+
   const policyTypesMap = {
       main_frame:  "",
       sub_frame: "frame",
@@ -40,7 +41,6 @@ var RequestGuard = (() => {
       media: "media",
       other: "",
   };
-
   // add "fake" mappings for reporting capabilities handled outside of RequestGuard
   for (const cap of Permissions.ALL) {
     if (!(cap in policyTypesMap)) {
@@ -247,6 +247,7 @@ var RequestGuard = (() => {
         const tabId = sender.tab.id;
         for (const {request, allowed, policyType} of message.seen) {
           request.tabId = tabId;
+          request.frameId = sender.frameId;
           Content.reportTo(request, allowed, policyType);
         }
       }
