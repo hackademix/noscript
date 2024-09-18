@@ -207,6 +207,10 @@
         "message": "כתוב ברשימה כתובות מלאות בחלון הקופץ של ההרשאות (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Show synthetic placeholders for invisible capability probes",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "כללי",
         "description": ""
@@ -233,6 +237,14 @@
     },
     "EnforceForTab": {
         "message": "אפשר הגבלות עבור לשונית זו",
+        "description": ""
+    },
+    "toggleEnforcementForTab": {
+        "message": "Toggle restrictions enforcement for current tab",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "תצר הרשאות של הדף הנוכחי",
         "description": ""
     },
     "HighContrast": {
@@ -751,6 +763,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "lazy load",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "CSS בלתי מוגבל",
         "description": ""
@@ -941,6 +957,54 @@
     },
     "DonateLong": {
         "message": "NoScript הוא תוכנה חינמית והוא לא יכול להתקיים בלי העזרה שלך. אנא תרום עכשיו!",
+        "description": ""
+    },
+    "TabGuard_label": {
+        "message": "הגנה מפני דליפה חוצת־לשוניות של זהות",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "מאופשר בכל מקום",
+        "description": ""
+    },
+    "TabGuard_optPromptNever": {
+        "message": "Never prompt before anonymization",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Prompt before anonymizing POST submissions",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Prompt before anonymizing any request",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "מאופשר בגלישה פרטית בלבד",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "מושבת",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "שכח החלטות",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "הדלפה פוטנציאלית של זהות",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "You are about to load a page from $1.\nIf you are a $1 logged-in user, information about your identity might be acquired by $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "טען בעילום שם",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "טען כרגיל",
         "description": ""
     }
 }
