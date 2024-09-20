@@ -6,5 +6,5 @@ file_filter  = src/_locales/<lang>/messages.json
 source_file  = src/_locales/en/messages.json
 source_lang  = en_US
 type         = CHROME
-minimum_perc = 100
+minimum_perc = 90
 
