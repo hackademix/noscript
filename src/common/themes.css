@@ -32,7 +32,7 @@
 
   --icon-size: 2.2em;
   --line-size: 1.5em;
-  --popup-size: 600px;
+  --popup-size: fill;
 
   --bg-preset-color: var(--form-color2);
   --bg-odd-row: var(--bg-color2);
