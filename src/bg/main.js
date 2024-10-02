@@ -418,7 +418,7 @@
     async collectSeen(tabId) {
       try {
         let seen = Array.from(await Messages.send("collect", {uuid: ns.local.uuid}, {tabId, frameId: 0}));
-        debug("Collected seen", seen);
+        debug("Collected seen", seen); // DEV_ONLY
         return seen;
       } catch (e) {
         await include("/nscl/common/restricted.js");

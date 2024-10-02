@@ -208,7 +208,7 @@ var RequestGuard = (() => {
         for (let thing of seen) {
           let {request, allowed} = thing;
           request.tabId = tabId;
-          debug(`Recording`, request);
+          debug(`Recording`, request); // DEV_ONLY
           TabStatus._record(request, allowed ? "allowed" : "blocked");
           if (request.key === "noscript-probe" && request.type === "main_frame" ) {
             request.frameId = 0;
@@ -260,7 +260,7 @@ var RequestGuard = (() => {
         url, type, tabId, frameId, documentUrl: sender.url
       };
       Content.reportTo(r, false, policyTypesMap[type]);
-      debug("Violation", type, url, tabId, frameId);
+      debug("Violation", type, url, tabId, frameId); // DEV_ONLY
       if (type === "script" && url === sender.url) {
         TabStatus.record(r, "noscriptFrame", true);
       } else {
@@ -287,7 +287,7 @@ var RequestGuard = (() => {
         title: _("BlockedObjects"),
         message: _("allowLocal", TAG),
         options});
-      debug(`Prompt returned`, ret, sender);
+      debug(`Prompt returned`, ret, sender); // DEV_ONLY
       if (ret.button !== 0) return;
       if (ret.option === 2) {
         return {collapse: "all"};
@@ -460,7 +460,7 @@ var RequestGuard = (() => {
     },
     _gc(now) {
       if (!now && this._pendingGC) return;
-      debug("Recent requests garbage collection.");
+      debug("Recent requests garbage collection."); // DEV_ONLY
       let request = {timeStamp: Date.now()};
       for (let last of this._byUrl.values()) {
         this.find(request, last);
@@ -524,7 +524,7 @@ var RequestGuard = (() => {
         if (type in policyTypesMap) {
           let previous = recent.find(request);
           if (previous) {
-            debug("Rapid fire request", previous);
+            debug("Rapid fire request", previous); // DEV_ONLY
             return previous.return;
           }
           (previous = request).return = ALLOW;
@@ -619,20 +619,20 @@ var RequestGuard = (() => {
       if (pending) {
         if (pending.headersProcessed) {
           if (!request.fromCache) {
-            debug("Headers already processed, skipping ", request);
+            debug("Headers already processed, skipping ", request); // DEV_ONLY
             return ALLOW;
           }
-          debug("Reprocessing headers for cached request ", request);
+          debug("Reprocessing headers for cached request ", request); // DEV_ONLY
         } else {
-          debug("onHeadersReceived", request);
+          debug("onHeadersReceived", request);  // DEV_ONLY
         }
       } else {
-        debug("[WARNING] no pending information for ", request);
+        debug("[WARNING] no pending information for ", request); // DEV_ONLY
         initPendingRequest(request);
         pending = pendingRequests.get(request.requestId);
       }
       if (request.fromCache && listeners.onHeadersReceived.resetCSP && !pending.resetCachedCSP) {
-        debug("Resetting CSP Headers");
+        debug("Resetting CSP Headers"); // DEV_ONLY
         pending.resetCachedCSP = true;
         let {responseHeaders} = request;
         let headersCount = responseHeaders.length;
@@ -643,7 +643,7 @@ var RequestGuard = (() => {
           }
         });
         if (headersCount > responseHeaders.length) {
-          debug("Resetting cached NoScript CSP header(s)", request);
+          debug("Resetting cached NoScript CSP header(s)", request); // DEV_ONLY
           return {responseHeaders};
         }
       }
@@ -670,7 +670,7 @@ var RequestGuard = (() => {
           }
         } // else unrestricted, either globally or per-tab
         if (isMainFrame && !TabStatus.map.has(tabId)) {
-          debug("No TabStatus data yet for noscriptFrame", tabId);
+          debug("No TabStatus data yet for noscriptFrame", tabId); // DEV_ONLY
           TabStatus.record(request, "noscriptFrame",
             capabilities && !capabilities.has("script"));
         }
@@ -682,12 +682,12 @@ var RequestGuard = (() => {
         */
         if (header) {
           pending.cspHeader = header;
-          debug(`CSP blocker on %s:`, url, header.value);
+          debug(`CSP blocker on %s:`, url, header.value); // DEV_ONLY
           headersModified = true;
         }
         if (headersModified) {
           result = {responseHeaders};
-          debug("Headers changed ", request);
+          debug("Headers changed ", request);  // DEV_ONLY
         }
       } catch (e) {
         error(e, "Error in onHeadersReceived", request);
@@ -702,7 +702,7 @@ var RequestGuard = (() => {
     },
     onResponseStarted(request) {
       normalizeRequest(request);
-      debug("onResponseStarted", request);
+      debug("onResponseStarted", request); // DEV_ONLY
       let {requestId, url, tabId, frameId, type} = request;
       if (type === "main_frame") {
         TabStatus.initTab(tabId);
@@ -711,7 +711,7 @@ var RequestGuard = (() => {
       let scriptBlocked = request.responseHeaders.some(
         h => csp.isMine(h) && csp.blocks(h.value, "script")
       );
-      debug("%s scriptBlocked=%s setting noscriptFrame on ", url, scriptBlocked, tabId, frameId);
+      debug("%s scriptBlocked=%s setting noscriptFrame on ", url, scriptBlocked, tabId, frameId); // DEV_ONLY
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
       let pending = pendingRequests.get(requestId);
       if (pending) {
@@ -764,7 +764,7 @@ var RequestGuard = (() => {
       if (text.includes(`"inline"`)) return ABORT;
       let report = JSON.parse(text)["csp-report"];
       let originalPolicy = report["original-policy"]
-      debug("CSP report", report);
+      debug("CSP report", report); // DEV_ONLY
       let blockedURI = report['blocked-uri'];
       if (blockedURI && blockedURI !== 'self') {
         let r = fakeRequestFromCSP(report, request);

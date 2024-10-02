@@ -42,7 +42,7 @@ XSS.Exceptions = (() => {
       function logEx(...args) {
         debug("[XSS preprocessing] Ignoring %o", xssReq, ...args);
       }
-      log(`Processing exceptions for `, xssReq);
+      debug(`Processing exceptions for `, xssReq); // DEV_ONLY
       let {
         isCrossSite,
         srcObj,
@@ -68,7 +68,7 @@ XSS.Exceptions = (() => {
       }
 
       if (/^(?:chrome|resource|moz-extension|about):/.test(srcOrigin)) {
-        debug("Privileged origin", srcOrigin);
+        debug("Privileged origin", srcOrigin); // DEV_ONLY
       }
 
       // destination or @source matching legacy regexp
