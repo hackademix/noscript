@@ -46,6 +46,7 @@ function deferWebTraffic(promiseToWaitFor, next) {
 
    async function waitFor(request) {
     let {type, documentUrl, url, tabId, frameId} = request;
+    debug("deferWebTraffic probing",request);
     if (tabId === browser.tabs.TAB_ID_NONE) return;
     if (!seenTabs.has(tabId)) {
       if (type === "main_frame") {

@@ -204,8 +204,7 @@
 
     async fetchChildPolicy({url, contextUrl}, sender) {
       await ns.initializing;
-      return (messageHandler.fetchChildPolicy =
-        ns.computeChildPolicy)(...arguments);
+      return ns.computeChildPolicy(...arguments);
     },
 
     async openStandalonePopup(tab) {
@@ -416,6 +415,7 @@
     },
 
     async collectSeen(tabId) {
+      await this.initializing;
       try {
         let seen = Array.from(await Messages.send("collect", {uuid: ns.local.uuid}, {tabId, frameId: 0}));
         debug("Collected seen", seen); // DEV_ONLY
