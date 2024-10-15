@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005-2023 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -10,6 +10,11 @@ body {
   color: var(--text-color);
   font-size: 12px;
   font-family: system-ui, sans-serif;
+}
+
+html.tor:not(.mobile) > body {
+  /* Tor Browser may fallback to a serif system-ui font, which is ugly */
+  font-family: sans-serif;
 }
 
 html.mobile > body {
