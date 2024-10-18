@@ -93,7 +93,7 @@ CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 if [[ $VER == *rc* ]]; then
   sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
     "$MANIFEST_IN" > "$MANIFEST_OUT"
-  if [[ "$1" == "sign" ]]; then
+  if [[ "$1" =~ ^sign(ed)?$ ]]; then
     BUILD_CMD="$BASE/../../we-sign"
     BUILD_OPTS=""
   fi
