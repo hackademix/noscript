@@ -10,15 +10,15 @@ License: CC0-1.0
 
 # Images (icons, mostly)
 Files: src/img/*
-Copyright: 2005-2023
+Copyright: 2005-2024 Giorgio Maone
 License: CC-BY-SA-3.0
 
 # JSON (uncommentable) files
 Files: *.json */*.json
-Copyright: 2019-2023 Giorgio Maone
+Copyright: 2019-2024 Giorgio Maone
 License: GPL-3.0-or-later
 
 # Localization files
 Files: _locales/*
-Copyright: 2005-2023 The NoScript translators community <info@noscript.net>
+Copyright: 2005-2024 The NoScript translators community <info@noscript.net>
 License: GPL-3.0-or-later

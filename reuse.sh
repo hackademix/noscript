@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (C) 2021-2023 Giorgio Maone <https://maone.net>
+# Copyright (C) 2021-2024 Giorgio Maone <https://maone.net>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
