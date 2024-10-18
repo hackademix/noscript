@@ -79,6 +79,7 @@
       "run_at": "document_start",
       "matches": ["<all_urls>"],
       "match_about_blank": true,
+      "match_origin_as_fallback": true,
       "all_frames": true,
       "js": [
         "/nscl/lib/browser-polyfill.js",
@@ -111,6 +112,7 @@
       "run_at": "document_start",
       "matches": ["file://*/*", "ftp://*/*"],
       "match_about_blank": true,
+      "match_origin_as_fallback": true,
       "all_frames": true,
       "js": [
         "/nscl/common/UA.js",
