@@ -37,58 +37,94 @@ var Prompts = (() => {
     async open(data) {
       promptData = data;
       this.close();
+
+      let url = browser.runtime.getURL("ui/prompt.html");
       let {width, height, left, top, parent } = data.features;
       let options = {
-        url: browser.runtime.getURL("ui/prompt.html"),
+        url,
         type: "popup",
-        width,
-        height,
-      };
+      }
+
+      if (!parent) {
+        parent = await browser.windows.getCurrent();
+      }
+
       if (UA.isMozilla) {
         options.allowScriptsToClose = true;
       }
+
       if (!("windows" in browser)) {
         // Android, most likely
-        this.currentTab = await browser.tabs.create({url: options.url});
+        this.currentTab = await browser.tabs.create({url});
         return;
       }
-      if (!parent) parent = await browser.windows.getCurrent()
-      let popup = this.currentWindow = await browser.windows.create(options);
+
+      const centerOnParent = (dim) => {
+        const { width, height } = dim;
+        dim.left =
+          left === undefined
+            ? Math.round(parent.left + (parent.width - width) / 2)
+            : left;
+        dim.top =
+          top === undefined
+            ? Math.round(parent.top + (parent.height - height) / 2)
+            : top;
+        return dim;
+      };
+
+      if (width && height) {
+        let size = { width, height };
+        url += `?size=${JSON.stringify(size)}`;
+        if (parent) {
+          ({ left, top } = Object.assign(options, centerOnParent(size)));
+        }
+      }
+      debug("Prompt pre-opening options", options, left, top, width, height); // DEV_ONLY
+      let popup = (this.currentWindow = await browser.windows.create(options));
 
       if (parent) {
-        // center to the given parent window (default last focused browser tab)
-        if (left === undefined) left = Math.round(parent.left + (parent.width - popup.width) / 2);
-        if (top === undefined) top = Math.round(parent.top + (parent.height - popup.height) / 2);
+        ({ left, top } = centerOnParent({
+          width: width || popup.width,
+          height: height || popup.height,
+        }));
       } else {
-        // features.parent explicitly nulled: use given left & top or default to auto-centering on main screen
-        if (left === undefined) ({left} = popup);
-        if (top === undefined) ({top} = popup);
+        // use given left & top or default to auto-centering on main screen
+        if (left === undefined) ({ left } = popup);
+        if (top === undefined) ({ top } = popup);
       }
 
-      // work around for letterboxing changes (https://bugzilla.mozilla.org/show_bug.cgi?id=1330882)
-      let {width: popupWidth, height: popupHeight} = popup;
-      if (width && height && (popupWidth !== width || popupHeight !== height)) {
-        left += Math.round((popupWidth - width) / 2);
-        top += Math.round((popupHeight - height) / 2);
-        await browser.windows.update(popup.id,
-          {left, top, width, height, focused: false});
-      }
+      debug("Prompt post-opening options", popup, options, left, top, width, height);
 
-      for (let attempts = 2; attempts-- > 0;) {
-        // position gets set only 2nd time, moz bug?
-        await browser.windows.update(popup.id,
-          {left, top, focused: false});
-      }
-      if (parent) {
-        await browser.windows.update(parent.id, {focused: true});
+      // work around for resistFingerprinting new window rounding (https://bugzilla.mozilla.org/show_bug.cgi?id=1330882)
+      if (
+        width &&
+        height &&
+        (popup.width !== width ||
+          popup.height !== height ||
+          popup.left !== left ||
+          popup.top !== top)
+      ) {
+        popup = await browser.windows.update(popup.id, {
+          left,
+          top,
+          width,
+          height,
+        });
+        for (let attempts = 2; attempts-- > 0; ) {
+          debug("Resizing", popup, { left, top, width, height }); // DEV_ONY
+          popup = await browser.windows.update(popup.id, { width, height });
+          if (popup.width == width || popup.height == height) {
+            break;
+          }
+        }
       }
     }
+
     async close() {
       if (this.currentWindow) {
         try {
           await browser.windows.remove(this.currentWindow.id);
         } catch (e) {
-          debug(e);
         }
         this.currentWindow = null;
       } else if (this.currentTab) {

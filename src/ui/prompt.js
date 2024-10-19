@@ -19,9 +19,8 @@
  */
 
 (async () => {
-  document.documentElement.classList.toggle("mobile", !!UA.mobile);
   let data = await Messages.send("getPromptData");
-  debug(data);
+  debug("Prompt data", data);
   if (!data) {
     error("Missing promptData");
     window.close();

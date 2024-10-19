@@ -24,12 +24,19 @@ if ("windows" in browser) document.addEventListener("DOMContentLoaded", async e 
   // See https://bugzilla.mozilla.org/show_bug.cgi?id=1402110
   let win = await browser.windows.getCurrent({populate: true});
   if (win.tabs[0].url === document.URL) {
-    debug("Resize hack");
+    let size = decodeURIComponent(location.search).match(/\bsize=(\{\s*"width":[^}]+\})/);
+    try {
+      size = size && JSON.parse(size[1]);
+    } catch (e) {
+      size = null;
+    }
+    let {width, height} = size || win;
+    debug("Resize hack", win, size, width, height); // DEV_ONLY
     await browser.windows.update(win.id, {
-      width: win.width + 1
+      width: width + 1, height
     });
     await browser.windows.update(win.id, {
-      width: win.width
+      width, height
     });
   }
 });
