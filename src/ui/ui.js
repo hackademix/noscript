@@ -46,11 +46,9 @@ var UI = (() => {
         "/nscl/common/Permissions.js",
         "/nscl/common/Policy.js",
       ];
+
       this.mobile = UA.mobile;
-      let root = document.documentElement;
-      if (this.mobile) {
-        root.classList.add("mobile");
-      }
+
       await include(scripts);
 
       let inited = new Promise(resolve => {
@@ -71,6 +69,8 @@ var UI = (() => {
                 debug = () => {}; // be quiet!
               }
               if (UI.local.isTorBrowser) {
+                Sites.onionSecure = true;
+                // TODO: replace the following with pure CSS :content in common.css
                 const label = document.querySelector("span.tor");
                 if (label) {
                   const browserName = (await browser.runtime.getBrowserInfo()).name;
@@ -80,8 +80,6 @@ var UI = (() => {
                     );
                   }
                 }
-                document.documentElement.classList.add("tor");
-                Sites.onionSecure = true;
               }
             }
             resolve();
