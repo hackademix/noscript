@@ -141,27 +141,9 @@
       }
 
       // wiring main UI
-      const ba = browser.browserAction;
-      if ("setIcon" in ba) {
-        //desktop or Fenix
-        ba.setPopup({
-          popup: popupURL
-        });
-      } else {
-        // Fennec
-        ba.onClicked.addListener(async tab => {
-          try {
-            await browser.tabs.remove(await browser.tabs.query({
-              url: popupURL
-            }));
-          } catch (e) {}
-          await browser.tabs.create({
-            url: popupFor(tab.id)
-          });
-        });
-      }
+      browser.browserAction.setPopup({popup: popupURL});
     }
-  }
+  };
 
   const messageHandler = {
     async updateSettings(settings, sender) {
