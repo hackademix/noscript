@@ -139,10 +139,8 @@
       await browser.windows.update(win.id, {
         height: win.height + delta,
         top: win.top - Math.round(delta / 2),
-        focused: false
       });
     }
-    await browser.windows.update(win.id, {focused: true});
   }
   if (document.readyState === "complete") {
     fitHeight();

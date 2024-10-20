@@ -39,7 +39,15 @@ var Prompts = (() => {
       this.close();
 
       let url = browser.runtime.getURL("ui/prompt.html");
+
+      if (!("windows" in browser)) {
+        // Android, most likely
+        this.currentTab = await browser.tabs.create({url});
+        return;
+      }
+
       let {width, height, left, top, parent } = data.features;
+
       let options = {
         url,
         type: "popup",
@@ -53,32 +61,23 @@ var Prompts = (() => {
         options.allowScriptsToClose = true;
       }
 
-      if (!("windows" in browser)) {
-        // Android, most likely
-        this.currentTab = await browser.tabs.create({url});
-        return;
-      }
-
-      const centerOnParent = (dim) => {
-        const { width, height } = dim;
-        dim.left =
-          left === undefined
-            ? Math.round(parent.left + (parent.width - width) / 2)
-            : left;
-        dim.top =
-          top === undefined
-            ? Math.round(parent.top + (parent.height - height) / 2)
-            : top;
-        return dim;
+      const centerOnParent = bounds => {
+        for (const [p, s] of [["left", "width"], ["top", "height"]]) {
+          if (bounds[s] && bounds[p] === undefined) {
+            bounds[p] = Math.round(parent[p] + (parent[s] - bounds[s]) / 2);
+          }
+        }
+        return bounds;
       };
 
       if (width && height) {
-        let size = { width, height };
-        url += `?size=${JSON.stringify(size)}`;
+        const bounds = { width, height, left, top };
+        url += `?winbounds=${JSON.stringify(bounds)}`;
         if (parent) {
-          ({ left, top } = Object.assign(options, centerOnParent(size)));
+          ({ left, top } = Object.assign(options, centerOnParent(bounds)));
         }
       }
+
       debug("Prompt pre-opening options", options, left, top, width, height); // DEV_ONLY
       let popup = (this.currentWindow = await browser.windows.create(options));
 
@@ -93,7 +92,7 @@ var Prompts = (() => {
         if (top === undefined) ({ top } = popup);
       }
 
-      debug("Prompt post-opening options", popup, options, left, top, width, height);
+      debug("Prompt post-opening options", popup, options, left, top, width, height); // DEV_ONLY
 
       // work around for resistFingerprinting new window rounding (https://bugzilla.mozilla.org/show_bug.cgi?id=1330882)
       if (
