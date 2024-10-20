@@ -22,6 +22,8 @@
 
 var XSS = (() => {
 
+  let initializing;
+
   const ABORT = {cancel: true}, ALLOW = {};
 
   let baseTTL = 20000; // timeout in milliseconds for each worker to perform
@@ -78,6 +80,8 @@ var XSS = (() => {
   }
 
   async function requestListener(request) {
+    await initializing; // depends also on ns.initializing
+    if (!ns.sync.xss) return;
 
     {
       let {type} = request;
@@ -88,8 +92,10 @@ var XSS = (() => {
         }
       }
     }
+
     let xssReq = XSS.parseRequest(request);
     if (!xssReq) return null;
+
     let userResponse = await getUserResponse(xssReq);
     if (userResponse) return userResponse;
 
@@ -190,49 +196,31 @@ var XSS = (() => {
     };
   }
 
-  return {
-    async start() {
-      if (!UA.isMozilla) return; // async webRequest is supported on Mozilla only
+  if (UA.isMozilla) {
+    // async webRequest is supported on Mozilla only
+    const {onBeforeRequest, onCompleted, onErrorOccurred} = browser.webRequest;
+    const filter = {
+      urls: ["*://*/*"],
+      types: ["main_frame", "sub_frame", "object"]
+    };
 
-      let {onBeforeRequest, onCompleted, onErrorOccurred} = browser.webRequest;
-
-      if (onBeforeRequest.hasListener(requestListener)) return;
-
+    initializing = (async () => {
       await include([
         "/nscl/common/AsyncRegExp.js",
         "/xss/Exceptions.js"
       ]);
 
-      this._userChoices = (await Storage.get("sync", "xssUserChoices")).xssUserChoices || {};
+      XSS._userChoices = (await Storage.get("sync", "xssUserChoices")).xssUserChoices || {};
+      await ns.initializing;
+    })();
 
-      // convert old style whitelist if stored
-      let oldWhitelist = await XSS.Exceptions.getWhitelist();
-      if (oldWhitelist) {
-        for (let [destOrigin, sources] of Object.entries(oldWhitelist)) {
-          for (let srcOrigin of sources) {
-            this._userChoices[`${srcOrigin}>${destOrigin}`] = "allow";
-          }
-        }
-        XSS.Exceptions.setWhitelist(null);
-      }
-      let filter = {
-        urls: ["*://*/*"],
-        types: ["main_frame", "sub_frame", "object"]
-      };
-      onBeforeRequest.addListener(requestListener, filter, ["blocking", "requestBody"]);
-      if (!onCompleted.hasListener(doneListener)) {
-        onCompleted.addListener(doneListener, filter);
-        onErrorOccurred.addListener(doneListener, filter);
-      }
-    },
+    onBeforeRequest.addListener(requestListener, filter, ["blocking", "requestBody"]);
+    onCompleted.addListener(doneListener, filter);
+    onErrorOccurred.addListener(doneListener, filter);
+  }
 
-    stop() {
-      let {onBeforeRequest} = browser.webRequest;
-      if (onBeforeRequest.hasListener(requestListener)) {
-        onBeforeRequest.removeListener(requestListener);
-      }
-    },
 
+  return {
     parseRequest(request) {
       let {
         requestId,

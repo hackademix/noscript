@@ -188,12 +188,6 @@ var Settings = {
 
     if (xssUserChoices) await XSS.saveUserChoices(xssUserChoices);
 
-    if (ns.sync.xss) {
-      XSS.start();
-    } else {
-      XSS.stop();
-    }
-
     if (reloadOptionsUI) await this.reloadOptionsUI();
   },
 
