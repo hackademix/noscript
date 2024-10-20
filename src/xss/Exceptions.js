@@ -24,13 +24,6 @@ XSS.Exceptions = (() => {
 
   var Exceptions = {
 
-    async getWhitelist() {
-      return (await Storage.get("sync", "xssWhitelist")).xssWhitelist;
-    },
-    async setWhitelist(xssWhitelist) {
-      await Storage.set("sync", {xssWhitelist});
-    },
-
     async shouldIgnore(xssReq) {
       function logEx(...args) {
         debug("[XSS preprocessing] Ignoring %o", xssReq, ...args);

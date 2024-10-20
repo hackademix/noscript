@@ -89,12 +89,6 @@
     }
 
     await RequestGuard.start();
-    await XSS.start(); // we must start it anyway to initialize sub-objects
-    if (!ns.sync.xss) {
-      XSS.stop();
-    }
-
-
 
     try {
       await Messages.send("started");
