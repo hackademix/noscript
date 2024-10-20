@@ -34,7 +34,7 @@
   ],
 
   "background": {
-    "persistent": true,
+    "persistent": false,
     "scripts": [
       "/nscl/lib/browser-polyfill.js",
       "/nscl/lib/punycode.js",
