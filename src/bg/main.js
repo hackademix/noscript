@@ -76,8 +76,7 @@
           await ns.savePolicy();
         }
       } else {
-        await include("/legacy/Legacy.js");
-        ns.policy = await Legacy.createOrMigratePolicy();
+        ns.policy = new Policy(Settings.createDefaultDryPolicy());
         await ns.savePolicy();
       }
     }

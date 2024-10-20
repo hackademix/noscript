@@ -22,12 +22,9 @@ var Settings = {
 
   async import(data) {
 
-    // figure out whether it's just a whitelist, a legacy backup or a "Quantum" export
+    // figure out whether it's just a trusted/untrusted list, a serialized policy or a full settings export
     try {
       let json = JSON.parse(data);
-      if (json.whitelist) {
-        return await this.importLegacy(json);
-      }
       if (json.trusted) {
         return await this.importPolicy(json);
       }
@@ -40,26 +37,16 @@ var Settings = {
     }
   },
 
-  async importLegacy(json) {
-    await include("/legacy/Legacy.js");
-    if (await Legacy.import(json)) {
-      try {
-        ns.policy = Legacy.migratePolicy();
-        await ns.savePolicy();
-        await Legacy.persist();
-        return true;
-      } catch (e) {
-        error(e, "Importing legacy settings");
-        Legacy.migrated = Legacy.undo;
-      }
-    }
-    return false;
-  },
-
   async importLists(data) {
-    await include("/legacy/Legacy.js");
+    const extractLists = lists =>
+      lists.map(listString => listString.split(/\s+/))
+        .map(sites => sites.filter(s => !(
+          s.includes(":") &&
+          sites.includes(s.replace(/.*:\/*(?=\w)/g, ""))
+        )));
+
     try {
-      let [trusted, untrusted] = Legacy.extractLists(data.split("[UNTRUSTED]"));
+      let [trusted, untrusted] = extractLists(data.split("[UNTRUSTED]"));
       let policy = ns.policy;
       for (let site of trusted) {
         policy.set(site, policy.TRUSTED);

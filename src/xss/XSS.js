@@ -200,7 +200,6 @@ var XSS = (() => {
 
       await include([
         "/nscl/common/AsyncRegExp.js",
-        "/legacy/Legacy.js",
         "/xss/Exceptions.js"
       ]);
 
