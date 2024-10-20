@@ -28,15 +28,15 @@
       });
     }
   }
-  let popupURL = browser.runtime.getURL("/ui/popup.html");
-  let popupFor = tabId => `${popupURL}#tab${tabId}`;
+  const popupURL = browser.runtime.getURL("/ui/popup.html");
+  const popupFor = tabId => `${popupURL}#tab${tabId}`;
 
-  let ctxMenuId = "noscript-ctx-menu";
+  const ctxMenuId = "noscript-ctx-menu";
   let menuShowing = false;
   const menuUpdater = async (tabId) => {
     if (!menuShowing) return;
     try {
-      let badgeText = await browser.browserAction.getBadgeText({tabId});
+      const badgeText = await browser.browserAction.getBadgeText({tabId});
       let title = "NoScript";
       if (badgeText) title = `${title} [${badgeText}]`;
       await browser.contextMenus.update(ctxMenuId, {title});
@@ -46,7 +46,7 @@
   }
   async function toggleCtxMenuItem(show = ns.local.showCtxMenuItem) {
     if (!("contextMenus" in browser)) return;
-    let id = ctxMenuId;
+    const id = ctxMenuId;
     try {
       await browser.contextMenus.remove(id);
     } catch (e) {}
@@ -68,7 +68,7 @@
     await Defaults.init();
 
     if (!ns.policy) { // it could have been already retrieved by LifeCycle
-      let policyData = (await Storage.get("sync", "policy")).policy;
+      const policyData = (await Storage.get("sync", "policy")).policy;
       if (policyData && policyData.DEFAULT) {
         ns.policy = new Policy(policyData);
         if (ns.local.enforceOnRestart && !ns.policy.enforced) {
@@ -81,7 +81,7 @@
       }
     }
 
-    let {isTorBrowser} = ns.local;
+    const {isTorBrowser} = ns.local;
     Sites.onionSecure = isTorBrowser;
 
     if (!isTorBrowser) {
@@ -105,18 +105,18 @@
     await include("/bg/popupHandler.js");
   };
 
-  let Commands = {
+  const Commands = {
     openPageUI() {
       messageHandler.openStandalonePopup();
     },
 
     async toggleEnforcementForTab() {
-      let [tab] = (await browser.tabs.query({
+      const [tab] = (await browser.tabs.query({
         currentWindow: true,
         active: true
       }));
       if (tab) {
-        let toggle = ns.unrestrictedTabs.has(tab.id) ? "delete" : "add";
+        const toggle = ns.unrestrictedTabs.has(tab.id) ? "delete" : "add";
         ns.unrestrictedTabs[toggle](tab.id);
         browser.tabs.reload(tab.id);
       }
@@ -141,7 +141,7 @@
       }
 
       // wiring main UI
-      let ba = browser.browserAction;
+      const ba = browser.browserAction;
       if ("setIcon" in ba) {
         //desktop or Fenix
         ba.setPopup({
@@ -163,7 +163,7 @@
     }
   }
 
-  let messageHandler = {
+  const messageHandler = {
     async updateSettings(settings, sender) {
       if (settings.command === "tg-forget") {
         TabGuard.forget();
@@ -176,10 +176,9 @@
     async broadcastSettings({
       tabId = -1
     }) {
-      let policy = ns.policy.dry(true);
-      let seen = tabId !== -1 ? await ns.collectSeen(tabId) : null;
-      let xssUserChoices = await XSS.getUserChoices();
-      let anonymyzedTabInfo =
+      const policy = ns.policy.dry(true);
+      const seen = tabId !== -1 ? await ns.collectSeen(tabId) : null;
+      const xssUserChoices = await XSS.getUserChoices();
       await Messages.send("settings", {
         policy,
         seen,
@@ -216,8 +215,8 @@
         log("No tab found to open the UI for");
         return;
       }
-      let win = await browser.windows.get(tab.windowId);
-      let width = 610, height = 400;
+      const win = await browser.windows.get(tab.windowId);
+      const width = 610, height = 400;
       browser.windows.create({
         url: popupFor(tab.id),
         width,
@@ -296,9 +295,9 @@
     },
 
     computeChildPolicy({url, contextUrl}, sender) {
-      let {tab, frameId} = sender;
+      const {tab, frameId} = sender;
       let policy = ns.policy;
-      let {isTorBrowser} = ns.local;
+      const {isTorBrowser} = ns.local;
       if (!policy) {
         console.log("Policy is null, initializing: %o, sending fallback.", ns.initializing);
         return {
@@ -310,7 +309,7 @@
         };
       }
 
-      let tabId = tab ? tab.id : -1;
+      const tabId = tab ? tab.id : -1;
       let topUrl;
       if (frameId === 0) {
         topUrl = url;
@@ -373,8 +372,8 @@
 
     async testIC(callbackOrUrl) {
       await include("xss/InjectionChecker.js");
-      let IC = await XSS.InjectionChecker;
-      let ic = new IC();
+      const IC = await XSS.InjectionChecker;
+      const ic = new IC();
       ic.logEnabled = true;
       return (typeof callbackOrUrl === "function")
         ? await callbackOrUrl(ic)
@@ -392,11 +391,11 @@
     },
 
     openOptionsPage({tab, focus, hilite}) {
-      let url = new URL(browser.runtime.getManifest().options_ui.page);
+      const url = new URL(browser.runtime.getManifest().options_ui.page);
       if (tab !== undefined) {
         url.hash += `;tab-main-tabs=${tab}`;
       }
-      let search = new URLSearchParams(url.search);
+      const search = new URLSearchParams(url.search);
       if (focus) search.set("focus", focus);
       if (hilite) search.set("hilite", hilite);
       url.search = search;
@@ -405,7 +404,7 @@
 
     async save(obj) {
       if (obj && obj.storage) {
-        let toBeSaved = {
+        const toBeSaved = {
           [obj.storage]: obj
         };
         await Storage.set(obj.storage, toBeSaved);
@@ -416,7 +415,7 @@
     async collectSeen(tabId) {
       await this.initializing;
       try {
-        let seen = Array.from(await Messages.send("collect", {uuid: ns.local.uuid}, {tabId, frameId: 0}));
+        const seen = Array.from(await Messages.send("collect", {uuid: ns.local.uuid}, {tabId, frameId: 0}));
         debug("Collected seen", seen); // DEV_ONLY
         return seen;
       } catch (e) {
