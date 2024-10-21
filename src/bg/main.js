@@ -87,7 +87,7 @@
     if (!isTorBrowser) {
       await include("/nscl/service/prefetchCSSResources.js");
     }
-
+    await TabGuard.wakening;
     await RequestGuard.start();
 
     try {

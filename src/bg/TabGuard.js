@@ -18,23 +18,62 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// depends on /nscl/common/SessionCache.js
+// depends on /nscl/service/TabCache.js
+// depends on /nscl/service/TabTies.js
 
 var TabGuard = (() => {
-  (async () => { await include(["/nscl/service/TabCache.js", "/nscl/service/TabTies.js"]); })();
 
-  const anonymizedTabs = new Map();
-  browser.tabs.onRemoved.addListener(tab => {
-    anonymizedTabs.delete(tab.id);
+  let anonymizedTabs = new Map();
+  browser.tabs.onRemoved.addListener(({id}) => {
+    if (anonymizedTabs.has(id)) {
+      anonymizedTabs.delete(id);
+      session.save();
+    }
   });
 
-  const anonymizedRequests = new Set();
+  const anonymizedRequests = new Set(); // ephemeral, lifespan is webRequest
 
-  let allowedGroups, filteredGroups;
-  let forget = () => {
-    allowedGroups = {};
-    filteredGroups = {};
+  // Domain groups:
+  // property keys are domains, property values are domain Sets
+  // (session-persisted)
+
+  let Groups = {
+    allowed: {},
+    filtered: {},
   };
-  forget();
+  const forget = () => {
+    Groups.allowed = {};
+    Groups.filtered = {};
+  };
+
+  const groupsSerDe = (source, callback) => {
+    const target = {};
+    for (const [which, group] of Object.entries(source)) {
+      const targetGroup = {};
+      for (const [domain, otherDomains] of Object.entries(group)) {
+         targetGroup[domain] = callback(otherDomains);
+       }
+       target[which] = targetGroup;
+     }
+     return target;
+  };
+  const session = new SessionCache(
+    "TabGuard", // storageKey
+    {
+      afterLoad(data) { // afterLoad
+        if (!data) return;
+        anonymizedTabs = new Map(data.anonymizedTabs);
+        Groups = groupsSerDe(data.Groups, domainsArray => new Set(domainsArray));
+      },
+      beforeSave() {
+        return {
+          anonymizedTabs: [...anonymizedTabs],
+          Groups: groupsSerDe(Groups, domainsSet => [...domainsSet]),
+        }
+      },
+    }
+  );
 
   function mergeGroups(groups,
     {tabDomain, otherDomains}, /* anonymizedTabInfo */
@@ -48,6 +87,7 @@ var TabGuard = (() => {
         (groups[d] || (groups[d] = new Set())).add(tabDomain);
       }
     }
+    session.save();
   }
 
   const AUTH_HEADERS_RX = /^(?:authorization|cookie)/i;
@@ -65,9 +105,10 @@ var TabGuard = (() => {
     return flat;
   }
 
-  let scheduledCuts = new Set();
+  const scheduledCuts = new Set();
 
   return {
+    wakening: Promise.all([TabCache.wakening, TabTies.wakening, session.load()]),
     forget,
     // must be called from a webRequest.onBeforeSendHeaders blocking listener
     onSend(request) {
@@ -199,7 +240,7 @@ var TabGuard = (() => {
           suspiciousDomains.push(getDomain(tab.url));
         }));
 
-        const legitDomains = allowedGroups[tabDomain] || new Set();
+        const legitDomains = Groups.allowed[tabDomain] || new Set();
         legitDomains.add(tabDomain);
 
         let otherDomains = new Set(suspiciousDomains.filter(d => d && !legitDomains.has(d)));
@@ -213,11 +254,13 @@ var TabGuard = (() => {
           requestHeaders = requestHeaders.filter(h => !AUTH_HEADERS_RX.test(h.name));
           debug("[TabGuard] Removing auth headers from %o (%o)", request, requestHeaders);
           anonymizedTabs.set(tabId, {tabDomain, otherDomains: [...otherDomains]});
+          session.save();
+
           anonymizedRequests.add(request.id);
           return {requestHeaders};
         };
 
-        let quietDomains = filteredGroups[tabDomain];
+        let quietDomains = Groups.filtered[tabDomain];
         if (mainFrame) {
           const promptOption = ns.sync.TabGuardPrompt;
 
@@ -238,9 +281,9 @@ var TabGuard = (() => {
               if (ret.button !== 0) {
                 return {cancel: true};
               }
-              const groups = ret.option === 0 ? filteredGroups : allowedGroups;
+              const groups = ret.option === 0 ? Groups.filtered : Groups.allowed;
               mergeGroups(groups, {tabDomain, otherDomains});
-              return groups === filteredGroups ? filterAuth() : null;
+              return groups === Groups.filtered ? filterAuth() : null;
             })();
           }
         }
@@ -288,7 +331,7 @@ var TabGuard = (() => {
     allow(tabId) {
       if (!TabGuard.isAnonymizedTab(tabId)) return;
       const info = this.getAnonymizedTabInfo(tabId);
-      mergeGroups(allowedGroups, info);
+      mergeGroups(Groups.allowed, info);
     }
   }
 })();
