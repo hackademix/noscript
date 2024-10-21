@@ -295,7 +295,7 @@
     },
 
     computeChildPolicy({url, contextUrl}, sender) {
-      const {tab, frameId} = sender;
+      let {tab} = sender;
       let policy = ns.policy;
       const {isTorBrowser} = ns.local;
       if (!policy) {
@@ -311,7 +311,7 @@
 
       const tabId = tab ? tab.id : -1;
       let topUrl;
-      if (frameId === 0) {
+      if (sender.frameId === 0) {
         topUrl = url;
       } else if (tab) {
         if (!tab.url) tab = TabCache.get(tabId);
