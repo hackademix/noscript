@@ -317,29 +317,16 @@
       return {permissions, unrestricted, cascaded, isTorBrowser};
     },
 
-    start() {
-      if (this.running) return;
-      this.running = true;
+    async init() {
       browser.runtime.onSyncMessage.addListener(onSyncMessage);
-      deferWebTraffic(Messages.wakening = this.initializing = init(),
-        async () => {
-          Commands.install();
-          try {
-            this.devMode = (await browser.management.getSelf()).installType === "development";
-          } catch(e) {}
-          if (!(this.local.debug || this.devMode)) {
-            debug = () => {}; // suppress verbosity
-          }
-        });
-    },
-
-    stop() {
-      if (!this.running) return;
-      this.running = false;
-      browser.runtime.onSyncMessage.removeListener(onSyncMessage);
-      Messages.removeHandler(messageHandler);
-      RequestGuard.stop();
-      log("STOPPED");
+      await Wakening.waitFor(Messages.wakening = this.initializing = init());
+      Commands.install();
+      try {
+        this.devMode = (await browser.management.getSelf()).installType === "development";
+      } catch(e) {}
+      if (!(this.local.debug || this.devMode)) {
+        debug = () => {}; // suppress verbosity
+      }
     },
 
     test() {
@@ -406,4 +393,4 @@
   };
  }
 
- ns.start();
+ ns.init();
