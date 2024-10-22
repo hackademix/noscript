@@ -180,8 +180,10 @@ var Settings = {
     if (typeof unrestrictedTab === "boolean") {
       ns.unrestrictedTabs[unrestrictedTab ? "add" : "delete"](tabId);
     }
-    if (reloadAffected) {
-      browser.tabs.reload(tabId);
+    if (reloadAffected && tabId !== -1) {
+      try {
+        browser.tabs.reload(tabId);
+      } catch (e) {}
     }
 
     if (xssUserChoices) await XSS.saveUserChoices(xssUserChoices);
