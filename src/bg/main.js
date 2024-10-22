@@ -345,7 +345,7 @@
       if (this.running) return;
       this.running = true;
       browser.runtime.onSyncMessage.addListener(onSyncMessage);
-      deferWebTraffic(this.initializing = init(),
+      deferWebTraffic(Messages.wakening = this.initializing = init(),
         async () => {
           Commands.install();
           try {
