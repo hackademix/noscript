@@ -64,10 +64,28 @@
     }
   }
 
+  const session = new SessionCache(
+    "NoScriptSession",
+    {
+      afterLoad(data) {
+        if (data) {
+          ns.policy = new Policy(data.policy);
+          ns.unrestrictedTabs = new Set(data.unrestrictedTabs);
+        }
+      },
+      beforeSave() { // beforeSave
+        return {
+          policy: ns.policy.dry(true),
+          unrestrictedTabs: [...ns.unrestrictedTabs],
+        };
+      },
+    }
+  );
+
   async function init() {
     await Defaults.init();
-
-    if (!ns.policy) { // it could have been already retrieved by LifeCycle
+    await session.load();
+    if (!ns.policy) { // ns.policy could have been already set by LifeCycle or SessionCache
       const policyData = (await Storage.get("sync", "policy")).policy;
       if (policyData && policyData.DEFAULT) {
         ns.policy = new Policy(policyData);
@@ -110,8 +128,7 @@
         active: true
       }));
       if (tab) {
-        const toggle = ns.unrestrictedTabs.has(tab.id) ? "delete" : "add";
-        ns.unrestrictedTabs[toggle](tab.id);
+        ns.toggleTabRestrictions(tab.id);
         browser.tabs.reload(tab.id);
       }
     },
@@ -253,6 +270,10 @@
     sync: null,
     initializing: null,
     unrestrictedTabs: new Set(),
+    toggleTabRestrictions(tabId, restrict = ns.unrestrictedTabs.has(tabId)) {
+      ns.unrestrictedTabs[restrict ? "delete": "add"](tabId);
+      session.save();
+    },
     isEnforced(tabId = -1) {
       return this.policy.enforced && (tabId === -1 || !this.unrestrictedTabs.has(tabId));
     },
@@ -345,10 +366,13 @@
 
     async savePolicy() {
       if (this.policy) {
-        await Storage.set("sync", {
-          policy: this.policy.dry()
-        });
-        await browser.webRequest.handlerBehaviorChanged()
+        await Promise.all([
+          Storage.set("sync", {
+            policy: this.policy.dry()
+          }),
+          session.save(),
+          browser.webRequest.handlerBehaviorChanged()
+        ]);
       }
       return this.policy;
     },

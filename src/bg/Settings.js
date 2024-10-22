@@ -178,7 +178,7 @@ var Settings = {
     }
 
     if (typeof unrestrictedTab === "boolean") {
-      ns.unrestrictedTabs[unrestrictedTab ? "add" : "delete"](tabId);
+      ns.toggleTabRestrictions(tabId, !unrestrictedTab);
     }
     if (reloadAffected && tabId !== -1) {
       try {
