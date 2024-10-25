@@ -71,14 +71,12 @@
         if (data) {
           ns.policy = new Policy(data.policy);
           ns.unrestrictedTabs = new Set(data.unrestrictedTabs);
-          Settings.gotTorBrowserInit = data.gotTorBrowserInit;
         }
       },
       beforeSave() { // beforeSave
         return {
           policy: ns.policy.dry(true),
           unrestrictedTabs: [...ns.unrestrictedTabs],
-          gotTorBrowserInit: Settings.gotTorBrowserInit,
         };
       },
     }
@@ -399,6 +397,10 @@
         await Storage.set(obj.storage, toBeSaved);
       }
       return obj;
+    },
+
+    async saveSession() {
+      await session.save();
     },
 
     async collectSeen(tabId) {

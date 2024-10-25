@@ -102,7 +102,7 @@ var Settings = {
       ns.defaults.local.isTorBrowser = true; // prevents reset from forgetting
       ns.defaults.sync.cascadeRestrictions = true; // we want this to be the default even on reset
       Sites.onionSecure = true;
-
+      ns.local.torBrowserPolicy = policy; // save for reset
       if (!this.gotTorBrowserInit) {
         // First initialization message from the Tor Browser
         this.gotTorBrowserInit = true;
@@ -111,12 +111,13 @@ var Settings = {
           // copying the Security Level preset on startup (only).
           // Manually changing the security level works as usual.
           ns.local.isTorBrowser = true;
-          await ns.save(ns.local);
+          await Promise.all([ns.saveSession(), ns.save(ns.local)]);
+          this.reloadOptionsUI();
           return;
         }
-      } else {
-        reloadOptionsUI = true;
       }
+
+      reloadOptionsUI = true;
 
       if (policy && policy.TRUSTED) {
         // Gracefully handle "new" capabilities still unknown to our settings host
@@ -151,13 +152,9 @@ var Settings = {
     }
 
     if (settings.sync === null) {
-      // user is resetting options
-      policy = this.createDefaultDryPolicy();
-
-      // overriden defaults when user manually resets options
-
-      // we want the reset options to stick (otherwise it gets very confusing)
-      ns.defaults.sync.overrideTorBrowserPolicy = true;
+      // User is resetting options:
+      // pick either current Tor Browser Security Level or default NoScript policy
+      policy = ns.local.torBrowserPolicy || this.createDefaultDryPolicy();
       reloadOptionsUI = true;
     }
 
