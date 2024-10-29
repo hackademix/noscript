@@ -152,6 +152,8 @@ var Settings = {
       ns.defaults.local.isTorBrowser = true;
       ns.defaults.local.torBrowserPolicy = ns.local.torBrowserPolicy;
       ns.defaults.sync.cascadeRestrictions = true;
+
+      Sites.onionSecure = true;
     }
 
     if (settings.sync === null) {
