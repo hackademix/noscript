@@ -71,12 +71,14 @@
         if (data) {
           ns.policy = new Policy(data.policy);
           ns.unrestrictedTabs = new Set(data.unrestrictedTabs);
+          ns.gotTorBrowserInit = data.gotTorBrowserInit;
         }
       },
       beforeSave() { // beforeSave
         return {
           policy: ns.policy.dry(true),
           unrestrictedTabs: [...ns.unrestrictedTabs],
+          gotTorBrowserInit: ns.gotTorBrowserInit,
         };
       },
     }

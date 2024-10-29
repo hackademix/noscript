@@ -98,25 +98,7 @@ var Settings = {
     let reloadOptionsUI = false;
 
     if (isTorBrowser) {
-      // Tor Browser-specific settings
-      ns.defaults.local.isTorBrowser = true; // prevents reset from forgetting
-      ns.defaults.sync.cascadeRestrictions = true; // we want this to be the default even on reset
-      Sites.onionSecure = true;
-      ns.local.torBrowserPolicy = policy; // save for reset
-      if (!this.gotTorBrowserInit) {
-        // First initialization message from the Tor Browser
-        this.gotTorBrowserInit = true;
-        if (ns.sync.overrideTorBrowserPolicy) {
-          // If the user chose to override Tor Browser's policy we skip
-          // copying the Security Level preset on startup (only).
-          // Manually changing the security level works as usual.
-          ns.local.isTorBrowser = true;
-          await Promise.all([ns.saveSession(), ns.save(ns.local)]);
-          this.reloadOptionsUI();
-          return;
-        }
-      }
-
+      // Initialization or Security Level change message from Tor / Mullvad Browser
       reloadOptionsUI = true;
 
       if (policy && policy.TRUSTED) {
@@ -138,17 +120,38 @@ var Settings = {
         }
       }
 
-      let torBrowserSettings = {
+      const torBrowserSettings = {
         local: {
           isTorBrowser: true,
+          torBrowserPolicy: policy, // save for reset
         },
         sync: {
           cascadeRestrictions: true,
         }
       }
-      for (let [storage, prefs] of Object.entries(torBrowserSettings)) {
+      for (const [storage, prefs] of Object.entries(torBrowserSettings)) {
         settings[storage] = Object.assign(settings[storage] || {}, prefs);
+        // instantly mirror to ns.local & ns.sync
+        Object.assign(ns[storage], prefs);
       }
+
+      if (!ns.gotTorBrowserInit) {
+        // This is the startup message
+        ns.gotTorBrowserInit = true;
+        await ns.saveSession();
+        // Preserve user-overridden policy, since this
+        // is not an user-triggered Security Level change
+        if (ns.sync.overrideTorBrowserPolicy) {
+          policy = null;
+        }
+      }
+    }
+
+    if (ns.local.isTorBrowser) {
+      // prevents resets from forgetting Tor Browser settings
+      ns.defaults.local.isTorBrowser = true;
+      ns.defaults.local.torBrowserPolicy = ns.local.torBrowserPolicy;
+      ns.defaults.sync.cascadeRestrictions = true;
     }
 
     if (settings.sync === null) {
@@ -189,7 +192,10 @@ var Settings = {
   },
 
   createDefaultDryPolicy() {
-    let dp = new Policy().dry();
+    const dp = new Policy().dry();
+    if (ns.local?.isTorBrowser) {
+      return dp; // no default trusted sites
+    }
     dp.sites.trusted = `
       addons.mozilla.org
       afx.ms ajax.aspnetcdn.com

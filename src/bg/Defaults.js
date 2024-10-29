@@ -37,10 +37,11 @@ var Defaults = {
         TabGuardMode: "incognito",
         TabGuardPrompt: "post",
         cascadeRestrictions : false,
-        overrideTorBrowserPolicy: false, // note: Settings.update() on reset will flip this to true
+        overrideTorBrowserPolicy: false,
       }
     };
-    let defaultsClone = JSON.parse(JSON.stringify(defaults));
+
+    const defaultsClone = JSON.parse(JSON.stringify(defaults));
 
     for (let [k, v] of Object.entries(defaults)) {
       let store = await Storage.get(k, k);
