@@ -90,19 +90,14 @@ Messages.addHandler({
     return list;
   },
   async store(event) {
-    if (document.URL !== event.url) return;
-    const {data} = event;
-    const attr = await sha256(data.concat(Math.random()));
+    if (document.URL !== event.url) return false;
+    const {data, attr} = event;
     document.documentElement.dataset[attr] = data;
-    return attr;
+    return true;
   },
   retrieve(event) {
     if (document.URL !== event.url) return;
     let {attr, preserve} = event;
-    if (!attr) {
-      // legacy, < 11.0.39rc8
-      return document.documentElement.lastChild.textContent;
-    }
     let data = document.documentElement.dataset[attr];
     if (!preserve) delete document.documentElement.dataset[attr];
     return data;

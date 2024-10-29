@@ -86,7 +86,6 @@
       "all_frames": true,
       "js": [
         "/nscl/lib/browser-polyfill.js",
-        "/nscl/common/sha256.js",
         "/nscl/common/UA.js",
         "/nscl/common/uuid.js",
         "/nscl/common/log.js",

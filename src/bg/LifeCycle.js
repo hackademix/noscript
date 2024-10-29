@@ -18,6 +18,9 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// depends on /nscl/common/sha256.js
+// depends on /nscl/common/uuid.js
+
 "use strict";
 
 var LifeCycle = (() => {
@@ -108,30 +111,45 @@ var LifeCycle = (() => {
         unrestrictedTabs: [...ns.unrestrictedTabs]
       }));
 
-      let attr;
       try {
+        // random attribute name for DOM storage
+        const attr = await sha256(data.concat(uuid()));
+
         await new Promise((resolve, reject) => {
-          let l = async (tabId, changeInfo) => {
-            if (!!attr || tabId !== tab.id) return;
-            debug("Survival tab updating", changeInfo);
-            if (changeInfo.status !== "complete") return;
+
+          let stored = false;
+          const storeInTab = async (tabId, tabInfo) => {
+            if (stored) {
+              browser.tabs.onUpdated.removeListener(storeInTab);
+              return;
+            }
+            if (tabId !== tab.id) {
+              return;
+            }
+            debug("Survival tab updating", tabInfo);
+            if (tabInfo.status !== "complete") {
+              return;
+            }
             try {
-              attr = await Messages.send("store", {url, data: toBase64(new Uint8Array(cypherText))}, {tabId, frameId: 0});
+              stored = await Messages.send("store", {
+                url,
+                data: toBase64(new Uint8Array(cypherText)),
+                attr,
+              },
+              {tabId, frameId: 0}
+              );
               resolve();
-              debug("Survival tab updated");
+              debug(`Survival tab updated, stored: ${stored}`);
             } catch (e) {
               if (!Messages.isMissingEndpoint(e)) {
                 error(e, "Survival tab failed");
                 reject(e);
               } // otherwise we keep waiting for further updates from the tab until content script is ready to answer
-              return false;
             };
-            return true;
           };
 
-
-          l(tabId, tab).then(r => {
-            if (!r) browser.tabs.onUpdated.addListener(l);
+          storeInTab(tabId, tab).then(() => {
+            if (!stored) browser.tabs.onUpdated.addListener(storeInTab);
           });
         });
 
@@ -218,8 +236,6 @@ var LifeCycle = (() => {
 
   return {
     async onInstalled(details) {
-      browser.runtime.onInstalled.removeListener(this.onInstalled);
-
       if (!UA.isMozilla) {
         // Chromium does not inject content scripts at startup automatically for already loaded pages,
         // let's hack it manually.
@@ -318,9 +334,9 @@ var LifeCycle = (() => {
       if (Ver.is(previousVersion, "<=", "11.4.1rc3")) {
         // show theme switcher on update unless user has already chosen between Vintage Blue and Modern Red
         (async () => {
+          await ns.initializing;
           let isVintage = await Themes.isVintage();
           if (typeof isVintage === "boolean") return;
-          await ns.init;
           ns.openOptionsPage({tab: 2, focus: "#opt-vintageTheme", hilite: "#sect-themes"});
         })();
       }
