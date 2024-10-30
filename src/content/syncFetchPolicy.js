@@ -18,6 +18,8 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// depends on /nscl/content/DocRewriter.js
+
 "use strict";
 
 (window.ns || (window.ns = {})).syncFetchPolicy = function() {
@@ -116,7 +118,6 @@
            try {
             debug("Soft reload", ev); // DEV_ONLY
             try {
-              let doc = window.wrappedJSObject.document;
               let isDir = document.querySelector("link[rel=stylesheet][href^='chrome:']")
                   && document.querySelector(`base[href^="${url}"]`);
               if (isDir || document.contentType !== "text/html") {
@@ -127,10 +128,7 @@
 
               let html = document.documentElement.outerHTML;
               let sx = window.scrollX, sy = window.scrollY;
-              doc.open();
-              console.debug("Opened", doc.documentElement);
-              doc.write(html);
-              doc.close();
+              DocRewriter.rewrite(html);
               debug("Written", html);
               // Work-around this rendering bug: https://forums.informaction.com/viewtopic.php?p=103105#p103050
               debug("Scrolling back to", sx, sy);

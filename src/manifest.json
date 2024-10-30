@@ -94,6 +94,7 @@
         "/nscl/common/CSP.js",
         "/nscl/common/CapsCSP.js",
         "/nscl/common/RequestKey.js",
+        "/nscl/content/DocRewriter.js",
         "/nscl/content/patchWindow.js",
         "/nscl/content/patchWorkers.js",
         "/nscl/content/DocumentCSP.js",
