@@ -112,6 +112,7 @@ var LifeCycle = (() => {
       }));
 
       try {
+        const data = toBase64(new Uint8Array(cypherText));
         // random attribute name for DOM storage
         const attr = await sha256(data.concat(uuid()));
 
@@ -133,7 +134,7 @@ var LifeCycle = (() => {
             try {
               stored = await Messages.send("store", {
                 url,
-                data: toBase64(new Uint8Array(cypherText)),
+                data,
                 attr,
               },
               {tabId, frameId: 0}
