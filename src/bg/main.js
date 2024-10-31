@@ -224,7 +224,7 @@
     async getTheme(msg, {tab, frameId}) {
       let code = await Themes.getContentCSS();
       if (!ns.local.showProbePlaceholders) {
-        code += `\n.__NoScript_Offscreen_PlaceHolders__ {display: none }`;
+        code += `\n.__NoScript_Offscreen_PlaceHolders__ {display: none}`;
       }
       try {
         browser.tabs.insertCSS(tab.id, {
@@ -237,7 +237,7 @@
       } catch (e) {
         console.error(e);
       }
-      return (await Themes.isVintage()) ? "vintage" : "";
+      return {"vintage": await Themes.isVintage()};
     },
 
     async promptHook(msg, {tabId}) {
