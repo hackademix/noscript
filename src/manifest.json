@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "default_locale": "en",
   "name": "NoScript",
   "browser_specific_settings": {
@@ -9,7 +9,7 @@
     },
     "gecko_android": {}
   },
-  "version": "11.5.3rc1",
+  "version": "12.0.0",
   "description": "__MSG_Description__",
   "incognito": "spanning",
 
