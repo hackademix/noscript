@@ -39,6 +39,7 @@
     "scripts": [
       "/nscl/lib/browser-polyfill.js",
       "/nscl/lib/punycode.js",
+      "/nscl/service/Wakening.js",
       "/nscl/common/sha256.js",
       "/nscl/common/UA.js",
       "/nscl/common/uuid.js",
@@ -65,7 +66,6 @@
       "/nscl/service/patchWorkers.js",
       "/nscl/service/TabCache.js",
       "/nscl/service/TabTies.js",
-      "/nscl/service/Wakening.js",
       "ui/Prompts.js",
       "xss/XSS.js",
       "bg/ReportingCSP.js",
