@@ -352,8 +352,9 @@
       }
     },
 
-    test() {
-      include("/test/run.js");
+    async test() {
+      await include("/test/run.js"); // DEV_ONLY
+      runTests();
     },
 
     async testIC(callbackOrUrl) {

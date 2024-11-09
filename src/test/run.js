@@ -18,7 +18,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-(async () => {
+globalThis.runTests = async () => {
   await include("/nscl/test/Test.js");
   Test.include([
     "/nscl/test/Policy_test.js",
@@ -27,4 +27,4 @@
     "XSS",
     "embargoed/XSS",
   ]);
-})();
+};
