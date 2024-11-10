@@ -27,6 +27,10 @@ a.__NoScript_PlaceHolder__ {
   background-image: var(--img-logo);
 }
 
+a.__NoScript_PlaceHolder__.no-theme {
+  visibility: hidden !important;
+}
+
 a.__NoScript_PlaceHolder__.mozilla {
   background-image: var(--img-logo);
 }

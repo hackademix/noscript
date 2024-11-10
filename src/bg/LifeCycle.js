@@ -20,6 +20,7 @@
 
 // depends on /nscl/common/sha256.js
 // depends on /nscl/common/uuid.js
+// depends on /nscl/service/Scripting.js
 
 "use strict";
 
@@ -56,7 +57,7 @@ var LifeCycle = (() => {
     async createAndStore() {
       let allSeen = {};
       let tab;
-      await Promise.all((await browser.tabs.query({})).map(
+      await Promise.allSettled((await browser.tabs.query({})).map(
         async t => {
           let seen = await ns.collectSeen(t.id);
           if (seen) {
@@ -215,7 +216,7 @@ var LifeCycle = (() => {
         destroyIfNeeded();
         if (ns.initializing) await ns.initializing;
         ns.policy = new Policy(policy);
-        await Promise.all(
+        await Promise.allSettled(
           Object.entries(allSeen).map(
             async ([tabId, seen]) => {
               try {
@@ -240,19 +241,19 @@ var LifeCycle = (() => {
       if (!UA.isMozilla) {
         // Chromium does not inject content scripts at startup automatically for already loaded pages,
         // let's hack it manually.
-        let contentScripts = browser.runtime.getManifest().content_scripts.find(s =>
+        const contentScripts = browser.runtime.getManifest().content_scripts.find(s =>
           s.js && s.matches.includes("<all_urls>") && s.all_frames && s.match_about_blank).js;
 
-        await Promise.all((await browser.tabs.query({})).map(async tab => {
-          for (let file of contentScripts) {
-            try {
-              await browser.tabs.executeScript(tab.id, {file, allFrames: true, matchAboutBlank: true});
-            } catch (e) {
-              await include("/nscl/common/restricted.js");
-              if (!isRestrictedURL(tab.url)) {
-                error(e, "Can't run content script on tab", tab);
-              }
-              break;
+        await Promise.allSettled((await browser.tabs.query({})).map(async tab => {
+          try {
+            await Scripting.executeScript({
+                target: {tabId: tab.id, allFrames: true},
+                files: contentScripts,
+              });
+          } catch (e) {
+            await include("/nscl/common/restricted.js");
+            if (!isRestrictedURL(tab.url)) {
+              error(e, "Can't run content script on tab", tab);
             }
           }
         }));

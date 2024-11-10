@@ -18,7 +18,9 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
- {
+// depends on /nscl/service/Scripting.js
+
+{
   'use strict';
   {
     for (let event of ["onInstalled", "onUpdateAvailable"]) {
@@ -36,7 +38,7 @@
   const menuUpdater = async (tabId) => {
     if (!menuShowing) return;
     try {
-      const badgeText = await browser.browserAction.getBadgeText({tabId});
+      const badgeText = await browser.action.getBadgeText({tabId});
       let title = "NoScript";
       if (badgeText) title = `${title} [${badgeText}]`;
       await browser.contextMenus.update(ctxMenuId, {title});
@@ -69,9 +71,9 @@
     {
       afterLoad(data) {
         if (data) {
-          ns.policy = new Policy(data.policy);
-          ns.unrestrictedTabs = new Set(data.unrestrictedTabs);
           ns.gotTorBrowserInit = data.gotTorBrowserInit;
+          ns.unrestrictedTabs = new Set(data.unrestrictedTabs);
+          ns.policy = new Policy(data.policy);
         }
       },
       beforeSave() { // beforeSave
@@ -90,10 +92,12 @@
     if (!ns.policy) { // ns.policy could have been already set by LifeCycle or SessionCache
       const policyData = (await Storage.get("sync", "policy")).policy;
       if (policyData && policyData.DEFAULT) {
-        ns.policy = new Policy(policyData);
-        if (ns.local.enforceOnRestart && !ns.policy.enforced) {
-          ns.policy.enforced = true;
+        const policy = new Policy(policyData);
+        if (ns.local.enforceOnRestart && !policy.enforced) {
+          (ns.policy = policy).enforced = true;
           await ns.savePolicy();
+        } else {
+          ns.policy = policy;
         }
       } else {
         ns.policy = new Policy(Settings.createDefaultDryPolicy());
@@ -108,7 +112,6 @@
       await include("/nscl/service/prefetchCSSResources.js");
     }
     await TabGuard.wakening;
-    await RequestGuard.start();
 
     try {
       await Messages.send("started");
@@ -130,7 +133,7 @@
         active: true
       }));
       if (tab) {
-        ns.toggleTabRestrictions(tab.id);
+        await ns.toggleTabRestrictions(tab.id);
         browser.tabs.reload(tab.id);
       }
     },
@@ -154,7 +157,7 @@
       }
 
       // wiring main UI
-      browser.browserAction.setPopup({popup: popupURL});
+      browser.action.setPopup({popup: popupURL});
     }
   };
 
@@ -222,29 +225,30 @@
       });
     },
     async getTheme(msg, {tab, frameId}) {
-      let code = await Themes.getContentCSS();
+      let css = await Themes.getContentCSS();
       if (!ns.local.showProbePlaceholders) {
-        code += `\n.__NoScript_Offscreen_PlaceHolders__ {display: none}`;
+        css += `\n.__NoScript_Offscreen_PlaceHolders__ {display: none}`;
       }
       try {
-        browser.tabs.insertCSS(tab.id, {
-          code,
-          frameId,
-          runAt: "document_start",
-          matchAboutBlank: true,
-          cssOrigin: "user",
+        await Scripting.insertCSS({
+          target: {tabId: tab.id, frameId},
+          css,
         });
       } catch (e) {
         console.error(e);
       }
-      return {"vintage": await Themes.isVintage()};
+      const ret = {"vintage": await Themes.isVintage()};
+      console.debug("Returning from getTheme", ret); // DEV_ONLY
+      return ret;
     },
 
     async promptHook(msg, {tabId}) {
-      await browser.tabs.executeScript(tabId, {
-        code: "try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}",
-        matchAboutBlank: true,
-        allFrames: true,
+      const func = () => {
+        try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+      };
+      await Scripting.executeScript({
+        target: {tabId},
+        func,
       });
     },
 
@@ -265,16 +269,24 @@
     }
   }
 
-  var ns = {
+  let _policy = null;
+
+  globalThis.ns = {
     running: false,
-    policy: null,
+    set policy(p) {
+      _policy = p;
+      RequestGuard.DNRPolicy?.update();
+    },
+    get policy() { return _policy; },
     local: null,
     sync: null,
     initializing: null,
     unrestrictedTabs: new Set(),
-    toggleTabRestrictions(tabId, restrict = ns.unrestrictedTabs.has(tabId)) {
+    async toggleTabRestrictions(tabId, restrict = ns.unrestrictedTabs.has(tabId)) {
       ns.unrestrictedTabs[restrict ? "delete": "add"](tabId);
-      session.save();
+      Promise.allSettled([session.save(),
+        RequestGuard.DNRPolicy?.updateTabs()
+      ]);
     },
     isEnforced(tabId = -1) {
       return this.policy.enforced && (tabId === -1 || !this.unrestrictedTabs.has(tabId));
@@ -342,7 +354,8 @@
 
     async init() {
       browser.runtime.onSyncMessage.addListener(onSyncMessage);
-      await Wakening.waitFor(Messages.wakening = this.initializing = init());
+      await (Messages.wakening = this.initializing = init());
+      Wakening.done();
       Commands.install();
       try {
         this.devMode = (await browser.management.getSelf()).installType === "development";
@@ -369,7 +382,7 @@
 
     async savePolicy() {
       if (this.policy) {
-        await Promise.all([
+        await Promise.allSettled([
           Storage.set("sync", {
             policy: this.policy.dry()
           }),

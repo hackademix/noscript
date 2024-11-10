@@ -18,13 +18,12 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-var RequestGuard = (() => {
+{
   'use strict';
   const VERSION_LABEL =  `NoScript ${browser.runtime.getManifest().version}`;
-  browser.browserAction.setTitle({title: VERSION_LABEL});
-  const CSP_REPORT_URI = "https://noscript-csp.invalid/__NoScript_Probe__/";
-  const CSP_MARKER = "noscript-marker";
-  let csp = new ReportingCSP(CSP_MARKER, CSP_REPORT_URI);
+  browser.action.setTitle({title: VERSION_LABEL});
+  const CSP_MARKER = "report-to noscript-reports";
+  const csp = new ReportingCSP(CSP_MARKER);
 
   const policyTypesMap = {
       main_frame:  "",
@@ -49,6 +48,32 @@ var RequestGuard = (() => {
   }
 
   const TabStatus = {
+    _session: new SessionCache(
+      "RequestGuard.TabStatus",
+      {
+        afterLoad(data) {
+          if (data) {
+            TabStatus.map = new Map(data.map);
+            TabStatus._originsCache = new Map(data._originsCache);
+          }
+        },
+        beforeSave() { // beforeSave
+          return {
+            map: [...TabStatus.map],
+            _originsCache: [...TabStatus._originsCache],
+          };
+        },
+      }
+    ),
+    init() {
+      for (const event of ["Activated", "Updated", "Removed"]) {
+        browser.tabs[`on${event}`].addListener(TabStatus[`on${event}Tab`]);
+      }
+      (async () => {
+        await TabStatus._session.load();
+        TabStatus.updateTab();
+      });
+    },
     map: new Map(),
     _originsCache: new Map(),
     types: ["script", "object", "media", "frame", "font"],
@@ -89,6 +114,7 @@ var RequestGuard = (() => {
     initTab(tabId, records = this.newRecords()) {
       if (tabId < 0) return;
       this.map.set(tabId, records);
+      this._session.save();
       return records;
     },
     _record(request, what, optValue) {
@@ -121,6 +147,7 @@ var RequestGuard = (() => {
           collection[type] = [requestKey];
         }
       }
+      this._session.save();
       return records;
     },
     record(request, what, optValue) {
@@ -132,10 +159,11 @@ var RequestGuard = (() => {
       }
     },
     _pendingTabs: new Set(),
-    updateTab(tabId) {
-      if (tabId < 0) return;
+    async updateTab(tabId) {
+      tabId ??= (await browser.tabs.getCurrent())?.tabId;
+      if (!(tabId >= 0)) return;
       if (this._pendingTabs.size === 0) {
-        window.setTimeout(() => { // clamp UI updates
+        setTimeout(() => { // clamp UI updates
           for (let tabId of this._pendingTabs) {
             this._updateTabNow(tabId);
           }
@@ -166,22 +194,22 @@ var RequestGuard = (() => {
         : (numAllowed ? "sub" : "no")) // not topAllowed
         : "global"; // not enforced
       let showBadge = ns.local.showCountBadge && numBlocked > 0;
-      let browserAction = browser.browserAction;
-      if (!browserAction.setIcon) { // Fennec
-        browserAction.setTitle({tabId, title: `NoScript (${numBlocked})`});
+      let {action} = browser;
+      if (!action.setIcon) { // Fennec
+        action.setTitle({tabId, title: `NoScript (${numBlocked})`});
         return;
       }
       (async () => {
         let iconPath = (await Themes.isVintage()) ? '/img/vintage' : '/img';
-        browserAction.setIcon({tabId, path: {64: `${iconPath}/ui-${icon}64.png`}});
+        action.setIcon({tabId, path: {64: `${iconPath}/ui-${icon}64.png`}});
       })();
 
-      browserAction.setBadgeText({
+      action.setBadgeText({
         tabId,
         text: TabGuard.isAnonymizedTab(tabId) ? "TG" : showBadge ? numBlocked.toString() : ""
       });
-      browserAction.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
-      browserAction.setTitle({tabId,
+      action.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
+      action.setTitle({tabId,
         title: UA.mobile ? "NoScript" : `${VERSION_LABEL} \n${enforced ?
             _("BlockedItems", [numBlocked, numAllowed + numBlocked]) + ` \n${report}`
             : _("NotEnforced")}`
@@ -233,16 +261,15 @@ var RequestGuard = (() => {
       TabStatus._originsCache.clear();
       TabStatus._pendingTabs.delete(tabId);
     },
-  }
-  for (let event of ["Activated", "Updated", "Removed"]) {
-    browser.tabs[`on${event}`].addListener(TabStatus[`on${event}Tab`]);
-  }
+  };
+  TabStatus.init();
 
-  let messageHandler = {
+  const messageHandler = {
+
     async pageshow(message, sender) {
       if (sender.frameId === 0) {
         TabStatus.recordAll(sender.tab.id, message.seen);
-      } else {
+      } else if (sender.tab) {
         // merge subframes records back into main frame's seen report
         const tabId = sender.tab.id;
         for (const {request, allowed, policyType} of message.seen) {
@@ -253,20 +280,40 @@ var RequestGuard = (() => {
       }
       return true;
     },
-    violation({url, type}, sender) {
-      let tabId = sender.tab.id;
-      let {frameId} = sender;
-      let r = {
-        url, type, tabId, frameId, documentUrl: sender.url
+
+    // returns true if it's a true violation (request should be blocked)
+    violation({url, type, isReport}, sender) {
+      const {tab, frameId} = sender;
+      const documentUrl = sender.url;
+
+      let request = {
+        url,
+        type,
+        tabId: tab.id,
+        tabUrl: tab.url,
+        frameId,
+        documentUrl,
+        originUrl: documentUrl,
       };
-      Content.reportTo(r, false, policyTypesMap[type]);
-      debug("Violation", type, url, tabId, frameId); // DEV_ONLY
-      if (type === "script" && url === sender.url) {
-        TabStatus.record(r, "noscriptFrame", true);
-      } else {
-        TabStatus.record(r, "blocked");
+
+      debug("CSP", isReport ? "report" : "violation", request, sender); // DEV_ONLY
+
+      if (isReport && !checkRequest(request)?.cancel) {
+        // not a real violation
+        return false;
       }
+
+      Content.reportTo(request, false, policyTypesMap[type]);
+
+      if (type === "script" && url === sender.url) {
+        TabStatus.record(request, "noscriptFrame", true);
+      } else {
+        TabStatus.record(request, "blocked");
+      }
+
+      return true;
     },
+
     async blockedObjects(message, sender) {
       let {url, documentUrl, policyType} = message;
       let TAG = `<${policyType.toUpperCase()}>`;
@@ -313,7 +360,8 @@ var RequestGuard = (() => {
       }
       return {enable: key};
     },
-  }
+  };
+
   const Content = {
     async reportTo(request, allowed, policyType) {
       let {requestId, tabId, frameId, type, url, documentUrl, originUrl} = request;
@@ -378,9 +426,9 @@ var RequestGuard = (() => {
 
     function fakeOriginFromTab({tabId, type} = request) {
       if (type !== "main_frame") {
-        let tab = tabId !== -1 && TabCache.get(tabId);
-        if (tab) {
-          return request.initiator = request.originUrl = request.documentUrl = tab.url;
+        let tabUrl = request.tabUrl || tabId !== -1 && TabCache.get(tabId)?.url;
+        if (tabUrl) {
+          return request.initiator = request.originUrl = request.documentUrl = tabUrl;
         }
       }
       return request.initiator || request.originUrl;
@@ -411,14 +459,11 @@ var RequestGuard = (() => {
   };
 
   function intersectCapabilities(perms, request) {
-    let {frameId, frameAncestors, tabId} = request;
-    if (frameId !== 0 && ns.sync.cascadeRestrictions) {
-      let topUrl = frameAncestors && frameAncestors.length
-        && frameAncestors[frameAncestors.length - 1].url;
-      if (!topUrl) {
-        let tab = TabCache.get(tabId);
-        if (tab) topUrl = tab.url;
-      }
+    if (request.frameId !== 0 && ns.sync.cascadeRestrictions) {
+      const {tabUrl, frameAncestors} = request;
+      const topUrl = tabUrl ||
+        frameAncestors && frameAncestors[frameAncestors?.length - 1]?.url ||
+        TabCache.get(request.tabId)?.url;
       if (topUrl) {
         return ns.policy.cascadeRestrictions(perms, topUrl).capabilities;
       }
@@ -426,7 +471,9 @@ var RequestGuard = (() => {
     return perms.capabilities;
   }
 
-  const ABORT = {cancel: true}, ALLOW = {};
+  const ABORT = {cancel: true},
+        ALLOW = {};
+
   const recent = {
     MAX_AGE: 500,
     _pendingGC: 0,
@@ -448,6 +495,7 @@ var RequestGuard = (() => {
       return null;
     },
     add(request) {
+      request.timeStamp ??= Date.now();
       let last = this._byUrl.get(request.url);
       if (!last) {
         last = [request];
@@ -511,86 +559,101 @@ var RequestGuard = (() => {
     }
   }
 
+  // returns null if request.type is unknown, otherwise either ALLOW, ABORT or a redirect response
+  function checkRequest(request) {
+    if (!request.type in policyTypesMap) {
+      return null;
+    }
+
+    normalizeRequest(request);
+
+    let {tabId, type, url, originUrl} = request;
+
+    const {policy} = ns
+
+    let previous = recent.find(request);
+    if (previous) {
+      debug("Rapid fire request", previous); // DEV_ONLY
+      return previous.return;
+    }
+    (previous = request).return = ALLOW;
+    recent.add(previous);
+
+    let policyType = policyTypesMap[type];
+    let {documentUrl} = request;
+    if (!ns.isEnforced(tabId)) {
+      if (ns.unrestrictedTabs.has(tabId) && type.endsWith("frame") && url.startsWith("https:")) {
+        TabStatus.addOrigin(tabId, url);
+      }
+      if (type !== "main_frame") {
+        Content.reportTo(request, true, policyType);
+      }
+      return ALLOW;
+    }
+    let isFetch = "fetch" === policyType;
+
+    if ((isFetch || "frame" === policyType) &&
+        (((isFetch && !originUrl
+          || url === originUrl) && originUrl === documentUrl
+          // some extensions make them both undefined,
+          // see https://github.com/eight04/image-picka/issues/150
+        ) ||
+        Sites.isInternal(originUrl))
+    ) {
+      // livemark request or similar browser-internal, always allow;
+      return ALLOW;
+    }
+
+    if (/^(?:data|blob):/.test(url)) {
+      request._dataUrl = url;
+      request.url = url = documentUrl || originUrl;
+    }
+
+    let allowed = Sites.isInternal(url);
+    if (!allowed) {
+      if (tabId < 0 && documentUrl && documentUrl.startsWith("https:")) {
+        allowed = [...ns.unrestrictedTabs]
+          .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
+      }
+      if (!allowed) {
+        let capabilities = intersectCapabilities(
+          policy.get(url, ns.policyContext(request)).perms,
+          request);
+        allowed = !policyType || capabilities.has(policyType);
+        if (allowed && request._dataUrl && type.endsWith("frame")) {
+          let blocker = csp.buildFromCapabilities(capabilities);
+          if (blocker) {
+            let redirectUrl = CSP.patchDataURI(request._dataUrl, blocker);
+            if (redirectUrl !== request._dataUrl) {
+              return previous.return = {redirectUrl};
+            }
+          }
+        }
+      }
+    }
+    if (type !== "main_frame") {
+      Content.reportTo(request, allowed, policyType);
+    }
+
+    if (!allowed) {
+      debug(`${policyType} must be blocked`, request);
+      TabStatus.record(request, "blocked");
+      return previous.return = ABORT;
+    }
+
+    return ALLOW;
+  }
+
   const listeners = {
     onBeforeRequest(request) {
       try {
-        if (browser.runtime.onSyncMessage && browser.runtime.onSyncMessage.isMessageRequest(request)) return ALLOW;
-        normalizeRequest(request);
+        if (browser.runtime?.onSyncMessage.isMessageRequest(request)) return ALLOW;
+
         initPendingRequest(request);
 
-        let {policy} = ns
-        let {tabId, type, url, originUrl} = request;
+        let result = checkRequest(request);
+        if (result) return result;
 
-        if (type in policyTypesMap) {
-          let previous = recent.find(request);
-          if (previous) {
-            debug("Rapid fire request", previous); // DEV_ONLY
-            return previous.return;
-          }
-          (previous = request).return = ALLOW;
-          recent.add(previous);
-
-          let policyType = policyTypesMap[type];
-          let {documentUrl} = request;
-          if (!ns.isEnforced(tabId)) {
-            if (ns.unrestrictedTabs.has(tabId) && type.endsWith("frame") && url.startsWith("https:")) {
-              TabStatus.addOrigin(tabId, url);
-            }
-            if (type !== "main_frame") {
-              Content.reportTo(request, true, policyType);
-            }
-            return ALLOW;
-          }
-          let isFetch = "fetch" === policyType;
-
-          if ((isFetch || "frame" === policyType) &&
-              (((isFetch && !originUrl
-                || url === originUrl) && originUrl === documentUrl
-                // some extensions make them both undefined,
-                // see https://github.com/eight04/image-picka/issues/150
-              ) ||
-              Sites.isInternal(originUrl))
-          ) {
-            // livemark request or similar browser-internal, always allow;
-            return ALLOW;
-          }
-
-          if (/^(?:data|blob):/.test(url)) {
-            request._dataUrl = url;
-            request.url = url = documentUrl || originUrl;
-          }
-
-          let allowed = Sites.isInternal(url);
-          if (!allowed) {
-            if (tabId < 0 && documentUrl && documentUrl.startsWith("https:")) {
-              allowed = [...ns.unrestrictedTabs]
-                .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
-            }
-            if (!allowed) {
-              let capabilities = intersectCapabilities(
-                policy.get(url, ns.policyContext(request)).perms,
-                request);
-              allowed = !policyType || capabilities.has(policyType);
-              if (allowed && request._dataUrl && type.endsWith("frame")) {
-                let blocker = csp.buildFromCapabilities(capabilities);
-                if (blocker) {
-                  let redirectUrl = CSP.patchDataURI(request._dataUrl, blocker);
-                  if (redirectUrl !== request._dataUrl) {
-                    return previous.return = {redirectUrl};
-                  }
-                }
-              }
-            }
-          }
-          if (type !== "main_frame") {
-            Content.reportTo(request, allowed, policyType);
-          }
-          if (!allowed) {
-            debug(`Blocking ${policyType}`, request);
-            TabStatus.record(request, "blocked");
-            return previous.return = ABORT;
-          }
-        }
       } catch (e) {
         error(e);
       }
@@ -695,7 +758,7 @@ var RequestGuard = (() => {
 
       promises = promises.filter(p => p instanceof Promise);
       if (promises.length > 0) {
-        return Promise.all(promises).then(() => result);
+        return Promise.allSettled(promises).then(() => result);
       }
 
       return result;
@@ -708,6 +771,9 @@ var RequestGuard = (() => {
         TabStatus.initTab(tabId);
         TabGuard.onCleanup(request);
       }
+      if (!RequestGuard.canBlock) {
+        return;
+      }
       let scriptBlocked = request.responseHeaders.some(
         h => csp.isMine(h) && csp.blocks(h.value, "script")
       );
@@ -715,7 +781,6 @@ var RequestGuard = (() => {
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
       let pending = pendingRequests.get(requestId);
       if (pending) {
-
         pending.scriptBlocked = scriptBlocked;
         if (!(pending.headersProcessed &&
             (scriptBlocked || ns.requestCan(request, "script"))
@@ -746,81 +811,64 @@ var RequestGuard = (() => {
       TabGuard.onCleanup(request);
     }
   };
-  function fakeRequestFromCSP(report, request) {
-    let type = report["violated-directive"].split("-", 1)[0]; // e.g. script-src 'none' => script
-    if (type === "frame") type = "sub_frame";
-    let url = report['blocked-uri'];
-    if (!url || url === 'self') url = request.documentUrl;
-    return Object.assign({}, request, {
-      url,
-      type,
-    });
-  }
-
-  let utf8Decoder = new TextDecoder("UTF-8");
-  function onViolationReport(request) {
-    try {
-      let text = utf8Decoder.decode(request.requestBody.raw[0].bytes);
-      if (text.includes(`"inline"`)) return ABORT;
-      let report = JSON.parse(text)["csp-report"];
-      let originalPolicy = report["original-policy"]
-      debug("CSP report", report); // DEV_ONLY
-      let blockedURI = report['blocked-uri'];
-      if (blockedURI && blockedURI !== 'self') {
-        let r = fakeRequestFromCSP(report, request);
-        if (!/:/.test(r.url)) r.url = request.documentUrl;
-        Content.reportTo(r, false, policyTypesMap[r.type]);
-        TabStatus.record(r, "blocked");
-      } else if (report["violated-directive"].startsWith("script-src") && (originalPolicy.includes("script-src 'none'"))) {
-        let r =  fakeRequestFromCSP(report, request);
-        Content.reportTo(r, false, "script"); // NEW
-        TabStatus.record(r, "noscriptFrame", true);
-      }
-    } catch(e) {
-      error(e);
-    }
-    return ABORT;
-  }
 
   function injectPolicyScript(details) {
-    let {url, tabId, frameId} = details;
-    let policy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
-    policy.navigationURL = url;
+    const {url, tabId, frameId} = details;
+    const domPolicy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
+    domPolicy.navigationURL = url;
+    const callback = "ns_setupCallback";
+    if (DocStartInjection.mv3Callbacks) {
+      return {
+        data: {domPolicy},
+        callback,
+        assign: "ns",
+      };
+    }
     let debugStatement = ns.local.debug ? `
       let mark = Date.now() + ":" + Math.random();
       console.debug("domPolicy", domPolicy, document.readyState, location.href, mark, window.ns);` : '';
     return `
-      let domPolicy = ${JSON.stringify(policy)};
-      let {ns} = window;
-      if (ns) {
-        ns.domPolicy = domPolicy;
-        if (ns.setup) {
-          if (ns.syncSetup) ns.syncSetup(domPolicy);
-          else ns.setup(domPolicy);
-        } ;
+      const domPolicy = ${JSON.stringify(domPolicy)};
+      if (globalThis.${callback}) {
+        globalThis.${callback}(domPolicy);
       } else {
-        window.ns = {domPolicy}
+        globalThis.ns ||= {domPolicy}
       }
       ${debugStatement}`;
   }
 
-  const RequestGuard = {
-    async start() {
-      Messages.addHandler(messageHandler);
-      let wr = browser.webRequest;
-      let listen = (what, ...args) => wr[what].addListener(listeners[what], ...args);
-      let allUrls = ["<all_urls>"];
-      let docTypes = ["main_frame", "sub_frame", "object"];
-      let filterDocs = {urls: allUrls, types: docTypes};
-      let filterAll = {urls: allUrls};
-      listen("onBeforeRequest", filterAll, ["blocking"]);
-      listen("onBeforeSendHeaders", filterAll, ["blocking",  "requestHeaders"]);
+  // external interface
+  globalThis.RequestGuard = {
+    canBlock: UA.isMozilla,
+    DNRPolicy: null,
+    policyTypesMap,
+  };
 
-      let mergingCSP = "getBrowserInfo" in browser.runtime;
-      if (mergingCSP) {
-        let {vendor, version} = await browser.runtime.getBrowserInfo();
-        mergingCSP = vendor === "Mozilla" && parseInt(version) >= 77;
-      }
+  // initialization
+  {
+    Messages.addHandler(messageHandler);
+    const wr = browser.webRequest;
+    const listen = (what, ...args) => wr[what].addListener(listeners[what], ...args);
+    const allUrls = ["<all_urls>"];
+    const docTypes = ["main_frame", "sub_frame", "object"];
+    const filterDocs = {urls: allUrls, types: docTypes};
+    const filterAll = {urls: allUrls};
+
+    listen("onBeforeRequest", filterAll,
+        RequestGuard.canBlock ? ["blocking"] : []);
+    listen("onResponseStarted", filterDocs, ["responseHeaders"]);
+    listen("onCompleted", filterAll);
+    listen("onErrorOccurred", filterAll);
+    DocStartInjection.register(injectPolicyScript);
+    TabStatus.probe();
+
+    if (!RequestGuard.canBlock) {
+      include("/bg/DNRPolicy.js")
+    } else {
+      // From here on, only webRequestBlocking-enabled code (Gecko MV2.5)
+      listen("onBeforeSendHeaders", filterAll, ["blocking", "requestHeaders"]);
+
+      const mergingCSP = true; // TODO: check whether it's still true...
       if (mergingCSP) {
         // In Gecko>=77 (https://bugzilla.mozilla.org/show_bug.cgi?id=1462989)
         // we need to cleanup our own cached headers in a dedicated listener :(
@@ -848,33 +896,6 @@ var RequestGuard = (() => {
         }
         return ALLOW;
       }, filterDocs, ["blocking", "responseHeaders"])).install();
-
-      listen("onResponseStarted", filterDocs, ["responseHeaders"]);
-      listen("onCompleted", filterAll);
-      listen("onErrorOccurred", filterAll);
-      if (csp.reportURI) {
-        wr.onBeforeRequest.addListener(onViolationReport,
-          {urls: [csp.reportURI], types: ["csp_report"]}, ["blocking", "requestBody"]);
-      }
-      DocStartInjection.register(injectPolicyScript);
-      TabStatus.probe();
-    },
-    stop() {
-      let wr = browser.webRequest;
-      for (let [name, listener] of Object.entries(listeners)) {
-        if (typeof listener === "function") {
-          wr[name].removeListener(listener);
-        } else if (listener instanceof LastListener) {
-          listener.uninstall();
-        }
-      }
-      wr.onBeforeRequest.removeListener(onViolationReport);
-      if (listeners.onHeadersReceived.resetCSP) {
-        wr.onHeadersReceived.removeListener(listeners.onHeadersReceived.resetCSP);
-      }
-      DocStartInjection.unregister(injectPolicyScript);
-      Messages.removeHandler(messageHandler);
     }
-  };
-  return RequestGuard;
-})();
+  }
+}

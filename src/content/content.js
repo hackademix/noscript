@@ -126,21 +126,29 @@ var notifyPage = async () => {
 
 window.addEventListener("pageshow", notifyPage);
 
-let violations = new Set();
-let documentOrigin = new URL(document.URL).origin;
-window.addEventListener("securitypolicyviolation", e => {
+const violations = new Set();
+const documentOrigin = new URL(document.URL).origin;
+
+window.addEventListener("securitypolicyviolation", async e => {
   if (!e.isTrusted) return;
-  let {violatedDirective, originalPolicy} = e;
+  let {violatedDirective, originalPolicy, disposition} = e;
 
   let type = violatedDirective.split("-", 1)[0]; // e.g. script-src 'none' => script
   let url = e.blockedURI;
   if (type === "media" && /^data\b/.test(url) && (!CSP.isMediaBlocker(originalPolicy) ||
-      ns.embeddingDocument || !document.querySelector("video,audio")))
+      ns.embeddingDocument || !document.querySelector("video,audio"))) {
+    // MediaBlocker probe, don't report
     return;
-  if (!ns.CSP || !(CSP.normalize(originalPolicy).includes(ns.CSP))) {
+  }
+
+  const isReport = disposition === "report" &&
+  /; report-to noscript-reports-[\w-]+$/.test(originalPolicy);
+  if (!(isReport ||
+      ns.CSP && CSP.normalize(originalPolicy).includes(ns.CSP))) {
     // this seems to come from page's own CSP
     return;
   }
+
   let documentUrl = document.URL;
   let origin;
   if (!(url && url.includes(":"))) {
@@ -149,23 +157,55 @@ window.addEventListener("securitypolicyviolation", e => {
   } else {
     ({origin} = new URL(url));
   }
-  let key = RequestKey.create(origin, type, documentOrigin);
+  const key = RequestKey.create(url, type, documentOrigin);
   if (violations.has(key)) return;
   violations.add(key);
   if (type === "frame") type = "sub_frame";
-  seen.record({
-    policyType: type,
-    request: {
-      key,
-      url,
-      type,
-      documentUrl,
-    },
-    allowed: false
-  });
-  Messages.send("violation", {url, type});
+  Messages.send("violation", {url, type, isReport});
 }, true);
 
+if (!/^https:/.test(location.protocol)) {
+  // Reporting CSP can only be injected in HTTP responses,
+  // let's emulate them using mutation observers
+  const checked = new Set();
+  const checkSrc = async (node) => {
+    if (!('src' in node && node.parentNode)) {
+      return;
+    }
+    const type = node instanceof HTMLMediaElement ? "media"
+      : node instanceof HTMLIFrameElement ? "sub_frame"
+      : node instanceof HTMLObjectElement || node instanceof HTMLEmbedElement ? "object"
+      : "";
+    if (!type) {
+      return;
+    }
+    const url = node.src;
+    const key = RequestKey.create(url, type, documentOrigin);
+    if (checked.has(key)) {
+      return;
+    }
+    checked.add(key);
+    Messages.send("violation", {url, type, isReport: true});
+  }
+  const mutationsCallback = records => {
+    for (var r of records) {
+      switch (r.type) {
+        case "attributes":
+          checkSrc(r.target);
+          break;
+        case "childList":
+          [...r.addedNodes].forEach(checkSrc);
+          break;
+      }
+    }
+  };
+  const observer = new MutationObserver(mutationsCallback);
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributeFilter: ["src"],
+  });
+}
 
 ns.on("capabilities", () => {
   seen.record({
