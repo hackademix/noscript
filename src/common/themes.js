@@ -19,116 +19,44 @@
  */
 
 {
-  const PARENT_CLASS = "__NoScript_Theme__";
-  let patchSheet = s => {
-    const PARENT_SELECTOR = `.${PARENT_CLASS}`;
-    let rules = s.cssRules;
-    for (let j = 0, len = rules.length; j < len; j++) {
-      let rule = rules[j];
-      if (rule.styleSheet && patchSheet(rule.styleSheet)) {
-        return true;
-      }
-      if (rule.conditionText !== "(prefers-color-scheme: light)") continue;
-      for (let r of rule.cssRules) {
-        let {selectorText} = r;
-        if (selectorText.includes("[data-theme=") || !selectorText.startsWith(PARENT_SELECTOR)) continue;
-        selectorText = selectorText.replace(PARENT_SELECTOR, `${PARENT_SELECTOR}[data-theme="light"]`);
-        s.insertRule(`${selectorText} {${r.style.cssText}}`, j);
-      }
-      return true;
-    }
-    return false;
-  }
-
-  let patchAll = () => {
-    for (let s of document.styleSheets) {
-      try {
-        if (patchSheet(s)) return true;
-      } catch (e) {
-        // cross-site stylesheet?
-       debug(e, s.href); // DEV_ONLY
-      }
-    }
-    return false;
-  }
-
-  if (!patchAll()) {
-    debug("Couldn't patch sheets while loading, deferring to onload"); // DEV_ONLY
-    let onload = e => {
-      if (patchAll()) {
-        removeEventListener(e.type, onload, true);
-      }
-    }
-    addEventListener("load", onload, true);
-  }
-
   let contentCSS;
 
-  let root = document.documentElement;
-  root.classList.add(PARENT_CLASS);
-
   const VINTAGE = "vintageTheme";
-
-  let update = toTheme => {
-    if (window.localStorage) try {
-      localStorage.setItem("theme", toTheme);
-    } catch (e) {}
-    return root.dataset.theme = toTheme;
-  }
-
-  let updateFavIcon = isVintage => {
-    let favIcon = document.querySelector("link[rel=icon]");
-    if (!favIcon) return;
-    let {href} = favIcon;
-    const BASE = new URL("/img/", location.href);
-    if (!href.startsWith(BASE)) return alert("return");
-    const SUB = BASE + "vintage/";
-    let vintageIcon = href.startsWith(SUB);
-    if (isVintage === vintageIcon) return;
-    favIcon.href = isVintage ? href.replace(BASE, SUB) : href.replace(SUB, BASE);
-  }
-
-  let refreshVintage = isVintage => {
-    if (localStorage) try {
-      localStorage.setItem(VINTAGE, isVintage || "");
-    } catch (e) {}
-    document.documentElement.classList.toggle("vintage", isVintage === true);
-    if (browser.browserAction) {
-      browser.browserAction.setIcon({path: {64: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.png` }});
-    }
-    updateFavIcon(isVintage);
-  }
-
   const THEMES = ["dark", "light", "auto"];
-  var Themes = {
+
+  globalThis.Themes = {
     VINTAGE,
-    setup(theme = null) {
+    update() {},
+    refreshVintage() {},
+    async setup(theme = null) {
       if (theme) {
         if (browser && browser.storage) {
           browser.storage.local.set({theme});
         }
       } else {
-        if (localStorage) {
+        if (self.localStorage) {
           theme = localStorage.getItem("theme");
           if (!THEMES.includes(theme)) theme = null;
         }
         if (!theme && browser && browser.storage) {
-          if (document.readyState === "loading") {
+          if (self.document?.readyState === "loading") {
             document.documentElement.style.visibility = "hidden";
           }
           return browser.storage.local.get(["theme"]).then(({theme}) => {
-              update(theme);
-              document.documentElement.style.visibility = "";
+              Themes.update(theme);
+              if (self.document) {
+                document.documentElement.style.visibility = "";
+              }
               return theme || "auto";
           });
         }
       }
-      return update(theme);
+      return Themes.update(theme);
     },
 
     async isVintage() {
       let ret;
-      if (localStorage) {
+      if (self.localStorage) {
         ret = localStorage.getItem(VINTAGE);
         if (ret !== null) return !(ret === "false" || !ret);
       }
@@ -137,13 +65,13 @@
     },
 
     async setVintage(b) {
-      refreshVintage(b);
+      Themes.refreshVintage(b);
       await browser.storage.local.set({[VINTAGE]: b});
       return b;
     },
 
     async getContentCSS() {
-      contentCSS = contentCSS || (async () => {
+      contentCSS ||= (async () => {
         const replaceAsync = async (string, regexp, replacerFunction) => {
           regexp.lastIndex = 0;
           const promises = [];
@@ -186,9 +114,12 @@
   };
 
   (async () => {
-    refreshVintage(await Themes.isVintage());
+    if (self.document) {
+      await include("/common/themesDOM.js");
+    }
+    await Themes.setup();
+    Themes.refreshVintage(await Themes.isVintage());
   })();
-  Promise.resolve(Themes.setup());
 
   browser.storage.onChanged.addListener((changes, area) => {
     if (area !== "local") return;
@@ -197,11 +128,11 @@
         let {oldValue, newValue} = changes[key];
         if (oldValue !== newValue) {
           callback(newValue);
-          window.dispatchEvent(new CustomEvent("NoScriptThemeChanged", {detail: {[key]: newValue}}));
+          self.dispatchEvent(new CustomEvent("NoScriptThemeChanged", {detail: {[key]: newValue}}));
         }
       }
     }
-    ifChanged("theme", update);
-    ifChanged(VINTAGE, refreshVintage);
+    ifChanged("theme", Themes.update);
+    ifChanged(VINTAGE, Themes.refreshVintage);
   });
 }
