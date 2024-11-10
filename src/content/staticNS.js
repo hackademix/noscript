@@ -172,6 +172,11 @@
       return this.capabilities && this.capabilities.has(cap);
     },
   };
-  window.ns = window.ns ? Object.assign(ns, window.ns) : ns;
-  debug("StaticNS", Date.now(), JSON.stringify(window.ns)); // DEV_ONLY
+  globalThis.ns = globalThis.ns ? Object.assign(ns, globalThis.ns) : ns;
+  debug("StaticNS", Date.now(), JSON.stringify(globalThis.ns)); // DEV_ONLY
+  globalThis.ns_setupCallBack = ns.domPolicy
+    ? () => {}
+    : ({domPolicy}) => {
+
+    };
 }

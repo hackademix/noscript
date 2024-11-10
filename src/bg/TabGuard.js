@@ -18,6 +18,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// depends on /nscl/service/Scripting.js
 // depends on /nscl/common/SessionCache.js
 // depends on /nscl/service/TabCache.js
 // depends on /nscl/service/TabTies.js
@@ -111,6 +112,7 @@ var TabGuard = (() => {
     wakening: Promise.all([TabCache.wakening, TabTies.wakening, session.load()]),
     forget,
     // must be called from a webRequest.onBeforeSendHeaders blocking listener
+    // TODO: explore DNR alternative
     onSend(request) {
       const mode = ns.sync.TabGuardMode;
       if (mode === "off" || !request.incognito && mode!== "global") return;
@@ -189,16 +191,18 @@ var TabGuard = (() => {
       return suspiciousTabs.length > 0 && (async () => {
 
         let suspiciousDomains = [];
-        await Promise.all(suspiciousTabs.map(async (tab) => {
+        await Promise.allSettled(suspiciousTabs.map(async (tab) => {
           if (!tab._isExplicitOrigin) { // e.g. about:blank
             // let's try retrieving actual origin
             tab._externalUrl = tab.url;
             tab._isExplicitOrigin = true;
             try {
-              tab.url = await browser.tabs.executeScript(tab.id, {
-                runAt: "document_start",
-                code: "window.origin === 'null' ? window.location.href : window.origin"
-              });
+              tab.url = (await Scripting.executeScript({
+                target: {tabId: tab.id, allFrames: false},
+                func: () => {
+                  return window.origin === 'null' ? window.location.href : window.origin;
+                },
+              }))[0].result;
             } catch (e) {
               // We don't have permissions to run in this tab, probably because it has been left empty.
               debug(e);
@@ -223,10 +227,10 @@ var TabGuard = (() => {
           }
           if (!tab._contentType) {
             try {
-              tab._contentType = await browser.tabs.executeScript(tab.id, {
-                runAt: "document_start",
-                code: "document.contentType"
-              });
+              tab._contentType = (await Scripting.executeScript({
+                target: {tabId: tab.id},
+                func() { return document.contentType }
+              }))[0].result;
             } catch (e) {
               // We don't have permissions to run in this tab: privileged!
               debug(e);
@@ -292,6 +296,7 @@ var TabGuard = (() => {
       })();
     },
     // must be called from a webRequest.onHeadersReceived blocking listener
+    // TODO: explore DNR alternative
     onReceive(request) {
       if (!anonymizedRequests.has(request.id)) return false;
       let headersModified = false;

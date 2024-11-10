@@ -39,12 +39,12 @@ var XSS = (() => {
   async function getUserResponse(xssReq) {
     let {originKey, request} = xssReq;
     let {tabId, frameId} = request;
-    let {browserAction} = browser;
+    const {action} = browser;
     if (frameId === 0) {
       if (blockedTabs.has(tabId)) {
         blockedTabs.delete(tabId);
-        if ("setBadgeText" in browserAction) {
-          browserAction.setBadgeText({tabId, text: ""});
+        if ("setBadgeText" in action) {
+          action.setBadgeText({tabId, text: ""});
         }
       }
     }
@@ -57,9 +57,9 @@ var XSS = (() => {
         log("Blocking request from %s to %s by previous XSS prompt user choice",
         xssReq.srcUrl, xssReq.destUrl);
 
-        if ("setBadgeText" in browserAction) {
-          browserAction.setBadgeText({tabId, text: "XSS"});
-          browserAction.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
+        if ("setBadgeText" in action) {
+          action.setBadgeText({tabId, text: "XSS"});
+          action.setBadgeBackgroundColor({tabId, color: [128, 0, 0, 160]});
         }
         let keys = blockedTabs.get(tabId);
         if (!keys) blockedTabs.set(tabId, keys = new Set());

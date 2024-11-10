@@ -20,17 +20,11 @@
 
 "use strict";
 
-function ReportingCSP(marker, reportURI = "") {
-  const DOM_SUPPORTED = "SecurityPolicyViolationEvent" in window;
-
-  if (DOM_SUPPORTED) reportURI = "";
+function ReportingCSP(marker) {
 
   return Object.assign(
-    new CapsCSP(new NetCSP(
-      reportURI ? `report-uri ${reportURI}` : marker
-    )),
+    new CapsCSP(new NetCSP(marker)),
     {
-      reportURI,
       patchHeaders(responseHeaders, capabilities) {
         let header = null;
         let blocker;

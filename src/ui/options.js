@@ -156,7 +156,7 @@ document.querySelector("#version").textContent = _("Version",
   opt("showFullAddresses", "local");
   opt("showProbePlaceholders", "local");
 
-  UI.wireChoice("theme", o => Themes.setup(o && o.value) );
+  UI.wireChoice("theme", async o => await Themes.setup(o?.value) );
   opt("vintageTheme", async o => await (o ? Themes.setVintage(o.checked) : Themes.isVintage()));
   addEventListener("NoScriptThemeChanged", ({detail}) => {
     if ("theme" in detail) {

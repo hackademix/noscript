@@ -14,8 +14,6 @@
   "description": "__MSG_Description__",
   "incognito": "spanning",
 
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
-
   "icons": {
     "48": "img/icon48.png",
     "96": "img/icon96.png",
@@ -27,15 +25,20 @@
       "storage",
       "tabs",
       "unlimitedStorage",
+      "scripting",
+      "declarativeNetRequest",
       "webNavigation",
       "webRequest",
       "webRequestBlocking",
       "dns",
       "<all_urls>"
   ],
+  "host_permissions": [
+      "<all_urls>"
+  ],
 
   "background": {
-    "persistent": false,
+    "service_worker": "sw.js",
     "scripts": [
       "/nscl/lib/browser-polyfill.js",
       "/nscl/lib/punycode.js",
@@ -61,6 +64,7 @@
       "/nscl/common/AddressMatcherWithDNS.js",
       "/nscl/common/iputil.js",
       "/nscl/common/SessionCache.js",
+      "/nscl/service/Scripting.js",
       "/nscl/service/DocStartInjection.js",
       "/nscl/service/LastListener.js",
       "/nscl/service/patchWorkers.js",
@@ -75,7 +79,8 @@
       "bg/Settings.js",
       "bg/main.js",
       "common/themes.js"
-    ]
+    ],
+    "persistent": false
   },
 
   "content_scripts": [
@@ -119,7 +124,6 @@
       "match_origin_as_fallback": true,
       "all_frames": true,
       "js": [
-        "/nscl/common/UA.js",
         "content/ftp.js",
         "/nscl/content/DocumentFreezer.js",
         "content/syncFetchPolicy.js"
@@ -132,6 +136,14 @@
     "open_in_tab": true
   },
 
+  "action": {
+    "default_area": "navbar",
+    "default_title": "NoScript",
+    "default_icon": {
+      "64": "img/ui-maybe64.png"
+    }
+  },
+
   "browser_action": {
     "default_area": "navbar",
     "default_title": "NoScript",
@@ -141,12 +153,6 @@
   },
 
   "commands": {
-    "openPageUI": {
-      "description": "__MSG_pagePermissionsUI__",
-      "suggested_key": {
-        "default": "Alt+Shift+N"
-      }
-    },
     "toggleEnforcementForTab": {
       "description": "__MSG_toggleEnforcementForTab__",
       "suggested_key": {
@@ -154,6 +160,14 @@
         "windows": "Alt+Shift+Comma"
       }
     },
+
+    "openPageUI": {
+      "description": "__MSG_pagePermissionsUI__",
+      "suggested_key": {
+        "default": "Alt+Shift+N"
+      }
+    },
+
     "tempTrustPage": {
       "description": "__MSG_TempTrustPage__"
     },
@@ -161,6 +175,7 @@
       "description": "__MSG_RevokeTemp__"
     },
 
+    "_execute_action": {},
     "_execute_browser_action": {}
   }
 }

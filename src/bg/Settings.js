@@ -163,7 +163,7 @@ var Settings = {
       reloadOptionsUI = true;
     }
 
-    await Promise.all(["local", "sync"].map(
+    await Promise.allSettled(["local", "sync"].map(
       async storage => (settings[storage] || // changed or...
           settings[storage] === null // ... needs reset to default
         ) && await ns.save(settings[storage]
@@ -180,7 +180,7 @@ var Settings = {
     }
 
     if (typeof unrestrictedTab === "boolean") {
-      ns.toggleTabRestrictions(tabId, !unrestrictedTab);
+      await ns.toggleTabRestrictions(tabId, !unrestrictedTab);
     }
     if (reloadAffected && tabId !== -1) {
       try {

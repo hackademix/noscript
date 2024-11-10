@@ -249,13 +249,16 @@ addEventListener("unload", e => {
 
     setupEnforcement();
 
-
     let mainFrame = UI.seen && UI.seen.find(thing => thing.request.type === "main_frame");
     debug("Seen: %o", UI.seen);
     if (!mainFrame) {
       let isHttp = /^https?:/.test(pageTab.url);
       try {
-        await browser.tabs.executeScript(tabId, { code: "" });
+        await include("/nscl/service/Scripting.js");
+        await Scripting.executeScript({
+          target: {tabId, allFrames: false},
+          func: () => {}
+        });
         if (isHttp) {
           document.body.classList.add("disabled");
           messageBox("warning", _("freshInstallReload"));
