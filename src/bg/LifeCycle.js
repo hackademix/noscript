@@ -241,8 +241,17 @@ var LifeCycle = (() => {
       if (!UA.isMozilla) {
         // Chromium does not inject content scripts at startup automatically for already loaded pages,
         // let's hack it manually.
-        const contentScripts = browser.runtime.getManifest().content_scripts.find(s =>
-          s.js && s.matches.includes("<all_urls>") && s.all_frames && s.match_about_blank).js;
+        const contentScripts = browser.runtime
+          .getManifest()
+          .content_scripts.find(
+            (s) =>
+              s.js &&
+              s.matches.includes("<all_urls>") &&
+              s.all_frames &&
+              s.match_about_blank &&
+              // do not expose MAIN world scripts meant to run before untrusted page ones
+              s.world !== "MAIN"
+          ).js;
 
         await Promise.allSettled((await browser.tabs.query({})).map(async tab => {
           try {
