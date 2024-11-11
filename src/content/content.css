@@ -25,6 +25,7 @@ a.__NoScript_PlaceHolder__ {
   opacity: 0.8;
   z-index: 2147483647 !important;
   background-image: var(--img-logo);
+  border-radius: 4px;
 }
 
 a.__NoScript_PlaceHolder__.mozilla {
@@ -88,13 +89,14 @@ a.__NoScript_PlaceHolder__ > span {
 .__NoScript_PlaceHolder__ > span > span {
   display: block;
   font-size: 18px;
-  background-color: var(--tab-color1);
   border-radius: 8px;
   padding: 8px;
   margin: 0;
   font-family: sans-serif;
   overflow-wrap: break-word;
   word-break: break-all;
+  background-color: var(--tab-color1);
+  background-color: rgba(from var(--tab-color1) r g b / 85%);
 }
 .__NoScript_PlaceHolder__:hover > span > span {
   background-color: var(--bg-color2);
@@ -115,9 +117,9 @@ a.__NoScript_PlaceHolder__.__ns__document {
 .__NoScript_Offscreen_PlaceHolders__ {
   display: flex;
   flex-direction: row-reverse;
-  width: 100%;
   position: fixed;
   bottom: 0;
+  right: 0;
 }
 .__NoScript_Offscreen_PlaceHolders__ a.__NoScript_PlaceHolder__ {
   height: 64px !important;
