@@ -236,6 +236,9 @@ var LifeCycle = (() => {
     }
   }
 
+
+  const versioning = include("/nscl/common/Ver.js");
+
   return {
     async onInstalled(details) {
       if (!UA.isMozilla) {
@@ -279,7 +282,7 @@ var LifeCycle = (() => {
 
       if (!previousVersion) return;
 
-      await include("/nscl/common/Ver.js");
+      await versioning;
       previousVersion = new Ver(previousVersion);
       let currentVersion = new Ver(browser.runtime.getManifest().version);
       let upgrading = Ver.is(previousVersion, "<=", currentVersion);
@@ -364,7 +367,7 @@ var LifeCycle = (() => {
           // user doesn't want us to remember temporary settings across updates: bail out
           return;
         }
-        await include("/nscl/common/Ver.js");
+        await versioning;
         if (Ver.is(details.version, "<", browser.runtime.getManifest().version)) {
           // downgrade: temporary survival might not be supported, and we don't care
           return;
