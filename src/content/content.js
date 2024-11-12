@@ -169,12 +169,13 @@ if (!/^https:/.test(location.protocol)) {
   // let's emulate them using mutation observers
   const checked = new Set();
   const checkSrc = async (node) => {
-    if (!('src' in node && node.parentNode)) {
+    if (!(node.src && node.parentNode)) {
       return;
     }
     const type = node instanceof HTMLMediaElement ? "media"
       : node instanceof HTMLIFrameElement ? "sub_frame"
       : node instanceof HTMLObjectElement || node instanceof HTMLEmbedElement ? "object"
+      : node instanceof HTMLScriptElement ? "script"
       : "";
     if (!type) {
       return;
@@ -199,12 +200,20 @@ if (!/^https:/.test(location.protocol)) {
       }
     }
   };
-  const observer = new MutationObserver(mutationsCallback);
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributeFilter: ["src"],
-  });
+  const watch = () => {
+    [...document.querySelectorAll("media, video, audio, iframe, frame, object, embed, script")].forEach(checkSrc);
+    const observer = new MutationObserver(mutationsCallback);
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributeFilter: ["src"],
+    });
+  }
+  if (document.readyState === "complete") {
+    watch();
+  } else {
+    addEventListener("DOMContentLoaded", watch, true);
+  }
 }
 
 ns.on("capabilities", () => {
