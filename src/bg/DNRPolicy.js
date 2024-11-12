@@ -81,7 +81,7 @@
   const reportingCSP = `${reportedCaps
       .map(cap => `${cap}-src 'none'`)
       .join(';')
-    }; report-to noscript-reports-${uuid()}`; // see /content/content.js securitypolicyviolation handler
+    }; script-src-elem 'none'; report-to noscript-reports-dnr`; // see /content/content.js securitypolicyviolation handler
 
   let updatingSemaphore;
 
