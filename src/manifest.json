@@ -101,6 +101,7 @@
         "/nscl/common/CapsCSP.js",
         "/nscl/common/RequestKey.js",
         "/nscl/content/DocRewriter.js",
+        "/nscl/content/Worlds.js",
         "/nscl/content/patchWindow.js",
         "/nscl/content/patchWorkers.js",
         "/nscl/content/DocumentCSP.js",
@@ -111,7 +112,7 @@
         "content/onScriptDisabled.js",
         "content/staticNS.js",
         "/nscl/content/media.js",
-        "/nscl/content/webglHook.js",
+        "/nscl/content/WebGLHook.js",
         "/nscl/content/promptHook.js",
         "content/embeddingDocument.js",
         "content/content.js"
@@ -126,7 +127,9 @@
       "world": "MAIN",
       "js": [
         "/nscl/main/uuid.js",
-        "/nscl/main/Worlds.js"
+        "/nscl/main/Worlds.js",
+        "/nscl/main/Worlds.main.js",
+        "/nscl/main/WebGLHook.main.js"
       ]
     },
     {
