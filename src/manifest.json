@@ -131,7 +131,8 @@
         "/nscl/main/Worlds.js",
         "/nscl/main/Worlds.main.js",
         "/nscl/main/patchWorkers.main.js",
-        "/nscl/main/WebGLHook.main.js"
+        "/nscl/main/WebGLHook.main.js",
+        "/nscl/main/prefetchCSSResources.main.js"
       ]
     },
     {
