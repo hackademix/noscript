@@ -357,6 +357,7 @@
         */
         ns.policy.set(key, perms);
         await ns.savePolicy();
+        await RequestGuard.DNRPolicy?.update();
       }
       return {enable: key};
     },
