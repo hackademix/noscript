@@ -172,34 +172,15 @@ strip_rc_ver "$MANIFEST_OUT"
 
 # manifest.json patching for Chromium:
 
-EXTRA_PERMS=""
-if grep 'patchWorkers.js' "$MANIFEST_OUT" >/dev/null 2>&1; then
-  EXTRA_PERMS='"debugger",'
-fi
+GECKO_PERMS="dns|<all_urls>|webRequestBlocking"
 
-# skip "application" manifest key
-(grep -B1000 '"name": "NoScript"' "$MANIFEST_OUT"; \
-  grep -A2000 '"version":' "$MANIFEST_OUT") | \
-  # auto-update URL for the Edge version on the Microsoft Store
-  sed -e '/"name":/a\' -e '  "update_url": "'$EDGE_UPDATE_URL'",' | \
-  # skip embeddingDocument.js and dns permission
-  grep -Pv 'content/embeddingDocument.js|"dns",' | \
-  # add "debugger" permission for patchWorkers.js
-  sed -re 's/( *)"webRequestBlocking",/&\n\1'"$EXTRA_PERMS"'/' | \
-  # add origin fallback for content scripts
-  sed -re 's/( *)"match_about_blank": *true/\1"match_origin_as_fallback": true,\n&/' > \
-  "$MANIFEST_OUT".tmp && \
-  mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT"
+node manifest.js $MANIFEST_OUT
 
 CHROME_ZIP=$(build | grep 'ready: .*\.zip' | sed -re 's/.* ready: //')
 
 if [ -f "$CHROME_ZIP" ]; then
-  mv "$CHROME_ZIP" "$XPI$DBG-edge.zip"
-  # remove Edge-specific manifest lines and package for generic Chromium
-  grep -v '"update_url":' "$MANIFEST_OUT" > "$MANIFEST_OUT.tmp" && \
-    mv "$MANIFEST_OUT.tmp" "$MANIFEST_OUT" && \
-    build
-    mv "$CHROME_ZIP" "$XPI$DBG-chrome.zip"
+  node manifest.js mv3 $MANIFEST_OUT && build
+  mv "$CHROME_ZIP" "$XPI$DBG-chrome.zip"
 fi
 
 mv "$BUILD" "$CHROMIUM_UNPACKED"
