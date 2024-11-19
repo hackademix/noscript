@@ -18,8 +18,9 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+'use strict';
+const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
 {
-  'use strict';
   let listenersMap = new Map();
   let backlog = new Set();
 
@@ -155,7 +156,7 @@
         if (!(UA.isMozilla || perms.capabilities.includes("script")) &&
           /^file:\/\/\/(?:[^#?]+\/)?$/.test(document.URL)) {
           // Allow Chromium browser UI scripts for directory navigation
-          // (for Firefox we rely on emulation in content/ftp.js).
+          // (for Firefox we rely on emulation in content/dirindex.js).
           perms.capabilities.push("script");
         }
         this.capabilities = new Set(perms.capabilities);
@@ -177,6 +178,10 @@
   globalThis.ns_setupCallBack = ns.domPolicy
     ? () => {}
     : ({domPolicy}) => {
-
+      ns.domPolicy = domPolicy;
+      if (ns.setup) {
+        if (ns.syncSetup) ns.syncSetup(domPolicy);
+        else ns.setup(domPolicy);
+      }
     };
 }

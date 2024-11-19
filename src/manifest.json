@@ -116,7 +116,10 @@
         "/nscl/content/WebGLHook.js",
         "/nscl/content/promptHook.js",
         "content/embeddingDocument.js",
-        "content/content.js"
+        "content/content.js",
+        "content/dirindex.js",
+        "/nscl/content/DocumentFreezer.js",
+        "content/syncFetchPolicy.js"
       ]
     },
     {
@@ -133,18 +136,6 @@
         "/nscl/main/patchWorkers.main.js",
         "/nscl/main/WebGLHook.main.js",
         "/nscl/main/prefetchCSSResources.main.js"
-      ]
-    },
-    {
-      "run_at": "document_start",
-      "matches": ["file://*/*", "ftp://*/*"],
-      "match_about_blank": true,
-      "match_origin_as_fallback": true,
-      "all_frames": true,
-      "js": [
-        "content/ftp.js",
-        "/nscl/content/DocumentFreezer.js",
-        "content/syncFetchPolicy.js"
       ]
     }
   ],

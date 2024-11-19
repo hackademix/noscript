@@ -18,7 +18,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-if (UA.isMozilla) (() => {
+if (FILE_OR_FTP && UA.isMozilla) (() => {
   // see https://searchfox.org/mozilla-central/rev/76c1ff5f0de23366fe952ab228610ee695a56e68/netwerk/streamconv/converters/nsIndexedToHTML.cpp#334
   'use strict';
   var gTable, gOrderBy, gTBody, gRows, gUI_showHidden;

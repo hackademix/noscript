@@ -46,8 +46,9 @@ if (MANIFEST_VER.includes(3)) {
       /^(?:<all_urls>|webRequestBlocking)$/
       .test(p)
     );
+  const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
   for (const cs of json.content_scripts) {
-    cs.js = cs.js.filter(js => !js.includes("content/embeddingDocument.js"))
+    cs.js = cs.js.filter(path => !excludedScriptsRx.test(path));
   }
   delete json.browser_action;
   delete json.commands._execute_browser_action
