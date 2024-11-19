@@ -664,7 +664,11 @@
     onBeforeSendHeaders(request) {
       normalizeRequest(request);
       let lanRes = checkLANRequest(request);
-      if (!UA.isMozilla) return lanRes; // Chromium doesn't support async blocking suspension, stop here
+      if (!UA.isMozilla) {
+        // Chromium doesn't support async blocking suspension, stop here
+        // (Skip TabGuard on Chromium/MV3 until alternative tech is available)
+        return lanRes;
+      }
       if (lanRes === ABORT) return ABORT;
       // redirection loop test
       let pending = pendingRequests.get(request.requestId);
