@@ -562,7 +562,7 @@
 
   // returns null if request.type is unknown, otherwise either ALLOW, ABORT or a redirect response
   function checkRequest(request) {
-    if (!request.type in policyTypesMap) {
+    if (!(request.type in policyTypesMap)) {
       return null;
     }
 
