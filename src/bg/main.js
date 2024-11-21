@@ -200,7 +200,7 @@
 
     async fetchChildPolicy({url, contextUrl}, sender) {
       await ns.initializing;
-      return ns.computeChildPolicy(...arguments);
+      return await ns.computeChildPolicy(...arguments);
     },
 
     async openStandalonePopup(tab) {
@@ -305,7 +305,7 @@
       return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, this.policyContext(request));
     },
 
-    computeChildPolicy({url, contextUrl}, sender) {
+    async computeChildPolicy({url, contextUrl}, sender) {
       let {tab} = sender;
       let policy = ns.policy;
       const {isTorBrowser} = ns.local;
@@ -322,7 +322,8 @@
 
       const tabId = tab ? tab.id : -1;
       let topUrl;
-      if (sender.frameId === 0) {
+      const isTop = sender.frameId === 0;
+      if (isTop) {
         topUrl = url;
       } else if (tab) {
         if (!tab.url) tab = TabCache.get(tabId);
@@ -338,9 +339,16 @@
       let permissions, unrestricted, cascaded;
       if (policy) {
         let perms = policy.get(url, contextUrl).perms;
-        cascaded = topUrl && ns.sync.cascadeRestrictions;
-        if (cascaded) {
-          perms = policy.cascadeRestrictions(perms, topUrl);
+        if (isTop) {
+          if (policy.autoAllowTop && perms === policy.DEFAULT) {
+            policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
+            await RequestGuard.DNRPolicy?.update();
+          }
+        } else {
+          cascaded = topUrl && ns.sync.cascadeRestrictions;
+          if (cascaded) {
+            perms = policy.cascadeRestrictions(perms, topUrl);
+          }
         }
         permissions = perms.dry();
       } else {

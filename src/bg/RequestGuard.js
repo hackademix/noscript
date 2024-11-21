@@ -817,9 +817,9 @@
     }
   };
 
-  function injectPolicyScript(details) {
+  async function injectPolicyScript(details) {
     const {url, tabId, frameId} = details;
-    const domPolicy = ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
+    const domPolicy = await ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
     domPolicy.navigationURL = url;
     const callback = "ns_setupCallback";
     if (DocStartInjection.mv3Callbacks) {
