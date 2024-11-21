@@ -70,9 +70,14 @@
   }
 
   function toUrlFilter(siteKey) {
-    let urlFilter = `|${siteKey.replace(/^§:/, '|')}`;
-    if (!urlFilter.replace(/^\w+:\/+/).includes("/")) {
-      urlFilter += "/";
+    // Note: using '^' instead of '/' as a terminator
+    // takes explicit port numbers in account
+    if (Sites.isSecureDomainKey(siteKey)) {
+      return `||${Sites.toggleSecureDomainKey(siteKey,false)}^`
+    }
+    let urlFilter = `||${siteKey}`;
+    if (!urlFilter.replace(/^[\w-]+:\/+/, "").includes("/")) {
+      urlFilter += '^';
     }
     return urlFilter;
   }
@@ -93,8 +98,8 @@
       if (!policy || policy.equals(_lastPolicy)) {
         return await updateTabs();
       }
-      _lastPolicy = policy;
     }
+    _lastPolicy = policy;
 
     const Rules = {
       // Using capitalized keys to allow DRY tricks with get/update methods
