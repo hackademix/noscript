@@ -119,7 +119,7 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
       }
       debug(`Synchronously fetching policy for ${url}.`);
       let policy = null;
-      let attempts = 100;
+      let attempts = document.readyState == "loading" ? 100 : 1;
       let refetch = () => {
         try {
           policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
