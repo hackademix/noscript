@@ -199,7 +199,6 @@
     },
 
     async fetchChildPolicy({url, contextUrl}, sender) {
-      await ns.initializing;
       return await ns.computeChildPolicy(...arguments);
     },
 
@@ -306,6 +305,7 @@
     },
 
     async computeChildPolicy({url, contextUrl}, sender) {
+      await ns.initializing;
       let {tab} = sender;
       let policy = ns.policy;
       const {isTorBrowser} = ns.local;

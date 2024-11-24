@@ -818,6 +818,7 @@
   };
 
   async function injectPolicyScript(details) {
+    await ns.initializing;
     const {url, tabId, frameId} = details;
     const domPolicy = await ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
     domPolicy.navigationURL = url;
