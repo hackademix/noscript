@@ -111,8 +111,10 @@
     if (!isTorBrowser) {
       await include("/nscl/service/prefetchCSSResources.js");
     }
-    await TabGuard.wakening;
-
+    await Promise.allSettled([
+      TabGuard.wakening,
+      RequestGuard.DNRPolicy?.update(),
+    ]);
     try {
       await Messages.send("started");
     } catch (e) {
@@ -283,8 +285,9 @@
     unrestrictedTabs: new Set(),
     async toggleTabRestrictions(tabId, restrict = ns.unrestrictedTabs.has(tabId)) {
       ns.unrestrictedTabs[restrict ? "delete": "add"](tabId);
-      Promise.allSettled([session.save(),
-        RequestGuard.DNRPolicy?.updateTabs()
+      await Promise.allSettled([
+        session.save(),
+        RequestGuard.DNRPolicy?.updateTabs(),
       ]);
     },
     isEnforced(tabId = -1) {
@@ -342,7 +345,12 @@
         if (isTop) {
           if (policy.autoAllowTop && perms === policy.DEFAULT) {
             policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
-            await RequestGuard.DNRPolicy?.update();
+            await Promise.allSettled([
+              RequestGuard.DNRPolicy?.update(),
+              session.save(),
+            ]);
+            const dnrRules = (await browser.declarativeNetRequest.getSessionRules()).filter(r => r?.action?.type == "allow"); // DEV_ONLY
+            debug(`Auto-trusted ${Sites.optimalKey(url)}`,  dnrRules); // DEV_ONLY
           }
         } else {
           cascaded = topUrl && ns.sync.cascadeRestrictions;

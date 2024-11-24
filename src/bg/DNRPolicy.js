@@ -89,11 +89,23 @@
       .join(';')
     }; script-src-elem 'none'; report-to noscript-reports-dnr`; // see /content/content.js securitypolicyviolation handler
 
-  let updatingSemaphore;
+  browser.runtime.onStartup.addListener(async () => {
+    const updatedTabs = autoAllow(await browser.tabs.query({}), true);
+    console.debug("DNRPolicy startup updated tabs", updatedTabs); // DEV_ONLY
+    if (updatedTabs.length) {
+      await Promise.allSettled([
+        ns.saveSession(),
+        RequestGuard.DNRPolicy.update(),
+      ]);
+      for (const tab of updatedTabs) {
+        if (tab.status != "unloaded") {
+          browser.tabs.reload(tab.id);
+        }
+      }
+    }
+  });
 
   async function update() {
-    await updatingSemaphore;
-
     const {policy} = ns;
     if (policy === _lastPolicy) {
       if (!policy || policy.equals(_lastPolicy)) {
@@ -161,12 +173,13 @@
           addRules: Rules[ruleType],
           removeRuleIds,
         });
-        console.debug(`DNRPolicy ${Rules[ruleType].length} ${ruleType} rules updated in ${Date.now() - ts}ms`); // DEV_ONLY
+        const newRules = (await browser.declarativeNetRequest[`get${ruleType}Rules`]()).filter(r => r.priority <= MAX_PRIORITY); // DEV_ONLY
+        debug(`DNRPolicy ${Rules[ruleType].length} ${ruleType} rules updated in ${Date.now() - ts}ms`, newRules); // DEV_ONLY
       } catch (e) {
         console.error(e, `Failed to update DNRPolicy ${ruleType}rules %o - remove %o, add %o`, Rules[ruleType], addRules, removeRuleIds);
       }
     })));
-    console.debug(`All DNRPolicy rules updated in ${Date.now() - ts}ms`); // DEV_ONLY
+    debug(`All DNRPolicy rules updated in ${Date.now() - ts}ms`); // DEV_ONLY
   }
 
   async function addTabRules(rules = []) {
@@ -266,21 +279,45 @@
     }
   }
 
+  function autoAllow(tabs, isStartup = false) {
+    const {policy} = ns;
+    const updated = [];
+    if (policy.autoAllowTop) {
+      for(const tab of tabs) {
+        const {url} = tab;
+        if (Sites.isInternal(url)) continue;
+        const perms = policy.get(url).perms;
+        console.debug("DNRPolicy autoAllow check", tab, perms, perms === policy.DEFAULT);
+        if (perms === policy.DEFAULT || (isStartup && perms.temp)) {
+          policy.set(Sites.optimalKey(url), policy.TRUSTED.tempTwin);
+          updated.push(tab);
+        }
+      }
+      updated.length && console.debug("DNRPolicy.autoAllow", updated); // DEV_ONLY
+    }
+    return updated;
+  }
+
+  let updatingSemaphore;
+
   RequestGuard.DNRPolicy = {
     async update() {
       await updatingSemaphore;
-      updatingSemaphore = await update();
+      return await (updatingSemaphore = update());
     },
     async updateTabs() {
       await updatingSemaphore;
-      updatingSemaphore = await updateTabs();
+      return await (updatingSemaphore = updateTabs());
     }
-  }
+  };
 
   browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (changeInfo.url) {
       // TODO: see if the update can be made more granular
-      await RequestGuard.DNRPolicy.updateTabs();
+      (await (autoAllow([tab])).length
+        ? Promise.allSettled([RequestGuard.DNRPolicy.update(), ns.saveSession()])
+        : RequestGuard.DNRPolicy.updateTabs()
+      );
     }
   });
 
