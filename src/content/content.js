@@ -157,11 +157,12 @@ window.addEventListener("securitypolicyviolation", async e => {
   } else {
     ({origin} = new URL(url));
   }
-  const key = RequestKey.create(url, type, documentOrigin);
+  const reportUrl = /frame|object|media/.test(type) ? url : origin;
+  const key = RequestKey.create(reportUrl, type, documentOrigin);
   if (violations.has(key)) return;
   violations.add(key);
   if (type === "frame") type = "sub_frame";
-  Messages.send("violation", {url, type, isReport});
+  Messages.send("violation", {url: reportUrl, type, isReport});
 }, true);
 
 if (!/^https:/.test(location.protocol)) {
