@@ -209,24 +209,34 @@
     if (!tabs?.length) {
       return rules;
     }
-    for (const [siteKey, perms] of ctxSettings) {
-      const tabIds = tabs.filter(tab => perms.contextual.match(tab.url)).map(tab => tab.id);
-      if (!tabIds.length) continue;
+    for (const [siteKey,] of ctxSettings) {
+      const ctxTabs = tabs.map(tab =>
+          ({id: tab.id,
+            settings: policy.get(siteKey, tab.url),
+          }))
+        .filter(({settings}) => settings.contextMatch);
+      const caps2Tabs = new Map();
+      for(const {id, settings} of ctxTabs) {
+        const capsKey = JSON.stringify([...settings.perms.capabilities]);
+        caps2Tabs.get(capsKey)?.push(id) || caps2Tabs.set(capsKey, [id]);
+      }
       const urlFilter = toUrlFilter(siteKey);
-      forBlockAllow(perms.capabilities, (type, resourceTypes) => {
-        rules.push({
-          id: TAB_BASE + rules.length,
-          priority: CTX_PRIORITY,
-          action: {
-            type,
-          },
-          condition: {
-            tabIds,
-            urlFilter,
-            resourceTypes,
-          }
+      for (const [capsKey, tabIds] of [...caps2Tabs]) {
+        forBlockAllow(new Set(JSON.parse(capsKey)), (type, resourceTypes) => {
+          rules.push({
+            id: TAB_BASE + rules.length,
+            priority: CTX_PRIORITY,
+            action: {
+              type,
+            },
+            condition: {
+              tabIds,
+              urlFilter,
+              resourceTypes,
+            }
+          });
         });
-      });
+      }
     }
     if (!cascade) {
       return rules;
