@@ -125,6 +125,9 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
           policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
         } catch (e) {
           error(e);
+          if (/sync-xhr is not allowed/.test(e.message)) {
+            attempts = 0;
+          }
         }
         if (policy) {
           setup(policy);
