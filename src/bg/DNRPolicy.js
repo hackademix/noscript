@@ -34,15 +34,12 @@
 
   let _lastPolicy;
 
+  const dnrTypes = Object.values(browser.declarativeNetRequest.ResourceType);
   const resourceTypesMap = {};
-  {
-    const dnrTypes = Object.values(browser.declarativeNetRequest.ResourceType);
-
-    for(const [key, value] of Object.entries(RequestGuard.policyTypesMap)) {
-      if (!(value && dnrTypes.includes(key))) continue;
-      const mapping = resourceTypesMap[value] ||= [];
-      mapping.push(key);
-    }
+  for(const [key, value] of Object.entries(RequestGuard.policyTypesMap)) {
+    if (!(value && dnrTypes.includes(key))) continue;
+    const mapping = resourceTypesMap[value] ||= [];
+    mapping.push(key);
   }
 
   const ResourceTypeFor = {
@@ -184,6 +181,8 @@
 
   async function addTabRules(rules = []) {
     if (ns.unrestrictedTabs.size) {
+      const tabIds = [...ns.unrestrictedTabs];
+      tabIds.push(browser.tabs.TAB_ID_NONE); // for service workers
       rules.push({
         id: TAB_BASE,
         priority: TAB_PRIORITY,
@@ -191,8 +190,19 @@
           type: "allowAllRequests",
         },
         condition: {
-          tabIds: [...ns.unrestrictedTabs],
+          tabIds,
           resourceTypes: ["main_frame", "sub_frame"],
+        }
+      });
+      rules.push({
+        id: TAB_BASE + 1,
+        priority: TAB_PRIORITY,
+        action: {
+          type: "allow",
+        },
+        condition: {
+          tabIds,
+          resourceTypes: dnrTypes,
         }
       });
     }
@@ -223,6 +233,9 @@
       const urlFilter = toUrlFilter(siteKey);
       for (const [capsKey, tabIds] of [...caps2Tabs]) {
         forBlockAllow(new Set(JSON.parse(capsKey)), (type, resourceTypes) => {
+          if (type == "allow" && resourceTypes.includes("script")) {
+            tabIds.push(browser.tabs.TAB_ID_NONE); // for service workers
+          }
           rules.push({
             id: TAB_BASE + rules.length,
             priority: CTX_PRIORITY,
