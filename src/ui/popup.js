@@ -50,7 +50,14 @@ addEventListener("unload", e => {
     let optionsClosed = false;
 
     let tabFlags = {active: true};
-    if (browser.windows) tabFlags.currentWindow = true; // Desktop browsers only
+    if (browser.windows) {
+      // Desktop browsers only
+
+      // The currentWindow filter seems broken on Vivaldi, sometimes returns no tab...
+      // tabFlags.currentWindow = true;
+      // ... so we take the long route to be safe
+      tabFlags.windowId = (await browser.windows.getCurrent())?.id;
+    }
     let tab = (await browser.tabs.query(tabFlags))[0] ||
     // work-around for Firefox "forgetting" tabs on Android
       (await browser.tabs.query({url: ["*://*/*", "file:///*", "ftp://*/*"]}))[0];
