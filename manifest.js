@@ -33,6 +33,7 @@ console.log(`${MANIFEST_SRC} --[${MANIFEST_VER}]--> ${MANIFEST_DEST}`);
 
 const srcContent = fs.readFileSync(MANIFEST_SRC, 'utf8');
 const json = JSON.parse(srcContent);
+const permissions = new Set(json.permissions);
 
 if (MANIFEST_VER.includes(3)) {
   delete json.browser_specific_settings;
@@ -41,11 +42,10 @@ if (MANIFEST_VER.includes(3)) {
   } else if (json.update_url === EDGE_UPDATE_URL) {
     delete json.update_url;
   }
-  json.permissions = json.permissions
-    .filter(p => !
-      /^(?:<all_urls>|webRequestBlocking)$/
-      .test(p)
-    );
+
+  permissions.delete("<all_urls>");
+  permissions.delete("webRequestBlocking");
+
   const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
   for (const cs of json.content_scripts) {
     cs.js = cs.js.filter(path => !excludedScriptsRx.test(path));
@@ -53,6 +53,11 @@ if (MANIFEST_VER.includes(3)) {
   delete json.browser_action;
   delete json.commands._execute_browser_action
 }
+
+// remove developer-only stuff
+permissions.delete("declarativeNetRequestFeedback");
+
+json.permissions = [...permissions];
 
 const destContent = JSON.stringify(json, null, 2);
 fs.writeFileSync(MANIFEST_DEST, destContent);

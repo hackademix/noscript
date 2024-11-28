@@ -28,6 +28,7 @@
       "unlimitedStorage",
       "scripting",
       "declarativeNetRequest",
+      "declarativeNetRequestFeedback",
       "webNavigation",
       "webRequest",
       "webRequestBlocking",
