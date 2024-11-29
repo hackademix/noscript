@@ -37,6 +37,16 @@ const permissions = new Set(json.permissions);
 
 if (MANIFEST_VER.includes(3)) {
   delete json.browser_specific_settings;
+  const {scripts} = json.background;
+
+  if (scripts) {
+    delete json.background.scripts;
+    delete json.background.persistent;
+    const requiredPath = path.join(path.dirname(MANIFEST_DEST), "REQUIRED.js");
+    fs.writeFileSync(requiredPath,
+      `include.REQUIRED = ${JSON.stringify(scripts, null, 2)};`)
+  }
+
   if (MANIFEST_VER.includes("edge")) {
     json.update_url = EDGE_UPDATE_URL;
   } else if (json.update_url === EDGE_UPDATE_URL) {
@@ -48,7 +58,7 @@ if (MANIFEST_VER.includes(3)) {
 
   const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
   for (const cs of json.content_scripts) {
-    cs.js = cs.js.filter(path => !excludedScriptsRx.test(path));
+    cs.js = cs.js.filter(src => !excludedScriptsRx.test(src));
   }
   delete json.browser_action;
   delete json.commands._execute_browser_action
