@@ -215,7 +215,7 @@
     const cascade = ns.sync.cascadeRestrictions;
     const ctxSettings = [...policy.sites].filter(([siteKey, perms]) => perms.contextual?.size);
     const tabs = (ctxSettings.length || cascade) &&
-      (await browser.tabs.query({})).filter(tab => !ns.unrestrictedTabs.has(tab.id));
+      (await browser.tabs.query({})).filter(tab => tab.url && !ns.unrestrictedTabs.has(tab.id));
     if (!tabs?.length) {
       return rules;
     }
@@ -308,7 +308,7 @@
     if (policy.autoAllowTop) {
       for(const tab of tabs) {
         const {url} = tab;
-        if (Sites.isInternal(url)) continue;
+        if (!url || Sites.isInternal(url)) continue;
         const perms = policy.get(url).perms;
         console.debug("DNRPolicy autoAllow check", tab, perms, perms === policy.DEFAULT);
         if (perms === policy.DEFAULT || (isStartup && perms.temp)) {
