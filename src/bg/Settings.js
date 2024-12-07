@@ -182,13 +182,14 @@ var Settings = {
     if (typeof unrestrictedTab === "boolean") {
       await ns.toggleTabRestrictions(tabId, !unrestrictedTab);
     }
+
+    if (xssUserChoices) await XSS.saveUserChoices(xssUserChoices);
+
     if (reloadAffected && tabId !== -1) {
       try {
         browser.tabs.reload(tabId);
       } catch (e) {}
     }
-
-    if (xssUserChoices) await XSS.saveUserChoices(xssUserChoices);
 
     if (reloadOptionsUI) await this.reloadOptionsUI();
   },
