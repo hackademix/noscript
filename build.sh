@@ -10,6 +10,19 @@ BUILD="$BASE/build"
 MANIFEST_IN="$SRC/manifest.json"
 MANIFEST_OUT="$BUILD/manifest.json"
 
+if [ "$1" == "watch" ]; then
+  while :; do
+    $0 -u debug
+    inotifywait -e 'create,modify,move,delete' -r "$SRC"
+  done
+fi
+
+UNPACKED=
+if [ "$1" == '-u' ]; then
+  UNPACKED=1
+  shift
+fi
+
 strip_rc_ver() {
   MANIFEST="$1"
   if [[ "$2" == "rel" ]]; then
@@ -67,7 +80,7 @@ if [[ "$1" == "bump" ]]; then
   echo "Bumping to $VER"
   git add "$MANIFEST_IN"
   git commit -m "Version bump: $VER."
-  if ! [[ $VER == *rc* ]]; then
+  if ! ([[ $VER == *rc* ]] || [[ $VER =~ \.9[0-9][09]$ ]]); then
     # it's a stable release: let's lock nscl and tag
     git submodule update
    "$0" tag
@@ -94,21 +107,14 @@ CHROMIUM_BUILD_CMD="$BUILD_CMD"
 CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 
 if [[ $VER == *rc* ]]; then
-  sed -re 's/^(\s+)"strict_min_version":.*$/\1"update_url": "https:\/\/secure.informaction.com\/update\/?v='$VER'",\n\0/' \
-    "$MANIFEST_IN" > "$MANIFEST_OUT"
   if [[ "$1" =~ ^sign(ed)?$ ]]; then
     BUILD_CMD="$BASE/../../we-sign"
     BUILD_OPTS=""
   fi
 else
-  grep -v '"update_url":' "$MANIFEST_IN" > "$MANIFEST_OUT"
   if [[ "$1" == "sign" ]]; then
     echo >&2 "WARNING: won't auto-sign a release version, please manually upload to AMO."
   fi
-fi
-if ! grep '"id":' "$MANIFEST_OUT" >/dev/null; then
-  echo >&2 "Cannot build manifest.json"
-  exit 1
 fi
 
 if [ "$1" != "debug" ]; then
@@ -124,8 +130,10 @@ else
   DBG="-dbg"
 fi
 
-echo "Creating $XPI.xpi..."
-mkdir -p "$XPI_DIR"
+if ! [ "$UNPACKED" ]; then
+  echo "Creating $XPI.xpi..."
+  mkdir -p "$XPI_DIR"
+fi
 
 if which cygpath; then
   WEBEXT_IN="$(cygpath -w "$BUILD")"
@@ -137,17 +145,29 @@ fi
 
 COMMON_BUILD_OPTS="--ignore-files='test/**' 'embargoed/**' content/experiments.js"
 
-build() {
-  "$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS
+fix_manifest() {
+  node manifest.js "$1" "$MANIFEST_IN" "$MANIFEST_OUT"
 }
 
-build
+build() {
+  if [ "$1" ]; then
+    UNPACKED_DIR="$BASE/$1"
+    rm -rf "$UNPACKED_DIR"
+    cp -rp "$WEBEXT_IN" "$UNPACKED_DIR" && echo >&2 "Copied $WEBEXT_IN to $UNPACKED_DIR"
+  fi
+  [ "$UNPACKED" ] || \
+    ( "$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" \
+      --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS  | \
+    grep 'ready: .*\.zip' | sed -re 's/.* ready: //' )
+}
+
+fix_manifest mv2firefox
+build firefox
 
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
 elif [ -f "$XPI.zip" ]; then
-  SIGNED=""
   if unzip -l "$XPI.xpi" | grep "META-INF/mozilla.rsa" >/dev/null 2>&1; then
     echo "A signed $XPI.xpi already exists, not overwriting."
   else
@@ -155,37 +175,28 @@ elif [ -f "$XPI.zip" ]; then
     $xpicmd "$XPI.zip" "$XPI$DBG.xpi"
     echo "Created $XPI$DBG.xpi"
   fi
-elif ! [ -f "$XPI.xpi" ]; then
+fi
+if [ -f "$XPI.xpi" ]; then
+  ln -fs "$XPI.xpi" "$BASE/latest.xpi"
+elif ! [ "$UNPACKED" ]; then
   echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
   exit 3
 fi
-ln -fs "$XPI.xpi" "$BASE/latest.xpi"
 
 # create Chromium pre-release
 
 BUILD_CMD="$CHROMIUM_BUILD_CMD"
 BUILD_OPTS="$CHROMIUM_BUILD_OPTS"
-CHROMIUM_UNPACKED="$BASE/chromium"
-EDGE_UPDATE_URL="https://edge.microsoft.com/extensionwebstorebase/v1/crx"
-rm -rf "$CHROMIUM_UNPACKED"
-strip_rc_ver "$MANIFEST_OUT"
 
-# manifest.json patching for Chromium:
+fix_manifest mv3edge
+ZIP=$(build edge)
+[ -f "$ZIP" ] && mv "$ZIP" "$XPI$DBG-edge.zip"
 
-GECKO_PERMS="dns|<all_urls>|webRequestBlocking"
+fix_manifest mv3chrome
+ZIP=$(build chromium)
+[ -f "$ZIP" ] &&  mv "$ZIP" "$XPI$DBG-chrome.zip"
 
-node manifest.js $MANIFEST_OUT
-
-CHROME_ZIP=$(build | grep 'ready: .*\.zip' | sed -re 's/.* ready: //')
-
-if [ -f "$CHROME_ZIP" ]; then
-  node manifest.js mv3 $MANIFEST_OUT && build
-  mv "$CHROME_ZIP" "$XPI$DBG-chrome.zip"
-fi
-
-mv "$BUILD" "$CHROMIUM_UNPACKED"
-
-if [ "$SIGNED" ]; then
+if [ "$SIGNED" ] && ! [ "$UNPACKED" ]; then
   "$0" tag quiet
   nscl
   ../../we-publish "$XPI.xpi"

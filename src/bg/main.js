@@ -20,8 +20,8 @@
 
 // depends on /nscl/service/Scripting.js
 
+"use strict";
 {
-  'use strict';
   {
     for (let event of ["onInstalled", "onUpdateAvailable"]) {
       browser.runtime[event].addListener(async details => {
@@ -442,10 +442,15 @@
         debug("Collected seen", seen); // DEV_ONLY
         return seen;
       } catch (e) {
-        await include("/nscl/common/restricted.js");
-        if (!isRestrictedURL((await browser.tabs.get(tabId)).url)) {
-          // probably a page where content scripts cannot run, let's open the options instead
-          error(e, "Cannot collect noscript activity data");
+        try {
+          const {url} = (await browser.tabs.get(tabId)).url;
+          await include("/nscl/common/restricted.js");
+          if (!isRestrictedURL(url)) {
+            // probably a page where content scripts cannot run, let's open the options instead
+            error(e, `Cannot collect noscript activity data from ${url} (tab ${tabId}!)`); // DEV_ONLY
+          }
+        } catch (e2) {
+          error(e2, `Cannot collect seen / access url on tab ${tabId}!`) // DEV_ONLY
         }
       }
       return null;

@@ -23,11 +23,10 @@
 const fs = require('fs');
 const path = require('path');
 const args = process.argv.slice(2);
-const MANIFEST_VER = /^m?v?[2-3]$/i.test(args[0]) ? args.shift() : "mv3edge";
+const MANIFEST_VER = /^m?v?[2-3]/i.test(args[0]) ? args.shift() : "mv3edge";
 const MANIFEST_SRC = args[0] || "src/manifest.json";
 const MANIFEST_DEST = args[1] || args[0] || "build/manifest.json";
 
-const EDGE_UPDATE_URL = "https://edge.microsoft.com/extensionwebstorebase/v1/crx";
 
 console.log(`${MANIFEST_SRC} --[${MANIFEST_VER}]--> ${MANIFEST_DEST}`);
 
@@ -35,15 +34,26 @@ const srcContent = fs.readFileSync(MANIFEST_SRC, 'utf8');
 const json = JSON.parse(srcContent);
 const permissions = new Set(json.permissions);
 
-if (MANIFEST_VER.includes(3)) {
-  delete json.browser_specific_settings;
-  const {scripts} = json.background;
+const extVer = json.version;
+const FIREFOX_UPDATE_URL = "https://secure.informaction.com/update/?v=" + extVer;
+const EDGE_UPDATE_URL = "https://edge.microsoft.com/extensionwebstorebase/v1/crx";
 
-  if (scripts) {
+const isFirefox = MANIFEST_VER.includes("firefox");
+
+if (isFirefox && /rc|\.9\d{2}$/.test(extVer)) {
+  json.browser_specific_settings.update_url = FIREFOX_UPDATE_URL;
+}
+
+if (MANIFEST_VER.includes(3)) {
+  // MV3
+  json.manifest_version = 3;
+  if (!isFirefox) {
+    delete json.browser_specific_settings;
+    const {scripts} = json.background;
     delete json.background.scripts;
     delete json.background.persistent;
     const requiredPath = path.join(path.dirname(MANIFEST_DEST), "REQUIRED.js");
-    fs.writeFileSync(requiredPath,
+    scripts && fs.writeFileSync(requiredPath,
       `include.REQUIRED = ${JSON.stringify(scripts, null, 2)};`)
   }
 
@@ -53,8 +63,15 @@ if (MANIFEST_VER.includes(3)) {
     delete json.update_url;
   }
 
-  permissions.delete("<all_urls>");
-  permissions.delete("webRequestBlocking");
+  for (const p of [
+    "<all_urls>",
+    "webRequestBlocking",
+    "webRequestBlocking",
+    "webRequestFilterResponse",
+    "webRequestFilterResponse.serviceWorkerScript",
+  ]) {
+    permissions.delete (p);
+  }
 
   const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
   for (const cs of json.content_scripts) {
@@ -62,7 +79,21 @@ if (MANIFEST_VER.includes(3)) {
   }
   delete json.browser_action;
   delete json.commands._execute_browser_action
+} else {
+  // MV2
+  json.manifest_version = 2;
+  delete json.background.service_worker;
+  delete json.web_accessible_resources;
+  delete json.host_permissions;
+  delete json.action;
+  for (const p of [
+    "debugger",
+  ]) {
+    permissions.delete(p);
+  }
 }
+
+
 
 // remove developer-only stuff
 permissions.delete("declarativeNetRequestFeedback");

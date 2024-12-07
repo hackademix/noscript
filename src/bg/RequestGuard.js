@@ -18,8 +18,8 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+"use strict";
 {
-  'use strict';
   const VERSION_LABEL =  `NoScript ${browser.runtime.getManifest().version}`;
   browser.action.setTitle({title: VERSION_LABEL});
   const CSP_MARKER = "report-to noscript-reports";
@@ -648,8 +648,9 @@
   const listeners = {
     onBeforeRequest(request) {
       try {
-        if (browser.runtime?.onSyncMessage.isMessageRequest(request)) return ALLOW;
-
+        if (browser.runtime.onSyncMessage?.isMessageRequest(request)) {
+          return ALLOW;
+        }
         initPendingRequest(request);
 
         let result = checkRequest(request);
@@ -819,6 +820,7 @@
 
   async function injectPolicyScript(details) {
     await ns.initializing;
+    if (ns.local.debug?.disablePolicyInjection) return '';  // DEV_ONLY
     const {url, tabId, frameId} = details;
     const domPolicy = await ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
     domPolicy.navigationURL = url;
