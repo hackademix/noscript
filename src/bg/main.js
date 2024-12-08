@@ -130,7 +130,7 @@
         active: true
       }));
       if (tab) {
-        ns.toggleTabRestrictions(tab.id);
+        await ns.toggleTabRestrictions(tab.id);
         browser.tabs.reload(tab.id);
       }
     },
@@ -272,9 +272,9 @@
     sync: null,
     initializing: null,
     unrestrictedTabs: new Set(),
-    toggleTabRestrictions(tabId, restrict = ns.unrestrictedTabs.has(tabId)) {
+    async toggleTabRestrictions(tabId, restrict = ns.unrestrictedTabs.has(tabId)) {
       ns.unrestrictedTabs[restrict ? "delete": "add"](tabId);
-      session.save();
+      await session.save();
     },
     isEnforced(tabId = -1) {
       return this.policy.enforced && (tabId === -1 || !this.unrestrictedTabs.has(tabId));
@@ -342,7 +342,8 @@
 
     async init() {
       browser.runtime.onSyncMessage.addListener(onSyncMessage);
-      await Wakening.waitFor(Messages.wakening = this.initializing = init());
+      await (Messages.wakening = this.initializing = init());
+      Wakening.done();
       Commands.install();
       try {
         this.devMode = (await browser.management.getSelf()).installType === "development";
