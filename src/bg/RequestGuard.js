@@ -781,7 +781,7 @@
         return;
       }
       let scriptBlocked = request.responseHeaders.some(
-        h => csp.isMine(h) && csp.blocks(h.value, "script")
+        h => csp.isMine(h) && CSP.blocks(h.value, "script")
       );
       debug("%s scriptBlocked=%s setting noscriptFrame on ", url, scriptBlocked, tabId, frameId); // DEV_ONLY
       TabStatus.record(request, "noscriptFrame", scriptBlocked);
