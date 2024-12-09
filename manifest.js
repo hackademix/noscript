@@ -91,9 +91,18 @@ if (MANIFEST_VER.includes(3)) {
   ]) {
     permissions.delete(p);
   }
+
+  // TODO: just scan ${MANIFEST_SRC_DIR}/nscl/mv2main/*.js
+  const mainWorldPatchers = [
+    "patchWorkers",
+    "prefetchCSSResources",
+    "WebGLHook"
+  ];
+  const mainWorldPatchersRx = new RegExp(`nscl/content/(${mainWorldPatchers.join("|")})\\b`);
+  (json.content_scripts = json.content_scripts.filter(cs => !cs.world)).forEach(cs => {
+    cs.js = cs.js.map(src => src.replace(mainWorldPatchersRx, "nscl/mv2main/$1"));
+  });
 }
-
-
 
 // remove developer-only stuff
 permissions.delete("declarativeNetRequestFeedback");

@@ -2,6 +2,7 @@
 **/embargoed/**
 # build artifacts
 build
+unpacked
 chromium
 xpi
 *.xpi

@@ -17,9 +17,9 @@ if [ "$1" == "watch" ]; then
   done
 fi
 
-UNPACKED=
+UNPACKED_ONLY=
 if [ "$1" == '-u' ]; then
-  UNPACKED=1
+  UNPACKED_ONLY=1
   shift
 fi
 
@@ -95,54 +95,44 @@ NSCL="$SRC/nscl"
 
 rm -rf "$BUILD" "$XPI"
 cp -pR "$SRC" "$BUILD"
-
-# include nscl dependencies
-"$NSCL/include.sh" "$BUILD"
-
 cp -p LICENSE "$BUILD"/
 
 BUILD_CMD="web-ext"
 BUILD_OPTS="build --overwrite-dest"
+
+# save Chromium build settings from Mozilla signing overwrite
 CHROMIUM_BUILD_CMD="$BUILD_CMD"
 CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 
-if [[ $VER == *rc* ]]; then
-  if [[ "$1" =~ ^sign(ed)?$ ]]; then
+if [[ "$1" =~ ^sign(ed)?$ ]]; then
+  if [[ $VER == *rc* ]]; then
     BUILD_CMD="$BASE/../../we-sign"
     BUILD_OPTS=""
-  fi
-else
-  if [[ "$1" == "sign" ]]; then
+  else
     echo >&2 "WARNING: won't auto-sign a release version, please manually upload to AMO."
   fi
 fi
 
 if [ "$1" != "debug" ]; then
   DBG=""
-  pushd "$SRC"
-  for file in **/*.js nscl/**/*.js; do
+  for file in "$BUILD"/**/*.js "$BUILD"/nscl/**/*.js; do
     if grep -P '\/\/\s(REL|DEV)_ONLY' "$file" >/dev/null; then
-      sed -re 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file" > "$BUILD/$file"
+      sed -i -r -e 's/\s*\/\/\s*(\S.*)\s*\/\/\s*REL_ONLY.*/\1/' -e 's/.*\/\/\s*DEV_ONLY.*//' "$file"
     fi
   done
-  popd
 else
   DBG="-dbg"
 fi
 
-if ! [ "$UNPACKED" ]; then
+UNPACKED_BASE="$BASE/unpacked"
+mkdir -p "$UNPACKED_BASE"
+
+if ! [ "$UNPACKED_ONLY" ]; then
   echo "Creating $XPI.xpi..."
   mkdir -p "$XPI_DIR"
 fi
 
-if which cygpath; then
-  WEBEXT_IN="$(cygpath -w "$BUILD")"
-  WEBEXT_OUT="$(cygpath -w "$XPI_DIR")"
-else
-  WEBEXT_IN="$BUILD"
-  WEBEXT_OUT="$XPI_DIR"
-fi
-
+CYGPATH=$(which cypath)
 COMMON_BUILD_OPTS="--ignore-files='test/**' 'embargoed/**' content/experiments.js"
 
 fix_manifest() {
@@ -150,15 +140,30 @@ fix_manifest() {
 }
 
 build() {
-  if [ "$1" ]; then
-    UNPACKED_DIR="$BASE/$1"
-    rm -rf "$UNPACKED_DIR"
-    cp -rp "$WEBEXT_IN" "$UNPACKED_DIR" && echo >&2 "Copied $WEBEXT_IN to $UNPACKED_DIR"
+  UNPACKED_DIR="$UNPACKED_BASE/${1:-out}"
+  rm -rf "$UNPACKED_DIR"
+  cp -rp "$BUILD" "$UNPACKED_DIR" && echo >&2 "Copied $BUILD to $UNPACKED_DIR"
+  # include only the actually used nscl dependencies
+  rm -rf "$UNPACKED_DIR/nscl"
+  "$BUILD/nscl/include.sh" "$UNPACKED_DIR"
+
+  if [ "$UNPACKED_ONLY" ]; then
+    return
   fi
-  [ "$UNPACKED" ] || \
-    ( "$BUILD_CMD" $BUILD_OPTS --source-dir="$WEBEXT_IN" \
-      --artifacts-dir="$WEBEXT_OUT" $COMMON_BUILD_OPTS  | \
-    grep 'ready: .*\.zip' | sed -re 's/.* ready: //' )
+
+  if [ "$CYGPATH" ]; then
+    WEBEXT_IN="$(cygpath -w "$UNPACKED_DIR")"
+    WEBEXT_OUT="$(cygpath -w "$XPI_DIR")"
+  else
+    WEBEXT_IN="$UNPACKED_DIR"
+    WEBEXT_OUT="$XPI_DIR"
+  fi
+
+  "$BUILD_CMD" $BUILD_OPTS \
+    --source-dir="$WEBEXT_IN" \
+    --artifacts-dir="$WEBEXT_OUT" \
+    $COMMON_BUILD_OPTS  | \
+    grep 'ready: .*\.zip' | sed -re 's/.* ready: //'
 }
 
 fix_manifest mv2firefox
@@ -178,7 +183,7 @@ elif [ -f "$XPI.zip" ]; then
 fi
 if [ -f "$XPI.xpi" ]; then
   ln -fs "$XPI.xpi" "$BASE/latest.xpi"
-elif ! [ "$UNPACKED" ]; then
+elif ! [ "$UNPACKED_ONLY" ]; then
   echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
   exit 3
 fi
@@ -196,7 +201,7 @@ fix_manifest mv3chrome
 ZIP=$(build chromium)
 [ -f "$ZIP" ] &&  mv "$ZIP" "$XPI$DBG-chrome.zip"
 
-if [ "$SIGNED" ] && ! [ "$UNPACKED" ]; then
+if [ "$SIGNED" ] && ! [ "$UNPACKED_ONLY" ]; then
   "$0" tag quiet
   nscl
   ../../we-publish "$XPI.xpi"
