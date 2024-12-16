@@ -34,7 +34,7 @@ const srcContent = fs.readFileSync(MANIFEST_SRC, 'utf8');
 const json = JSON.parse(srcContent);
 const permissions = new Set(json.permissions);
 
-const extVer = json.version;
+let extVer = json.version;
 const FIREFOX_UPDATE_URL = "https://secure.informaction.com/update/?v=" + extVer;
 const EDGE_UPDATE_URL = "https://edge.microsoft.com/extensionwebstorebase/v1/crx";
 
@@ -48,6 +48,9 @@ if (MANIFEST_VER.includes(3)) {
   // MV3
   json.manifest_version = 3;
   if (!isFirefox) {
+    // convert ${ver}(a|b|rc)xx into ${ver--}.9xx
+    json.version = extVer.replace(/(\d+)(?:\.0)*[a-z]+(\d+)$/,
+        (all, maj, min) => `${parseInt(maj) - 1}.${900 + parseInt(min)}`);
     delete json.browser_specific_settings;
     delete json.content_security_policy;
     const {scripts} = json.background;

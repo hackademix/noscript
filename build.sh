@@ -26,9 +26,11 @@ fi
 strip_rc_ver() {
   MANIFEST="$1"
   if [[ "$2" == "rel" ]]; then
-    replace='s/("version":.*)rc\d+/$1/'
+    # release: truncate alpha/beta/rc suffixes (or *.9xx with increment)
+    replace='s/("version":.*)[a-z]+\d+/$1/, s/("version":.*)\b(\d+)\.9\d{2}/{ $1 . ($2 + 1) }/e'
   else
-    replace='s/("version":.*?)(\d+)rc(\d+)/{$1 . ($2 == "0" ? "0" : ($2-1) . ".9" . sprintf("%03d", $3))}/e'
+    # turn alpha/beta/rc format into *.9xx with decrement
+    replace='s/("version":.*?)\b(\d+)(?:\.0)*[a-z]+(\d+)/{ $1 . ($2 - 1) . "." .  (900 + $3) }/e'
   fi
   perl -pi.bak -e "$replace" "$MANIFEST" && rm -f "$MANIFEST".bak
 }
@@ -80,7 +82,7 @@ if [[ "$1" == "bump" ]]; then
   echo "Bumping to $VER"
   git add "$MANIFEST_IN"
   git commit -m "Version bump: $VER."
-  if ! ([[ $VER == *rc* ]] || [[ $VER =~ \.9[0-9][09]$ ]]); then
+  if ! ([[ $VER == *rc* ]] || [[ $VER =~ \.9[0-9][0-9]$ ]]); then
     # it's a stable release: let's lock nscl and tag
     git submodule update
    "$0" tag
