@@ -49,6 +49,7 @@ if (MANIFEST_VER.includes(3)) {
   json.manifest_version = 3;
   if (!isFirefox) {
     delete json.browser_specific_settings;
+    delete json.content_security_policy;
     const {scripts} = json.background;
     delete json.background.scripts;
     delete json.background.persistent;
@@ -70,7 +71,7 @@ if (MANIFEST_VER.includes(3)) {
     "webRequestFilterResponse",
     "webRequestFilterResponse.serviceWorkerScript",
   ]) {
-    permissions.delete (p);
+    permissions.delete(p);
   }
 
   const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
@@ -78,7 +79,7 @@ if (MANIFEST_VER.includes(3)) {
     cs.js = cs.js.filter(src => !excludedScriptsRx.test(src));
   }
   delete json.browser_action;
-  delete json.commands._execute_browser_action
+  delete json.commands._execute_browser_action;
 } else {
   // MV2
   json.manifest_version = 2;
@@ -92,16 +93,25 @@ if (MANIFEST_VER.includes(3)) {
     permissions.delete(p);
   }
 
-  // TODO: just scan ${MANIFEST_SRC_DIR}/nscl/mv2main/*.js
-  const mainWorldPatchers = [
-    "patchWorkers",
-    "prefetchCSSResources",
-    "WebGLHook"
-  ];
-  const mainWorldPatchersRx = new RegExp(`nscl/content/(${mainWorldPatchers.join("|")})\\b`);
-  (json.content_scripts = json.content_scripts.filter(cs => !cs.world)).forEach(cs => {
-    cs.js = cs.js.map(src => src.replace(mainWorldPatchersRx, "nscl/mv2main/$1"));
-  });
+  // Append MAIN world "*.main.js" scripts to their isolated counterparts
+  // (on Gecko we will patch windows through xray)
+  const isolatedWorldJS = json.content_scripts.find(
+    cs => cs.world != "MAIN" && cs.js?.some(src => src.endsWith("/Worlds.js"))).js;
+
+  json.content_scripts.find(cs => cs.world == "MAIN" && cs.js?.some(src => src.endsWith("/Worlds.main.js")))
+    .js.filter(src => src.endsWith(".main.js"))
+    .forEach(src => {
+      const isolatedSrc = src.replace(/.*(\/[\w+.]+)\.main(?=\.js$)/, "$1");
+      const idx = isolatedWorldJS.findIndex(src => src.endsWith(isolatedSrc));
+      if (idx > -1) {
+        isolatedWorldJS.splice(idx + 1, 0, src)
+      } else {
+        isolatedWorldJS.push(src);
+      }
+    });
+
+  // remove all the MAIN world content script
+  json.content_scripts = json.content_scripts.filter(cs => cs.world != "MAIN");
 }
 
 // remove developer-only stuff

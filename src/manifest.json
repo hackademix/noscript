@@ -5,14 +5,15 @@
   "browser_specific_settings": {
     "gecko": {
       "id":  "{73a6fe31-595d-460b-a920-fcc0f8843232}",
-      "strict_min_version": "66.0",
-      "strict_max_version": "665.0"
+      "strict_min_version": "115.0"
     },
     "gecko_android": {}
   },
   "version": "12.0.8.901",
   "description": "__MSG_Description__",
   "incognito": "spanning",
+
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
 
   "icons": {
     "48": "img/icon48.png",
@@ -106,7 +107,6 @@
         "/nscl/common/RequestKey.js",
         "/nscl/content/DocRewriter.js",
         "/nscl/content/Worlds.js",
-        "/nscl/content/patchWindow.js",
         "/nscl/content/patchWorkers.js",
         "/nscl/content/DocumentCSP.js",
         "/nscl/content/NoscriptElements.js",
@@ -117,7 +117,6 @@
         "content/staticNS.js",
         "/nscl/content/media.js",
         "/nscl/content/WebGLHook.js",
-        "/nscl/content/promptHook.js",
         "content/embeddingDocument.js",
         "content/content.js",
         "content/dirindex.js",

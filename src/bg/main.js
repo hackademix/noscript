@@ -238,19 +238,9 @@
       } catch (e) {
         console.error(e);
       }
-      const ret = {"vintage": await Themes.isVintage()};
+      const ret = {"vintage": !!(await Themes.isVintage())};
       console.debug("Returning from getTheme", ret); // DEV_ONLY
-      return ret;
-    },
-
-    async promptHook(msg, {tabId}) {
-      const func = () => {
-        try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
-      };
-      await Scripting.executeScript({
-        target: {tabId},
-        func,
-      });
+      return Promise.resolve(ret);
     },
 
     async reloadWithCredentials({tabId, remember}) {
@@ -309,7 +299,10 @@
 
     async computeChildPolicy({url, contextUrl}, sender) {
       await ns.initializing;
-      let {tab} = sender;
+      let {tab, origin} = sender;
+      if (url == sender.url && url == "about:blank") {
+        url = origin;
+      }
       let policy = ns.policy;
       const {isTorBrowser} = ns.local;
       if (!policy) {
@@ -443,7 +436,7 @@
         return seen;
       } catch (e) {
         try {
-          const {url} = (await browser.tabs.get(tabId)).url;
+          const {url} = (await browser.tabs.get(tabId));
           await include("/nscl/common/restricted.js");
           if (!isRestrictedURL(url)) {
             // probably a page where content scripts cannot run, let's open the options instead

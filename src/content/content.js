@@ -165,7 +165,7 @@ window.addEventListener("securitypolicyviolation", async e => {
   Messages.send("violation", {url: reportUrl, type, isReport});
 }, true);
 
-if (!/^https:/.test(location.protocol)) {
+if (!/^http/.test(location.protocol)) {
   // Reporting CSP can only be injected in HTTP responses,
   // let's emulate them using mutation observers
   const checked = new Set();
