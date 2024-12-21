@@ -41,7 +41,7 @@ const EDGE_UPDATE_URL = "https://edge.microsoft.com/extensionwebstorebase/v1/crx
 const isFirefox = MANIFEST_VER.includes("firefox");
 
 if (isFirefox && /rc|\.9\d{2}$/.test(extVer)) {
-  json.browser_specific_settings.update_url = FIREFOX_UPDATE_URL;
+  json.browser_specific_settings.gecko.update_url = FIREFOX_UPDATE_URL;
 }
 
 if (MANIFEST_VER.includes(3)) {
