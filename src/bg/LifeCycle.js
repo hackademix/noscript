@@ -265,7 +265,7 @@ var LifeCycle = (() => {
           } catch (e) {
             await include("/nscl/common/restricted.js");
             if (!isRestrictedURL(tab.url)) {
-              error(e, "Can't run content script on tab", tab);
+              error(e, `Can't run content script on tab ${tab.id} ${tab.url} ${tab.favIconUrl}`);
             }
           }
         }));
