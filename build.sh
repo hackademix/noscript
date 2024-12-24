@@ -107,12 +107,8 @@ CHROMIUM_BUILD_CMD="$BUILD_CMD"
 CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 
 if [[ "$1" =~ ^sign(ed)?$ ]]; then
-  if [[ $VER == *rc* ]]; then
-    BUILD_CMD="$BASE/../../we-sign"
-    BUILD_OPTS=""
-  else
-    echo >&2 "WARNING: won't auto-sign a release version, please manually upload to AMO."
-  fi
+  BUILD_CMD="$BASE/../../we-sign"
+  BUILD_OPTS=""
 fi
 
 if [ "$1" != "debug" ]; then
