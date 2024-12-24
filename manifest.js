@@ -92,6 +92,8 @@ if (MANIFEST_VER.includes(3)) {
   delete json.action;
   for (const p of [
     "debugger",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
   ]) {
     permissions.delete(p);
   }
@@ -115,6 +117,9 @@ if (MANIFEST_VER.includes(3)) {
 
   // remove all the MAIN world content script
   json.content_scripts = json.content_scripts.filter(cs => cs.world != "MAIN");
+
+  // match_origin_as_fallback is MV3 only
+  json.content_scripts.forEach(cs => delete cs.match_origin_as_fallback);
 }
 
 // remove developer-only stuff
