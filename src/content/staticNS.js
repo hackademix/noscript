@@ -103,7 +103,7 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
         let policy = null;
         for (let attempts = 10; !(policy || this.policy) && attempts-- > 0;) {
           try {
-            debug(`Retrieving policy asynchronously (${attempts} attempts left).`);
+            debug(`Retrieving policy asynchronously for ${document.readyState} ${url} (${attempts} attempts left).`);
             policy = await Messages.send(msg.id, msg) || this.domPolicy;
             debug("Asynchronous policy", policy);
           } catch (e) {
@@ -112,14 +112,15 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
         }
         setup(policy);
       });
+      const {readyState} = document;
 
-      if (!this.syncFetchPolicy && this.embeddingDocument) {
+      if (readyState == "complete" || !this.syncFetchPolicy && this.embeddingDocument) {
         asyncFetch();
         return;
       }
-      debug(`Synchronously fetching policy for ${url}.`);
+      debug(`Synchronously fetching policy for ${readyState} ${url}.`);
       let policy = null;
-      let attempts = document.readyState == "loading" ? 100 : 1;
+      let attempts = readyState == "loading" ? 100 : 1;
       let refetch = () => {
         try {
           policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
