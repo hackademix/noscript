@@ -44,8 +44,7 @@ if [ "$1" == "tag" ]; then
     OPTS="-e"
   fi
   echo "Tagging at $VER"
-  git tag -a "$VER" $OPTS -m"$(gitcl 2>/dev/null)"
-  git push && git push origin "$VER"
+  git tag -a "$VER" $OPTS -m"$(gitcl 2>/dev/null)" && git push && git push origin "$VER"
   exit 0
 fi
 if [[ "$1" =~ ^r(el(ease)?)?$ ]]; then
@@ -79,13 +78,25 @@ if [[ "$1" == "bump" ]]; then
     rm -f "$MANIFEST_IN".bak
     exit
   fi
+  # try to add first manifest.json hunk, tentatively containing "version": ...
+  INTERACTIVE=
+  git diff --cached "$MANIFEST_IN" | grep '^[+-]  *"version":' \
+     || echo -e "s\ns\ny\nq" | git add -p "$MANIFEST_IN" >/dev/null 2>&1
+  # check whether the commit would contain more than just the version bump
+  while git diff --cached "$MANIFEST_IN" | grep '^[+-] ' | grep -v '"version":'; do
+    echo "Cannot commit the bump to $VER, please cleanup $MANIFEST_IN first."
+    git restore --staged "$MANIFEST_IN"
+    [[ $INTERACTIVE ]] && exit 1
+    echo "Please try to isolate the version bump interactively:"
+    INTERACTIVE=1
+    git add -p "$MANIFEST_IN"
+  done
   echo "Bumping to $VER"
-  git add "$MANIFEST_IN"
-  git commit -m "Version bump: $VER."
+  git commit -m "Version bump: $VER." || exit
   if ! ([[ $VER == *rc* ]] || [[ $VER =~ \.9[0-9][0-9]$ ]]); then
     # it's a stable release: let's lock nscl and tag
     git submodule update
-   "$0" tag
+    "$0" tag
   fi
   exit
 fi
