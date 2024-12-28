@@ -20,10 +20,12 @@
 
 browser.runtime.onConnect.addListener(port => {
   if (port.name === "noscript.popup") {
+    console.debug("Creating popupHandler port"); // DEV_ONLY
     ns.popupOpened = true;
     let pendingReload = false;
     let tabId = -1;
     port.onMessage.addListener(m => {
+      console.debug("popupHandler message", m); // DEV_ONLY
       if ("pendingReload" in m) {
         tabId = m.tabId;
         pendingReload = m.pendingReload;

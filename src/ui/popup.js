@@ -98,6 +98,7 @@ addEventListener("unload", e => {
     })
 
     port = browser.runtime.connect({name: "noscript.popup"});
+    console.debug("popupHandler port connecting"); // DEV_ONLY
     await UI.init(pageTab);
 
     function pendingReload(b) {

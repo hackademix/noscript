@@ -82,6 +82,7 @@
       "bg/TabGuard.js",
       "bg/RequestGuard.js",
       "bg/Settings.js",
+      "bg/popupHandler.js",
       "bg/main.js",
       "common/themes.js"
     ],
