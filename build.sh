@@ -138,6 +138,13 @@ fix_manifest() {
 }
 
 build() {
+  if [[ $1 == "zip" ]]; then
+    shift
+  elif ! [[ $BUILD_CMD == *we-sign ]]; then
+    build zip "$1" | \
+      grep 'ready: .*\.zip' | sed -re 's/.* ready: //'
+    return
+  fi
   UNPACKED_DIR="$UNPACKED_BASE/${1:-out}"
   rm -rf "$UNPACKED_DIR"
   cp -rp "$BUILD" "$UNPACKED_DIR" && echo >&2 "Copied $BUILD to $UNPACKED_DIR"
@@ -160,8 +167,7 @@ build() {
   "$BUILD_CMD" $BUILD_OPTS \
     --source-dir="$WEBEXT_IN" \
     --artifacts-dir="$WEBEXT_OUT" \
-    $COMMON_BUILD_OPTS  | \
-    grep 'ready: .*\.zip' | sed -re 's/.* ready: //'
+    $COMMON_BUILD_OPTS
 }
 
 fix_manifest mv2firefox
