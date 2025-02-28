@@ -220,11 +220,11 @@
         "description": ""
     },
     "NoEnforcement": {
-        "message": "השבת הגבלות באופן עולמי (מסוכן)",
+        "message": "השבת הגבלות באופן גלובלי (מסוכן)",
         "description": ""
     },
     "Enforce": {
-        "message": "אפשר הגבלות באופן עולמי",
+        "message": "אפשר הגבלות באופן גלובלי",
         "description": ""
     },
     "EnforceOnRestart": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "toggleEnforcementForTab": {
-        "message": "Toggle restrictions enforcement for current tab",
+        "message": "עורר אכיפת הגבלות עבור הלשונית הנוכחית",
         "description": ""
     },
     "pagePermissionsUI": {
@@ -764,7 +764,7 @@
         "description": ""
     },
     "cap_lazy_load": {
-        "message": "lazy load",
+        "message": "טעינה עצלנית",
         "description": ""
     },
     "cap_unchecked_css": {
@@ -968,15 +968,15 @@
         "description": ""
     },
     "TabGuard_optPromptNever": {
-        "message": "Never prompt before anonymization",
+        "message": "אל תיידע אף פעם לפני עילום שם",
         "description": ""
     },
     "TabGuard_optPromptPost": {
-        "message": "Prompt before anonymizing POST submissions",
+        "message": "יידע לפני עילום שם של הגשות POST",
         "description": ""
     },
     "TabGuard_optPromptAlways": {
-        "message": "Prompt before anonymizing any request",
+        "message": "יידע לפני עילום שם של כל בקשה",
         "description": ""
     },
     "TabGuard_optIncognito": {
@@ -996,7 +996,7 @@
         "description": ""
     },
     "TabGuard_message": {
-        "message": "You are about to load a page from $1.\nIf you are a $1 logged-in user, information about your identity might be acquired by $2.",
+        "message": "אתה עומד לטעון דף מן $1.\nאם אתה משתמש $1 מחובר, מידע אודות זהותך עשויות להיות מושגות ע״י $2.",
         "description": ""
     },
     "TabGuard_optAnonymize": {
