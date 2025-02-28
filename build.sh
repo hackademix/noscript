@@ -191,6 +191,7 @@ elif [ -f "$XPI.zip" ]; then
   if unzip -l "$XPI.xpi" | grep "META-INF/mozilla.rsa" >/dev/null 2>&1; then
     echo "A signed $XPI.xpi already exists, not overwriting."
   else
+    unset SIGNED
     [[ "$VER" == *rc* ]] && xpicmd="mv" || xpicmd="cp"
     $xpicmd "$XPI.zip" "$XPI$DBG.xpi"
     echo "Created $XPI$DBG.xpi"
