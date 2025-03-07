@@ -172,7 +172,9 @@ if (!location.protocol.startsWith("http")) {
     // (see tor-browser#43491)
     const suppress = e => {
       if (!e.isTrusted) return;
-      const url = new URL(e.filename || e.target.src);
+      const url = new URL(e.filename || e.target.src ||
+                          e.target.href || e.target.data,
+                          document.baseURI);
       if (url.protocol != "file:") {
         return;
       }
@@ -181,7 +183,7 @@ if (!location.protocol.startsWith("http")) {
       if (filePath.startsWith(curDir)) {
         return;
       }
-      console.warn(`Suppressing on${e.type} event from ${filePath}`);
+      console.warn(`Suppressing on${e.type} event from ${filePath}`, e.target);
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
@@ -194,7 +196,7 @@ if (!location.protocol.startsWith("http")) {
   // let's emulate them using mutation observers
   const checked = new Set();
   const checkSrc = async (node) => {
-    if (!(node.src && node.parentNode)) {
+    if (!((node.src || node.data) && node.parentNode)) {
       return;
     }
     const type = node instanceof HTMLMediaElement ? "media"
@@ -205,7 +207,7 @@ if (!location.protocol.startsWith("http")) {
     if (!type) {
       return;
     }
-    const url = node.src;
+    const url = node.src || node.data;
     const key = RequestKey.create(url, type, documentOrigin);
     if (checked.has(key)) {
       return;
@@ -231,7 +233,7 @@ if (!location.protocol.startsWith("http")) {
     observer.observe(document.documentElement, {
       childList: true,
       subtree: true,
-      attributeFilter: ["src"],
+      attributeFilter: ["src", "data"],
     });
   }
   if (document.readyState === "complete") {
