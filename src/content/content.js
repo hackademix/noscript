@@ -172,8 +172,13 @@ if (!location.protocol.startsWith("http")) {
     // (see tor-browser#43491)
     const suppress = e => {
       if (!e.isTrusted) return;
-      const url = new URL(e.filename || e.target.src ||
-                          e.target.href || e.target.data,
+      const { target } = e;
+      const url = new URL(e.filename ||
+                          target.currentSrc ||
+                          target.src ||
+                          target.data ||
+                          target.href?.animVal ||
+                          target.href,
                           document.baseURI);
       if (url.protocol != "file:") {
         return;
@@ -189,6 +194,7 @@ if (!location.protocol.startsWith("http")) {
       e.stopImmediatePropagation();
     }
     document.addEventListener("load", suppress, true);
+    addEventListener("canplaythrough", suppress, true);
     addEventListener("error", suppress, true);
   }
 
