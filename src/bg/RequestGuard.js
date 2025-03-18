@@ -317,12 +317,18 @@
     async blockedObjects(message, sender) {
       let {url, documentUrl, policyType} = message;
       let TAG = `<${policyType.toUpperCase()}>`;
-      let origin = Sites.origin(url);
-      let {siteKey} = Sites.parse(url);
+
+      const useDirs = policyType === "x-load";
+      const normalize = useDirs ? u => u.replace(/[^/]+$/, '') : u => u;
+      url = normalize(url);
+      const contextUrl = normalize(sender.tab.url || documentUrl);
+
+      const origin = Sites.origin(url);
+      const {siteKey} = Sites.parse(url);
       const options =  [
         {label: _("allowLocal", siteKey), checked: true}
       ];
-      if (!url.startsWith("blob:")) {
+      if (!(url.startsWith("blob:") || useDirs)) {
         if (siteKey === origin) {
           origin = new URL(url).protocol;
         }
@@ -341,7 +347,7 @@
       }
       let key = [siteKey, origin][ret.option || 0];
       if (!key) return;
-      let contextUrl = sender.tab.url || documentUrl;
+
       let {siteMatch, contextMatch, perms} = ns.policy.get(key, contextUrl);
       let {capabilities} = perms;
       if (!capabilities.has(policyType)) {

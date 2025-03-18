@@ -122,6 +122,7 @@
         "content/content.js",
         "content/dirindex.js",
         "/nscl/content/DocumentFreezer.js",
+        "content/eventsHook.js",
         "content/syncFetchPolicy.js"
       ]
     },
@@ -138,6 +139,7 @@
         "/nscl/main/Worlds.main.js",
         "/nscl/main/patchWorkers.main.js",
         "/nscl/main/WebGLHook.main.js",
+        "content/eventsHook.main.js",
         "/nscl/main/prefetchCSSResources.main.js"
       ]
     }
