@@ -167,37 +167,6 @@ window.addEventListener("securitypolicyviolation", async e => {
 
 if (!location.protocol.startsWith("http")) {
 
-  if (location.protocol == "file:") {
-    // Suppress load / error events triggered by resources outside current directory
-    // (see tor-browser#43491)
-    const suppress = e => {
-      if (!e.isTrusted) return;
-      const { target } = e;
-      const url = new URL(e.filename ||
-                          target.currentSrc ||
-                          target.src ||
-                          target.data ||
-                          target.href?.animVal ||
-                          target.href,
-                          document.baseURI);
-      if (url.protocol != "file:") {
-        return;
-      }
-      const curDir = location.pathname.replace(/[^\/]+$/, "");
-      const filePath = url.pathname;
-      if (filePath.startsWith(curDir)) {
-        return;
-      }
-      console.warn(`Suppressing on${e.type} event from ${filePath}`, e.target);
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-    }
-    document.addEventListener("load", suppress, true);
-    addEventListener("canplaythrough", suppress, true);
-    addEventListener("error", suppress, true);
-  }
-
   // Reporting CSP can only be injected in HTTP responses,
   // let's emulate them using mutation observers
   const checked = new Set();

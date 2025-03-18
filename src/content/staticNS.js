@@ -176,6 +176,10 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
     allows(cap) {
       return this.capabilities && this.capabilities.has(cap);
     },
+
+    canXLoad(url) {
+      return this.policy?.xLoadable?.includes(url.replace(/[^/]+$/, ""));
+    }
   };
   globalThis.ns = globalThis.ns ? Object.assign(ns, globalThis.ns) : ns;
   debug("StaticNS", Date.now(), JSON.stringify(globalThis.ns)); // DEV_ONLY

@@ -327,6 +327,13 @@
       if (!topUrl) topUrl = url;
       if (!contextUrl) contextUrl = topUrl;
 
+      let xLoadable;
+      if (contextUrl.startsWith("file:")) {
+        const contextDir = contextUrl.replace(/[^\/]*$/, '');
+        const urls = [...policy.sites.keys()].filter(u => /^file:\/\/.*\//.test(u));
+        xLoadable = urls.filter(u =>
+          policy.get(u, contextDir)?.perms?.capabilities.has("x-load"));
+      }
       if (Sites.isInternal(url) || !ns.isEnforced(tabId)) {
         policy = null;
       }
@@ -357,7 +364,7 @@
         unrestricted = true;
         cascaded = false;
       }
-      return {permissions, unrestricted, cascaded, isTorBrowser};
+      return {permissions, unrestricted, cascaded, isTorBrowser, xLoadable};
     },
 
     async init() {
