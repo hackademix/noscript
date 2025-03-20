@@ -535,6 +535,11 @@ span.cap.needed {
   background-color: var(--hilite-color);
 }
 
+span.cap.extra:not(.needed, .checked) {
+  display: none;
+}
+
+
 fieldset {
   border: 0;
   padding: 1em;

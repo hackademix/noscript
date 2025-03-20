@@ -394,6 +394,10 @@ var UI = (() => {
   };
   const INCOGNITO_PRESETS = ["DEFAULT", "T_TRUSTED", "CUSTOM"];
 
+  // "floating" caps which make sense only in some places,
+  // e.g. x-load in file:// directories
+  const EXTRA_CAPS = ["x-load"];
+
   UI.Sites = class {
     constructor(parentNode, presets = DEF_PRESETS) {
       this.parentNode = parentNode;
@@ -451,13 +455,23 @@ var UI = (() => {
         let capParent = cap.parentNode;
         capParent.removeChild(cap);
         let idSuffix = UI.Sites.count;
-        for (let capability of Permissions.ALL) {
+
+        const createCap = capability => {
           capInput.id = `capability-${capability}-${idSuffix}`
           capLabel.setAttribute("for", capInput.id);
           capInput.value = capability;
           capInput.title = capLabel.textContent = _(`cap_${capability}`) || capability.replace(/_/g, ' ');
-          let clone = capParent.appendChild(cap.cloneNode(true));
+          const clone = capParent.appendChild(cap.cloneNode(true));
           clone.classList.add(capability);
+          return clone;
+        }
+
+        for (const capability of EXTRA_CAPS) {
+          createCap(capability).classList.add("extra");
+        }
+
+        for (const capability of Permissions.ALL) {
+          createCap(capability);
         }
       }
 
@@ -636,7 +650,9 @@ var UI = (() => {
           input.disabled = false;
           customizer.lastInput = input;
         }
-        input.parentNode.classList.toggle("needed", this.siteNeeds(row._site, type));
+        const {classList} = input.parentNode;
+        classList.toggle("needed", this.siteNeeds(row._site, type));
+        classList.toggle("checked", input.checked);
       }
     }
 

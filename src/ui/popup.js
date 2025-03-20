@@ -376,7 +376,11 @@ addEventListener("unload", e => {
             parsed.url.origin !== "null" || parsed.url.protocol === "file:"));
 
       let sitesSet = new Set(
-        parsedSeen.map(parsed => parsed.label = urlToLabel(parsed.url))
+        parsedSeen.map(parsed =>
+          parsed.label = parsed.type == "x-load"
+            ? parsed.siteKey
+            : urlToLabel(parsed.url)
+        )
       );
       if (!justDomains) {
         for (let domain of domains.values()) sitesSet.add(domain);
