@@ -75,7 +75,7 @@ if (location.protocol == "file:") {
     } catch (e) {
       error(e);
     }
-    el.srcset = el.src = "data:"
+    el.srcset = el.src = "data:";
     blockedList.add(el);
   };
 

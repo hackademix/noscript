@@ -71,6 +71,7 @@ if (location.protocol == "file:") {
       }
     };
     xray.proxify("Image", constructorHandler);
+    xray.proxify("Audio", constructorHandler);
   }
 
   Worlds.connect("eventsHook.main", {
