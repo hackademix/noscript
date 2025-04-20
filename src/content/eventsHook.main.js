@@ -60,7 +60,7 @@ if (location.protocol == "file:") {
       }
     }
 
-    // Intercept Image constructor
+    // Intercept Image and Audio constructors
 
     const construct = Reflect.construct.bind(Reflect);
     const constructorHandler = {

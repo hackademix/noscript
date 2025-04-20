@@ -59,23 +59,21 @@ if (location.protocol == "file:") {
 
   }
 
-  const block = el => {
-    console.warn("Blocking path traversal in load", el.currentSrc, el);
-    const url = el.currentSrc;
+  const block = (el, url = el.currentSrc) => {
+    console.warn("Blocking path traversal in load", url, el);
     const request = notify(url, false);
     // restore full url, notify truncates to dir
     request.url = url;
     if (el.ownerDocument != document) {
       request.offscreen = true;
-      el = null;
     }
     try {
       const ph = PlaceHolder.create(request.type, request);
-      ph.replace(el);
+      ph.replace(!request.offscreen && el);
     } catch (e) {
       error(e);
     }
-    el.srcset = el.src = "data:";
+    el.srcset = el.src = "data:"; `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>`;
     blockedList.add(el);
   };
 
@@ -90,7 +88,7 @@ if (location.protocol == "file:") {
                         target.href,
                         document.baseURI);
     if (!isAllowedPath(url)) {
-      if (e.type == "loadstart") {
+      if (e.type == "loadstart" || target instanceof HTMLImageElement) {
         block(target);
       }
     } else if (!blockedList.has(target)) {
@@ -134,18 +132,38 @@ if (location.protocol == "file:") {
   }
   EVENTS.push("load");
 
-  const checkSrc = el => {
-    if (el instanceof HTMLImageElement && !isAllowedPath(el.currentSrc)) {
-      block(el);
+  const srcUrls = srcset => {
+    const urls = [];
+    for (const s of srcset.split(/\s*,s*/)) {
+      try {
+        urls.push(new URL(s.trim().split(/\s+/)[0], document.baseURI))
+      } catch (e) {
+      }
+    }
+    return urls;
+  }
+
+  const checkSrc = (el, ...srcAttrs) => {
+    if (srcAttrs.length == 0) {
+      srcAttrs = ["currentSrc", "src", "srcset"];
+    }
+    const badSrc =
+      el instanceof HTMLImageElement &&
+      srcUrls(srcAttrs.map(a => el[a]).join(",")).find(
+        (url) => !isAllowedPath(url)
+      );
+    if (badSrc) {
+      block(el, badSrc.toString());
     }
   };
 
   const watch = watching => {
+    checkSrc(watching);
     if (watchList.has(watching)) {
       return;
     }
+    observer.observe(watching, mutOpts);
     watchList.add(watching);
-    checkSrc(watching);
     for (const eventType of EVENTS) {
       watching.addEventListener(eventType, suppress, true);
     }
@@ -168,7 +186,7 @@ if (location.protocol == "file:") {
           });
         break;
         case "attributes":
-          checkSrc(r.target);
+          checkSrc(r.target, r.attributeName);
         break;
       }
     }
