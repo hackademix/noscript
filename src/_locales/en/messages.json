@@ -584,6 +584,10 @@
   "cap_other": {
     "message": "other"
   },
+  "cap_x-load": {
+    "message": "x-load",
+    "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
+  },
   "changelog": {
     "message": "Changelog"
   },
