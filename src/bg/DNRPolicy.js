@@ -311,8 +311,7 @@
         if (!url || Sites.isInternal(url)) continue;
         const perms = policy.get(url).perms;
         console.debug("DNRPolicy autoAllow check", tab, perms, perms === policy.DEFAULT);
-        if (perms === policy.DEFAULT || (isStartup && perms.temp)) {
-          policy.set(Sites.optimalKey(url), policy.TRUSTED.tempTwin);
+        if (policy.autoAllow(url, perms, (isStartup && perms.temp))) {
           updated.push(tab);
         }
       }

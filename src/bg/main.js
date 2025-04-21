@@ -342,13 +342,14 @@
       if (policy) {
         let perms = policy.get(url, contextUrl).perms;
         if (isTop) {
-          if (policy.autoAllowTop && perms === policy.DEFAULT) {
-            policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
+          const autoPerms = policy.autoAllow(url, perms);
+          if (autoPerms) {
+            perms = autoPerms;
             await Promise.allSettled([
               RequestGuard.DNRPolicy?.update(),
               session.save(),
             ]);
-            const dnrRules = (await browser.declarativeNetRequest.getSessionRules()).filter(r => r?.action?.type == "allow"); // DEV_ONLY
+            const dnrRules = (await browser.declarativeNetRequest?.getSessionRules())?.filter(r => r?.action?.type == "allow"); // DEV_ONLY
             debug(`Auto-trusted ${Sites.optimalKey(url)}`,  dnrRules); // DEV_ONLY
           }
         } else {

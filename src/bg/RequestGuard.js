@@ -352,7 +352,7 @@
       let {capabilities} = perms;
       if (!capabilities.has(policyType)) {
         let temp = sender.tab.incognito; // we don't want to store in PBM
-        perms = new Permissions(new Set(capabilities), temp);
+        perms = new Permissions(capabilities, temp);
         perms.capabilities.add(policyType);
         /* TODO: handle contextual permissions
         if (contextUrl) {
@@ -736,8 +736,9 @@
           let policy = ns.policy;
           let {perms} = policy.get(url, ns.policyContext(request));
           if (isMainFrame) {
-            if (policy.autoAllowTop && perms === policy.DEFAULT) {
-              policy.set(Sites.optimalKey(url), perms = policy.TRUSTED.tempTwin);
+            const autoPerms = policy.autoAllow(url, perms);
+            if (autoPerms) {
+              perms = autoPerms;
             }
             capabilities = perms.capabilities;
           } else {
