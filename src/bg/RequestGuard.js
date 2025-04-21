@@ -334,6 +334,7 @@
         }
         options.push({label: _("allowLocal", origin)});
       }
+      const OPT_COLLAPSE = options.length;
       options.push({label: _("CollapseBlockedObjects")});
       let t = u => `${TAG}@${u}`;
       let ret = await Prompts.prompt({
@@ -342,7 +343,7 @@
         options});
       debug(`Prompt returned`, ret, sender); // DEV_ONLY
       if (ret.button !== 0) return;
-      if (ret.option === 2) {
+      if (ret.option === OPT_COLLAPSE) {
         return {collapse: "all"};
       }
       let key = [siteKey, origin][ret.option || 0];
