@@ -60,7 +60,7 @@ if (location.protocol == "file:") {
   }
 
   const block = (el, url = el.currentSrc) => {
-    console.warn("Blocking path traversal in load", url, el);
+    console.warn("Blocking path traversal", url, el);
     const request = notify(url, false);
     // restore full url, notify truncates to dir
     request.url = url;
@@ -88,7 +88,7 @@ if (location.protocol == "file:") {
                         target.href,
                         document.baseURI);
     if (!isAllowedPath(url)) {
-      if (e.type == "loadstart" || target instanceof HTMLImageElement) {
+      if (e.type == "loadstart") {
         block(target);
       }
     } else if (!blockedList.has(target)) {
