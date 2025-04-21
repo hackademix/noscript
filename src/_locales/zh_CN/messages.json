@@ -779,6 +779,10 @@
         "message": "其他",
         "description": ""
     },
+    "cap_x-load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
+    },
     "changelog": {
         "message": "更新日志",
         "description": ""
