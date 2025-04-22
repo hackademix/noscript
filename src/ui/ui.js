@@ -653,6 +653,7 @@ var UI = (() => {
         const {classList} = input.parentNode;
         classList.toggle("needed", this.siteNeeds(row._site, type));
         classList.toggle("checked", input.checked);
+        classList.toggle("belongs", type == "x-load" && row._site?.startsWith("file:"));
       }
     }
 

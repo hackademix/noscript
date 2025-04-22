@@ -535,10 +535,14 @@ span.cap.needed {
   background-color: var(--hilite-color);
 }
 
-span.cap.extra:not(.needed, .checked) {
+#noscript-popup span.cap.extra:not(.needed, .checked),
+#noscript-options span.cap.extra:not(.belongs, .checked)
+{
   display: none;
 }
 
+
+span.cap
 
 fieldset {
   border: 0;
