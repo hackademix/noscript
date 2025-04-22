@@ -26,9 +26,20 @@
     window.close();
     return;
   }
-  let done = () => {
+
+  let done = async () => {
     Messages.send("promptDone", data);
+    done = () => {};
+    if ("windows" in browser) {
+      try {
+        await browser.windows.remove((await browser.windows.getCurrent()).id);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    window.close();
   }
+
   let {title, message, options, checks, buttons} = data.features;
 
   function labelFor(el, text) {
@@ -97,7 +108,7 @@
   renderInputs("#options", options, "radio", "opt");
   renderInputs("#checks", checks, "checkbox", "flag");
   renderInputs("#buttons", buttons, "button", "button");
-  addEventListener("unload", e => {
+  addEventListener("hide", e => {
     done();
   });
 
