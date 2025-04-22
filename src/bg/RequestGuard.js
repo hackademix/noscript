@@ -322,47 +322,75 @@
       const normalize = useDirs ? u => u.replace(/[^/]+$/, '') : u => u;
       url = normalize(url);
       const contextUrl = normalize(sender.tab.url || documentUrl);
+      const ctxKey = Sites.optimalKey(contextUrl);
 
       const origin = Sites.origin(url);
       const {siteKey} = Sites.parse(url);
-      const options =  [
-        {label: _("allowLocal", siteKey), checked: true}
+
+      const forcedTemp = sender.tab.incognito;
+
+      const allowLabel = forcedTemp ? "allowTemp" : "allowLocal";
+
+      const options = [
+        {
+          label: _(allowLabel, siteKey),
+          checked: true,
+          _key: siteKey,
+        },
       ];
       if (!(url.startsWith("blob:") || useDirs)) {
         if (siteKey === origin) {
           origin = new URL(url).protocol;
         }
-        options.push({label: _("allowLocal", origin)});
+        options.push({ label: _(allowLabel, origin), _key: origin });
       }
-      const OPT_COLLAPSE = options.length;
-      options.push({label: _("CollapseBlockedObjects")});
-      let t = u => `${TAG}@${u}`;
+
+      options.push({ label: _("CollapseBlockedObjects"), _collapse: true });
+
+      const checks = [
+        { label: _("capsContext") + `\n${ctxKey}`, checked: true, _val: "ctx" },
+      ];
+
+      if (!forcedTemp) {
+        checks.unshift(
+          { label: _("allowTemp", TAG), checked: true, _val: "temp" },
+        );
+      }
+
       let ret = await Prompts.prompt({
         title: _("BlockedObjects"),
-        message: _("allowLocal", TAG),
-        options});
+        message: _(allowLabel, TAG),
+        options,
+        checks,
+      });
+
       debug(`Prompt returned`, ret, sender); // DEV_ONLY
+
       if (ret.button !== 0) return;
-      if (ret.option === OPT_COLLAPSE) {
-        return {collapse: "all"};
+
+      const choice = options[ret.option];
+      if (choice._collapse) {
+        return { collapse: "all" };
       }
-      let key = [siteKey, origin][ret.option || 0];
+
+      const key = choice._key;
       if (!key) return;
 
-      let {siteMatch, contextMatch, perms} = ns.policy.get(key, contextUrl);
-      let {capabilities} = perms;
-      if (!capabilities.has(policyType)) {
-        let temp = sender.tab.incognito; // we don't want to store in PBM
-        perms = new Permissions(capabilities, temp);
-        perms.capabilities.add(policyType);
-        /* TODO: handle contextual permissions
-        if (contextUrl) {
-          let context = Sites.optimalKey(contextUrl);
-          let contextualSites = new Sites([[context, perms]]);
-          perms = new Permissions(new Set(capabilities), false, contextualSites);
+      const checked = ret.checks.map((i) => checks[i]._val);
+
+      let { siteMatch, contextMatch, perms } = ns.policy.get(key, contextUrl);
+
+      if (!perms.capabilities.has(policyType)) {
+        if (!contextMatch) {
+          perms = perms.clone();
+          ns.policy.set(key, perms);
+          if (ctxKey && checked.includes("ctx")) {
+            perms.contextual.set(ctxKey, perms = perms.clone(/* noContext = */ true));
+          }
         }
-        */
-        ns.policy.set(key, perms);
+        perms.capabilities.add(policyType);
+        perms.temp = forcedTemp || checked.includes("temp");
+
         await ns.savePolicy();
         await RequestGuard.DNRPolicy?.update();
       }
