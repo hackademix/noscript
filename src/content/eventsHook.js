@@ -142,10 +142,14 @@ if (location.protocol == "file:") {
 
   const srcUrls = srcset => {
     const urls = [];
+    // remove data: URLs whose comma may mess with the splitting
+    srcset = srcset.replace(/(?:^|,)\s*data:[^\s,]*,[^,]*/g, '');
     for (const s of srcset.split(/\s*,s*/)) {
-      try {
-        urls.push(new URL(s.trim().split(/\s+/)[0], document.baseURI))
-      } catch (e) {
+      if (s) {
+        try {
+          urls.push(new URL(s.trim().split(/\s+/)[0], document.baseURI))
+        } catch (e) {
+        }
       }
     }
     return urls;
