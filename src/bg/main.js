@@ -330,7 +330,7 @@
       let xLoadable;
       if (contextUrl.startsWith("file:")) {
         const contextDir = contextUrl.replace(/[^\/]*$/, '');
-        const urls = [...policy.sites.keys()].filter(u => /^file:\/\/.*\//.test(u));
+        const urls = [...policy.sites.keys()].filter(u => /^file:/.test(u));
         xLoadable = urls.filter(u =>
           policy.get(u, contextDir)?.perms?.capabilities.has("x-load"));
       }

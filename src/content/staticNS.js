@@ -178,7 +178,7 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
     },
 
     canXLoad(url) {
-      return this.policy?.xLoadable?.includes(url.replace(/[^/]+$/, ""));
+      return this.policy?.xLoadable?.some(parentDir => url.startsWith(parentDir));
     }
   };
   globalThis.ns = globalThis.ns ? Object.assign(ns, globalThis.ns) : ns;
