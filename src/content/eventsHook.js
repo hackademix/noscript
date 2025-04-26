@@ -21,6 +21,11 @@
 'use strict';
 
 if (location.protocol == "file:") {
+  // Regard as "mutually safe" directories sharing a common ancestor at least this deep
+  const SAFE_PATH_DEPTH = 5;
+  const safePath = path => path.split("/", SAFE_PATH_DEPTH).join("/");
+  const toDir = url => url.replace(/[^\/]+$/, "")
+  const CURRENT_DIR = safePath(toDir(location.pathname));
 
   const watchList = new WeakSet();
   const blockedList = new WeakSet();
@@ -31,9 +36,10 @@ if (location.protocol == "file:") {
     if (url.protocol != "file:") {
       return true;
     }
-    const curDir = location.pathname.replace(/[^\/]+$/, "");
-    const filePath = url.pathname;
-    if (filePath.startsWith(curDir)) {
+
+    const filePath = safePath(url.pathname);
+
+    if (filePath.startsWith(CURRENT_DIR)) {
       return true;
     }
     const {href} = url;
@@ -42,13 +48,12 @@ if (location.protocol == "file:") {
     return allowed;
   };
 
-
   const notify = (url, allowed) => {
     const type = "x-load";
     const request = {
       id: "noscript-x-load",
       type,
-      url: url.replace(/[^\/]+$/, ""), // truncate to dir
+      url: toDir(url),
       documentUrl: document.URL,
       embeddingDocument: true,
     };
@@ -73,19 +78,22 @@ if (location.protocol == "file:") {
     } catch (e) {
       error(e);
     }
-    el.srcset = el.src = "data:"; `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>`;
+    el.srcset = el.src = "data:";
     blockedList.add(el);
   };
 
   const suppress = e => {
     if (!e.isTrusted) return;
     const { target } = e;
-    const url = new URL(e.filename ||
-                        target.currentSrc ||
-                        target.src ||
-                        target.data ||
-                        target.href?.animVal ||
-                        target.href,
+    const sURL = e.filename ||
+    target.currentSrc ||
+    target.src ||
+    target.data ||
+    target.href?.animVal ||
+    target.href;
+    if (!sURL) return;
+
+    const url = new URL(sURL,
                         document.baseURI);
     if (!isAllowedPath(url)) {
       if (e.type == "loadstart") {
