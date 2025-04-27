@@ -69,16 +69,16 @@ if (location.protocol == "file:") {
     const request = notify(url, false);
     // restore full url, notify truncates to dir
     request.url = url;
-    if (el.ownerDocument != document) {
-      request.offscreen = true;
-    }
+    request.offscreen = !(el?.parentElement?.ownerDocument == document);
     try {
       const ph = PlaceHolder.create(request.type, request);
       ph.replace(!request.offscreen && el);
     } catch (e) {
       error(e);
     }
-    el.srcset = el.src = "data:";
+    if (el) {
+      el.srcset = el.src = "data:";
+    }
     blockedList.add(el);
   };
 
