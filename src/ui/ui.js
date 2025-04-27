@@ -460,7 +460,9 @@ var UI = (() => {
           capInput.id = `capability-${capability}-${idSuffix}`
           capLabel.setAttribute("for", capInput.id);
           capInput.value = capability;
-          capInput.title = capLabel.textContent = _(`cap_${capability}`) || capability.replace(/_/g, ' ');
+          capInput.title = capLabel.textContent =
+            _(`cap_${capability.replace("-", "_")}`) ||
+            capability.replace(/_/g, " ");
           const clone = capParent.appendChild(cap.cloneNode(true));
           clone.classList.add(capability);
           return clone;

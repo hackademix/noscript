@@ -779,7 +779,7 @@
         "message": "diğer",
         "description": ""
     },
-    "cap_x-load": {
+    "cap_x_load": {
         "message": "x-load",
         "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
