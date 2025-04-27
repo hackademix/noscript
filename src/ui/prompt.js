@@ -28,7 +28,7 @@
   }
 
   let done = async () => {
-    Messages.send("promptDone", data);
+    await Messages.send("promptDone", data);
     done = () => {};
     if ("windows" in browser) {
       try {
