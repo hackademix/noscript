@@ -22,8 +22,8 @@
 {
   const DEFAULT_PRIORITY = 1;
   const SITE_PRIORITY = 10;
-  const CTX_PRIORITY = 20;
-  const CASCADE_PRIORITY = 30;
+  const CASCADE_PRIORITY = 20;
+  const CTX_PRIORITY = 30;
   const TAB_PRIORITY = 40;
   const REPORT_PRIORITY = 50;
   const MAX_PRIORITY = 100;
@@ -255,7 +255,7 @@
       return rules;
     }
     const tabPresets = new Map();
-    for({url, id} of tabs) {
+    for(const {url, id} of tabs) {
       const resourceTypes = ResourceTypeFor.block(policy.get(url).perms.capabilities);
       if (!resourceTypes.length) continue;
       const key = JSON.stringify(resourceTypes);

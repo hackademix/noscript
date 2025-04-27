@@ -378,13 +378,16 @@
 
       const checked = ret.checks.map((i) => checks[i]._val);
 
+      const wantsContext = checked.includes("ctx")
+
       let { siteMatch, contextMatch, perms } = ns.policy.get(key, contextUrl);
 
-      if (!perms.capabilities.has(policyType)) {
+      if (!perms.capabilities.has(policyType) ||
+          !contextMatch && wantsContext && ctxKey) {
         if (!contextMatch) {
           perms = perms.clone();
           ns.policy.set(key, perms);
-          if (ctxKey && checked.includes("ctx")) {
+          if (ctxKey && wantsContext) {
             perms.contextual.set(ctxKey, perms = perms.clone(/* noContext = */ true));
           }
         }
@@ -494,17 +497,17 @@
     }
   };
 
-  function intersectCapabilities(perms, request) {
+  function intersectCapabilities(policyMatch, request) {
     if (request.frameId !== 0 && ns.sync.cascadeRestrictions) {
       const {tabUrl, frameAncestors} = request;
       const topUrl = tabUrl ||
         frameAncestors && frameAncestors[frameAncestors?.length - 1]?.url ||
         TabCache.get(request.tabId)?.url;
       if (topUrl) {
-        return ns.policy.cascadeRestrictions(perms, topUrl).capabilities;
+        return ns.policy.cascadeRestrictions(policyMatch, topUrl).capabilities;
       }
     }
-    return perms.capabilities;
+    return policyMatch.perms.capabilities;
   }
 
   const ABORT = {cancel: true},
@@ -652,8 +655,8 @@
           .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
       }
       if (!allowed) {
-        let capabilities = intersectCapabilities(
-          policy.get(url, ns.policyContext(request)).perms,
+        const capabilities = intersectCapabilities(
+          policy.get(url, ns.policyContext(request)),
           request);
         allowed = !policyType || capabilities.has(policyType);
         if (allowed && request._dataUrl && type.endsWith("frame")) {
@@ -762,8 +765,9 @@
       try {
         let capabilities;
         if (ns.isEnforced(tabId)) {
-          let policy = ns.policy;
-          let {perms} = policy.get(url, ns.policyContext(request));
+          const { policy } = ns;
+          const policyMatch = policy.get(url, ns.policyContext(request));
+          let perms = { match: policyMatch };
           if (isMainFrame) {
             const autoPerms = policy.autoAllow(url, perms);
             if (autoPerms) {
@@ -771,7 +775,7 @@
             }
             capabilities = perms.capabilities;
           } else {
-            capabilities = intersectCapabilities(perms, request);
+            capabilities = intersectCapabilities(policyMatch, request);
           }
         } // else unrestricted, either globally or per-tab
         if (isMainFrame && !TabStatus.map.has(tabId)) {

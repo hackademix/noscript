@@ -340,7 +340,8 @@
 
       let permissions, unrestricted, cascaded;
       if (policy) {
-        let perms = policy.get(url, contextUrl).perms;
+        const policyMatch = policy.get(url, contextUrl);
+        let { perms } = policyMatch;
         if (isTop) {
           const autoPerms = policy.autoAllow(url, perms);
           if (autoPerms) {
@@ -355,7 +356,7 @@
         } else {
           cascaded = topUrl && ns.sync.cascadeRestrictions;
           if (cascaded) {
-            perms = policy.cascadeRestrictions(perms, topUrl);
+            perms = policy.cascadeRestrictions(policyMatch, topUrl);
           }
         }
         permissions = perms.dry();
