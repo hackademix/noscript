@@ -316,15 +316,9 @@
       }
 
       const tabId = tab ? tab.id : -1;
-      let topUrl;
       const isTop = sender.frameId === 0;
-      if (isTop) {
-        topUrl = url;
-      } else if (tab) {
-        if (!tab.url) tab = TabCache.get(tabId);
-        if (tab) topUrl = tab.url;
-      }
-      if (!topUrl) topUrl = url;
+      const topUrl = tab && (tab.url || TabCache.get(tabId)?.url) || url;
+
       if (!contextUrl) contextUrl = topUrl;
 
       let xLoadable;
@@ -342,7 +336,7 @@
       if (policy) {
         const policyMatch = policy.get(url, contextUrl);
         let { perms } = policyMatch;
-        if (isTop) {
+        if (isTop && topUrl == url) {
           const autoPerms = policy.autoAllow(url, perms);
           if (autoPerms) {
             perms = autoPerms;
