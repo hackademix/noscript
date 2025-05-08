@@ -324,7 +324,7 @@
       const contextUrl = normalize(sender.tab.url || documentUrl);
       const ctxKey = Sites.optimalKey(contextUrl);
 
-      const origin = Sites.origin(url);
+      let origin = Sites.origin(url);
       const {siteKey} = Sites.parse(url);
 
       const forcedTemp = sender.tab.incognito;
