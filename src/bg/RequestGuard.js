@@ -319,7 +319,7 @@
       let TAG = `<${policyType.toUpperCase()}>`;
 
       const useDirs = policyType === "x-load";
-      const normalize = useDirs ? u => u.replace(/[^/]+$/, '') : u => u;
+      const normalize = useDirs ? Sites.trimToDir : u => u;
       url = normalize(url);
       const contextUrl = normalize(sender.tab.url || documentUrl);
       const ctxKey = Sites.optimalKey(contextUrl);
