@@ -74,6 +74,14 @@ XSS.Exceptions = (() => {
           return true;
         }
 
+        // for any HTTPS origin...
+        if (srcOrigin.startsWith("https://")) {
+          // uptain.de e-commerce back-end
+          if (destUrl.startsWith("https://app.uptain.de/static/index.html")) {
+            return true;
+          }
+        }
+
         if (isPost) {
 
           if (/^https:\/\/(?:twitter|x).com$/.test(srcOrigin) &&
