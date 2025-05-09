@@ -322,14 +322,13 @@
       if (!contextUrl) contextUrl = topUrl;
 
       let xLoadable;
-      if (contextUrl.startsWith("file:")) {
-        const contextDir = contextUrl.replace(/[^\/]*$/, '');
-        const urls = [...policy.sites.keys()].filter(u => /^file:/.test(u));
-        xLoadable = urls.filter(u =>
-          policy.get(u, contextDir)?.perms?.capabilities.has("x-load"));
-      }
       if (Sites.isInternal(url) || !ns.isEnforced(tabId)) {
         policy = null;
+      } else if (contextUrl.startsWith("file:")) {
+        const contextDir = contextUrl.replace(/[^\/]*$/, '');
+        const urls = [...policy.sites.keys()].filter(u => u.startsWith("file:"));
+        xLoadable = urls.filter(u =>
+          policy.get(u, contextDir)?.perms?.capabilities.has("x-load"));
       }
 
       let permissions, unrestricted, cascaded;
