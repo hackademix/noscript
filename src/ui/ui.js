@@ -705,8 +705,8 @@ var UI = (() => {
           return label.includes(":") ? label : `…${label}`;
         };
         for (let child; child = ctxSelect.firstChild;) child.remove();
-        ctxSelect.appendChild(entry("*", _("anySite")));
-        if (this.mainDomain) {
+        ctxSelect.appendChild(entry("*", row.siteMatch?.startsWith("file:") ? "file:" : _("anySite")));
+        if (this.mainUrl) {
           const key = row.contextMatch || Sites.optimalKey(this.mainUrl);
           ctxSelect.appendChild(entry(key, toLabel(key))).selected = !!row.contextMatch;
         } else {
