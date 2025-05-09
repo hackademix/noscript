@@ -298,7 +298,7 @@
 
     async computeChildPolicy({url, contextUrl}, sender) {
       await ns.initializing;
-      let {tab, origin} = sender;
+      let {tab, origin, frameId, documentLifecycle} = sender;
       if (url == sender.url && url == "about:blank") {
         url = origin;
       }
@@ -316,8 +316,8 @@
       }
 
       const tabId = tab ? tab.id : -1;
-      const isTop = sender.frameId === 0;
-      const topUrl = tab && (tab.url || TabCache.get(tabId)?.url) || url;
+      const isTop = frameId === 0;
+      const topUrl = documentLifecycle != "prerender" && tab && (tab.url || TabCache.get(tabId)?.url) || url;
 
       if (!contextUrl) contextUrl = topUrl;
 

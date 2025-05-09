@@ -862,7 +862,13 @@
     await ns.initializing;
     if (ns.local.debug?.disablePolicyInjection) return '';  // DEV_ONLY
     const {url, tabId, frameId} = details;
-    const domPolicy = await ns.computeChildPolicy({url}, {tab: {id: tabId}, frameId});
+    const domPolicy = await ns.computeChildPolicy(
+      { url },
+      {
+        tab: { id: tabId, url: frameId == 0 ? url : null },
+        frameId,
+      }
+    );
     domPolicy.navigationURL = url;
     const callback = "ns_setupCallback";
     if (DocStartInjection.mv3Callbacks) {

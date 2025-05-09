@@ -222,7 +222,7 @@
     for (const [siteKey,] of ctxSettings) {
       const ctxTabs = tabs.map(tab =>
           ({id: tab.id,
-            settings: policy.get(siteKey, tab.url),
+            settings: policy.get(siteKey, Sites.isInternal(tab.url) ? siteKey : tab.url),
           }))
         .filter(({settings}) => settings.contextMatch);
       const caps2Tabs = new Map();
@@ -307,9 +307,15 @@
     const updated = [];
     if (policy.autoAllowTop) {
       for(const tab of tabs) {
-        const {url} = tab;
-        if (!url || Sites.isInternal(url)) continue;
-        const perms = policy.get(url).perms;
+        const { url } = tab;
+        if (!url) {
+          continue;
+        }
+        if (Sites.isInternal(url)) {
+          updated.push(tab);
+          continue;
+        }
+        const { perms } = policy.get(url);
         console.debug("DNRPolicy autoAllow check", tab, perms, perms === policy.DEFAULT);
         if (policy.autoAllow(url, perms, (isStartup && perms.temp))) {
           updated.push(tab);
