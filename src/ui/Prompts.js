@@ -34,6 +34,20 @@ var Prompts = (() => {
   });
 
   class WindowManager {
+    constructor() {
+      this.currentWindow = this.currentTab = null;
+      browser.windows?.onRemoved.addListener(windowId => {
+        if (windowId === this.currentWindow?.id) {
+          promptData?.done();
+        }
+      });
+      browser.tabs.onRemoved.addListener(tabId => {
+        if (tabId === this.currentTab?.id) {
+          promptData?.done();
+        }
+      });
+    }
+
     async open(data) {
       promptData = data;
       this.close();
@@ -112,7 +126,7 @@ var Prompts = (() => {
         for (let attempts = 2; attempts-- > 0; ) {
           debug("Resizing", popup, { left, top, width, height }); // DEV_ONY
           popup = await browser.windows.update(popup.id, { width, height });
-          if (popup.width == width || popup.height == height) {
+          if (popup.width == width && popup.height == height) {
             break;
           }
         }
@@ -128,6 +142,7 @@ var Prompts = (() => {
         this.currentWindow = null;
       } else if (this.currentTab) {
         await browser.tabs.remove(this.currentTab.id);
+        this.currentTab = null;
       }
     }
 
@@ -142,6 +157,21 @@ var Prompts = (() => {
         } catch (e) {
           error(e, "Focusing popup window");
         }
+      }
+    }
+
+    async validateCurrent() {
+      try {
+        if (this.currentTab) {
+          await browser.tabs.get(this.currentTab.id);
+        }
+        if (this.currentWindow) {
+          await browser.windows.get(this.currentWindow.id);
+        }
+        return promptData;
+      } catch (e) {
+        promptData?.done();
+        return null;
       }
     }
   }
@@ -187,7 +217,7 @@ var Prompts = (() => {
           }
         };
         promptDataMap.set(id, data);
-        if (promptData) {
+        if (promptData && winMan.validateCurrent()) {
           backlog.push(data);
           switch(promptData.features.multiple) {
             case "focus":
