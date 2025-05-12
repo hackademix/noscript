@@ -767,7 +767,7 @@
         if (ns.isEnforced(tabId)) {
           const { policy } = ns;
           const policyMatch = policy.get(url, ns.policyContext(request));
-          let perms = { policyMatch };
+          let { perms } = policyMatch;
           if (isMainFrame) {
             const autoPerms = policy.autoAllow(url, perms);
             if (autoPerms) {
