@@ -861,12 +861,13 @@
   async function injectPolicyScript(details) {
     await ns.initializing;
     if (ns.local.debug?.disablePolicyInjection) return '';  // DEV_ONLY
-    const {url, tabId, frameId} = details;
+    const {url, tabId, frameId, type} = details;
+    const isTop = type == "main_frame";
     const domPolicy = await ns.computeChildPolicy(
       { url },
       {
-        tab: { id: tabId, url: frameId == 0 ? url : null },
-        frameId,
+        tab: { id: tabId, url: isTop ? url : null },
+        frameId: isTop ? 0 : frameId,
       }
     );
     domPolicy.navigationURL = url;
@@ -917,7 +918,8 @@
     TabStatus.probe();
 
     if (!RequestGuard.canBlock) {
-      include("/bg/DNRPolicy.js")
+      include("/nscl/service/NavCache.js");
+      include("/bg/DNRPolicy.js");
     } else {
       // From here on, only webRequestBlocking-enabled code (Gecko MV2.5)
       listen("onBeforeSendHeaders", filterAll, ["blocking", "requestHeaders"]);

@@ -335,17 +335,23 @@
       if (policy) {
         const policyMatch = policy.get(url, contextUrl);
         let { perms } = policyMatch;
-        if (isTop && topUrl == url) {
+        if (isTop && policy.autoAllow && topUrl == url) {
           const autoPerms = policy.autoAllow(url, perms);
+          const dnrRulesBefore = (await browser.declarativeNetRequest?.getSessionRules())?.filter(r => r?.action?.type == "allow"); // DEV_ONLY
           if (autoPerms) {
             perms = autoPerms;
             await Promise.allSettled([
               RequestGuard.DNRPolicy?.update(),
               session.save(),
             ]);
-            const dnrRules = (await browser.declarativeNetRequest?.getSessionRules())?.filter(r => r?.action?.type == "allow"); // DEV_ONLY
-            debug(`Auto-trusted ${Sites.optimalKey(url)}`,  dnrRules); // DEV_ONLY
+
+          } else {
+            // we need this because the permissions change may have been triggered by a prerendering
+            await RequestGuard.DNRPolicy?.update();
           }
+
+          const dnrRules = (await browser.declarativeNetRequest?.getSessionRules())?.filter(r => r?.action?.type == "allow"); // DEV_ONLY
+          debug(`Auto-trusted ${Sites.optimalKey(url)}`, documentLifecycle, autoPerms, dnrRulesBefore, dnrRules); // DEV_ONLY
         } else {
           cascaded = topUrl && ns.sync.cascadeRestrictions;
           if (cascaded) {

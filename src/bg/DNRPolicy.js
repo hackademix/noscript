@@ -18,6 +18,8 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// depends on /nscl/service/NavCache.js
+
 'use strict';
 {
   const DEFAULT_PRIORITY = 1;
@@ -104,10 +106,8 @@
 
   async function update() {
     const {policy} = ns;
-    if (policy === _lastPolicy) {
-      if (!policy || policy.equals(_lastPolicy)) {
-        return await updateTabs();
-      }
+    if (!policy || policy == _lastPolicy || _lastPolicy?.equals(policy)) {
+      return await updateTabs();
     }
     _lastPolicy = policy;
 
@@ -211,28 +211,45 @@
   }
 
   async function addCtxRules(rules) {
+
     const {policy} = ns;
     const cascade = ns.sync.cascadeRestrictions;
     const ctxSettings = [...policy.sites].filter(([siteKey, perms]) => perms.contextual?.size);
     const tabs = (ctxSettings.length || cascade) &&
-      (await browser.tabs.query({})).filter(tab => tab.url && !ns.unrestrictedTabs.has(tab.id));
+      TabCache.getAll().filter(tab => tab.url && !ns.unrestrictedTabs.has(tab.id));
     if (!tabs?.length) {
       return rules;
     }
+    await NavCache.awakening;
+    for (const tab of tabs) {
+      tab.topUrls = NavCache.getTab(tab.id)?.topUrls || [tab.url];
+    }
     for (const [siteKey,] of ctxSettings) {
-      const ctxTabs = tabs.map(tab =>
-          ({id: tab.id,
-            settings: policy.get(siteKey, Sites.isInternal(tab.url) ? siteKey : tab.url),
-          }))
-        .filter(({settings}) => settings.contextMatch);
+
+      const ctxTabs = [];
+      for (const tab of tabs) {
+        for (const url of tab.topUrls) {
+          const settings = policy.get(siteKey, url);
+          if (!settings.contextMatch) continue;
+          ctxTabs.push({
+            id: tab.id,
+            settings,
+            domain: url != tab.url && tld.getDomain(new URL(url).hostname),
+          });
+        }
+      }
       const caps2Tabs = new Map();
-      for(const {id, settings} of ctxTabs) {
-        const capsKey = JSON.stringify([...settings.perms.capabilities]);
+      for(const {id, settings, domain} of ctxTabs) {
+        const capsKey = JSON.stringify({
+          initiatorDomains: domain ? [domain] : undefined,
+          capabilities: [...settings.perms.capabilities]
+        });
         caps2Tabs.get(capsKey)?.push(id) || caps2Tabs.set(capsKey, [id]);
       }
       const urlFilter = toUrlFilter(siteKey);
       for (const [capsKey, tabIds] of [...caps2Tabs]) {
-        forBlockAllow(new Set(JSON.parse(capsKey)), (type, resourceTypes) => {
+        const { initiatorDomains, capabilities } = JSON.parse(capsKey);
+        forBlockAllow(new Set(capabilities), (type, resourceTypes) => {
           if (type == "allow" && resourceTypes.includes("script")) {
             tabIds.push(browser.tabs.TAB_ID_NONE); // for service workers
           }
@@ -246,6 +263,7 @@
               tabIds,
               urlFilter,
               resourceTypes,
+              initiatorDomains,
             }
           });
         });
@@ -339,14 +357,30 @@
     }
   };
 
-  browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.url) {
       // TODO: see if the update can be made more granular
-      (await (autoAllow([tab])).length
+      autoAllow([tab]).length
         ? Promise.allSettled([RequestGuard.DNRPolicy.update(), ns.saveSession()])
         : RequestGuard.DNRPolicy.updateTabs()
-      );
+      ;
     }
+  });
+  /*
+  browser.webNavigation.onCommitted.addListener(({tabId, frameType, documentLifecycle, frameId, parentFrameId}) => {
+    if (parentFrameId == -1 && autoAllow([{url}])) {
+      Promise.allSettled([RequestGuard.DNRPolicy.update(), ns.saveSession()]);
+      return;
+    }
+    RequestGuard.DNRPolicy.updateTabs();
+  });
+  */
+  NavCache.onUrlChanged.addListener((frame) => {
+    if (parentFrameId == -1 && autoAllow([{ url }])) {
+      Promise.allSettled([RequestGuard.DNRPolicy.update(), ns.saveSession()]);
+      return;
+    }
+    RequestGuard.DNRPolicy.updateTabs();
   });
 
   let delay;
