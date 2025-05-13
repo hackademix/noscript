@@ -429,6 +429,9 @@
           type, url, documentUrl, originUrl
       };
       if (tabId < 0) {
+        if (Sites.isInternal(url)) {
+          return;
+        }
         if ((policyType === "script" || policyType === "fetch") &&
               url.startsWith("https://") && documentUrl && documentUrl.startsWith("https://")) {
           // service worker request ?
@@ -446,6 +449,10 @@
             // we've linked at least one owner tab
             return;
           }
+        }
+        if (!UA.isMozilla) {
+          // we don't support tab-less / sidebars outside Firefox
+          return;
         }
         // no tab, record as tabLess
         const tabLess = await this.getTabLess();
@@ -699,6 +706,7 @@
         }
       }
     }
+
     if (type !== "main_frame" || tabId < 0) {
       Content.reportTo(request, allowed, policyType);
     }
