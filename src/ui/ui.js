@@ -1014,7 +1014,7 @@ var UI = (() => {
       const fullAddress = urlContainer.querySelector(".full-address")
 
       row._site = site;
-      if (sitesUI?.tabLess.has(site)) {
+      if (UI.tabLessSites?.has(site)) {
         row.tabLess = true;
         row.classList.add("tabLess");
         fullAddress.setAttribute("title", _("tabLess_tip"));

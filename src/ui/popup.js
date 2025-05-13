@@ -379,7 +379,7 @@ addEventListener("unload", e => {
       }
 
       const seen = UI.seen.concat(UI.tabLess || []);
-      sitesUI.tabLess = new Set();
+      UI.tabLessSites = new Set();
       const parsedSeen = seen.map(thing => Object.assign({
           type: thing.policyType,
           tabLess: thing.tabLess,
@@ -393,7 +393,7 @@ addEventListener("unload", e => {
             ? parsed.siteKey
             : urlToLabel(parsed.url);
           if (parsed.tabLess) {
-            sitesUI.tabLess.add(label);
+            UI.tabLessSites.add(label);
           }
           return parsed.label = label;
         }
