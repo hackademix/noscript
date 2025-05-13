@@ -191,6 +191,15 @@
   "httpsOnly": {
     "message": "Match HTTPS content only"
   },
+  "tabLess_tip": {
+    "message": "Site outside of a content tab, e.g. in a sidebar"
+  },
+  "tabLess_short": {
+    "message": "(sidebar?)"
+  },
+  "tabLess_reload_warning": {
+    "message": "Changing permissions in a sidebar will require a MANUAL reload."
+  },
   "Https": {
     "message": "HTTPS"
   },

@@ -58,6 +58,7 @@ var UI = (() => {
             UI.policy = new Policy(m.policy);
             UI.snapshot = UI.policy.snapshot;
             UI.seen = m.seen;
+            UI.tabLess = m.tabLess;
             UI.unrestrictedTab = m.unrestrictedTab;
             UI.xssUserChoices = m.xssUserChoices;
             UI.xssBlockedInTab = m.xssBlockedInTab;
@@ -507,8 +508,8 @@ var UI = (() => {
       return this.table.querySelectorAll("tr.site");
     }
 
-    anyPermissionsChanged() {
-      return Array.from(this.allSiteRows()).some(row => row.permissionsChanged);
+    anyPermissionsChanged(includeTabLess = false) {
+      return Array.from(this.allSiteRows()).some(row => row.permissionsChanged && (includeTabLess || !row.tabLess));
     }
 
     clear() {
@@ -1008,10 +1009,17 @@ var UI = (() => {
             (url.protocol === "https:" || isOnion ? "full" : "unsafe")
           : isOnion ? "secure" : domain === hostname ? "domain" : "host";
 
-      let urlContainer = row.querySelector(".url");
+      const urlContainer = row.querySelector(".url");
       urlContainer.dataset.key = keyStyle;
-      row._site = site;
+      const fullAddress = urlContainer.querySelector(".full-address")
 
+      row._site = site;
+      if (sitesUI?.tabLess.has(site)) {
+        row.tabLess = true;
+        row.classList.add("tabLess");
+        fullAddress.setAttribute("title", _("tabLess_tip"));
+        fullAddress.setAttribute("data-tabLess", _("tabLess_short"));
+      };
       row.siteMatch = siteMatch;
       row.contextMatch = contextMatch;
       row.perms = perms;
@@ -1029,7 +1037,7 @@ var UI = (() => {
         row.querySelector(".domain").textContent = unicodeDomain;
         row.querySelector(".path").textContent = siteMatch.length > url.origin.length ? url.pathname : "";
       } else {
-        urlContainer.querySelector(".full-address").textContent =
+        fullAddress.textContent =
           row._label = row.domain = siteMatch;
       }
       let httpsOnly = row.querySelector("input.https-only");

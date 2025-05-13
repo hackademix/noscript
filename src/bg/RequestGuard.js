@@ -402,6 +402,24 @@
   };
 
   const Content = {
+    _session: new SessionCache(
+      "RequestGuard.Content",
+      {
+        afterLoad(data) {
+          Content._tabLess = data ? new Map(data.tabLess) : new Map();
+        },
+        beforeSave() { // beforeSave
+          return {
+            tabLess: [...(Content._tabLess || new Map())],
+          };
+        },
+      }
+    ),
+     _tabLess: null,
+    async getTabLess() {
+      if (!this._tabLess) await this._session.load();
+      return this._tabLess ||= new Map();
+    },
     async reportTo(request, allowed, policyType) {
       let {requestId, tabId, frameId, type, url, documentUrl, originUrl} = request;
       let pending = pendingRequests.get(requestId); // null if from a CSP report
@@ -424,7 +442,18 @@
               // likely a privileged tab where our content script couldn't run
             }
           }
+          if (recipient.tabId) {
+            // we've linked at least one owner tab
+            return;
+          }
         }
+        // no tab, record as tabLess
+        const tabLess = await this.getTabLess();
+        if (frameId == 0 && type == "main_frame") {
+          tabLess.clear();
+        }
+        tabLess.set(request.key, {request, allowed, policyType, tabLess: true});
+        this._session.save();
         return;
       }
       if (pending) request.initialUrl = pending.initialUrl;
@@ -670,7 +699,7 @@
         }
       }
     }
-    if (type !== "main_frame") {
+    if (type !== "main_frame" || tabId < 0) {
       Content.reportTo(request, allowed, policyType);
     }
 
@@ -897,6 +926,9 @@
     canBlock: UA.isMozilla,
     DNRPolicy: null,
     policyTypesMap,
+    async getTabLess() {
+      return [...(await Content.getTabLess()).values()];
+    }
   };
 
   // initialization

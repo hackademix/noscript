@@ -269,6 +269,12 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
   font-weight: bold;
 }
 
+.site.tabLess .full-address::after {
+  content: attr(data-tabLess);
+  display: inline-block;
+  padding-inline: .5em;
+}
+
 input.https-only {
   font-size: 100%;
   appearance: none;

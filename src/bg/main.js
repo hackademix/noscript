@@ -187,6 +187,7 @@
         unrestrictedTab: ns.unrestrictedTabs.has(tabId),
         tabId,
         xssBlockedInTab: XSS.getBlockedInTab(tabId),
+        tabLess: await RequestGuard.getTabLess(),
         anonymyzedTabInfo: TabGuard.isAnonymizedTab(tabId) && TabGuard.getAnonymizedTabInfo(tabId),
       });
     },

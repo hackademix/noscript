@@ -257,7 +257,7 @@ addEventListener("unload", e => {
 
     setupEnforcement();
 
-    let mainFrame = UI.seen && UI.seen.find(thing => thing.request.type === "main_frame");
+    let mainFrame = UI.seen?.find(thing => thing.request.type === "main_frame");
     debug("Seen: %o", UI.seen);
     if (!mainFrame) {
       let isHttp = /^https?:/.test(pageTab.url);
@@ -293,17 +293,22 @@ addEventListener("unload", e => {
       if (!isHttp || isRestricted) {
         messageBox("warning", _("privilegedPage"));
         let tempTrust = document.getElementById("temp-trust-page");
+        mainFrame = UI.tabLess?.find(thing => thing.request.type === "main_frame");
+        if (!mainFrame) {
+          return;
+        }
         tempTrust.disabled = true;
-        return;
+        UI.seen = [];
       }
       if (!UI.seen) {
-        if (!isHttp) return;
-        let {url} = pageTab;
-        UI.seen = [
-          mainFrame = {
-            request: { url, documentUrl: url, type: "main_frame" }
-          }
-        ];
+        if (isHttp) {
+          let {url} = pageTab;
+          UI.seen = [
+            mainFrame = {
+              request: { url, documentUrl: url, type: "main_frame" }
+            }
+          ];
+        }
       }
     }
 
@@ -312,7 +317,11 @@ addEventListener("unload", e => {
     sitesUI = new UI.Sites(document.getElementById("sites"));
 
     sitesUI.onChange = (row) => {
-      pendingReload(sitesUI.anyPermissionsChanged());
+      const reload = sitesUI.anyPermissionsChanged()
+      pendingReload(reload);
+      if (!reload && row.tabLess) {
+        messageBox("warning", _("tabLess_reload_warning"));
+      }
       if (optionsClosed) return;
       browser.tabs.query({
         url: browser.runtime.getURL(
@@ -368,26 +377,33 @@ addEventListener("unload", e => {
         }
         return origin;
       }
-      let seen = UI.seen;
-      let parsedSeen = seen.map(thing => Object.assign({
-          type: thing.policyType
+
+      const seen = UI.seen.concat(UI.tabLess || []);
+      sitesUI.tabLess = new Set();
+      const parsedSeen = seen.map(thing => Object.assign({
+          type: thing.policyType,
+          tabLess: thing.tabLess,
         }, Sites.parse(thing.request.url)))
         .filter(parsed => parsed.url && (
             parsed.url.origin !== "null" || parsed.url.protocol === "file:"));
 
-      let sitesSet = new Set(
-        parsedSeen.map(parsed =>
-          parsed.label = parsed.type == "x-load"
+      const sitesSet = new Set(
+        parsedSeen.map(parsed => {
+          const label = parsed.type == "x-load"
             ? parsed.siteKey
-            : urlToLabel(parsed.url)
-        )
-      );
+            : urlToLabel(parsed.url);
+          if (parsed.tabLess) {
+            sitesUI.tabLess.add(label);
+          }
+          return parsed.label = label;
+        }
+      ));
       if (!justDomains) {
-        for (let domain of domains.values()) sitesSet.add(domain);
+        for (const domain of domains.values()) sitesSet.add(domain);
       }
-      for (let protocol of protocols) sitesSet.add(protocol);
-      let sites = [...sitesSet];
-      for (let parsed of parsedSeen) {
+      for (const protocol of protocols) sitesSet.add(protocol);
+      const sites = [...sitesSet];
+      for (const parsed of parsedSeen) {
         sites.filter(s => parsed.label === s || domains.get(Sites.origin(parsed.url)) === s).forEach(m => {
           let siteTypes = typesMap.get(m);
           if (!siteTypes) typesMap.set(m, siteTypes = new Set());
@@ -404,7 +420,7 @@ addEventListener("unload", e => {
       window.scrollTo(0, 0);
     }
 
-    async function  reload() {
+    async function reload() {
       if (sitesUI) sitesUI.clear();
       await Messages.send("reloadWithCredentials", {tabId});
       pendingReload(false);
