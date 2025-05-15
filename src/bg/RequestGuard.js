@@ -450,7 +450,7 @@
             return;
           }
         }
-        if (!UA.isMozilla) {
+        if (!(pending && UA.isMozilla)) {
           // we don't support tab-less / sidebars outside Firefox
           return;
         }
@@ -458,6 +458,9 @@
         const tabLess = await this.getTabLess();
         if (frameId == 0 && type == "main_frame") {
           tabLess.clear();
+        } else if (!tabLess.size) {
+          // at least one top document needs to be loaded
+          return;
         }
         tabLess.set(request.key, {request, allowed, policyType, tabLess: true});
         this._session.save();
