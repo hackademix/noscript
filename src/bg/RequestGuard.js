@@ -378,22 +378,25 @@
 
       const checked = ret.checks.map((i) => checks[i]._val);
 
-      const wantsContext = checked.includes("ctx")
+      const wantsContext = checked.includes("ctx");
 
       let { siteMatch, contextMatch, perms } = ns.policy.get(key, contextUrl);
 
       if (!perms.capabilities.has(policyType) ||
           !contextMatch && wantsContext && ctxKey) {
+
+        const wantsTemp = forcedTemp || checked.includes("temp");
         if (!contextMatch) {
+          const isDefault = perms === ns.policy.DEFAULT;
           perms = perms.clone();
+          if (isDefault) perms.temp = wantsTemp;
           ns.policy.set(key, perms);
           if (ctxKey && wantsContext) {
             perms.contextual.set(ctxKey, perms = perms.clone(/* noContext = */ true));
           }
         }
+        perms.temp = wantsTemp;
         perms.capabilities.add(policyType);
-        perms.temp = forcedTemp || checked.includes("temp");
-
         await ns.savePolicy();
         await RequestGuard.DNRPolicy?.update();
       }
