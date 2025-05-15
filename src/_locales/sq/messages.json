@@ -207,6 +207,10 @@
         "message": "Paraqit adresa të plota te flluska e lejeve (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Show synthetic placeholders for invisible capability probes",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Të përgjithshme",
         "description": ""
@@ -249,6 +253,18 @@
     },
     "httpsOnly": {
         "message": "Kërko përputhje vetëm për lëndë HTTPS",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "Sajt jashtë një skede lënde, p.sh., në një anështyllë",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(anështyllë?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Ndryshimi i lejeve në një anështyllë do të dojë doemos një ringarkim DORAZI.",
         "description": ""
     },
     "Https": {
@@ -759,6 +775,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "lazy load",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "CSS e pakufizuar",
         "description": ""
@@ -770,6 +790,10 @@
     "cap_other": {
         "message": "tjetër",
         "description": ""
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Regjistër ndryshimesh",

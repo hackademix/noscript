@@ -255,6 +255,18 @@
         "message": "Nur HTTPS-Inhalt vergleichen",
         "description": ""
     },
+    "tabLess_tip": {
+        "message": "Seite außerhalb eines Tabs mit Inhalt, z. B. in einer Seitenleiste",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(Seitenleiste?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Das Ändern von Berechtigungen in einer Seitenleiste erfordert ein MANUELLES neues Laden.",
+        "description": ""
+    },
     "Https": {
         "message": "HTTPS",
         "description": ""

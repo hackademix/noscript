@@ -255,6 +255,18 @@
         "message": "仅匹配 HTTPS 内容",
         "description": ""
     },
+    "tabLess_tip": {
+        "message": "内容标签页外面的站点，如侧栏中的站点",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(侧栏？)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "在侧栏中更改权限需要手动重载",
+        "description": ""
+    },
     "Https": {
         "message": "HTTPS",
         "description": ""

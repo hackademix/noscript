@@ -68,7 +68,7 @@
         "description": ""
     },
     "AutoReload": {
-        "message": "Recharger automatiquement les pages affectées quand les permissions changent",
+        "message": "Recharger automatiquement les pages affectées si les autorisations changent",
         "description": ""
     },
     "AutoReload_currentTab": {
@@ -96,7 +96,7 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Répercuter les permissions du document de plus haut niveau sur les scripts tiers",
+        "message": "Répercuter les autorisations du document de plus haut niveau sur les scripts tiers",
         "description": ""
     },
     "CascadeRestrictions": {
@@ -253,6 +253,18 @@
     },
     "httpsOnly": {
         "message": "Autoriser uniquement le contenu transmis via HTTPS",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "Site en dehors d’un onglet conteneur, p. ex. dans une barre latérale",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(barre latérale ?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Changer les autorisations dans une barre latérale demande un rechargement MANUEL.",
         "description": ""
     },
     "Https": {
