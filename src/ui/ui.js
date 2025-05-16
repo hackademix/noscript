@@ -403,7 +403,7 @@ var UI = (() => {
     constructor(parentNode, presets = DEF_PRESETS) {
       this.parentNode = parentNode;
       let policy = UI.policy;
-      this.uiCount =  UI.Sites.count = (UI.Sites.count || 0) + 1;
+      this.uiCount = UI.Sites.count = (UI.Sites.count || 0) + 1;
       this.sites = policy.sites;
       this.presets = presets;
       this.customizing = null;
@@ -416,13 +416,16 @@ var UI = (() => {
       // PRESETS
       {
         let presets = row.querySelector(".presets");
-        let [span, input, label] = presets.querySelectorAll("span.preset, input.preset, label.preset");
+        let [span, input, label] = presets.querySelectorAll(
+          "span.preset, input.preset, label.preset"
+        );
         span.remove();
         for (let [preset, customizable] of Object.entries(this.presets)) {
           let messageKey = UI.presets[preset];
           input.value = preset;
           label.textContent = label.title = input.title = _(messageKey);
-          input.disabled = UI.forceIncognito && !INCOGNITO_PRESETS.includes(preset);
+          input.disabled =
+            UI.forceIncognito && !INCOGNITO_PRESETS.includes(preset);
           let clone = span.cloneNode(true);
           clone.classList.add(preset);
           let temp = clone.querySelector(".temp");
@@ -443,13 +446,18 @@ var UI = (() => {
 
       // URL
       {
-        let [input, label] = row.querySelectorAll("input.https-only, label.https-only");
+        let [input, label] = row.querySelectorAll(
+          "input.https-only, label.https-only"
+        );
         input.title = label.title = label.textContent = _("httpsOnly");
       }
 
       // CUSTOMIZER ROW
       {
-        let [customizer, capsContext, cap, capInput, capLabel] = table.querySelectorAll(".customizer, .capsContext, span.cap, input.cap, label.cap");
+        let [customizer, capsContext, cap, capInput, capLabel] =
+          table.querySelectorAll(
+            ".customizer, .capsContext, span.cap, input.cap, label.cap"
+          );
         row._customizer = customizer;
         customizer.remove();
         customizer.capsContext = capsContext;
@@ -457,8 +465,8 @@ var UI = (() => {
         capParent.removeChild(cap);
         let idSuffix = UI.Sites.count;
 
-        const createCap = capability => {
-          capInput.id = `capability-${capability}-${idSuffix}`
+        const createCap = (capability) => {
+          capInput.id = `capability-${capability}-${idSuffix}`;
           capLabel.setAttribute("for", capInput.id);
           capInput.value = capability;
           capInput.title = capLabel.textContent =
@@ -467,7 +475,7 @@ var UI = (() => {
           const clone = capParent.appendChild(cap.cloneNode(true));
           clone.classList.add(capability);
           return clone;
-        }
+        };
 
         for (const capability of EXTRA_CAPS) {
           createCap(capability).classList.add("extra");
@@ -500,7 +508,10 @@ var UI = (() => {
           biggest = l.textContent;
         }
       }
-      this.parentNode.style.setProperty("--preset-label-width", (labelWidth) + "px");
+      this.parentNode.style.setProperty(
+        "--preset-label-width",
+        labelWidth + "px"
+      );
       sizer.remove();
     }
 
@@ -508,8 +519,10 @@ var UI = (() => {
       return this.table.querySelectorAll("tr.site");
     }
 
-    anyPermissionsChanged(includeTabLess = false) {
-      return Array.from(this.allSiteRows()).some(row => row.permissionsChanged && (includeTabLess || !row.tabLess));
+    anyPermissionsChanged(includePureNoTab = false) {
+      return Array.from(this.allSiteRows()).some(
+        (row) => row.permissionsChanged && (includePureNoTab || !row.noTab)
+      );
     }
 
     clear() {
@@ -535,17 +548,26 @@ var UI = (() => {
     handleEvent(ev) {
       let target = ev.target;
       let customizer = target.closest(".customizer");
-      let row = customizer ? customizer.parentNode.querySelector("tr.customizing") : target.closest("tr.site");
+      let row = customizer
+        ? customizer.parentNode.querySelector("tr.customizing")
+        : target.closest("tr.site");
       if (!row) return;
 
       let isTemp = target.matches("input.temp");
-      let preset = target.matches("input.preset") ? target
-        : customizer || isTemp ? row.querySelector("input.preset:checked")
-          : target.closest("input.preset");
-      debug("%s target %o\n\trow %s, perms %o\npreset %s %s",
-              ev.type,
-              target, row && row.siteMatch, row && row.perms,
-              preset && preset.value, preset && preset.checked);
+      let preset = target.matches("input.preset")
+        ? target
+        : customizer || isTemp
+        ? row.querySelector("input.preset:checked")
+        : target.closest("input.preset");
+      debug(
+        "%s target %o\n\trow %s, perms %o\npreset %s %s",
+        ev.type,
+        target,
+        row && row.siteMatch,
+        row && row.perms,
+        preset && preset.value,
+        preset && preset.checked
+      );
 
       if (!preset) {
         if (target.matches("input.https-only") && ev.type === "change") {
@@ -557,20 +579,19 @@ var UI = (() => {
         return;
       }
 
-
-      let {siteMatch, contextMatch, perms} = row;
+      let { siteMatch, contextMatch, perms } = row;
 
       let isCap = customizer && target.matches(".cap");
       let tempToggle = preset.parentNode.querySelector("input.temp");
 
       if (ev.type === "change") {
-        let {policy} = UI;
+        let { policy } = UI;
         if (!row._originalPerms) {
           row._originalPerms = row.perms.clone();
           Object.defineProperty(row, "permissionsChanged", {
             get() {
               return this.perms && !this.perms.sameAs(this._originalPerms);
-            }
+            },
           });
         }
         if (target.matches(".capsContext select")) {
@@ -578,7 +599,7 @@ var UI = (() => {
           if (!opt) return;
           let context = opt.value;
           if (context === "*") context = null;
-          ({siteMatch, perms, contextMatch} = policy.get(siteMatch, context));
+          ({ siteMatch, perms, contextMatch } = policy.get(siteMatch, context));
           if (!context) {
             row._customPerms = perms;
           } else if (contextMatch !== context) {
@@ -595,9 +616,10 @@ var UI = (() => {
           return;
         }
 
-
         let presetValue = preset.value;
-        let policyPreset = presetValue.startsWith("T_") ? policy[presetValue.substring(2)].tempTwin : policy[presetValue];
+        let policyPreset = presetValue.startsWith("T_")
+          ? policy[presetValue.substring(2)].tempTwin
+          : policy[presetValue];
 
         if (policyPreset && row.perms !== policyPreset) {
           row.perms = policyPreset;
@@ -619,15 +641,18 @@ var UI = (() => {
           } else {
             this.customize(policyPreset, preset, row);
           }
-
         } else if (preset.value === "CUSTOM") {
           if (isTemp) {
             row.perms.temp = target.checked || UI.forceIncognito;
           } else {
             let temp = row.perms.temp || UI.forceIncognito;
             tempToggle.checked = temp;
-            let perms = row._customPerms ||
-              (row._customPerms = new Permissions(new Set(row.perms.capabilities), temp));
+            let perms =
+              row._customPerms ||
+              (row._customPerms = new Permissions(
+                new Set(row.perms.capabilities),
+                temp
+              ));
             row.perms = perms;
             policy.set(siteMatch, perms);
             this.customize(perms, preset, row);
@@ -653,10 +678,13 @@ var UI = (() => {
           input.disabled = false;
           customizer.lastInput = input;
         }
-        const {classList} = input.parentNode;
+        const { classList } = input.parentNode;
         classList.toggle("needed", this.siteNeeds(row._site, type));
         classList.toggle("checked", input.checked);
-        classList.toggle("belongs", type == "x-load" && row._site?.startsWith("file:"));
+        classList.toggle(
+          "belongs",
+          type == "x-load" && row._site?.startsWith("file:")
+        );
       }
     }
 
@@ -666,20 +694,31 @@ var UI = (() => {
         preset = customizer._preset;
         delete customizer._preset;
       }
-      debug("Customize preset %s (%o) - Dirty: %s", preset && preset.value, perms, this.dirty);
-      for(let r of this.table.querySelectorAll("tr.customizing")) {
+      debug(
+        "Customize preset %s (%o) - Dirty: %s",
+        preset && preset.value,
+        perms,
+        this.dirty
+      );
+      for (let r of this.table.querySelectorAll("tr.customizing")) {
         r.classList.toggle("customizing", false);
       }
       customizer.classList.toggle("closed", true);
 
-      if (!(perms && row && preset &&
-        row.dataset.preset === preset.value &&
-        this.presets[preset.value] &&
-        preset !== customizer._preset)) {
-           delete customizer._preset;
-           customizer.onkeydown = null;
-           customizer.remove();
-           return;
+      if (
+        !(
+          perms &&
+          row &&
+          preset &&
+          row.dataset.preset === preset.value &&
+          this.presets[preset.value] &&
+          preset !== customizer._preset
+        )
+      ) {
+        delete customizer._preset;
+        customizer.onkeydown = null;
+        customizer.remove();
+        return;
       }
 
       customizer._preset = preset;
@@ -690,7 +729,8 @@ var UI = (() => {
       let temp = preset.parentNode.querySelector("input.temp");
       let contextual = !!temp;
       customizer.classList.toggle("contextual", contextual);
-      let [ctxLabel, ctxSelect, ctxReset] = customizer.capsContext.querySelectorAll("label, select, .reset");
+      let [ctxLabel, ctxSelect, ctxReset] =
+        customizer.capsContext.querySelectorAll("label, select, .reset");
       ctxLabel.textContent = _(contextual ? "capsContext" : "caps");
       ctxReset.textContent = _("Reset");
       if (contextual) {
@@ -700,22 +740,29 @@ var UI = (() => {
           opt.value = value;
           opt.textContent = label;
           return opt;
-        }
-        let toLabel = site => {
+        };
+        let toLabel = (site) => {
           let label = Sites.toExternal(site);
           return label.includes(":") ? label : `…${label}`;
         };
-        for (let child; child = ctxSelect.firstChild;) child.remove();
-        ctxSelect.appendChild(entry("*", row.siteMatch?.startsWith("file:") ? "file:" : _("anySite")));
+        for (let child; (child = ctxSelect.firstChild); ) child.remove();
+        ctxSelect.appendChild(
+          entry(
+            "*",
+            row.siteMatch?.startsWith("file:") ? "file:" : _("anySite")
+          )
+        );
         if (this.mainUrl) {
           const key = row.contextMatch || Sites.optimalKey(this.mainUrl);
-          ctxSelect.appendChild(entry(key, toLabel(key))).selected = !!row.contextMatch;
+          ctxSelect.appendChild(entry(key, toLabel(key))).selected =
+            !!row.contextMatch;
         } else {
           if (!row._customPerms) row._customPerms = row.perms;
           let ctxSites = row._customPerms.contextual;
           if (ctxSites) {
             for (let [site, ctxPerms] of ctxSites.entries()) {
-              ctxSelect.appendChild(entry(site, toLabel(site))).selected = perms === ctxPerms;
+              ctxSelect.appendChild(entry(site, toLabel(site))).selected =
+                perms === ctxPerms;
             }
           }
         }
@@ -729,14 +776,14 @@ var UI = (() => {
             selected.previousElementSibling.selected = true;
             if (!this.mainDomain) selected.remove();
             ctxSelect.dispatchEvent(new Event("change"));
-          }
-        }
-        ctxSelect.onchange = e => {
+          };
+        };
+        ctxSelect.onchange = (e) => {
           let caps = customizer.querySelector(".caps");
           let pageTurn = caps.cloneNode(true);
           let s = pageTurn.style;
           s.top = `${caps.offsetTop}px`;
-          s.left =`${caps.offsetLeft}px`;
+          s.left = `${caps.offsetLeft}px`;
           s.width = `${caps.offsetWidth}px`;
           s.height = `${caps.offsetHeight}px`;
           pageTurn.classList.add("pageTurn");
@@ -744,35 +791,34 @@ var UI = (() => {
           setTimeout(() => pageTurn.classList.add("endgame"), 1);
           setTimeout(() => pageTurn.remove(), 500);
           handleSelection();
-        }
+        };
 
         handleSelection();
       }
 
       row.parentNode.insertBefore(customizer, row.nextElementSibling);
-      customizer.onkeydown = e => {
+      customizer.onkeydown = (e) => {
         if (e.shiftKey) return true;
-        switch(e.code) {
+        switch (e.code) {
           case "Tab":
             if (document.activeElement === customizer.lastInput) {
               if (temp) {
                 temp.tabIndex = "0";
                 temp.onblur = () => this.customize(null);
-                setTimeout(() => temp.tabIndex = "-1", 50);
+                setTimeout(() => (temp.tabIndex = "-1"), 50);
                 preset.focus();
               }
             }
             return true;
           case "ArrowUp":
-            if (document.activeElement === ctxSelect)
-              return; // avoid closing the customizer on context selection change
+            if (document.activeElement === ctxSelect) return; // avoid closing the customizer on context selection change
           case "ArrowLeft":
           case "ArrowRight":
             this.onkeydown = null;
             this.customize(null);
             preset.focus();
             if (!temp) return true;
-            switch(e.code.substring(5)) {
+            switch (e.code.substring(5)) {
               case "Left":
                 return false;
               case "Right":
@@ -784,8 +830,11 @@ var UI = (() => {
           case "KeyT":
             if (temp) temp.checked = !temp.checked || UI.forceIncognito;
         }
-      }
-      window.setTimeout(() => customizer.querySelector("input:not(:disabled)").focus(), 50);
+      };
+      window.setTimeout(
+        () => customizer.querySelector("input:not(:disabled)").focus(),
+        50
+      );
     }
 
     render(sites = this.sites, sorter = this.sorter) {
@@ -796,21 +845,28 @@ var UI = (() => {
       parentNode.appendChild(this.fragment);
       let root = parentNode.querySelector("table.sites");
       if (!root.wiredBy) {
-        root.addEventListener("keydown", e => this._keyNavHandler(e), true);
-        root.addEventListener("keyup", e => {
-          // we use a keyup listener to open the customizer from other presets
-          // because space repetition may lead to unintendedly "click" on the
-          // first cap checkbox once focused from keydown
-          switch(e.code) {
-            case "Space": {
-              let focused = document.activeElement;
-              if (focused.matches("tr .preset")) {
-                focused.closest("tr").querySelector(".preset[value='CUSTOM']").click();
-                e.preventDefault();
+        root.addEventListener("keydown", (e) => this._keyNavHandler(e), true);
+        root.addEventListener(
+          "keyup",
+          (e) => {
+            // we use a keyup listener to open the customizer from other presets
+            // because space repetition may lead to unintendedly "click" on the
+            // first cap checkbox once focused from keydown
+            switch (e.code) {
+              case "Space": {
+                let focused = document.activeElement;
+                if (focused.matches("tr .preset")) {
+                  focused
+                    .closest("tr")
+                    .querySelector(".preset[value='CUSTOM']")
+                    .click();
+                  e.preventDefault();
+                }
               }
             }
-          }
-        }, true);
+          },
+          true
+        );
         root.addEventListener("click", this, true);
         root.addEventListener("change", this, true);
         root.wiredBy = this;
@@ -825,13 +881,13 @@ var UI = (() => {
       if (!row || row.matches(".customizer")) return;
       let dir = "next";
       let newRow;
-      let mappedPreset = ({
+      let mappedPreset = {
         "+": "TRUSTED",
         "-": "UNTRUSTED",
-        "0": "DEFAULT",
-        "t": "T_TRUSTED",
-        "c": "CUSTOM"
-      })[e.key];
+        0: "DEFAULT",
+        t: "T_TRUSTED",
+        c: "CUSTOM",
+      }[e.key];
 
       if (mappedPreset) {
         let p = row.querySelector(`.preset[value='${mappedPreset}']`);
@@ -843,7 +899,7 @@ var UI = (() => {
         return;
       }
 
-      switch(e.code) {
+      switch (e.code) {
         case "Delete":
         case "Backspace":
           row.querySelector(".preset[value='DEFAULT']").click();
@@ -863,7 +919,7 @@ var UI = (() => {
           if (!newRow) {
             this.customize(null);
             let prop = `${dir}ElementSibling`;
-            newRow =  row[prop];
+            newRow = row[prop];
             if (!(newRow && newRow.matches("tr"))) newRow = row;
           }
 
@@ -894,14 +950,14 @@ var UI = (() => {
           if (!hasTemp) hasTemp = perms.temp;
         }
       } else {
-        const top =  this.mainUrl;
+        const top = this.mainUrl;
         for (let site of sites) {
           let context = top;
           if (site.site) {
             site = site.site;
             context = site.context;
           }
-          let {siteMatch, perms, contextMatch} = UI.policy.get(site, context);
+          let { siteMatch, perms, contextMatch } = UI.policy.get(site, context);
           this.append(site, siteMatch, perms, contextMatch);
           if (!hasTemp) hasTemp = perms.temp;
         }
@@ -921,7 +977,8 @@ var UI = (() => {
         let md = this.mainDomain;
         let wrappedCompare = sorter;
         sorter = (a, b) => {
-          let x = a.domain, y = b.domain;
+          let x = a.domain,
+            y = b.domain;
           if (x === md) {
             if (y !== md) {
               return -1;
@@ -930,13 +987,13 @@ var UI = (() => {
             return 1;
           }
           return wrappedCompare.call(this, a, b);
-        }
+        };
       }
       let rows = [...this.allSiteRows()].sort(sorter.bind(this));
       if (this.mainSite) {
         let mainLabel = "." + this.mainDomain;
-        let topIdx = rows.findIndex(r => r._label === mainLabel);
-        if (topIdx === -1) rows.findIndex(r => r._site === this.mainSite);
+        let topIdx = rows.findIndex((r) => r._label === mainLabel);
+        if (topIdx === -1) rows.findIndex((r) => r._site === this.mainSite);
         if (topIdx !== -1) {
           // move the row to the top
           let topRow = rows.splice(topIdx, 1)[0];
@@ -954,7 +1011,7 @@ var UI = (() => {
     }
 
     async tempTrustAll() {
-      let {policy} = UI;
+      let { policy } = UI;
       let changed = 0;
       for (let row of this.allSiteRows()) {
         if (row._preset === "DEFAULT") {
@@ -963,13 +1020,25 @@ var UI = (() => {
         }
       }
       if (changed && UI.isDirty(true)) {
-        await UI.updateSettings({policy, reloadAffected: true});
+        await UI.updateSettings({ policy, reloadAffected: true });
       }
       return changed;
     }
 
-    createSiteRow(site, siteMatch, perms, contextMatch = null, sitesCount = this.sitesCount++) {
-      debug("Creating row for site: %s, matching %s / %s, %o", site, siteMatch, contextMatch, perms);
+    createSiteRow(
+      site,
+      siteMatch,
+      perms,
+      contextMatch = null,
+      sitesCount = this.sitesCount++
+    ) {
+      debug(
+        "Creating row for site: %s, matching %s / %s, %o",
+        site,
+        siteMatch,
+        contextMatch,
+        perms
+      );
       let policy = UI.policy;
       let row = this.rowTemplate.cloneNode(true);
       row.sitesCount = sitesCount;
@@ -982,63 +1051,83 @@ var UI = (() => {
       } catch (e) {
         if (/^(\w+:)\/*$/.test(site)) {
           let hostname = "";
-          url = {protocol: RegExp.$1, hostname, origin: site, pathname:""};
+          url = { protocol: RegExp.$1, hostname, origin: site, pathname: "" };
           debug("Lonely %o", url);
         } else {
           debug("Domain %s (%s)", site, siteMatch);
           let protocol = Sites.isSecureDomainKey(site) ? "https:" : "http:";
           let hostname = Sites.toggleSecureDomainKey(site, false);
-          url = {protocol, hostname, origin: `${protocol}//${site}`, pathname: "/"};
+          url = {
+            protocol,
+            hostname,
+            origin: `${protocol}//${site}`,
+            pathname: "/",
+          };
         }
       }
 
-      let {hostname} = url;
-      let overrideDefault = site && url.protocol && site !== url.protocol ?
-        policy.get(url.protocol, contextMatch) : null;
+      let { hostname } = url;
+      let overrideDefault =
+        site && url.protocol && site !== url.protocol
+          ? policy.get(url.protocol, contextMatch)
+          : null;
       if (overrideDefault && !overrideDefault.siteMatch) overrideDefault = null;
 
       let domain = tld.getDomain(hostname);
       let disableDefault = false;
-      if (!siteMatch || siteMatch === url.protocol && site !== siteMatch) {
+      if (!siteMatch || (siteMatch === url.protocol && site !== siteMatch)) {
         siteMatch = site;
       }
       let secure = Sites.isSecureDomainKey(siteMatch);
-      let isOnion = UI.local.isTorBrowser && hostname && hostname.endsWith(".onion");
-      let keyStyle = secure ? "secure"
-        : !domain || /^\w+:/.test(siteMatch) ?
-            (url.protocol === "https:" || isOnion ? "full" : "unsafe")
-          : isOnion ? "secure" : domain === hostname ? "domain" : "host";
+      let isOnion =
+        UI.local.isTorBrowser && hostname && hostname.endsWith(".onion");
+      let keyStyle = secure
+        ? "secure"
+        : !domain || /^\w+:/.test(siteMatch)
+        ? url.protocol === "https:" || isOnion
+          ? "full"
+          : "unsafe"
+        : isOnion
+        ? "secure"
+        : domain === hostname
+        ? "domain"
+        : "host";
 
       const urlContainer = row.querySelector(".url");
       urlContainer.dataset.key = keyStyle;
-      const fullAddress = urlContainer.querySelector(".full-address")
+      const fullAddress = urlContainer.querySelector(".full-address");
 
       row._site = site;
       if (UI.tabLessSites?.has(site)) {
         row.tabLess = true;
+        row.noTab = !UI.tabbedSites.has(site);
         row.classList.add("tabLess");
         fullAddress.setAttribute("title", _("tabLess_tip"));
         fullAddress.setAttribute("data-tabLess", _("tabLess_short"));
-      };
+      }
       row.siteMatch = siteMatch;
       row.contextMatch = contextMatch;
       row.perms = perms;
-      if (domain) { // "normal" URL
+      if (domain) {
+        // "normal" URL
         let justDomain = hostname === domain;
         let domainEntry = secure || domain === site;
-        let unicodeDomain = row.domain = punycode.toUnicode(domain);
-        row._label =  domainEntry ? `.${unicodeDomain}` : Sites.toExternal(site);
+        let unicodeDomain = (row.domain = punycode.toUnicode(domain));
+        row._label = domainEntry ? `.${unicodeDomain}` : Sites.toExternal(site);
         row.querySelector(".protocol").textContent = `${url.protocol}//`;
-        row.querySelector(".sub").textContent = justDomain ?
-          (keyStyle === "full" || keyStyle == "unsafe"
-            ? "" : "…")
-            : punycode.toUnicode(hostname.substring(0, hostname.length - domain.length));
+        row.querySelector(".sub").textContent = justDomain
+          ? keyStyle === "full" || keyStyle == "unsafe"
+            ? ""
+            : "…"
+          : punycode.toUnicode(
+              hostname.substring(0, hostname.length - domain.length)
+            );
 
         row.querySelector(".domain").textContent = unicodeDomain;
-        row.querySelector(".path").textContent = siteMatch.length > url.origin.length ? url.pathname : "";
+        row.querySelector(".path").textContent =
+          siteMatch.length > url.origin.length ? url.pathname : "";
       } else {
-        fullAddress.textContent =
-          row._label = row.domain = siteMatch;
+        fullAddress.textContent = row._label = row.domain = siteMatch;
       }
       let httpsOnly = row.querySelector("input.https-only");
       httpsOnly.checked = keyStyle === "full" || keyStyle === "secure";
@@ -1058,7 +1147,7 @@ var UI = (() => {
         }
       }
 
-      let getPresetName = perms => {
+      let getPresetName = (perms) => {
         let presetName = "CUSTOM";
         for (let p of ["TRUSTED", "UNTRUSTED", "DEFAULT"]) {
           let preset = policy[p];
@@ -1072,25 +1161,31 @@ var UI = (() => {
                 presetName = p;
               }
               break;
-            }
+          }
         }
         return presetName;
-      }
+      };
 
       let presetName = getPresetName(perms);
       if (overrideDefault) {
         let overrideName = getPresetName(overrideDefault.perms);
         if (overrideName) {
-          let override = row.querySelector(`.presets input[value="${overrideName}"]`);
+          let override = row.querySelector(
+            `.presets input[value="${overrideName}"]`
+          );
           if (override) {
             let def = row.querySelector(`.presets input[value="DEFAULT"]`);
             if (def && def !== override) {
               let label = def.nextElementSibling;
-              label.title = def.title = `${override.title} (${overrideDefault.siteMatch})`;
+              label.title =
+                def.title = `${override.title} (${overrideDefault.siteMatch})`;
               label.textContent = override.nextElementSibling.textContent + "*";
               label.classList.toggle("override", true);
               def.dataset.override = overrideName;
-              def.style.backgroundImage = window.getComputedStyle(override, null).backgroundImage;
+              def.style.backgroundImage = window.getComputedStyle(
+                override,
+                null
+              ).backgroundImage;
             }
           }
         }
@@ -1101,8 +1196,13 @@ var UI = (() => {
       if (presetName === "DEFAULT" && (tempFirst || unsafeMatch)) {
         // prioritize temporary privileges over permanent
         for (let p of TEMP_PRESETS) {
-          if (p in this.presets && (unsafeMatch || tempFirst && p === "TRUSTED")) {
-            row.querySelector(`.presets input[value="${p}"]`).parentNode.querySelector("input.temp").checked = true;
+          if (
+            p in this.presets &&
+            (unsafeMatch || (tempFirst && p === "TRUSTED"))
+          ) {
+            row
+              .querySelector(`.presets input[value="${p}"]`)
+              .parentNode.querySelector("input.temp").checked = true;
             perms = policy.TRUSTED.tempTwin;
           }
         }
@@ -1137,19 +1237,30 @@ var UI = (() => {
       if (site !== row.siteMatch) {
         this.customize(null);
         let focused = document.activeElement;
-        let {policy} = UI;
+        let { policy } = UI;
         policy.set(row.siteMatch, policy.DEFAULT);
         policy.set(site, row.perms);
-        for(let r of this.allSiteRows()) {
-          if (r !== row && r.siteMatch === site && r.contextMatch === row.contextMatch) {
+        for (let r of this.allSiteRows()) {
+          if (
+            r !== row &&
+            r.siteMatch === site &&
+            r.contextMatch === row.contextMatch
+          ) {
             r.remove();
           }
         }
-        let newRow = this.createSiteRow(site, site, row.perms, row.contextMatch, row.sitesCount);
+        let newRow = this.createSiteRow(
+          site,
+          site,
+          row.perms,
+          row.contextMatch,
+          row.sitesCount
+        );
         row.parentNode.replaceChild(newRow, row);
         if (focused) {
-          let selector = focused.matches(".preset[value]") ?
-              `.preset[value="${focused.value}"]` : ".https-only";
+          let selector = focused.matches(".preset[value]")
+            ? `.preset[value="${focused.value}"]`
+            : ".https-only";
           newRow.querySelector(selector).focus();
         }
       }
@@ -1176,7 +1287,7 @@ var UI = (() => {
         }
       }
     }
-  }
+  };
 
   return UI;
 })();

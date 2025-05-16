@@ -320,7 +320,7 @@ addEventListener("unload", e => {
     sitesUI.onChange = (row) => {
       const reload = sitesUI.anyPermissionsChanged()
       pendingReload(reload);
-      if (!reload && row.tabLess) {
+      if (row.tabLess) {
         messageBox("warning", _("tabLess_reload_warning"));
       }
       if (optionsClosed) return;
@@ -392,6 +392,7 @@ addEventListener("unload", e => {
       }
       const seen = UI.seen.concat(UI.tabLess?.requests || []);
       UI.tabLessSites = new Set();
+      UI.tabbedSites = new Set();
       const parsedSeen = seen.map(thing => Object.assign({
           type: thing.policyType,
           tabLess: thing.tabLess,
@@ -406,6 +407,8 @@ addEventListener("unload", e => {
             : urlToLabel(parsed.url);
           if (parsed.tabLess) {
             UI.tabLessSites.add(label);
+          } else {
+            UI.tabbedSites.add(label);
           }
           return parsed.label = label;
         }
