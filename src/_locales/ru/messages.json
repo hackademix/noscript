@@ -255,6 +255,18 @@
         "message": "Соответствие только HTTPS-содержимому",
         "description": ""
     },
+    "tabLess_tip": {
+        "message": "Сайт вне содержимого вкладки, например в боковой панели",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(бок. панель?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Изменение разрешений в боковой панели потребует перезагрузки ВРУЧНУЮ.",
+        "description": ""
+    },
     "Https": {
         "message": "HTTPS",
         "description": ""
