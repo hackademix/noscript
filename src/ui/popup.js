@@ -299,6 +299,7 @@ addEventListener("unload", e => {
         }
         tempTrust.disabled = true;
         UI.seen = [];
+        UI.privilegedTab = true;
       }
       if (!UI.seen) {
         if (isHttp) {
@@ -378,11 +379,15 @@ addEventListener("unload", e => {
         return origin;
       }
 
-      if (UI.tabLess?.requests?.length) {
-        await include("/nscl/service/SidebarUtil.js");
-        const sidebarWidth = await SidebarUtil.guessSidebarWidth(tabId);
-        if (sidebarWidth < UI.tabLess.sidebarWidth) {
+      if (UI.tabLess?.requests?.length && !UI.privilegedTab) {
+        if (UI.tabLess?.sidebarWidth === -1) {
           UI.tabLess = null;
+        } else {
+          await include("/nscl/service/SidebarUtil.js");
+          const sidebarWidth = await SidebarUtil.guessSidebarWidth(tabId);
+          if (sidebarWidth < UI.tabLess.sidebarWidth) {
+            UI.tabLess = null;
+          }
         }
       }
       const seen = UI.seen.concat(UI.tabLess?.requests || []);
