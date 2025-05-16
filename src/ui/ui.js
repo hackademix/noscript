@@ -84,7 +84,7 @@ var UI = (() => {
               }
             }
             resolve();
-            if (UI.onSettings) UI.onSettings();
+            if (UI.onSettings) await UI.onSettings();
             await HighContrast.init();
             if (UI.tabId === -1 || UI.xssBlockedInTab) UI.createXSSChoiceManager();
           }

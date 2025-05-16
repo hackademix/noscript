@@ -405,41 +405,67 @@
   };
 
   const Content = {
-    _session: new SessionCache(
-      "RequestGuard.Content",
-      {
-        afterLoad(data) {
-          Content._tabLess = data ? new Map(data.tabLess) : new Map();
-        },
-        beforeSave() { // beforeSave
-          return {
-            tabLess: [...(Content._tabLess || new Map())],
-          };
-        },
-      }
-    ),
-     _tabLess: null,
+    _session: new SessionCache("RequestGuard.Content", {
+      afterLoad(data) {
+        if (data.tabLess?.requests) {
+          Content._tabLess = Object.assign({}, data.tabLess);
+          Content._tabLess.requests = new Map(data.tabLess.requests);
+        }
+      },
+      beforeSave() {
+        // beforeSave
+        if (!Content._tabLess) {
+          return;
+        }
+        const tabLess = Object.assign({}, Content._tabLess);
+        tabLess.requests = [...tabLess.requests];
+        return {
+          tabLess,
+        };
+      },
+    }),
+    _tabLess: null,
     async getTabLess() {
       if (!this._tabLess) await this._session.load();
-      return this._tabLess ||= new Map();
+      return (this._tabLess ||= { requests: new Map() });
     },
-    async reportTo(request, allowed, policyType) {
-      let {requestId, tabId, frameId, type, url, documentUrl, originUrl} = request;
+
+    async reportTo(originalRequest, allowed, policyType) {
+      let { requestId, tabId, frameId, type, url, documentUrl, originUrl } =
+        originalRequest;
       let pending = pendingRequests.get(requestId); // null if from a CSP report
-      let initialUrl = pending ? pending.initialUrl : request.url;
-      request = {
-          key: Policy.requestKey(url, type, documentUrl || "", /^(media|object|frame)$/.test(type)),
-          type, url, documentUrl, originUrl
+
+      let request = {
+        key: Policy.requestKey(
+          url,
+          type,
+          documentUrl || "",
+          /^(media|object|frame)$/.test(type)
+        ),
+        type,
+        url,
+        documentUrl,
+        originUrl,
       };
+
       if (tabId < 0) {
         if (Sites.isInternal(url)) {
           return;
         }
-        if ((policyType === "script" || policyType === "fetch") &&
-              url.startsWith("https://") && documentUrl && documentUrl.startsWith("https://")) {
+        if (
+          (policyType === "script" || policyType === "fetch") &&
+          url.startsWith("https://") &&
+          documentUrl &&
+          documentUrl.startsWith("https://")
+        ) {
           // service worker request ?
-          let payload = {request, allowed, policyType, serviceWorker: Sites.origin(documentUrl)};
-          let recipient = {frameId: 0};
+          let payload = {
+            request,
+            allowed,
+            policyType,
+            serviceWorker: Sites.origin(documentUrl),
+          };
+          let recipient = { frameId: 0 };
           for (let tabId of TabStatus.findTabsByOrigin(payload.serviceWorker)) {
             recipient.tabId = tabId;
             try {
@@ -460,44 +486,72 @@
         // no tab, record as tabLess
         const tabLess = await this.getTabLess();
         if (frameId == 0 && type == "main_frame") {
-          tabLess.clear();
-        } else if (!tabLess.size) {
-          // at least one top document needs to be loaded
+          tabLess.requests.clear();
+          tabLess.mainUrl = request.url;
+          await include("/nscl/service/SidebarUtil.js");
+          tabLess.sidebarWidth = await SidebarUtil.guessSidebarWidth();
+        } else if (
+          !tabLess?.requests?.size ||
+          tabLess.mainUrl !==
+            (originalRequest?.frameAncestors?.length
+              ? originalRequest.frameAncestors[0].url
+              : documentUrl)
+        ) {
+          // at least one top document needs to be loaded and it must match
           return;
         }
-        tabLess.set(request.key, {request, allowed, policyType, tabLess: true});
+        tabLess.requests.set(request.key, {
+          request,
+          allowed,
+          policyType,
+          tabLess: true,
+        });
         this._session.save();
         return;
       }
       if (pending) request.initialUrl = pending.initialUrl;
-      if (type !== "sub_frame") { // we couldn't deliver it to frameId, since it's generally not loaded yet
+      if (type !== "sub_frame") {
+        // we couldn't deliver it to frameId, since it's generally not loaded yet
         try {
-          await Messages.send("seen",
-            {request, allowed, policyType, ownFrame: true},
-            {tabId, frameId}
+          await Messages.send(
+            "seen",
+            { request, allowed, policyType, ownFrame: true },
+            { tabId, frameId }
           );
         } catch (e) {
-          debug(`Couldn't deliver "seen" message for ${type}@${url} ${allowed ? "A" : "F" } to document ${documentUrl} (${frameId}/${tabId})`, e);
+          debug(
+            `Couldn't deliver "seen" message for ${type}@${url} ${
+              allowed ? "A" : "F"
+            } to document ${documentUrl} (${frameId}/${tabId})`,
+            e
+          );
         }
       }
       if (frameId === 0) return;
       try {
-        await Messages.send("seen",
-          {request, allowed, policyType},
-          {tabId, frameId: 0}
+        await Messages.send(
+          "seen",
+          { request, allowed, policyType },
+          { tabId, frameId: 0 }
         );
       } catch (e) {
-        debug(`Couldn't deliver "seen" message to top frame containing ${documentUrl} (${frameId}/${tabId}`, e);
+        debug(
+          `Couldn't deliver "seen" message to top frame containing ${documentUrl} (${frameId}/${tabId}`,
+          e
+        );
       }
-    }
+    },
   };
+
   const pendingRequests = new Map();
   function initPendingRequest(request) {
-    let {requestId, url} = request;
+    let { requestId, url } = request;
     let redirected = pendingRequests.get(requestId);
     let initialUrl = redirected ? redirected.initialUrl : url;
     pendingRequests.set(requestId, {
-      initialUrl, url, redirected,
+      initialUrl,
+      url,
+      redirected,
       onCompleted: new Set(),
     });
     return redirected;
@@ -941,7 +995,9 @@
     DNRPolicy: null,
     policyTypesMap,
     async getTabLess() {
-      return [...(await Content.getTabLess()).values()];
+      const tabLess = Object.assign({}, await Content.getTabLess());
+      tabLess.requests = [... tabLess.requests.values()]
+      return tabLess;
     }
   };
 

@@ -56,7 +56,7 @@ addEventListener("unload", e => {
       // The currentWindow filter seems broken on Vivaldi, sometimes returns no tab...
       // tabFlags.currentWindow = true;
       // ... so we take the long route to be safe
-      tabFlags.windowId = (await browser.windows.getCurrent())?.id;
+      tabFlags.windowId = (await browser.windows.getLastFocused())?.id;
     }
     let tab = (await browser.tabs.query(tabFlags))[0] ||
     // work-around for Firefox "forgetting" tabs on Android
@@ -293,7 +293,7 @@ addEventListener("unload", e => {
       if (!isHttp || isRestricted) {
         messageBox("warning", _("privilegedPage"));
         let tempTrust = document.getElementById("temp-trust-page");
-        mainFrame = UI.tabLess?.find(thing => thing.request.type === "main_frame");
+        mainFrame = UI.tabLess?.requests?.find(thing => thing.request.type === "main_frame");
         if (!mainFrame) {
           return;
         }
@@ -344,7 +344,7 @@ addEventListener("unload", e => {
       });
     }
 
-    function initSitesUI() {
+    async function initSitesUI() {
       pendingReload(false);
       let {
         typesMap
@@ -378,7 +378,14 @@ addEventListener("unload", e => {
         return origin;
       }
 
-      const seen = UI.seen.concat(UI.tabLess || []);
+      if (UI.tabLess?.requests?.length) {
+        await include("/nscl/service/SidebarUtil.js");
+        const sidebarWidth = await SidebarUtil.guessSidebarWidth(tabId);
+        if (sidebarWidth < UI.tabLess.sidebarWidth) {
+          UI.tabLess = null;
+        }
+      }
+      const seen = UI.seen.concat(UI.tabLess?.requests || []);
       UI.tabLessSites = new Set();
       const parsedSeen = seen.map(thing => Object.assign({
           type: thing.policyType,
