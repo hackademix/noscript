@@ -494,7 +494,7 @@
           !tabLess?.requests?.size ||
           tabLess.mainUrl !==
             (originalRequest?.frameAncestors?.length
-              ? originalRequest.frameAncestors[0].url
+              ? originalRequest.frameAncestors[frameAncestors?.length - 1]?.url
               : documentUrl)
         ) {
           // at least one top document needs to be loaded and it must match

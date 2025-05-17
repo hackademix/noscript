@@ -285,8 +285,13 @@
     },
     policyContext(contextualData) {
       // contextualData (e.g. a request details object) must contain a tab, a tabId or a documentUrl
-      // (used as a fallback if tab's top URL cannot be retrieved, e.g. in service workers)
-      let {tab, tabId, documentUrl, url} = contextualData;
+      // (used as a fallback if tab's top URL cannot be retrieved, e.g. in service workers), but
+      // best if contains a frameAncestors object, which will provide the correct top URL even for
+      // tab-less documents or if the tab is not loaded / transitioned yet.
+      let {tab, tabId, documentUrl, url, frameAncestors} = contextualData;
+      if (frameAncestors) {
+        return frameAncestors[frameAncestors?.length - 1]?.url || documentUrl || url;
+      }
       if (!tab) {
         if (contextualData.type === "main_frame") return url;
         tab = tabId !== -1 && TabCache.get(tabId);
