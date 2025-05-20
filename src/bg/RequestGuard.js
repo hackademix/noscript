@@ -483,13 +483,28 @@
           // we don't support tab-less / sidebars outside Firefox
           return;
         }
+
         // no tab, record as tabLess
         const tabLess = await this.getTabLess();
         if (frameId == 0 && type == "main_frame") {
-          tabLess.requests.clear();
-          tabLess.mainUrl = request.url;
+          if (documentUrl) {
+            // main_frame request from service worker
+            return;
+          }
+          const { url } = request;
+          if (tabLess.mainUrl == url) {
+            // same chatbot as before, probably closed & reopened, bailout
+            return;
+          }
           await include("/nscl/service/SidebarUtil.js");
-          tabLess.sidebarWidth = await SidebarUtil.guessSidebarWidth();
+          const sidebarWidth = await SidebarUtil.guessSidebarWidth();
+          if (sidebarWidth < 400) {
+            // sidebar is closed, bailout
+            return;
+          }
+          tabLess.sidebarWidth = sidebarWidth;
+          tabLess.requests.clear();
+          tabLess.mainUrl = url;
         } else if (
           !tabLess?.requests?.size ||
           tabLess.mainUrl !==
