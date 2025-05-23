@@ -255,6 +255,18 @@
         "message": "Відповідати лише вмісту HTTPS",
         "description": ""
     },
+    "tabLess_tip": {
+        "message": "Сайт поза контентом вкладки, наприклад, на бічній панелі",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(бічна панель?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Зміна дозволів у бічній панелі вимагатиме РУЧНОГО перезавантаження.",
+        "description": ""
+    },
     "Https": {
         "message": "HTTPS",
         "description": ""
@@ -778,6 +790,10 @@
     "cap_other": {
         "message": "інші",
         "description": ""
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Перелік змін",

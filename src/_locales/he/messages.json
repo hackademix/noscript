@@ -208,7 +208,7 @@
         "description": ""
     },
     "ShowProbePlaceholders": {
-        "message": "Show synthetic placeholders for invisible capability probes",
+        "message": "הראה מצייני מיקום סינתטיים עבור בדיקות יכולת בלתי נראות",
         "description": ""
     },
     "SectionGeneral": {
@@ -253,6 +253,18 @@
     },
     "httpsOnly": {
         "message": "התאם תוכן HTTPS בלבד",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "אתר מחוץ ללשונית הנוכחית, לדוגמה בסרגל צדדי",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(סרגל צדדי?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "שינוי הרשאות בסרגל צדדי ידרוש טעינה מחדש ידנית.",
         "description": ""
     },
     "Https": {
@@ -778,6 +790,10 @@
     "cap_other": {
         "message": "אחר",
         "description": ""
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "יומן שינויים",

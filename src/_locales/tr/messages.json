@@ -255,6 +255,18 @@
         "message": "Yalnız HTTPS içeriğine uyulsun",
         "description": ""
     },
+    "tabLess_tip": {
+        "message": "Bir içerik sekmesinin dışındaki site, bir kenar çubuğundaki gibi",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(kenar çubuğu mu?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Bir kenar çubuğundaki izinleri değiştirmek için EL İLE yeniden yükleme gerekir.",
+        "description": ""
+    },
     "Https": {
         "message": "HTTPS",
         "description": ""

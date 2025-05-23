@@ -255,6 +255,18 @@
         "message": "Dopasuj tylko zawartość HTTPS",
         "description": ""
     },
+    "tabLess_tip": {
+        "message": "Witryna poza kartą treści, np. na pasku bocznym",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(pasek boczny?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Zmiana uprawnień na pasku bocznym będzie wymagała RĘCZNEGO przeładowania.",
+        "description": ""
+    },
     "Https": {
         "message": "HTTPS",
         "description": ""
@@ -778,6 +790,10 @@
     "cap_other": {
         "message": "inne",
         "description": ""
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Dziennik zmian",
