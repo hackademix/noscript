@@ -28,7 +28,7 @@ var Entities = {
     try {
       this.htmlNode.innerHTML = e;
       var child = this.htmlNode.firstChild || null;
-      return child && child.nodeValue || e;
+      return child?.nodeValue || e;
     } catch(ex) {
       return e;
     }
@@ -42,7 +42,7 @@ var Entities = {
   },
   neutralize: function(e, whitelist) {
     var c = this.convert(e);
-    return (c == e) ? c : (whitelist && whitelist.test(c) ? e : e.replace(";", ","));
+    return (c == e) ? c : (whitelist?.test(c) ? e : e.replace(";", ","));
   },
   neutralizeAll: function(s, whitelist) {
     return s.replace(/&[\w#-]*?;/g, function(e) { return Entities.neutralize(e, whitelist || null); });

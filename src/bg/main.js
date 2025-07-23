@@ -91,7 +91,7 @@
     await session.load();
     if (!ns.policy) { // ns.policy could have been already set by LifeCycle or SessionCache
       const policyData = (await Storage.get("sync", "policy")).policy;
-      if (policyData && policyData.DEFAULT) {
+      if (policyData?.DEFAULT) {
         const policy = new Policy(policyData);
         if (ns.local.enforceOnRestart && !policy.enforced) {
           (ns.policy = policy).enforced = true;
@@ -296,7 +296,7 @@
         if (contextualData.type === "main_frame") return url;
         tab = tabId !== -1 && TabCache.get(tabId);
       }
-      return tab && tab.url || documentUrl || url;
+      return tab?.url || documentUrl || url;
     },
     requestCan(request, capability) {
       return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, this.policyContext(request));
@@ -428,7 +428,7 @@
     },
 
     async save(obj) {
-      if (obj && obj.storage) {
+      if (obj?.storage) {
         const toBeSaved = {
           [obj.storage]: obj
         };

@@ -87,7 +87,7 @@
     },
     hasOrigin(tabId, url) {
       let records = this.map.get(tabId);
-      return records && records.origins.has(Sites.origin(url));
+      return records?.origins.has(Sites.origin(url));
     },
     addOrigin(tabId, url) {
       if (tabId < 0) return;
@@ -685,8 +685,8 @@
       !ns.policy.can(originUrl, "lan", ns.policyContext(request))) {
       // we want to block any request whose origin resolves to at least one external WAN IP
       // and whose destination resolves to at least one LAN IP
-      let {proxyInfo} = request; // see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/proxy/ProxyInfo
-      let neverDNS = (proxyInfo && (proxyInfo.type && proxyInfo.type.startsWith("http") || proxyInfo.proxyDNS))
+      const {proxyInfo} = request; // see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/proxy/ProxyInfo
+      const neverDNS = (proxyInfo?.type?.startsWith("http") || proxyInfo?.proxyDNS)
                      || !(UA.isMozilla && DNS.supported);
       if (neverDNS) {
         // On Chromium we must do it synchronously: we need to sacrifice DNS resolution and check just numeric addresses :(
@@ -761,7 +761,7 @@
 
     let allowed = Sites.isInternal(url);
     if (!allowed) {
-      if (tabId < 0 && documentUrl && documentUrl.startsWith("https:")) {
+      if (tabId < 0 && documentUrl?.startsWith("https:")) {
         allowed = [...ns.unrestrictedTabs]
           .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
       }
@@ -822,11 +822,11 @@
       }
       if (lanRes === ABORT) return ABORT;
       // redirection loop test
-      let pending = pendingRequests.get(request.requestId);
-      if (pending && pending.redirected && pending.redirected.url === request.url) {
+      const pending = pendingRequests.get(request.requestId);
+      if (pending?.redirected?.url === request.url) {
         return lanRes; // don't go on stripping cookies if we're in a redirection loop
       }
-      let chainNext = r => r === ABORT ? r : TabGuard.onSend(request);
+      const chainNext = r => r === ABORT ? r : TabGuard.onSend(request);
       return lanRes instanceof Promise ? lanRes.then(chainNext) : chainNext(lanRes);
     },
 
@@ -1056,11 +1056,11 @@
       // if called before us, hence we try our best reinjecting it in the end
       (listeners.onHeadersReceivedLast =
         new LastListener(wr.onHeadersReceived, request => {
-        let {requestId, responseHeaders} = request;
-        let pending = pendingRequests.get(request.requestId);
-        if (pending && pending.headersProcessed) {
-          let {cspHeader} = pending;
+        const pending = pendingRequests.get(request.requestId);
+        if (pending?.headersProcessed) {
+          const {cspHeader} = pending;
           if (cspHeader) {
+            const {responseHeaders} = request;
             responseHeaders.push(cspHeader);
             return {responseHeaders};
           }

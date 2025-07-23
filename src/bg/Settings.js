@@ -101,9 +101,9 @@ var Settings = {
       // Initialization or Security Level change message from Tor / Mullvad Browser
       reloadOptionsUI = true;
 
-      if (policy && policy.TRUSTED) {
+      if (policy?.TRUSTED) {
         // Gracefully handle "new" capabilities still unknown to our settings host
-        const knownCapabilities = settingsHost && settingsHost.knownCapabilities
+        const knownCapabilities = settingsHost?.knownCapabilities
           || policy.TRUSTED.capabilities;
 
         for (const cap of ["lazy_load", "unchecked_css"]) {

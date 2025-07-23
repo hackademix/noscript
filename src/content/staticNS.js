@@ -176,7 +176,7 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
     policy: null,
 
     allows(cap) {
-      return this.capabilities && this.capabilities.has(cap);
+      return this.capabilities?.has(cap);
     },
 
     canXLoad(url) {

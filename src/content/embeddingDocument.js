@@ -21,7 +21,7 @@
 if (ns.embeddingDocument) {
   let suspended;
   let suspender = new MutationObserver(records => {
-    suspended = document.body && document.body.firstElementChild;
+    suspended = document.body?.firstElementChild;
     if (suspended) {
       debug("Suspending ", suspended);
       suspended.autoplay = false;
@@ -54,7 +54,7 @@ if (ns.embeddingDocument) {
           if (suspended.play) suspended.play();
         }
         let handler = PlaceHolder.handlerFor(policyType);
-        if (handler && handler.selectFor(request).length > 0) {
+        if (handler?.selectFor(request).length > 0) {
           seen.record({policyType, request, allowed: true});
         }
       } else {
@@ -68,7 +68,7 @@ if (ns.embeddingDocument) {
   };
 
   ns.on("capabilities", () => {
-    if (!(document.body && document.body.firstChild)) { // we've been called early
+    if (!(document.body?.firstChild)) { // we've been called early
       setTimeout(replace, 0);
       let types = {
         // Reminder: order is important because media matches also for

@@ -93,7 +93,7 @@ var ASPIdiocy = XSS.ASPIdiocy = {
     const map = ASPIdiocy.map;
     if (k in map) return map[k];
     const range = ASPIdiocy._findRange(k);
-    return range && range.data || String.fromCharCode(k);
+    return range?.data || String.fromCharCode(k);
   },
   _findRange(k) {
     const ranges = this.ranges;

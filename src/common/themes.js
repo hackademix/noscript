@@ -30,7 +30,7 @@
     refreshVintage() {},
     async setup(theme = null) {
       if (theme) {
-        if (browser && browser.storage) {
+        if (browser?.storage) {
           browser.storage.local.set({theme});
         }
       } else {
@@ -38,7 +38,7 @@
           theme = localStorage.getItem("theme");
           if (!THEMES.includes(theme)) theme = null;
         }
-        if (!theme && browser && browser.storage) {
+        if (!theme && browser?.storage) {
           if (self.document?.readyState === "loading") {
             document.documentElement.style.visibility = "hidden";
           }

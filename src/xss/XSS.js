@@ -283,7 +283,7 @@ var XSS = (() => {
         destObj,
         srcOrigin,
         destOrigin,
-        srcDomain: srcObj && srcObj.hostname && tld.getDomain(srcObj.hostname) || "",
+        srcDomain: srcObj?.hostname && tld.getDomain(srcObj.hostname) || "",
         destDomain: tld.getDomain(destObj.hostname),
         originKey: `${srcOrigin}>${destOrigin}`,
         unescapedDest: unescape(destUrl),

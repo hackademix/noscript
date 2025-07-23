@@ -95,7 +95,7 @@ var TabGuard = (() => {
 
   function getDomain(u) {
     let {url, siteKey} = Sites.parse(u);
-    return url && url.protocol.startsWith("http") && tld.getDomain(url.hostname) || Sites.origin(siteKey);
+    return url?.protocol.startsWith("http") && tld.getDomain(url.hostname) || Sites.origin(siteKey);
   }
 
   function flattenHeaders(headers) {
@@ -144,7 +144,7 @@ var TabGuard = (() => {
               // cut only if same tab (prevents automatic redirections to victim sites in new tabs)
               shouldCut = tab && originUrl === tab.url && ![...TabTies.get(tabId)]
                 .filter(tid => tid !== tabId).map(TabCache.get)
-                .some(t => t && t.url === originUrl);
+                .some(t => t?.url === originUrl);
               // either way we can send authorization data
               safeAuth = true;
               break;
@@ -154,7 +154,7 @@ var TabGuard = (() => {
               break;
             default:
               // cut only on manual reloads
-              safeAuth = shouldCut = tab && tab.url === request.url && tab.active;
+              safeAuth = shouldCut = tab?.url === request.url && tab.active;
           }
         }
         if (shouldCut) {
@@ -176,7 +176,7 @@ var TabGuard = (() => {
       let targetDomain = getDomain(url);
       if (!targetDomain) return; // no domain, no cookies
 
-      let tabDomain = getDomain(mainFrame ? url : tab && tab.url);
+      let tabDomain = getDomain(mainFrame ? url : tab?.url);
       if (!tabDomain) return; // no domain, no cookies
 
       let ties = TabTies.get(tabId);
