@@ -284,10 +284,11 @@ html:not(.mobile) #scrollable {
   background-image: var(--img-error);
 }
 
-#incognito-ui-chooser, html.incognito #message:not(.hidden) ~ #incognito-ui-chooser {
+#incognito-ui-chooser,
+is(html.incognito, html.tor) #message:not(.hidden) ~ #incognito-ui-chooser {
   display: none;
 }
-html.incognito #incognito-ui-chooser {
+is(html.incognito, html.tor) #incognito-ui-chooser {
   display: initial;
 }
 

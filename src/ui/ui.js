@@ -64,7 +64,10 @@ var UI = (() => {
             UI.xssBlockedInTab = m.xssBlockedInTab;
             UI.local = m.local;
             UI.sync = m.sync;
-            UI.forceIncognito = UI.incognito && !UI.sync.overrideTorBrowserPolicy;
+            UI.shouldForget =
+                UI.incognito || // PBM context
+                UI.local.isTorBrowser; // Tor/Mullvad Browser in "persistent mode"
+            UI.forceIncognito = UI.shouldForget && !UI.sync.overrideTorBrowserPolicy;
             if (UI.local) {
               if (!UI.local.debug) {
                 debug = () => {}; // be quiet!

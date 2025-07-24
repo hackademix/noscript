@@ -335,7 +335,8 @@ addEventListener("unload", e => {
     initSitesUI();
     UI.onSettings = initSitesUI;
 
-    if (UI.incognito) {
+    if (UI.shouldForget) {
+      // PBM or forgetful browser (Tor/Mullvad)
       UI.wireOption("overrideTorBrowserPolicy", "sync", o => {
         let {checked} = o;
         if (UI.forceIncognito !== !checked) {
