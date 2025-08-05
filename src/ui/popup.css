@@ -285,10 +285,10 @@ html:not(.mobile) #scrollable {
 }
 
 #incognito-ui-chooser,
-is(html.incognito, html.tor) #message:not(.hidden) ~ #incognito-ui-chooser {
+:is(html.incognito, html.tor) #message:not(.hidden) ~ #incognito-ui-chooser {
   display: none;
 }
-is(html.incognito, html.tor) #incognito-ui-chooser {
+:is(html.incognito, html.tor) #incognito-ui-chooser {
   display: initial;
 }
 
