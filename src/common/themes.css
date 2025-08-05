@@ -93,7 +93,7 @@
   --form-radio-color: var(--accent-color);
   --form-radio-bg-color: var(--form-color1);
   --hilite-color: #8008;
-  --unsafe-color: var(--accent-color);
+  --unsafe-color: #F68;
 }
 
 .__NoScript_Theme__.vintage:not([data-theme="light"]) :is(input.preset, .icon) {
