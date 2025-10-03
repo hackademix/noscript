@@ -207,6 +207,10 @@
         "message": "Birta lista með fullum vistföngum í heimildaglugga (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Show synthetic placeholders for invisible capability probes",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Almennt",
         "description": ""
@@ -249,6 +253,18 @@
     },
     "httpsOnly": {
         "message": "Samsvara einungis HTTPS-efni",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "Vefsvæði utan efnisflipa, t.d. í hliðarstiku",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(hliðarstika?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Breyting á heimildum í hliðarstiku mun krefjast HANDVIRKRAR enduhleðslu.",
         "description": ""
     },
     "Https": {
@@ -759,6 +775,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "tafin hleðsla",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "óskilyrt CSS",
         "description": ""
@@ -770,6 +790,10 @@
     "cap_other": {
         "message": "annað",
         "description": ""
+    },
+    "cap_x_load": {
+        "message": "x-hleðsla",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Breytingaskrá",

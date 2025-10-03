@@ -255,6 +255,18 @@
         "message": "Corresponder apenas à conteúdo HTTPS",
         "description": ""
     },
+    "tabLess_tip": {
+        "message": "Site fora de uma aba de conteúdo, por exemplo, em uma barra lateral",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(barra lateral?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Alterar permissões em uma barra lateral exigirá um recarregamento MANUAL.",
+        "description": ""
+    },
     "Https": {
         "message": "HTTPS",
         "description": ""
@@ -778,6 +790,10 @@
     "cap_other": {
         "message": "Outro",
         "description": ""
+    },
+    "cap_x_load": {
+        "message": "x-carregar",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Registro de alteração",
