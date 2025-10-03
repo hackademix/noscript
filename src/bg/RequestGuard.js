@@ -430,12 +430,76 @@
       return (this._tabLess ||= { requests: new Map() });
     },
 
-    async reportTo(originalRequest, allowed, policyType) {
-      let { requestId, tabId, frameId, type, url, documentUrl, originUrl } =
-        originalRequest;
-      let pending = pendingRequests.get(requestId); // null if from a CSP report
+    async checkTabLessRequest(request, candidate) {
+      if (request.tabId !== -1) {
+        // belts and suspenders
+        return;
+      }
+      // called from an onBeforeSendHeaders listener, with request headers
+      const tabLess = await this.getTabLess();
+      if (request.frameId == 0 && request.type == "main_frame") {
+        if (request.documentUrl) {
+          // main_frame request from service worker
+          return;
+        }
+        const { url } = request;
+        if (tabLess.mainUrl == url) {
+          // same chatbot as before, probably closed & reopened, bailout
+          return;
+        }
+        // filter out requests with wrong headers, e.g. prefetches
+        for (let h of request.requestHeaders) {
+          switch(h.name) {
+            case 'Sec-Fetch-Dest':
+              if (h.value !== "document") {
+                return;
+              }
+              break;
+            case 'Sec-Fetch-Mode':
+              if (h.value !== "navigate") {
+                return;
+              }
+              break;
+            case 'Sec-Fetch-Site':
+              if (h.value !== "cross-site") {
+                return;
+              }
+              break;
+            case 'Sec-Purpose':
+              // prefetch
+              return;
+          }
+        }
+        await include("/nscl/service/SidebarUtil.js");
+        const sidebarWidth = await SidebarUtil.guessSidebarWidth();
+        if (sidebarWidth < 400) {
+          // sidebar is closed, bailout
+          return;
+        }
+        tabLess.sidebarWidth = sidebarWidth;
+        tabLess.requests.clear();
+        tabLess.mainUrl = url;
+      } else if (
+        !tabLess?.requests?.size ||
+        tabLess.mainUrl !==
+          (request?.frameAncestors?.length
+            ? request.frameAncestors[
+                request.frameAncestors?.length - 1]?.url
+            : request.documentUrl)
+      ) {
+        // at least one top document needs to be loaded and it must match
+        return;
+      }
+      tabLess.requests.set(candidate.request.key, candidate);
+      this._session.save();
+    },
 
-      let request = {
+    async reportTo(originalRequest, allowed, policyType) {
+      const { requestId, tabId, frameId, type, url, documentUrl, originUrl } =
+        originalRequest;
+      const pending = pendingRequests.get(requestId); // null if from a CSP report
+
+      const request = {
         key: Policy.requestKey(
           url,
           type,
@@ -455,18 +519,17 @@
         if (
           (policyType === "script" || policyType === "fetch") &&
           url.startsWith("https://") &&
-          documentUrl &&
-          documentUrl.startsWith("https://")
+          documentUrl?.startsWith("https://")
         ) {
           // service worker request ?
-          let payload = {
+          const payload = {
             request,
             allowed,
             policyType,
             serviceWorker: Sites.origin(documentUrl),
           };
-          let recipient = { frameId: 0 };
-          for (let tabId of TabStatus.findTabsByOrigin(payload.serviceWorker)) {
+          const recipient = { frameId: 0 };
+          for (const tabId of TabStatus.findTabsByOrigin(payload.serviceWorker)) {
             recipient.tabId = tabId;
             try {
               Messages.send("seen", payload, recipient);
@@ -479,49 +542,15 @@
             return;
           }
         }
-        if (!(pending && UA.isMozilla)) {
-          // we don't support tab-less / sidebars outside Firefox
-          return;
+        if ((pending && UA.isMozilla)) {
+          // we only support tab-less / sidebars in Firefox
+          pending.tabLessCandidate = {
+            request,
+            allowed,
+            policyType,
+            tabLess: true,
+          };
         }
-
-        // no tab, record as tabLess
-        const tabLess = await this.getTabLess();
-        if (frameId == 0 && type == "main_frame") {
-          if (documentUrl) {
-            // main_frame request from service worker
-            return;
-          }
-          const { url } = request;
-          if (tabLess.mainUrl == url) {
-            // same chatbot as before, probably closed & reopened, bailout
-            return;
-          }
-          await include("/nscl/service/SidebarUtil.js");
-          const sidebarWidth = await SidebarUtil.guessSidebarWidth();
-          if (sidebarWidth < 400) {
-            // sidebar is closed, bailout
-            return;
-          }
-          tabLess.sidebarWidth = sidebarWidth;
-          tabLess.requests.clear();
-          tabLess.mainUrl = url;
-        } else if (
-          !tabLess?.requests?.size ||
-          tabLess.mainUrl !==
-            (originalRequest?.frameAncestors?.length
-              ? originalRequest.frameAncestors[frameAncestors?.length - 1]?.url
-              : documentUrl)
-        ) {
-          // at least one top document needs to be loaded and it must match
-          return;
-        }
-        tabLess.requests.set(request.key, {
-          request,
-          allowed,
-          policyType,
-          tabLess: true,
-        });
-        this._session.save();
         return;
       }
       if (pending) request.initialUrl = pending.initialUrl;
@@ -795,6 +824,7 @@
     return ALLOW;
   }
 
+
   const listeners = {
     onBeforeRequest(request) {
       try {
@@ -821,12 +851,18 @@
         return lanRes;
       }
       if (lanRes === ABORT) return ABORT;
-      // redirection loop test
+
       const pending = pendingRequests.get(request.requestId);
+      // redirection loop test
       if (pending?.redirected?.url === request.url) {
         return lanRes; // don't go on stripping cookies if we're in a redirection loop
       }
-      const chainNext = r => r === ABORT ? r : TabGuard.onSend(request);
+      const chainNext = r =>
+          r === ABORT
+            ? r
+            : pending.tabLessCandidate
+              ? Content.checkTabLessRequest(request, pending.tabLessCandidate)
+              : TabGuard.onSend(request);
       return lanRes instanceof Promise ? lanRes.then(chainNext) : chainNext(lanRes);
     },
 
