@@ -108,9 +108,8 @@
     const {isTorBrowser} = ns.local;
     Sites.onionSecure = isTorBrowser;
 
-    if (!isTorBrowser) {
-      await include("/nscl/service/prefetchCSSResources.js");
-    }
+    await include("/nscl/service/prefetchCSSResources.js");
+
     await Promise.allSettled([
       TabGuard.wakening,
       RequestGuard.DNRPolicy?.update(),
