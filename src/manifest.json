@@ -117,6 +117,7 @@
         "content/onScriptDisabled.js",
         "content/staticNS.js",
         "/nscl/content/media.js",
+        "/nscl/content/WasmHook.js",
         "/nscl/content/WebGLHook.js",
         "content/embeddingDocument.js",
         "content/content.js",
@@ -138,6 +139,7 @@
         "/nscl/main/Worlds.js",
         "/nscl/main/Worlds.main.js",
         "/nscl/main/patchWorkers.main.js",
+        "/nscl/main/WasmHook.main.js",
         "/nscl/main/WebGLHook.main.js",
         "content/eventsHook.main.js",
         "/nscl/main/prefetchCSSResources.main.js"
