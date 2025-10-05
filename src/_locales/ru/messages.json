@@ -64,7 +64,7 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Временно установить «ДОВЕРЕННЫЕ» для сайтов верхнего уровня",
+        "message": "Автоматически доверять сайтам, загруженным как документ верхнего уровня",
         "description": ""
     },
     "AutoReload": {
@@ -790,6 +790,10 @@
     "cap_other": {
         "message": "other",
         "description": ""
+    },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
     },
     "cap_x_load": {
         "message": "x-load",
