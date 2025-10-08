@@ -106,25 +106,15 @@ var Settings = {
         const knownCapabilities = settingsHost?.knownCapabilities
           || policy.TRUSTED.capabilities;
 
-        for (const cap of ["lazy_load", "unchecked_css"]) {
+        for (const cap of ["lazy_load", "unchecked_css", "wasm"]) {
           // Scripting far exceeds the security/privacy concerns around these capabilities,
+          // or they are disabled by other mean by our settingHost (e.g. wasm),
           // so enable them on script-capable presets unless our settingsHost knows better.
           if (knownCapabilities.includes(cap)) continue;
           for (const preset of ["TRUSTED", "UNTRUSTED", "DEFAULT"]) {
             if (!policy[preset]) continue;
             const {capabilities} = policy[preset];
             if (capabilities.includes("script") && !capabilities.includes(cap)) {
-              capabilities.push(cap);
-            }
-          }
-        }
-
-        if (!knownCapabilities.includes("wasm")) {
-          // Tor Browser / Mullvad Browser <= 14.5.8
-          for (const preset of ["TRUSTED", "DEFAULT"]) {
-            if (!policy[preset]) continue;
-            const {capabilities} = policy[preset];
-            if (capabilities.includes("script") && !capabilities.includes("wasm")) {
               capabilities.push(cap);
             }
           }
