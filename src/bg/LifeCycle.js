@@ -361,7 +361,7 @@ var LifeCycle = (() => {
       }
 
       if (Ver.is(previousVersion, "<=", "13.0.902")) {
-        // add the unchecked_css capability to any preset which already has the script capability
+        // add the wasm capability to any preset which already has the script capability
         await configureNewCap("wasm", ["DEFAULT", "TRUSTED", "CUSTOM"], caps => caps.has("script"));
       }
     },
