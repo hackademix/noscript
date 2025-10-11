@@ -33,10 +33,6 @@ function _(...args) {
       })(...args);
 }
 
-function createHTMLElement(name) {
-  return document.createElementNS("http://www.w3.org/1999/xhtml", name);
-}
-
 var seen = {
   _map: new Map(),
   _list: null,
