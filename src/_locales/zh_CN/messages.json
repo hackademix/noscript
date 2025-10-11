@@ -791,6 +791,10 @@
         "message": "其他",
         "description": ""
     },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
+    },
     "cap_x_load": {
         "message": "x-load",
         "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
