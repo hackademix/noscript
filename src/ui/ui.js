@@ -130,10 +130,9 @@ var UI = (() => {
     },
 
     async revokeTemp(reloadAffected = false) {
-      let policy = this.policy;
-      Policy.hydrate(policy.dry(), policy);
+      this.policy.revokeTemp();
       if (this.isDirty(true)) {
-        await this.updateSettings({policy, reloadAffected});
+        await this.updateSettings({policy: this.policy, reloadAffected});
       }
     },
 

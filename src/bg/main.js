@@ -464,3 +464,16 @@
  }
 
  ns.init();
+
+if (!browser.windows) {
+  // Firefox for Android:
+  // setup temporary permissions revocation on Quit command
+  browser.tabs.onRemoved.addListener(async () => {
+    if ((await browser.tabs.query({})).length) {
+      return;
+    }
+    log("All tabs closed: revoking temporary permissions.");
+    ns.policy.revokeTemp();
+    ns.savePolicy();
+  });
+}
