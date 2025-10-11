@@ -48,6 +48,10 @@ body {
   margin: .5em;
 }
 
+.buttons .donate {
+  padding: .6em 0;
+  margin: .5em .2em;
+}
 #sect-general {
   display: flex;
   flex-direction: column;
