@@ -1029,13 +1029,13 @@
     }
     let debugStatement = ns.local.debug ? `
       let mark = Date.now() + ":" + Math.random();
-      console.debug("domPolicy", domPolicy, document.readyState, location.href, mark, window.ns);` : '';
+      console.debug("domPolicy", domPolicy, document.readyState, location.href, mark, window.ns, document.documentElement);` : '';
     return `
       const domPolicy = ${JSON.stringify(domPolicy)};
       if (globalThis.${callback}) {
         globalThis.${callback}(domPolicy);
       } else {
-        globalThis.ns ||= {domPolicy}
+        (globalThis.ns ||= {}).domPolicy = domPolicy;
       }
       ${debugStatement}`;
   }

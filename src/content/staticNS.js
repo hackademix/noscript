@@ -89,7 +89,7 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
       }
 
       if (origin !== 'null' && (window.location.origin !== origin || url.startsWith(`blob:${origin}/`))) {
-        debug("Fetching policy for actual URL %s (was %s)", origin, url);
+        debug(`Fetching policy for actual URL ${origin} (was ${url})`);
         url = origin;
       }
 
@@ -148,7 +148,7 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
 
     setup(policy) {
       if (this.policy) return false;
-      debug("%s, %s, fetched %o", document.URL, document.readyState, policy, new Error().stack); // DEV_ONLY
+      debug("%s, %s, fetched %o, domPolicy? %s", document.URL, document.readyState, policy, policy == this.domPolicy, new Error().stack); // DEV_ONLY
       if (!policy) {
         policy = {permissions: {capabilities: []}, localFallback: true};
       }
@@ -184,7 +184,6 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
     }
   };
   globalThis.ns = globalThis.ns ? Object.assign(ns, globalThis.ns) : ns;
-  debug("StaticNS", Date.now(), JSON.stringify(globalThis.ns)); // DEV_ONLY
   globalThis.ns_setupCallBack = ns.domPolicy
     ? () => {}
     : ({domPolicy}) => {
@@ -194,4 +193,5 @@ const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
         else ns.setup(domPolicy);
       }
     };
+    debug("StaticNS inited", document.URL, window.origin, Date.now(), JSON.stringify(globalThis.ns)); // DEV_ONLY
 }
