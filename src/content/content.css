@@ -14,7 +14,6 @@
  /* THEMES_END */
 
 a.__NoScript_PlaceHolder__ {
-  outline: 2px solid --var(--accent-color);
   color: var(--text-color) !important;
   text-decoration: none !important;
   text-align: center;
@@ -25,7 +24,7 @@ a.__NoScript_PlaceHolder__ {
   opacity: 0.8;
   z-index: 2147483647 !important;
   background-image: var(--img-logo);
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 a.__NoScript_PlaceHolder__.no-theme {
@@ -72,11 +71,12 @@ a.__NoScript_PlaceHolder__ > span {
   -moz-appearance: none;
   border: none;
   position: absolute;
-  top: 2px;
-  right: 2px;
+  font-size: 32px;
+  top: -12px;
+  right: -3px;
   display: block;
   color: var(--accent-color);
-  font-size: 24px;
+  text-shadow: 0 0 4px var(--fg-color2);
   font-family: sans-serif;
   font-weight: bold;
   padding: 0 4px;
@@ -84,6 +84,7 @@ a.__NoScript_PlaceHolder__ > span {
   background: none;
   transition: .2s all;
 }
+
 .__NoScript_PlaceHolder__  button:hover {
   color: var(--fg-color2);
   text-shadow: 0 0 4px var(--focus-color);
@@ -130,5 +131,5 @@ a.__NoScript_PlaceHolder__.__ns__document {
   width: auto !important;
 }
 .__NoScript_Offscreen_PlaceHolders__ a.__NoScript_PlaceHolder__ > span {
-  align-items: bottom;
+  align-items: end;
 }
