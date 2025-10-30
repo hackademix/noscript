@@ -76,7 +76,6 @@
     },
     map: new Map(),
     _originsCache: new Map(),
-    types: ["script", "object", "media", "frame", "font"],
     newRecords() {
       return {
         allowed: {},
@@ -179,14 +178,14 @@
       let {allowed, blocked, noscriptFrames} = records;
       let topAllowed = !(noscriptFrames && noscriptFrames[0]);
       let numAllowed = 0, numBlocked = 0, sum = 0;
-      let report = this.types.map(t => {
+      let report = Permissions.ALL.map(t => {
         let a = allowed[t] && allowed[t].length || 0,
             b = blocked[t] && blocked[t].length || 0,
             s = a + b;
         numAllowed += a;
         numBlocked += b;
         sum += s;
-        return s && `<${t === "sub_frame" ? "frame" : t}>: ${b}/${s}`;
+        return s && `<${t}>: ${b}/${s}`;
       }).filter(s => s).join("\n");
       let enforced = ns.isEnforced(tabId);
       let icon = enforced ?
