@@ -170,15 +170,18 @@ if (location.protocol == "file:") {
   };
 
   const watch = watching => {
+    if (!(watching instanceof Element)) {
+      return false;
+    }
     checkSrc(watching);
     if (watchList.has(watching)) {
       return;
     }
-    observer.observe(watching, mutOpts);
     watchList.add(watching);
     for (const eventType of EVENTS) {
       watching.addEventListener(eventType, suppress, true);
     }
+    return true;
   };
 
   const mutOpts = {
@@ -193,8 +196,9 @@ if (location.protocol == "file:") {
         case "childList":
           [...r.addedNodes].forEach(watch);
           [...r.removedNodes].forEach(removed => {
-            watch(removed);
-            observer.observe(removed, mutOpts);
+            if (watch(removed)) {
+              observer.observe(removed, mutOpts);
+            }
           });
         break;
         case "attributes":
