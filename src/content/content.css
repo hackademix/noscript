@@ -83,6 +83,7 @@ a.__NoScript_PlaceHolder__ > span {
   margin: 0;
   background: none;
   transition: .2s all;
+  z-index: 2147483647 !important;
 }
 
 .__NoScript_PlaceHolder__  button:hover {
