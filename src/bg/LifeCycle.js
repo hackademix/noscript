@@ -282,15 +282,19 @@ var LifeCycle = (() => {
 
       if (!previousVersion) return;
 
+      this.migrateSettings(previousVersion);
+    },
+
+    async migrateSettings(previousVersion) {
       await versioning;
       previousVersion = new Ver(previousVersion);
-      let currentVersion = new Ver(browser.runtime.getManifest().version);
-      let upgrading = Ver.is(previousVersion, "<=", currentVersion);
+      const currentVersion = new Ver(browser.runtime.getManifest().version);
+      const upgrading = Ver.is(previousVersion, "<=", currentVersion);
       if (!upgrading) return;
 
       // put here any version specific upgrade adjustment in stored data
 
-      let forEachPreset = async (callback, presetNames = "*") => {
+      const forEachPreset = async (callback, presetNames = "*") => {
         await ns.initializing;
         let changed = false;
         for (let p of ns.policy.getPresets(presetNames)) {
@@ -306,7 +310,7 @@ var LifeCycle = (() => {
         }
       };
 
-      let configureNewCap = async (cap, presetNames, capsFilter) => {
+      const configureNewCap = async (cap, presetNames, capsFilter) => {
         log(`Upgrading from ${previousVersion}: configure the "${cap}" capability.`);
         await forEachPreset(({capabilities}) => {
           if (capsFilter(capabilities) && !capabilities.has(cap)) {
@@ -316,7 +320,7 @@ var LifeCycle = (() => {
         }, presetNames);
       };
 
-      let renameCap = async (oldName, newName) => {
+      const renameCap = async (oldName, newName) => {
         log(`Upgrading from ${previousVersion}: rename capability "${oldName}" to "${newName}`);
         await forEachPreset(({capabilities}) => {
           if (capabilities.has(oldName)) {
@@ -383,6 +387,6 @@ var LifeCycle = (() => {
       } finally {
        browser.runtime.reload(); // apply update
       }
-    }
+    },
   };
 })();

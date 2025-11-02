@@ -75,6 +75,21 @@ var Settings = {
   async importSettings(json) {
     try {
       await this.update(json);
+      let exportVersion = json?.exportMeta?.version;
+      if (!exportVersion) {
+        // fix "recent" capabilities in older unversioned exports
+        const knownCapabilities = json.policy.TRUSTED.capabilities;
+        for (const [cap, ver] of [["lazy_load", "11.0"], ["wasm", "13.0"]]) {
+          if (!knownCapabilities.includes(cap)) {
+            exportVersion = ver;
+            break;
+          }
+        }
+      }
+      if (exportVersion) {
+        await include("/bg/LifeCycle.js");
+        await LifeCycle.migrateSettings(exportVersion);
+      }
       return true;
     } catch (e) {
       error(e, "Importing settings %o", json);
