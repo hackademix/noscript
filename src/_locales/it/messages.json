@@ -207,6 +207,10 @@
         "message": "Elenca gli indirizzi completi nel popup delle autorizzazioni (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Mostra segnaposto sintetici per i tentativi non visibili di violazione dei permessi",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Generale",
         "description": ""
@@ -233,6 +237,14 @@
     },
     "EnforceForTab": {
         "message": "Attiva le restrizioni per questa scheda",
+        "description": ""
+    },
+    "toggleEnforcementForTab": {
+        "message": "Abilita/disabilita le restrizioni per la scheda corrente",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Configure current page's permissions",
         "description": ""
     },
     "HighContrast": {
@@ -751,6 +763,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "lazy load",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "CSS non vincolato",
         "description": ""
@@ -762,6 +778,14 @@
     "cap_other": {
         "message": "altro",
         "description": ""
+    },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Ultime Modifiche",
