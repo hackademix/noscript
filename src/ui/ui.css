@@ -462,8 +462,12 @@ input.temp + label {
 
 input.preset:checked ~ input.temp {
   opacity: .7;
-  right: 0.4em;
+  right: calc(var(--extra-preset-width) - .5em);
   pointer-events: all;
+}
+
+.customizing input.preset:checked ~ input.temp {
+  right: .5em;
 }
 
 .presets input.preset:checked ~ input.temp:checked {
@@ -485,7 +489,10 @@ input.preset:checked ~ input.temp {
 .customizing input.preset:checked {
   margin: 0 0 -0.2em 0;
   background-position: 0 0;
-  --extra-preset-width: 1em;
+}
+
+span.preset.CUSTOM {
+  --extra-preset-width: 2em;
 }
 
 #presets span.preset {

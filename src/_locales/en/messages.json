@@ -50,6 +50,10 @@
   "AutoAllowTopLevel": {
     "message": "Temporarily set top-level sites to TRUSTED"
   },
+  "AutoTrustedLabel": {
+    "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site",
+    "message": "Auto-trusted"
+  },
   "AutoReload": {
     "message": "Automatically reload affected pages when permissions change"
   },

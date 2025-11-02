@@ -23,7 +23,6 @@ var UI = (() => {
 
   var UI = {
     initialized: false,
-    isBrowserAction: false,
 
     presets: {
       "DEFAULT": "Default",
@@ -404,9 +403,8 @@ var UI = (() => {
   UI.Sites = class {
     constructor(parentNode, presets = DEF_PRESETS) {
       this.parentNode = parentNode;
-      let policy = UI.policy;
       this.uiCount = UI.Sites.count = (UI.Sites.count || 0) + 1;
-      this.sites = policy.sites;
+      this.sites = UI.policy.sites;
       this.presets = presets;
       this.customizing = null;
       this.typesMap = new Map();
@@ -499,7 +497,12 @@ var UI = (() => {
       let sizer = document.createElement("div");
       sizer.id = "presets-sizer";
       sizer.classList.add("sites");
-      sizer.appendChild(presets.cloneNode(true));
+      const presetsCopy = sizer.appendChild(presets.cloneNode(true));
+      if ("isBrowserAction" in UI && UI.policy.autoAllowTop) {
+        const customCopy = presetsCopy.querySelector(".preset.CUSTOM");
+        customCopy.querySelector("label.preset").textContent = _("AutoTrustedLabel");
+        customCopy.parentNode.appendChild(customCopy);
+      }
       document.body.appendChild(sizer);
       let labelWidth = 0;
       let biggest = "";
@@ -663,6 +666,7 @@ var UI = (() => {
       } else if (!(isCap || isTemp || customizer) && ev.type === "click") {
         this.customize(row.perms, preset, row);
       }
+      this._customOrAuto(row);
     }
 
     setupCaps(perms, preset, row) {
@@ -1026,6 +1030,26 @@ var UI = (() => {
       return changed;
     }
 
+    _customOrAuto(row) {
+      const { policy } = UI;
+      const { perms, contextMatch, siteMatch } = row;
+      const isAuto = policy.autoAllowTop && perms.temp &&
+          contextMatch == siteMatch &&
+          perms.sameAs(policy.TRUSTED);
+      if (!(isAuto || row._wasAuto)) {
+        return;
+      }
+      row._wasAuto = true;
+      const [labelShort, title] = isAuto
+        ? [_("AutoTrustedLabel"), _("autoAllowTop")]
+        : [_("Custom"), _("Custom") ];
+      const widgets = row.querySelectorAll(".preset.CUSTOM [title]");
+      for (const w of [...widgets]) {
+        w.title = title;
+        if (w.textContent) w.textContent = labelShort;
+      }
+    }
+
     createSiteRow(
       site,
       siteMatch,
@@ -1040,9 +1064,10 @@ var UI = (() => {
         contextMatch,
         perms
       );
-      let policy = UI.policy;
+      const { policy } = UI;
       let row = this.rowTemplate.cloneNode(true);
       row.sitesCount = sitesCount;
+
       let url;
       try {
         url = new URL(site);
@@ -1123,7 +1148,6 @@ var UI = (() => {
           : punycode.toUnicode(
               hostname.substring(0, hostname.length - domain.length)
             );
-
         row.querySelector(".domain").textContent = unicodeDomain;
         row.querySelector(".path").textContent =
           siteMatch.length > url.origin.length ? url.pathname : "";
@@ -1222,6 +1246,8 @@ var UI = (() => {
         }
         preset.disabled = false;
       }
+
+      this._customOrAuto(row);
       return row;
     }
 
