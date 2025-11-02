@@ -222,6 +222,10 @@ var Settings = {
 
   export() {
     return JSON.stringify({
+      exportMeta: {
+        version: browser.runtime.getManifest().version,
+        knownCapabilities: Permissions.ALL,
+      },
       policy: ns.policy.dry(),
       local: ns.local,
       sync: ns.sync,
