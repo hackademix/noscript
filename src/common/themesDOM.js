@@ -86,7 +86,7 @@ if (self.document) {
 
   Themes.refreshVintage = isVintage => {
     if (localStorage) try {
-      localStorage.setItem(VINTAGE, isVintage || "");
+      localStorage.setItem(Themes.VINTAGE, isVintage || "");
     } catch (e) {}
     document.documentElement.classList.toggle("vintage", isVintage === true);
     browser?.action?.setIcon({path: {64: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.png` }});
