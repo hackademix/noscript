@@ -1041,9 +1041,9 @@ var UI = (() => {
       }
       row._wasAuto = true;
       const [labelShort, title] = isAuto
-        ? [_("AutoTrustedLabel"), _("autoAllowTop")]
+        ? [_("AutoTrustedLabel"), _("AutoAllowTopLevel")]
         : [_("Custom"), _("Custom") ];
-      const widgets = row.querySelectorAll(".preset.CUSTOM [title]");
+      const widgets = row.querySelectorAll(".preset.CUSTOM [title]:not(.temp)");
       for (const w of [...widgets]) {
         w.title = title;
         if (w.textContent) w.textContent = labelShort;
