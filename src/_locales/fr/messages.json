@@ -67,6 +67,10 @@
         "message": "Définir temporairement les sites de haut niveau comme FIABLES",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Fiable auto",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "Recharger automatiquement les pages affectées si les autorisations changent",
         "description": ""

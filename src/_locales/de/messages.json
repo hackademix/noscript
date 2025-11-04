@@ -67,6 +67,10 @@
         "message": "Top-Level-Seiten temporär VERTRAUEN",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Automatisch vertrauenswürdig",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "Betroffene Seiten automatisch neu laden, wenn sich die Berechtigungen verändern",
         "description": ""

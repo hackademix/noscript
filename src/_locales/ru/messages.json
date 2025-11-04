@@ -64,8 +64,12 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Автоматически доверять сайтам, загруженным как документ верхнего уровня",
+        "message": "Автоматически доверять сайтам, загруженным как документ верхнего уровня («АВТОДОВЕРЕННЫЕ»)",
         "description": ""
+    },
+    "AutoTrustedLabel": {
+        "message": "Автодоверенные",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
     },
     "AutoReload": {
         "message": "Автоматически перезагружать зависимые страницы при изменении разрешений",
