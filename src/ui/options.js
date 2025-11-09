@@ -28,6 +28,7 @@ document.querySelector("#version").textContent = _("Version",
   await UI.init();
 
   let policy = UI.policy;
+  let contextStore = UI.contextStore;
 
   // simple general options
 
@@ -36,7 +37,8 @@ document.querySelector("#version").textContent = _("Version",
   opt("global", o => {
     if (o) {
       policy.enforced = !o.checked;
-      UI.updateSettings({policy});
+      contextStore.setAll({"enforced": !o.checked});
+      UI.updateSettings({policy, contextStore});
     }
     let {enforced} = policy;
     let disabled = !enforced;
@@ -51,12 +53,23 @@ document.querySelector("#version").textContent = _("Version",
   opt("auto", o => {
     if (o) {
       policy.autoAllowTop = o.checked;
-      UI.updateSettings({policy});
+      contextStore.setAll({"autoAllowTop": o.checked});
+      UI.updateSettings({policy, contextStore});
     }
     return policy.autoAllowTop;
   });
 
   opt("cascadeRestrictions");
+
+  opt("containers", async o => {
+    if (o) {
+      contextStore.enabled = o.checked;
+      await contextStore.updateContainers(policy);
+      UI.updateSettings({contextStore});
+    }
+    updateContainersEnabled();
+    return contextStore.enabled;
+  })
 
   opt("xss");
 
@@ -138,7 +151,10 @@ document.querySelector("#version").textContent = _("Version",
   opt("debug", "local", o => {
     let {checked} = o;
     document.body.classList.toggle("debug", checked);
-    if (checked) updateRawPolicyEditor();
+    if (checked) {
+      updateRawPolicyEditor();
+      updateRawContextStoreEditor();
+    }
   });
 
   UI.wireChoice("TabGuardMode");
@@ -178,6 +194,12 @@ document.querySelector("#version").textContent = _("Version",
     let parent = document.getElementById("presets");
     let presetsUI = new UI.Sites(parent,
       {"DEFAULT": true, "TRUSTED": true, "UNTRUSTED": true});
+    presetsUI.onChange = () => {
+      if (policy && contextStore) {  // contextStore presets always copy default policy's
+        contextStore.updatePresets(policy);
+        UI.updateSettings({policy, contextStore});
+      }
+    }
 
     presetsUI.render([""]);
     window.setTimeout(() => {
@@ -189,23 +211,93 @@ document.querySelector("#version").textContent = _("Version",
 
   // SITES UI
   let sitesUI = new UI.Sites(document.getElementById("sites"));
-  UI.onSettings = () => {
-    policy = UI.policy;
-    sitesUI.render(policy.sites);
+  let containerSelect = document.querySelector("#select-container");
+  let containerCopy = document.querySelector("#copy-container");
+  var cookieStoreId = containerSelect.value;
+  var currentPolicy = await UI.getPolicy(cookieStoreId);
+
+  function updateContainersEnabled() {
+    let containersEnabled = Boolean(contextStore.enabled && browser.contextualIdentities);
+    document.querySelector("#opt-containers").disabled = !browser.contextualIdentities;
+    document.querySelector("#opt-containers").checked = contextStore.enabled;
+    document.querySelector("#select-container").hidden = !containersEnabled;
+    document.querySelector("#select-container-label").hidden = !containersEnabled;
+    document.querySelector("#per-site-buttons").style.display = containersEnabled? "flex" : "none";
+  }
+  updateContainersEnabled();
+
+  async function changeContainer() {
+    cookieStoreId = containerSelect.value;
+    currentPolicy = await UI.getPolicy(cookieStoreId);
+    debug("container change", cookieStoreId, currentPolicy);
+    sitesUI.clear()
+    sitesUI.policy = currentPolicy;
+    sitesUI.render(currentPolicy.sites);
+  }
+  containerSelect.onchange = changeContainer;
+
+  async function copyContainer() {
+    cookieStoreId = containerSelect.value;
+    if (cookieStoreId == "default") {
+      alert("Cannot replace the default policy.")
+      containerCopy.value = "blank";
+      return;
+    }
+    let copyCookieStoreId = containerCopy.value;
+    let copyContainerName = containerCopy.options[containerCopy.selectedIndex].text;
+    let copyPolicy = await UI.getPolicy(copyCookieStoreId);
+    if (confirm(`Copying permissions from "${copyContainerName}".\n` + "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?")) {
+      sitesUI.clear()
+      currentPolicy = await UI.replacePolicy(cookieStoreId, new Policy(copyPolicy.dry(true)));
+      await UI.updateSettings({policy, contextStore});
+      sitesUI.policy = currentPolicy;
+      sitesUI.render(currentPolicy.sites);
+    }
+    containerCopy.value = "blank";
+  }
+  containerCopy.onchange = copyContainer;
+
+  var containers = [];
+  async function updateContainerOptions() {
+    let newContainers = [{cookieStoreId: "default", name: "Default"},];
+    let identities = browser.contextualIdentities && await browser.contextualIdentities.query({});
+    if (identities) {
+      identities.forEach(({cookieStoreId, name}) => {
+        newContainers.push({cookieStoreId, name});
+      })
+    }
+    if (JSON.stringify(newContainers) == JSON.stringify(containers)) return;
+    containers = newContainers;
+    var container_options = ""
+    for (var container of containers) {
+      container_options += "<option value=" + container.cookieStoreId + ">" + container.name + "</option>"
+    }
+    containerSelect.innerHTML = container_options;
+    containerSelect.value = cookieStoreId;
+    containerCopy.innerHTML = "<option value=blank></option>" + container_options;
+  }
+  containerSelect.onfocus = updateContainerOptions;
+  containerCopy.onfocus = updateContainerOptions;
+  if (contextStore.enabled) await updateContainerOptions();
+
+  UI.onSettings = async () => {
+    currentPolicy = await UI.getPolicy(cookieStoreId);
+    sitesUI.render(currentPolicy.sites);
   }
   {
     sitesUI.onChange = () => {
       if (UI.local.debug) {
         updateRawPolicyEditor();
+        updateRawContextStoreEditor();
       }
     };
-    sitesUI.render(policy.sites);
+    sitesUI.render(currentPolicy.sites);
 
     let newSiteForm = document.querySelector("#form-newsite");
     let newSiteInput = newSiteForm.newsite;
     let button = newSiteForm.querySelector("button");
     let canAdd = s => {
-      let match = policy.get(s).siteMatch;
+      let match = currentPolicy.get(s).siteMatch;
       return match === null || s.length > match.length;
     }
 
@@ -223,14 +315,23 @@ document.querySelector("#version").textContent = _("Version",
       let site = newSiteInput.value.trim();
       let valid = Sites.isValid(site);
       if (valid && canAdd(site)) {
-        policy.set(site, policy.TRUSTED);
-        UI.updateSettings({policy});
+        currentPolicy.set(site, currentPolicy.TRUSTED);
+        UI.updateSettings({policy, contextStore});
         newSiteInput.value = "";
-        sitesUI.render(policy.sites);
+        sitesUI.render(currentPolicy.sites);
         sitesUI.hilite(site);
         sitesUI.onChange();
       }
     }, true);
+
+    document.querySelector("#btn-clear-container").addEventListener("click", async ev => {
+      if (confirm("All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?")) {
+        sitesUI.clear()
+        currentPolicy.sites = Sites.hydrate({});
+        await UI.updateSettings({policy, contextStore});
+        sitesUI.render(currentPolicy.sites);
+      }
+    });
   }
 
   window.setTimeout(() => {
@@ -261,6 +362,7 @@ document.querySelector("#version").textContent = _("Version",
       try {
         UI.policy = policy = new Policy(JSON.parse(ed.value));
         UI.updateSettings({policy});
+        containerSelect.value = "default";
         sitesUI.render(policy.sites);
         ed.className = "";
         document.getElementById("policy-error").textContent = "";
@@ -268,6 +370,32 @@ document.querySelector("#version").textContent = _("Version",
         error(e);
         ed.className = "error";
         document.getElementById("policy-error").textContent = e.message;
+      }
+    }
+  }
+
+  function updateRawContextStoreEditor() {
+    if (!UI.local.debug) return;
+
+    // RAW POLICY EDITING (debug only)
+    if (!browser.contextualIdentities) {
+      document.querySelector("#edit-context-store").style.display = "none";
+      return;
+    }
+    let contextStoreEditor = document.getElementById("context-store");
+    contextStoreEditor.value = JSON.stringify(contextStore.dry(true), null, 2);
+    if (!contextStoreEditor.onchange) contextStoreEditor.onchange = (e) => {
+      let ed = e.currentTarget
+      try {
+        UI.contextStore = contextStore = new ContextStore(JSON.parse(ed.value));
+        UI.updateSettings({contextStore});
+
+        ed.className = "";
+        document.getElementById("context-store-error").textContent = "";
+      } catch (e) {
+        error(e);
+        ed.className = "error";
+        document.getElementById("context-store-error").textContent = e.message;
       }
     }
   }

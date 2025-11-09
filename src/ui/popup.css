@@ -94,6 +94,18 @@ html:not(.mobile) #scrollable {
   display: none;
 }
 
+#top > .container-id {
+  text-align: center;
+  align-items: center;
+  display: flex;
+  margin: .2em;
+  margin-block: auto;
+  padding: .4em;
+  font-size: 1.2em;
+  border:1px solid lightgray;
+  border-radius: .3em;
+}
+
 .hider {
   background: var(--form-color1);
   box-shadow: inset 0 1px 3px #444;

@@ -53,6 +53,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <span id="enforceOnRestart-opt">
       <input type="checkbox" id="opt-enforceOnRestart"><label for="opt-enforceOnRestart" id="lbl-enforceOnRestart">__MSG_EnforceOnRestart__</label>
     </span>
+    <span id="containers-opt">
+      <input type="checkbox" class="enforcement_required" id="opt-containers"><label for="opt-containers" id="lbl-containers">Enable support for container tabs</label>
+    </span>
   </div>
   <div class="opt-group">
     <span id="auto-opt">
@@ -75,6 +78,10 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 <h3 class="flextabs__tab"><button class="flextabs__toggle enforcement_required">__MSG_SectionSitePermissions__</button></h3>
 <div class="flextabs__content">
+  <label for="select-container" id="select-container-label">Choose a container:</label>
+  <select name="select-container" id="select-container">
+    <option value="default">Default</option>
+  </select>
   <section class="sect-sites">
   <form id="form-newsite" class="browser-style" >
   <label id="newsite-label" for="newsite" accesskey="__MSG_WebAddress_accesskey__">__MSG_WebAddress__</label><input name="newsite" id="newsite" type="text" placeholder="[https://]noscript.net"
@@ -84,6 +91,15 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <div class="cssload-container">
   	   <div class="cssload-whirlpool"></div>
     </div>
+  </div>
+  <div class="per-site-buttons" id="per-site-buttons">
+    <label for="copy-container" id="copy-container-label">Copy permissions from container:</label>
+    <select name="copy-container" id="copy-container">
+      <option value=blank></option>
+      <option value="default">Default</option>
+    </select>
+    <div style="inline-size:0;margin-inline:.5em;border:1px solid #888"></div>
+    <button id="btn-clear-container">Clear permissions for this container</button>
   </div>
   </section>
 </div>
@@ -204,6 +220,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <div id="policy-error"></div>
     <textarea id="policy" class="browser-style">
     </textarea>
+    <div id="edit-context-store">
+      <label for="contextStore">ContextStore:</label>
+      <div id="context-store-error"></div>
+      <textarea id="context-store" class="browser-style">
+      </textarea>
+    </div>
   </div>
 
 </div>
