@@ -388,7 +388,7 @@ XSS.InjectionChecker = (async () => {
       ) return true;
 
       expr = // dotted URL components can lead to false positives, let's remove them
-        expr.replace(this._removeDotsRx, this._removeDots)
+        expr.replace(this._removeDotsRx, this._removeDots.bind(this))
         .replace(this._arrayAccessRx, '_ARRAY_ACCESS_')
         .replace(/<([\w:]+)>[^</(="'`]+<\/\1>/g, '<$1/>') // reduce XML text nodes
         .replace(/<!--/g, '') // remove HTML comments preamble (see next line)
