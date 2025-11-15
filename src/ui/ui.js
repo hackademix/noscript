@@ -497,11 +497,13 @@ var UI = (() => {
       let sizer = document.createElement("div");
       sizer.id = "presets-sizer";
       sizer.classList.add("sites");
-      const presetsCopy = sizer.appendChild(presets.cloneNode(true));
-      if ("isBrowserAction" in UI && UI.policy.autoAllowTop) {
-        const customCopy = presetsCopy.querySelector(".preset.CUSTOM");
-        customCopy.querySelector("label.preset").textContent = _("AutoTrustedLabel");
-        customCopy.parentNode.appendChild(customCopy);
+      sizer.appendChild(presets);
+      let customCopy;
+      if ("isBrowserAction" in UI) {
+        if (UI.policy.autoAllowTop) {
+          customCopy = presets.appendChild(presets.querySelector(".preset.CUSTOM").cloneNode(true));
+          customCopy.querySelector("label.preset").textContent = _("AutoTrustedLabel");
+        }
       }
       document.body.appendChild(sizer);
       let labelWidth = 0;
@@ -517,6 +519,7 @@ var UI = (() => {
         "--preset-label-width",
         labelWidth + "px"
       );
+      customCopy?.remove();
       sizer.remove();
     }
 

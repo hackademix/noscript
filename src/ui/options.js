@@ -56,6 +56,7 @@ document.querySelector("#version").textContent = _("Version",
     return policy.autoAllowTop;
   });
 
+  opt("cascadePermissions");
   opt("cascadeRestrictions");
 
   opt("xss");

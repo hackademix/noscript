@@ -96,12 +96,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Permessi per gli script di terze parti",
+        "message": "Applica in cascata i permessi del documento principale ai sotto-documenti non ancora configurati",
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Qualsiasi funzionalità bloccata nel documento superiore deve essere bloccata anche nei suoi sotto-documenti. ",
+        "message": "Qualsiasi funzionalità bloccata nel documento principale deve essere bloccata anche nei suoi sotto-documenti. ",
         "description": ""
+    },
+    "CascadedLabel": {
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site",
+        "message": "In cascata"
     },
     "ClearClickDescription": {
         "message": "NoScript ha trovato una interazione del mouse o della tastiera con un elemento parzialmente nascosto. Clicca sull'immagine qui sotto per scorrere tra la versione ostruita e quella visibile.",

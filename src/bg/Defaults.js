@@ -36,6 +36,7 @@ var Defaults = {
         xss: true,
         TabGuardMode: "incognito",
         TabGuardPrompt: "post",
+        cascadePermissions: false,
         cascadeRestrictions : false,
         overrideTorBrowserPolicy: false,
       }

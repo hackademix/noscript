@@ -637,13 +637,18 @@
   };
 
   function intersectCapabilities(policyMatch, request) {
-    if (request.frameId !== 0 && ns.sync.cascadeRestrictions) {
+    const {cascadePermissions, cascadeRestrictions} = ns.sync;
+    if (request.frameId !== 0 && cascadeRestrictions || request.type != "main_frame" && cascadePermissions) {
       const {tabUrl, frameAncestors} = request;
       const topUrl = tabUrl ||
+        cascadePermissions && request.frameId == 0 && request.documentUrl ||
         frameAncestors && frameAncestors[frameAncestors?.length - 1]?.url ||
         TabCache.get(request.tabId)?.url;
       if (topUrl) {
-        return ns.policy.cascadeRestrictions(policyMatch, topUrl).capabilities;
+        return ns.policy.cascade(policyMatch, topUrl, {
+          permissions: cascadePermissions,
+          restrictions: cascadeRestrictions,
+        }).capabilities;
       }
     }
     return policyMatch.perms.capabilities;

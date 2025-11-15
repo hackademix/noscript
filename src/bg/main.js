@@ -357,10 +357,12 @@
 
           const dnrRules = (await browser.declarativeNetRequest?.getSessionRules())?.filter(r => r?.action?.type == "allow"); // DEV_ONLY
           debug(`Auto-trusted ${Sites.optimalKey(url)}`, documentLifecycle, autoPerms, dnrRulesBefore, dnrRules); // DEV_ONLY
-        } else {
-          cascaded = topUrl && ns.sync.cascadeRestrictions;
+        } else if (topUrl) {
+          const {cascadePermissions, cascadeRestrictions} = ns.sync;
+          cascaded = (cascadePermissions || cascadeRestrictions) &&
+            {permissions: cascadePermissions, restrictions: cascadeRestrictions}
           if (cascaded) {
-            perms = policy.cascadeRestrictions(policyMatch, topUrl);
+            perms = policy.cascade(policyMatch, topUrl, cascaded);
           }
         }
         permissions = perms.dry();

@@ -99,6 +99,10 @@
         "message": "Permisos en cascada del document superior per scripts de tercers",
         "description": ""
     },
+    "CascadedLabel": {
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site",
+        "message": "En cascada"
+    },
     "CascadeRestrictions": {
         "message": "Any capability blocked in the top document must be blocked in its subdocuments too",
         "description": ""

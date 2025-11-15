@@ -23,8 +23,9 @@
 'use strict';
 {
   const DEFAULT_PRIORITY = 1;
+  const CASCADE_PERMISSIONS_PRIORITY = 5;
   const SITE_PRIORITY = 10;
-  const CASCADE_PRIORITY = 20;
+  const CASCADE_RESTRICTIONS_PRIORITY = 20;
   const CTX_PRIORITY = 30;
   const TAB_PRIORITY = 40;
   const REPORT_PRIORITY = 50;
@@ -44,9 +45,9 @@
     mapping.push(key);
   }
 
-  const ResourceTypeFor = {
+  const ResourceTypesFor = {
     block(caps) {
-      return this.allow(Permissions.ALL.filter(cap => !caps.has(cap)));
+      return ResourceTypesFor.allow(Permissions.ALL.filter(cap => !caps.has(cap)));
     },
     allow(caps) {
       const resourceTypes = [];
@@ -61,7 +62,7 @@
 
   function forBlockAllow(capabilities, callback) {
    for (const actionType of ["block", "allow"]) {
-      const resourceTypes = ResourceTypeFor[actionType](capabilities);
+      const resourceTypes = ResourceTypesFor[actionType](capabilities);
       if (resourceTypes?.length) {
         callback(actionType, resourceTypes);
       }
@@ -210,12 +211,14 @@
     return rules;
   }
 
+  // Handle contextual policies and permissions/restrictions cascading,
+  // both depending on the top-level (tab's) URL.
   async function addCtxRules(rules) {
-
     const {policy} = ns;
-    const cascade = ns.sync.cascadeRestrictions;
+    const {cascadePermissions, cascadeRestrictions} = ns.sync;
     const ctxSettings = [...policy.sites].filter(([siteKey, perms]) => perms.contextual?.size);
-    const tabs = (ctxSettings.length || cascade) &&
+
+    const tabs = (ctxSettings.length ||  cascadePermissions || cascadeRestrictions) &&
       TabCache.getAll().filter(tab => tab.url && !ns.unrestrictedTabs.has(tab.id));
     if (!tabs?.length) {
       return rules;
@@ -225,7 +228,6 @@
       tab.topUrls = NavCache.getTab(tab.id)?.topUrls || [tab.url];
     }
     for (const [siteKey,] of ctxSettings) {
-
       const ctxTabs = [];
       for (const tab of tabs) {
         for (const url of tab.topUrls) {
@@ -269,37 +271,46 @@
         });
       }
     }
-    if (!cascade) {
-      return rules;
+    if (cascadePermissions) {
+      addCascadeRules("allow", CASCADE_PERMISSIONS_PRIORITY);
     }
-    const tabPresets = new Map();
-    for(const {url, id} of tabs) {
-      const resourceTypes = ResourceTypeFor.block(policy.get(url).perms.capabilities);
-      if (!resourceTypes.length) continue;
-      const key = JSON.stringify(resourceTypes);
-      if (tabPresets.has(key)) {
-        tabPresets.get(key).tabIds.push(id);
-      } else {
-        tabPresets.set(key, {
-          resourceTypes,
-          tabIds: [id],
+    if (cascadeRestrictions) {
+      addCascadeRules("block", CASCADE_RESTRICTIONS_PRIORITY);
+    }
+
+    function addCascadeRules(type /* either "block" or "allow" */, priority) {
+      const tabPresets = new Map();
+      const getResourceTypes = ResourceTypesFor[type];
+      for(const {url, id} of tabs) {
+        const resourceTypes = getResourceTypes(policy.get(url, url).perms.capabilities);
+        if (!resourceTypes.length) continue;
+        const key = JSON.stringify(resourceTypes);
+        if (tabPresets.has(key)) {
+          tabPresets.get(key).tabIds.push(id);
+        } else {
+          tabPresets.set(key, {
+            resourceTypes,
+            tabIds: [id],
+          });
+        }
+      }
+      for (const {resourceTypes, tabIds} of tabPresets.values()) {
+        rules.push({
+          id: TAB_BASE + rules.length,
+          priority,
+          action: {
+            type,
+          },
+          condition: {
+            tabIds,
+            resourceTypes,
+          }
         });
       }
     }
-    for (const {resourceTypes, tabIds} of tabPresets.values()) {
-      rules.push({
-        id: TAB_BASE + rules.length,
-        priority: CASCADE_PRIORITY,
-        action: {
-          type: "block",
-        },
-        condition: {
-          tabIds,
-          resourceTypes,
-        }
-      });
-    }
   }
+
+
 
   async function updateTabs() {
     const ts = Date.now();
@@ -333,7 +344,7 @@
           updated.push(tab);
           continue;
         }
-        const { perms } = policy.get(url);
+        const { perms } = policy.get(url, url);
         console.debug("DNRPolicy autoAllow check", tab, perms, perms === policy.DEFAULT);
         if (policy.autoAllow(url, perms, (isStartup && perms.temp))) {
           updated.push(tab);

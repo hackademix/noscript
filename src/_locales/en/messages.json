@@ -76,10 +76,14 @@
     "message": "Cancel"
   },
   "CascadePermissions": {
-    "message": "Cascade top document's permissions to 3rd party scripts"
+    "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet"
   },
   "CascadeRestrictions": {
     "message": "Any capability blocked in the top document must be blocked in its subdocuments too"
+  },
+  "CascadedLabel": {
+    "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site",
+    "message": "Cascaded"
   },
   "ClearClickDescription": {
     "message": "NoScript intercepted a mouse or keyboard interaction with a partially hidden element. Click on the image below to cycle between the obstructed and the clear version."
