@@ -989,10 +989,10 @@ var UI = (() => {
 
     sort(sorter = this.sorter) {
       if (this.mainDomain) {
-        let md = this.mainDomain;
-        let wrappedCompare = sorter;
+        const md = this.mainDomain;
+        const wrappedCompare = sorter;
         sorter = (a, b) => {
-          let x = a.domain,
+          const x = a.domain,
             y = b.domain;
           if (x === md) {
             if (y !== md) {
@@ -1004,20 +1004,18 @@ var UI = (() => {
           return wrappedCompare.call(this, a, b);
         };
       }
-      let rows = [...this.allSiteRows()].sort(sorter.bind(this));
+      const rows = [...this.allSiteRows()].sort(sorter.bind(this));
       if (this.mainSite) {
-        let mainLabel = "." + this.mainDomain;
-        let topIdx = rows.findIndex((r) => r._label === mainLabel);
-        if (topIdx === -1) rows.findIndex((r) => r._site === this.mainSite);
+        const topIdx = rows.findIndex((r) => r._site === this.mainSite);
         if (topIdx !== -1) {
           // move the row to the top
-          let topRow = rows.splice(topIdx, 1)[0];
+          const topRow = rows.splice(topIdx, 1)[0];
           rows.unshift(topRow);
           topRow.classList.toggle("main", true);
         }
       }
       this.clear();
-      for (let row of rows) this.table.appendChild(row);
+      for (const row of rows) this.table.appendChild(row);
     }
 
     sorter(a, b) {
