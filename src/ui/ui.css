@@ -420,7 +420,7 @@ input.preset[value="T_TRUSTED"] {
   background-image: var(--img-ui-temp);
 }
 
-input.preset[value="TRUSTED"] {
+input.preset[value="TRUSTED"], input.preset.canScript {
   background-image: var(--img-ui-yes)
 }
 input.preset[value="UNTRUSTED"] {

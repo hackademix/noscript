@@ -498,11 +498,18 @@ var UI = (() => {
       sizer.id = "presets-sizer";
       sizer.classList.add("sites");
       sizer.appendChild(presets);
-      let customCopy;
-      if ("isBrowserAction" in UI) {
+      const extras = [];
+      if ("isBrowserAction" in UI) { // contextual UI
+        const addExtra = (presetName, messageKey) => {
+          const extra = presets.appendChild(presets.querySelector(`.preset.${presetName}`).cloneNode(true));
+          extra.querySelector("label.preset").textContent = _(messageKey);
+          extras.push(extra);
+        }
         if (UI.policy.autoAllowTop) {
-          customCopy = presets.appendChild(presets.querySelector(".preset.CUSTOM").cloneNode(true));
-          customCopy.querySelector("label.preset").textContent = _("AutoTrustedLabel");
+          addExtra("CUSTOM", "AutoTrustedLabel");
+        }
+        if (UI.sync.cascadePermissions) {
+          addExtra("DEFAULT", "CascadedLabel");
         }
       }
       document.body.appendChild(sizer);
@@ -519,7 +526,7 @@ var UI = (() => {
         "--preset-label-width",
         labelWidth + "px"
       );
-      customCopy?.remove();
+      extras.forEach(e => e.remove());
       sizer.remove();
     }
 
@@ -1043,13 +1050,13 @@ var UI = (() => {
         return;
       }
       row._wasAuto = true;
-      const [labelShort, title] = isAuto
+      const [label, title] = isAuto
         ? [_("AutoTrustedLabel"), _("AutoAllowTopLevel")]
         : [_("Custom"), _("Custom") ];
       const widgets = row.querySelectorAll(".preset.CUSTOM [title]:not(.temp)");
       for (const w of [...widgets]) {
         w.title = title;
-        if (w.textContent) w.textContent = labelShort;
+        w.textContent &&= label;
       }
     }
 
@@ -1235,7 +1242,7 @@ var UI = (() => {
           }
         }
       }
-      let preset = row.querySelector(`.presets input[value="${presetName}"]`);
+      const preset = row.querySelector(`.presets input[value="${presetName}"]`);
       if (!preset) {
         debug(`Preset %s not found in %s!`, presetName, row.innerHTML);
       } else {
@@ -1246,6 +1253,18 @@ var UI = (() => {
           if (temp) {
             temp.checked = perms.temp;
           }
+        } else if (presetName == "DEFAULT") {
+          if (this.mainUrl  && UI.sync.cascadePermissions) {
+            const label = _("CascadedLabel");
+            const title = `${label} ⬊ ${Sites.toExternal(this.mainSite)} ⬊`;
+            const widgets = preset.parentNode.querySelectorAll("[title]");
+            for (const w of [...widgets]) {
+              w.title = title;
+              w.textContent &&= label;
+            }
+            row._customPerms = perms = UI.policy.get(this.mainUrl, this.mainUrl).perms;
+          }
+          preset.classList.toggle("canScript", perms.capabilities.has("script"));
         }
         preset.disabled = false;
       }

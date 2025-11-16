@@ -356,10 +356,6 @@ addEventListener("unload", e => {
       let domains = new Map();
       let protocols = new Set();
 
-      if (UI.sync.cascadePermissions) {
-        UI.presets.DEFAULT = 'CascadedLabel';
-      }
-
       function urlToLabel(url) {
         let origin = Sites.origin(url);
         let match = policySites.match(url);
