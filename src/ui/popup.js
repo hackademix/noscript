@@ -431,6 +431,7 @@ addEventListener("unload", e => {
       sitesUI.mainUrl = new URL(mainFrame.request.url)
       sitesUI.mainSite = urlToLabel(sitesUI.mainUrl);
       sitesUI.mainDomain = tld.getDomain(sitesUI.mainUrl.hostname);
+      sitesUI.mainSiteKey = Sites.optimalKey(sitesUI.mainUrl);
 
       sitesUI.render(sites);
       sitesUI.focus();
