@@ -53,14 +53,14 @@ if [[ "$1" =~ ^r(el(ease)?)?$ ]]; then
   exit
 fi
 
-if [[ "$1" == "bump" ]]; then
-  if [[ "$2" ]]; then
+if [[ $1 == "bump" ]]; then
+  if [[ $2 ]]; then
     NEW_VER="$2"
-    if [[ "$2" == *.* ]]; then # full dotted version number
+    if [[ $2 == *.* ]]; then # full dotted version number
       pattern='"\d+.*?'
       NEW_VER='"'"$2"
-    elif [[ "$2" == *rc* ]]; then # new RC after release
-      if [[ "$2" == rc* ]]; then
+    elif [[ $2 == *rc* ]]; then # new RC after release
+      if [[ $2 == rc* ]]; then
         if [[ ! "$VER" == *rc* ]]; then
           echo >&2 "Please specify next release version (like 12rc1). Current is $VER"
           exit 1
@@ -72,6 +72,11 @@ if [[ "$1" == "bump" ]]; then
       fi
     else # incremental version
       pattern='\b\d+'
+      if [[ $NEW_VER == "+" ]]; then
+        # auto-increment,
+        # otherwise we will assume current manifest had been manually updated
+        NEW_VER=$(( ${VER/[0-9.a-z]*\./} + 1))
+      fi
     fi
     REPLACE_EXPR='s/(?<PREAMBLE>"version":.*)'"$pattern"'"/$+{PREAMBLE}'"$NEW_VER"'"/'
     perl -pi.bak -e $REPLACE_EXPR "$MANIFEST_IN" && "$0" bump
