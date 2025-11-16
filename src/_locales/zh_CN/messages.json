@@ -67,6 +67,10 @@
         "message": "临时将顶级网站设置为受信任",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "自动信任",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "权限更改时自动重新加载受影响的网页",
         "description": ""
@@ -96,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "将顶级文件的权限下发到第三方脚本",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "在顶部文档中被阻止的任何功能也必须在其子文档中被阻止",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript 使用半隐蔽的元素拦截鼠标或键盘的交互。点击下面的图片可以交替显示拦截和未拦截的版本。",

@@ -100,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Répercuter les autorisations du document de plus haut niveau sur les scripts tiers",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Toute capacité bloquée dans le document de plus haut niveau doit aussi être bloquée dans ses sous-documents",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript a intercepté une interaction du clavier ou de la souris dont un élément était partiellement caché. Cliquez sur l’image ci-dessous pour basculer entre la version bloquée et la version visible.",

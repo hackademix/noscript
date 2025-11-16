@@ -100,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Berechtigungen des Hauptdokuments auf Scripte von Drittanbietern übertragen",
+        "message": "Berechtigungen des übergeordneten Dokuments automatisch auf Unterdokumente und noch nicht konfigurierte eingebundene Inhalten anwenden",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Alles, was im Hauptdokument nicht zugelassen ist, auch in seinen Unterdokumenten nicht zulassen",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Kaskadiert",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript hat eine Maus- oder Tastatur-Interaktion mit einem teilweise versteckte Element abgefangen. Klicken Sie auf das Bild unten, um zwischen der versteckten und der sichtbaren Version zu wechseln.",

@@ -67,6 +67,10 @@
         "message": "Top-levelwebsites tijdelijk instellen op VERTROUWD",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Auto-trusted",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "Betrokken pagina’s automatisch vernieuwen als toestemmingen wijzigen",
         "description": ""
@@ -96,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Toestemmingen van bovenste document aan scripts van derden doorgeven",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Geblokkeerde mogelijkheden in het bovenste document moeten ook in subdocumenten ervan worden geblokkeerd",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript heeft een muis- of toetsenbordinteractie met een gedeeltelijk verborgen element onderschept. Klik op de onderstaande afbeelding om tussen de belemmerde en de zichtbare versie om te schakelen.",
@@ -207,6 +215,10 @@
         "message": "Volledige adressen in de toestemmingenpop-up vermelden (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Show synthetic placeholders for invisible capability probes",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Algemeen",
         "description": ""
@@ -249,6 +261,18 @@
     },
     "httpsOnly": {
         "message": "Alleen voor HTTPS-inhoud",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "Site outside of a content tab, e.g. in a sidebar",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(sidebar?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Changing permissions in a sidebar will require a MANUAL reload.",
         "description": ""
     },
     "Https": {
@@ -759,6 +783,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "lazy load",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "onbeperkte CSS",
         "description": ""
@@ -770,6 +798,14 @@
     "cap_other": {
         "message": "overig",
         "description": ""
+    },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Changelog",

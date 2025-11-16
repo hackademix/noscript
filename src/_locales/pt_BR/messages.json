@@ -67,6 +67,10 @@
         "message": "Configurar temporariamente sites de alto nível para CONFIÁVEL",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Auto-trusted",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "Recarregue automaticamente páginas afetadas quando as permissões mudarem",
         "description": ""
@@ -96,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Permissões do documento superior em cascata para scripts de terceiros",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Qualquer capacidade bloqueada no documento superior deve ser bloqueada em seus subdocumentos também",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript interceptou uma interação de mouse ou teclado com um elemento parcialmente oculto. Clique na imagem abaixo para comparar entre a versão obstruída e a versão limpa.",
@@ -790,6 +798,10 @@
     "cap_other": {
         "message": "Outro",
         "description": ""
+    },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
     },
     "cap_x_load": {
         "message": "x-carregar",

@@ -67,6 +67,10 @@
         "message": "Geçici olarak üst düzey siteler GÜVENİLİR olarak ayarlansın",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Otomatik güvenilir",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "İzinler değiştiğinde etkilenen sayfalar otomatik olarak yeniden yüklensin",
         "description": ""
@@ -96,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Üst belgenin izinleri 3. taraf betiklerine yansıtılsın",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Üst belgede engellenen özellikler alt belgelerde de engellenmelidir",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript gizli bir bileşenden gelen bir fare ya da tuş takımı etkileşimini engelledi. Aşağıdaki görsele tıklayarak engellenmiş ve temiz sürümler arasında geçiş yapabilirsiniz.",
@@ -532,7 +540,7 @@
         "description": ""
     },
     "TempTrustPage": {
-        "message": "Bu sayfadakilerin tümüne geçici olarak GÜVENİLSİN",
+        "message": "Bu sayfadakilerin tümü geçici olarak GÜVENİLİR olarak ayarlansın",
         "description": ""
     },
     "TempTrustPage_accesskey": {
@@ -932,7 +940,7 @@
         "description": ""
     },
     "untrustedOrigin": {
-        "message": "güvenilmeyen bir kaynak",
+        "message": "güvenilmez bir kaynak",
         "description": ""
     },
     "version": {

@@ -67,6 +67,10 @@
         "message": "Setați temporar site-uri de nivel superior la TRUSTED (de încredere)",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Auto-trusted",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "Reîncarcă automat paginile afectate atunci când se schimbă permisiunile",
         "description": ""
@@ -96,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Permisiuni în cascadă ale documentului de top pentru scripturile de la 3rd părți",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Orice capacitate blocată în documentul principal trebuie să fie blocată și în subdocumentele sale",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript a interceptat o interacțiune a mouse-ului sau a tastaturii cu un element parțial ascuns. Faceți clic pe imaginea de mai jos pentru a trece de la o versiune obstrucționată la cea clară.",
@@ -207,6 +215,10 @@
         "message": "Afișarea adreselor complete în fereastra popup a permisiunilor (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Show synthetic placeholders for invisible capability probes",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "General",
         "description": ""
@@ -235,12 +247,32 @@
         "message": "Activați restricțiile pentru acest tab",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Toggle restrictions enforcement for current tab",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Configure current page's permissions",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Contrast ridicat",
         "description": ""
     },
     "httpsOnly": {
         "message": "Se potriveste numai conținutul HTTPS",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "Site outside of a content tab, e.g. in a sidebar",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(sidebar?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Changing permissions in a sidebar will require a MANUAL reload.",
         "description": ""
     },
     "Https": {
@@ -751,6 +783,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "lazy load",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "CSS nerestricționat",
         "description": ""
@@ -762,6 +798,14 @@
     "cap_other": {
         "message": "altele",
         "description": ""
+    },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Jurnal de modificări",
@@ -949,6 +993,18 @@
     },
     "TabGuard_optEnabled": {
         "message": "Activat peste tot",
+        "description": ""
+    },
+    "TabGuard_optPromptNever": {
+        "message": "Never prompt before anonymization",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Prompt before anonymizing POST submissions",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Prompt before anonymizing any request",
         "description": ""
     },
     "TabGuard_optIncognito": {

@@ -67,6 +67,10 @@
         "message": "به صورت موقت سایت‌های سطح-بالا را مورد اعتماد قرار بده",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Auto-trusted",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "بارگذاری مجدد صفحه‌های تحت‌تاثیر قرار گرفته به صورت خودکار در هنگام تغییر دسترسی‌ها",
         "description": ""
@@ -96,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "پشت سر هم چیدن دسترسی‌های اسناد بالا به اسکریپت‌های شخص ثالث",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "هر قابلیت مسدود شده در سند بالا باید در اسناد فرعی آن نیز مسدود شود",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript یک تعامل صفحه کلید یا موشی با یک عنصر پنهان شده به صورت جزئی را رهگیری کرد. روی تصویر زیر برای چرخه نسخه مسدود شده و نسخه روان کلیک کنید.",
@@ -207,6 +215,10 @@
         "message": "فهرست کردن نشانی‌های کامل در پاپ آپ دسترسی‌ها (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Show synthetic placeholders for invisible capability probes",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "کلی",
         "description": ""
@@ -235,12 +247,32 @@
         "message": "فعال کردن محدودیت‌ها برای این زبانه",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Toggle restrictions enforcement for current tab",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Configure current page's permissions",
+        "description": ""
+    },
     "HighContrast": {
         "message": "کنتراست بالا",
         "description": ""
     },
     "httpsOnly": {
         "message": "مطابقت تنها با محتوای HTTPS",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "Site outside of a content tab, e.g. in a sidebar",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(sidebar?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Changing permissions in a sidebar will require a MANUAL reload.",
         "description": ""
     },
     "Https": {
@@ -751,6 +783,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "lazy load",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "CSS نامحدود",
         "description": ""
@@ -762,6 +798,14 @@
     "cap_other": {
         "message": "سایر",
         "description": ""
+    },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "سیاهه تغییرات",
@@ -949,6 +993,18 @@
     },
     "TabGuard_optEnabled": {
         "message": "در همه جا فعال است",
+        "description": ""
+    },
+    "TabGuard_optPromptNever": {
+        "message": "Never prompt before anonymization",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Prompt before anonymizing POST submissions",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Prompt before anonymizing any request",
         "description": ""
     },
     "TabGuard_optIncognito": {

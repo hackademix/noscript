@@ -67,6 +67,10 @@
         "message": "Cakto përkohësisht sajte të nivelit të epërm si TË BESUESHËM",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Auto-trusted",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "Kur ndryshohen lejet, ringarko automatikisht faqet e prekura prej ndryshimeve",
         "description": ""
@@ -96,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Aplikoji lejet e dokumenteve të sipërm për programthe palësh të treta nën to",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Çfarëdo aftësie e bllokuar te dokumenti i epërm duhet bllokuar edhe te nëndokumentet e tij",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript-i kapi një ndërveprim miu apo tastiere me një element pjesërisht të fshehur. Që të kalohet nga versioni i errësuar në atë të dukshmin, apo anasjelltas, klikoni mbi figurën më poshtë.",
@@ -790,6 +798,10 @@
     "cap_other": {
         "message": "tjetër",
         "description": ""
+    },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
     },
     "cap_x_load": {
         "message": "x-load",

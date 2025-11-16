@@ -64,7 +64,7 @@
         "description": ""
     },
     "AutoAllowTopLevel": {
-        "message": "Автоматически доверять сайтам, загруженным как документ верхнего уровня («АВТОДОВЕРЕННЫЕ»)",
+        "message": "Автоматически доверять сайтам, загруженным как документ верхнего уровня",
         "description": ""
     },
     "AutoTrustedLabel": {
@@ -100,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Каскадное разрешение скриптов третьей стороны",
+        "message": "Автоприменение разрешений документа верхнего уровня к субдокументам и включениям, разрешения для которых не настроены",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Всё, что заблокировано в документе верхнего уровня, \nдолжно быть заблокировано и в его субдокументах",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Каскадн. разреш.",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript перехватил взаимодействие мыши или клавиатуры с частично скрытым элементом. Нажмите на изображение, чтобы увидеть разницу.",
@@ -860,7 +864,7 @@
         "description": ""
     },
     "privilegedPage": {
-        "message": "Это привилегированная страница, разрешения для которой нельзя сконфигурировать.",
+        "message": "Это привилегированная страница, разрешения для которой нельзя настроить.",
         "description": ""
     },
     "incompatibleOptions": {

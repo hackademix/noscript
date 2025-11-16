@@ -67,6 +67,10 @@
         "message": "Imposta i siti principali temporaneamente come FIDATI",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Auto-trusted",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "Ricarica automaticamente le pagine interessate quando i permessi vengono modificati",
         "description": ""
@@ -96,16 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Applica in cascata i permessi del documento principale ai sotto-documenti non ancora configurati",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
-        "message": "Qualsiasi funzionalità bloccata nel documento principale deve essere bloccata anche nei suoi sotto-documenti. ",
+        "message": "Qualsiasi funzionalità bloccata nel documento superiore deve essere bloccata anche nei suoi sotto-documenti. ",
         "description": ""
     },
     "CascadedLabel": {
-        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site",
-        "message": "In cascata"
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript ha trovato una interazione del mouse o della tastiera con un elemento parzialmente nascosto. Clicca sull'immagine qui sotto per scorrere tra la versione ostruita e quella visibile.",
@@ -257,6 +261,18 @@
     },
     "httpsOnly": {
         "message": "Consenti solo contenuti veicolati tramite HTTPS",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "Site outside of a content tab, e.g. in a sidebar",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(sidebar?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Changing permissions in a sidebar will require a MANUAL reload.",
         "description": ""
     },
     "Https": {
@@ -979,6 +995,18 @@
         "message": "Abilitata in tutte le finestre",
         "description": ""
     },
+    "TabGuard_optPromptNever": {
+        "message": "Never prompt before anonymization",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Prompt before anonymizing POST submissions",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Chiedi prima di anonimizzare qualsiasi richiesta",
+        "description": ""
+    },
     "TabGuard_optIncognito": {
         "message": "Abilitata solo nelle finestre di navigazione privata",
         "description": ""
@@ -986,15 +1014,6 @@
     "TabGuard_optDisabled": {
         "message": "Disabilitata",
         "description": ""
-    },
-    "TabGuard_optPromptNever": {
-        "message": "Se necessario anonimizza le richieste senza avvisare"
-    },
-    "TabGuard_optPromptPost": {
-        "message": "Avvisa prima di anonimizzare le richieste con invio di dati (POST)"
-    },
-    "TabGuard_optPromptAlways": {
-        "message": "Avvisa prima di anonimizzare qualunque richiesta"
     },
     "TabGuard_forget": {
         "message": "Dimentica le eccezioni",
