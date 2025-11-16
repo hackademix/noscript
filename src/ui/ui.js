@@ -1254,7 +1254,7 @@ var UI = (() => {
             temp.checked = perms.temp;
           }
         } else if (presetName == "DEFAULT") {
-          if (this.mainUrl  && UI.sync.cascadePermissions) {
+          if (this.mainSite && UI.sync.cascadePermissions && this.mainSite != siteMatch) {
             const label = _("CascadedLabel");
             const title = `${label} ⬊ ${Sites.toExternal(this.mainSite)} ⬊`;
             const widgets = preset.parentNode.querySelectorAll("[title]");
@@ -1262,7 +1262,7 @@ var UI = (() => {
               w.title = title;
               w.textContent &&= label;
             }
-            row._customPerms = perms = UI.policy.get(this.mainUrl, this.mainUrl).perms;
+            row._customPerms = perms = UI.policy.cascade(policy.DEFAULT, this.mainUrl, {permissions: true});
           }
           preset.classList.toggle("canScript", perms.capabilities.has("script"));
         }
