@@ -68,7 +68,7 @@
         "description": ""
     },
     "AutoTrustedLabel": {
-        "message": "Auto-trusted",
+        "message": "Auto-vertrouwd",
         "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
     },
     "AutoReload": {
@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
+        "message": "Toestemmingen van bovenste document automatisch op subdocumenten en nog niet geconfigureerde insluitingen toepassen",
         "description": ""
     },
     "CascadeRestrictions": {
@@ -108,7 +108,7 @@
         "description": ""
     },
     "CascadedLabel": {
-        "message": "Cascaded",
+        "message": "Gecascadeerd",
         "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "ShowProbePlaceholders": {
-        "message": "Show synthetic placeholders for invisible capability probes",
+        "message": "Kunstmatige aanduidingen voor onzichtbare mogelijkheidsonderzoeken tonen",
         "description": ""
     },
     "SectionGeneral": {
@@ -264,15 +264,15 @@
         "description": ""
     },
     "tabLess_tip": {
-        "message": "Site outside of a content tab, e.g. in a sidebar",
+        "message": "Website buiten een inhoudstabblad, bv. in een zijbalk",
         "description": ""
     },
     "tabLess_short": {
-        "message": "(sidebar?)",
+        "message": "(zijbalk?)",
         "description": ""
     },
     "tabLess_reload_warning": {
-        "message": "Changing permissions in a sidebar will require a MANUAL reload.",
+        "message": "Het wijzigen van toestemmingen in een zijbalk vereist HANDMATIG opnieuw laden.",
         "description": ""
     },
     "Https": {
