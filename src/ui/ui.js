@@ -1236,7 +1236,9 @@ var UI = (() => {
             row
               .querySelector(`.presets input[value="${p}"]`)
               .parentNode.querySelector("input.temp").checked = true;
-            perms = policy.TRUSTED.tempTwin;
+            if (perms == policy.TRUSTED) {
+              perms = policy.TRUSTED.tempTwin;
+            }
           }
         }
       }
