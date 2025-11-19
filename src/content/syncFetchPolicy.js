@@ -71,7 +71,7 @@ if (FILE_OR_FTP) {
 
     debug("Initial document state",  document.readyState, document.documentElement, document.head, document.body); // DEV_ONLY
 
-    let mustFreeze = document.head && UA.isMozilla
+    let mustFreeze = UA.isMozilla
       && (!/^(?:image|video|audio)/.test(document.contentType) || document instanceof XMLDocument)
       && document.readyState !== "complete";
 
