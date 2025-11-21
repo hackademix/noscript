@@ -179,13 +179,14 @@
       let topAllowed = !(noscriptFrames && noscriptFrames[0]);
       let numAllowed = 0, numBlocked = 0, sum = 0;
       let report = Permissions.ALL.map(t => {
-        let a = allowed[t] && allowed[t].length || 0,
-            b = blocked[t] && blocked[t].length || 0,
-            s = a + b;
+        const a = allowed[t] && allowed[t].length || 0,
+              b = blocked[t] && blocked[t].length || 0,
+              s = a + b,
+              label = _(`cap_${t}`) || t;
         numAllowed += a;
         numBlocked += b;
         sum += s;
-        return s && `<${t}>: ${b}/${s}`;
+        return s && `<${label}>: ${b}/${s}`;
       }).filter(s => s).join("\n");
       let enforced = ns.isEnforced(tabId);
       let icon = enforced ?
