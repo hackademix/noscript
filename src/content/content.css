@@ -39,7 +39,7 @@ a.__NoScript_PlaceHolder__.mozilla {
   z-index: 2147483647 !important;
 }
 
-.__ns__pop2top.html5-video-container {
+.__ns__pop2top:is(.html5-video-container, #song-video, .ytmusic-player) {
   display: initial !important;
 }
 
