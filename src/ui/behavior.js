@@ -17,12 +17,14 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
-'use strict';
+"use strict";
 (() => {
   const behaviorUI = document.getElementById("behavior");
 
   function showBehaviorUI(show = true) {
-    document.getElementById("noscript-options").classList.toggle("hidden", show);
+    document
+      .getElementById("noscript-options")
+      .classList.toggle("hidden", show);
     behaviorUI.classList.toggle("hidden", !show);
   }
 
@@ -48,81 +50,97 @@
     }
     showBehaviorUI(false);
   });
-  document.querySelector("#current-behavior").onclick = e => {
+  document.querySelector("#current-behavior").onclick = (e) => {
     showBehaviorUI(true);
   };
 
-  const io = new IntersectionObserver(entries => {
-    for (const e of entries) {
-      if (!(e.isIntersecting && e.intersectionRatio > .5)) {
-        behaviorUI.setAttribute("aria-expanded", "false");
-        io.disconnect();
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!(e.isIntersecting && e.intersectionRatio > 0.5)) {
+          behaviorUI.setAttribute("aria-expanded", "false");
+          io.disconnect();
+        }
       }
-    }
-  }, { root: behaviorUI, threshold: .5 });
+    },
+    { root: behaviorUI, threshold: 0.5 },
+  );
   for (const c of behaviorUI.getElementsByClassName("card")) {
     io.observe(c);
   }
   const opts = {};
   for (let o of ["auto", "cascadePermissions"]) {
-    const el = opts[o] = UI.getOptionElement(o);
+    const el = (opts[o] = UI.getOptionElement(o));
     const onchange = el.onchange;
     el.onchange = function (...args) {
       onchange(...args);
       syncFromOpts();
-    }
+    };
   }
   function syncFromOpts() {
-    const behavior =
-      opts.auto.checked
-        ? opts.cascadePermissions.checked
-          ? "defaultAllow"
-          : "auto"
-        : UI.policy.DEFAULT.capabilities.has("script") || opts.cascadePermissions.checked
-          ? "custom"
-          : "defaultDeny"
-      ;
-    const radio = behaviorUI.querySelector(`[name=behavior][value=${behavior}]`);
-    document.getElementById("current-behavior").textContent = _(radio ? `behavior_${behavior}_title` : 'Custom');
+    const behavior = opts.auto.checked
+      ? opts.cascadePermissions.checked
+        ? "defaultAllow"
+        : "auto"
+      : UI.policy.DEFAULT.capabilities.has("script") ||
+          opts.cascadePermissions.checked
+        ? "custom"
+        : "defaultDeny";
+    const radio = behaviorUI.querySelector(
+      `[name=behavior][value=${behavior}]`,
+    );
+    document.getElementById("current-behavior").textContent = _(
+      radio ? `behavior_${behavior}_title` : "Custom",
+    );
     if (radio) {
       radio.checked = true;
     } else {
-      [...document.querySelectorAll("[name=behavior]::checked")].forEach(radio => radio.checked = false);
+      [...document.querySelectorAll("[name=behavior]:checked")].forEach(
+        (radio) => (radio.checked = false),
+      );
     }
   }
 
   syncFromOpts();
   UI.onSettings.addListener(syncFromOpts);
-  document.querySelector("#presets .customizer").addEventListener("change", syncFromOpts);
+  document
+    .querySelector("#presets .customizer")
+    .addEventListener("change", syncFromOpts);
 
-  behaviorUI.addEventListener("change", async e => {
+  behaviorUI.addEventListener("change", async (e) => {
     if (e.target.name != "behavior") return;
+    const settings = { sync: UI.sync };
     let auto, cascadePermissions;
-    switch(e.target.value) {
+    switch (e.target.value) {
       case "defaultDeny":
         auto = cascadePermissions = false;
-      break;
+        if (UI.policy.DEFAULT.capabilities.has("script")) {
+          UI.policy.DEFAULT.capabilities.delete("script");
+          settings.policy = UI.policy;
+          const defaultCanScript = document.querySelector(
+            "#presets .customizing[data-preset=DEFAULT] ~ .customizer .cap[value=script]",
+          );
+          if (defaultCanScript) {
+            defaultCanScript.checked = false;
+          }
+        }
+        break;
       case "auto":
         auto = true;
         cascadePermissions = false;
-      break;
+        break;
       case "defaultAllow":
         auto = true;
         cascadePermissions = true;
-      break;
+        break;
       default:
         // should never happen
         return;
     }
-    opts.cascadePermissions.checked = UI.sync.cascadePermissions = cascadePermissions;
+    opts.cascadePermissions.checked = UI.sync.cascadePermissions =
+      cascadePermissions;
     opts.auto.checked = UI.policy.autoAllowTop = auto;
-    const settings = { sync: UI.sync };
-    if (UI.policy.DEFAULT.capabilities.has("script")) {
-      UI.policy.DEFAULT.capabilities.delete("script");
-      settings.policy = UI.policy;
-    }
     await UI.updateSettings(settings);
     syncFromOpts();
   });
-
 })();
