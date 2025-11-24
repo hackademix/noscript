@@ -987,6 +987,50 @@
         "message": "NoScript è un software libero e gratuito: non esisterebbe senza il tuo aiuto. Dona ora!",
         "description": ""
     },
+    "Onboarding_title": {
+        "message": "Welcome to NoScript",
+        "description": "The onboarding page, constaining the Trust Mode selector, is shown on first run after a CLEAN installation"
+    },
+    "behavior_title": {
+        "message": "Site Classification Behavior",
+        "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
+    },
+    "behavior_label": {
+        "message": "Current site classification behavior:",
+        "description": ""
+    },
+    "behavior_prompt": {
+        "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript.",
+        "description": ""
+    },
+    "behavior_defaultDeny_title": {
+        "message": "STRICT / Default Deny",
+        "description": ""
+    },
+    "behavior_defaultDeny_description": {
+        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as `DEFAULT`, are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as `TRUSTED`, or further customize their capabilities by selecting `CUSTOM`. Cross-site protection are always enforced.",
+        "description": ""
+    },
+    "behavior_auto_title": {
+        "message": "EASIER / Auto",
+        "description": ""
+    },
+    "behavior_auto_description": {
+        "message": "A compromise between security and convenience: the-top level site, whose address is shown in the navigation bar, is automatically promoted to `Temporarily TRUSTED` unless already manually classified. 3d party sites still need to be classified manually. Cross-site protection are always enforced.",
+        "description": ""
+    },
+    "behavior_defaultAllow_title": {
+        "message": "EASIEST / Default allow",
+        "description": ""
+    },
+    "behavior_defaultAllow_description": {
+        "message": "The most relaxed behavior: unclassified top-level sites are promoted to `Temporarily TRUSTED`, and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as `UNTRUSTED` and `CUSTOM` are not affected. Cross-site protection are always enforced.",
+        "description": ""
+    },
+    "Modify": {
+        "message": "Modifica",
+        "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
+    },
     "TabGuard_label": {
         "message": "Protezione dallo svelamento dell'identità nella navigazione tra schede",
         "description": ""
