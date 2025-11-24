@@ -700,7 +700,7 @@
     "message": "You're about to ask for information about the \"$1\" site\nby submitting a query to $2.\nDo you want to continue?"
   },
   "siteInfo_tooltip": {
-    "message": "Middle-click or shift+click for site info..."
+    "message": "Middle-click or shift+click for site info…"
   },
   "sponsor_tip": {
     "message": "Visit sponsor home page"
@@ -746,8 +746,8 @@
   },
 
   "Onboarding_title": {
-    "message": "Welcome to NoScript",
-    "description": "The onboarding page, constaining the Trust Mode selector, is shown on first run after a CLEAN installation"
+    "message": "Welcome to NoScript!",
+    "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
   },
   "behavior_title": {
     "message": "Site Classification Behavior",
@@ -816,5 +816,11 @@
   },
   "TabGuard_optAllow": {
     "message": "Load normally"
+  },
+  "LearnMoreLink": {
+    "message": "Learn more…"
+  },
+  "HelpLink": {
+    "message": "Help…"
   }
 }

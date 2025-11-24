@@ -33,6 +33,9 @@
 
   const isOnboarding = document.URL.includes("onboarding");
   if (isOnboarding) {
+    behaviorUI.appendChild(
+      document.querySelector(".donate.button").cloneNode(true),
+    );
     document.documentElement.classList.add("onboarding");
     showBehaviorUI();
   } else {

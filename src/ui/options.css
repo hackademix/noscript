@@ -257,6 +257,7 @@ a {
 .opt-group > label:first-child {
   padding-left: 1em;
 }
+
 button.close {
   text-indent: -5000px;
   background: var(--tab-color1) var(--img-ui-close) no-repeat center/1.5em;
@@ -278,7 +279,6 @@ button.close {
   pointer-events: none;
   display: none;
 }
-
 
 #behavior {
   position: fixed;
@@ -390,4 +390,10 @@ input.reveal::after {
   --max-height: 100vh;
   --fade-start: 100%;
   --cursor: normal;
+}
+
+#behavior > .donate {
+  position: absolute;
+  top: .5em;
+  right: 5.5em;
 }
