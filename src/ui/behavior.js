@@ -18,14 +18,20 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 'use strict';
-{
+(() => {
   const behaviorUI = document.getElementById("behavior");
-  const isOnboarding = document.URL.includes("onboarding");
+
   function showBehaviorUI(show = true) {
     document.getElementById("noscript-options").classList.toggle("hidden", show);
     behaviorUI.classList.toggle("hidden", !show);
   }
 
+  if (UI.local.isTorBrowser) {
+    showBehaviorUI(false);
+    return;
+  }
+
+  const isOnboarding = document.URL.includes("onboarding");
   if (isOnboarding) {
     document.documentElement.classList.add("onboarding");
     showBehaviorUI();
@@ -58,21 +64,21 @@
   for (let o of ["auto", "cascadePermissions"]) {
     const el = opts[o] = UI.getOptionElement(o);
     const onchange = el.onchange;
-    el.onchange = function(...args) {
+    el.onchange = function (...args) {
       onchange(...args);
       syncFromOpts();
     }
   }
   function syncFromOpts() {
     const behavior =
-    opts.auto.checked
-    ? opts.cascadePermissions.checked
-      ? "defaultAllow"
-      : "auto"
-    : UI.policy.DEFAULT.capabilities.has("script") || opts.cascadePermissions.checked
-      ? "custom"
-      : "defaultDeny"
-    ;
+      opts.auto.checked
+        ? opts.cascadePermissions.checked
+          ? "defaultAllow"
+          : "auto"
+        : UI.policy.DEFAULT.capabilities.has("script") || opts.cascadePermissions.checked
+          ? "custom"
+          : "defaultDeny"
+      ;
     const radio = behaviorUI.querySelector(`[name=behavior][value=${behavior}]`);
     document.getElementById("current-behavior").textContent = _(radio ? `behavior_${behavior}_title` : 'Custom');
     if (radio) {
@@ -83,4 +89,4 @@
   syncFromOpts();
   UI.onSettings.addListener(syncFromOpts);
   document.querySelector("#presets .customizer").addEventListener("change", syncFromOpts);
-}
+})();
