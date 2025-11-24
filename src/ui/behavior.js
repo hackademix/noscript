@@ -103,20 +103,24 @@
 
   syncFromOpts();
   UI.onSettings.addListener(syncFromOpts);
-  document
-    .querySelector("#presets .customizer")
-    .addEventListener("change", syncFromOpts);
+  document.querySelector("#presets").addEventListener("change", (e) => {
+    if (
+      e.target.matches(".cap[value=script]") &&
+      document.querySelector(".customizing[data-preset='DEFAULT']")
+    ) {
+      syncFromOpts();
+    }
+  });
 
   behaviorUI.addEventListener("change", async (e) => {
     if (e.target.name != "behavior") return;
-    const settings = { sync: UI.sync };
+    const settings = { sync: UI.sync, policy: UI.policy };
     let auto, cascadePermissions;
     switch (e.target.value) {
       case "defaultDeny":
         auto = cascadePermissions = false;
         if (UI.policy.DEFAULT.capabilities.has("script")) {
           UI.policy.DEFAULT.capabilities.delete("script");
-          settings.policy = UI.policy;
           const defaultCanScript = document.querySelector(
             "#presets .customizing[data-preset=DEFAULT] ~ .customizer .cap[value=script]",
           );
