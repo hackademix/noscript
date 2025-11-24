@@ -83,10 +83,42 @@
     document.getElementById("current-behavior").textContent = _(radio ? `behavior_${behavior}_title` : 'Custom');
     if (radio) {
       radio.checked = true;
+    } else {
+      [...document.querySelectorAll("[name=behavior]::checked")].forEach(radio => radio.checked = false);
     }
   }
 
   syncFromOpts();
   UI.onSettings.addListener(syncFromOpts);
   document.querySelector("#presets .customizer").addEventListener("change", syncFromOpts);
+
+  behaviorUI.addEventListener("change", async e => {
+    if (e.target.name != "behavior") return;
+    let auto, cascadePermissions;
+    switch(e.target.value) {
+      case "defaultDeny":
+        auto = cascadePermissions = false;
+      break;
+      case "auto":
+        auto = true;
+        cascadePermissions = false;
+      break;
+      case "defaultAllow":
+        auto = true;
+        cascadePermissions = true;
+      break;
+      default:
+        // should never happen
+        return;
+    }
+    opts.cascadePermissions.checked = UI.sync.cascadePermissions = cascadePermissions;
+    opts.auto.checked = UI.policy.autoAllowTop = auto;
+    const settings = { sync: UI.sync };
+    if (UI.policy.DEFAULT.capabilities.has("script")) {
+      UI.policy.DEFAULT.capabilities.delete("script");
+      settings.policy = UI.policy;
+    }
+    await UI.updateSettings(settings);
+  });
+
 })();
