@@ -68,6 +68,9 @@ body {
 section fieldset {
   margin: 1em 0;
   padding: .5em 1em;
+  border: 0;
+  border-radius: .5em;
+  background: var(--tab-color1)
 }
 
 section > form {
@@ -81,7 +84,7 @@ fieldset:disabled {
 .sect-sites form {
   display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
 }
 
@@ -127,6 +130,7 @@ input, button {
 button.add {
   font-size: 1.4em;
   padding: .2em .4em;
+  margin: 0;
 }
 
 #import-container {
@@ -190,7 +194,12 @@ button.add {
   color: var(--fg-color2);
 }
 
-@media (max-width: 440px) {
+.flextabs__content {
+  padding: .5em;
+  border-radius: 0 .5em .5em .5em;
+}
+
+@media (max-width: 550px) {
   .flextabs__toggle {
     border-radius: 1em;
     margin: -1em 0 0 0;
@@ -201,22 +210,23 @@ button.add {
     z-index: 1;
     position: relative;
   }
-
-  body {
-    background-size: 6em;
+  #current-behavior {
+    display: block;
+    margin: .5em 1em;
   }
-  #header {
+  .flextabs__content {
+    padding: 0;
+    border-radius: .5em;
+  }
+  .opt-group > span {
     margin: 0;
   }
-  #header > .title {
-    margin-right: 6em;
+  section fieldset {
+    padding: 0;
   }
 }
 
-.flextabs__content {
-  padding: .5em;
-  border-radius: 0 .5em .5em .5em;
-}
+
 
 #xss-options {
   display: none;
@@ -264,8 +274,8 @@ button.close {
   position: fixed;
   top: 0;
   right: 0;
-  width: 2em;
-  height: 2em;
+  width: 2.5em;
+  height: 2.5em;
   appearance: none;
   margin: 1em;
 }
