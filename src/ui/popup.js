@@ -333,7 +333,7 @@ addEventListener("unload", e => {
       optionsClosed = true;
     };
     initSitesUI();
-    UI.onSettings = initSitesUI;
+    UI.onSettings.addListener(initSitesUI);
 
     if (UI.shouldForget) {
       // PBM or forgetful browser (Tor/Mullvad)

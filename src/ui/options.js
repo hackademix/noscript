@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2025 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -31,7 +31,7 @@ document.querySelector("#version").textContent = _("Version",
 
   // simple general options
 
-  let opt = UI.wireOption;
+  const opt = UI.wireOption;
 
   opt("global", o => {
     if (o) {
@@ -190,10 +190,12 @@ document.querySelector("#version").textContent = _("Version",
 
   // SITES UI
   let sitesUI = new UI.Sites(document.getElementById("sites"));
-  UI.onSettings = () => {
+
+  UI.onSettings.addListener(() => {
     policy = UI.policy;
     sitesUI.render(policy.sites);
-  }
+  });
+
   {
     sitesUI.onChange = () => {
       if (UI.local.debug) {

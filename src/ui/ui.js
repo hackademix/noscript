@@ -21,8 +21,22 @@
 'use strict';
 var UI = (() => {
 
+  const settingsListeners = new Set();
+  const notifySettings = async () => {
+    await Promise.allSettled([...settingsListeners]);
+  }
+
   var UI = {
     initialized: false,
+
+    onSettings: {
+      addListener(l) {
+        settingsListeners.add(l);
+      },
+      removeListener(l) {
+        settinsListeners.delete(l);
+      }
+    },
 
     presets: {
       "DEFAULT": "Default",
@@ -86,7 +100,7 @@ var UI = (() => {
               }
             }
             resolve();
-            if (UI.onSettings) await UI.onSettings();
+            await notifySettings();
             await HighContrast.init();
             if (UI.tabId === -1 || UI.xssBlockedInTab) UI.createXSSChoiceManager();
           }
