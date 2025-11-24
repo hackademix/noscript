@@ -281,7 +281,9 @@ button.close {
 }
 
 .modifier::after {
-  content: " 𝌡";
+  content: " ≡ ";
+  color: var(--text-color);
+  font-weight: normal;
 }
 
 .hidden {
