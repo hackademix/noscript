@@ -20,6 +20,7 @@
 "use strict";
 (() => {
   const behaviorUI = document.getElementById("behavior");
+  const isOnboarding = document.URL.includes("onboarding");
 
   function showBehaviorUI(show = true) {
     document
@@ -28,12 +29,18 @@
     behaviorUI.classList.toggle("hidden", !show);
   }
 
-  if (UI.local.isTorBrowser) {
+  async function close() {
+    if (isOnboarding) {
+      await browser.tabs.remove((await browser.tabs.getCurrent()).id);
+      return;
+    }
     showBehaviorUI(false);
-    return;
   }
 
-  const isOnboarding = document.URL.includes("onboarding");
+  if (UI.local.isTorBrowser) {
+    close();
+  }
+
   if (isOnboarding) {
     behaviorUI.appendChild(
       document.querySelector(".donate.button").cloneNode(true),
@@ -43,13 +50,9 @@
   } else {
     showBehaviorUI(false);
   }
-  behaviorUI.querySelector(".close")?.addEventListener("click", async (e) => {
-    if (isOnboarding) {
-      browser.tabs.remove((await browser.tabs.getCurrent()).id);
-      return;
-    }
-    showBehaviorUI(false);
-  });
+
+  behaviorUI.querySelector(".close")?.addEventListener("click", close);
+
   document.querySelector("#current-behavior").onclick = (e) => {
     showBehaviorUI(true);
   };

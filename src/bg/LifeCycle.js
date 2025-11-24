@@ -271,13 +271,24 @@ var LifeCycle = (() => {
         }));
       }
 
-      let {reason, previousVersion} = details;
-      if (reason === "update") {
-        try {
-          await LifeBoat.retrieveAndDestroy();
-        } catch (e) {
-          error(e);
-        }
+      const { reason, previousVersion } = details;
+      switch (reason) {
+        case "install":
+          await ns.initializing;
+          if (!ns.local.isTorBrowser) {
+            browser.tabs.create({
+              url: browser.runtime.getManifest()
+                    .options_ui.page + "#onboarding",
+            });
+          }
+          return;
+        case "update":
+          try {
+            await LifeBoat.retrieveAndDestroy();
+          } catch (e) {
+            error(e);
+          }
+          break;
       }
 
       if (!previousVersion) return;

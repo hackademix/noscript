@@ -166,6 +166,7 @@ input:disabled, button:disabled, select:disabled {
 
 .donate:hover {
   transform: scale(1.8);
+  text-shadow: var(--bg-color2) 1px 1px 3px, -1px -1px 3px, -1px 0 3px, 1px 0 3px;
 }
 
 .donate:before {
