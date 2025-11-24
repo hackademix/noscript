@@ -173,8 +173,6 @@ document.querySelector("#version").textContent = _("Version",
     }
   });
 
-  include("/ui/behavior.js");
-
   // PRESET CUSTOMIZER
   {
     let parent = document.getElementById("presets");
@@ -235,6 +233,8 @@ document.querySelector("#version").textContent = _("Version",
         sitesUI.onChange();
       }
     }, true);
+
+    include("/ui/behavior.js");
   }
 
   window.setTimeout(() => {
