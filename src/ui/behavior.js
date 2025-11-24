@@ -53,7 +53,9 @@
 
   behaviorUI.querySelector(".close")?.addEventListener("click", close);
 
-  document.querySelector("#current-behavior").onclick = (e) => {
+  const currentBehavior = document.getElementById("current-behavior");
+
+  currentBehavior.onclick = (e) => {
     showBehaviorUI(true);
   };
 
@@ -92,9 +94,10 @@
     const radio = behaviorUI.querySelector(
       `[name=behavior][value=${behavior}]`,
     );
-    document.getElementById("current-behavior").textContent = _(
+    currentBehavior.textContent = _(
       radio ? `behavior_${behavior}_title` : "Custom",
     );
+    currentBehavior.dataset.behavior = behavior;
     if (radio) {
       radio.checked = true;
     } else {

@@ -390,6 +390,7 @@ input.reveal::after {
   display: block;
 }
 
+#current-behavior,
 #behavior > .content > :is(.card):has(label>input[name="behavior"]:checked) {
   background-color: var(--tab-color1);
   background-color: rgba(from var(--tab-color1) r g b / 50%);
@@ -406,4 +407,18 @@ input.reveal::after {
   position: absolute;
   top: .5em;
   right: 5.5em;
+}
+
+[value=defaultDeny] ~ h2, [data-behavior=defaultDeny] {
+  --behavior-color: red;
+}
+[value=auto] ~ h2, [data-behavior=auto] {
+  --behavior-color: yellow;
+}
+[value=defaultAllow] ~ h2, [data-behavior=defaultAllow] {
+  --behavior-color: green;
+}
+
+#current-behavior, .card h2 {
+  color: color-mix(in hsl, currentColor, var(--behavior-color) 70%);
 }
