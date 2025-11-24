@@ -119,6 +119,7 @@
       settings.policy = UI.policy;
     }
     await UI.updateSettings(settings);
+    syncFromOpts();
   });
 
 })();
