@@ -173,6 +173,7 @@ document.querySelector("#version").textContent = _("Version",
     }
   });
 
+  include("/ui/behavior.js");
 
   // PRESET CUSTOMIZER
   {

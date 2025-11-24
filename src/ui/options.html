@@ -24,7 +24,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
 <script src="/lib/flextabs.js"></script>
 <script src="/ui/ui.js"></script>
 </head>
-<body id="noscript-options">
+<body>
+<div id="noscript-options" class="hidden">
 <div id="header">
 <div class="title">
 <h1>__MSG_OptionsLong__</h1>
@@ -46,6 +47,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
 <h3 class="flextabs__tab"><button class="flextabs__toggle">__MSG_SectionGeneral__</button></h3>
 <div class="flextabs__content flextabs__content--active--last">
   <section id="sect-general">
+  <div class="opt-group">
+    <label aria-expanded="false"><span>__MSG_behavior_label__</span><button class="modifier" id="current-behavior">__MSG_Custom__</button></label>
+  </div>
   <div class="opt-group">
     <span id="global-opt">
     <input type="checkbox" id="opt-global"><label for="opt-global" id="lbl-global">__MSG_NoEnforcement__</label>
@@ -196,7 +200,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
        <input id="tgm-always" type="radio" name="TabGuardPrompt" value="always"/><label for="tgm-always">__MSG_TabGuard_optPromptAlways__</label>
       </span>
     </div>
-    <div id="tgForget"><button id="tgForgetButton">__MSG_TabGuard_forget__</button></div>
+    <div id="tgForget" class="opt-group"><button id="tgForgetButton">__MSG_TabGuard_forget__</button></div>
     </fieldset>
   </section>
 
@@ -205,7 +209,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <span><input type="checkbox" id="opt-debug"><label id="label-debug" for="opt-debug">Debug</label></span>
   </div>
   </section>
-  <div  id="debug-tools" class="debug">
+  <div id="debug-tools" class="debug">
     <label for="policy">Policy:</label>
     <div id="policy-error"></div>
     <textarea id="policy" class="browser-style">
@@ -213,6 +217,46 @@ SPDX-License-Identifier: GPL-3.0-or-later
   </div>
 
 </div>
+</div>
+</div>
+<div id="behavior" class="hidden">
+  <div class="content">
+  <h1 class="onboarding">__MSG_Onboarding_title__</h1>
+  <h2>__MSG_behavior_title__</h2>
+  <p>__MSG_behavior_prompt__</p>
+  <div class="card">
+    <label>
+      <input type="radio" name="behavior" value="defaultDeny">
+      <h2>__MSG_behavior_defaultDeny_title__</h2>
+    </label>
+    <label>
+       <input type="checkbox" class="reveal">
+       <p>__MSG_behavior_defaultDeny_description__</p>
+    </label>
+  </div>
+  <div class="card">
+    <label>
+      <input type="radio" name="behavior" value="auto">
+      <h2>__MSG_behavior_auto_title__</h2>
+    </label>
+    <label>
+       <input type="checkbox" class="reveal">
+       <p>__MSG_behavior_auto_description__</p>
+    </label>
+  </div>
+  <div class="card">
+    <label>
+      <input type="radio" name="behavior" value="defaultAllow">
+      <h2>__MSG_behavior_defaultAllow_title__</h2>
+    </label>
+    <label>
+       <input type="checkbox" class="reveal">
+       <p>__MSG_behavior_defaultAllow_description__</p>
+    </label>
+  </div>
+  </div>
+  <button class="close">__MSG_Close__</button>
+  <div class="bg"></div>
 </div>
 <script src="/nscl/service/persistent-tabs.js"></script>
 <script src="options.js"></script>
