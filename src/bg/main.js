@@ -340,7 +340,7 @@
       if (policy) {
         const policyMatch = policy.get(url, contextUrl);
         let { perms } = policyMatch;
-        if (isTop && policy.autoAllow && topUrl == url) {
+        if (isTop && policy.autoAllowTop && topUrl == url) {
           const autoPerms = policy.autoAllow(url, perms);
           const dnrRulesBefore = (await browser.declarativeNetRequest?.getSessionRules())?.filter(r => r?.action?.type == "allow"); // DEV_ONLY
           if (autoPerms) {
