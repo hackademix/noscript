@@ -67,6 +67,10 @@
         "message": "Termeniñ evit ur mareig al lec'hiennoù pennañ war FIZIET",
         "description": ""
     },
+    "AutoTrustedLabel": {
+        "message": "Auto-trusted",
+        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+    },
     "AutoReload": {
         "message": "Em-freskaat ar pajennoù merket pa cheñch an aotreadurioù",
         "description": ""
@@ -96,12 +100,16 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Aotreadurioù e skaleriad an teul uhel war skriptoù 3tredeoù",
+        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
         "description": ""
     },
     "CascadeRestrictions": {
         "message": "Forzh peseurt arc'hweladur a vefe stanket en teuliad pennañ a vo stanket ivez en isteuliadoù ivez",
         "description": ""
+    },
+    "CascadedLabel": {
+        "message": "Cascaded",
+        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
     },
     "ClearClickDescription": {
         "message": "NoScript en deus dastapet un etregwerad logodenn pe glavier gant un elfenn peuz-goachet. Klikit war ar skeudenn dindan evit merdeiñ etre ar stumm stanket hag ar stumm sklaer.",
@@ -207,12 +215,16 @@
         "message": "Listenn ar chomlec'hioù klok e-barzh prenestr kendestennel an aotreadurioù (https://www.noscript.net)",
         "description": ""
     },
+    "ShowProbePlaceholders": {
+        "message": "Show synthetic placeholders for invisible capability probes",
+        "description": ""
+    },
     "SectionGeneral": {
         "message": "Hollek",
         "description": ""
     },
     "NotEnforced": {
-        "message": "Strishadurioù lazhet",
+        "message": "Restrictions disabled by user's settings: NoScript won't block anything on this page!",
         "description": ""
     },
     "NoEnforcement": {
@@ -223,6 +235,10 @@
         "message": "Enaouiñ ar strishadurioù en un doare hollek",
         "description": ""
     },
+    "EnforceOnRestart": {
+        "message": "Restore restrictions on browser restart",
+        "description": ""
+    },
     "NoEnforcementForTab": {
         "message": "Lazhañ ar strishadurioù evit an ivinell-mañ",
         "description": ""
@@ -231,12 +247,32 @@
         "message": "Enaouiñ ar strishadurioù evit an ivinell-mañ",
         "description": ""
     },
+    "toggleEnforcementForTab": {
+        "message": "Toggle restrictions enforcement for current tab",
+        "description": ""
+    },
+    "pagePermissionsUI": {
+        "message": "Configure current page's permissions",
+        "description": ""
+    },
     "HighContrast": {
         "message": "Dargemm uhel",
         "description": ""
     },
     "httpsOnly": {
         "message": "Klotañ a ra gant an endalc'had HTTPS hepken",
+        "description": ""
+    },
+    "tabLess_tip": {
+        "message": "Site outside of a content tab, e.g. in a sidebar",
+        "description": ""
+    },
+    "tabLess_short": {
+        "message": "(sidebar?)",
+        "description": ""
+    },
+    "tabLess_reload_warning": {
+        "message": "Changing permissions in a sidebar will require a MANUAL reload.",
         "description": ""
     },
     "Https": {
@@ -747,6 +783,10 @@
         "message": "noscript",
         "description": ""
     },
+    "cap_lazy_load": {
+        "message": "lazy load",
+        "description": ""
+    },
     "cap_unchecked_css": {
         "message": "unrestricted CSS",
         "description": ""
@@ -758,6 +798,14 @@
     "cap_other": {
         "message": "traoù all",
         "description": ""
+    },
+    "cap_wasm": {
+        "message": "wasm",
+        "description": "WebAssembly modules compilation and execution capability."
+    },
+    "cap_x_load": {
+        "message": "x-load",
+        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
     },
     "changelog": {
         "message": "Cheñchamantoù",
@@ -880,7 +928,7 @@
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Klik-kreiz pe Pennlizh+klik evit muioc'h a ditouroù...",
+        "message": "Middle-click or shift+click for site info…",
         "description": ""
     },
     "sponsor_tip": {
@@ -919,12 +967,124 @@
         "message": "Auto",
         "description": ""
     },
+    "ModernRed": {
+        "message": "Modern Red",
+        "description": ""
+    },
+    "VintageBlue": {
+        "message": "Vintage Blue",
+        "description": ""
+    },
+    "toVintageBlue": {
+        "message": "Switch to the Vintage Blue style",
+        "description": ""
+    },
     "DonateShort": {
         "message": "Reiñ arc'hant",
         "description": ""
     },
     "DonateLong": {
         "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
+        "description": ""
+    },
+    "Onboarding_title": {
+        "message": "Welcome to NoScript!",
+        "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
+    },
+    "behavior_title": {
+        "message": "Site Classification Behavior",
+        "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
+    },
+    "behavior_label": {
+        "message": "Current site classification behavior:",
+        "description": ""
+    },
+    "behavior_prompt": {
+        "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript.",
+        "description": ""
+    },
+    "behavior_defaultDeny_title": {
+        "message": "STRICT / Default Deny",
+        "description": ""
+    },
+    "behavior_defaultDeny_description": {
+        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced.",
+        "description": ""
+    },
+    "behavior_auto_title": {
+        "message": "EASIER / Auto",
+        "description": ""
+    },
+    "behavior_auto_description": {
+        "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced.",
+        "description": ""
+    },
+    "behavior_defaultAllow_title": {
+        "message": "EASIEST / Default allow",
+        "description": ""
+    },
+    "behavior_defaultAllow_description": {
+        "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced.",
+        "description": ""
+    },
+    "Modify": {
+        "message": "Modify",
+        "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
+    },
+    "TabGuard_label": {
+        "message": "Cross-tab identity leak protection",
+        "description": ""
+    },
+    "TabGuard_optEnabled": {
+        "message": "Enabled everywhere",
+        "description": ""
+    },
+    "TabGuard_optPromptNever": {
+        "message": "Never prompt before anonymization",
+        "description": ""
+    },
+    "TabGuard_optPromptPost": {
+        "message": "Prompt before anonymizing POST submissions",
+        "description": ""
+    },
+    "TabGuard_optPromptAlways": {
+        "message": "Prompt before anonymizing any request",
+        "description": ""
+    },
+    "TabGuard_optIncognito": {
+        "message": "Enabled in Private Browsing only",
+        "description": ""
+    },
+    "TabGuard_optDisabled": {
+        "message": "Diweredekaet",
+        "description": ""
+    },
+    "TabGuard_forget": {
+        "message": "Forget decisions",
+        "description": ""
+    },
+    "TabGuard_title": {
+        "message": "Potential Identity Leak",
+        "description": ""
+    },
+    "TabGuard_message": {
+        "message": "You are about to load a page from $1.\nIf you are a $1 logged-in user, information about your identity might be acquired by $2.",
+        "description": ""
+    },
+    "TabGuard_optAnonymize": {
+        "message": "Load anonymously",
+        "description": ""
+    },
+    "TabGuard_optAllow": {
+        "message": "Load normally",
+        "description": ""
+    },
+    "LearnMoreLink": {
+        "message": "Learn more…",
+        "description": ""
+    },
+    "HelpLink": {
+        "message": "Help…",
         "description": ""
     }
 }
