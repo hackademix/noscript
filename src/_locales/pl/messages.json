@@ -928,7 +928,7 @@
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Kliknięcie środkowym przyciskiem myszy lub shift+kliknięcie w celu uzyskania informacji o witrynie ...",
+        "message": "Middle-click or shift+click for site info…",
         "description": ""
     },
     "sponsor_tip": {
@@ -988,8 +988,8 @@
         "description": ""
     },
     "Onboarding_title": {
-        "message": "Welcome to NoScript",
-        "description": "The onboarding page, constaining the Trust Mode selector, is shown on first run after a CLEAN installation"
+        "message": "Welcome to NoScript!",
+        "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
     },
     "behavior_title": {
         "message": "Site Classification Behavior",
@@ -1008,7 +1008,7 @@
         "description": ""
     },
     "behavior_defaultDeny_description": {
-        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as `DEFAULT`, are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as `TRUSTED`, or further customize their capabilities by selecting `CUSTOM`. Cross-site protection are always enforced.",
+        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced.",
         "description": ""
     },
     "behavior_auto_title": {
@@ -1016,7 +1016,7 @@
         "description": ""
     },
     "behavior_auto_description": {
-        "message": "A compromise between security and convenience: the-top level site, whose address is shown in the navigation bar, is automatically promoted to `Temporarily TRUSTED` unless already manually classified. 3d party sites still need to be classified manually. Cross-site protection are always enforced.",
+        "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced.",
         "description": ""
     },
     "behavior_defaultAllow_title": {
@@ -1024,7 +1024,7 @@
         "description": ""
     },
     "behavior_defaultAllow_description": {
-        "message": "The most relaxed behavior: unclassified top-level sites are promoted to `Temporarily TRUSTED`, and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as `UNTRUSTED` and `CUSTOM` are not affected. Cross-site protection are always enforced.",
+        "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced.",
         "description": ""
     },
     "Modify": {
@@ -1077,6 +1077,14 @@
     },
     "TabGuard_optAllow": {
         "message": "Ładuj normalnie",
+        "description": ""
+    },
+    "LearnMoreLink": {
+        "message": "Learn more…",
+        "description": ""
+    },
+    "HelpLink": {
+        "message": "Pomoc...",
         "description": ""
     }
 }
