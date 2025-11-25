@@ -278,7 +278,7 @@ var LifeCycle = (() => {
           if (!ns.local.isTorBrowser) {
             browser.tabs.create({
               url: browser.runtime.getManifest()
-                    .options_ui.page + "#onboarding",
+                    .options_ui.page + "?onboarding",
             });
           }
           return;

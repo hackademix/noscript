@@ -71,6 +71,7 @@ document.querySelector("#version").textContent = _("Version",
         ev.target.disabled = true;
         document.querySelector("#main-tabs").style.visibility = "hidden";
         await UI.updateSettings({local: null, sync: null, xssUserChoices: {}});
+        location.search = "onboarding";
       }
     });
 
@@ -88,7 +89,7 @@ document.querySelector("#version").textContent = _("Version",
         location.reload();
       }
       fr.readAsText(fileInput.files[0]);
-    }
+    };
 
     document.querySelector("#btn-import").addEventListener("click", async e => {
       fileInput.focus();
