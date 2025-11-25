@@ -240,7 +240,11 @@ button.add {
   }
 }
 
-
+#opt-global:checked ~ label {
+  color: #ff8;
+  background-color:#800;
+  box-shadow: #800 0 0 .25em .25em;
+}
 
 #xss-options {
   display: none;
