@@ -74,7 +74,7 @@
     io.observe(c);
   }
   const opts = {};
-  for (let o of ["auto", "cascadePermissions"]) {
+  for (let o of ["global", "auto", "cascadePermissions"]) {
     const el = (opts[o] = UI.getOptionElement(o));
     const onchange = el.onchange;
     el.onchange = function (...args) {
@@ -83,14 +83,16 @@
     };
   }
   function syncFromOpts() {
-    const behavior = opts.auto.checked
-      ? opts.cascadePermissions.checked
-        ? "defaultAllow"
-        : "auto"
-      : UI.policy.DEFAULT.capabilities.has("script") ||
-          opts.cascadePermissions.checked
-        ? "custom"
-        : "defaultDeny";
+    const behavior = opts.global.checked
+      ? "custom"
+      : opts.auto.checked
+        ? opts.cascadePermissions.checked
+          ? "defaultAllow"
+          : "auto"
+        : UI.policy.DEFAULT.capabilities.has("script") ||
+            opts.cascadePermissions.checked
+          ? "custom"
+          : "defaultDeny";
     const radio = behaviorUI.querySelector(
       `[name=behavior][value=${behavior}]`,
     );
@@ -147,6 +149,7 @@
         // should never happen
         return;
     }
+    opts.global.checked = UI.sync.global = false;
     opts.cascadePermissions.checked = UI.sync.cascadePermissions =
       cascadePermissions;
     opts.auto.checked = UI.policy.autoAllowTop = auto;
