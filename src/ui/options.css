@@ -10,7 +10,21 @@ body {
   margin: 0;
 }
 
+#bg {
+  position: fixed;
+  inset: 25vh 0 0 25vh;
+  width: 75vw;
+  height: 75vh;
+  background: url(/img/logo-full.svg) no-repeat bottom right/contain;
+  z-index: 0;
+  filter: blur(1.5px) opacity(.1);
+}
+
 #noscript-options {
+  position: fixed;
+  z-index: 500;
+  inset: 0;
+  overflow: auto;
   background: var(--img-noscript-options) no-repeat top right;
   background-size: 7em;
   display: block;
@@ -295,30 +309,12 @@ button.close {
 #behavior {
   position: fixed;
   z-index: 1000;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--bg-color2);
+  inset: 0;
   margin: 0;
   padding: 0;
   overflow: auto;
   display: initial;
   transition: opacity .5s allow-discrete;
-}
-
-#behavior > .bg {
-  background: url(/img/logo-full.svg) no-repeat bottom right/contain;
-  /* background-size: contain */
-  z-index: 0;
-  filter: blur(1.5px) opacity(.1);
-  position: fixed;
-  top: 25vh;
-  right: 0;
-  left: 25vw;
-  bottom: 0;
-  width: 75vw;
-  height: 75vh;
 }
 
 #behavior > .content {
@@ -335,6 +331,13 @@ button.close {
   padding: 0;
 }
 
+#behavior h2 {
+  font-size: 2em;
+}
+
+#behavior h3 {
+  font-size: 1.4em;
+}
 #behavior input[type=radio] {
   font-size: 2em;
   margin: .5em;
@@ -351,17 +354,24 @@ button.close {
   cursor: pointer;
   padding: .5em;
   border: 1px solid transparent;
+  background-color: var(--tab-color2);
+  background-color: rgba(from var(--tab-color2) r g b / 20%);
   --max-height: 5vh;
   --fade-start: 50%;
   --cursor: s-resize;
+  margin: 1em 0;
 }
 .card > label {
   display: flex;
   flex-direction: row;
   position: relative;
+  padding: 0;
+  margin: 0;
 }
 .card  p {
-  padding: 0 1.5em;
+  padding: 0;
+  margin: 0 1.5em;
+  border-radius: 0 0 1em 1em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -370,22 +380,17 @@ button.close {
   mask-image: linear-gradient(to bottom, white var(--fade-start), transparent);
   cursor: var(--cursor);
 }
-input.reveal {
+
+.card input.reveal {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 0;
   visibility: hidden;
   display: none;
   appearance: none;
   border: 0;
-}
-
-input.reveal::after {
-  content: "v";
-  font-weight: bold;
-  opacity: .8;
-  font-size: 1.5em;
-  text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 [aria-expanded=false] input.reveal {
@@ -407,20 +412,21 @@ input.reveal::after {
 
 #behavior > .donate {
   position: absolute;
-  top: .5em;
-  right: 5.5em;
+  top: 0em;
+  right: 4em;
+  z-index: 10;
 }
 
-[value=defaultDeny] ~ h2, [data-behavior=defaultDeny] {
+[value=defaultDeny] ~ h3, [data-behavior=defaultDeny] {
   --behavior-color: red;
 }
-[value=auto] ~ h2, [data-behavior=auto] {
-  --behavior-color: yellow;
+[value=auto] ~ h3, [data-behavior=auto] {
+  --behavior-color: orange;
 }
-[value=defaultAllow] ~ h2, [data-behavior=defaultAllow] {
+[value=defaultAllow] ~ h3, [data-behavior=defaultAllow] {
   --behavior-color: green;
 }
 
-#current-behavior, .card h2 {
+#current-behavior, .card h3 {
   color: color-mix(in hsl, currentColor, var(--behavior-color) 70%);
 }

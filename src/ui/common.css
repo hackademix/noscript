@@ -58,7 +58,7 @@ input[type="text"], textarea, select {
   margin: 0.5em;
 }
 
-input[type="checkbox"]:not(.https-only, .temp) {
+input[type="checkbox"]:not(.https-only, .temp, .reveal) {
   -webkit-appearance: none;
   appearance: none;
   margin: .4em;
@@ -75,7 +75,7 @@ input[type="checkbox"]:not(.https-only, .temp) {
   background-color: var(--form-color1);
 }
 
-input[type="checkbox"]:not(.https-only, .temp)::before {
+input[type="checkbox"]:not(.https-only, .temp, .reveal)::before {
   content: "";
   width: 0.7em;
   height: 0.7em;
@@ -86,10 +86,10 @@ input[type="checkbox"]:not(.https-only, .temp)::before {
   box-shadow: inset 1em 1em var(--form-check-color);
 
 }
-input[type="checkbox"]:not(.https-only, .temp):checked::before {
+input[type="checkbox"]:not(.https-only, .temp, .reveal):checked::before {
   transform: scale(1);
 }
-input[type="checkbox"]:not(.https-only, .temp):checked {
+input[type="checkbox"]:not(.https-only, .temp, .reveal):checked {
   background-color: var(--form-check-bg-color);
   border-color: var(--form-check-bg-color);
  }

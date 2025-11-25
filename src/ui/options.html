@@ -25,6 +25,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 <script src="/ui/ui.js"></script>
 </head>
 <body>
+<div id="bg"></div>
 <div id="noscript-options" class="hidden">
 <div id="header">
 <div class="title">
@@ -226,7 +227,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
   <div class="card">
     <label>
       <input type="radio" name="behavior" value="defaultDeny">
-      <h2>__MSG_behavior_defaultDeny_title__</h2>
+      <h3>__MSG_behavior_defaultDeny_title__</h3>
     </label>
     <label>
        <input type="checkbox" class="reveal">
@@ -236,7 +237,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
   <div class="card">
     <label>
       <input type="radio" name="behavior" value="auto">
-      <h2>__MSG_behavior_auto_title__</h2>
+      <h3>__MSG_behavior_auto_title__</h3>
     </label>
     <label>
        <input type="checkbox" class="reveal">
@@ -246,7 +247,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
   <div class="card">
     <label>
       <input type="radio" name="behavior" value="defaultAllow">
-      <h2>__MSG_behavior_defaultAllow_title__</h2>
+      <h3>__MSG_behavior_defaultAllow_title__</h3>
     </label>
     <label>
        <input type="checkbox" class="reveal">
@@ -255,7 +256,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
   </div>
   </div>
   <button class="close">__MSG_Close__</button>
-  <div class="bg"></div>
 </div>
 <script src="/nscl/service/persistent-tabs.js"></script>
 <script src="options.js"></script>
