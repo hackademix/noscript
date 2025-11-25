@@ -322,6 +322,12 @@ button.close {
   position: absolute;
   margin: 1.5em;
   z-index: 1;
+  transform: none;
+  transition: transform  1s;
+}
+
+#behavior.hidden .content {
+  transform: scale(.5, .5);
 }
 
 #behavior h1 {
