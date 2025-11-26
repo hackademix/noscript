@@ -40,8 +40,15 @@ const EDGE_UPDATE_URL = "https://edge.microsoft.com/extensionwebstorebase/v1/crx
 
 const isFirefox = MANIFEST_VER.includes("firefox");
 
-if (isFirefox && /rc|\.9\d{2}$/.test(extVer)) {
-  json.browser_specific_settings.gecko.update_url = FIREFOX_UPDATE_URL;
+if (isFirefox) {
+  const [verNum, meta] = extVer.split("+");
+  const pre = /[a-zA-Z-]|\.9\d{2}$/.test(verNum));
+  const url = meta == 'Tor'
+    ? `https://dist.torproject.org/torbrowser/noscript/update-${pre ? "pre" : "stable"}.json`
+    : pre ? FIREFOX_UPDATE_URL : "";
+  if (url) {
+    json.browser_specific_settings.gecko.update_url = url;
+  }
 }
 
 if (MANIFEST_VER.includes(3)) {
@@ -49,7 +56,7 @@ if (MANIFEST_VER.includes(3)) {
   json.manifest_version = 3;
   if (!isFirefox) {
     // convert ${ver}(a|b|rc)xx into ${ver--}.9xx
-    json.version = extVer.replace(/(\d+)(?:\.0)*[a-z]+(\d+)$/,
+    json.version = extVer.split("+")[0].replace(/(\d+)(?:\.0)*[a-z]+(\d+)$/,
         (all, maj, min) => `${parseInt(maj) - 1}.${900 + parseInt(min)}`);
     delete json.browser_specific_settings;
     delete json.content_security_policy;

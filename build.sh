@@ -98,7 +98,7 @@ if [[ $1 == "bump" ]]; then
   done
   echo "Bumping to $VER"
   git commit -m "Version bump: $VER." || exit
-  if ! ([[ $VER == *rc* ]] || [[ $VER =~ \.9[0-9][0-9]$ ]]); then
+  if ! [[ $VER =~ [^0-9.]|\.9[0-9][0-9]$ ]] ; then
     # it's a stable release: let's lock nscl and tag
     git submodule update
     "$0" tag
@@ -106,7 +106,8 @@ if [[ $1 == "bump" ]]; then
   exit
 fi
 XPI_DIR="$BASE/xpi"
-XPI="$XPI_DIR/noscript-$VER"
+XPI="$XPI_DIR/noscript-${VER/+/-}"
+XPI=${XPI,,}
 LIB="$SRC/lib"
 
 NSCL="$SRC/nscl"
@@ -207,6 +208,12 @@ if [ -f "$XPI.xpi" ]; then
 elif ! [ "$UNPACKED_ONLY" ]; then
   echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
   exit 3
+fi
+
+if [[ $VER =~ \+ ]; then
+  echo "Extra version: $VER"
+  echo "$XPI"
+  exit
 fi
 
 # create Chromium pre-release
