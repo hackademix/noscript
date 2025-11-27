@@ -100,7 +100,7 @@
         "description": ""
     },
     "CascadePermissions": {
-        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
+        "message": "Apliko automatikisht leje të dokumentit të epërm mbi nëndokumente dhe përfshirje ende të paformësuara",
         "description": ""
     },
     "CascadeRestrictions": {
