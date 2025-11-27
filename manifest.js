@@ -39,11 +39,18 @@ const FIREFOX_UPDATE_URL = "https://secure.informaction.com/update/?v=" + extVer
 const EDGE_UPDATE_URL = "https://edge.microsoft.com/extensionwebstorebase/v1/crx";
 
 const isFirefox = MANIFEST_VER.includes("firefox");
-
+const isTor = MANIFEST_VER.endsWith(":tor");
 if (isFirefox) {
-  const [verNum, meta] = extVer.split("+");
-  const pre = /[a-zA-Z-]|\.9\d{2}$/.test(verNum));
-  const url = meta == 'Tor'
+  const pre = /[a-zA-Z-]|\.9\d{2}$/.test(extVer);
+  if (isTor) {
+    // add version suffix to separate Tor Browser builds
+    const suffix = "1984";
+    const parts = extVer.split(".");
+    while (parts.length < 3) parts.push("0");
+    parts[3] = parts[3] ? `${parts[3]}0${suffix}` : suffix;
+    json.version = extVer = parts.join(".");
+  }
+  const url = isTor
     ? `https://dist.torproject.org/torbrowser/noscript/update-${pre ? "pre" : "stable"}.json`
     : pre ? FIREFOX_UPDATE_URL : "";
   if (url) {

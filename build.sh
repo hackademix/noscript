@@ -10,12 +10,22 @@ BUILD="$BASE/build"
 MANIFEST_IN="$SRC/manifest.json"
 MANIFEST_OUT="$BUILD/manifest.json"
 
+LOCK="$BASE/.build.lock"
+
 if [ "$1" == "watch" ]; then
+  [ -f "$LOCK" ] && rm "$LOCK"
   while :; do
-    $0 -u debug
+    if [ -f "$LOCK" ]; then
+      echo >&2 "Locked on $LOCK, skipping..."
+    else
+      $0 -u debug
+    fi
     inotifywait -e 'create,modify,move,delete' -r "$SRC"
   done
 fi
+
+trap 'rm "$LOCK"' SIGHUP SIGINT SIGQUIT SIGABRT
+touch "$LOCK"
 
 UNPACKED_ONLY=
 if [ "$1" == '-u' ]; then
@@ -35,7 +45,11 @@ strip_rc_ver() {
   perl -pi.bak -e "$replace" "$MANIFEST" && rm -f "$MANIFEST".bak
 }
 
-VER=$(grep '"version":' "$MANIFEST_IN" | sed -re 's/.*": "(.*?)".*/\1/')
+ver_from_manifest() {
+  grep '"version":' "$1" | sed -re 's/.*": "(.*?)".*/\1/'
+}
+
+VER=$(ver_from_manifest "$MANIFEST_IN")
 if [ "$1" == "tag" ]; then
   # ensure nscl is up-to-date git-wise
   ./nscl_gitsync.sh
@@ -106,11 +120,7 @@ if [[ $1 == "bump" ]]; then
   exit
 fi
 XPI_DIR="$BASE/xpi"
-XPI="$XPI_DIR/noscript-${VER/+/-}"
-XPI=${XPI,,}
-LIB="$SRC/lib"
-
-NSCL="$SRC/nscl"
+XPI="$XPI_DIR/noscript-${VER}"
 
 rm -rf "$BUILD" "$XPI"
 cp -pR "$SRC" "$BUILD"
@@ -123,9 +133,11 @@ BUILD_OPTS="build --overwrite-dest"
 CHROMIUM_BUILD_CMD="$BUILD_CMD"
 CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 
-if [[ "$1" =~ ^sign(ed)?$ ]]; then
+FIREFOX_TARGET="mv2firefox"
+if [[ $1 =~ ^(sign(ed)?|tor)$ ]]; then
   BUILD_CMD="$BASE/../../we-sign"
   BUILD_OPTS=""
+  FIREFOX_TARGET="$FIREFOX_TARGET:${1}"
 fi
 
 if [ "$1" != "debug" ]; then
@@ -151,7 +163,7 @@ CYGPATH=$(which cypath)
 COMMON_BUILD_OPTS="--ignore-files='test/**' 'embargoed/**' content/experiments.js"
 
 fix_manifest() {
-  node manifest.js "$1" "$MANIFEST_IN" "$MANIFEST_OUT"
+  node manifest.js "$1" "$MANIFEST_IN" "$MANIFEST_OUT" || exit 9
 }
 
 build() {
@@ -187,8 +199,13 @@ build() {
     $COMMON_BUILD_OPTS
 }
 
-fix_manifest mv2firefox
+fix_manifest "$FIREFOX_TARGET"
 build firefox
+
+if [[ $FIREFOX_TARGET == *:tor ]]; then
+  echo "Built/signed for Tor: $XPI_DIR/noscript-$(ver_from_manifest "$MANIFEST_OUT").xpi"
+  exit
+fi
 
 SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
@@ -198,8 +215,7 @@ elif [ -f "$XPI.zip" ]; then
     echo "A signed $XPI.xpi already exists, not overwriting."
   else
     unset SIGNED
-    [[ "$VER" == *rc* ]] && xpicmd="mv" || xpicmd="cp"
-    $xpicmd "$XPI.zip" "$XPI$DBG.xpi"
+    cp "$XPI.zip" "$XPI$DBG.xpi"
     echo "Created $XPI$DBG.xpi"
   fi
 fi
@@ -210,11 +226,7 @@ elif ! [ "$UNPACKED_ONLY" ]; then
   exit 3
 fi
 
-if [[ $VER =~ \+ ]; then
-  echo "Extra version: $VER"
-  echo "$XPI"
-  exit
-fi
+
 
 # create Chromium pre-release
 
