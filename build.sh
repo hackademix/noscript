@@ -24,7 +24,10 @@ if [ "$1" == "watch" ]; then
   done
 fi
 
-trap 'rm "$LOCK"' SIGHUP SIGINT SIGQUIT SIGABRT
+cleanup() {
+  rm -f "$LOCK"
+}
+trap cleanup SIGHUP SIGINT SIGQUIT SIGABRT EXIT
 touch "$LOCK"
 
 UNPACKED_ONLY=
@@ -203,7 +206,7 @@ fix_manifest "$FIREFOX_TARGET"
 build firefox
 
 if [[ $FIREFOX_TARGET == *:tor ]]; then
-  echo "Built/signed for Tor: $XPI_DIR/noscript-$(ver_from_manifest "$MANIFEST_OUT").xpi"
+  "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT"
   exit
 fi
 
