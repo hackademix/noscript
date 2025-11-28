@@ -27,7 +27,7 @@ cat << EOF >"$XPI_DIR/$UPD_JSON"
       "updates": [{
         "version": "$XPI_VER",
         "update_link": "$XPI_URL",
-        "update_info_url": "https://noscript.net/feed?v=$VER",
+        "update_info_url": "https://noscript.net/feed?v=$XPI_VER",
         "applications": {
           "gecko": { "strict_min_version": "$MIN_GECKO_VER" }
         }
