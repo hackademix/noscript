@@ -98,11 +98,10 @@
         }
         const fetchAsText = async (url) => await (await fetch(browser.runtime.getURL(url))).text();
 
-        const themesCSS = (await replaceAsync(await fetchAsText("/common/themes.css"),
-            /(--img-logo:.*url\("?)(.*\.svg)"?/g,
-            async (s, prop, url) => `${prop}"${await fetchAsDataURL(url)}"`
-          ))
-          .replace(/.*\burl\(\.*\/.*\n/g, '')
+       const themesCSS = (await replaceAsync(await fetchAsText("/common/themes.css"),
+          /(--img-logo:.*url\("?)(.*\.svg)"?/g,
+          async (s, prop, url) => `${prop}"${await fetchAsDataURL(url)}"`
+        )).replace(/^.*\burl\(\/.*$/mg, '')
           .replace(/\/\*[^]*?\*\//g, '')
           .replace(/\n+/g, "\n");
         return (await fetchAsText("/content/content.css"))
