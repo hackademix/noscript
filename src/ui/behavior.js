@@ -52,6 +52,11 @@
   }
 
   behaviorUI.querySelector(".close")?.addEventListener("click", close);
+  behaviorUI.addEventListener("click", e => {
+    if (e.target == behaviorUI) {
+      close();
+    }
+  });
 
   const currentBehavior = document.getElementById("current-behavior");
 
