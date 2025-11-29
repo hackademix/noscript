@@ -110,7 +110,7 @@ if (FILE_OR_FTP) {
           if (DocumentFreezer.suppressedScripts === 0 && readyState === "loading") {
             // we don't care reloading, if no script has been suppressed
             // and no readyState change has been fired yet
-            DocumentFreezer.unfreeze();
+            DocumentFreezer.unfreeze(true); // live
             return;
           }
 
@@ -125,9 +125,8 @@ if (FILE_OR_FTP) {
                   throw new Error(`Can't document.write() on ${isDir ? "directory listings" : document.contentType}`)
                 }
 
-                DocumentFreezer.unfreeze();
-
-                let html = document.documentElement.outerHTML;
+                const root = DocumentFreezer.unfreeze(false); // off-document
+                const html = root.outerHTML;
                 let sx = window.scrollX, sy = window.scrollY;
                 DocRewriter.rewrite(html);
                 debug("Written", html);
