@@ -20,6 +20,7 @@
 
 'use strict';
 
+document.title = _("OptionsLong");
 document.querySelector("#version").textContent = _("Version",
   browser.runtime.getManifest().version);
 
