@@ -928,7 +928,7 @@
         "description": ""
     },
     "siteInfo_tooltip": {
-        "message": "Middle-click or shift+click for site info…",
+        "message": "Site bilgileri için orta tık ya da shift tuşuna basarak sol tık kullanın…",
         "description": ""
     },
     "sponsor_tip": {
@@ -988,43 +988,43 @@
         "description": ""
     },
     "Onboarding_title": {
-        "message": "Welcome to NoScript!",
+        "message": "NoScript eklentisine hoş geldiniz!",
         "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
     },
     "behavior_title": {
-        "message": "Site Classification Behavior",
+        "message": "Site sınıflandırma davranışı",
         "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
     },
     "behavior_label": {
-        "message": "Current site classification behavior:",
+        "message": "Geçerli site sınıflandırma davranışı:",
         "description": ""
     },
     "behavior_prompt": {
-        "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript.",
+        "message": "Lütfen sınıflandırılmamış sitelerle karşılaştığınızda NoScript tarafından nasıl davranılacağını seçin. Bu seçimi NoScript ayarları sayfasından ve her NoScript sıfırlamasından sonra yeniden değiştirebilirsiniz.",
         "description": ""
     },
     "behavior_defaultDeny_title": {
-        "message": "STRICT / Default Deny",
+        "message": "KISITLI / Varsayılan red",
         "description": ""
     },
     "behavior_defaultDeny_description": {
-        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced.",
+        "message": "Geleneksel ve en güvenli NoScript davranışı: \"DEFAULT\" olarak işaretlenmiş sınıflandırılmamış siteler güvenilir olarak kabul edilmez. Betiklerle birlikte potansiyel olarak zararlı özellikler kapatıldı. NoScript arayüzünü açıp \"GÜVENİLİR\" olarak işaretleyerek güvendiğiniz siteleri el ile ekleyebilir veya \"ÖZEL\" seçeneğini seçerek davranışı özelleştirebilirsiniz. Siteler arası korumaları her zaman uygulanır.",
         "description": ""
     },
     "behavior_auto_title": {
-        "message": "EASIER / Auto",
+        "message": "GEVŞEK / Otomatik",
         "description": ""
     },
     "behavior_auto_description": {
-        "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced.",
+        "message": "Güvenlik ve rahatlık arasında orta yol: Adresi gezinme çubuğunda gösterilen üst düzey site, el ile sınıflandırılmadıkça otomatik olarak \"Geçici olarak GÜVENİLİR\" duruma yükseltilir. 3. taraf siteleri hala el ile sınıflandırılmalıdır. Siteler arası korumaları her zaman uygulanır.",
         "description": ""
     },
     "behavior_defaultAllow_title": {
-        "message": "EASIEST / Default allow",
+        "message": "SERBEST / Varsayılan izin",
         "description": ""
     },
     "behavior_defaultAllow_description": {
-        "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced.",
+        "message": "En rahat davranış: Sınıflandırılmamış üst düzey siteler \"Geçici olarak GÜVENİLDİ\" durumuna yükseltilir ve üst düzey site için etkinleştirilen özellikler otomatik olarak sınıflandırılmamış tüm 3. taraf alt kaynaklarına aktarılır. Zaten \"GÜVENİLMEZ\" ve \"ÖZEL\" olarak sınıflandırılmış siteler etkilenmez. Siteler arası korumaları her zaman uygulanır.",
         "description": ""
     },
     "Modify": {
@@ -1080,7 +1080,7 @@
         "description": ""
     },
     "LearnMoreLink": {
-        "message": "Learn more…",
+        "message": "Ayrıntılı bilgi alın…",
         "description": ""
     },
     "HelpLink": {
