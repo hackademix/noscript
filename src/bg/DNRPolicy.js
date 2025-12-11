@@ -97,10 +97,18 @@
         ns.saveSession(),
         RequestGuard.DNRPolicy.update(),
       ]);
-      for (const tab of updatedTabs) {
-        if (tab.status != "unloaded") {
-          browser.tabs.reload(tab.id);
-        }
+    }
+    const tabIds = [];
+    for (const r of (await getTabRules())) {
+      for (const id of r.condition.tabIds) {
+        if (id >= 0) tabIds.push(id);
+      }
+    }
+    const tabs = await Promise.all([...new Set(tabIds)].map(tabId => browser.tabs.get(tabId)));
+    console.log("DNRPolicy startup, reload tab candidates", tabs, tabIds, [...new Set(tabIds)]);
+    for (const tab of tabs) {
+      if (tab.status != "unloaded") {
+        browser.tabs.reload(tab.id)
       }
     }
   });
@@ -310,14 +318,16 @@
     }
   }
 
-
+  async function getTabRules() {
+    return (
+      await browser.declarativeNetRequest.getSessionRules()
+    ).filter(r => r.id >= TAB_BASE && r.id < DYNAMIC_BASE &&
+      r.priority <= MAX_PRIORITY && r.condition.tabIds);
+  }
 
   async function updateTabs() {
     const ts = Date.now();
-    const removeRuleIds = (
-      await browser.declarativeNetRequest.getSessionRules()
-    ).filter(r => r.id >= TAB_BASE && r.id < DYNAMIC_BASE &&
-            r.priority <= MAX_PRIORITY && r.condition.tabIds)
+    const removeRuleIds = (await getTabRules())
       .map(r => r.id);
     const addRules = await addTabRules();
     try {
@@ -377,17 +387,9 @@
       ;
     }
   });
-  /*
-  browser.webNavigation.onCommitted.addListener(({tabId, frameType, documentLifecycle, frameId, parentFrameId}) => {
-    if (parentFrameId == -1 && autoAllow([{url}])) {
-      Promise.allSettled([RequestGuard.DNRPolicy.update(), ns.saveSession()]);
-      return;
-    }
-    RequestGuard.DNRPolicy.updateTabs();
-  });
-  */
+
   NavCache.onUrlChanged.addListener((frame) => {
-    if (parentFrameId == -1 && autoAllow([{ url }])) {
+    if (frame.parentFrameId == -1 && autoAllow([{ url: frame.url }])) {
       Promise.allSettled([RequestGuard.DNRPolicy.update(), ns.saveSession()]);
       return;
     }
@@ -403,4 +405,3 @@
     }, 500);
   });
 };
-
