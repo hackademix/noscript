@@ -91,15 +91,16 @@
 
   browser.runtime.onStartup.addListener(async () => {
     const updatedTabs = autoAllow(await browser.tabs.query({}), true);
-    debug("DNRPolicy startup updated tabs", updatedTabs); // DEV_ONLY
+    debug("DNRPolicy startup updated tabs", updatedTabs);
     if (updatedTabs.length) {
       await Promise.allSettled([
         ns.saveSession(),
         RequestGuard.DNRPolicy.update(),
       ]);
-    } else {
-      await updatingSemaphore;
+    } else  {
+      await (updatingSemaphore || RequestGuard.DNRPolicy.update());
     }
+
     const tabIds = new Set();
     for (const r of (await getTabRules())) {
       for (const tabId of r.condition.tabIds) {
@@ -107,7 +108,7 @@
       }
     }
     const tabs = await Promise.all([...tabIds].map(tabId => browser.tabs.get(tabId)));
-    debug("DNRPolicy startup, reload tab candidates", tabs, tabIds); // DEV_ONLY
+    debug("DNRPolicy startup, reload tab candidates", tabs, tabIds);
     for (const tab of tabs) {
       if (tab.status != "unloaded") {
         browser.tabs.reload(tab.id)
@@ -337,7 +338,7 @@
         addRules,
         removeRuleIds,
       });
-      debug(`DNRPolicy tab-bound rules updated in ${Date.now() - ts}ms`, addRules, removeRuleIds); // DEV_ONLY
+      debug(`DNRPolicy tab-bound rules updated in ${Date.now() - ts}ms`, addRules, removeRuleIds);
     } catch (e) {
       error(e, "Failed to update DNRPolicy tab-bound rules", addRules, removeRuleIds);
     }
