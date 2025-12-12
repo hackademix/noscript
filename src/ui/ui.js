@@ -770,10 +770,7 @@ var UI = (() => {
           opt.textContent = label;
           return opt;
         };
-        let toLabel = (site) => {
-          let label = Sites.toExternal(site);
-          return label.includes(":") ? label : `…${label}`;
-        };
+
         for (let child; (child = ctxSelect.firstChild); ) child.remove();
         ctxSelect.appendChild(
           entry(
@@ -783,14 +780,14 @@ var UI = (() => {
         );
         if (this.mainUrl) {
           const key = row.contextMatch || Sites.optimalKey(this.mainUrl);
-          ctxSelect.appendChild(entry(key, toLabel(key))).selected =
+          ctxSelect.appendChild(entry(key, Sites.toLabel(key))).selected =
             !!row.contextMatch;
         } else {
           if (!row._customPerms) row._customPerms = row.perms;
           let ctxSites = row._customPerms.contextual;
           if (ctxSites) {
             for (let [site, ctxPerms] of ctxSites.entries()) {
-              ctxSelect.appendChild(entry(site, toLabel(site))).selected =
+              ctxSelect.appendChild(entry(site, Sites.toLabel(site))).selected =
                 perms === ctxPerms;
             }
           }
