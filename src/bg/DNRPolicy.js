@@ -91,21 +91,23 @@
 
   browser.runtime.onStartup.addListener(async () => {
     const updatedTabs = autoAllow(await browser.tabs.query({}), true);
-    console.debug("DNRPolicy startup updated tabs", updatedTabs); // DEV_ONLY
+    debug("DNRPolicy startup updated tabs", updatedTabs); // DEV_ONLY
     if (updatedTabs.length) {
       await Promise.allSettled([
         ns.saveSession(),
         RequestGuard.DNRPolicy.update(),
       ]);
+    } else {
+      await updatingSemaphore;
     }
-    const tabIds = [];
+    const tabIds = new Set();
     for (const r of (await getTabRules())) {
-      for (const id of r.condition.tabIds) {
-        if (id >= 0) tabIds.push(id);
+      for (const tabId of r.condition.tabIds) {
+        if (tabId >= 0) tabIds.add(tabId);
       }
     }
-    const tabs = await Promise.all([...new Set(tabIds)].map(tabId => browser.tabs.get(tabId)));
-    console.log("DNRPolicy startup, reload tab candidates", tabs, tabIds, [...new Set(tabIds)]);
+    const tabs = await Promise.all([...tabIds].map(tabId => browser.tabs.get(tabId)));
+    debug("DNRPolicy startup, reload tab candidates", tabs, tabIds); // DEV_ONLY
     for (const tab of tabs) {
       if (tab.status != "unloaded") {
         browser.tabs.reload(tab.id)
@@ -182,7 +184,7 @@
         const newRules = (await browser.declarativeNetRequest[`get${ruleType}Rules`]()).filter(r => r.priority <= MAX_PRIORITY); // DEV_ONLY
         debug(`DNRPolicy ${Rules[ruleType].length} ${ruleType} rules updated in ${Date.now() - ts}ms`, newRules); // DEV_ONLY
       } catch (e) {
-        console.error(e, `Failed to update DNRPolicy ${ruleType}rules %o - remove %o, add %o`, Rules[ruleType], addRules, removeRuleIds);
+        error(e, `Failed to update DNRPolicy ${ruleType}rules %o - remove %o, add %o`, Rules[ruleType], addRules, removeRuleIds);
       }
     })));
     debug(`All DNRPolicy rules updated in ${Date.now() - ts}ms`); // DEV_ONLY
@@ -335,9 +337,9 @@
         addRules,
         removeRuleIds,
       });
-      console.debug(`DNRPolicy tab-bound rules updated in ${Date.now() - ts}ms`); // DEV_ONLY
+      debug(`DNRPolicy tab-bound rules updated in ${Date.now() - ts}ms`, addRules, removeRuleIds); // DEV_ONLY
     } catch (e) {
-      console.error(e, `Failed to update DNRPolicy tab-bound rules (remove %o, add %o)`, addRules, removeRuleIds);
+      error(e, "Failed to update DNRPolicy tab-bound rules", addRules, removeRuleIds);
     }
   }
 
@@ -355,12 +357,12 @@
           continue;
         }
         const { perms } = policy.get(url, url);
-        console.debug("DNRPolicy autoAllow check", tab, perms, perms === policy.DEFAULT);
+        debug("DNRPolicy autoAllow check", tab, perms, perms === policy.DEFAULT);
         if (policy.autoAllow(url, perms, (isStartup && perms.temp))) {
           updated.push(tab);
         }
       }
-      updated.length && console.debug("DNRPolicy.autoAllow", updated); // DEV_ONLY
+      updated.length && debug("DNRPolicy.autoAllow", updated); // DEV_ONLY
     }
     return updated;
   }
