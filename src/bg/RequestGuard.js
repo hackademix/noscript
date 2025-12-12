@@ -348,7 +348,7 @@
       options.push({ label: _("CollapseBlockedObjects"), _collapse: true });
 
       const checks = [
-        { label: _("capsContext") + `\n${ctxKey}`, checked: true, _val: "ctx" },
+        { label: `${_("capsContext")} ${Sites.toLabel(ctxKey)}`, checked: true, _val: "ctx" },
       ];
 
       if (!forcedTemp) {
