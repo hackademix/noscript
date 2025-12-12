@@ -98,7 +98,7 @@
         RequestGuard.DNRPolicy.update(),
       ]);
     } else  {
-      await (updatingSemaphore || RequestGuard.DNRPolicy.update());
+      await RequestGuard.DNRPolicy.update();
     }
 
     const tabIds = new Set();
@@ -229,11 +229,13 @@
     const {cascadePermissions, cascadeRestrictions} = ns.sync;
     const ctxSettings = [...policy.sites].filter(([siteKey, perms]) => perms.contextual?.size);
 
+    await TabCache.wakening;
     const tabs = (ctxSettings.length ||  cascadePermissions || cascadeRestrictions) &&
       TabCache.getAll().filter(tab => tab.url && !ns.unrestrictedTabs.has(tab.id));
     if (!tabs?.length) {
       return rules;
     }
+
     await NavCache.awakening;
     for (const tab of tabs) {
       tab.topUrls = NavCache.getTab(tab.id)?.topUrls || [tab.url];
