@@ -23,7 +23,7 @@ var UI = (() => {
 
   const settingsListeners = new Set();
   const notifySettings = async () => {
-    await Promise.allSettled([...settingsListeners]);
+    await Promise.allSettled([...settingsListeners].map(l => l()));
   }
 
   var UI = {
