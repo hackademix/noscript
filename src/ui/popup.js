@@ -103,7 +103,10 @@ addEventListener("unload", e => {
 
     function pendingReload(b) {
       try {
-        port.postMessage({tabId, pendingReload: b});
+        port.postMessage({
+          tabId,
+          pendingReload: b && UI.local.autoReload,
+        });
       } catch (e) {
         debug(e);
       }
@@ -214,6 +217,7 @@ addEventListener("unload", e => {
         policy.enforced = !pressed;
         await UI.updateSettings({policy, reloadAffected: false});
         if (policy.enforced !== originallyEnforced &&
+            UI.local.autoReload &&
             (policy.enforced || UI.local.immediateUnrestrict)) {
           reload();
           close();
@@ -240,7 +244,7 @@ addEventListener("unload", e => {
             reloadAffected: false,
           });
           UI.unrestrictedTab = pressed;
-          if (!(UI.unrestrictedTab && UI.local.stickyUnrestrictedTab)) {
+          if (UI.local.autoReload && !(UI.unrestrictedTab && UI.local.stickyUnrestrictedTab)) {
             reload();
             close();
             return;
@@ -320,7 +324,7 @@ addEventListener("unload", e => {
     sitesUI.onChange = (row) => {
       const reload = sitesUI.anyPermissionsChanged()
       pendingReload(reload);
-      if (row.tabLess) {
+      if (row.tabLess && UI.local.autoReload) {
         messageBox("warning", _("tabLess_reload_warning"));
       }
       if (optionsClosed) return;

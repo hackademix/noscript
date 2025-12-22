@@ -30,6 +30,7 @@ var Defaults = {
         showFullAddresses: false,
         showProbePlaceholders: true,
         amnesticUpdates: false,
+        autoReload: true,
       },
       sync: {
         global: false,

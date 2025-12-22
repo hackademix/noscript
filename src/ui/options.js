@@ -138,6 +138,7 @@ document.querySelector("#version").textContent = _("Version",
   }
 
   opt("clearclick");
+  opt("autoReload", "local");
   opt("debug", "local", o => {
     let {checked} = o;
     document.body.classList.toggle("debug", checked);
