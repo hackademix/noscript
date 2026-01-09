@@ -19,7 +19,6 @@
  */
 
 'use strict';
-const FILE_OR_FTP = /^(?:file|ftp):$/.test(location.protocol);
 {
   debug(`Prerendering: ${document.prerendering}`, self.performance?.getEntriesByType?.('navigation')[0]?.activationStart); // DEV_ONLY
 

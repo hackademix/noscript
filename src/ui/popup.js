@@ -361,8 +361,7 @@ addEventListener("unload", e => {
       let protocols = new Set();
 
       function urlToLabel(url) {
-        let origin = Sites.origin(url);
-        let match = policySites.match(url);
+        const match = policySites.match(url);
         if (match) {
           if (match === url.protocol) {
             protocols.add(match);
@@ -370,8 +369,12 @@ addEventListener("unload", e => {
             return match;
           }
         }
+        const origin = Sites.origin(url);
+        const useDomain = justDomains && url.protocol != "data:";
         if (domains.has(origin)) {
-          if (justDomains) return domains.get(origin);
+          if (useDomain) {
+            return domains.get(origin);
+          }
         } else {
           let domain = tld.getDomain(url.hostname);
           if (domain) {
@@ -380,7 +383,9 @@ addEventListener("unload", e => {
             domain = url.protocol;
           }
           domains.set(origin, domain);
-          if (justDomains) return domain;
+          if (useDomain) {
+            return domain;
+          }
         }
         return origin;
       }
@@ -399,12 +404,30 @@ addEventListener("unload", e => {
       const seen = UI.seen.concat(UI.tabLess?.requests || []);
       UI.tabLessSites = new Set();
       UI.tabbedSites = new Set();
+
+      sitesUI.mainUrl = new URL(mainFrame.request.url)
+      sitesUI.mainSite = urlToLabel(sitesUI.mainUrl);
+      sitesUI.mainDomain = tld.getDomain(sitesUI.mainUrl.hostname);
+      sitesUI.mainSiteKey = Sites.optimalKey(sitesUI.mainUrl);
+      const topDataUrl = sitesUI.mainUrl.protocol == "data:" && sitesUI.mainUrl.href;
+
+      if (topDataUrl) {
+        for (const { request } of seen) {
+          if (request.url == "null") {
+            request.url = request.documentUrl;
+          }
+        }
+      }
+
       const parsedSeen = seen.map(thing => Object.assign({
           type: thing.policyType,
           tabLess: thing.tabLess,
         }, Sites.parse(thing.request.url)))
-        .filter(parsed => parsed.url && (
-            parsed.url.origin !== "null" || parsed.url.protocol === "file:"));
+        .filter(({ url }) => url && (
+            url.origin !== "null" ||
+            url.protocol === "file:" ||
+            topDataUrl && url.href == topDataUrl
+        ));
 
       const sitesSet = new Set(
         parsedSeen.map(parsed => {
@@ -419,7 +442,7 @@ addEventListener("unload", e => {
           return parsed.label = label;
         }
       ));
-      if (!justDomains) {
+      if (!justDomains || topDataUrl) {
         for (const domain of domains.values()) sitesSet.add(domain);
       }
       for (const protocol of protocols) sitesSet.add(protocol);
@@ -431,11 +454,6 @@ addEventListener("unload", e => {
           siteTypes.add(parsed.type);
         });
       }
-
-      sitesUI.mainUrl = new URL(mainFrame.request.url)
-      sitesUI.mainSite = urlToLabel(sitesUI.mainUrl);
-      sitesUI.mainDomain = tld.getDomain(sitesUI.mainUrl.hostname);
-      sitesUI.mainSiteKey = Sites.optimalKey(sitesUI.mainUrl);
 
       sitesUI.render(sites);
       sitesUI.focus();

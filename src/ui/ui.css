@@ -141,7 +141,11 @@ fieldset > .opt-group ~ .opt-group {
   vertical-align: bottom;
 }
 
-.capsContext, .capsContext > div {
+.capsContext > div {
+  display: none;
+}
+
+.capsContext, .contextual .capsContext > div {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -153,13 +157,8 @@ fieldset > .opt-group ~ .opt-group {
 }
 
 .capsContext select {
-  display: none;
   margin: 0.5em;
   max-width: 32em;
-}
-
-.contextual .capsContext select {
-  display: initial;
 }
 
 .pageTurn {
@@ -235,6 +234,8 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
     padding: 0 0 0 0.5em;
     color: var(--fg-color2);
     width: 80%;
+    display: flex;
+    align-items: center;
 }
 .site .url .protocol { display: none }
 
@@ -263,6 +264,12 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
 .site .url[data-key="full"] span,
 .site .url[data-key="unsafe"] span {
   display: initial;
+}
+
+.site .url[data-key="full"] .full-address {
+  display: inline-block;
+  max-height: 3em;
+  overflow: auto;
 }
 
 .site .url .domain {
@@ -300,7 +307,7 @@ label.https-only {
   color: var(--text-color);
 }
 
-[data-preset="UNTRUSTED"] .https-only, [data-preset="DEFAULT"] .https-only {
+:is(.site:is([data-preset="UNTRUSTED"],[data-preset="DEFAULT"]), .url[data-key="full"]) .https-only {
   visibility: hidden;
 }
 

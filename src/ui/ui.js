@@ -756,14 +756,15 @@ var UI = (() => {
 
       customizer.classList.toggle("closed", false);
       let temp = preset.parentNode.querySelector("input.temp");
-      let contextual = !!temp;
+      const contextual = !(!temp || /^data:/.test(row._site));
       customizer.classList.toggle("contextual", contextual);
       let [ctxLabel, ctxSelect, ctxReset] =
         customizer.capsContext.querySelectorAll("label, select, .reset");
       ctxLabel.textContent = _(contextual ? "capsContext" : "caps");
-      ctxReset.textContent = _("Reset");
+
       if (contextual) {
         // contextual settings
+        ctxReset.textContent = _("Reset");
         let entry = (value, label = value) => {
           let opt = document.createElement("option");
           opt.value = value;
@@ -1129,7 +1130,7 @@ var UI = (() => {
       let keyStyle = secure
         ? "secure"
         : !domain || /^\w+:/.test(siteMatch)
-        ? url.protocol === "https:" || isOnion
+        ? /(?:https|file|data):/.test(url.protocol) || isOnion
           ? "full"
           : "unsafe"
         : isOnion

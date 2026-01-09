@@ -22,7 +22,7 @@
 
 "use strict";
 
-if (FILE_OR_FTP) {
+if (/^(?:file|ftp|data):$/.test(location.protocol)) { // no HTTP CSP Header
   (globalThis.ns ||= {}).syncFetchPolicy = function() {
 
     ns.pendingSyncFetchPolicy = false;
