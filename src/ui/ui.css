@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -234,8 +234,6 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
     padding: 0 0 0 0.5em;
     color: var(--fg-color2);
     width: 80%;
-    display: flex;
-    align-items: center;
 }
 .site .url .protocol { display: none }
 
@@ -261,13 +259,16 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
   color: var(--fg-color2)
 }
 
-.site .url[data-key="full"] span,
-.site .url[data-key="unsafe"] span {
-  display: initial;
+.site .url:is([data-key="full"],[data-key="unsafe"]) .full-address > span {
+  display: inline-block;
 }
 
-.site .url[data-key="full"] .full-address {
+.site .url > .full-address {
   display: inline-block;
+  max-height: 1.2em;
+  overflow: auto;
+}
+.site:focus-within .url > .full-address {
   max-height: 3em;
   overflow: auto;
 }
@@ -295,6 +296,7 @@ input.https-only {
   margin: -.25em 0;
   padding:0;
   cursor: pointer;
+  display: inline;
 }
 input.https-only:checked {
   background-image: var(--img-ui-https);
