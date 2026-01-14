@@ -192,7 +192,6 @@ input[type="checkbox"] {
   border-spacing: 0;
   width: 100%;
   image-rendering: -webkit-optimize-contrast;
-  --extra-preset-width: 0px;
 }
 
 .vintage .sites {
@@ -233,7 +232,6 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
 .site .url {
     padding: 0 0 0 0.5em;
     color: var(--fg-color2);
-    width: 80%;
     display: flex;
     align-items: center;
 }
@@ -266,7 +264,7 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
   display: initial;
 }
 
-.site .url[data-key="full"] .full-address {
+.site .url .full-address {
   display: inline-block;
   max-height: 3em;
   overflow: auto;
@@ -285,16 +283,14 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
 input.https-only {
   font-size: 100%;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   background: var(--img-ui-http) no-repeat center;
   background-size: 1.5em;
-  background-position: bottom;
   width: 2em;
   height: 2em;
-  margin: -.25em 0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   cursor: pointer;
+  flex-shrink: 0;
 }
 input.https-only:checked {
   background-image: var(--img-ui-https);
@@ -315,6 +311,7 @@ label.https-only {
 td.presets {
   font-size: 1em;
   white-space: nowrap;
+  width: 0;
 }
 
 span.preset {
@@ -343,7 +340,7 @@ span.preset {
   width: var(--line-size);
   height: var(--line-size);
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 #presets-sizer {
@@ -363,7 +360,7 @@ span.preset {
 .presets input.preset:checked, #presets input.preset, #presets-sizer input.preset {
   opacity: 1;
   transform: none;
-  min-width: calc(var(--preset-label-width) + var(--line-size) * 1.5 + var(--extra-preset-width));
+  min-width: calc(var(--preset-label-width) + var(--line-size) * 1.5);
 }
 
 .presets input.preset:focus {
@@ -388,6 +385,7 @@ span.preset {
   --line-scaled: var(--line-size);
   line-height: var(--line-scaled);
   padding-left: calc(var(--line-scaled) * 1.4);
+  z-index: 5;
 }
 
 .presets input.preset[value^="T"] + label {
@@ -451,7 +449,7 @@ input.temp {
   background-size: 60%;
   width: 1.5em;
   height: 1.5em;
-  transition: 0.2s all;
+  transition: 0.2s background-size;
   right: 0;
   top: 0;
   pointer-events: none;
@@ -469,12 +467,9 @@ input.temp + label {
 
 input.preset:checked ~ input.temp {
   opacity: .7;
-  right: calc(var(--extra-preset-width) - .5em);
+  right: -.8em;
   pointer-events: all;
-}
-
-.customizing input.preset:checked ~ input.temp {
-  right: .5em;
+  z-index: 20;
 }
 
 .presets input.preset:checked ~ input.temp:checked {
@@ -494,12 +489,8 @@ input.preset:checked ~ input.temp {
 }
 
 .customizing input.preset:checked {
-  margin: 0 0 -0.2em 0;
+  margin: 0 1em -0.2em 0;
   background-position: 0 0;
-}
-
-span.preset.CUSTOM {
-  --extra-preset-width: 2em;
 }
 
 #presets span.preset {
