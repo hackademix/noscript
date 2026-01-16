@@ -732,7 +732,6 @@ var UI = (() => {
       for (let r of this.table.querySelectorAll("tr.customizing")) {
         r.classList.toggle("customizing", false);
       }
-      customizer.classList.toggle("closed", true);
 
       if (
         !(
@@ -746,15 +745,13 @@ var UI = (() => {
       ) {
         delete customizer._preset;
         customizer.onkeydown = null;
-        customizer.remove();
         return;
       }
 
       customizer._preset = preset;
-      row.classList.toggle("customizing", true);
+
       this.setupCaps(perms, preset, row);
 
-      customizer.classList.toggle("closed", false);
       let temp = preset.parentNode.querySelector("input.temp");
       const contextual = !(!temp || /^data:/.test(row._site));
       customizer.classList.toggle("contextual", contextual);
@@ -859,8 +856,11 @@ var UI = (() => {
         }
       };
       window.setTimeout(
-        () => customizer.querySelector("input:not(:disabled)").focus(),
-        50
+        () => {
+          row.classList.toggle("customizing", true);
+          customizer.querySelector("input:not(:disabled)").focus();
+        },
+        10
       );
     }
 
