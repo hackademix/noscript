@@ -238,6 +238,19 @@ button.add {
   section fieldset {
     padding: 0;
   }
+
+  #presets .presets input.preset + label {
+    font-size: 80%;
+    --line-scaled: calc(var(--line-size) / 0.8);
+    position: absolute !important;
+    text-align: left;
+    margin: 0px !important;
+    display: block !important;
+    overflow: visible;
+    bottom: -.4em;
+    padding-bottom: .2em;
+    padding-top: .2em;
+  }
 }
 
 #opt-global:checked ~ label {
@@ -441,6 +454,10 @@ button.close {
   color: color-mix(in hsl, currentColor, var(--behavior-color) 70%);
 }
 
+#presets .url {
+  display: none;
+}
+
 #presets span.preset {
   margin-right: .8em;
   max-width: 28vw;
@@ -468,4 +485,10 @@ button.close {
 #presets .customizer fieldset {
   margin-top: 0px;
   border-radius: 0 .5em .5em .5em;
+}
+
+#presets .customizer-controls {
+  max-height: 100em;
+  opacity: 1;
+  transition: none;
 }

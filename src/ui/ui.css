@@ -85,18 +85,6 @@ fieldset > .opt-group ~ .opt-group {
     margin-left: 0;
   }
 
-  #presets .presets input.preset + label {
-    font-size: 80%;
-    --line-scaled: calc(var(--line-size) / 0.8);
-    position: absolute !important;
-    text-align: left;
-    margin: 0px !important;
-    display: block !important;
-    overflow: visible;
-    bottom: -.2em;
-    padding-bottom: .2em;
-  }
-
    #sites .presets input.preset:checked + label {
     z-index: 1000;
     font-size: 60%;
@@ -545,10 +533,6 @@ legend {
 .customizer legend {
   font-size: 1em;
   float: left;
-}
-
-#presets .url {
-  display: none;
 }
 
 #high-contrast-chooser {
