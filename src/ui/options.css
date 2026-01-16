@@ -440,3 +440,32 @@ button.close {
 #current-behavior, .card h3 {
   color: color-mix(in hsl, currentColor, var(--behavior-color) 70%);
 }
+
+#presets span.preset {
+  margin-right: .8em;
+  max-width: 28vw;
+  bottom: 0;
+}
+
+#presets :is(input.preset, input.preset:checked) {
+  filter: none;
+  background-position: .2em 0;
+}
+
+#presets .site.customizing {
+  background-color: transparent;
+}
+
+#presets .customizing input.preset:not(:checked) + label {
+  margin-bottom: 0;
+  background-color: var(--tab-color2);
+}
+
+#presets legend select, #presets legend button {
+  display: none;
+}
+
+#presets .customizer fieldset {
+  margin-top: 0px;
+  border-radius: 0 .5em .5em .5em;
+}

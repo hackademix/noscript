@@ -96,6 +96,11 @@ fieldset > .opt-group ~ .opt-group {
     background: none !important;
   }
 
+  #sites .customizing .preset.CUSTOM {
+    bottom: -1.2em;
+    transition: .5s bottom;
+  }
+
   .presets input.preset:checked ~ input.temp {
     left: var(--line-size);
     right: auto;
@@ -110,7 +115,6 @@ fieldset > .opt-group ~ .opt-group {
 
   #sites .customizing input.preset:checked + label {
     pointer-events: none;
-    transition: all .2s;
   }
 
   td.presets {
@@ -125,20 +129,14 @@ fieldset > .opt-group ~ .opt-group {
     font-size: 80%;
    }
 
-   .contextual fieldset {
-     padding-top: 1.5em;
+   .customizer-controls fieldset {
+     padding-top: 1.2em;
    }
 }
 
 
 .site.filtered, .site.filtered + .customizer {
   display: none;
-}
-
-#sites .customizing .presets {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-  vertical-align: bottom;
 }
 
 .capsContext > div {
@@ -153,7 +151,7 @@ fieldset > .opt-group ~ .opt-group {
 
 .capsContext > label, .capsContext button {
   display: block;
-  margin: 0.5em;
+  margin: .5em;
 }
 
 .capsContext select {
@@ -319,7 +317,7 @@ span.preset {
   display: inline-block;
   font-size: 1em;
   height: var(--line-size);
-  top: 0.1em;
+  bottom: -.1em;
 }
 
 .preset label, .preset input, .preset button {
@@ -385,7 +383,6 @@ span.preset {
   --line-scaled: var(--line-size);
   line-height: var(--line-scaled);
   padding-left: calc(var(--line-scaled) * 1.4);
-  z-index: 5;
 }
 
 .presets input.preset[value^="T"] + label {
@@ -400,18 +397,16 @@ span.preset {
   border-radius: 1em 1em 0 0;
 }
 
-
 @media (min-width: 550px) {
   :not(#presets) > .sites .site:not(.customizing) .presets input.preset:checked + label.preset {
     background-color: var(--bg-preset-color);
     border-radius: calc(var(--line-size) / 2);
-    box-shadow: 0 0 1px var(--fg-color1);
+  }
+  .customizing .presets input.preset:checked + label.preset {
+    padding-bottom: .8em;
   }
 }
 
-#presets :is(.presets input.preset + label, .customizer-controls) {
-  box-shadow: 0 0 .2em var(--fg-color1);
-}
 
 #presets-sizer .presets label {
    position: absolute;
@@ -467,9 +462,8 @@ input.temp + label {
 
 input.preset:checked ~ input.temp {
   opacity: .7;
-  right: -.8em;
+  right: .4em;
   pointer-events: all;
-  z-index: 20;
 }
 
 .presets input.preset:checked ~ input.temp:checked {
@@ -483,37 +477,10 @@ input.preset:checked ~ input.temp {
 
 .customizer fieldset {
   background-color: var(--form-color2);
-  margin: 0;
-  box-shadow: var(--form-color1) 0 2px 2px;
+  margin: 0 0 .2em 0;
   position: relative;
-}
-
-.customizing input.preset:checked {
-  margin: 0 1em -0.2em 0;
-  background-position: 0 0;
-}
-
-#presets span.preset {
-  margin-right: .8em;
-  max-width: 28vw;
-}
-
-#presets :is(input.preset, input.preset:checked) {
-  filter: none;
-  background-position: .2em 0;
-}
-
-#presets .site.customizing {
-  background-color: transparent;
-}
-
-#presets .customizing input.preset:not(:checked) + label {
-  margin-bottom: 0;
-  background-color: var(--form-color1);
-}
-
-#presets legend select, #presets legend button {
-  display: none;
+  border: 0;
+  border-radius: .5em;
 }
 
 .caps {
