@@ -21,7 +21,7 @@ html:not(.mobile) > body {
 html:not(.mobile) #scrollable {
   overflow: auto;
   max-height: 550px;
-  min-height: 200px;
+  min-height: 2em;
 }
 
 #top {

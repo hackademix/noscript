@@ -43,6 +43,7 @@ fieldset > .opt-group ~ .opt-group {
   opacity: 0;
   transition: opacity .5s, max-height .5s;
   pointer-events: none;
+  overflow: hidden;
 }
 
 @media (max-width: 550px) {

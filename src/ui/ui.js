@@ -855,6 +855,13 @@ var UI = (() => {
             if (temp) temp.checked = !temp.checked || UI.forceIncognito;
         }
       };
+      if (!UA.mobile) {
+        const scrollable = document.querySelector("#scrollable");
+        if (scrollable) {
+          scrollable.style = "min-height: 0";
+          scrollable.style.height = (scrollable.offsetHeight + customizer.querySelector("fieldset").offsetHeight + 8) + "px";
+        }
+      }
       window.setTimeout(
         () => {
           row.classList.toggle("customizing", true);
