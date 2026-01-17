@@ -33,17 +33,15 @@ fieldset > .opt-group ~ .opt-group {
 }
 
 .customizing ~ .customizer .customizer-controls {
-  max-height: 20em;
+  max-height: 100em;
   opacity: 1;
-  overflow: auto;
   pointer-events: all;
 }
 
 .customizer-controls {
   max-height: 0;
   opacity: 0;
-  transition: opacity .5s, max-height .5s, overflow .5s allow-discrete;
-  overflow: hidden;
+  transition: opacity .5s, max-height .5s;
   pointer-events: none;
 }
 
@@ -475,7 +473,7 @@ input.preset:checked ~ input.temp {
  background-size: 100%;
 }
 
-.customizing input.preset:checked, #presets input.preset:checked {
+.customizing input.preset:checked {
   filter: none;
 }
 

@@ -464,7 +464,7 @@ button.close {
   bottom: 0;
 }
 
-#presets :is(input.preset, input.preset:checked) {
+#presets input.preset {
   filter: none;
   background-position: .2em 0;
 }
@@ -478,6 +478,17 @@ button.close {
   background-color: var(--tab-color2);
 }
 
+#presets :is(.preset:checked, .preset:checked + label) {
+  pointer-events: none;
+  cursor: unset;
+}
+
+#presets .customizer-controls {
+  transition: none;
+  opacity: 1;
+  max-height: 100em;
+}
+
 #presets legend select, #presets legend button {
   display: none;
 }
@@ -485,10 +496,4 @@ button.close {
 #presets .customizer fieldset {
   margin-top: 0px;
   border-radius: 0 .5em .5em .5em;
-}
-
-#presets .customizer-controls {
-  max-height: 100em;
-  opacity: 1;
-  transition: none;
 }
