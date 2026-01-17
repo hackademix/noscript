@@ -39,7 +39,6 @@ UI.toolbarInit = () => {
     }
   }
 
-
   let makeDraggable = b => {
     // work-around for dragging disabled buttons
     let wrapper = document.createElement("div");
@@ -144,7 +143,7 @@ UI.toolbarInit = () => {
       };
 
       debug("%o", UI.local);
-      UI.updateSettings({local: UI.local});
+      UI.updateSettings({ local: UI.local });
     },
 
     click(ev) {

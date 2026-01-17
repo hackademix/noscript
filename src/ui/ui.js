@@ -855,13 +855,7 @@ var UI = (() => {
             if (temp) temp.checked = !temp.checked || UI.forceIncognito;
         }
       };
-      if (!UA.mobile) {
-        const scrollable = document.querySelector("#scrollable");
-        if (scrollable) {
-          scrollable.style = "min-height: 0";
-          scrollable.style.height = (scrollable.offsetHeight + customizer.querySelector("fieldset").offsetHeight + 8) + "px";
-        }
-      }
+      this.scrollableFit();
       window.setTimeout(
         () => {
           row.classList.toggle("customizing", true);
@@ -871,41 +865,57 @@ var UI = (() => {
       );
     }
 
-    render(sites = this.sites, sorter = this.sorter) {
-      let parentNode = this.parentNode;
-      if (sites) this._populate(sites, sorter);
+    scrollableFit() {
+      if (UA.mobile) return;
+      const scrollable = document.querySelector("#scrollable");
+      if (!scrollable) return;
+      scrollable.style.overflow = "hidden";
+      scrollable.style.minHeight = 0;
+      scrollable.style.height = "";
+      scrollable.style.height = (scrollable.clientHeight +
+        (scrollable.querySelector(".customizer-controls fieldset")?.offsetHeight || 0) +
+        4) + "px";
+      window.setTimeout(() => {
+        scrollable.style.overflow = "auto";
+      }, 500);
+    }
 
-      parentNode.innerHTML = "";
-      parentNode.appendChild(this.fragment);
-      let root = parentNode.querySelector("table.sites");
-      if (!root.wiredBy) {
-        root.addEventListener("keydown", (e) => this._keyNavHandler(e), true);
-        root.addEventListener(
-          "keyup",
-          (e) => {
-            // we use a keyup listener to open the customizer from other presets
-            // because space repetition may lead to unintendedly "click" on the
-            // first cap checkbox once focused from keydown
-            switch (e.code) {
-              case "Space": {
-                let focused = document.activeElement;
-                if (focused.matches("tr .preset")) {
-                  focused
-                    .closest("tr")
-                    .querySelector(".preset[value='CUSTOM']")
-                    .click();
-                  e.preventDefault();
+    render(sites = this.sites, sorter = this.sorter) {
+      if (sites) this._populate(sites, sorter);
+      requestAnimationFrame(() => {
+        const { parentNode } = this;
+        parentNode.innerHTML = "";
+        if (!sites) return;
+        parentNode.appendChild(this.fragment);
+        const root = parentNode.querySelector("table.sites");
+        if (!root.wiredBy) {
+          root.addEventListener("keydown", (e) => this._keyNavHandler(e), true);
+          root.addEventListener(
+            "keyup",
+            (e) => {
+              // we use a keyup listener to open the customizer from other presets
+              // because space repetition may lead to unintendedly "click" on the
+              // first cap checkbox once focused from keydown
+              switch (e.code) {
+                case "Space": {
+                  let focused = document.activeElement;
+                  if (focused.matches("tr .preset")) {
+                    focused
+                      .closest("tr")
+                      .querySelector(".preset[value='CUSTOM']")
+                      .click();
+                    e.preventDefault();
+                  }
                 }
               }
-            }
-          },
-          true
-        );
-        root.addEventListener("click", this, true);
-        root.addEventListener("change", this, true);
-        root.wiredBy = this;
-      }
-      return root;
+            },
+            true
+          );
+          root.addEventListener("click", this, true);
+          root.addEventListener("change", this, true);
+          root.wiredBy = this;
+        }
+      });
     }
 
     _keyNavHandler(e) {

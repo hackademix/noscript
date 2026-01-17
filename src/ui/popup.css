@@ -21,7 +21,8 @@ html:not(.mobile) > body {
 html:not(.mobile) #scrollable {
   overflow: auto;
   max-height: 550px;
-  min-height: 2em;
+  min-height: 6em;
+  transition: height .5s, min-height 1s;
 }
 
 #top {
@@ -34,6 +35,15 @@ html:not(.mobile) #scrollable {
   -moz-user-select: none;
   user-select: none;
   background: linear-gradient(to bottom, transparent 0, transparent 95%, var(--form-color1) 100%) no-repeat;
+}
+
+#noscript-popup {
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+#noscript-popup.complete {
+  opacity: 1;
 }
 
 .icon {
