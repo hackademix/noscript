@@ -86,7 +86,7 @@
       "bg/main.js",
       "common/themes.js"
     ],
-    "persistent": false
+    "persistent": true
   },
 
   "content_scripts": [
