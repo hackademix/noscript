@@ -60,6 +60,10 @@ html:not(.mobile) #scrollable {
   margin: 0 1.2em 0 1.2em;
 }
 
+.icon:focus-visible {
+  color: var(--fg-color2);
+}
+
 #top .icon {
   width: var(--icon-size);
   height: var(--icon-size);
