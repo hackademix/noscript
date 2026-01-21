@@ -382,6 +382,12 @@ var LifeCycle = (() => {
     },
 
     async onUpdateAvailable(details) {
+      if (UA.mobile &&
+        (ns.local.isTorBrowser || browser.extension.inIncognitoContext)) {
+        // Prevent mid-session updates on Android in private browsing and Tor
+        // (see tor-browser#44398)
+        return;
+      }
       try {
         if (ns.local.amnesticUpdates) {
           // user doesn't want us to remember temporary settings across updates: bail out
