@@ -743,6 +743,7 @@ var UI = (() => {
           preset !== customizer._preset
         )
       ) {
+        customizer.remove();
         delete customizer._preset;
         customizer.onkeydown = null;
         return;
