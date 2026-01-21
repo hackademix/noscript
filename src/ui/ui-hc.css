@@ -40,8 +40,7 @@ label {
   position: static !important;
   transform: none !important;
   opacity: 1 !important;
-  text-indent: 0 !Important;
-  position: static;
+  text-indent: 0 !important;
   width: auto !important;
   padding: 4px !important;
 }
@@ -112,4 +111,12 @@ tr.site {
 :focus {
   outline: max(2px, 0.15em) solid currentColor;
   outline-offset: max(2px, 0.15em);
+}
+
+:root.hc td.presets {
+  min-width: 30%;
+}
+
+:root.hc tr.site {
+  border-top: .5px dotted currentColor;
 }
