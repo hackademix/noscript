@@ -115,7 +115,10 @@
       });
       const {readyState} = document;
 
-      if (readyState == "complete" || !this.syncFetchPolicy && this.embeddingDocument) {
+      if (readyState == "complete" ||
+          !this.syncFetchPolicy && this.embeddingDocument ||
+          window.origin == "null" && window.location.href == "about:blank" && window.top == self
+      ) {
         asyncFetch();
         return;
       }
