@@ -15,7 +15,7 @@ body {
   inset: 25vh 0 0 25vh;
   width: 75vw;
   height: 75vh;
-  background: url(/img/logo-full.svg) no-repeat bottom right/contain;
+  background: var(--img-logo-full) no-repeat bottom right/contain;
   z-index: 0;
   filter: blur(1.5px) opacity(.1);
 }

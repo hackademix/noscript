@@ -8,19 +8,19 @@
   --focus-color-dark: #c35a;
   --focus-color-light: #f68a;
 
-  --img-noscript-options: url(/img/noscript-options.png);
+  --img-noscript-options: url(/img/noscript-options.webp);
   --img-ui-revoke-temp: url(/img/ui-revoke-temp64.png);
   --img-ui-temp-all: url(/img/ui-temp-all64.png);
   --img-ui-tab-no: url(/img/ui-tab-no64.png);
   --img-ui-tab: url(/img/ui-tab64.png);
   --img-ui-global-no: url(/img/ui-global-no64.png);
   --img-ui-global: url(/img/ui-global64.png);
-  --img-noscript-options: url(/img/noscript-options.png);
   --img-ui-close: url(/img/ui-close64.png);
   --img-ui-reload: url(/img/ui-reload64.png);
   --img-warning: url(/img/warning64.png);
   --img-error: url(/img/error64.png);
   --img-logo: url(/img/logo.svg);
+  --img-logo-full: url(/img/logo-full.svg);
   --img-ui-http: url(/img/ui-http64.png);
   --img-ui-https: url(/img/ui-https64.png);
   --img-ui-no: url(/img/ui-no64.png);
@@ -47,19 +47,19 @@
   --focus-color-dark: #35Ca !important;
   --focus-color-light: #8cfa !important;
 
-  --img-noscript-options: url(/img/vintage/noscript-options.png);
+  --img-noscript-options: url(/img/vintage/noscript-options.webp);
   --img-ui-revoke-temp: url(/img/vintage/ui-revoke-temp64.png);
   --img-ui-temp-all: url(/img/vintage/ui-temp-all64.png);
   --img-ui-tab-no: url(/img/vintage/ui-tab-no64.png);
   --img-ui-tab: url(/img/vintage/ui-tab64.png);
   --img-ui-global-no: url(/img/vintage/ui-global-no64.png);
   --img-ui-global: url(/img/vintage/ui-global64.png);
-  --img-noscript-options: url(/img/vintage/noscript-options.png);
   --img-ui-close: url(/img/vintage/ui-close64.png);
   --img-ui-reload: url(/img/vintage/ui-reload64.png);
   --img-warning: url(/img/vintage/warning64.png);
   --img-error: url(/img/vintage/error64.png);
   --img-logo: url(/img/vintage/logo.svg);
+  --img-logo-full: url(/img/vintage/logo-full.svg);
   --img-ui-http: url(/img/vintage/ui-http64.png);
   --img-ui-https: url(/img/vintage/ui-https64.png);
   --img-ui-no: url(/img/vintage/ui-no64.png);
@@ -129,7 +129,3 @@
   }
 
 }
-
-
-
-
