@@ -1,5 +1,6 @@
 #!/bin/bash
-MANIFEST="$1"
+BASEDIR="$(dirname "$0")"/..
+MANIFEST="${1:-$BASEDIR/unpacked/firefox/manifest.json}"
 if ! [ -f "$MANIFEST" ]; then
   echo >&2 "Manifest '$1' not found!"
   exit 1
@@ -8,10 +9,18 @@ fi
 from_manifest()  {
   grep "\"$1\":" "$MANIFEST" | sed -re 's/.*": "(.*?)".*/\1/'
 }
-XPI_DIR=$(dirname "$0")/../xpi
+XPI_DIR="$BASEDIR/xpi"
 XPI_VER="$(from_manifest version)"
+if ! [[ $XPI_VER = *1984 ]]; then
+  echo >&2 "$XPI_VER doesn't look like a Tor Browser version!"
+  exit 2
+fi
 XPI_FILE="noscript-${XPI_VER}.xpi"
 XPI_URL="https://dist.torproject.org/torbrowser/noscript/$XPI_FILE"
+if ! [ -f "$XPI_DIR/$XPI_FILE" ]; then
+  echo >&2 "$XPI_DIR/$XPI_FILE not found!"
+  exit 3
+fi
 echo "Built/signed for Tor: $XPI_DIR/$XPI_FILE"
 channel="stable"
 if [[ $XPI_VER =~ \.9[0-9][0-9]+$ ]]; then
