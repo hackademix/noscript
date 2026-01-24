@@ -201,7 +201,7 @@
       }
       (async () => {
         let iconPath = (await Themes.isVintage()) ? '/img/vintage' : '/img';
-        action.setIcon({tabId, path: {64: `${iconPath}/ui-${icon}64.png`}});
+        action.setIcon({tabId, path: {64: `${iconPath}/ui-${icon}64.webp`}});
       })();
 
       action.setBadgeText({

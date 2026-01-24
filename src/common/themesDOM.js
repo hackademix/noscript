@@ -89,7 +89,7 @@ if (self.document) {
       localStorage.setItem(Themes.VINTAGE, isVintage || "");
     } catch (e) {}
     document.documentElement.classList.toggle("vintage", isVintage === true);
-    browser?.action?.setIcon({path: {64: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.png` }});
+    browser?.action?.setIcon({path: {64: `/img${isVintage ? "/vintage/" : "/"}ui-maybe64.webp` }});
     updateFavIcon(isVintage);
   }
 }
