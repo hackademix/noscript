@@ -47,6 +47,7 @@ label {
 
 .full-address {
   display: block;
+  font-size: 130%;
 }
 
 .presets {
@@ -62,10 +63,6 @@ span.preset, .url {
 input.temp {
   position: static !important;
   opacity: 1 !important;
-}
-
-.full-address {
-  font-size: 130%;
 }
 
 tr.site {

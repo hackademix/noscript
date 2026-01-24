@@ -915,6 +915,15 @@ var UI = (() => {
           root.addEventListener("click", this, true);
           root.addEventListener("change", this, true);
           root.wiredBy = this;
+
+          if (!UA.mobile) {
+            return;
+          }
+          const siteWidth = root.querySelector(".site")?.offsetWidth + 12;
+          const viewportWidth = document.documentElement.clientWidth;
+          if (viewportWidth < siteWidth) {
+            document.documentElement.style.zoom = viewportWidth / siteWidth;
+          }
         }
       });
     }

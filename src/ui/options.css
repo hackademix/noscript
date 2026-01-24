@@ -98,7 +98,7 @@ fieldset:disabled {
 .sect-sites form {
   display: flex;
   align-items: baseline;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
