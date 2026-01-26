@@ -16,12 +16,14 @@ if ! [[ $XPI_VER = *1984 ]]; then
   exit 2
 fi
 XPI_FILE="noscript-${XPI_VER}.xpi"
+XPI_PATH="$XPI_DIR/$XPI_FILE"
 XPI_URL="https://dist.torproject.org/torbrowser/noscript/$XPI_FILE"
-if ! [ -f "$XPI_DIR/$XPI_FILE" ]; then
-  echo >&2 "$XPI_DIR/$XPI_FILE not found!"
+if ! [ -f "$XPI_PATH" ]; then
+  echo >&2 "$XPI_PATH not found!"
   exit 3
 fi
-echo "Built/signed for Tor: $XPI_DIR/$XPI_FILE"
+[ -f "$XPI_PATH.gpg" ] || gpg --detach-sign -o "$XPI_PATH.gpg" "$XPI_PATH"
+echo "Built/signed for Tor: $XPI_PATH"
 channel="stable"
 if [[ $XPI_VER =~ \.9[0-9][0-9]+$ ]]; then
   channel="pre"
@@ -49,6 +51,6 @@ SRV=staticiforme.torproject.org
 PORT=22
 DEST="$SRV:/srv/dist-master.torproject.org/htdocs/torbrowser/noscript/"
 pushd "$XPI_DIR" &&
-rsync -e "ssh -p $PORT" -avuzP --delete noscript-*1984.xpi update-*.json "$DEST" &&
+rsync -e "ssh -p $PORT" -avuzP --delete noscript-*1984.xpi noscript-*1984.xpi.gpg update-*.json "$DEST" &&
 popd &&
 ssh -p $PORT $SRV 'static-update-component dist.torproject.org'
