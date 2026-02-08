@@ -107,7 +107,7 @@ document.querySelector("#version").textContent = _("Version",
       if (f) f.remove();
       f = document.createElement("iframe");
       f.id = id;
-      f.srcdoc = `<a download="noscript_data.txt" target="_blank">NoScript Export</a>`;
+      f.srcdoc = `<a download="noscript_data.json" target="_blank">NoScript Export</a>`;
       f.style.position = "fixed";
       f.style.top = "-999px";
       f.style.height = "1px";
@@ -115,7 +115,7 @@ document.querySelector("#version").textContent = _("Version",
         let w = f.contentWindow;
         let a = w.document.querySelector("a");
         a.href = w.URL.createObjectURL(new w.Blob([settings], {
-          type: "text/plain"
+          type: "application/json"
         }));
         a.click();
         setTimeout(() => {
