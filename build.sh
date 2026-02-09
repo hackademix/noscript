@@ -184,6 +184,11 @@ build() {
   rm -rf "$UNPACKED_DIR/nscl"
   "$BUILD/nscl/include.sh" "$UNPACKED_DIR"
 
+  if [[ $1 == "firefox" ]]; then
+    # we use svg icons on Firefox
+    rm "$UNPACKED_DIR/img/"*.png
+  fi
+
   if [ "$UNPACKED_ONLY" ]; then
     return
   fi

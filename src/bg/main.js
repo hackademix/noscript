@@ -105,6 +105,7 @@
       }
     }
 
+
     const {isTorBrowser} = ns.local;
     Sites.onionSecure = isTorBrowser;
 

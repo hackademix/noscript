@@ -56,6 +56,10 @@ if (isFirefox) {
   if (url) {
     json.browser_specific_settings.gecko.update_url = url;
   }
+  json.icons = {};
+  for (const size of [16, 32, 48, 64, 128, 256]) {
+    json.icons[size] = "img/logo.svg";
+  }
 }
 
 if (MANIFEST_VER.includes(3)) {

@@ -16,9 +16,9 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
 
   "icons": {
-    "48": "img/icon48.webp",
-    "96": "img/icon96.webp",
-    "256": "img/icon256.webp"
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
   },
 
   "permissions": [
