@@ -107,7 +107,7 @@ document.querySelector("#version").textContent = _("Version",
       if (f) f.remove();
       f = document.createElement("iframe");
       f.id = id;
-      f.srcdoc = `<a download="noscript_data.txt" target="_blank">NoScript Export</a>`;
+      f.srcdoc = `<a download="noscript_data.json" target="_blank">NoScript Export</a>`;
       f.style.position = "fixed";
       f.style.top = "-999px";
       f.style.height = "1px";
