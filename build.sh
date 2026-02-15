@@ -55,7 +55,7 @@ ver_from_manifest() {
 VER=$(ver_from_manifest "$MANIFEST_IN")
 if [ "$1" == "tag" ]; then
   # ensure nscl is up-to-date git-wise
-  ./nscl_gitsync.sh
+  bash ./nscl_gitsync.sh
   OPTS=""
   if [ "$2" != "quiet" ]; then
     OPTS="-e"
@@ -182,7 +182,7 @@ build() {
   cp -rp "$BUILD" "$UNPACKED_DIR" && echo >&2 "Copied $BUILD to $UNPACKED_DIR"
   # include only the actually used nscl dependencies
   rm -rf "$UNPACKED_DIR/nscl"
-  "$BUILD/nscl/include.sh" "$UNPACKED_DIR"
+  bash "$BUILD/nscl/include.sh" "$UNPACKED_DIR"
 
   if [[ $1 == "firefox" ]]; then
     # we use svg icons on Firefox
@@ -211,7 +211,7 @@ fix_manifest "$FIREFOX_TARGET"
 build firefox
 
 if [[ $FIREFOX_TARGET == *:tor ]]; then
-  "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT"
+  bash "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT"
   exit
 fi
 
