@@ -130,7 +130,7 @@
           policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
         } catch (e) {
           error(e);
-          if (/sync-xhr is not allowed/.test(e.message)) {
+          if (/sync-xhr is not allowed|top-level about:blank/.test(e.message)) {
             attempts = 0;
           }
         }
