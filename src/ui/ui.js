@@ -967,8 +967,31 @@ var UI = (() => {
           break;
         case "Home":
           newRow = row;
+        case "KeyH":
+          dir = "previous";
+        case "KeyL":
+          const presets = row.querySelectorAll("input[class='preset']");
+          const currentIndex = [...presets].findIndex((p) => p.checked);
+          const step = dir === "next" ? 1 : -1;
+          const len = presets.length;
+
+          for (let i = 1; i < len; i++) {
+            // Limit nextIndex to [0, len).
+            const nextIndex = (currentIndex + len + i * step) % len;
+
+            // Skip disabled presets.
+            if (!presets[nextIndex].disabled) {
+              const nextPreset = presets[nextIndex];
+              nextPreset.focus();
+              nextPreset.click();
+              break;
+            }
+          }
+          break;
+        case "KeyK":
         case "ArrowUp":
           dir = "previous";
+        case "KeyJ":
         case "ArrowDown":
           if (!newRow) {
             this.customize(null);
