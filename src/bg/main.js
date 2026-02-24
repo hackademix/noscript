@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -304,9 +304,21 @@
 
     async computeChildPolicy({url, contextUrl}, sender) {
       await ns.initializing;
-      let {tab, origin, frameId, documentLifecycle} = sender;
-      if (url == sender.url && url == "about:blank") {
-        url = origin;
+      let { tab, origin, frameId, documentLifecycle } = sender;
+      const tabId = tab ? tab.id : -1;
+
+      if (url == sender.url) {
+        while (url == "about:blank" || url == "about:srcdoc" || url.startsWith("data:")) {
+          url = origin;
+          if (frameId == 0 || url != "null") {
+            break;
+          }
+          const parentFrameId = NavCache.getFrame(tabId, frameId)?.parentFrameId || 0;
+          const parentUrl = NavCache.getFrame(tabId, parentFrameId)?.url;
+          if (parentUrl) {
+            url = origin = parentUrl;
+          }
+        }
       }
       let policy = ns.policy;
       const {isTorBrowser} = ns.local;
@@ -321,7 +333,6 @@
         };
       }
 
-      const tabId = tab ? tab.id : -1;
       const isTop = frameId === 0;
       const topUrl = documentLifecycle != "prerender" && tab && (tab.url || TabCache.get(tabId)?.url) || url;
 
