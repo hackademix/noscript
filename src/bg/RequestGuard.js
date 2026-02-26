@@ -1076,7 +1076,6 @@
     TabStatus.probe();
 
     if (!RequestGuard.canBlock) {
-      include("/nscl/service/NavCache.js");
       include("/bg/DNRPolicy.js");
     } else {
       // From here on, only webRequestBlocking-enabled code (Gecko MV2.5)

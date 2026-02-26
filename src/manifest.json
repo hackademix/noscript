@@ -69,6 +69,7 @@
       "/nscl/common/AddressMatcherWithDNS.js",
       "/nscl/common/iputil.js",
       "/nscl/common/SessionCache.js",
+      "/nscl/service/NavCache.js",
       "/nscl/service/Scripting.js",
       "/nscl/service/DocStartInjection.js",
       "/nscl/service/LastListener.js",

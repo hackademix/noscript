@@ -65,7 +65,21 @@ if (isFirefox) {
 if (MANIFEST_VER.includes(3)) {
   // MV3
   json.manifest_version = 3;
-  if (!isFirefox) {
+
+  const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
+  const scriptsFilter = src => !excludedScriptsRx.test(src);
+  console.log(json.background);
+  json.background.scripts = json.background.scripts.filter(scriptsFilter);
+  for (const cs of json.content_scripts) {
+    cs.js = cs.js.filter(scriptsFilter);
+  }
+
+  if (isFirefox) {
+    permissions.delete("debugger");
+    json.content_security_policy = {
+      extension_pages: "script-src 'self' worker-src 'self' blob:"
+    };
+  } else {
     // convert ${ver}(a|b|rc)xx into ${ver--}.9xx
     json.version = extVer.split("+")[0].replace(/(\d+)(?:\.0)*[a-z]+(\d+)$/,
         (all, maj, min) => `${parseInt(maj) - 1}.${900 + parseInt(min)}`);
@@ -73,11 +87,20 @@ if (MANIFEST_VER.includes(3)) {
     delete json.content_security_policy;
     const {scripts} = json.background;
     delete json.background.scripts;
-    delete json.background.persistent;
     const requiredPath = path.join(path.dirname(MANIFEST_DEST), "REQUIRED.js");
     scripts && fs.writeFileSync(requiredPath,
-      `include.REQUIRED = ${JSON.stringify(scripts, null, 2)};`)
+      `include.REQUIRED = ${JSON.stringify(scripts, null, 2)};`);
+    for (const p of [
+      "webRequestBlocking",
+      "webRequestBlocking",
+      "webRequestFilterResponse",
+      "webRequestFilterResponse.serviceWorkerScript",
+    ]) {
+      permissions.delete(p);
+    }
   }
+
+  permissions.delete("<all_urls>");
 
   if (MANIFEST_VER.includes("edge")) {
     json.update_url = EDGE_UPDATE_URL;
@@ -85,20 +108,7 @@ if (MANIFEST_VER.includes(3)) {
     delete json.update_url;
   }
 
-  for (const p of [
-    "<all_urls>",
-    "webRequestBlocking",
-    "webRequestBlocking",
-    "webRequestFilterResponse",
-    "webRequestFilterResponse.serviceWorkerScript",
-  ]) {
-    permissions.delete(p);
-  }
-
-  const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
-  for (const cs of json.content_scripts) {
-    cs.js = cs.js.filter(src => !excludedScriptsRx.test(src));
-  }
+  delete json.background.persistent;
   delete json.browser_action;
   delete json.commands._execute_browser_action;
 } else {
@@ -116,6 +126,11 @@ if (MANIFEST_VER.includes(3)) {
     permissions.delete(p);
   }
 
+  // match_origin_as_fallback is MV3 only
+  json.content_scripts.forEach(cs => delete cs.match_origin_as_fallback);
+}
+
+if (isFirefox || json.manifest_version == 2) {
   // Append MAIN world "*.main.js" scripts to their isolated counterparts
   // (on Gecko we will patch windows through xray)
   const isolatedWorldJS = json.content_scripts.find(
@@ -135,9 +150,6 @@ if (MANIFEST_VER.includes(3)) {
 
   // remove all the MAIN world content script
   json.content_scripts = json.content_scripts.filter(cs => cs.world != "MAIN");
-
-  // match_origin_as_fallback is MV3 only
-  json.content_scripts.forEach(cs => delete cs.match_origin_as_fallback);
 }
 
 // remove developer-only stuff
