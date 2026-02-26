@@ -22,7 +22,8 @@
 
 "use strict";
 
-if (/^(?:file|ftp|data):$/.test(location.protocol)) { // no HTTP CSP Header
+if (/^(?:file|ftp):$/.test(location.protocol)) {
+  // no HTTP CSP Header, possible directory listing
   (globalThis.ns ||= {}).syncFetchPolicy = function() {
 
     ns.pendingSyncFetchPolicy = false;
@@ -82,12 +83,10 @@ if (/^(?:file|ftp|data):$/.test(location.protocol)) { // no HTTP CSP Header
 
         ns.on("capabilities", () => {
 
-          let {readyState} = document;
-
-          debug("Readystate: %s, suppressedScripts = %s, canScript = %s", readyState, DocumentFreezer.suppressedScripts, ns.canScript);
+          debug("Readystate: %s, suppressedScripts = %s, canScript = %s", document.readyState, DocumentFreezer.suppressedScripts, ns.canScript);
 
           if (!ns.canScript) {
-            queueMicrotask(() => DocumentFreezer.unfreeze());
+            queueMicrotask(() => DocumentFreezer.unfreezeLive());
             let normalizeDir = e => {
               // Chromium does this automatically. We need it to understand we're a directory earlier and allow browser UI scripts.
               if (document.baseURI === document.URL + "/") {
@@ -107,111 +106,7 @@ if (/^(?:file|ftp|data):$/.test(location.protocol)) { // no HTTP CSP Header
             return;
           }
 
-          if (DocumentFreezer.suppressedScripts === 0 && readyState === "loading") {
-            // we don't care reloading, if no script has been suppressed
-            // and no readyState change has been fired yet
-            DocumentFreezer.unfreeze(true); // live
-            return;
-          }
-
-          let softReload = ev => {
-            removeEventListener("DOMContentLoaded", softReload, true);
-            try {
-              debug("Soft reload", ev); // DEV_ONLY
-              try {
-                let isDir = document.querySelector("link[rel=stylesheet][href^='chrome:']")
-                    && document.querySelector(`base[href^="${url}"]`);
-                if (isDir || document.contentType !== "text/html") {
-                  throw new Error(`Can't document.write() on ${isDir ? "directory listings" : document.contentType}`)
-                }
-
-                const root = DocumentFreezer.unfreeze(false); // off-document
-                const html = root.outerHTML;
-                let sx = window.scrollX, sy = window.scrollY;
-                DocRewriter.rewrite(html);
-                debug("Written", html);
-                // Work-around this rendering bug: https://forums.informaction.com/viewtopic.php?p=103105#p103050
-                debug("Scrolling back to", sx, sy);
-                window.scrollTo(sx, sy);
-              } catch (e) {
-                debug("Can't use document.write(), XML document?", e);
-                try {
-                  let eventSuppressor = ev => {
-                    if (ev.isTrusted) {
-                      debug("Suppressing natural event", ev);
-                      ev.preventDefault();
-                      ev.stopImmediatePropagation();
-                      ev.currentTarget.removeEventListener(ev.type, eventSuppressor, true);
-                    }
-                  };
-                  let svg = document.documentElement instanceof SVGElement;
-                  if (svg) {
-                    document.addEventListener("SVGLoad", eventSuppressor, true);
-                  }
-                  document.addEventListener("DOMContentLoaded", eventSuppressor, true);
-                  if (ev) eventSuppressor(ev);
-                  DocumentFreezer.unfreeze();
-                  let scripts = [], deferred = [];
-                  // push deferred scripts, if any, to the end
-                  for (let s of document.getElementsByTagName("script")) {
-                    (s.defer && !s.text ? deferred : scripts).push(s);
-                    s.addEventListener("beforescriptexecute", e => {
-                      console.debug("Suppressing", script);
-                      e.preventDefault();
-                    });
-                  }
-                  if (deferred.length) scripts.push(...deferred);
-                  let doneEvents = ["afterscriptexecute", "load", "error"];
-                  (async () => {
-                    for (let s of scripts) {
-                      let clone = document.createElementNS(s.namespaceURI, "script");
-                      for (let a of s.attributes) {
-                        clone.setAttributeNS(a.namespaceURI, a.name, a.value);
-                      }
-                      clone.innerHTML = s.innerHTML;
-                      await new Promise(resolve => {
-                        let listener = ev => {
-                          if (ev.target !== clone) return;
-                          debug("Resolving on ", ev.type, ev.target);
-                          resolve(ev.target);
-                          for (let et of doneEvents) removeEventListener(et, listener, true);
-                        };
-                        for (let et of doneEvents) {
-                          addEventListener(et, listener, true);
-                        }
-                        s.replaceWith(clone);
-                        debug("Replaced", clone);
-                      });
-                    }
-                    debug("All scripts done, firing completion events.");
-                    document.dispatchEvent(new Event("readystatechange"));
-                    if (svg) {
-                      document.documentElement.dispatchEvent(new Event("SVGLoad"));
-                    }
-                    document.dispatchEvent(new Event("DOMContentLoaded", {
-                      bubbles: true,
-                      cancelable: false
-                    }));
-                    if (document.readyState === "complete") {
-                      window.dispatchEvent(new Event("load"));
-                    }
-                  })();
-                } catch (e) {
-                  error(e);
-                }
-              }
-            } catch(e) {
-              error(e);
-            }
-          };
-
-          if (DocumentFreezer.firedDOMContentLoaded || document.readyState !== "loading") {
-            softReload();
-          } else {
-            debug("Deferring softReload to DOMContentLoaded...");
-            addEventListener("DOMContentLoaded", softReload, true);
-          }
-
+          DocumentFreezer.unfreezeAutoReload();
         });
       } catch (e) {
         error(e);

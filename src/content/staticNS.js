@@ -115,23 +115,26 @@
       });
       const {readyState} = document;
 
+      asyncFetch();
       if (readyState == "complete" ||
           !this.syncFetchPolicy && this.embeddingDocument ||
           window.origin == "null" && window.location.href == "about:blank" && window.top == self
       ) {
-        asyncFetch();
+        // no point trying sync too in these cases
         return;
       }
       debug(`Synchronously fetching policy for ${readyState} ${url}.`);
       let policy = null;
-      let attempts = readyState == "loading" ? 100 : 1;
+      let attempts = readyState == "loading" ? 2 : 1;
       let refetch = () => {
         try {
           policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
         } catch (e) {
-          error(e);
-          if (/sync-xhr is not allowed|top-level about:blank/.test(e.message)) {
+          if (self.origin == "null") {
+            debug("Could not use synchronous messaging from null origin."); // DEV_ONLY
             attempts = 0;
+          } else {
+            error(e);
           }
         }
         if (policy) {
@@ -143,6 +146,9 @@
             asyncFetch = null;
           }
           queueMicrotask(refetch);
+        } else if (!this.policy) {
+          // no more attempts, if we don't have a policy yet let's freeze
+          DocumentFreezer.freeze();
         }
       };
       refetch();
@@ -172,6 +178,14 @@
       }
       this.canScript = this.allows("script");
       this.fire("capabilities");
+
+      if (DocumentFreezer.isFrozen) {
+        if (!this.canScript) {
+          DocumentFreezer.unfreezeLive();
+        } else {
+          DocumentFreezer.unfreezeAutoReload();
+        }
+      }
       return true;
     },
 

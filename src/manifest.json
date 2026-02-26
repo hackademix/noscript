@@ -116,6 +116,7 @@
         "/nscl/content/PlaceHolder.js",
         "/nscl/content/sanitizePaste.js",
         "content/onScriptDisabled.js",
+        "/nscl/content/DocumentFreezer.js",
         "content/staticNS.js",
         "/nscl/content/media.js",
         "/nscl/content/WasmHook.js",
@@ -123,7 +124,6 @@
         "content/embeddingDocument.js",
         "content/content.js",
         "content/dirindex.js",
-        "/nscl/content/DocumentFreezer.js",
         "content/eventsHook.js",
         "content/syncFetchPolicy.js"
       ]
