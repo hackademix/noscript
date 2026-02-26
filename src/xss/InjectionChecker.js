@@ -18,6 +18,8 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// depends on /nscl/common/SyntaxChecker.js
+
 XSS.InjectionChecker = (async () => {
   await include([
     "/nscl/common/SyntaxChecker.js",
@@ -110,23 +112,23 @@ XSS.InjectionChecker = (async () => {
       log("[InjectionChecker] ", msg);
     },
 
-    bb: function(brac, s, kets) {
+    bb: async function(brac, s, kets) {
       for (var j = 3; j-- > 0;) {
         s = brac + s + kets;
-        if (this.checkJSSyntax(s)) return true;
+        if (await this.checkJSSyntax(s)) return true;
       }
       return false;
     },
 
-    checkJSSyntax(s) {
+    async checkJSSyntax(s) {
       // bracket balancing for micro injections like "''), e v a l (name,''"
-      if (/^(?:''|"")?[^\('"]*\)/.test(s)) return this.bb("x(\n", s, "\n)");
-      if (/^(?:''|"")?[^\['"]*\\]/.test(s)) return this.bb("y[\n", s, "\n]");
-      if (/^(?:''|"")?[^\{'"]*\}/.test(s)) return this.bb("function z() {\n", s, "\n}");
+      if (/^(?:''|"")?[^\('"]*\)/.test(s)) return await this.bb("x(\n", s, "\n)");
+      if (/^(?:''|"")?[^\['"]*\\]/.test(s)) return await this.bb("y[\n", s, "\n]");
+      if (/^(?:''|"")?[^\{'"]*\}/.test(s)) return await this.bb("function z() {\n", s, "\n}");
 
       let syntax = this.syntax;
       s += " /* COMMENT_TERMINATOR */\nDUMMY_EXPR";
-      if (syntax.check(s)) {
+      if (await syntax.checkAsync(s)) {
         this.log("Valid fragment " + s);
         return true;
       }
@@ -138,10 +140,11 @@ XSS.InjectionChecker = (async () => {
       return templateExpressions !== script &&
         (await this.maybeMavo(script) ||
           (await this.maybeJS(templateExpressions, true) &&
-            (this.syntax.check(templateExpressions) ||
-              /[^><=]=[^=]/.test(templateExpressions) && this.syntax.check(
+            ((await this.syntax.asyncCheck(templateExpressions)) ||
+              /[^><=]=[^=]/.test(templateExpressions) &&
+              (await this.syntax.asyncCheck(
                 templateExpressions.replace(/([^><=])=(?=[^=])/g, '$1=='))
-            )));
+              ))));
     },
 
     async maybeMavo(s) {
@@ -276,7 +279,7 @@ XSS.InjectionChecker = (async () => {
           }
 
           if (!/[(=.]|[^:\s]\s*\[|:\s*(?:location|document|set(?:Timeout|Interval)|eval|open|show\w*Dialog|alert|confirm|prompt)\b|(?:\]|set)\s*:/.test(qred) &&
-            this.checkJSSyntax("JSON = " + qred) // no-assignment JSON fails with "invalid label"
+            await this.checkJSSyntax("JSON = " + qred) // no-assignment JSON fails with "invalid label"
           ) {
             this.log("Reducing slow JSON " + expr);
             s = `${before}${REPL}${after}`;
@@ -408,7 +411,7 @@ XSS.InjectionChecker = (async () => {
     },
 
     async checkNonTrivialJSSyntax(expr) {
-      return await this.maybeJS(this.reduceQuotes(expr)) && this.checkJSSyntax(expr);
+      return await this.maybeJS(this.reduceQuotes(expr)) && await this.checkJSSyntax(expr);
     },
 
 
@@ -702,7 +705,7 @@ XSS.InjectionChecker = (async () => {
               this.log("Non-trivial JS inside quoted string detected", iterations);
               return true;
             }
-            script = this.syntax.unquote(quote + expr, quote);
+            script = await this.syntax.unquoteAsync(quote + expr, quote);
             if (script && await this.maybeJS(script) &&
               (await this.checkNonTrivialJSSyntax(script) ||
                 /'./.test(script) && await this.checkNonTrivialJSSyntax("''" + script + "'") ||
@@ -729,7 +732,7 @@ XSS.InjectionChecker = (async () => {
 
           if (await this.maybeJS(this.reduceQuotes(script))) {
 
-            if (this.checkJSSyntax(script) && await this.checkLastFunction()) {
+            if (await this.checkJSSyntax(script) && await this.checkLastFunction()) {
               this.log("JS Break Injection detected", iterations);
               return true;
             }
