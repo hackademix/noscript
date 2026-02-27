@@ -136,7 +136,7 @@ BUILD_OPTS="build --overwrite-dest"
 CHROMIUM_BUILD_CMD="$BUILD_CMD"
 CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 
-FIREFOX_TARGET="mv3firefox"
+FIREFOX_TARGET="mv2firefox"
 if [[ $1 =~ ^(sign(ed)?|tor)$ ]]; then
   BUILD_CMD="$BASE/../../we-sign"
   BUILD_OPTS=""

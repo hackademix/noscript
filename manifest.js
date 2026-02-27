@@ -75,10 +75,7 @@ if (MANIFEST_VER.includes(3)) {
   }
 
   if (isFirefox) {
-    permissions.delete("debugger");
-    json.content_security_policy = {
-      extension_pages: "script-src 'self' worker-src 'self' blob:"
-    };
+    delete json.content_security_policy;
   } else {
     // convert ${ver}(a|b|rc)xx into ${ver--}.9xx
     json.version = extVer.split("+")[0].replace(/(\d+)(?:\.0)*[a-z]+(\d+)$/,
@@ -118,16 +115,9 @@ if (MANIFEST_VER.includes(3)) {
   delete json.web_accessible_resources;
   delete json.host_permissions;
   delete json.action;
-  for (const p of [
-    "debugger",
-    "declarativeNetRequest",
-    "declarativeNetRequestFeedback",
-  ]) {
-    permissions.delete(p);
-  }
 
   // match_origin_as_fallback is MV3 only
-  json.content_scripts.forEach(cs => delete cs.match_origin_as_fallback);
+  // json.content_scripts.forEach(cs => delete cs.match_origin_as_fallback);
 }
 
 if (isFirefox || json.manifest_version == 2) {
@@ -150,6 +140,15 @@ if (isFirefox || json.manifest_version == 2) {
 
   // remove all the MAIN world content script
   json.content_scripts = json.content_scripts.filter(cs => cs.world != "MAIN");
+
+  for (const p of [
+    "debugger",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+  ]) {
+    permissions.delete(p);
+  }
+
 }
 
 // remove developer-only stuff
