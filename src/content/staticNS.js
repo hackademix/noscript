@@ -114,7 +114,6 @@
         setup(policy);
       });
       const {readyState} = document;
-
       asyncFetch();
       if (readyState == "complete" ||
           !this.syncFetchPolicy && this.embeddingDocument ||
@@ -124,34 +123,28 @@
         return;
       }
       debug(`Synchronously fetching policy for ${readyState} ${url}.`);
+
       let policy = null;
-      let attempts = readyState == "loading" ? 2 : 1;
-      let refetch = () => {
-        try {
-          policy = browser.runtime.sendSyncMessage(msg) || this.domPolicy;
-        } catch (e) {
-          if (self.origin == "null") {
-            debug("Could not use synchronous messaging from null origin."); // DEV_ONLY
-            attempts = 0;
-          } else {
-            error(e);
-          }
+      try {
+        policy = browser.runtime.sendSyncMessage(msg);
+      } catch (e) {
+        console.error("Failed to use sendSyncMessage", e);
+      }
+      policy ||= this.domPolicy;
+      if (policy) {
+        setup(policy);
+        return;
+      }
+      queueMicrotask(() => {
+        if (this.policy) {
+          return;
         }
-        if (policy) {
-          setup(policy);
-        } else if (attempts-- > 0) {
-          debug(`Couldn't retrieve policy synchronously (${attempts} attempts left).`);
-          if (asyncFetch) {
-            asyncFetch();
-            asyncFetch = null;
-          }
-          queueMicrotask(refetch);
-        } else if (!this.policy) {
-          // no more attempts, if we don't have a policy yet let's freeze
+        if (this.domPolicy) {
+          setup(this.domPolicy);
+        } else {
           DocumentFreezer.freeze();
         }
-      };
-      refetch();
+      });
     },
 
     setup(policy) {
