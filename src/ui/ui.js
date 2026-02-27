@@ -107,9 +107,13 @@ var UI = (() => {
         });
         UI.pullSettings();
       });
-
-      await inited;
-
+      try {
+        await inited;
+      } catch(e) {
+        console.error(e);
+        browser.runtime.reload();
+        window.reload();
+      }
       this.initialized = true;
       debug("Imported", Policy);
     },
