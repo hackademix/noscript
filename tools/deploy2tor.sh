@@ -25,7 +25,7 @@ fi
 [ -f "$XPI_PATH.gpg" ] || gpg --detach-sign -o "$XPI_PATH.gpg" "$XPI_PATH"
 echo "Built/signed for Tor: $XPI_PATH"
 channel="stable"
-if [[ $XPI_VER =~ \.9[0-9][0-9]+$ ]]; then
+if [[ $XPI_VER =~ \.9[0-9][0-9][0.]1984$ ]]; then
   channel="pre"
 fi
 UPD_JSON="update-${channel}.json"
