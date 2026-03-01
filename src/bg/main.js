@@ -204,16 +204,34 @@
       return await ns.computeChildPolicy(...arguments);
     },
 
-    async openStandalonePopup(tab) {
-      if (!tab) tab = (await browser.tabs.query({
-        currentWindow: true,
-        active: true
-      }))[0];
+    async openPopup(msg, {tab}) {
+      try {
+        await browser.action.openPopup();
+      } catch (e) {
+        console.error(e); // hidden icon or missing usr activation?
+        await messageHandler.openStandalonePopup(tab);
+      }
+    },
 
-      if (!tab || tab.id === -1) {
+    async openStandalonePopup(tab) {
+      if (!(tab?.id > -1)) {
+        tab = (await browser.tabs.query({
+          currentWindow: true,
+          active: true
+        }))[0];
+      }
+
+      if (!(tab?.id > -1)) {
         log("No tab found to open the UI for");
         return;
       }
+
+      if (!browser.windows) {
+        // Android
+        browser.tabs.create({ url: popupFor(tab.id) });
+        return;
+      }
+
       const win = await browser.windows.get(tab.windowId);
       const width = 610, height = 400;
       browser.windows.create({
