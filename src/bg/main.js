@@ -205,12 +205,7 @@
     },
 
     async openPopup(msg, {tab}) {
-      try {
-        await browser.action.openPopup();
-      } catch (e) {
-        console.error(e); // hidden icon or missing usr activation?
-        await messageHandler.openStandalonePopup(tab);
-      }
+      await messageHandler.openStandalonePopup(tab);
     },
 
     async openStandalonePopup(tab) {
