@@ -83,6 +83,13 @@ addEventListener("unload", e => {
             close();
           }
         });
+      } else {
+        window.addEventListener("blur", async () => {
+          try {
+            await browser.tabs.update(tabId, { active: true });
+          } catch (e) {}
+          close();
+        });
       }
     } else {
       tabId = tab.id;
