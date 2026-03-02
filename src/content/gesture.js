@@ -223,7 +223,10 @@ if (navigator.maxTouchPoints) {
     if (pathLength < 5) {
       const lastX = path[pathLength - 2].x, lastY = path[pathLength - 2].y;
       const { x, y } = path[pathLength - 1];
-      if (x - lastX > -1 || Math.abs(y - lastY) < 1) {
+      const dx = x - lastX, dy = y - lastY;
+      const verticality = Math.abs(dy / dx);
+      console.debug("Verticality", verticality); // DEV_ONLY
+      if (dx >= 0 || verticality > 2 || verticality < .5) {
         cleanup(false);
         return;
       }
