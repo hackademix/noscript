@@ -38,8 +38,11 @@
   const GESTURE_MIN_HEIGHT = 24;
   const OPACITY_MAX = 0.8;
   const Z_INDEX = 2147483647;
-
-
+  const COLORS = {
+    outline: "#ee0000",
+    fill: "#ffffff",
+  };
+  const LABEL_SIZE = 24;
   /**
   * Helper to calculate metrics used by both drawPath and processGesture.
   * Consolidates bounding box and horizontal direction changes.
@@ -117,7 +120,7 @@
       height: "100vh",
       zIndex: Z_INDEX,
       pointerEvents: "none",
-      opacity: 1,
+      opacity: 0,
       transition: "opacity 0.4s ease",
     });
     canvas.width = window.innerWidth;
@@ -127,12 +130,16 @@
 
     ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
+    ctx.font = `bold ${LABEL_SIZE}px sans-serif`;
+    ctx.textBaseline = "bottom";
+    canvas.labelX = (canvas.width - ctx.measureText(configuration.label).width) / 2;
   }
 
-  function drawPath() {
+  function drawPath(metrics) {
     if (!ctx || path.length < 2) {
       return;
     }
+    canvas.style.opacity = 1;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     ctx.moveTo(path[0].x, path[0].y);
@@ -140,15 +147,29 @@
       ctx.lineTo(path[i].x, path[i].y);
     }
 
-    ctx.strokeStyle = "#ff2222";
+    const { label } = configuration;
+
+    ctx.strokeStyle = COLORS.outline;
     ctx.lineWidth = 7;
     ctx.stroke();
     ctx.lineWidth = 4;
-    ctx.strokeStyle = "#ffffff";
+    ctx.strokeStyle = COLORS.fill;
     ctx.stroke();
 
     if (logo) {
-      const metrics = getPathMetrics(path);
+      metrics ??= getPathMetrics(path);
+      ctx.beginPath();
+      ctx.strokeStyle = COLORS.fill;
+      ctx.fillStyle = COLORS.outline + "80";
+      const pad = 10;
+      ctx.roundRect(canvas.labelX - pad, metrics.minY - LABEL_SIZE - pad,
+        canvas.width - canvas.labelX * 2 + pad * 2, LABEL_SIZE + pad * 2, [pad]);
+      ctx.fill();
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.fillStyle = COLORS.fill;
+      ctx.fillText(label, canvas.labelX, metrics.minY, canvas.width);
+
       const width = metrics.maxX - metrics.minX;
       const height = metrics.maxY - metrics.minY;
       const progress = (Math.min(1, height / GESTURE_MIN_HEIGHT) * 0.4) +
@@ -166,6 +187,8 @@
   }
 
   function cleanup(success) {
+    if (!success) console.debug("Aborted gesture", new Error().stack); // DEV_ONLY
+
     if (ctx) {
       if (success) {
         ctx.strokeStyle = "#ffffff";
@@ -203,7 +226,7 @@
     const height = metrics.maxY - metrics.minY;
     const width = metrics.maxX - metrics.minX;
 
-    let isS = metrics.directions.length >= 3 &&
+    let isS = metrics.directions.length == 3 &&
       height > GESTURE_MIN_HEIGHT;
 
     if (isS) {
@@ -232,19 +255,28 @@
     if (pathLength < 2) {
       return;
     }
-    if (pathLength < 5) {
-      const lastX = path[pathLength - 2].x, lastY = path[pathLength - 2].y;
-      const { x, y } = path[pathLength - 1];
-      const dx = x - lastX, dy = y - lastY;
-      const verticality = Math.abs(dy / dx);
-      console.debug("Verticality", verticality); // DEV_ONLY
-      if (dx >= 0 || verticality > 2 || verticality < .5) {
-        cleanup(false);
+    const metrics = getPathMetrics(path);
+    const { directions } = metrics;
+    console.debug("Directions", directions, metrics); // DEV_ONLY
+    if (directions.length < 1) {
+      return;
+    }
+    if (directions[0] != -1 || directions.length > 3) {
+      return cleanup(false);
+    }
+
+    if (directions.length < 2) {
+      const height = metrics.maxY - metrics.minY;
+      const width = metrics.maxX - metrics.minX;
+      if (width < 20 || height < 20) {
         return;
+      }
+      if (height / width > 2) {
+        return cleanup(false);
       }
     }
     e.preventDefault();
-    drawPath();
+    drawPath(metrics);
   };
 
 

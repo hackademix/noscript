@@ -143,7 +143,7 @@
     "message": "Embeddings"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing a \"S\" on a web page opens NoScript's UI for the site"
+    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
   },
   "Exceptions": {
     "message": "Exceptions…"
@@ -156,6 +156,9 @@
   },
   "FixLinks": {
     "message": "Attempt to fix JavaScript links"
+  },
+  "GestureLabel": {
+    "message": "Draw \"S\" to summon NoScript."
   },
   "Hider": {
     "message": "Drop here to hide."
