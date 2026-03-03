@@ -140,9 +140,9 @@ XSS.InjectionChecker = (async () => {
       return templateExpressions !== script &&
         (await this.maybeMavo(script) ||
           (await this.maybeJS(templateExpressions, true) &&
-            ((await this.syntax.asyncCheck(templateExpressions)) ||
+            ((await this.syntax.checkAsync(templateExpressions)) ||
               /[^><=]=[^=]/.test(templateExpressions) &&
-              (await this.syntax.asyncCheck(
+              (await this.syntax.checkAsync(
                 templateExpressions.replace(/([^><=])=(?=[^=])/g, '$1=='))
               ))));
     },
