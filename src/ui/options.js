@@ -155,8 +155,14 @@ document.querySelector("#version").textContent = _("Version",
 
   // Appearance
 
-  opt("showCountBadge", "local");
   opt("showCtxMenuItem", "local");
+  opt("gestureEnabled", "local");
+  // the two above are mutually exclusive:
+  // hide the former shown on Android, the latter on desktop
+  document.getElementById(`${UA.mobile ? "showCtxMenuItem" : "gestureEnabled"}-opt`)
+    .style.display = "none";
+
+  opt("showCountBadge", "local");
   opt("showFullAddresses", "local");
   opt("showProbePlaceholders", "local");
 
@@ -239,6 +245,11 @@ document.querySelector("#version").textContent = _("Version",
 
     include("/ui/behavior.js");
   }
+  async function close() {
+    await browser.tabs.remove((await browser.tabs.getCurrent()).id);
+  }
+
+  document.querySelector("#noscript-options .close").addEventListener("click", close);
 
   window.setTimeout(() => {
     // focus and/or hilite elements based on query string

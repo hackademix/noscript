@@ -31,6 +31,7 @@ var Defaults = {
         showProbePlaceholders: true,
         amnesticUpdates: false,
         autoReload: true,
+        gestureEnabled: true,
       },
       sync: {
         global: false,

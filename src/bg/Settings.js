@@ -159,6 +159,8 @@ var Settings = {
         // is not an user-triggered Security Level change
         if (ns.sync.overrideTorBrowserPolicy) {
           policy = null;
+        } else {
+          ns.local.gestureEnabled = false;
         }
       }
     }
@@ -167,6 +169,7 @@ var Settings = {
       // prevents resets from forgetting Tor Browser settings
       ns.defaults.local.isTorBrowser = true;
       ns.defaults.local.torBrowserPolicy = ns.local.torBrowserPolicy;
+      ns.defaults.local.gestureEnabled = false;
       ns.defaults.sync.cascadeRestrictions = true;
 
       Sites.onionSecure = true;

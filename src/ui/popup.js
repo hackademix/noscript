@@ -84,12 +84,8 @@ addEventListener("unload", e => {
           }
         });
       } else {
-        window.addEventListener("blur", async () => {
-          try {
-            await browser.tabs.update(tabId, { active: true });
-          } catch (e) {}
-          close();
-        });
+        // Android
+        window.addEventListener("blur", close);
       }
     } else {
       tabId = tab.id;

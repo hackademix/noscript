@@ -170,6 +170,9 @@
       }
       await Settings.update(settings);
       toggleCtxMenuItem();
+      if (navigator.maxTouchPoints) {
+        Messages.send("configureGesture", { enabled: ns.local.gestureEnabled });
+      }
     },
 
     async broadcastSettings({
@@ -261,6 +264,10 @@
         TabGuard.allow(tabId);
       }
       await TabGuard.reloadNormally(tabId);
+    },
+
+    fetchGestureConfiguration() {
+      return { enabled: ns.local.gestureEnabled };
     }
   };
   Messages.addHandler(messageHandler);

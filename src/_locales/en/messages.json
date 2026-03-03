@@ -142,6 +142,9 @@
   "Embeddings": {
     "message": "Embeddings"
   },
+  "EnableGesture": {
+    "message": "Enable gesture activation: drawing a \"S\" on a web page opens NoScript's UI for the site"
+  },
   "Exceptions": {
     "message": "Exceptions…"
   },

@@ -20,7 +20,19 @@
 
 
 "use strict";
-if (navigator.maxTouchPoints) {
+(async () => {
+  if (!navigator.maxTouchPoints) {
+    return;
+  }
+
+  let configuration = await Messages.send("fetchGestureConfiguration");
+  Messages.addHandler({
+    configureGesture(msg) {
+      configuration = msg;
+      configure();
+    }
+  });
+
   let path = [];
   let canvas, ctx, logo, theme;
   const GESTURE_MIN_HEIGHT = 24;
@@ -140,7 +152,7 @@ if (navigator.maxTouchPoints) {
       const width = metrics.maxX - metrics.minX;
       const height = metrics.maxY - metrics.minY;
       const progress = (Math.min(1, height / GESTURE_MIN_HEIGHT) * 0.4) +
-                      (Math.min(1, metrics.directions.length / 3) * 0.4);
+        (Math.min(1, metrics.directions.length / 3) * 0.4);
       const size = Math.max(width, height);
 
       Object.assign(logo.style, {
@@ -202,16 +214,16 @@ if (navigator.maxTouchPoints) {
     }
   }
 
-  window.addEventListener("touchstart", e => {
+  const onTouchStart = e => {
     if (!e.isTrusted || e.touches.length > 1) {
       return;
     }
     setupLogo();
     setupCanvas();
     path = [{ x: e.touches[0].clientX, y: e.touches[0].clientY }];
-  }, { passive: true });
+  };
 
-  window.addEventListener("touchmove", e => {
+  const onTouchMove = e => {
     if (!(e.isTrusted && canvas)) {
       return;
     }
@@ -233,8 +245,21 @@ if (navigator.maxTouchPoints) {
     }
     e.preventDefault();
     drawPath();
-  }, { passive: false });
+  };
 
-  window.addEventListener("touchend", processGesture, { passive: false });
-  window.addEventListener("touchcancel", processGesture, { passive: true });
-}
+
+  function configure() {
+    let { enabled } = configuration;
+    const act = window[`${enabled ? "add" : "remove" }EventListener`].bind(window); ;
+    act("touchstart", onTouchStart, { passive: true });
+    act("touchmove", onTouchMove, { passive: false });
+    act("touchend", processGesture, { passive: false });
+    act("touchcancel", processGesture, { passive: true });
+    if (!enabled) {
+      cleanup(false);
+    }
+  }
+
+  configure();
+
+})();
