@@ -823,9 +823,9 @@
     "message": "Hilfe …"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+    "message": "Gestensteuerung aktivieren: Zeichnen eines »S« auf einer Webseite öffnet die NoScript-Oberfläche für die Webseite"
   },
   "GestureLabel": {
-    "message": "Draw \"S\" to summon NoScript."
+    "message": "Zeichne ein »S«, um NoScript aufzurufen."
   }
 }
