@@ -1,1090 +1,831 @@
 {
-    "Add": {
-        "message": "Bæta við",
-        "description": ""
-    },
-    "Add_accesskey": {
-        "message": "A",
-        "description": ""
-    },
-    "AdditionalPermissions": {
-        "message": "Viðbótarheimildir fyrir treyst vefsvæði",
-        "description": ""
-    },
-    "AdditionalRestrictions": {
-        "message": "Viðbótarheimildir fyrir vantreyst vefsvæði",
-        "description": ""
-    },
-    "SectionAdvanced": {
-        "message": "Ítarlegt",
-        "description": ""
-    },
-    "Allow": {
-        "message": "Leyfa",
-        "description": ""
-    },
-    "Allow_accesskey": {
-        "message": "l",
-        "description": ""
-    },
-    "AllowBookmarks": {
-        "message": "Leyfa vefsvæði sem opnuð eru úr bókamerkjum",
-        "description": ""
-    },
-    "AllowClipboard": {
-        "message": "Leyfa að afrita/líma sniðinn texta af utanaðkomandi klippispjaldi",
-        "description": ""
-    },
-    "AllowLocalLinks": {
-        "message": "Leyfa staðværa tengla",
-        "description": ""
-    },
-    "AllowPage": {
-        "message": "Leyfa allt á þessari síðu",
-        "description": ""
-    },
-    "AllowPage_accesskey": {
-        "message": "A",
-        "description": ""
-    },
-    "AllowPing": {
-        "message": "Leyfa <A PING…>",
-        "description": ""
-    },
-    "AllowViaBookmarks": {
-        "message": "Leyfa vefsvæði sem opnuð eru úr bókamerkjum",
-        "description": ""
-    },
-    "AlwaysBlockUntrustedContent": {
-        "message": "Útiloka öll atriði sem koma frá vefsvæði sem ekki er treyst",
-        "description": ""
-    },
-    "SectionAppearance": {
-        "message": "Útlit",
-        "description": ""
-    },
-    "AutoAllowTopLevel": {
-        "message": "Setja efsta-stigs vefsvæði tímabundið sem TREYST",
-        "description": ""
-    },
-    "AutoTrustedLabel": {
-        "message": "Auto-trusted",
-        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
-    },
-    "AutoReload": {
-        "message": "Endurhlaða viðkomandi síðum sjálfkrafa þegar heimildum er breytt",
-        "description": ""
-    },
-    "AutoReload_currentTab": {
-        "message": "Endurhlaða einungis núverandi flipa",
-        "description": ""
-    },
-    "BaseDom": {
-        "message": "Annars-stigs grunnlén (noscript.net)",
-        "description": ""
-    },
-    "BlockedItems": {
-        "message": "Lokaði á $1 af $2 atriðum.",
-        "description": ""
-    },
-    "BlockedObjects": {
-        "message": "NoScript lokaði á  hluti",
-        "description": ""
-    },
-    "BookmarkSync": {
-        "message": "Taka öryggisafrit af uppsetningu NoScript til að einfalda samstillingu",
-        "description": ""
-    },
-    "Cancel": {
-        "message": "Hætta við",
-        "description": ""
-    },
-    "CascadePermissions": {
-        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
-        "description": ""
-    },
-    "CascadeRestrictions": {
-        "message": "Allir eiginleikar sem lokað er á í efstastigs-skjali verður að vera lokað á í undirskjölum líka",
-        "description": ""
-    },
-    "CascadedLabel": {
-        "message": "Cascaded",
-        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
-    },
-    "ClearClickDescription": {
-        "message": "NoScript greip inn í samskipti músar eða lyklaborðs við hálfhulið einindi. Smelltu á myndina hér fyrir neðan til að víxla á milli hindraðrar og hreinnar útfærslu.",
-        "description": ""
-    },
-    "ClearClickHeader": {
-        "message": "Hugsanlegt smellrán (clickjacking) / tilraun til viðmótsþjófnaðar (UI-redressing)!",
-        "description": ""
-    },
-    "ClearClickOpt": {
-        "message": "ClearClick-varnir á síðum…",
-        "description": ""
-    },
-    "ClearClickReport": {
-        "message": "Tilkynning",
-        "description": ""
-    },
-    "ClearClickReport_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "ClearClickReportId": {
-        "message": "Auðkenni skýrslu:",
-        "description": ""
-    },
-    "ClearClickTitle": {
-        "message": "ClearClick aðvörun",
-        "description": ""
-    },
-    "Close": {
-        "message": "Loka",
-        "description": ""
-    },
-    "CollapseBlockedObjects": {
-        "message": "Fella saman bannaða hluti",
-        "description": ""
-    },
-    "ConfirmUnblock": {
-        "message": "Biðja um staðfestingu áður en hlutur er aftur leyfður tímabundið",
-        "description": ""
-    },
-    "CtxMenu": {
-        "message": "Samhengisvalmynd",
-        "description": ""
-    },
-    "Custom": {
-        "message": "Sérsniðið",
-        "description": ""
-    },
-    "CustomizePresets": {
-        "message": "Forstilla sérsníðingu (fyrir öll vefsvæði sem deila forstillingu)",
-        "description": ""
-    },
-    "Default": {
-        "message": "Sjálfgefið",
-        "description": ""
-    },
-    "DefaultPolicies": {
-        "message": "Sjálfgefnar stefnur",
-        "description": ""
-    },
-    "Description": {
-        "message": "Hámarksvarnir fyrir vafrann þinn: NoScript leyfir virkt efni einungis frá þeim lénum sem þú hefur ákveðið að treysta, svo koma megi í veg fyrir misnotkun.",
-        "description": ""
-    },
-    "Donate": {
-        "message": "Styrkja",
-        "description": ""
-    },
-    "Donate_accesskey": {
-        "message": "o",
-        "description": ""
-    },
-    "Embeddings": {
-        "message": "Ívafningar",
-        "description": ""
-    },
-    "Exceptions": {
-        "message": "Undantekningar…",
-        "description": ""
-    },
-    "Export": {
-        "message": "Flytja út",
-        "description": ""
-    },
-    "Export_accesskey": {
-        "message": "E",
-        "description": ""
-    },
-    "FixLinks": {
-        "message": "Reyna að laga JavaScript tengla",
-        "description": ""
-    },
-    "Hider": {
-        "message": "Slepptu hingað til að fela.",
-        "description": ""
-    },
-    "Reveal": {
-        "message": "Smelltu hér til að endurheimta hnappa sem vantar…",
-        "description": ""
-    },
-    "ShowFullAddresses": {
-        "message": "Birta lista með fullum vistföngum í heimildaglugga (https://www.noscript.net)",
-        "description": ""
-    },
-    "ShowProbePlaceholders": {
-        "message": "Show synthetic placeholders for invisible capability probes",
-        "description": ""
-    },
-    "SectionGeneral": {
-        "message": "Almennt",
-        "description": ""
-    },
-    "NotEnforced": {
-        "message": "Takmarkanir hafa verið gerðar óvirkar í stillingum notandans: NoScript lokar ekki á neitt á þessari síðu!",
-        "description": ""
-    },
-    "NoEnforcement": {
-        "message": "Gera takmarkanir almennt óvirkar (hættulegt)",
-        "description": ""
-    },
-    "Enforce": {
-        "message": "Virkja takmarkanir almennt",
-        "description": ""
-    },
-    "EnforceOnRestart": {
-        "message": "Endurheimta takmarkanir við endurræsingu vafra",
-        "description": ""
-    },
-    "NoEnforcementForTab": {
-        "message": "Gera takmarkanir óvirkar í þessum flipa",
-        "description": ""
-    },
-    "EnforceForTab": {
-        "message": "Virkja takmarkanir í þessum flipa",
-        "description": ""
-    },
-    "toggleEnforcementForTab": {
-        "message": "Víxla af/á takmörkunum á fyrirliggjandi flipa",
-        "description": ""
-    },
-    "pagePermissionsUI": {
-        "message": "Stilla heimildir fyrirliggjandi síðu",
-        "description": ""
-    },
-    "HighContrast": {
-        "message": "Mikil birtuskil",
-        "description": ""
-    },
-    "httpsOnly": {
-        "message": "Samsvara einungis HTTPS-efni",
-        "description": ""
-    },
-    "tabLess_tip": {
-        "message": "Vefsvæði utan efnisflipa, t.d. í hliðarstiku",
-        "description": ""
-    },
-    "tabLess_short": {
-        "message": "(hliðarstika?)",
-        "description": ""
-    },
-    "tabLess_reload_warning": {
-        "message": "Breyting á heimildum í hliðarstiku mun krefjast HANDVIRKRAR enduhleðslu.",
-        "description": ""
-    },
-    "Https": {
-        "message": "HTTPS",
-        "description": ""
-    },
-    "Https_always": {
-        "message": "Alltaf",
-        "description": ""
-    },
-    "Https_behavior": {
-        "message": "Hegðun",
-        "description": ""
-    },
-    "Https_cookies": {
-        "message": "Vefkökur",
-        "description": ""
-    },
-    "Https_description": {
-        "message": "Banna virkt vefefni nema það komi frá öruggri (HTTPS) tengingu:",
-        "description": ""
-    },
-    "Https_never": {
-        "message": "Aldrei",
-        "description": ""
-    },
-    "Https_proxy": {
-        "message": "Þegar notaður er milliþjónn (ráðlagt með Tor)",
-        "description": ""
-    },
-    "HttpsFaq": {
-        "message": "Algengar spurningar um HTTPS…",
-        "description": ""
-    },
-    "HttpsFaq_accesskey": {
-        "message": "Q",
-        "description": ""
-    },
-    "HttpsForced": {
-        "message": "Þvinga eftirfarandi vefsvæði til að nota öruggar (HTTPS) tengingar:",
-        "description": ""
-    },
-    "HttpsForcedExceptions": {
-        "message": "Aldrei þvinga fram öruggar (HTTPS) tengingar fyrir eftirfarandi vefsvæði:",
-        "description": ""
-    },
-    "Import": {
-        "message": "Flytja inn",
-        "description": ""
-    },
-    "Import_accesskey": {
-        "message": "I",
-        "description": ""
-    },
-    "OptIncognitoPerm": {
-        "message": "Leyfa að stilltar séu varanlegar heimildir í huliðs/einkaflipum.\nAÐVÖRUN: þetta getur lekið upplýsingum vefsvæðis!",
-        "description": ""
-    },
-    "OptAmnesticUpdates": {
-        "message": "Afturkalla tímabundnar heimildir við uppfærslu NoScript, jafnvel þótt vafrinn sé ekki endurræstur",
-        "description": ""
-    },
-    "KeepLocked": {
-        "message": "Halda þessi einindi læstu (mælt með þessu)",
-        "description": ""
-    },
-    "MatchSample": {
-        "message": "Dæmi um samsvörunarmynstur:",
-        "description": ""
-    },
-    "Next": {
-        "message": "Næsta",
-        "description": ""
-    },
-    "NoUntrustedPlaceholder": {
-        "message": "Ekkert frátökumerki fyrir atriði sem koma frá vefsvæði sem ekki er treyst",
-        "description": ""
-    },
-    "Notifications": {
-        "message": "Tilkynningar",
-        "description": ""
-    },
-    "Notify": {
-        "message": "Sýna skilaboð um bannaðar skriftur",
-        "description": ""
-    },
-    "Notify_bottom": {
-        "message": "Setja skilaboð neðst",
-        "description": ""
-    },
-    "NotifyMeta": {
-        "message": "Sýna skilaboð um bannaðar META-endurbeiningar",
-        "description": ""
-    },
-    "NotifyMeta_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "NselForce": {
-        "message": "Birta <NOSCRIPT> einindið sem fylgir á eftir útilokuðu <SCRIPT>",
-        "description": ""
-    },
-    "NselNever": {
-        "message": "Fela <NOSCRIPT> einindi",
-        "description": ""
-    },
-    "OK": {
-        "message": "Í lagi",
-        "description": ""
-    },
-    "OptBlockCssScanners": {
-        "message": "Loka á skanna sem byggja á CSS",
-        "description": ""
-    },
-    "OptFilterXGet": {
-        "message": "Hreinsa beiðnir sem mögulega eru tilraunir til skriftunar á milli vefja",
-        "description": ""
-    },
-    "OptFilterXPost": {
-        "message": "Breyta milli-vefja POST-beiðnum í gagna-lausari GET-beiðnir",
-        "description": ""
-    },
-    "OptOverrideTorBrowserPolicy": {
-        "message": "Taka yfir forstillingu á öryggisstigi Tor-vafrans",
-        "description": ""
-    },
-    "Options": {
-        "message": "Valkostir…",
-        "description": ""
-    },
-    "Options_accesskey": {
-        "message": "O",
-        "description": ""
-    },
-    "OptionsLong": {
-        "message": "Valkostir NoScript",
-        "description": ""
-    },
-    "OptionsWidth": {
-        "message": "40em",
-        "description": ""
-    },
-    "PermanentInPrivate": {
-        "message": "Viðvarandi 'Leyfa'-skipanir í einkagluggum",
-        "description": ""
-    },
-    "SectionSitePermissions": {
-        "message": "Heimildir á hvert vefsvæði",
-        "description": ""
-    },
-    "PermissionsText": {
-        "message": "Þú getur tiltekið hvaða vefsvæðum sé leyft að keyra skriftur. Settu inn vistfang eða lén (e.g. \"http://www.site.com\" or \"site.com\") vefsins sem þú vilt heimila og smelltu síðan á 'Leyfa' .",
-        "description": ""
-    },
-    "Plugins": {
-        "message": "Viðbætur",
-        "description": ""
-    },
-    "Policies": {
-        "message": "Stefnur",
-        "description": ""
-    },
-    "Preset": {
-        "message": "Öryggisstig",
-        "description": ""
-    },
-    "Prev": {
-        "message": "Fyrra",
-        "description": ""
-    },
-    "RecentBlocked": {
-        "message": "Nýlega útilokuð vefsvæði",
-        "description": ""
-    },
-    "Refresh": {
-        "message": "Endurlesa",
-        "description": ""
-    },
-    "ReloadWarn": {
-        "message": "Þessi stilling tekur gildi á nýjum eða (handvirkt) endurlesnum síðum",
-        "description": ""
-    },
-    "RemoveSelected": {
-        "message": "Fjarlægja valin vefsvæði",
-        "description": ""
-    },
-    "Reset": {
-        "message": "Endurstilla",
-        "description": ""
-    },
-    "Reset_accesskey": {
-        "message": "s",
-        "description": ""
-    },
-    "ResetDef": {
-        "message": "Setja aftur á sjálfgefið",
-        "description": ""
-    },
-    "ResetDef_accesskey": {
-        "message": "D",
-        "description": ""
-    },
-    "RevokeTemp": {
-        "message": "Afturkalla tímabundnar heimildir",
-        "description": ""
-    },
-    "RevokeTemp_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "SecureCookies": {
-        "message": "Virkja sjálfvirka örugga umsýslu á vefkökum",
-        "description": ""
-    },
-    "SecureCookiesExceptions": {
-        "message": "Hunsa óöruggar vefkökur sem settar eru yfir HTTPS fyrir eftirfarandi vefsvæði:",
-        "description": ""
-    },
-    "SecureCookiesForced": {
-        "message": "Þvinga fram dulritun á öllum vefkökum sem settar eru yfir HTTPS fyrir eftirfarandi vefsvæði:",
-        "description": ""
-    },
-    "SecurityManager": {
-        "message": "Öryggisstýring",
-        "description": ""
-    },
-    "Show": {
-        "message": "Sýna…",
-        "description": ""
-    },
-    "ShowConsole": {
-        "message": "Sýna stjórnborð…",
-        "description": ""
-    },
-    "ShowConsole_accesskey": {
-        "message": "S",
-        "description": ""
-    },
-    "ShowPlaceholder": {
-        "message": "Birta frátökutáknmynd",
-        "description": ""
-    },
-    "ShowReleaseNotes": {
-        "message": "Birta útgáfuupplýsingar þegar uppfærslur eiga sér stað",
-        "description": ""
-    },
-    "ShowCtxMenuItem": {
-        "message": "Birta NoScript-færslu í samhengisvalmynd",
-        "description": ""
-    },
-    "ShowCountBadge": {
-        "message": "Birta merki með fjöldi útilokaðra atriða",
-        "description": ""
-    },
-    "SitePermissions": {
-        "message": "Heimildir vefsvæðis",
-        "description": ""
-    },
-    "SitePermissions_accessKey": {
-        "message": "S",
-        "description": ""
-    },
-    "SitePolicies": {
-        "message": "Stefnur fyrir hvert vefsvæði",
-        "description": ""
-    },
-    "TempTrustPage": {
-        "message": "Setja allt á þessari síðu tímabundið sem TREYST",
-        "description": ""
-    },
-    "TempTrustPage_accesskey": {
-        "message": "T",
-        "description": ""
-    },
-    "TempToPerm": {
-        "message": "Gera heimildir síðu varanlegar",
-        "description": ""
-    },
-    "TempToPerm_accesskey": {
-        "message": "M",
-        "description": ""
-    },
-    "Trust": {
-        "message": "Merkja sem treyst",
-        "description": ""
-    },
-    "Trust_accesskey": {
-        "message": "T",
-        "description": ""
-    },
-    "Trusted": {
-        "message": "Treyst",
-        "description": ""
-    },
-    "Trusted_temporary": {
-        "message": "TREYST tímabundið",
-        "description": ""
-    },
-    "Trusted_permanent": {
-        "message": "TREYST",
-        "description": ""
-    },
-    "TrustedPagesAdj": {
-        "message": "treyst",
-        "description": ""
-    },
-    "Uninstall": {
-        "message": "Taka út",
-        "description": ""
-    },
-    "Unknown": {
-        "message": "Óþekkt",
-        "description": ""
-    },
-    "UnsafeReload": {
-        "message": "Óöruggur endurlestur",
-        "description": ""
-    },
-    "UnsafeReload_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "Untrust": {
-        "message": "Merkja sem ótreyst",
-        "description": ""
-    },
-    "Untrust_accesskey": {
-        "message": "U",
-        "description": ""
-    },
-    "Untrusted": {
-        "message": "Ótreyst",
-        "description": ""
-    },
-    "UntrustedPagesAdj": {
-        "message": "ótreyst",
-        "description": ""
-    },
-    "WebAddress": {
-        "message": "Leita eða bæta við vefsvæði:",
-        "description": ""
-    },
-    "WebAddress_accesskey": {
-        "message": "w",
-        "description": ""
-    },
-    "XSS_notify": {
-        "message": "Birta XSS-tilkynningar",
-        "description": ""
-    },
-    "XSS_clearUserChoices": {
-        "message": "Hreinsa XSS-valkosti",
-        "description": ""
-    },
-    "XSS_promptTitle": {
-        "message": "NoScript XSS-aðvörun",
-        "description": ""
-    },
-    "XSS_promptMessage": {
-        "message": "NoScript síaði mögulega tilraun til skriftunar á milli vefja (cross-site scripting - XSS) frá $1 til $2.\nGrunsamleg gögn:\n$3",
-        "description": ""
-    },
-    "XSS_optBlock": {
-        "message": "Loka á þessa beiðni",
-        "description": ""
-    },
-    "XSS_optSanitize": {
-        "message": "Hreinsa þessa beiðni",
-        "description": ""
-    },
-    "XSS_optAllow": {
-        "message": "Leyfa þessa beiðni",
-        "description": ""
-    },
-    "XSS_optAlwaysAllow": {
-        "message": "Alltaf leyfa beiðnir um skjöl frá $1 til $2",
-        "description": ""
-    },
-    "XSS_optAlwaysBlock": {
-        "message": "Alltaf loka á beiðnir um skjöl frá $1 til $2",
-        "description": ""
-    },
-    "Xss": {
-        "message": "XSS",
-        "description": ""
-    },
-    "Xss_accesskey": {
-        "message": "X",
-        "description": ""
-    },
-    "XssExceptions": {
-        "message": "Undantekningar frá XSS-vörnum",
-        "description": ""
-    },
-    "XssExceptions_description": {
-        "message": "Áfangastaðir sem samsvara þessum reglulegu segðum verða EKKI varðir gegn skriftun á milli vefja - XSS",
-        "description": ""
-    },
-    "XssFaq": {
-        "message": "Algengar spurningar um XSS…",
-        "description": ""
-    },
-    "XssFaq_accesskey": {
-        "message": "Q",
-        "description": ""
-    },
-    "about": {
-        "message": "Um $1",
-        "description": ""
-    },
-    "allowFrom": {
-        "message": "Leyfa allt frá $1",
-        "description": ""
-    },
-    "allowGlobal": {
-        "message": "Gera allar athuganir á heimildum óvirkar (hættulegt)",
-        "description": ""
-    },
-    "allowLocal": {
-        "message": "Leyfa $1",
-        "description": ""
-    },
-    "allowTemp": {
-        "message": "Leyfa $1 tímabundið",
-        "description": ""
-    },
-    "allowTempFrom": {
-        "message": "Leyfa tímabundið allt frá $1",
-        "description": ""
-    },
-    "allowed_no": {
-        "message": "Skriftur bannaðar í augnablikinu",
-        "description": ""
-    },
-    "allowed_prt": {
-        "message": "Skriftur leyfðar að hluta til",
-        "description": ""
-    },
-    "allowed_yes": {
-        "message": "Skriftur leyfðar í augnablikinu",
-        "description": ""
-    },
-    "alwaysAsk": {
-        "message": "Alltaf biðja um staðfestingu",
-        "description": ""
-    },
-    "audio_samples": {
-        "message": "Hljóðdæmi",
-        "description": ""
-    },
-    "bookmarkSync_confirm": {
-        "message": "NoScript fann uppsetningarbókamerki sem lítur út fyrir að hafa verið vistað á\n$1.\nErtu viss um að þú viljir skrifa yfir NoScript-uppsetninguna á þessari tölvu með efni þessa bókamerkis?",
-        "description": ""
-    },
-    "bookmarkSync_message": {
-        "message": "EKKI er ætlast til þess að þetta bókamerki sé opnað, heldur á að samstilla það með þjónustu á borð við Weave eða með XMarks-viðaukanum.",
-        "description": ""
-    },
-    "bookmarkSync_title": {
-        "message": "NoScript uppsetningarbókamerki",
-        "description": ""
-    },
-    "caps": {
-        "message": "Virkja þessa eiginleika",
-        "description": ""
-    },
-    "capsContext": {
-        "message": "Virkja þessa eiginleika þegar efsta síða samsvarar",
-        "description": ""
-    },
-    "anySite": {
-        "message": "HVAÐA VEFSVÆÐI SEM ER",
-        "description": ""
-    },
-    "cap_script": {
-        "message": "skrifta",
-        "description": ""
-    },
-    "cap_frame": {
-        "message": "rammi",
-        "description": ""
-    },
-    "cap_object": {
-        "message": "hlutur",
-        "description": ""
-    },
-    "cap_media": {
-        "message": "margmiðlunargögn",
-        "description": ""
-    },
-    "cap_font": {
-        "message": "letur",
-        "description": ""
-    },
-    "cap_webgl": {
-        "message": "webgl",
-        "description": ""
-    },
-    "cap_fetch": {
-        "message": "sækja (fetch)",
-        "description": ""
-    },
-    "cap_ping": {
-        "message": "ping",
-        "description": ""
-    },
-    "cap_noscript": {
-        "message": "noscript",
-        "description": ""
-    },
-    "cap_lazy_load": {
-        "message": "tafin hleðsla",
-        "description": ""
-    },
-    "cap_unchecked_css": {
-        "message": "óskilyrt CSS",
-        "description": ""
-    },
-    "cap_lan": {
-        "message": "LAN",
-        "description": ""
-    },
-    "cap_other": {
-        "message": "annað",
-        "description": ""
-    },
-    "cap_wasm": {
-        "message": "wasm",
-        "description": "WebAssembly modules compilation and execution capability."
-    },
-    "cap_x_load": {
-        "message": "x-hleðsla",
-        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
-    },
-    "changelog": {
-        "message": "Breytingaskrá",
-        "description": ""
-    },
-    "changelog_tip": {
-        "message": "Birta breytingaskrá",
-        "description": ""
-    },
-    "confirm": {
-        "message": "Ertu viss?",
-        "description": ""
-    },
-    "disable": {
-        "message": "Gera $1 óvirkt",
-        "description": ""
-    },
-    "disable_accessKey": {
-        "message": "D",
-        "description": ""
-    },
-    "distrust": {
-        "message": "Merkja $1 sem ótreyst",
-        "description": ""
-    },
-    "extensionContributors": {
-        "message": "Framlög frá:",
-        "description": ""
-    },
-    "extensionContributors_tip": {
-        "message": "Fólk sem þú ættir að þakka fyrir þessa viðbót",
-        "description": ""
-    },
-    "extensionCreator_tip": {
-        "message": "Heimsækja vefsíðu höfundar",
-        "description": ""
-    },
-    "extensionCreatorLabel": {
-        "message": "Höfundur:",
-        "description": ""
-    },
-    "extensionHomepage_tip": {
-        "message": "Heimsækja vefsíðu viðbótar",
-        "description": ""
-    },
-    "forbidGlobal": {
-        "message": "Banna skriftur almennt (ráðlagt)",
-        "description": ""
-    },
-    "forbidLocal": {
-        "message": "Banna $1",
-        "description": ""
-    },
-    "freshInstallReload": {
-        "message": "Til að vinna með þennan flipa þarf NoScript að endurhlaða hann. Halda áfram?",
-        "description": ""
-    },
-    "privilegedPage": {
-        "message": "Þetta er síða með sérheimildum sem ekki er hægt að stilla.",
-        "description": ""
-    },
-    "incompatibleOptions": {
-        "message": "\"$1\"\ner ekki samhæft við \"$2\".\nViltu virkja þetta fyrra og gera það síðara óvirkt?",
-        "description": ""
-    },
-    "incompatibleOptions_title": {
-        "message": "Aðvörun vegna ósamhæfðra valkosta",
-        "description": ""
-    },
-    "informaction_tip": {
-        "message": "Heimsækja vefsíðu InformAction",
-        "description": ""
-    },
-    "license": {
-        "message": "Notkunarleyfi",
-        "description": ""
-    },
-    "license_tip": {
-        "message": "Lesa notkunarleyfi endanotenda",
-        "description": ""
-    },
-    "logo_tip": {
-        "message": "Heimsækja vefsíðu viðbótar",
-        "description": ""
-    },
-    "metaRefresh_notify": {
-        "message": "NoScript lokaði á <META> endurbeiningu innan í <NOSCRIPT> einindi: $1 á $2 sekúndum.",
-        "description": ""
-    },
-    "Reload": {
-        "message": "Endurhlaða",
-        "description": ""
-    },
-    "removal_message": {
-        "message": "Með því að fjarlægja eða gera NoScript óvirkt, gefur þú á bátinn ALLAR þær varnir sem NoScript býður.\n\nEf þú ert bara þreytt(ur) á að gefa skriftum heimildir fyrir hvert vefsvæði fyrir sig, þá er samt til öruggari kostur.\n\nNoScript getur hætt að loka á skriftur, nema þær sem þú treystir ekki, en samt notað þróaðar varnaraðgerðir til að verja þig fyrir XSS, Clickjacking, CSRF og fleiri ógnum á veraldarvefnum.\n\nErtu viss um að þú viljir fjarlægja ALLAR varnir NoScript?\n",
-        "description": ""
-    },
-    "removal_no": {
-        "message": "Nei, bara hætta að loka á skriftur",
-        "description": ""
-    },
-    "removal_title": {
-        "message": "Aðvörun vegna rýrnunar á öryggi",
-        "description": ""
-    },
-    "removal_yes": {
-        "message": "Já, fjarlægja ALLAR varnir",
-        "description": ""
-    },
-    "reset_title": {
-        "message": "Endurstilla NoScript",
-        "description": ""
-    },
-    "reset_warning": {
-        "message": "ALLAR kjörstillingar og heimildir vefsvæða í NoScript verða tafarlaust frumstilltar á sjálfgefin gildi.\nEkki er hægt að afturkalla þessa aðgerð.\nErtu viss um að þú viljir halda áfram?",
-        "description": ""
-    },
-    "siteInfo_confirm": {
-        "message": "Þú ert í þann mund að fara að biðja um upplýsingar um \"$1\" vefsvæðið\nmeð því að senda beiðni til $2.\nViltu halda áfram?",
-        "description": ""
-    },
-    "siteInfo_tooltip": {
-        "message": "Middle-click or shift+click for site info…",
-        "description": ""
-    },
-    "sponsor_tip": {
-        "message": "Heimsækja vefsíðu stuðningsaðila",
-        "description": ""
-    },
-    "unsafeReload_warning": {
-        "message": "Endurhleð ÓÖRUGGT grunsamlegu\n\n$1 [$2]\n\nFRÁ [$3]\n\nNoScript mun EKKI verja þessa beiðni!\n",
-        "description": ""
-    },
-    "untrustedOrigin": {
-        "message": "ótreystur uppruni",
-        "description": ""
-    },
-    "version": {
-        "message": "Útgáfa $1",
-        "description": ""
-    },
-    "versionShort": {
-        "message": "útg. $1",
-        "description": ""
-    },
-    "settingsThemeLabel": {
-        "message": "Þema",
-        "description": ""
-    },
-    "themeDark": {
-        "message": "Dökkt",
-        "description": ""
-    },
-    "themeLight": {
-        "message": "Ljóst",
-        "description": ""
-    },
-    "themeAuto": {
-        "message": "Sjálfvirkt",
-        "description": ""
-    },
-    "ModernRed": {
-        "message": "Nútímalegt rautt",
-        "description": ""
-    },
-    "VintageBlue": {
-        "message": "Gamaldags blátt",
-        "description": ""
-    },
-    "toVintageBlue": {
-        "message": "Skipta yfir í gamaldags bláa stílinn",
-        "description": ""
-    },
-    "DonateShort": {
-        "message": "Styrkja",
-        "description": ""
-    },
-    "DonateLong": {
-        "message": "NoScript er frjáls og opinn hugbúnaður og gæti ekki verið til án hjálpar þinnar. Íhugaðu að styrkja okkur núna!",
-        "description": ""
-    },
-    "Onboarding_title": {
-        "message": "Welcome to NoScript!",
-        "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
-    },
-    "behavior_title": {
-        "message": "Site Classification Behavior",
-        "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
-    },
-    "behavior_label": {
-        "message": "Current site classification behavior:",
-        "description": ""
-    },
-    "behavior_prompt": {
-        "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript.",
-        "description": ""
-    },
-    "behavior_defaultDeny_title": {
-        "message": "STRICT / Default Deny",
-        "description": ""
-    },
-    "behavior_defaultDeny_description": {
-        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "behavior_auto_title": {
-        "message": "EASIER / Auto",
-        "description": ""
-    },
-    "behavior_auto_description": {
-        "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "behavior_defaultAllow_title": {
-        "message": "EASIEST / Default allow",
-        "description": ""
-    },
-    "behavior_defaultAllow_description": {
-        "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "Modify": {
-        "message": "Modify",
-        "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
-    },
-    "TabGuard_label": {
-        "message": "Vörn gegn auðkennaleka milli flipa",
-        "description": ""
-    },
-    "TabGuard_optEnabled": {
-        "message": "Virkjað allsstaðar",
-        "description": ""
-    },
-    "TabGuard_optPromptNever": {
-        "message": "Ekki spyrja áður en farið er í nafnleysi",
-        "description": ""
-    },
-    "TabGuard_optPromptPost": {
-        "message": "Spyrja áður en notað er nafnleysi í POST-innsendingum",
-        "description": ""
-    },
-    "TabGuard_optPromptAlways": {
-        "message": "Spyrja áður en notað er nafnleysi í hverkyns beiðnum",
-        "description": ""
-    },
-    "TabGuard_optIncognito": {
-        "message": "Einungis virkjað í einkavafri",
-        "description": ""
-    },
-    "TabGuard_optDisabled": {
-        "message": "Óvirkt",
-        "description": ""
-    },
-    "TabGuard_forget": {
-        "message": "Gleyma fyrri ákvörðunum",
-        "description": ""
-    },
-    "TabGuard_title": {
-        "message": "Mögulegur auðkennaleki",
-        "description": ""
-    },
-    "TabGuard_message": {
-        "message": "Þú ert að fara að hlaða inn síðu frá $1.\nEf þú ert notandi skráður inn á $1, geta upplýsingar um auðkennin þín komist í hendurnar á $2.",
-        "description": ""
-    },
-    "TabGuard_optAnonymize": {
-        "message": "Hlaða nafnlaust",
-        "description": ""
-    },
-    "TabGuard_optAllow": {
-        "message": "Hlaða eðlilega",
-        "description": ""
-    },
-    "LearnMoreLink": {
-        "message": "Learn more…",
-        "description": ""
-    },
-    "HelpLink": {
-        "message": "Help…",
-        "description": ""
-    }
+  "Add": {
+    "message": "Bæta við"
+  },
+  "Add_accesskey": {
+    "message": "A"
+  },
+  "AdditionalPermissions": {
+    "message": "Viðbótarheimildir fyrir treyst vefsvæði"
+  },
+  "AdditionalRestrictions": {
+    "message": "Viðbótarheimildir fyrir vantreyst vefsvæði"
+  },
+  "SectionAdvanced": {
+    "message": "Ítarlegt"
+  },
+  "Allow": {
+    "message": "Leyfa"
+  },
+  "Allow_accesskey": {
+    "message": "l"
+  },
+  "AllowBookmarks": {
+    "message": "Leyfa vefsvæði sem opnuð eru úr bókamerkjum"
+  },
+  "AllowClipboard": {
+    "message": "Leyfa að afrita/líma sniðinn texta af utanaðkomandi klippispjaldi"
+  },
+  "AllowLocalLinks": {
+    "message": "Leyfa staðværa tengla"
+  },
+  "AllowPage": {
+    "message": "Leyfa allt á þessari síðu"
+  },
+  "AllowPage_accesskey": {
+    "message": "A"
+  },
+  "AllowPing": {
+    "message": "Leyfa <A PING…>"
+  },
+  "AllowViaBookmarks": {
+    "message": "Leyfa vefsvæði sem opnuð eru úr bókamerkjum"
+  },
+  "AlwaysBlockUntrustedContent": {
+    "message": "Útiloka öll atriði sem koma frá vefsvæði sem ekki er treyst"
+  },
+  "SectionAppearance": {
+    "message": "Útlit"
+  },
+  "AutoAllowTopLevel": {
+    "message": "Setja efsta-stigs vefsvæði tímabundið sem TREYST"
+  },
+  "AutoTrustedLabel": {
+    "message": "Treyst-sjálfkrafa",
+    "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+  },
+  "AutoReload": {
+    "message": "Endurhlaða viðkomandi síðum sjálfkrafa þegar heimildum er breytt"
+  },
+  "AutoReload_currentTab": {
+    "message": "Endurhlaða einungis núverandi flipa"
+  },
+  "BaseDom": {
+    "message": "Annars-stigs grunnlén (noscript.net)"
+  },
+  "BlockedItems": {
+    "message": "Lokaði á $1 af $2 atriðum."
+  },
+  "BlockedObjects": {
+    "message": "NoScript lokaði á  hluti"
+  },
+  "BookmarkSync": {
+    "message": "Taka öryggisafrit af uppsetningu NoScript til að einfalda samstillingu"
+  },
+  "Cancel": {
+    "message": "Hætta við"
+  },
+  "CascadePermissions": {
+    "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet"
+  },
+  "CascadeRestrictions": {
+    "message": "Allir eiginleikar sem lokað er á í efstastigs-skjali verður að vera lokað á í undirskjölum líka"
+  },
+  "CascadedLabel": {
+    "message": "Keðjuverkandi",
+    "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
+  },
+  "ClearClickDescription": {
+    "message": "NoScript greip inn í samskipti músar eða lyklaborðs við hálfhulið einindi. Smelltu á myndina hér fyrir neðan til að víxla á milli hindraðrar og hreinnar útfærslu."
+  },
+  "ClearClickHeader": {
+    "message": "Hugsanlegt smellrán (clickjacking) / tilraun til viðmótsþjófnaðar (UI-redressing)!"
+  },
+  "ClearClickOpt": {
+    "message": "ClearClick-varnir á síðum…"
+  },
+  "ClearClickReport": {
+    "message": "Tilkynning"
+  },
+  "ClearClickReport_accesskey": {
+    "message": "R"
+  },
+  "ClearClickReportId": {
+    "message": "Auðkenni skýrslu:"
+  },
+  "ClearClickTitle": {
+    "message": "ClearClick aðvörun"
+  },
+  "Close": {
+    "message": "Loka"
+  },
+  "CollapseBlockedObjects": {
+    "message": "Fella saman bannaða hluti"
+  },
+  "ConfirmUnblock": {
+    "message": "Biðja um staðfestingu áður en hlutur er aftur leyfður tímabundið"
+  },
+  "CtxMenu": {
+    "message": "Samhengisvalmynd"
+  },
+  "Custom": {
+    "message": "Sérsniðið"
+  },
+  "CustomizePresets": {
+    "message": "Forstilla sérsníðingu (fyrir öll vefsvæði sem deila forstillingu)"
+  },
+  "Default": {
+    "message": "Sjálfgefið"
+  },
+  "DefaultPolicies": {
+    "message": "Sjálfgefnar stefnur"
+  },
+  "Description": {
+    "message": "Hámarksvarnir fyrir vafrann þinn: NoScript leyfir virkt efni einungis frá þeim lénum sem þú hefur ákveðið að treysta, svo koma megi í veg fyrir misnotkun."
+  },
+  "Donate": {
+    "message": "Styrkja"
+  },
+  "Donate_accesskey": {
+    "message": "o"
+  },
+  "Embeddings": {
+    "message": "Ívafningar"
+  },
+  "Exceptions": {
+    "message": "Undantekningar…"
+  },
+  "Export": {
+    "message": "Flytja út"
+  },
+  "Export_accesskey": {
+    "message": "E"
+  },
+  "FixLinks": {
+    "message": "Reyna að laga JavaScript tengla"
+  },
+  "Hider": {
+    "message": "Slepptu hingað til að fela."
+  },
+  "Reveal": {
+    "message": "Smelltu hér til að endurheimta hnappa sem vantar…"
+  },
+  "ShowFullAddresses": {
+    "message": "Birta lista með fullum vistföngum í heimildaglugga (https://www.noscript.net)"
+  },
+  "ShowProbePlaceholders": {
+    "message": "Show synthetic placeholders for invisible capability probes"
+  },
+  "SectionGeneral": {
+    "message": "Almennt"
+  },
+  "NotEnforced": {
+    "message": "Takmarkanir hafa verið gerðar óvirkar í stillingum notandans: NoScript lokar ekki á neitt á þessari síðu!"
+  },
+  "NoEnforcement": {
+    "message": "Gera takmarkanir almennt óvirkar (hættulegt)"
+  },
+  "Enforce": {
+    "message": "Virkja takmarkanir almennt"
+  },
+  "EnforceOnRestart": {
+    "message": "Endurheimta takmarkanir við endurræsingu vafra"
+  },
+  "NoEnforcementForTab": {
+    "message": "Gera takmarkanir óvirkar í þessum flipa"
+  },
+  "EnforceForTab": {
+    "message": "Virkja takmarkanir í þessum flipa"
+  },
+  "toggleEnforcementForTab": {
+    "message": "Víxla af/á takmörkunum á fyrirliggjandi flipa"
+  },
+  "pagePermissionsUI": {
+    "message": "Stilla heimildir fyrirliggjandi síðu"
+  },
+  "HighContrast": {
+    "message": "Mikil birtuskil"
+  },
+  "httpsOnly": {
+    "message": "Samsvara einungis HTTPS-efni"
+  },
+  "tabLess_tip": {
+    "message": "Vefsvæði utan efnisflipa, t.d. í hliðarstiku"
+  },
+  "tabLess_short": {
+    "message": "(hliðarstika?)"
+  },
+  "tabLess_reload_warning": {
+    "message": "Breyting á heimildum í hliðarstiku mun krefjast HANDVIRKRAR enduhleðslu."
+  },
+  "Https": {
+    "message": "HTTPS"
+  },
+  "Https_always": {
+    "message": "Alltaf"
+  },
+  "Https_behavior": {
+    "message": "Hegðun"
+  },
+  "Https_cookies": {
+    "message": "Vefkökur"
+  },
+  "Https_description": {
+    "message": "Banna virkt vefefni nema það komi frá öruggri (HTTPS) tengingu:"
+  },
+  "Https_never": {
+    "message": "Aldrei"
+  },
+  "Https_proxy": {
+    "message": "Þegar notaður er milliþjónn (ráðlagt með Tor)"
+  },
+  "HttpsFaq": {
+    "message": "Algengar spurningar um HTTPS…"
+  },
+  "HttpsFaq_accesskey": {
+    "message": "Q"
+  },
+  "HttpsForced": {
+    "message": "Þvinga eftirfarandi vefsvæði til að nota öruggar (HTTPS) tengingar:"
+  },
+  "HttpsForcedExceptions": {
+    "message": "Aldrei þvinga fram öruggar (HTTPS) tengingar fyrir eftirfarandi vefsvæði:"
+  },
+  "Import": {
+    "message": "Flytja inn"
+  },
+  "Import_accesskey": {
+    "message": "I"
+  },
+  "OptIncognitoPerm": {
+    "message": "Leyfa að stilltar séu varanlegar heimildir í huliðs/einkaflipum.\nAÐVÖRUN: þetta getur lekið upplýsingum vefsvæðis!"
+  },
+  "OptAmnesticUpdates": {
+    "message": "Afturkalla tímabundnar heimildir við uppfærslu NoScript, jafnvel þótt vafrinn sé ekki endurræstur"
+  },
+  "KeepLocked": {
+    "message": "Halda þessi einindi læstu (mælt með þessu)"
+  },
+  "MatchSample": {
+    "message": "Dæmi um samsvörunarmynstur:"
+  },
+  "Next": {
+    "message": "Næsta"
+  },
+  "NoUntrustedPlaceholder": {
+    "message": "Ekkert frátökumerki fyrir atriði sem koma frá vefsvæði sem ekki er treyst"
+  },
+  "Notifications": {
+    "message": "Tilkynningar"
+  },
+  "Notify": {
+    "message": "Sýna skilaboð um bannaðar skriftur"
+  },
+  "Notify_bottom": {
+    "message": "Setja skilaboð neðst"
+  },
+  "NotifyMeta": {
+    "message": "Sýna skilaboð um bannaðar META-endurbeiningar"
+  },
+  "NotifyMeta_accesskey": {
+    "message": "R"
+  },
+  "NselForce": {
+    "message": "Birta <NOSCRIPT> einindið sem fylgir á eftir útilokuðu <SCRIPT>"
+  },
+  "NselNever": {
+    "message": "Fela <NOSCRIPT> einindi"
+  },
+  "OK": {
+    "message": "Í lagi"
+  },
+  "OptBlockCssScanners": {
+    "message": "Loka á skanna sem byggja á CSS"
+  },
+  "OptFilterXGet": {
+    "message": "Hreinsa beiðnir sem mögulega eru tilraunir til skriftunar á milli vefja"
+  },
+  "OptFilterXPost": {
+    "message": "Breyta milli-vefja POST-beiðnum í gagna-lausari GET-beiðnir"
+  },
+  "OptOverrideTorBrowserPolicy": {
+    "message": "Taka yfir forstillingu á öryggisstigi Tor-vafrans"
+  },
+  "Options": {
+    "message": "Valkostir…"
+  },
+  "Options_accesskey": {
+    "message": "O"
+  },
+  "OptionsLong": {
+    "message": "Valkostir NoScript"
+  },
+  "OptionsWidth": {
+    "message": "40em"
+  },
+  "PermanentInPrivate": {
+    "message": "Viðvarandi 'Leyfa'-skipanir í einkagluggum"
+  },
+  "SectionSitePermissions": {
+    "message": "Heimildir á hvert vefsvæði"
+  },
+  "PermissionsText": {
+    "message": "Þú getur tiltekið hvaða vefsvæðum sé leyft að keyra skriftur. Settu inn vistfang eða lén (e.g. \"http://www.site.com\" or \"site.com\") vefsins sem þú vilt heimila og smelltu síðan á 'Leyfa' ."
+  },
+  "Plugins": {
+    "message": "Viðbætur"
+  },
+  "Policies": {
+    "message": "Stefnur"
+  },
+  "Preset": {
+    "message": "Öryggisstig"
+  },
+  "Prev": {
+    "message": "Fyrra"
+  },
+  "RecentBlocked": {
+    "message": "Nýlega útilokuð vefsvæði"
+  },
+  "Refresh": {
+    "message": "Endurlesa"
+  },
+  "ReloadWarn": {
+    "message": "Þessi stilling tekur gildi á nýjum eða (handvirkt) endurlesnum síðum"
+  },
+  "RemoveSelected": {
+    "message": "Fjarlægja valin vefsvæði"
+  },
+  "Reset": {
+    "message": "Endurstilla"
+  },
+  "Reset_accesskey": {
+    "message": "s"
+  },
+  "ResetDef": {
+    "message": "Setja aftur á sjálfgefið"
+  },
+  "ResetDef_accesskey": {
+    "message": "D"
+  },
+  "RevokeTemp": {
+    "message": "Afturkalla tímabundnar heimildir"
+  },
+  "RevokeTemp_accesskey": {
+    "message": "R"
+  },
+  "SecureCookies": {
+    "message": "Virkja sjálfvirka örugga umsýslu á vefkökum"
+  },
+  "SecureCookiesExceptions": {
+    "message": "Hunsa óöruggar vefkökur sem settar eru yfir HTTPS fyrir eftirfarandi vefsvæði:"
+  },
+  "SecureCookiesForced": {
+    "message": "Þvinga fram dulritun á öllum vefkökum sem settar eru yfir HTTPS fyrir eftirfarandi vefsvæði:"
+  },
+  "SecurityManager": {
+    "message": "Öryggisstýring"
+  },
+  "Show": {
+    "message": "Sýna…"
+  },
+  "ShowConsole": {
+    "message": "Sýna stjórnborð…"
+  },
+  "ShowConsole_accesskey": {
+    "message": "S"
+  },
+  "ShowPlaceholder": {
+    "message": "Birta frátökutáknmynd"
+  },
+  "ShowReleaseNotes": {
+    "message": "Birta útgáfuupplýsingar þegar uppfærslur eiga sér stað"
+  },
+  "ShowCtxMenuItem": {
+    "message": "Birta NoScript-færslu í samhengisvalmynd"
+  },
+  "ShowCountBadge": {
+    "message": "Birta merki með fjöldi útilokaðra atriða"
+  },
+  "SitePermissions": {
+    "message": "Heimildir vefsvæðis"
+  },
+  "SitePermissions_accessKey": {
+    "message": "S"
+  },
+  "SitePolicies": {
+    "message": "Stefnur fyrir hvert vefsvæði"
+  },
+  "TempTrustPage": {
+    "message": "Setja allt á þessari síðu tímabundið sem TREYST"
+  },
+  "TempTrustPage_accesskey": {
+    "message": "T"
+  },
+  "TempToPerm": {
+    "message": "Gera heimildir síðu varanlegar"
+  },
+  "TempToPerm_accesskey": {
+    "message": "M"
+  },
+  "Trust": {
+    "message": "Merkja sem treyst"
+  },
+  "Trust_accesskey": {
+    "message": "T"
+  },
+  "Trusted": {
+    "message": "Treyst"
+  },
+  "Trusted_temporary": {
+    "message": "TREYST tímabundið"
+  },
+  "Trusted_permanent": {
+    "message": "TREYST"
+  },
+  "TrustedPagesAdj": {
+    "message": "treyst"
+  },
+  "Uninstall": {
+    "message": "Taka út"
+  },
+  "Unknown": {
+    "message": "Óþekkt"
+  },
+  "UnsafeReload": {
+    "message": "Óöruggur endurlestur"
+  },
+  "UnsafeReload_accesskey": {
+    "message": "R"
+  },
+  "Untrust": {
+    "message": "Merkja sem ótreyst"
+  },
+  "Untrust_accesskey": {
+    "message": "U"
+  },
+  "Untrusted": {
+    "message": "Ótreyst"
+  },
+  "UntrustedPagesAdj": {
+    "message": "ótreyst"
+  },
+  "WebAddress": {
+    "message": "Leita eða bæta við vefsvæði:"
+  },
+  "WebAddress_accesskey": {
+    "message": "w"
+  },
+  "XSS_notify": {
+    "message": "Birta XSS-tilkynningar"
+  },
+  "XSS_clearUserChoices": {
+    "message": "Hreinsa XSS-valkosti"
+  },
+  "XSS_promptTitle": {
+    "message": "NoScript XSS-aðvörun"
+  },
+  "XSS_promptMessage": {
+    "message": "NoScript síaði mögulega tilraun til skriftunar á milli vefja (cross-site scripting - XSS) \nfrá $1 til $2.\nGrunsamleg gögn:\n$3"
+  },
+  "XSS_optBlock": {
+    "message": "Loka á þessa beiðni"
+  },
+  "XSS_optSanitize": {
+    "message": "Hreinsa þessa beiðni"
+  },
+  "XSS_optAllow": {
+    "message": "Leyfa þessa beiðni"
+  },
+  "XSS_optAlwaysAllow": {
+    "message": "Alltaf leyfa beiðnir um skjöl frá $1 til $2"
+  },
+  "XSS_optAlwaysBlock": {
+    "message": "Alltaf loka á beiðnir um skjöl frá $1 til $2"
+  },
+  "Xss": {
+    "message": "XSS"
+  },
+  "Xss_accesskey": {
+    "message": "X"
+  },
+  "XssExceptions": {
+    "message": "Undantekningar frá XSS-vörnum"
+  },
+  "XssExceptions_description": {
+    "message": "Áfangastaðir sem samsvara þessum reglulegu segðum verða EKKI varðir gegn skriftun á milli vefja - XSS."
+  },
+  "XssFaq": {
+    "message": "Algengar spurningar um XSS…"
+  },
+  "XssFaq_accesskey": {
+    "message": "Q"
+  },
+  "about": {
+    "message": "Um $1"
+  },
+  "allowFrom": {
+    "message": "Leyfa allt frá $1"
+  },
+  "allowGlobal": {
+    "message": "Gera allar athuganir á heimildum óvirkar (hættulegt)"
+  },
+  "allowLocal": {
+    "message": "Leyfa $1"
+  },
+  "allowTemp": {
+    "message": "Leyfa $1 tímabundið"
+  },
+  "allowTempFrom": {
+    "message": "Leyfa tímabundið allt frá $1"
+  },
+  "allowed_no": {
+    "message": "Skriftur bannaðar í augnablikinu"
+  },
+  "allowed_prt": {
+    "message": "Skriftur leyfðar að hluta til"
+  },
+  "allowed_yes": {
+    "message": "Skriftur leyfðar í augnablikinu"
+  },
+  "alwaysAsk": {
+    "message": "Alltaf biðja um staðfestingu"
+  },
+  "audio_samples": {
+    "message": "Hljóðdæmi"
+  },
+  "bookmarkSync_confirm": {
+    "message": "NoScript fann uppsetningarbókamerki sem lítur út fyrir að hafa verið vistað á\n$1.\nErtu viss um að þú viljir skrifa yfir NoScript-uppsetninguna á þessari tölvu með efni þessa bókamerkis?"
+  },
+  "bookmarkSync_message": {
+    "message": "EKKI er ætlast til þess að þetta bókamerki sé opnað, heldur á að samstilla það með þjónustu á borð við Weave eða með XMarks-viðaukanum."
+  },
+  "bookmarkSync_title": {
+    "message": "NoScript uppsetningarbókamerki"
+  },
+  "caps": {
+    "message": "Virkja þessa eiginleika"
+  },
+  "capsContext": {
+    "message": "Virkja þessa eiginleika þegar efsta síða samsvarar"
+  },
+  "anySite": {
+    "message": "HVAÐA VEFSVÆÐI SEM ER"
+  },
+  "cap_script": {
+    "message": "skrifta"
+  },
+  "cap_frame": {
+    "message": "rammi"
+  },
+  "cap_object": {
+    "message": "hlutur"
+  },
+  "cap_media": {
+    "message": "margmiðlunargögn"
+  },
+  "cap_font": {
+    "message": "letur"
+  },
+  "cap_webgl": {
+    "message": "webgl"
+  },
+  "cap_fetch": {
+    "message": "sækja (fetch)"
+  },
+  "cap_ping": {
+    "message": "ping"
+  },
+  "cap_noscript": {
+    "message": "noscript"
+  },
+  "cap_lazy_load": {
+    "message": "tafin hleðsla"
+  },
+  "cap_unchecked_css": {
+    "message": "óskilyrt CSS"
+  },
+  "cap_lan": {
+    "message": "LAN"
+  },
+  "cap_other": {
+    "message": "annað"
+  },
+  "cap_wasm": {
+    "message": "wasm",
+    "description": "WebAssembly modules compilation and execution capability."
+  },
+  "cap_x_load": {
+    "message": "x-hleðsla",
+    "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
+  },
+  "changelog": {
+    "message": "Breytingaskrá"
+  },
+  "changelog_tip": {
+    "message": "Birta breytingaskrá"
+  },
+  "confirm": {
+    "message": "Ertu viss?"
+  },
+  "disable": {
+    "message": "Gera $1 óvirkt"
+  },
+  "disable_accessKey": {
+    "message": "D"
+  },
+  "distrust": {
+    "message": "Merkja $1 sem ótreyst"
+  },
+  "extensionContributors": {
+    "message": "Framlög frá:"
+  },
+  "extensionContributors_tip": {
+    "message": "Fólk sem þú ættir að þakka fyrir þessa viðbót"
+  },
+  "extensionCreator_tip": {
+    "message": "Heimsækja vefsíðu höfundar"
+  },
+  "extensionCreatorLabel": {
+    "message": "Höfundur:"
+  },
+  "extensionHomepage_tip": {
+    "message": "Heimsækja vefsíðu viðbótar"
+  },
+  "forbidGlobal": {
+    "message": "Banna skriftur almennt (ráðlagt)"
+  },
+  "forbidLocal": {
+    "message": "Banna $1"
+  },
+  "freshInstallReload": {
+    "message": "Til að vinna með þennan flipa þarf NoScript að endurhlaða hann. \nHalda áfram?"
+  },
+  "privilegedPage": {
+    "message": "Þetta er síða með sérheimildum sem ekki er hægt að stilla."
+  },
+  "incompatibleOptions": {
+    "message": "\"$1\"\ner ekki samhæft við \"$2\".\nViltu virkja þetta fyrra og gera það síðara óvirkt?"
+  },
+  "incompatibleOptions_title": {
+    "message": "Aðvörun vegna ósamhæfðra valkosta"
+  },
+  "informaction_tip": {
+    "message": "Heimsækja vefsíðu InformAction"
+  },
+  "license": {
+    "message": "Notkunarleyfi"
+  },
+  "license_tip": {
+    "message": "Lesa notkunarleyfi endanotenda"
+  },
+  "logo_tip": {
+    "message": "Heimsækja vefsíðu viðbótar"
+  },
+  "metaRefresh_notify": {
+    "message": "NoScript lokaði á <META> endurbeiningu innan í <NOSCRIPT> einindi: $1 á $2 sekúndum."
+  },
+  "Reload": {
+    "message": "Endurhlaða"
+  },
+  "removal_message": {
+    "message": "Með því að fjarlægja eða gera NoScript óvirkt, gefur þú á bátinn ALLAR þær varnir sem NoScript býður.\n\nEf þú ert bara þreytt(ur) á að gefa skriftum heimildir fyrir hvert vefsvæði fyrir sig, þá er samt til öruggari kostur.\n\nNoScript getur hætt að loka á skriftur, nema þær sem þú treystir ekki, en samt notað þróaðar varnaraðgerðir til að verja þig fyrir XSS, Clickjacking, CSRF og fleiri ógnum á veraldarvefnum.\n\nErtu viss um að þú viljir fjarlægja ALLAR varnir NoScript?\n"
+  },
+  "removal_no": {
+    "message": "Nei, bara hætta að loka á skriftur"
+  },
+  "removal_title": {
+    "message": "Aðvörun vegna rýrnunar á öryggi"
+  },
+  "removal_yes": {
+    "message": "Já, fjarlægja ALLAR varnir"
+  },
+  "reset_title": {
+    "message": "Endurstilla NoScript"
+  },
+  "reset_warning": {
+    "message": "ALLAR kjörstillingar og heimildir vefsvæða í NoScript verða tafarlaust frumstilltar á sjálfgefin gildi.\nEkki er hægt að afturkalla þessa aðgerð.\nErtu viss um að þú viljir halda áfram?"
+  },
+  "siteInfo_confirm": {
+    "message": "Þú ert í þann mund að fara að biðja um upplýsingar um \"$1\" vefsvæðið\nmeð því að senda beiðni til $2.\nViltu halda áfram?"
+  },
+  "siteInfo_tooltip": {
+    "message": "Middle-click or shift+click for site info…"
+  },
+  "sponsor_tip": {
+    "message": "Heimsækja vefsíðu stuðningsaðila"
+  },
+  "unsafeReload_warning": {
+    "message": "Endurhleð ÓÖRUGGT grunsamlegu\n\n$1 [$2]\n\nFRÁ [$3]\n\nNoScript mun EKKI verja þessa beiðni!\n"
+  },
+  "untrustedOrigin": {
+    "message": "ótreystur uppruni"
+  },
+  "version": {
+    "message": "Útgáfa $1"
+  },
+  "versionShort": {
+    "message": "útg. $1"
+  },
+  "settingsThemeLabel": {
+    "message": "Þema"
+  },
+  "themeDark": {
+    "message": "Dökkt"
+  },
+  "themeLight": {
+    "message": "Ljóst"
+  },
+  "themeAuto": {
+    "message": "Sjálfvirkt"
+  },
+  "ModernRed": {
+    "message": "Nútímalegt rautt"
+  },
+  "VintageBlue": {
+    "message": "Gamaldags blátt"
+  },
+  "toVintageBlue": {
+    "message": "Skipta yfir í gamaldags bláa stílinn"
+  },
+  "DonateShort": {
+    "message": "Styrkja"
+  },
+  "DonateLong": {
+    "message": "NoScript er frjáls og opinn hugbúnaður og gæti ekki verið til án hjálpar þinnar. Íhugaðu að styrkja okkur núna!"
+  },
+  "Onboarding_title": {
+    "message": "Velkomin í NoScript!",
+    "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
+  },
+  "behavior_title": {
+    "message": "Site Classification Behavior",
+    "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
+  },
+  "behavior_label": {
+    "message": "Current site classification behavior:"
+  },
+  "behavior_prompt": {
+    "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript."
+  },
+  "behavior_defaultDeny_title": {
+    "message": "STRANGT / Hafna sjálfkrafa"
+  },
+  "behavior_defaultDeny_description": {
+    "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced."
+  },
+  "behavior_auto_title": {
+    "message": "AUÐVELDARA / Sjálfvirkt"
+  },
+  "behavior_auto_description": {
+    "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced."
+  },
+  "behavior_defaultAllow_title": {
+    "message": "AUÐVELDAST / Leyfa sjálfkrafa"
+  },
+  "behavior_defaultAllow_description": {
+    "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced."
+  },
+  "Modify": {
+    "message": "Breyta",
+    "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
+  },
+  "TabGuard_label": {
+    "message": "Vörn gegn auðkennaleka milli flipa"
+  },
+  "TabGuard_optEnabled": {
+    "message": "Virkjað allsstaðar"
+  },
+  "TabGuard_optPromptNever": {
+    "message": "Ekki spyrja áður en farið er í nafnleysi"
+  },
+  "TabGuard_optPromptPost": {
+    "message": "Spyrja áður en notað er nafnleysi í POST-innsendingum"
+  },
+  "TabGuard_optPromptAlways": {
+    "message": "Spyrja áður en notað er nafnleysi í hverkyns beiðnum"
+  },
+  "TabGuard_optIncognito": {
+    "message": "Einungis virkjað í einkavafri"
+  },
+  "TabGuard_optDisabled": {
+    "message": "Óvirkt"
+  },
+  "TabGuard_forget": {
+    "message": "Gleyma fyrri ákvörðunum"
+  },
+  "TabGuard_title": {
+    "message": "Mögulegur auðkennaleki"
+  },
+  "TabGuard_message": {
+    "message": "Þú ert að fara að hlaða inn síðu frá $1.\nEf þú ert notandi skráður inn á $1, geta upplýsingar um auðkennin þín komist í hendurnar á $2."
+  },
+  "TabGuard_optAnonymize": {
+    "message": "Hlaða nafnlaust"
+  },
+  "TabGuard_optAllow": {
+    "message": "Hlaða eðlilega"
+  },
+  "LearnMoreLink": {
+    "message": "Kanna nánar…"
+  },
+  "HelpLink": {
+    "message": "Help…"
+  },
+  "EnableGesture": {
+    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+  },
+  "GestureLabel": {
+    "message": "Draw \"S\" to summon NoScript."
+  }
 }

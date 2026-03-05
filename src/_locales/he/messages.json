@@ -1,1090 +1,831 @@
 {
-    "Add": {
-        "message": "הוסף",
-        "description": ""
-    },
-    "Add_accesskey": {
-        "message": "ס",
-        "description": ""
-    },
-    "AdditionalPermissions": {
-        "message": "הרשאות נוספות עבור אתרים מהימנים",
-        "description": ""
-    },
-    "AdditionalRestrictions": {
-        "message": "הגבלות נוספות עבור אתרים בלתי מהימנים",
-        "description": ""
-    },
-    "SectionAdvanced": {
-        "message": "מתקדם",
-        "description": ""
-    },
-    "Allow": {
-        "message": "התר",
-        "description": ""
-    },
-    "Allow_accesskey": {
-        "message": "ה",
-        "description": ""
-    },
-    "AllowBookmarks": {
-        "message": "התר אתרים שנפתחו דרך סימניות",
-        "description": ""
-    },
-    "AllowClipboard": {
-        "message": "התר העתקה והדבקה של טקסט עשיר מלוח גזירה חיצוני",
-        "description": ""
-    },
-    "AllowLocalLinks": {
-        "message": "התר קישורים מקומיים",
-        "description": ""
-    },
-    "AllowPage": {
-        "message": "התר הכל בעמוד זה",
-        "description": ""
-    },
-    "AllowPage_accesskey": {
-        "message": "ה",
-        "description": ""
-    },
-    "AllowPing": {
-        "message": "התר <A PING…>",
-        "description": ""
-    },
-    "AllowViaBookmarks": {
-        "message": "התר אתרים שנפתחו דרך סימניות",
-        "description": ""
-    },
-    "AlwaysBlockUntrustedContent": {
-        "message": "חסום כל עצם המגיע מאתר המסומן בתור בלתי בטוח",
-        "description": ""
-    },
-    "SectionAppearance": {
-        "message": "מראה",
-        "description": ""
-    },
-    "AutoAllowTopLevel": {
-        "message": "הגדר באופן זמני אתרים של רמת־ראש כמהימנים",
-        "description": ""
-    },
-    "AutoTrustedLabel": {
-        "message": "Auto-trusted",
-        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
-    },
-    "AutoReload": {
-        "message": "טען באופן אוטומטי עמודים מושפעים כאשר הרשאות משתנות",
-        "description": ""
-    },
-    "AutoReload_currentTab": {
-        "message": "טען מחדש את הלשונית הנוכחית בלבד",
-        "description": ""
-    },
-    "BaseDom": {
-        "message": "תחומי רמה שנייה של בסיס (noscript.net)",
-        "description": ""
-    },
-    "BlockedItems": {
-        "message": "נחסמו $1 מתוך $2 פריטים.",
-        "description": ""
-    },
-    "BlockedObjects": {
-        "message": "NoScript חסם עצמים",
-        "description": ""
-    },
-    "BookmarkSync": {
-        "message": "גבה את תצורת NoScript בסימנייה עבור סינכרון קל",
-        "description": ""
-    },
-    "Cancel": {
-        "message": "בטל",
-        "description": ""
-    },
-    "CascadePermissions": {
-        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
-        "description": ""
-    },
-    "CascadeRestrictions": {
-        "message": "כל יכולת שנחסמה במסמך הראש חייבת להיחסם גם בתת־המסמכים שלו",
-        "description": ""
-    },
-    "CascadedLabel": {
-        "message": "Cascaded",
-        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
-    },
-    "ClearClickDescription": {
-        "message": "NoScript ירט הידוד של עכבר או מקלדת עם יסוד מוסתר חלקית. לחץ על התמונה למטה כדי להעביר בין הגרסה המסוכלת לבין הגרסה הנקייה.",
-        "description": ""
-    },
-    "ClearClickHeader": {
-        "message": "ניסיון אפשרי של הונאת לחיצה!",
-        "description": ""
-    },
-    "ClearClickOpt": {
-        "message": "הגנת ClearClick בעמודים...",
-        "description": ""
-    },
-    "ClearClickReport": {
-        "message": "דווח",
-        "description": ""
-    },
-    "ClearClickReport_accesskey": {
-        "message": "ד",
-        "description": ""
-    },
-    "ClearClickReportId": {
-        "message": "זהות דוח:",
-        "description": ""
-    },
-    "ClearClickTitle": {
-        "message": "אזהרת ClearClick",
-        "description": ""
-    },
-    "Close": {
-        "message": "סגור",
-        "description": ""
-    },
-    "CollapseBlockedObjects": {
-        "message": "כווץ עצמים חסומים",
-        "description": ""
-    },
-    "ConfirmUnblock": {
-        "message": "בקש אימות לפני אי־חסימה זמנית של פריט",
-        "description": ""
-    },
-    "CtxMenu": {
-        "message": "תפריט הקשר",
-        "description": ""
-    },
-    "Custom": {
-        "message": "מותאם אישית",
-        "description": ""
-    },
-    "CustomizePresets": {
-        "message": "התאמה אישית קבועה מראש (עבור כל האתרים המשתפים קדם־קביעה)",
-        "description": ""
-    },
-    "Default": {
-        "message": "ברירת מחדל",
-        "description": ""
-    },
-    "DefaultPolicies": {
-        "message": "מדיניויות ברירת מחדל",
-        "description": ""
-    },
-    "Description": {
-        "message": "הגנה מירבית לדפדפן שלך: NoScript מתיר תוכן פעיל רק עבור תחומים מהימנים לבחירתך כדי למנוע ניצול פירצות.",
-        "description": ""
-    },
-    "Donate": {
-        "message": "תרום",
-        "description": ""
-    },
-    "Donate_accesskey": {
-        "message": "ר",
-        "description": ""
-    },
-    "Embeddings": {
-        "message": "שיבוצים",
-        "description": ""
-    },
-    "Exceptions": {
-        "message": "חריגים...",
-        "description": ""
-    },
-    "Export": {
-        "message": "ייצא",
-        "description": ""
-    },
-    "Export_accesskey": {
-        "message": "צ",
-        "description": ""
-    },
-    "FixLinks": {
-        "message": "נסה לתקן קישורי JavaScript",
-        "description": ""
-    },
-    "Hider": {
-        "message": "שחרר כאן כדי להסתיר.",
-        "description": ""
-    },
-    "Reveal": {
-        "message": "לחץ כאן כדי לאחזר כפתורים חסרים...",
-        "description": ""
-    },
-    "ShowFullAddresses": {
-        "message": "כתוב ברשימה כתובות מלאות בחלון הקופץ של ההרשאות (https://www.noscript.net)",
-        "description": ""
-    },
-    "ShowProbePlaceholders": {
-        "message": "הראה מצייני מיקום סינתטיים עבור בדיקות יכולת בלתי נראות",
-        "description": ""
-    },
-    "SectionGeneral": {
-        "message": "כללי",
-        "description": ""
-    },
-    "NotEnforced": {
-        "message": "הגבלות מושבתות ע״י הגדרות משתמש: NoScript לא יחסום שום דבר בדף זה!",
-        "description": ""
-    },
-    "NoEnforcement": {
-        "message": "השבת הגבלות באופן גלובלי (מסוכן)",
-        "description": ""
-    },
-    "Enforce": {
-        "message": "אפשר הגבלות באופן גלובלי",
-        "description": ""
-    },
-    "EnforceOnRestart": {
-        "message": "שחזר הגבלות בהזנק הדפדפן",
-        "description": ""
-    },
-    "NoEnforcementForTab": {
-        "message": "השבת הגבלות עבור לשונית זו",
-        "description": ""
-    },
-    "EnforceForTab": {
-        "message": "אפשר הגבלות עבור לשונית זו",
-        "description": ""
-    },
-    "toggleEnforcementForTab": {
-        "message": "עורר אכיפת הגבלות עבור הלשונית הנוכחית",
-        "description": ""
-    },
-    "pagePermissionsUI": {
-        "message": "תצר הרשאות של הדף הנוכחי",
-        "description": ""
-    },
-    "HighContrast": {
-        "message": "ניגודיות גבוהה",
-        "description": ""
-    },
-    "httpsOnly": {
-        "message": "התאם תוכן HTTPS בלבד",
-        "description": ""
-    },
-    "tabLess_tip": {
-        "message": "אתר מחוץ ללשונית הנוכחית, לדוגמה בסרגל צדדי",
-        "description": ""
-    },
-    "tabLess_short": {
-        "message": "(סרגל צדדי?)",
-        "description": ""
-    },
-    "tabLess_reload_warning": {
-        "message": "שינוי הרשאות בסרגל צדדי ידרוש טעינה מחדש ידנית.",
-        "description": ""
-    },
-    "Https": {
-        "message": "HTTPS",
-        "description": ""
-    },
-    "Https_always": {
-        "message": "תמיד",
-        "description": ""
-    },
-    "Https_behavior": {
-        "message": "התנהגות",
-        "description": ""
-    },
-    "Https_cookies": {
-        "message": "עוגיות",
-        "description": ""
-    },
-    "Https_description": {
-        "message": "אסור תוכן רשת פעיל אלא אם הוא מגיע מחיבור מאובטח (HTTPS):",
-        "description": ""
-    },
-    "Https_never": {
-        "message": "לעולם לא",
-        "description": ""
-    },
-    "Https_proxy": {
-        "message": "בעת שימוש בייפוי כוח (מומלץ עם Tor)",
-        "description": ""
-    },
-    "HttpsFaq": {
-        "message": "שאלות נפוצות של HTTPS...",
-        "description": ""
-    },
-    "HttpsFaq_accesskey": {
-        "message": "צ",
-        "description": ""
-    },
-    "HttpsForced": {
-        "message": "אלץ את האתרים הבאים להשתמש בחיבורים מאובטחים (HTTPS):",
-        "description": ""
-    },
-    "HttpsForcedExceptions": {
-        "message": "לעולם אל תאלץ חיבורים מאובטחים (HTTPS) עבור האתרים הבאים:",
-        "description": ""
-    },
-    "Import": {
-        "message": "ייבא",
-        "description": ""
-    },
-    "Import_accesskey": {
-        "message": "ב",
-        "description": ""
-    },
-    "OptIncognitoPerm": {
-        "message": "אפשר קביעת הרשאות קבועות בלשוניות עילום שם או בלשוניות פרטיות.\nהיזהר: אפשור עלול להדליף מידע אתר!",
-        "description": ""
-    },
-    "OptAmnesticUpdates": {
-        "message": "שלול הרשאות זמניות בעת עדכוני NoScript, אפילו אם הדפדפן אינו מופעל מחדש",
-        "description": ""
-    },
-    "KeepLocked": {
-        "message": "השאר יסוד זה נעול (מומלץ)",
-        "description": ""
-    },
-    "MatchSample": {
-        "message": "דוגמה של התאמת דפוס:",
-        "description": ""
-    },
-    "Next": {
-        "message": "הבא",
-        "description": ""
-    },
-    "NoUntrustedPlaceholder": {
-        "message": "אין שומר־מקום עבור עצמים המגיעים מאתרים המסומנים כבלתי בטוחים",
-        "description": ""
-    },
-    "Notifications": {
-        "message": "התראות",
-        "description": ""
-    },
-    "Notify": {
-        "message": "הראה הודעה לגבי תסריטים חסומים",
-        "description": ""
-    },
-    "Notify_bottom": {
-        "message": "מקם הודעה בתחתית",
-        "description": ""
-    },
-    "NotifyMeta": {
-        "message": "הראה הודעה לגבי הפניות META חסומות",
-        "description": ""
-    },
-    "NotifyMeta_accesskey": {
-        "message": "ד",
-        "description": ""
-    },
-    "NselForce": {
-        "message": "הראה את <NOSCRIPT>היסוד שעוקב אחר פריט חסום<SCRIPT>",
-        "description": ""
-    },
-    "NselNever": {
-        "message": "הסתר <NOSCRIPT> יסודות",
-        "description": ""
-    },
-    "OK": {
-        "message": "אישור",
-        "description": ""
-    },
-    "OptBlockCssScanners": {
-        "message": "חסום סורקים מבוססי CSS",
-        "description": ""
-    },
-    "OptFilterXGet": {
-        "message": "חטא בקשות חוצות־אתרים חשודות",
-        "description": ""
-    },
-    "OptFilterXPost": {
-        "message": "הפוך בקשות POST חוצות־אתרים אל בקשות GET מופחתות־נתונים",
-        "description": ""
-    },
-    "OptOverrideTorBrowserPolicy": {
-        "message": "דרוס הגדרה של רמת אבטחה של דפדפן Tor",
-        "description": ""
-    },
-    "Options": {
-        "message": "אפשרויות...",
-        "description": ""
-    },
-    "Options_accesskey": {
-        "message": "א",
-        "description": ""
-    },
-    "OptionsLong": {
-        "message": "אפשרויות NoScript",
-        "description": ""
-    },
-    "OptionsWidth": {
-        "message": "40em",
-        "description": ""
-    },
-    "PermanentInPrivate": {
-        "message": "פקודות \"התר\" קבועות בחלונות פרטיים",
-        "description": ""
-    },
-    "SectionSitePermissions": {
-        "message": "הרשאות לפי אתר",
-        "description": ""
-    },
-    "PermissionsText": {
-        "message": "אתה יכול לציין אילו אתרים רשאים לבצע תסריטים. הקלד את הכתובת או התחום (למשל, \"http://www.site.com\" או \"site.com\") של האתר שאתה רוצה להתיר ואז לחץ התר.",
-        "description": ""
-    },
-    "Plugins": {
-        "message": "מתקעים",
-        "description": ""
-    },
-    "Policies": {
-        "message": "מדיניויות",
-        "description": ""
-    },
-    "Preset": {
-        "message": "רמת אבטחה",
-        "description": ""
-    },
-    "Prev": {
-        "message": "הקודם",
-        "description": ""
-    },
-    "RecentBlocked": {
-        "message": "אתרים שנחסמו לאחרונה",
-        "description": ""
-    },
-    "Refresh": {
-        "message": "רענן",
-        "description": ""
-    },
-    "ReloadWarn": {
-        "message": "אפשרויות אלו ייכנסו לתוקף בעמודים חדשים או טעונים מחדש (באופן ידני)",
-        "description": ""
-    },
-    "RemoveSelected": {
-        "message": "הסר אתרים נבחרים",
-        "description": ""
-    },
-    "Reset": {
-        "message": "אַפֵּס",
-        "description": ""
-    },
-    "Reset_accesskey": {
-        "message": "פ",
-        "description": ""
-    },
-    "ResetDef": {
-        "message": "אַפֵּס אל ברירת מחדל",
-        "description": ""
-    },
-    "ResetDef_accesskey": {
-        "message": "ש",
-        "description": ""
-    },
-    "RevokeTemp": {
-        "message": "שלול הרשאות זמניות",
-        "description": ""
-    },
-    "RevokeTemp_accesskey": {
-        "message": "ד",
-        "description": ""
-    },
-    "SecureCookies": {
-        "message": "אפשר ניהול עוגיות אוטומטי ומאובטח",
-        "description": ""
-    },
-    "SecureCookiesExceptions": {
-        "message": "התעלם מעוגיות בלתי בטוחות שהוגדרו על HTTPS ע״י האתרים הבאים:",
-        "description": ""
-    },
-    "SecureCookiesForced": {
-        "message": "אלץ הצפנה עבור כל העוגיות שהוגדרו על HTTPS ע״י האתרים הבאים:",
-        "description": ""
-    },
-    "SecurityManager": {
-        "message": "מנהל האבטחה",
-        "description": ""
-    },
-    "Show": {
-        "message": "הראה...",
-        "description": ""
-    },
-    "ShowConsole": {
-        "message": "הראה קונסולה...",
-        "description": ""
-    },
-    "ShowConsole_accesskey": {
-        "message": "ה",
-        "description": ""
-    },
-    "ShowPlaceholder": {
-        "message": "הראה צלמית שומר־מקום",
-        "description": ""
-    },
-    "ShowReleaseNotes": {
-        "message": "הצג את הערות השחרור בעדכונים",
-        "description": ""
-    },
-    "ShowCtxMenuItem": {
-        "message": "הראה פריט תפריט הקשר של NoScript",
-        "description": ""
-    },
-    "ShowCountBadge": {
-        "message": "הצג תג ספירת פריטים חסומים",
-        "description": ""
-    },
-    "SitePermissions": {
-        "message": "הרשאות אתר",
-        "description": ""
-    },
-    "SitePermissions_accessKey": {
-        "message": "ה",
-        "description": ""
-    },
-    "SitePolicies": {
-        "message": "מדיניויות מסוימות של אתר",
-        "description": ""
-    },
-    "TempTrustPage": {
-        "message": "הגדר הכל בעמוד זה כמהימן באופן זמני",
-        "description": ""
-    },
-    "TempTrustPage_accesskey": {
-        "message": "מ",
-        "description": ""
-    },
-    "TempToPerm": {
-        "message": "הפוך הרשאות דף לקבועות",
-        "description": ""
-    },
-    "TempToPerm_accesskey": {
-        "message": "ק",
-        "description": ""
-    },
-    "Trust": {
-        "message": "סמן בתור מהימן",
-        "description": ""
-    },
-    "Trust_accesskey": {
-        "message": "מ",
-        "description": ""
-    },
-    "Trusted": {
-        "message": "מהימן",
-        "description": ""
-    },
-    "Trusted_temporary": {
-        "message": "מהימן זמנית",
-        "description": ""
-    },
-    "Trusted_permanent": {
-        "message": "מהימן",
-        "description": ""
-    },
-    "TrustedPagesAdj": {
-        "message": "מהימן",
-        "description": ""
-    },
-    "Uninstall": {
-        "message": "הסר",
-        "description": ""
-    },
-    "Unknown": {
-        "message": "בלתי ידוע",
-        "description": ""
-    },
-    "UnsafeReload": {
-        "message": "טעינה מחדש לא בטוחה",
-        "description": ""
-    },
-    "UnsafeReload_accesskey": {
-        "message": "ד",
-        "description": ""
-    },
-    "Untrust": {
-        "message": "סמן בתור בלתי מהימן",
-        "description": ""
-    },
-    "Untrust_accesskey": {
-        "message": "ב",
-        "description": ""
-    },
-    "Untrusted": {
-        "message": "בלתי מהימן",
-        "description": ""
-    },
-    "UntrustedPagesAdj": {
-        "message": "בלתי מהימן",
-        "description": ""
-    },
-    "WebAddress": {
-        "message": "חפש או הוסף אתר:",
-        "description": ""
-    },
-    "WebAddress_accesskey": {
-        "message": "ר",
-        "description": ""
-    },
-    "XSS_notify": {
-        "message": "הראה התראות XSS",
-        "description": ""
-    },
-    "XSS_clearUserChoices": {
-        "message": "נקה בחירות XSS",
-        "description": ""
-    },
-    "XSS_promptTitle": {
-        "message": "אזהרת NoScript XSS",
-        "description": ""
-    },
-    "XSS_promptMessage": {
-        "message": "NoScript גילה מתקפת תיסרוט חוצת־אתרים פוטנציאלית\nמן $1 אל $2.\nנתונים חשודים:\n$3",
-        "description": ""
-    },
-    "XSS_optBlock": {
-        "message": "חסום בקשה זו",
-        "description": ""
-    },
-    "XSS_optSanitize": {
-        "message": "חטא בקשה זו",
-        "description": ""
-    },
-    "XSS_optAllow": {
-        "message": "התר בקשה זו",
-        "description": ""
-    },
-    "XSS_optAlwaysAllow": {
-        "message": "התר תמיד בקשות מסמך מן $1 אל $2",
-        "description": ""
-    },
-    "XSS_optAlwaysBlock": {
-        "message": "חסום תמיד בקשות מסמך מן $1 אל $2",
-        "description": ""
-    },
-    "Xss": {
-        "message": "XSS",
-        "description": ""
-    },
-    "Xss_accesskey": {
-        "message": "X",
-        "description": ""
-    },
-    "XssExceptions": {
-        "message": "חריגים של הגנת נגד-XSS",
-        "description": ""
-    },
-    "XssExceptions_description": {
-        "message": "יעדים התואמים לביטויים רגולריים אלו לא יוגנו מפני XSS.",
-        "description": ""
-    },
-    "XssFaq": {
-        "message": "שאלות נפוצות של XSS...",
-        "description": ""
-    },
-    "XssFaq_accesskey": {
-        "message": "צ",
-        "description": ""
-    },
-    "about": {
-        "message": "אודות $1",
-        "description": ""
-    },
-    "allowFrom": {
-        "message": "התר הכל מאת $1",
-        "description": ""
-    },
-    "allowGlobal": {
-        "message": "השבת את כל בדיקות ההרשאות (מסוכן)",
-        "description": ""
-    },
-    "allowLocal": {
-        "message": "התר את $1",
-        "description": ""
-    },
-    "allowTemp": {
-        "message": "התר זמנית את $1",
-        "description": ""
-    },
-    "allowTempFrom": {
-        "message": "התר זמנית הכל מ־$1",
-        "description": ""
-    },
-    "allowed_no": {
-        "message": "תסריטים האסורים כרגע",
-        "description": ""
-    },
-    "allowed_prt": {
-        "message": "תסריטים המותרים חלקית",
-        "description": ""
-    },
-    "allowed_yes": {
-        "message": "תסריטים המותרים כרגע",
-        "description": ""
-    },
-    "alwaysAsk": {
-        "message": "בקש תמיד אישור",
-        "description": ""
-    },
-    "audio_samples": {
-        "message": "דגימות שמע",
-        "description": ""
-    },
-    "bookmarkSync_confirm": {
-        "message": "NoScript מצא סימניית תצורה השמורה לכאורה על\n$1.\nהאם אתה באמת רוצה לדרוס את תצורת NoScript המקומית שלך עם תוכן הסימנייה הזו?",
-        "description": ""
-    },
-    "bookmarkSync_message": {
-        "message": "סימנייה זו אינה אמורה להיפתח, אלא להסתנכרן ע״י שימוש בשירות כגון Weave או ההרחבה XMarks.",
-        "description": ""
-    },
-    "bookmarkSync_title": {
-        "message": "סימניית תצורת NoScript",
-        "description": ""
-    },
-    "caps": {
-        "message": "אפשר יכולות אלו",
-        "description": ""
-    },
-    "capsContext": {
-        "message": "אפשר יכולות אלו כאשר דף הראש תואם",
-        "description": ""
-    },
-    "anySite": {
-        "message": "כל אתר",
-        "description": ""
-    },
-    "cap_script": {
-        "message": "תסריט",
-        "description": ""
-    },
-    "cap_frame": {
-        "message": "מסגרת",
-        "description": ""
-    },
-    "cap_object": {
-        "message": "עצם",
-        "description": ""
-    },
-    "cap_media": {
-        "message": "מדיה",
-        "description": ""
-    },
-    "cap_font": {
-        "message": "גופן",
-        "description": ""
-    },
-    "cap_webgl": {
-        "message": "webgl",
-        "description": ""
-    },
-    "cap_fetch": {
-        "message": "משוך",
-        "description": ""
-    },
-    "cap_ping": {
-        "message": "פִּינְג",
-        "description": ""
-    },
-    "cap_noscript": {
-        "message": "noscript",
-        "description": ""
-    },
-    "cap_lazy_load": {
-        "message": "טעינה עצלנית",
-        "description": ""
-    },
-    "cap_unchecked_css": {
-        "message": "CSS בלתי מוגבל",
-        "description": ""
-    },
-    "cap_lan": {
-        "message": "LAN",
-        "description": ""
-    },
-    "cap_other": {
-        "message": "אחר",
-        "description": ""
-    },
-    "cap_wasm": {
-        "message": "wasm",
-        "description": "WebAssembly modules compilation and execution capability."
-    },
-    "cap_x_load": {
-        "message": "x-load",
-        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
-    },
-    "changelog": {
-        "message": "יומן שינויים",
-        "description": ""
-    },
-    "changelog_tip": {
-        "message": "הראה יומן שינויים",
-        "description": ""
-    },
-    "confirm": {
-        "message": "האם אתה בטוח?",
-        "description": ""
-    },
-    "disable": {
-        "message": "השבת את $1",
-        "description": ""
-    },
-    "disable_accessKey": {
-        "message": "ש",
-        "description": ""
-    },
-    "distrust": {
-        "message": "סמן את $1 בתור בלתי מהימן",
-        "description": ""
-    },
-    "extensionContributors": {
-        "message": "תורמים:",
-        "description": ""
-    },
-    "extensionContributors_tip": {
-        "message": "אנשים שאתה צריך להודות להם על הרחבה זו",
-        "description": ""
-    },
-    "extensionCreator_tip": {
-        "message": "בקר בעמוד הבית של המחבר",
-        "description": ""
-    },
-    "extensionCreatorLabel": {
-        "message": "מחבר:",
-        "description": ""
-    },
-    "extensionHomepage_tip": {
-        "message": "בקר בעמוד הבית של ההרחבה",
-        "description": ""
-    },
-    "forbidGlobal": {
-        "message": "אסור עולמית תסריטים (מומלץ)",
-        "description": ""
-    },
-    "forbidLocal": {
-        "message": "אסור את $1",
-        "description": ""
-    },
-    "freshInstallReload": {
-        "message": "על מנת לפעול בלשונית זו, NoScript צריך להיפעל מחדש.\nלהמשיך?",
-        "description": ""
-    },
-    "privilegedPage": {
-        "message": "זהו דף בעל זכויות יתר אשר הרשאותיו אינן ברות־תיצור.",
-        "description": ""
-    },
-    "incompatibleOptions": {
-        "message": "\"$1\"\nאינו תואם עם \"$2\".\nהאם אתה רוצה לאפשר את הקודם ולהשבית את האחרון?",
-        "description": ""
-    },
-    "incompatibleOptions_title": {
-        "message": "אזהרת אפשרויות לא תואמות",
-        "description": ""
-    },
-    "informaction_tip": {
-        "message": "בקר בעמוד הבית של InformAction",
-        "description": ""
-    },
-    "license": {
-        "message": "רשיון",
-        "description": ""
-    },
-    "license_tip": {
-        "message": "קרא רשיון משתמש־קצה",
-        "description": ""
-    },
-    "logo_tip": {
-        "message": "בקר בעמוד הבית של ההרחבה",
-        "description": ""
-    },
-    "metaRefresh_notify": {
-        "message": "NoScript חסם <META>הפנייה מחדש בתוך<NOSCRIPT> יסוד: $1 תוך $2 שניות.",
-        "description": ""
-    },
-    "Reload": {
-        "message": "טען מחדש",
-        "description": ""
-    },
-    "removal_message": {
-        "message": "ע״י השבתה או הסרה של NoScript, אתה מוותר על כל ההגנות המסופקות ע״י NoScript.\n\nאם רק נמאס לך לטפל בהרשאות תסריט אתר־אחר־אתר, יש בחירה בטוחה יותר.\n\nNoScript יכול להפסיק לחסום תסריטים, מלבד אלו שתסמן כבלתי מהימנים, בזמן שהוא עדין מגן עליך עם אמצעיי־הנגד המתקדמים ביותר של אבטחה נגד XSS, Clickjacking, CSRF ואיומי רשת אחרים.\n\nהאם באמת אתה רוצה להסיר את כל ההגנות של NoScript?\n",
-        "description": ""
-    },
-    "removal_no": {
-        "message": "לא, רק עצור תסריטי חסימה",
-        "description": ""
-    },
-    "removal_title": {
-        "message": "אזהרת שנמוך אבטחה",
-        "description": ""
-    },
-    "removal_yes": {
-        "message": "כן, הסר את כל ההגנות",
-        "description": ""
-    },
-    "reset_title": {
-        "message": "איפוס NoScript",
-        "description": ""
-    },
-    "reset_warning": {
-        "message": "כל ההעדפות והרשאות האתר של NoScript יאופסו אל ערכי ברירת המחדל שלהפ באופן מיידי.\nפעולה זו אינה יכולה להיות מוחזרת לאחור.\nהאם אתה רוצה להמשיך?",
-        "description": ""
-    },
-    "siteInfo_confirm": {
-        "message": "אתה עומד לבקש מידע על האתר \"$1\"\nעל ידי הגשת שאילתה אל $2.\nהאם אתה רוצה להמשיך?",
-        "description": ""
-    },
-    "siteInfo_tooltip": {
-        "message": "Middle-click or shift+click for site info…",
-        "description": ""
-    },
-    "sponsor_tip": {
-        "message": "בקר בעמוד הבית של נותן החסות",
-        "description": ""
-    },
-    "unsafeReload_warning": {
-        "message": "טוען מחדש לא בבטחה\n\n$1 [$2]\n\nמן [$3]\n\nNoScript לא יגן על בקשה זו!\n",
-        "description": ""
-    },
-    "untrustedOrigin": {
-        "message": "מקור לא מהימן",
-        "description": ""
-    },
-    "version": {
-        "message": "גרסה $1",
-        "description": ""
-    },
-    "versionShort": {
-        "message": "ג $1",
-        "description": ""
-    },
-    "settingsThemeLabel": {
-        "message": "ערכת נושא",
-        "description": ""
-    },
-    "themeDark": {
-        "message": "כהה",
-        "description": ""
-    },
-    "themeLight": {
-        "message": "בהירה",
-        "description": ""
-    },
-    "themeAuto": {
-        "message": "אוטומטית",
-        "description": ""
-    },
-    "ModernRed": {
-        "message": "אדום מודרני",
-        "description": ""
-    },
-    "VintageBlue": {
-        "message": "כחול וינטג'",
-        "description": ""
-    },
-    "toVintageBlue": {
-        "message": "החלף אל הסגנון כחול וינטג'",
-        "description": ""
-    },
-    "DonateShort": {
-        "message": "תרום",
-        "description": ""
-    },
-    "DonateLong": {
-        "message": "NoScript הוא תוכנה חינמית והוא לא יכול להתקיים בלי העזרה שלך. אנא תרום עכשיו!",
-        "description": ""
-    },
-    "Onboarding_title": {
-        "message": "Welcome to NoScript!",
-        "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
-    },
-    "behavior_title": {
-        "message": "Site Classification Behavior",
-        "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
-    },
-    "behavior_label": {
-        "message": "Current site classification behavior:",
-        "description": ""
-    },
-    "behavior_prompt": {
-        "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript.",
-        "description": ""
-    },
-    "behavior_defaultDeny_title": {
-        "message": "STRICT / Default Deny",
-        "description": ""
-    },
-    "behavior_defaultDeny_description": {
-        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "behavior_auto_title": {
-        "message": "EASIER / Auto",
-        "description": ""
-    },
-    "behavior_auto_description": {
-        "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "behavior_defaultAllow_title": {
-        "message": "EASIEST / Default allow",
-        "description": ""
-    },
-    "behavior_defaultAllow_description": {
-        "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "Modify": {
-        "message": "Modify",
-        "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
-    },
-    "TabGuard_label": {
-        "message": "הגנה מפני דליפה חוצת־לשוניות של זהות",
-        "description": ""
-    },
-    "TabGuard_optEnabled": {
-        "message": "מאופשר בכל מקום",
-        "description": ""
-    },
-    "TabGuard_optPromptNever": {
-        "message": "אל תיידע אף פעם לפני עילום שם",
-        "description": ""
-    },
-    "TabGuard_optPromptPost": {
-        "message": "יידע לפני עילום שם של הגשות POST",
-        "description": ""
-    },
-    "TabGuard_optPromptAlways": {
-        "message": "יידע לפני עילום שם של כל בקשה",
-        "description": ""
-    },
-    "TabGuard_optIncognito": {
-        "message": "מאופשר בגלישה פרטית בלבד",
-        "description": ""
-    },
-    "TabGuard_optDisabled": {
-        "message": "מושבת",
-        "description": ""
-    },
-    "TabGuard_forget": {
-        "message": "שכח החלטות",
-        "description": ""
-    },
-    "TabGuard_title": {
-        "message": "הדלפה פוטנציאלית של זהות",
-        "description": ""
-    },
-    "TabGuard_message": {
-        "message": "אתה עומד לטעון דף מן $1.\nאם אתה משתמש $1 מחובר, מידע אודות זהותך עשויות להיות מושגות ע״י $2.",
-        "description": ""
-    },
-    "TabGuard_optAnonymize": {
-        "message": "טען בעילום שם",
-        "description": ""
-    },
-    "TabGuard_optAllow": {
-        "message": "טען כרגיל",
-        "description": ""
-    },
-    "LearnMoreLink": {
-        "message": "Learn more…",
-        "description": ""
-    },
-    "HelpLink": {
-        "message": "עזרה…",
-        "description": ""
-    }
+  "Add": {
+    "message": "הוסף"
+  },
+  "Add_accesskey": {
+    "message": "ס"
+  },
+  "AdditionalPermissions": {
+    "message": "הרשאות נוספות עבור אתרים מהימנים"
+  },
+  "AdditionalRestrictions": {
+    "message": "הגבלות נוספות עבור אתרים בלתי מהימנים"
+  },
+  "SectionAdvanced": {
+    "message": "מתקדם"
+  },
+  "Allow": {
+    "message": "התר"
+  },
+  "Allow_accesskey": {
+    "message": "ה"
+  },
+  "AllowBookmarks": {
+    "message": "התר אתרים שנפתחו דרך סימניות"
+  },
+  "AllowClipboard": {
+    "message": "התר העתקה והדבקה של טקסט עשיר מלוח גזירה חיצוני"
+  },
+  "AllowLocalLinks": {
+    "message": "התר קישורים מקומיים"
+  },
+  "AllowPage": {
+    "message": "התר הכל בעמוד זה"
+  },
+  "AllowPage_accesskey": {
+    "message": "ה"
+  },
+  "AllowPing": {
+    "message": "התר <A PING…>"
+  },
+  "AllowViaBookmarks": {
+    "message": "התר אתרים שנפתחו דרך סימניות"
+  },
+  "AlwaysBlockUntrustedContent": {
+    "message": "חסום כל עצם המגיע מאתר המסומן בתור בלתי בטוח"
+  },
+  "SectionAppearance": {
+    "message": "מראה"
+  },
+  "AutoAllowTopLevel": {
+    "message": "הגדר באופן זמני אתרים של רמת־ראש כמהימנים"
+  },
+  "AutoTrustedLabel": {
+    "message": "Auto-trusted",
+    "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+  },
+  "AutoReload": {
+    "message": "טען באופן אוטומטי עמודים מושפעים כאשר הרשאות משתנות"
+  },
+  "AutoReload_currentTab": {
+    "message": "טען מחדש את הלשונית הנוכחית בלבד"
+  },
+  "BaseDom": {
+    "message": "תחומי רמה שנייה של בסיס (noscript.net)"
+  },
+  "BlockedItems": {
+    "message": "נחסמו $1 מתוך $2 פריטים."
+  },
+  "BlockedObjects": {
+    "message": "NoScript חסם עצמים"
+  },
+  "BookmarkSync": {
+    "message": "גבה את תצורת NoScript בסימנייה עבור סינכרון קל"
+  },
+  "Cancel": {
+    "message": "בטל"
+  },
+  "CascadePermissions": {
+    "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet"
+  },
+  "CascadeRestrictions": {
+    "message": "כל יכולת שנחסמה במסמך הראש חייבת להיחסם גם בתת־המסמכים שלו"
+  },
+  "CascadedLabel": {
+    "message": "Cascaded",
+    "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
+  },
+  "ClearClickDescription": {
+    "message": "NoScript ירט הידוד של עכבר או מקלדת עם יסוד מוסתר חלקית. לחץ על התמונה למטה כדי להעביר בין הגרסה המסוכלת לבין הגרסה הנקייה."
+  },
+  "ClearClickHeader": {
+    "message": "ניסיון אפשרי של הונאת לחיצה!"
+  },
+  "ClearClickOpt": {
+    "message": "הגנת ClearClick בעמודים…"
+  },
+  "ClearClickReport": {
+    "message": "דווח"
+  },
+  "ClearClickReport_accesskey": {
+    "message": "ד"
+  },
+  "ClearClickReportId": {
+    "message": "זהות דוח:"
+  },
+  "ClearClickTitle": {
+    "message": "אזהרת ClearClick"
+  },
+  "Close": {
+    "message": "סגור"
+  },
+  "CollapseBlockedObjects": {
+    "message": "כווץ עצמים חסומים"
+  },
+  "ConfirmUnblock": {
+    "message": "בקש אימות לפני אי־חסימה זמנית של פריט"
+  },
+  "CtxMenu": {
+    "message": "תפריט הקשר"
+  },
+  "Custom": {
+    "message": "מותאם אישית"
+  },
+  "CustomizePresets": {
+    "message": "התאמה אישית קבועה מראש (עבור כל האתרים המשתפים קדם־קביעה)"
+  },
+  "Default": {
+    "message": "ברירת מחדל"
+  },
+  "DefaultPolicies": {
+    "message": "מדיניויות ברירת מחדל"
+  },
+  "Description": {
+    "message": "הגנה מירבית לדפדפן שלך: NoScript מתיר תוכן פעיל רק עבור תחומים מהימנים לבחירתך כדי למנוע ניצול פירצות."
+  },
+  "Donate": {
+    "message": "תרום"
+  },
+  "Donate_accesskey": {
+    "message": "ר"
+  },
+  "Embeddings": {
+    "message": "שיבוצים"
+  },
+  "Exceptions": {
+    "message": "חריגים…"
+  },
+  "Export": {
+    "message": "ייצא"
+  },
+  "Export_accesskey": {
+    "message": "צ"
+  },
+  "FixLinks": {
+    "message": "נסה לתקן קישורי JavaScript"
+  },
+  "Hider": {
+    "message": "שחרר כאן כדי להסתיר."
+  },
+  "Reveal": {
+    "message": "לחץ כאן כדי לאחזר כפתורים חסרים…"
+  },
+  "ShowFullAddresses": {
+    "message": "כתוב ברשימה כתובות מלאות בחלון הקופץ של ההרשאות (https://www.noscript.net)"
+  },
+  "ShowProbePlaceholders": {
+    "message": "הראה מצייני מיקום סינתטיים עבור בדיקות יכולת בלתי נראות"
+  },
+  "SectionGeneral": {
+    "message": "כללי"
+  },
+  "NotEnforced": {
+    "message": "הגבלות מושבתות ע״י הגדרות משתמש: NoScript לא יחסום שום דבר בדף זה!"
+  },
+  "NoEnforcement": {
+    "message": "השבת הגבלות באופן גלובלי (מסוכן)"
+  },
+  "Enforce": {
+    "message": "אפשר הגבלות באופן גלובלי"
+  },
+  "EnforceOnRestart": {
+    "message": "שחזר הגבלות בהזנק הדפדפן"
+  },
+  "NoEnforcementForTab": {
+    "message": "השבת הגבלות עבור לשונית זו"
+  },
+  "EnforceForTab": {
+    "message": "אפשר הגבלות עבור לשונית זו"
+  },
+  "toggleEnforcementForTab": {
+    "message": "עורר אכיפת הגבלות עבור הלשונית הנוכחית"
+  },
+  "pagePermissionsUI": {
+    "message": "תצר הרשאות של הדף הנוכחי"
+  },
+  "HighContrast": {
+    "message": "ניגודיות גבוהה"
+  },
+  "httpsOnly": {
+    "message": "התאם תוכן HTTPS בלבד"
+  },
+  "tabLess_tip": {
+    "message": "אתר מחוץ ללשונית הנוכחית, לדוגמה בסרגל צדדי"
+  },
+  "tabLess_short": {
+    "message": "(סרגל צדדי?)"
+  },
+  "tabLess_reload_warning": {
+    "message": "שינוי הרשאות בסרגל צדדי ידרוש טעינה מחדש ידנית."
+  },
+  "Https": {
+    "message": "HTTPS"
+  },
+  "Https_always": {
+    "message": "תמיד"
+  },
+  "Https_behavior": {
+    "message": "התנהגות"
+  },
+  "Https_cookies": {
+    "message": "עוגיות"
+  },
+  "Https_description": {
+    "message": "אסור תוכן רשת פעיל אלא אם הוא מגיע מחיבור מאובטח (HTTPS):"
+  },
+  "Https_never": {
+    "message": "לעולם לא"
+  },
+  "Https_proxy": {
+    "message": "בעת שימוש בייפוי כוח (מומלץ עם Tor)"
+  },
+  "HttpsFaq": {
+    "message": "שאלות נפוצות של HTTPS…"
+  },
+  "HttpsFaq_accesskey": {
+    "message": "צ"
+  },
+  "HttpsForced": {
+    "message": "אלץ את האתרים הבאים להשתמש בחיבורים מאובטחים (HTTPS):"
+  },
+  "HttpsForcedExceptions": {
+    "message": "לעולם אל תאלץ חיבורים מאובטחים (HTTPS) עבור האתרים הבאים:"
+  },
+  "Import": {
+    "message": "ייבא"
+  },
+  "Import_accesskey": {
+    "message": "ב"
+  },
+  "OptIncognitoPerm": {
+    "message": "אפשר קביעת הרשאות קבועות בלשוניות עילום שם או בלשוניות פרטיות.\nהיזהר: אפשור עלול להדליף מידע אתר!"
+  },
+  "OptAmnesticUpdates": {
+    "message": "שלול הרשאות זמניות בעת עדכוני NoScript, אפילו אם הדפדפן אינו מופעל מחדש"
+  },
+  "KeepLocked": {
+    "message": "השאר יסוד זה נעול (מומלץ)"
+  },
+  "MatchSample": {
+    "message": "דוגמה של התאמת דפוס:"
+  },
+  "Next": {
+    "message": "הבא"
+  },
+  "NoUntrustedPlaceholder": {
+    "message": "אין שומר־מקום עבור עצמים המגיעים מאתרים המסומנים כבלתי בטוחים"
+  },
+  "Notifications": {
+    "message": "התראות"
+  },
+  "Notify": {
+    "message": "הראה הודעה לגבי תסריטים חסומים"
+  },
+  "Notify_bottom": {
+    "message": "מקם הודעה בתחתית"
+  },
+  "NotifyMeta": {
+    "message": "הראה הודעה לגבי הפניות META חסומות"
+  },
+  "NotifyMeta_accesskey": {
+    "message": "ד"
+  },
+  "NselForce": {
+    "message": "הראה את <NOSCRIPT>היסוד שעוקב אחר פריט חסום<SCRIPT>"
+  },
+  "NselNever": {
+    "message": "הסתר <NOSCRIPT> יסודות"
+  },
+  "OK": {
+    "message": "אישור"
+  },
+  "OptBlockCssScanners": {
+    "message": "חסום סורקים מבוססי CSS"
+  },
+  "OptFilterXGet": {
+    "message": "חטא בקשות חוצות־אתרים חשודות"
+  },
+  "OptFilterXPost": {
+    "message": "הפוך בקשות POST חוצות־אתרים אל בקשות GET מופחתות־נתונים"
+  },
+  "OptOverrideTorBrowserPolicy": {
+    "message": "דרוס הגדרה של רמת אבטחה של דפדפן Tor"
+  },
+  "Options": {
+    "message": "אפשרויות…"
+  },
+  "Options_accesskey": {
+    "message": "א"
+  },
+  "OptionsLong": {
+    "message": "אפשרויות NoScript"
+  },
+  "OptionsWidth": {
+    "message": "40em"
+  },
+  "PermanentInPrivate": {
+    "message": "פקודות \"התר\" קבועות בחלונות פרטיים"
+  },
+  "SectionSitePermissions": {
+    "message": "הרשאות לפי אתר"
+  },
+  "PermissionsText": {
+    "message": "אתה יכול לציין אילו אתרים רשאים לבצע תסריטים. הקלד את הכתובת או התחום (למשל, \"http://www.site.com\" או \"site.com\") של האתר שאתה רוצה להתיר ואז לחץ התר."
+  },
+  "Plugins": {
+    "message": "מתקעים"
+  },
+  "Policies": {
+    "message": "מדיניויות"
+  },
+  "Preset": {
+    "message": "רמת אבטחה"
+  },
+  "Prev": {
+    "message": "הקודם"
+  },
+  "RecentBlocked": {
+    "message": "אתרים שנחסמו לאחרונה"
+  },
+  "Refresh": {
+    "message": "רענן"
+  },
+  "ReloadWarn": {
+    "message": "אפשרויות אלו ייכנסו לתוקף בעמודים חדשים או טעונים מחדש (באופן ידני)"
+  },
+  "RemoveSelected": {
+    "message": "הסר אתרים נבחרים"
+  },
+  "Reset": {
+    "message": "אַפֵּס"
+  },
+  "Reset_accesskey": {
+    "message": "פ"
+  },
+  "ResetDef": {
+    "message": "אַפֵּס אל ברירת מחדל"
+  },
+  "ResetDef_accesskey": {
+    "message": "ש"
+  },
+  "RevokeTemp": {
+    "message": "שלול הרשאות זמניות"
+  },
+  "RevokeTemp_accesskey": {
+    "message": "ד"
+  },
+  "SecureCookies": {
+    "message": "אפשר ניהול עוגיות אוטומטי ומאובטח"
+  },
+  "SecureCookiesExceptions": {
+    "message": "התעלם מעוגיות בלתי בטוחות שהוגדרו על HTTPS ע״י האתרים הבאים:"
+  },
+  "SecureCookiesForced": {
+    "message": "אלץ הצפנה עבור כל העוגיות שהוגדרו על HTTPS ע״י האתרים הבאים:"
+  },
+  "SecurityManager": {
+    "message": "מנהל האבטחה"
+  },
+  "Show": {
+    "message": "הראה…"
+  },
+  "ShowConsole": {
+    "message": "הראה קונסולה…"
+  },
+  "ShowConsole_accesskey": {
+    "message": "ה"
+  },
+  "ShowPlaceholder": {
+    "message": "הראה צלמית שומר־מקום"
+  },
+  "ShowReleaseNotes": {
+    "message": "הצג את הערות השחרור בעדכונים"
+  },
+  "ShowCtxMenuItem": {
+    "message": "הראה פריט תפריט הקשר של NoScript"
+  },
+  "ShowCountBadge": {
+    "message": "הצג תג ספירת פריטים חסומים"
+  },
+  "SitePermissions": {
+    "message": "הרשאות אתר"
+  },
+  "SitePermissions_accessKey": {
+    "message": "ה"
+  },
+  "SitePolicies": {
+    "message": "מדיניויות מסוימות של אתר"
+  },
+  "TempTrustPage": {
+    "message": "הגדר הכל בעמוד זה כמהימן באופן זמני"
+  },
+  "TempTrustPage_accesskey": {
+    "message": "מ"
+  },
+  "TempToPerm": {
+    "message": "הפוך הרשאות דף לקבועות"
+  },
+  "TempToPerm_accesskey": {
+    "message": "ק"
+  },
+  "Trust": {
+    "message": "סמן בתור מהימן"
+  },
+  "Trust_accesskey": {
+    "message": "מ"
+  },
+  "Trusted": {
+    "message": "מהימן"
+  },
+  "Trusted_temporary": {
+    "message": "מהימן זמנית"
+  },
+  "Trusted_permanent": {
+    "message": "מהימן"
+  },
+  "TrustedPagesAdj": {
+    "message": "מהימן"
+  },
+  "Uninstall": {
+    "message": "הסר"
+  },
+  "Unknown": {
+    "message": "בלתי ידוע"
+  },
+  "UnsafeReload": {
+    "message": "טעינה מחדש לא בטוחה"
+  },
+  "UnsafeReload_accesskey": {
+    "message": "ד"
+  },
+  "Untrust": {
+    "message": "סמן בתור בלתי מהימן"
+  },
+  "Untrust_accesskey": {
+    "message": "ב"
+  },
+  "Untrusted": {
+    "message": "בלתי מהימן"
+  },
+  "UntrustedPagesAdj": {
+    "message": "בלתי מהימן"
+  },
+  "WebAddress": {
+    "message": "חפש או הוסף אתר:"
+  },
+  "WebAddress_accesskey": {
+    "message": "ר"
+  },
+  "XSS_notify": {
+    "message": "הראה התראות XSS"
+  },
+  "XSS_clearUserChoices": {
+    "message": "נקה בחירות XSS"
+  },
+  "XSS_promptTitle": {
+    "message": "אזהרת NoScript XSS"
+  },
+  "XSS_promptMessage": {
+    "message": "NoScript גילה מתקפת תיסרוט חוצת־אתרים פוטנציאלית\nמן $1 אל $2.\nנתונים חשודים:\n$3"
+  },
+  "XSS_optBlock": {
+    "message": "חסום בקשה זו"
+  },
+  "XSS_optSanitize": {
+    "message": "חטא בקשה זו"
+  },
+  "XSS_optAllow": {
+    "message": "התר בקשה זו"
+  },
+  "XSS_optAlwaysAllow": {
+    "message": "התר תמיד בקשות מסמך מן $1 אל $2"
+  },
+  "XSS_optAlwaysBlock": {
+    "message": "חסום תמיד בקשות מסמך מן $1 אל $2"
+  },
+  "Xss": {
+    "message": "XSS"
+  },
+  "Xss_accesskey": {
+    "message": "X"
+  },
+  "XssExceptions": {
+    "message": "חריגים של הגנת נגד-XSS"
+  },
+  "XssExceptions_description": {
+    "message": "יעדים התואמים לביטויים רגולריים אלו לא יוגנו מפני XSS."
+  },
+  "XssFaq": {
+    "message": "שאלות נפוצות של XSS…"
+  },
+  "XssFaq_accesskey": {
+    "message": "צ"
+  },
+  "about": {
+    "message": "אודות $1"
+  },
+  "allowFrom": {
+    "message": "התר הכל מאת $1"
+  },
+  "allowGlobal": {
+    "message": "השבת את כל בדיקות ההרשאות (מסוכן)"
+  },
+  "allowLocal": {
+    "message": "התר את $1"
+  },
+  "allowTemp": {
+    "message": "התר זמנית את $1"
+  },
+  "allowTempFrom": {
+    "message": "התר זמנית הכל מ־$1"
+  },
+  "allowed_no": {
+    "message": "תסריטים האסורים כרגע"
+  },
+  "allowed_prt": {
+    "message": "תסריטים המותרים חלקית"
+  },
+  "allowed_yes": {
+    "message": "תסריטים המותרים כרגע"
+  },
+  "alwaysAsk": {
+    "message": "בקש תמיד אישור"
+  },
+  "audio_samples": {
+    "message": "דגימות שמע"
+  },
+  "bookmarkSync_confirm": {
+    "message": "NoScript מצא סימניית תצורה השמורה לכאורה על\n$1.\nהאם אתה באמת רוצה לדרוס את תצורת NoScript המקומית שלך עם תוכן הסימנייה הזו?"
+  },
+  "bookmarkSync_message": {
+    "message": "סימנייה זו אינה אמורה להיפתח, אלא להסתנכרן ע״י שימוש בשירות כגון Weave או ההרחבה XMarks."
+  },
+  "bookmarkSync_title": {
+    "message": "סימניית תצורת NoScript"
+  },
+  "caps": {
+    "message": "אפשר יכולות אלו"
+  },
+  "capsContext": {
+    "message": "אפשר יכולות אלו כאשר דף הראש תואם"
+  },
+  "anySite": {
+    "message": "כל אתר"
+  },
+  "cap_script": {
+    "message": "תסריט"
+  },
+  "cap_frame": {
+    "message": "מסגרת"
+  },
+  "cap_object": {
+    "message": "עצם"
+  },
+  "cap_media": {
+    "message": "מדיה"
+  },
+  "cap_font": {
+    "message": "גופן"
+  },
+  "cap_webgl": {
+    "message": "webgl"
+  },
+  "cap_fetch": {
+    "message": "משוך"
+  },
+  "cap_ping": {
+    "message": "פִּינְג"
+  },
+  "cap_noscript": {
+    "message": "noscript"
+  },
+  "cap_lazy_load": {
+    "message": "טעינה עצלנית"
+  },
+  "cap_unchecked_css": {
+    "message": "CSS בלתי מוגבל"
+  },
+  "cap_lan": {
+    "message": "LAN"
+  },
+  "cap_other": {
+    "message": "אחר"
+  },
+  "cap_wasm": {
+    "message": "wasm",
+    "description": "WebAssembly modules compilation and execution capability."
+  },
+  "cap_x_load": {
+    "message": "x-load",
+    "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
+  },
+  "changelog": {
+    "message": "יומן שינויים"
+  },
+  "changelog_tip": {
+    "message": "הראה יומן שינויים"
+  },
+  "confirm": {
+    "message": "האם אתה בטוח?"
+  },
+  "disable": {
+    "message": "השבת את $1"
+  },
+  "disable_accessKey": {
+    "message": "ש"
+  },
+  "distrust": {
+    "message": "סמן את $1 בתור בלתי מהימן"
+  },
+  "extensionContributors": {
+    "message": "תורמים:"
+  },
+  "extensionContributors_tip": {
+    "message": "אנשים שאתה צריך להודות להם על הרחבה זו"
+  },
+  "extensionCreator_tip": {
+    "message": "בקר בעמוד הבית של המחבר"
+  },
+  "extensionCreatorLabel": {
+    "message": "מחבר:"
+  },
+  "extensionHomepage_tip": {
+    "message": "בקר בעמוד הבית של ההרחבה"
+  },
+  "forbidGlobal": {
+    "message": "אסור עולמית תסריטים (מומלץ)"
+  },
+  "forbidLocal": {
+    "message": "אסור את $1"
+  },
+  "freshInstallReload": {
+    "message": "על מנת לפעול בלשונית זו, NoScript צריך להיפעל מחדש.\nלהמשיך?"
+  },
+  "privilegedPage": {
+    "message": "זהו דף בעל זכויות יתר אשר הרשאותיו אינן ברות־תיצור."
+  },
+  "incompatibleOptions": {
+    "message": "\"$1\"\nאינו תואם עם \"$2\".\nהאם אתה רוצה לאפשר את הקודם ולהשבית את האחרון?"
+  },
+  "incompatibleOptions_title": {
+    "message": "אזהרת אפשרויות לא תואמות"
+  },
+  "informaction_tip": {
+    "message": "בקר בעמוד הבית של InformAction"
+  },
+  "license": {
+    "message": "רשיון"
+  },
+  "license_tip": {
+    "message": "קרא רשיון משתמש־קצה"
+  },
+  "logo_tip": {
+    "message": "בקר בעמוד הבית של ההרחבה"
+  },
+  "metaRefresh_notify": {
+    "message": "NoScript חסם <META>הפנייה מחדש בתוך<NOSCRIPT> יסוד: $1 תוך $2 שניות."
+  },
+  "Reload": {
+    "message": "טען מחדש"
+  },
+  "removal_message": {
+    "message": "ע״י השבתה או הסרה של NoScript, אתה מוותר על כל ההגנות המסופקות ע״י NoScript.\n\nאם רק נמאס לך לטפל בהרשאות תסריט אתר־אחר־אתר, יש בחירה בטוחה יותר.\n\nNoScript יכול להפסיק לחסום תסריטים, מלבד אלו שתסמן כבלתי מהימנים, בזמן שהוא עדין מגן עליך עם אמצעיי־הנגד המתקדמים ביותר של אבטחה נגד XSS, Clickjacking, CSRF ואיומי רשת אחרים.\n\nהאם באמת אתה רוצה להסיר את כל ההגנות של NoScript?\n"
+  },
+  "removal_no": {
+    "message": "לא, רק עצור תסריטי חסימה"
+  },
+  "removal_title": {
+    "message": "אזהרת שנמוך אבטחה"
+  },
+  "removal_yes": {
+    "message": "כן, הסר את כל ההגנות"
+  },
+  "reset_title": {
+    "message": "איפוס NoScript"
+  },
+  "reset_warning": {
+    "message": "כל ההעדפות והרשאות האתר של NoScript יאופסו אל ערכי ברירת המחדל שלהפ באופן מיידי.\nפעולה זו אינה יכולה להיות מוחזרת לאחור.\nהאם אתה רוצה להמשיך?"
+  },
+  "siteInfo_confirm": {
+    "message": "אתה עומד לבקש מידע על האתר \"$1\"\nעל ידי הגשת שאילתה אל $2.\nהאם אתה רוצה להמשיך?"
+  },
+  "siteInfo_tooltip": {
+    "message": "Middle-click or shift+click for site info…"
+  },
+  "sponsor_tip": {
+    "message": "בקר בעמוד הבית של נותן החסות"
+  },
+  "unsafeReload_warning": {
+    "message": "טוען מחדש לא בבטחה\n\n$1 [$2]\n\nמן [$3]\n\nNoScript לא יגן על בקשה זו!\n"
+  },
+  "untrustedOrigin": {
+    "message": "מקור לא מהימן"
+  },
+  "version": {
+    "message": "גרסה $1"
+  },
+  "versionShort": {
+    "message": "ג $1"
+  },
+  "settingsThemeLabel": {
+    "message": "ערכת נושא"
+  },
+  "themeDark": {
+    "message": "כהה"
+  },
+  "themeLight": {
+    "message": "בהירה"
+  },
+  "themeAuto": {
+    "message": "אוטומטית"
+  },
+  "ModernRed": {
+    "message": "אדום מודרני"
+  },
+  "VintageBlue": {
+    "message": "כחול וינטג'"
+  },
+  "toVintageBlue": {
+    "message": "החלף אל הסגנון כחול וינטג'"
+  },
+  "DonateShort": {
+    "message": "תרום"
+  },
+  "DonateLong": {
+    "message": "NoScript הוא תוכנה חינמית והוא לא יכול להתקיים בלי העזרה שלך. אנא תרום עכשיו!"
+  },
+  "Onboarding_title": {
+    "message": "Welcome to NoScript!",
+    "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
+  },
+  "behavior_title": {
+    "message": "Site Classification Behavior",
+    "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
+  },
+  "behavior_label": {
+    "message": "Current site classification behavior:"
+  },
+  "behavior_prompt": {
+    "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript."
+  },
+  "behavior_defaultDeny_title": {
+    "message": "STRICT / Default Deny"
+  },
+  "behavior_defaultDeny_description": {
+    "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced."
+  },
+  "behavior_auto_title": {
+    "message": "EASIER / Auto"
+  },
+  "behavior_auto_description": {
+    "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced."
+  },
+  "behavior_defaultAllow_title": {
+    "message": "EASIEST / Default allow"
+  },
+  "behavior_defaultAllow_description": {
+    "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced."
+  },
+  "Modify": {
+    "message": "Modify",
+    "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
+  },
+  "TabGuard_label": {
+    "message": "הגנה מפני דליפה חוצת־לשוניות של זהות"
+  },
+  "TabGuard_optEnabled": {
+    "message": "מאופשר בכל מקום"
+  },
+  "TabGuard_optPromptNever": {
+    "message": "אל תיידע אף פעם לפני עילום שם"
+  },
+  "TabGuard_optPromptPost": {
+    "message": "יידע לפני עילום שם של הגשות POST"
+  },
+  "TabGuard_optPromptAlways": {
+    "message": "יידע לפני עילום שם של כל בקשה"
+  },
+  "TabGuard_optIncognito": {
+    "message": "מאופשר בגלישה פרטית בלבד"
+  },
+  "TabGuard_optDisabled": {
+    "message": "מושבת"
+  },
+  "TabGuard_forget": {
+    "message": "שכח החלטות"
+  },
+  "TabGuard_title": {
+    "message": "הדלפה פוטנציאלית של זהות"
+  },
+  "TabGuard_message": {
+    "message": "אתה עומד לטעון דף מן $1.\nאם אתה משתמש $1 מחובר, מידע אודות זהותך עשויות להיות מושגות ע״י $2."
+  },
+  "TabGuard_optAnonymize": {
+    "message": "טען בעילום שם"
+  },
+  "TabGuard_optAllow": {
+    "message": "טען כרגיל"
+  },
+  "LearnMoreLink": {
+    "message": "Learn more…"
+  },
+  "HelpLink": {
+    "message": "עזרה…"
+  },
+  "EnableGesture": {
+    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+  },
+  "GestureLabel": {
+    "message": "Draw \"S\" to summon NoScript."
+  }
 }

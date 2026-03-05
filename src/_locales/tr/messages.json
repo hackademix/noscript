@@ -1,1090 +1,831 @@
 {
-    "Add": {
-        "message": "Ekle",
-        "description": ""
-    },
-    "Add_accesskey": {
-        "message": "E",
-        "description": ""
-    },
-    "AdditionalPermissions": {
-        "message": "Güvenilir siteler için ek izinler",
-        "description": ""
-    },
-    "AdditionalRestrictions": {
-        "message": "Güvenilmez siteler için ek kısıtlamalar",
-        "description": ""
-    },
-    "SectionAdvanced": {
-        "message": "Gelişmiş",
-        "description": ""
-    },
-    "Allow": {
-        "message": "İzin ver",
-        "description": ""
-    },
-    "Allow_accesskey": {
-        "message": "l",
-        "description": ""
-    },
-    "AllowBookmarks": {
-        "message": "Yer imlerinden açılan sitelere izin verilsin",
-        "description": ""
-    },
-    "AllowClipboard": {
-        "message": "Dış panodan zengin metin kopyalama ve yapıştırma yapılabilsin",
-        "description": ""
-    },
-    "AllowLocalLinks": {
-        "message": "Yerel bağlantılara izin verilsin",
-        "description": ""
-    },
-    "AllowPage": {
-        "message": "Bu sayfadakilerin tümüne izin verilsin",
-        "description": ""
-    },
-    "AllowPage_accesskey": {
-        "message": "A",
-        "description": ""
-    },
-    "AllowPing": {
-        "message": "İzin ver <A PING…>",
-        "description": ""
-    },
-    "AllowViaBookmarks": {
-        "message": "Yer imlerinden açılan sitelere izin verilsin",
-        "description": ""
-    },
-    "AlwaysBlockUntrustedContent": {
-        "message": "Güvenilmez olarak işaretlenmiş bir siteden gelen her nesne engellensin",
-        "description": ""
-    },
-    "SectionAppearance": {
-        "message": "Görünüm",
-        "description": ""
-    },
-    "AutoAllowTopLevel": {
-        "message": "Geçici olarak üst düzey siteler GÜVENİLİR olarak ayarlansın",
-        "description": ""
-    },
-    "AutoTrustedLabel": {
-        "message": "Otomatik güvenilir",
-        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
-    },
-    "AutoReload": {
-        "message": "İzinler değiştiğinde etkilenen sayfalar otomatik olarak yeniden yüklensin",
-        "description": ""
-    },
-    "AutoReload_currentTab": {
-        "message": "Yalnız geçerli sekme yeniden yüklensin",
-        "description": ""
-    },
-    "BaseDom": {
-        "message": "Temel 2. düzey etki alanları (noscript.net)",
-        "description": ""
-    },
-    "BlockedItems": {
-        "message": "$1/$2 öge engellendi.",
-        "description": ""
-    },
-    "BlockedObjects": {
-        "message": "NoScript engellenmiş nesneler",
-        "description": ""
-    },
-    "BookmarkSync": {
-        "message": "Kolay eşitleme için NoScript yapılandırmasını bir yer imine yedeklensin",
-        "description": ""
-    },
-    "Cancel": {
-        "message": "İptal",
-        "description": ""
-    },
-    "CascadePermissions": {
-        "message": "En üstteki belgenin izinlerini henüz yapılandırılmamış alt belgelere ve eklemelere otomatik olarak uygulayın",
-        "description": ""
-    },
-    "CascadeRestrictions": {
-        "message": "Üst belgede engellenen özellikler alt belgelerde de engellenmelidir",
-        "description": ""
-    },
-    "CascadedLabel": {
-        "message": "Devralınmış",
-        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
-    },
-    "ClearClickDescription": {
-        "message": "NoScript gizli bir bileşenden gelen bir fare ya da tuş takımı etkileşimini engelledi. Aşağıdaki görsele tıklayarak engellenmiş ve temiz sürümler arasında geçiş yapabilirsiniz.",
-        "description": ""
-    },
-    "ClearClickHeader": {
-        "message": "Olası Sahte Tıklama / Kullanıcı Arayüzü Değiştirme Girişimi!",
-        "description": ""
-    },
-    "ClearClickOpt": {
-        "message": "Sayfalarda temiz tıklama koruması…",
-        "description": ""
-    },
-    "ClearClickReport": {
-        "message": "Bildir",
-        "description": ""
-    },
-    "ClearClickReport_accesskey": {
-        "message": "B",
-        "description": ""
-    },
-    "ClearClickReportId": {
-        "message": "Bildirim kodu:",
-        "description": ""
-    },
-    "ClearClickTitle": {
-        "message": "Temiz tıklama uyarısı",
-        "description": ""
-    },
-    "Close": {
-        "message": "Kapat",
-        "description": ""
-    },
-    "CollapseBlockedObjects": {
-        "message": "Engellenmiş nesneleri daralt",
-        "description": ""
-    },
-    "ConfirmUnblock": {
-        "message": "Bir nesnenin engelini geçici olarak kaldırmadan önce onay istensin",
-        "description": ""
-    },
-    "CtxMenu": {
-        "message": "Sağ tık menüsü",
-        "description": ""
-    },
-    "Custom": {
-        "message": "Özel",
-        "description": ""
-    },
-    "CustomizePresets": {
-        "message": "Hazır ayar özelleştirmesi (bir hazır ayarı paylaşan tüm siteler için)",
-        "description": ""
-    },
-    "Default": {
-        "message": "Varsayılan",
-        "description": ""
-    },
-    "DefaultPolicies": {
-        "message": "Varsayılan ilkeler",
-        "description": ""
-    },
-    "Description": {
-        "message": "Tarayıcınız için en iyi koruma: NoScript, kötü niyetli girişimleri engellemek için, yalnız güvenilir olarak seçtiğiniz etki alanlarında bulunan etkin içeriklerin çalışmasına izin verir.",
-        "description": ""
-    },
-    "Donate": {
-        "message": "Bağış yapın",
-        "description": ""
-    },
-    "Donate_accesskey": {
-        "message": "Y",
-        "description": ""
-    },
-    "Embeddings": {
-        "message": "Gömmeler",
-        "description": ""
-    },
-    "Exceptions": {
-        "message": "Katılmayacaklar…",
-        "description": ""
-    },
-    "Export": {
-        "message": "Dışa aktar",
-        "description": ""
-    },
-    "Export_accesskey": {
-        "message": "D",
-        "description": ""
-    },
-    "FixLinks": {
-        "message": "JavaScript bağlantıları onarılmaya çalışılsın",
-        "description": ""
-    },
-    "Hider": {
-        "message": "Gizlemek için buraya bırakın.",
-        "description": ""
-    },
-    "Reveal": {
-        "message": "Eksik düğmeleri almak için buraya tıklayın…",
-        "description": ""
-    },
-    "ShowFullAddresses": {
-        "message": "İzinler penceresinde tam adresler görüntülensin (https://www.noscript.net)",
-        "description": ""
-    },
-    "ShowProbePlaceholders": {
-        "message": "Görünmez yetenek araştırmaları için sentetik yer belirticiler görüntülensin",
-        "description": ""
-    },
-    "SectionGeneral": {
-        "message": "Genel",
-        "description": ""
-    },
-    "NotEnforced": {
-        "message": "Kısıtlamalar kullanıcı ayarlarından devre dışı bırakılmış: NoScript bu sayfadaki hiçbir şeyi engellemeyecek!",
-        "description": ""
-    },
-    "NoEnforcement": {
-        "message": "Kısıtlamalar genel olarak devre dışı bırakılsın (tehlikeli)",
-        "description": ""
-    },
-    "Enforce": {
-        "message": "Kısıtlamalar genel olarak etkinleştirilsin",
-        "description": ""
-    },
-    "EnforceOnRestart": {
-        "message": "Web tarayıcı yeniden başlatıldığında kısıtlamalar geri yüklensin",
-        "description": ""
-    },
-    "NoEnforcementForTab": {
-        "message": "Kısıtlamalar bu sekme için devre dışı bırakılsın",
-        "description": ""
-    },
-    "EnforceForTab": {
-        "message": "Kısıtlamalar bu sekme için etkinleştirilsin",
-        "description": ""
-    },
-    "toggleEnforcementForTab": {
-        "message": "Geçerli sekme için uygulanacak kısıtlamaları değiştir",
-        "description": ""
-    },
-    "pagePermissionsUI": {
-        "message": "Geçerli sayfanın izinlerini yapılandır",
-        "description": ""
-    },
-    "HighContrast": {
-        "message": "Yüksek karşıtlık",
-        "description": ""
-    },
-    "httpsOnly": {
-        "message": "Yalnız HTTPS içeriğine uyulsun",
-        "description": ""
-    },
-    "tabLess_tip": {
-        "message": "Bir içerik sekmesinin dışındaki site, bir kenar çubuğundaki gibi",
-        "description": ""
-    },
-    "tabLess_short": {
-        "message": "(kenar çubuğu mu?)",
-        "description": ""
-    },
-    "tabLess_reload_warning": {
-        "message": "Bir kenar çubuğundaki izinleri değiştirmek için EL İLE yeniden yükleme gerekir.",
-        "description": ""
-    },
-    "Https": {
-        "message": "HTTPS",
-        "description": ""
-    },
-    "Https_always": {
-        "message": "Her zaman",
-        "description": ""
-    },
-    "Https_behavior": {
-        "message": "Davranış",
-        "description": ""
-    },
-    "Https_cookies": {
-        "message": "Çerezler",
-        "description": ""
-    },
-    "Https_description": {
-        "message": "Güvenli (HTTPS) bir bağlantıdan gelmeyen etkin web içeriği engellensin:",
-        "description": ""
-    },
-    "Https_never": {
-        "message": "Asla",
-        "description": ""
-    },
-    "Https_proxy": {
-        "message": "Bir vekil sunucu kullanıldığında (Tor ile önerilir)",
-        "description": ""
-    },
-    "HttpsFaq": {
-        "message": "HTTPS SSS…",
-        "description": ""
-    },
-    "HttpsFaq_accesskey": {
-        "message": "T",
-        "description": ""
-    },
-    "HttpsForced": {
-        "message": "Şu siteler için güvenli bağlantı (HTTPS) kullanılsın:",
-        "description": ""
-    },
-    "HttpsForcedExceptions": {
-        "message": "Şu siteler için hiç bir zaman güvenli bağlantı (HTTPS) kullanılmasın:",
-        "description": ""
-    },
-    "Import": {
-        "message": "İçe aktar",
-        "description": ""
-    },
-    "Import_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "OptIncognitoPerm": {
-        "message": "Gizli/özel sekmelerde izinleri kalıcı yapar.\nDİKKAT: Bu işlem site bilgilerinin sızmasına neden olabilir!",
-        "description": ""
-    },
-    "OptAmnesticUpdates": {
-        "message": "Web tarayıcı yeniden başlatılmazsa NoScript güncellemeleri izinlerini geri alınsın",
-        "description": ""
-    },
-    "KeepLocked": {
-        "message": "Bu bileşeni kilitlenmiş olarak tut (önerilir)",
-        "description": ""
-    },
-    "MatchSample": {
-        "message": "Örüntü eşleşme örneği:",
-        "description": ""
-    },
-    "Next": {
-        "message": "Sonraki",
-        "description": ""
-    },
-    "NoUntrustedPlaceholder": {
-        "message": "Güvenilmez olarak işaretlenmiş nesneler için yer belirteci kullanılmasın",
-        "description": ""
-    },
-    "Notifications": {
-        "message": "Bildirimler",
-        "description": ""
-    },
-    "Notify": {
-        "message": "Engellenmiş betikler hakkında ileti görüntülensin",
-        "description": ""
-    },
-    "Notify_bottom": {
-        "message": "İleti aşağıda görüntülensin",
-        "description": ""
-    },
-    "NotifyMeta": {
-        "message": "Engellenmiş META yönlendirmeleri hakkında ileti görüntülensin",
-        "description": ""
-    },
-    "NotifyMeta_accesskey": {
-        "message": "B",
-        "description": ""
-    },
-    "NselForce": {
-        "message": "Engellenmiş bir <SCRIPT> nesnesini izleyen <NOSCRIPT> bileşeni görüntülensin",
-        "description": ""
-    },
-    "NselNever": {
-        "message": "<NOSCRIPT> bileşenleri gizlensin",
-        "description": ""
-    },
-    "OK": {
-        "message": "Tamam",
-        "description": ""
-    },
-    "OptBlockCssScanners": {
-        "message": "CSS temelli tarayıcılar engellensin",
-        "description": ""
-    },
-    "OptFilterXGet": {
-        "message": "Siteler arası şüpheli istekler arındırılsın",
-        "description": ""
-    },
-    "OptFilterXPost": {
-        "message": "Siteler arası POST istekleri veriden arındırılmış GET isteklerine dönüştürülsün",
-        "description": ""
-    },
-    "OptOverrideTorBrowserPolicy": {
-        "message": "Tor Browser güvenlik duvarı ayarı değiştirilsin",
-        "description": ""
-    },
-    "Options": {
-        "message": "Ayarlar…",
-        "description": ""
-    },
-    "Options_accesskey": {
-        "message": "A",
-        "description": ""
-    },
-    "OptionsLong": {
-        "message": "NoScript ayarları",
-        "description": ""
-    },
-    "OptionsWidth": {
-        "message": "40em",
-        "description": ""
-    },
-    "PermanentInPrivate": {
-        "message": "Gizli pencerelerde komutlara kalıcı olarak \"İzin Verilsin\"",
-        "description": ""
-    },
-    "SectionSitePermissions": {
-        "message": "Siteye özel izinler",
-        "description": ""
-    },
-    "PermissionsText": {
-        "message": "Betiklerin yürütülmesine izin verilecek web sitelerini belirtebilirsiniz. İzin vermek istediğiniz sitenin adres ya da etki alanını (\"http://www.sitem.com\" ya da \"site.com\") yazıp İzin Ver üzerine tıklayın.",
-        "description": ""
-    },
-    "Plugins": {
-        "message": "Uygulama ekleri",
-        "description": ""
-    },
-    "Policies": {
-        "message": "İlkeler",
-        "description": ""
-    },
-    "Preset": {
-        "message": "Güvenlik düzeyi",
-        "description": ""
-    },
-    "Prev": {
-        "message": "Önceki",
-        "description": ""
-    },
-    "RecentBlocked": {
-        "message": "Son engellenen siteler",
-        "description": ""
-    },
-    "Refresh": {
-        "message": "Yenile",
-        "description": ""
-    },
-    "ReloadWarn": {
-        "message": "Bu ayarlar yeni ya da (el ile) yeniden yüklenen sayfalarda etkili olur",
-        "description": ""
-    },
-    "RemoveSelected": {
-        "message": "Seçilmiş sayfaları sil",
-        "description": ""
-    },
-    "Reset": {
-        "message": "Sıfırla",
-        "description": ""
-    },
-    "Reset_accesskey": {
-        "message": "f",
-        "description": ""
-    },
-    "ResetDef": {
-        "message": "Varsayılan değerlere sıfırla",
-        "description": ""
-    },
-    "ResetDef_accesskey": {
-        "message": "V",
-        "description": ""
-    },
-    "RevokeTemp": {
-        "message": "Geçici izinleri kaldır",
-        "description": ""
-    },
-    "RevokeTemp_accesskey": {
-        "message": "G",
-        "description": ""
-    },
-    "SecureCookies": {
-        "message": "Otomatik güvenli çerez yönetimi kullanılsın",
-        "description": ""
-    },
-    "SecureCookiesExceptions": {
-        "message": "Şu siteler için HTTPS üzerinden ayarlanan güvensiz çerezler yok sayılsın:",
-        "description": ""
-    },
-    "SecureCookiesForced": {
-        "message": "Şu siteler için HTTPS üzerinden ayarlanan tüm çerezler şifrelensin:",
-        "description": ""
-    },
-    "SecurityManager": {
-        "message": "Güvenlik yönetimi",
-        "description": ""
-    },
-    "Show": {
-        "message": "Görüntüle…",
-        "description": ""
-    },
-    "ShowConsole": {
-        "message": "Konsolu görüntüle…",
-        "description": ""
-    },
-    "ShowConsole_accesskey": {
-        "message": "K",
-        "description": ""
-    },
-    "ShowPlaceholder": {
-        "message": "Yer belirteci simgesi görüntülensin",
-        "description": ""
-    },
-    "ShowReleaseNotes": {
-        "message": "Güncellemelerde yayın notları görüntülensin",
-        "description": ""
-    },
-    "ShowCtxMenuItem": {
-        "message": "NoScript sağ tık menüsü görüntülensin",
-        "description": ""
-    },
-    "ShowCountBadge": {
-        "message": "Engellenmiş öge sayısı etiketi görüntülensin",
-        "description": ""
-    },
-    "SitePermissions": {
-        "message": "Site izinleri",
-        "description": ""
-    },
-    "SitePermissions_accessKey": {
-        "message": "S",
-        "description": ""
-    },
-    "SitePolicies": {
-        "message": "Siteye özel ilkeler",
-        "description": ""
-    },
-    "TempTrustPage": {
-        "message": "Bu sayfadakilerin tümü geçici olarak GÜVENİLİR olarak ayarlansın",
-        "description": ""
-    },
-    "TempTrustPage_accesskey": {
-        "message": "T",
-        "description": ""
-    },
-    "TempToPerm": {
-        "message": "Sayfa izinlerini kalıcı yap",
-        "description": ""
-    },
-    "TempToPerm_accesskey": {
-        "message": "Y",
-        "description": ""
-    },
-    "Trust": {
-        "message": "Güvenilir olarak işaretle",
-        "description": ""
-    },
-    "Trust_accesskey": {
-        "message": "G",
-        "description": ""
-    },
-    "Trusted": {
-        "message": "Güvenilir",
-        "description": ""
-    },
-    "Trusted_temporary": {
-        "message": "Geçici GÜVENİLİR",
-        "description": ""
-    },
-    "Trusted_permanent": {
-        "message": "GÜVENİLİR",
-        "description": ""
-    },
-    "TrustedPagesAdj": {
-        "message": "güvenilir",
-        "description": ""
-    },
-    "Uninstall": {
-        "message": "Kaldır",
-        "description": ""
-    },
-    "Unknown": {
-        "message": "Bilinmiyor",
-        "description": ""
-    },
-    "UnsafeReload": {
-        "message": "Güvenli olmayan yeniden yükleme",
-        "description": ""
-    },
-    "UnsafeReload_accesskey": {
-        "message": "B",
-        "description": ""
-    },
-    "Untrust": {
-        "message": "Güvenilmez olarak işaretle",
-        "description": ""
-    },
-    "Untrust_accesskey": {
-        "message": "V",
-        "description": ""
-    },
-    "Untrusted": {
-        "message": "Güvenilmez",
-        "description": ""
-    },
-    "UntrustedPagesAdj": {
-        "message": "güvenilmez",
-        "description": ""
-    },
-    "WebAddress": {
-        "message": "Bir web sitesi arayın ya da ekleyin:",
-        "description": ""
-    },
-    "WebAddress_accesskey": {
-        "message": "w",
-        "description": ""
-    },
-    "XSS_notify": {
-        "message": "XSS bildirimleri görüntülensin",
-        "description": ""
-    },
-    "XSS_clearUserChoices": {
-        "message": "XSS seçimlerini temizle",
-        "description": ""
-    },
-    "XSS_promptTitle": {
-        "message": "NoScript XSS uyarısı",
-        "description": ""
-    },
-    "XSS_promptMessage": {
-        "message": "NoScript $1 sitesinden $2 sitesine\nolası bir siteler arası betik saldırısı algıladı.\nŞüpheli veriler:\n$3\n",
-        "description": ""
-    },
-    "XSS_optBlock": {
-        "message": "Bu istek engellensin",
-        "description": ""
-    },
-    "XSS_optSanitize": {
-        "message": "Bu istek arındırılsın",
-        "description": ""
-    },
-    "XSS_optAllow": {
-        "message": "Bu isteğe izin verilsin",
-        "description": ""
-    },
-    "XSS_optAlwaysAllow": {
-        "message": "$1 sitesinden $2 sitesine yapılan belge isteklerine her zaman izin verilsin",
-        "description": ""
-    },
-    "XSS_optAlwaysBlock": {
-        "message": "$1 sitesinden $2 sitesine yapılan belge istekleri her zaman reddedilsin",
-        "description": ""
-    },
-    "Xss": {
-        "message": "XSS",
-        "description": ""
-    },
-    "Xss_accesskey": {
-        "message": "X",
-        "description": ""
-    },
-    "XssExceptions": {
-        "message": "Anti-XSS korumasına katılmayacaklar",
-        "description": ""
-    },
-    "XssExceptions_description": {
-        "message": "Bu kurallı ifadelere uyan hedefler XSS koruması tarafından engellenmez.",
-        "description": ""
-    },
-    "XssFaq": {
-        "message": "XSS SSS…",
-        "description": ""
-    },
-    "XssFaq_accesskey": {
-        "message": "T",
-        "description": ""
-    },
-    "about": {
-        "message": "$1 hakkında",
-        "description": ""
-    },
-    "allowFrom": {
-        "message": "$1 üzerindekilerin tümüne izin verilsin",
-        "description": ""
-    },
-    "allowGlobal": {
-        "message": "Tüm izin denetimleri devre dışı bırakılsın (tehlikeli)",
-        "description": ""
-    },
-    "allowLocal": {
-        "message": "$1 üzerindekilere izin verilsin",
-        "description": ""
-    },
-    "allowTemp": {
-        "message": "$1 üzerindekilere geçici olarak izin verilsin",
-        "description": ""
-    },
-    "allowTempFrom": {
-        "message": "$1 üzerindekilerin tümüne geçici olarak izin verilsin",
-        "description": ""
-    },
-    "allowed_no": {
-        "message": "Şu ana kadar engellenmiş betikler",
-        "description": ""
-    },
-    "allowed_prt": {
-        "message": "Kısmen izin verilmiş betikler",
-        "description": ""
-    },
-    "allowed_yes": {
-        "message": "Şu anda izin verilen betikler",
-        "description": ""
-    },
-    "alwaysAsk": {
-        "message": "Her zaman onay istensin",
-        "description": ""
-    },
-    "audio_samples": {
-        "message": "Ses örnekleri",
-        "description": ""
-    },
-    "bookmarkSync_confirm": {
-        "message": "NoScript şu zamanda kaydedilmiş bir yapılandırma yer imi buldu:\n$1.\nYerel NoScript yapılandırmasının yerine bu yer imindeki yapılandırma içeriğinin yazılmasını istiyor musunuz?",
-        "description": ""
-    },
-    "bookmarkSync_message": {
-        "message": "Bu yer imi AÇILMAZ, ancak Weave ya da XMarks eklentisi gibi bir hizmet kullanılarak eşitlenir.",
-        "description": ""
-    },
-    "bookmarkSync_title": {
-        "message": "NoScript yapılandırma yer imi",
-        "description": ""
-    },
-    "caps": {
-        "message": "Bu özellikler etkinleştirilsin",
-        "description": ""
-    },
-    "capsContext": {
-        "message": "Üst belge eşleştiğinde bu özellikler etkinleştirilsin",
-        "description": ""
-    },
-    "anySite": {
-        "message": "TÜM SİTELER",
-        "description": ""
-    },
-    "cap_script": {
-        "message": "betik",
-        "description": ""
-    },
-    "cap_frame": {
-        "message": "çerçeve",
-        "description": ""
-    },
-    "cap_object": {
-        "message": "nesne",
-        "description": ""
-    },
-    "cap_media": {
-        "message": "ortam",
-        "description": ""
-    },
-    "cap_font": {
-        "message": "yazı tipi",
-        "description": ""
-    },
-    "cap_webgl": {
-        "message": "webgl",
-        "description": ""
-    },
-    "cap_fetch": {
-        "message": "alma",
-        "description": ""
-    },
-    "cap_ping": {
-        "message": "ping",
-        "description": ""
-    },
-    "cap_noscript": {
-        "message": "noscript",
-        "description": ""
-    },
-    "cap_lazy_load": {
-        "message": "yavaş yükleme",
-        "description": ""
-    },
-    "cap_unchecked_css": {
-        "message": "kısıtlanmamış CSS",
-        "description": ""
-    },
-    "cap_lan": {
-        "message": "Yerel ağ",
-        "description": ""
-    },
-    "cap_other": {
-        "message": "diğer",
-        "description": ""
-    },
-    "cap_wasm": {
-        "message": "wasm",
-        "description": "WebAssembly modules compilation and execution capability."
-    },
-    "cap_x_load": {
-        "message": "x-load",
-        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
-    },
-    "changelog": {
-        "message": "Değişiklik günlüğü",
-        "description": ""
-    },
-    "changelog_tip": {
-        "message": "Değişiklik günlüğünü görüntüle",
-        "description": ""
-    },
-    "confirm": {
-        "message": "Emin misiniz?",
-        "description": ""
-    },
-    "disable": {
-        "message": "$1 devre dışı bırakılsın",
-        "description": ""
-    },
-    "disable_accessKey": {
-        "message": "D",
-        "description": ""
-    },
-    "distrust": {
-        "message": "$1 Güvenilmez olarak işaretlensin",
-        "description": ""
-    },
-    "extensionContributors": {
-        "message": "Katkıda bulunanlar:",
-        "description": ""
-    },
-    "extensionContributors_tip": {
-        "message": "Bu eklentinin geliştirilmesine katkıda bulunan kişiler",
-        "description": ""
-    },
-    "extensionCreator_tip": {
-        "message": "Geliştiricinin web sayfasını ziyaret edin",
-        "description": ""
-    },
-    "extensionCreatorLabel": {
-        "message": "Geliştirici:",
-        "description": ""
-    },
-    "extensionHomepage_tip": {
-        "message": "Eklenti web sayfasını ziyaret edin",
-        "description": ""
-    },
-    "forbidGlobal": {
-        "message": "Betikler genel olarak engellensin (önerilir)",
-        "description": ""
-    },
-    "forbidLocal": {
-        "message": "$1 engellensin",
-        "description": ""
-    },
-    "freshInstallReload": {
-        "message": "Bu sekmede işlem yapabilmek için NoScript sekmeyi yeniden yüklemeli.\nYeniden yüklensin mi?",
-        "description": ""
-    },
-    "privilegedPage": {
-        "message": "Bu sayfa ayrıcalıklı olduğundan izinleri ayarlanamaz.",
-        "description": ""
-    },
-    "incompatibleOptions": {
-        "message": "\"$1\"\n\"$2\" ile uyumsuz.\nBirinciyi etkinleştirip ikinciyi devre dışı bırakmak ister misiniz?",
-        "description": ""
-    },
-    "incompatibleOptions_title": {
-        "message": "Uyumsuz ayarlar uyarısı",
-        "description": ""
-    },
-    "informaction_tip": {
-        "message": "InformAction web sitesini ziyaret edin",
-        "description": ""
-    },
-    "license": {
-        "message": "Lisans",
-        "description": ""
-    },
-    "license_tip": {
-        "message": "Son kullanıcı lisans sözleşmesine bakın",
-        "description": ""
-    },
-    "logo_tip": {
-        "message": "Eklenti web sayfasını ziyaret edin",
-        "description": ""
-    },
-    "metaRefresh_notify": {
-        "message": "NoScript bir <NOSCRIPT> bileşeni içindeki bir <META> yönlendirmesini engelledi: $1, $2 saniye içinde.",
-        "description": ""
-    },
-    "Reload": {
-        "message": "Yenile",
-        "description": ""
-    },
-    "removal_message": {
-        "message": "NoScript uygulamasını devre dışı bırakarak ya da kaldırarak NoScript tarafından sağlanan TÜM korumadan vazgeçmiş olursunuz.\n\nYalnızca her siteye tek tek izin vermekten sıkıldıysanız daha güvenli bir yol var.\n\nNoScript sizi XSS, Clickjacking, CSRF ve diğer web tehditlerinden gelebilecek saldırılarına karış en gelişmiş önlemler ile korumaya devam ederken, güvenilmez olarak işaretlediğiniz siteler dışındaki sitelerin betiklerine izin verebilir.\n\nTÜM NoScript korumasını kaldırmak istediğinize emin misiniz?\n",
-        "description": ""
-    },
-    "removal_no": {
-        "message": "Hayır, yalnız betik engellenmesi kaldırılsın",
-        "description": ""
-    },
-    "removal_title": {
-        "message": "Güvenlik düşürme uyarısı",
-        "description": ""
-    },
-    "removal_yes": {
-        "message": "Evet, TÜM korumalar kaldırılsın",
-        "description": ""
-    },
-    "reset_title": {
-        "message": "NoScript ayarlarını sıfırla",
-        "description": ""
-    },
-    "reset_warning": {
-        "message": "TÜM NoScript ayarlarını ve site izinlerini anında varsayılan değerlere sıfırlar.\nBu işlem geri alınamaz.\nDevam etmek istiyor musunuz?",
-        "description": ""
-    },
-    "siteInfo_confirm": {
-        "message": "$2 üzerine bir sorgu gönderek \n\"$1\" sitesi hakkında bilgi istemek üzeresiniz.\nDevam etmek istiyor musunuz?",
-        "description": ""
-    },
-    "siteInfo_tooltip": {
-        "message": "Site bilgileri için orta tık ya da shift tuşuna basarak sol tık kullanın…",
-        "description": ""
-    },
-    "sponsor_tip": {
-        "message": "Destekçinin web sitesini ziyaret edin",
-        "description": ""
-    },
-    "unsafeReload_warning": {
-        "message": "GÜVENİLMEZ bir şüpheli yeniden yükleme\n\n$1 [$2]\n\n[$3] tarafından\n\nNoScript bu isteği KORUMAYACAK!\n",
-        "description": ""
-    },
-    "untrustedOrigin": {
-        "message": "güvenilmez bir kaynak",
-        "description": ""
-    },
-    "version": {
-        "message": "$1 sürümü",
-        "description": ""
-    },
-    "versionShort": {
-        "message": "v $1",
-        "description": ""
-    },
-    "settingsThemeLabel": {
-        "message": "Tema",
-        "description": ""
-    },
-    "themeDark": {
-        "message": "Koyu",
-        "description": ""
-    },
-    "themeLight": {
-        "message": "Açık",
-        "description": ""
-    },
-    "themeAuto": {
-        "message": "Otomatik",
-        "description": ""
-    },
-    "ModernRed": {
-        "message": "Modern kırmızı",
-        "description": ""
-    },
-    "VintageBlue": {
-        "message": "Eski mavi",
-        "description": ""
-    },
-    "toVintageBlue": {
-        "message": "Eski mavi biçeme geç",
-        "description": ""
-    },
-    "DonateShort": {
-        "message": "Bağış yapın",
-        "description": ""
-    },
-    "DonateLong": {
-        "message": "NoScript özegüt bir yazılımdır ve destekleriniz olmadan var olamaz. Lütfen bağış yapın!",
-        "description": ""
-    },
-    "Onboarding_title": {
-        "message": "NoScript eklentisine hoş geldiniz!",
-        "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
-    },
-    "behavior_title": {
-        "message": "Site sınıflandırma davranışı",
-        "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
-    },
-    "behavior_label": {
-        "message": "Geçerli site sınıflandırma davranışı:",
-        "description": ""
-    },
-    "behavior_prompt": {
-        "message": "Lütfen sınıflandırılmamış sitelerle karşılaştığınızda NoScript tarafından nasıl davranılacağını seçin. Bu seçimi NoScript ayarları sayfasından ve her NoScript sıfırlamasından sonra yeniden değiştirebilirsiniz.",
-        "description": ""
-    },
-    "behavior_defaultDeny_title": {
-        "message": "KISITLI / Varsayılan red",
-        "description": ""
-    },
-    "behavior_defaultDeny_description": {
-        "message": "Geleneksel ve en güvenli NoScript davranışı: \"DEFAULT\" olarak işaretlenmiş sınıflandırılmamış siteler güvenilir olarak kabul edilmez. Betiklerle birlikte potansiyel olarak zararlı özellikler kapatıldı. NoScript arayüzünü açıp \"GÜVENİLİR\" olarak işaretleyerek güvendiğiniz siteleri el ile ekleyebilir veya \"ÖZEL\" seçeneğini seçerek davranışı özelleştirebilirsiniz. Siteler arası korumaları her zaman uygulanır.",
-        "description": ""
-    },
-    "behavior_auto_title": {
-        "message": "GEVŞEK / Otomatik",
-        "description": ""
-    },
-    "behavior_auto_description": {
-        "message": "Güvenlik ve rahatlık arasında orta yol: Adresi gezinme çubuğunda gösterilen üst düzey site, el ile sınıflandırılmadıkça otomatik olarak \"Geçici olarak GÜVENİLİR\" duruma yükseltilir. 3. taraf siteleri hala el ile sınıflandırılmalıdır. Siteler arası korumaları her zaman uygulanır.",
-        "description": ""
-    },
-    "behavior_defaultAllow_title": {
-        "message": "SERBEST / Varsayılan izin",
-        "description": ""
-    },
-    "behavior_defaultAllow_description": {
-        "message": "En rahat davranış: Sınıflandırılmamış üst düzey siteler \"Geçici olarak GÜVENİLDİ\" durumuna yükseltilir ve üst düzey site için etkinleştirilen özellikler otomatik olarak sınıflandırılmamış tüm 3. taraf alt kaynaklarına aktarılır. Zaten \"GÜVENİLMEZ\" ve \"ÖZEL\" olarak sınıflandırılmış siteler etkilenmez. Siteler arası korumaları her zaman uygulanır.",
-        "description": ""
-    },
-    "Modify": {
-        "message": "Düzenle",
-        "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
-    },
-    "TabGuard_label": {
-        "message": "Sekmeler arası kimlik sızıntısı koruması",
-        "description": ""
-    },
-    "TabGuard_optEnabled": {
-        "message": "Heryerde etkin",
-        "description": ""
-    },
-    "TabGuard_optPromptNever": {
-        "message": "Anonimleştirmeden önce onay istenmesin",
-        "description": ""
-    },
-    "TabGuard_optPromptPost": {
-        "message": "POST gönderimleri anonimleştirilmeden önce onay istensin",
-        "description": ""
-    },
-    "TabGuard_optPromptAlways": {
-        "message": "Tüm istekler anonimleştirilmeden önce onay istensin",
-        "description": ""
-    },
-    "TabGuard_optIncognito": {
-        "message": "Yalnızca gizli gezinme için etkin",
-        "description": ""
-    },
-    "TabGuard_optDisabled": {
-        "message": "Devre dışı",
-        "description": ""
-    },
-    "TabGuard_forget": {
-        "message": "Kararları unut",
-        "description": ""
-    },
-    "TabGuard_title": {
-        "message": "Kimlik sızıntısı olasılığı",
-        "description": ""
-    },
-    "TabGuard_message": {
-        "message": "$1 üzerinden bir sayfa yüklemek üzeresiniz.\n$1 oturumu açmış bir kullanıcı iseniz kimliğiniz hakkınızdaki bilgiler $2 tarafından elde edilebilir.",
-        "description": ""
-    },
-    "TabGuard_optAnonymize": {
-        "message": "Anonim olarak yükle",
-        "description": ""
-    },
-    "TabGuard_optAllow": {
-        "message": "Normal olarak yükle",
-        "description": ""
-    },
-    "LearnMoreLink": {
-        "message": "Ayrıntılı bilgi alın…",
-        "description": ""
-    },
-    "HelpLink": {
-        "message": "Yardım…",
-        "description": ""
-    }
+  "Add": {
+    "message": "Ekle"
+  },
+  "Add_accesskey": {
+    "message": "E"
+  },
+  "AdditionalPermissions": {
+    "message": "Güvenilir siteler için ek izinler"
+  },
+  "AdditionalRestrictions": {
+    "message": "Güvenilmez siteler için ek kısıtlamalar"
+  },
+  "SectionAdvanced": {
+    "message": "Gelişmiş"
+  },
+  "Allow": {
+    "message": "İzin ver"
+  },
+  "Allow_accesskey": {
+    "message": "l"
+  },
+  "AllowBookmarks": {
+    "message": "Yer imlerinden açılan sitelere izin verilsin"
+  },
+  "AllowClipboard": {
+    "message": "Dış panodan zengin metin kopyalama ve yapıştırma yapılabilsin"
+  },
+  "AllowLocalLinks": {
+    "message": "Yerel bağlantılara izin verilsin"
+  },
+  "AllowPage": {
+    "message": "Bu sayfadakilerin tümüne izin verilsin"
+  },
+  "AllowPage_accesskey": {
+    "message": "A"
+  },
+  "AllowPing": {
+    "message": "İzin ver <A PING…>"
+  },
+  "AllowViaBookmarks": {
+    "message": "Yer imlerinden açılan sitelere izin verilsin"
+  },
+  "AlwaysBlockUntrustedContent": {
+    "message": "Güvenilmez olarak işaretlenmiş bir siteden gelen her nesne engellensin"
+  },
+  "SectionAppearance": {
+    "message": "Görünüm"
+  },
+  "AutoAllowTopLevel": {
+    "message": "Geçici olarak üst düzey siteler GÜVENİLİR olarak ayarlansın"
+  },
+  "AutoTrustedLabel": {
+    "message": "Otomatik güvenilir",
+    "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+  },
+  "AutoReload": {
+    "message": "İzinler değiştiğinde etkilenen sayfalar otomatik olarak yeniden yüklensin"
+  },
+  "AutoReload_currentTab": {
+    "message": "Yalnız geçerli sekme yeniden yüklensin"
+  },
+  "BaseDom": {
+    "message": "Temel 2. düzey etki alanları (noscript.net)"
+  },
+  "BlockedItems": {
+    "message": "$1/$2 öge engellendi."
+  },
+  "BlockedObjects": {
+    "message": "NoScript engellenmiş nesneler"
+  },
+  "BookmarkSync": {
+    "message": "Kolay eşitleme için NoScript yapılandırmasını bir yer imine yedeklensin"
+  },
+  "Cancel": {
+    "message": "İptal"
+  },
+  "CascadePermissions": {
+    "message": "En üstteki belgenin izinlerini henüz yapılandırılmamış alt belgelere ve eklemelere otomatik olarak uygulayın"
+  },
+  "CascadeRestrictions": {
+    "message": "Üst belgede engellenen özellikler alt belgelerde de engellenmelidir"
+  },
+  "CascadedLabel": {
+    "message": "Devralınmış",
+    "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
+  },
+  "ClearClickDescription": {
+    "message": "NoScript gizli bir bileşenden gelen bir fare ya da tuş takımı etkileşimini engelledi. Aşağıdaki görsele tıklayarak engellenmiş ve temiz sürümler arasında geçiş yapabilirsiniz."
+  },
+  "ClearClickHeader": {
+    "message": "Olası Sahte Tıklama / Kullanıcı Arayüzü Değiştirme Girişimi!"
+  },
+  "ClearClickOpt": {
+    "message": "Sayfalarda temiz tıklama koruması…"
+  },
+  "ClearClickReport": {
+    "message": "Bildir"
+  },
+  "ClearClickReport_accesskey": {
+    "message": "B"
+  },
+  "ClearClickReportId": {
+    "message": "Bildirim kodu:"
+  },
+  "ClearClickTitle": {
+    "message": "Temiz tıklama uyarısı"
+  },
+  "Close": {
+    "message": "Kapat"
+  },
+  "CollapseBlockedObjects": {
+    "message": "Engellenmiş nesneleri daralt"
+  },
+  "ConfirmUnblock": {
+    "message": "Bir nesnenin engelini geçici olarak kaldırmadan önce onay istensin"
+  },
+  "CtxMenu": {
+    "message": "Sağ tık menüsü"
+  },
+  "Custom": {
+    "message": "Özel"
+  },
+  "CustomizePresets": {
+    "message": "Hazır ayar özelleştirmesi (bir hazır ayarı paylaşan tüm siteler için)"
+  },
+  "Default": {
+    "message": "Varsayılan"
+  },
+  "DefaultPolicies": {
+    "message": "Varsayılan ilkeler"
+  },
+  "Description": {
+    "message": "Tarayıcınız için en iyi koruma: NoScript, kötü niyetli girişimleri engellemek için, yalnız güvenilir olarak seçtiğiniz etki alanlarında bulunan etkin içeriklerin çalışmasına izin verir."
+  },
+  "Donate": {
+    "message": "Bağış yapın"
+  },
+  "Donate_accesskey": {
+    "message": "Y"
+  },
+  "Embeddings": {
+    "message": "Gömmeler"
+  },
+  "Exceptions": {
+    "message": "Katılmayacaklar…"
+  },
+  "Export": {
+    "message": "Dışa aktar"
+  },
+  "Export_accesskey": {
+    "message": "D"
+  },
+  "FixLinks": {
+    "message": "JavaScript bağlantıları onarılmaya çalışılsın"
+  },
+  "Hider": {
+    "message": "Gizlemek için buraya bırakın."
+  },
+  "Reveal": {
+    "message": "Eksik düğmeleri almak için buraya tıklayın…"
+  },
+  "ShowFullAddresses": {
+    "message": "İzinler penceresinde tam adresler görüntülensin (https://www.noscript.net)"
+  },
+  "ShowProbePlaceholders": {
+    "message": "Görünmez yetenek araştırmaları için sentetik yer belirticiler görüntülensin"
+  },
+  "SectionGeneral": {
+    "message": "Genel"
+  },
+  "NotEnforced": {
+    "message": "Kısıtlamalar kullanıcı ayarlarından devre dışı bırakılmış: NoScript bu sayfadaki hiçbir şeyi engellemeyecek!"
+  },
+  "NoEnforcement": {
+    "message": "Kısıtlamalar genel olarak devre dışı bırakılsın (tehlikeli)"
+  },
+  "Enforce": {
+    "message": "Kısıtlamalar genel olarak etkinleştirilsin"
+  },
+  "EnforceOnRestart": {
+    "message": "Web tarayıcı yeniden başlatıldığında kısıtlamalar geri yüklensin"
+  },
+  "NoEnforcementForTab": {
+    "message": "Kısıtlamalar bu sekme için devre dışı bırakılsın"
+  },
+  "EnforceForTab": {
+    "message": "Kısıtlamalar bu sekme için etkinleştirilsin"
+  },
+  "toggleEnforcementForTab": {
+    "message": "Geçerli sekme için uygulanacak kısıtlamaları değiştir"
+  },
+  "pagePermissionsUI": {
+    "message": "Geçerli sayfanın izinlerini yapılandır"
+  },
+  "HighContrast": {
+    "message": "Yüksek karşıtlık"
+  },
+  "httpsOnly": {
+    "message": "Yalnız HTTPS içeriğine uyulsun"
+  },
+  "tabLess_tip": {
+    "message": "Bir içerik sekmesinin dışındaki site, bir kenar çubuğundaki gibi"
+  },
+  "tabLess_short": {
+    "message": "(kenar çubuğu mu?)"
+  },
+  "tabLess_reload_warning": {
+    "message": "Bir kenar çubuğundaki izinleri değiştirmek için EL İLE yeniden yükleme gerekir."
+  },
+  "Https": {
+    "message": "HTTPS"
+  },
+  "Https_always": {
+    "message": "Her zaman"
+  },
+  "Https_behavior": {
+    "message": "Davranış"
+  },
+  "Https_cookies": {
+    "message": "Çerezler"
+  },
+  "Https_description": {
+    "message": "Güvenli (HTTPS) bir bağlantıdan gelmeyen etkin web içeriği engellensin:"
+  },
+  "Https_never": {
+    "message": "Asla"
+  },
+  "Https_proxy": {
+    "message": "Bir vekil sunucu kullanıldığında (Tor ile önerilir)"
+  },
+  "HttpsFaq": {
+    "message": "HTTPS SSS…"
+  },
+  "HttpsFaq_accesskey": {
+    "message": "T"
+  },
+  "HttpsForced": {
+    "message": "Şu siteler için güvenli bağlantı (HTTPS) kullanılsın:"
+  },
+  "HttpsForcedExceptions": {
+    "message": "Şu siteler için hiç bir zaman güvenli bağlantı (HTTPS) kullanılmasın:"
+  },
+  "Import": {
+    "message": "İçe aktar"
+  },
+  "Import_accesskey": {
+    "message": "R"
+  },
+  "OptIncognitoPerm": {
+    "message": "Gizli/özel sekmelerde izinleri kalıcı yapar.\nDİKKAT: Bu işlem site bilgilerinin sızmasına neden olabilir!"
+  },
+  "OptAmnesticUpdates": {
+    "message": "Web tarayıcı yeniden başlatılmazsa NoScript güncellemeleri izinlerini geri alınsın"
+  },
+  "KeepLocked": {
+    "message": "Bu bileşeni kilitlenmiş olarak tut (önerilir)"
+  },
+  "MatchSample": {
+    "message": "Örüntü eşleşme örneği:"
+  },
+  "Next": {
+    "message": "Sonraki"
+  },
+  "NoUntrustedPlaceholder": {
+    "message": "Güvenilmez olarak işaretlenmiş nesneler için yer belirteci kullanılmasın"
+  },
+  "Notifications": {
+    "message": "Bildirimler"
+  },
+  "Notify": {
+    "message": "Engellenmiş betikler hakkında ileti görüntülensin"
+  },
+  "Notify_bottom": {
+    "message": "İleti aşağıda görüntülensin"
+  },
+  "NotifyMeta": {
+    "message": "Engellenmiş META yönlendirmeleri hakkında ileti görüntülensin"
+  },
+  "NotifyMeta_accesskey": {
+    "message": "B"
+  },
+  "NselForce": {
+    "message": "Engellenmiş bir <SCRIPT> nesnesini izleyen <NOSCRIPT> bileşeni görüntülensin"
+  },
+  "NselNever": {
+    "message": "<NOSCRIPT> bileşenleri gizlensin"
+  },
+  "OK": {
+    "message": "Tamam"
+  },
+  "OptBlockCssScanners": {
+    "message": "CSS temelli tarayıcılar engellensin"
+  },
+  "OptFilterXGet": {
+    "message": "Siteler arası şüpheli istekler arındırılsın"
+  },
+  "OptFilterXPost": {
+    "message": "Siteler arası POST istekleri veriden arındırılmış GET isteklerine dönüştürülsün"
+  },
+  "OptOverrideTorBrowserPolicy": {
+    "message": "Tor Browser güvenlik duvarı ayarı değiştirilsin"
+  },
+  "Options": {
+    "message": "Ayarlar…"
+  },
+  "Options_accesskey": {
+    "message": "A"
+  },
+  "OptionsLong": {
+    "message": "NoScript ayarları"
+  },
+  "OptionsWidth": {
+    "message": "40em"
+  },
+  "PermanentInPrivate": {
+    "message": "Gizli pencerelerde komutlara kalıcı olarak \"İzin Verilsin\""
+  },
+  "SectionSitePermissions": {
+    "message": "Siteye özel izinler"
+  },
+  "PermissionsText": {
+    "message": "Betiklerin yürütülmesine izin verilecek web sitelerini belirtebilirsiniz. İzin vermek istediğiniz sitenin adres ya da etki alanını (\"http://www.sitem.com\" ya da \"site.com\") yazıp İzin Ver üzerine tıklayın."
+  },
+  "Plugins": {
+    "message": "Uygulama ekleri"
+  },
+  "Policies": {
+    "message": "İlkeler"
+  },
+  "Preset": {
+    "message": "Güvenlik düzeyi"
+  },
+  "Prev": {
+    "message": "Önceki"
+  },
+  "RecentBlocked": {
+    "message": "Son engellenen siteler"
+  },
+  "Refresh": {
+    "message": "Yenile"
+  },
+  "ReloadWarn": {
+    "message": "Bu ayarlar yeni ya da (el ile) yeniden yüklenen sayfalarda etkili olur"
+  },
+  "RemoveSelected": {
+    "message": "Seçilmiş sayfaları sil"
+  },
+  "Reset": {
+    "message": "Sıfırla"
+  },
+  "Reset_accesskey": {
+    "message": "f"
+  },
+  "ResetDef": {
+    "message": "Varsayılan değerlere sıfırla"
+  },
+  "ResetDef_accesskey": {
+    "message": "V"
+  },
+  "RevokeTemp": {
+    "message": "Geçici izinleri kaldır"
+  },
+  "RevokeTemp_accesskey": {
+    "message": "G"
+  },
+  "SecureCookies": {
+    "message": "Otomatik güvenli çerez yönetimi kullanılsın"
+  },
+  "SecureCookiesExceptions": {
+    "message": "Şu siteler için HTTPS üzerinden ayarlanan güvensiz çerezler yok sayılsın:"
+  },
+  "SecureCookiesForced": {
+    "message": "Şu siteler için HTTPS üzerinden ayarlanan tüm çerezler şifrelensin:"
+  },
+  "SecurityManager": {
+    "message": "Güvenlik yönetimi"
+  },
+  "Show": {
+    "message": "Görüntüle…"
+  },
+  "ShowConsole": {
+    "message": "Konsolu görüntüle…"
+  },
+  "ShowConsole_accesskey": {
+    "message": "K"
+  },
+  "ShowPlaceholder": {
+    "message": "Yer belirteci simgesi görüntülensin"
+  },
+  "ShowReleaseNotes": {
+    "message": "Güncellemelerde yayın notları görüntülensin"
+  },
+  "ShowCtxMenuItem": {
+    "message": "NoScript sağ tık menüsü görüntülensin"
+  },
+  "ShowCountBadge": {
+    "message": "Engellenmiş öge sayısı etiketi görüntülensin"
+  },
+  "SitePermissions": {
+    "message": "Site izinleri"
+  },
+  "SitePermissions_accessKey": {
+    "message": "S"
+  },
+  "SitePolicies": {
+    "message": "Siteye özel ilkeler"
+  },
+  "TempTrustPage": {
+    "message": "Bu sayfadakilerin tümü geçici olarak GÜVENİLİR olarak ayarlansın"
+  },
+  "TempTrustPage_accesskey": {
+    "message": "T"
+  },
+  "TempToPerm": {
+    "message": "Sayfa izinlerini kalıcı yap"
+  },
+  "TempToPerm_accesskey": {
+    "message": "Y"
+  },
+  "Trust": {
+    "message": "Güvenilir olarak işaretle"
+  },
+  "Trust_accesskey": {
+    "message": "G"
+  },
+  "Trusted": {
+    "message": "Güvenilir"
+  },
+  "Trusted_temporary": {
+    "message": "Geçici GÜVENİLİR"
+  },
+  "Trusted_permanent": {
+    "message": "GÜVENİLİR"
+  },
+  "TrustedPagesAdj": {
+    "message": "güvenilir"
+  },
+  "Uninstall": {
+    "message": "Kaldır"
+  },
+  "Unknown": {
+    "message": "Bilinmiyor"
+  },
+  "UnsafeReload": {
+    "message": "Güvenli olmayan yeniden yükleme"
+  },
+  "UnsafeReload_accesskey": {
+    "message": "B"
+  },
+  "Untrust": {
+    "message": "Güvenilmez olarak işaretle"
+  },
+  "Untrust_accesskey": {
+    "message": "V"
+  },
+  "Untrusted": {
+    "message": "Güvenilmez"
+  },
+  "UntrustedPagesAdj": {
+    "message": "güvenilmez"
+  },
+  "WebAddress": {
+    "message": "Bir web sitesi arayın ya da ekleyin:"
+  },
+  "WebAddress_accesskey": {
+    "message": "w"
+  },
+  "XSS_notify": {
+    "message": "XSS bildirimleri görüntülensin"
+  },
+  "XSS_clearUserChoices": {
+    "message": "XSS seçimlerini temizle"
+  },
+  "XSS_promptTitle": {
+    "message": "NoScript XSS uyarısı"
+  },
+  "XSS_promptMessage": {
+    "message": "NoScript $1 sitesinden $2 sitesine\nolası bir siteler arası betik saldırısı algıladı.\nŞüpheli veriler:\n$3"
+  },
+  "XSS_optBlock": {
+    "message": "Bu istek engellensin"
+  },
+  "XSS_optSanitize": {
+    "message": "Bu istek arındırılsın"
+  },
+  "XSS_optAllow": {
+    "message": "Bu isteğe izin verilsin"
+  },
+  "XSS_optAlwaysAllow": {
+    "message": "$1 sitesinden $2 sitesine yapılan belge isteklerine her zaman izin verilsin"
+  },
+  "XSS_optAlwaysBlock": {
+    "message": "$1 sitesinden $2 sitesine yapılan belge istekleri her zaman reddedilsin"
+  },
+  "Xss": {
+    "message": "XSS"
+  },
+  "Xss_accesskey": {
+    "message": "X"
+  },
+  "XssExceptions": {
+    "message": "Anti-XSS korumasına katılmayacaklar"
+  },
+  "XssExceptions_description": {
+    "message": "Bu kurallı ifadelere uyan hedefler XSS koruması tarafından engellenmez."
+  },
+  "XssFaq": {
+    "message": "XSS SSS…"
+  },
+  "XssFaq_accesskey": {
+    "message": "T"
+  },
+  "about": {
+    "message": "$1 hakkında"
+  },
+  "allowFrom": {
+    "message": "$1 üzerindekilerin tümüne izin verilsin"
+  },
+  "allowGlobal": {
+    "message": "Tüm izin denetimleri devre dışı bırakılsın (tehlikeli)"
+  },
+  "allowLocal": {
+    "message": "$1 üzerindekilere izin verilsin"
+  },
+  "allowTemp": {
+    "message": "$1 üzerindekilere geçici olarak izin verilsin"
+  },
+  "allowTempFrom": {
+    "message": "$1 üzerindekilerin tümüne geçici olarak izin verilsin"
+  },
+  "allowed_no": {
+    "message": "Şu ana kadar engellenmiş betikler"
+  },
+  "allowed_prt": {
+    "message": "Kısmen izin verilmiş betikler"
+  },
+  "allowed_yes": {
+    "message": "Şu anda izin verilen betikler"
+  },
+  "alwaysAsk": {
+    "message": "Her zaman onay istensin"
+  },
+  "audio_samples": {
+    "message": "Ses örnekleri"
+  },
+  "bookmarkSync_confirm": {
+    "message": "NoScript şu zamanda kaydedilmiş bir yapılandırma yer imi buldu:\n$1.\nYerel NoScript yapılandırmasının yerine bu yer imindeki yapılandırma içeriğinin yazılmasını istiyor musunuz?"
+  },
+  "bookmarkSync_message": {
+    "message": "Bu yer imi AÇILMAZ, ancak Weave ya da XMarks eklentisi gibi bir hizmet kullanılarak eşitlenir."
+  },
+  "bookmarkSync_title": {
+    "message": "NoScript yapılandırma yer imi"
+  },
+  "caps": {
+    "message": "Bu özellikler etkinleştirilsin"
+  },
+  "capsContext": {
+    "message": "Üst belge eşleştiğinde bu özellikler etkinleştirilsin"
+  },
+  "anySite": {
+    "message": "TÜM SİTELER"
+  },
+  "cap_script": {
+    "message": "betik"
+  },
+  "cap_frame": {
+    "message": "çerçeve"
+  },
+  "cap_object": {
+    "message": "nesne"
+  },
+  "cap_media": {
+    "message": "ortam"
+  },
+  "cap_font": {
+    "message": "yazı tipi"
+  },
+  "cap_webgl": {
+    "message": "webgl"
+  },
+  "cap_fetch": {
+    "message": "alma"
+  },
+  "cap_ping": {
+    "message": "ping"
+  },
+  "cap_noscript": {
+    "message": "noscript"
+  },
+  "cap_lazy_load": {
+    "message": "yavaş yükleme"
+  },
+  "cap_unchecked_css": {
+    "message": "kısıtlanmamış CSS"
+  },
+  "cap_lan": {
+    "message": "Yerel ağ"
+  },
+  "cap_other": {
+    "message": "diğer"
+  },
+  "cap_wasm": {
+    "message": "wasm",
+    "description": "WebAssembly modules compilation and execution capability."
+  },
+  "cap_x_load": {
+    "message": "x-load",
+    "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
+  },
+  "changelog": {
+    "message": "Değişiklik günlüğü"
+  },
+  "changelog_tip": {
+    "message": "Değişiklik günlüğünü görüntüle"
+  },
+  "confirm": {
+    "message": "Emin misiniz?"
+  },
+  "disable": {
+    "message": "$1 devre dışı bırakılsın"
+  },
+  "disable_accessKey": {
+    "message": "D"
+  },
+  "distrust": {
+    "message": "$1 Güvenilmez olarak işaretlensin"
+  },
+  "extensionContributors": {
+    "message": "Katkıda bulunanlar:"
+  },
+  "extensionContributors_tip": {
+    "message": "Bu eklentinin geliştirilmesine katkıda bulunan kişiler"
+  },
+  "extensionCreator_tip": {
+    "message": "Geliştiricinin web sayfasını ziyaret edin"
+  },
+  "extensionCreatorLabel": {
+    "message": "Geliştirici:"
+  },
+  "extensionHomepage_tip": {
+    "message": "Eklenti web sayfasını ziyaret edin"
+  },
+  "forbidGlobal": {
+    "message": "Betikler genel olarak engellensin (önerilir)"
+  },
+  "forbidLocal": {
+    "message": "$1 engellensin"
+  },
+  "freshInstallReload": {
+    "message": "Bu sekmede işlem yapabilmek için NoScript sekmeyi yeniden yüklemeli.\nYeniden yüklensin mi?"
+  },
+  "privilegedPage": {
+    "message": "Bu sayfa ayrıcalıklı olduğundan izinleri ayarlanamaz."
+  },
+  "incompatibleOptions": {
+    "message": "\"$1\"\n\"$2\" ile uyumsuz.\nBirinciyi etkinleştirip ikinciyi devre dışı bırakmak ister misiniz?"
+  },
+  "incompatibleOptions_title": {
+    "message": "Uyumsuz ayarlar uyarısı"
+  },
+  "informaction_tip": {
+    "message": "InformAction web sitesini ziyaret edin"
+  },
+  "license": {
+    "message": "Lisans"
+  },
+  "license_tip": {
+    "message": "Son kullanıcı lisans sözleşmesine bakın"
+  },
+  "logo_tip": {
+    "message": "Eklenti web sayfasını ziyaret edin"
+  },
+  "metaRefresh_notify": {
+    "message": "NoScript bir <NOSCRIPT> bileşeni içindeki bir <META> yönlendirmesini engelledi: $1, $2 saniye içinde."
+  },
+  "Reload": {
+    "message": "Yenile"
+  },
+  "removal_message": {
+    "message": "NoScript uygulamasını devre dışı bırakarak ya da kaldırarak NoScript tarafından sağlanan TÜM korumadan vazgeçmiş olursunuz.\n\nYalnızca her siteye tek tek izin vermekten sıkıldıysanız daha güvenli bir yol var.\n\nNoScript sizi XSS, Clickjacking, CSRF ve diğer web tehditlerinden gelebilecek saldırılarına karış en gelişmiş önlemler ile korumaya devam ederken, güvenilmez olarak işaretlediğiniz siteler dışındaki sitelerin betiklerine izin verebilir.\n\nTÜM NoScript korumasını kaldırmak istediğinize emin misiniz?\n"
+  },
+  "removal_no": {
+    "message": "Hayır, yalnız betik engellenmesi kaldırılsın"
+  },
+  "removal_title": {
+    "message": "Güvenlik düşürme uyarısı"
+  },
+  "removal_yes": {
+    "message": "Evet, TÜM korumalar kaldırılsın"
+  },
+  "reset_title": {
+    "message": "NoScript ayarlarını sıfırla"
+  },
+  "reset_warning": {
+    "message": "TÜM NoScript ayarlarını ve site izinlerini anında varsayılan değerlere sıfırlar.\nBu işlem geri alınamaz.\nDevam etmek istiyor musunuz?"
+  },
+  "siteInfo_confirm": {
+    "message": "$2 üzerine bir sorgu gönderek \n\"$1\" sitesi hakkında bilgi istemek üzeresiniz.\nDevam etmek istiyor musunuz?"
+  },
+  "siteInfo_tooltip": {
+    "message": "Site bilgileri için orta tık ya da shift tuşuna basarak sol tık kullanın…"
+  },
+  "sponsor_tip": {
+    "message": "Destekçinin web sitesini ziyaret edin"
+  },
+  "unsafeReload_warning": {
+    "message": "GÜVENİLMEZ bir şüpheli yeniden yükleme\n\n$1 [$2]\n\n[$3] tarafından\n\nNoScript bu isteği KORUMAYACAK!\n"
+  },
+  "untrustedOrigin": {
+    "message": "güvenilmez bir kaynak"
+  },
+  "version": {
+    "message": "$1 sürümü"
+  },
+  "versionShort": {
+    "message": "v $1"
+  },
+  "settingsThemeLabel": {
+    "message": "Tema"
+  },
+  "themeDark": {
+    "message": "Koyu"
+  },
+  "themeLight": {
+    "message": "Açık"
+  },
+  "themeAuto": {
+    "message": "Otomatik"
+  },
+  "ModernRed": {
+    "message": "Modern kırmızı"
+  },
+  "VintageBlue": {
+    "message": "Eski mavi"
+  },
+  "toVintageBlue": {
+    "message": "Eski mavi biçeme geç"
+  },
+  "DonateShort": {
+    "message": "Bağış yapın"
+  },
+  "DonateLong": {
+    "message": "NoScript özegüt bir yazılımdır ve destekleriniz olmadan var olamaz. Lütfen bağış yapın!"
+  },
+  "Onboarding_title": {
+    "message": "NoScript eklentisine hoş geldiniz!",
+    "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
+  },
+  "behavior_title": {
+    "message": "Site sınıflandırma davranışı",
+    "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
+  },
+  "behavior_label": {
+    "message": "Geçerli site sınıflandırma davranışı:"
+  },
+  "behavior_prompt": {
+    "message": "Lütfen sınıflandırılmamış sitelerle karşılaştığınızda NoScript tarafından nasıl davranılacağını seçin. Bu seçimi NoScript ayarları sayfasından ve her NoScript sıfırlamasından sonra yeniden değiştirebilirsiniz."
+  },
+  "behavior_defaultDeny_title": {
+    "message": "KISITLI / Varsayılan red"
+  },
+  "behavior_defaultDeny_description": {
+    "message": "Geleneksel ve en güvenli NoScript davranışı: \"DEFAULT\" olarak işaretlenmiş sınıflandırılmamış siteler güvenilir olarak kabul edilmez. Betiklerle birlikte potansiyel olarak zararlı özellikler kapatıldı. NoScript arayüzünü açıp \"GÜVENİLİR\" olarak işaretleyerek güvendiğiniz siteleri el ile ekleyebilir veya \"ÖZEL\" seçeneğini seçerek davranışı özelleştirebilirsiniz. Siteler arası korumaları her zaman uygulanır."
+  },
+  "behavior_auto_title": {
+    "message": "GEVŞEK / Otomatik"
+  },
+  "behavior_auto_description": {
+    "message": "Güvenlik ve rahatlık arasında orta yol: Adresi gezinme çubuğunda gösterilen üst düzey site, el ile sınıflandırılmadıkça otomatik olarak \"Geçici olarak GÜVENİLİR\" duruma yükseltilir. 3. taraf siteleri hala el ile sınıflandırılmalıdır. Siteler arası korumaları her zaman uygulanır."
+  },
+  "behavior_defaultAllow_title": {
+    "message": "SERBEST / Varsayılan izin"
+  },
+  "behavior_defaultAllow_description": {
+    "message": "En rahat davranış: Sınıflandırılmamış üst düzey siteler \"Geçici olarak GÜVENİLDİ\" durumuna yükseltilir ve üst düzey site için etkinleştirilen özellikler otomatik olarak sınıflandırılmamış tüm 3. taraf alt kaynaklarına aktarılır. Zaten \"GÜVENİLMEZ\" ve \"ÖZEL\" olarak sınıflandırılmış siteler etkilenmez. Siteler arası korumaları her zaman uygulanır."
+  },
+  "Modify": {
+    "message": "Düzenle",
+    "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
+  },
+  "TabGuard_label": {
+    "message": "Sekmeler arası kimlik sızıntısı koruması"
+  },
+  "TabGuard_optEnabled": {
+    "message": "Heryerde etkin"
+  },
+  "TabGuard_optPromptNever": {
+    "message": "Anonimleştirmeden önce onay istenmesin"
+  },
+  "TabGuard_optPromptPost": {
+    "message": "POST gönderimleri anonimleştirilmeden önce onay istensin"
+  },
+  "TabGuard_optPromptAlways": {
+    "message": "Tüm istekler anonimleştirilmeden önce onay istensin"
+  },
+  "TabGuard_optIncognito": {
+    "message": "Yalnızca gizli gezinme için etkin"
+  },
+  "TabGuard_optDisabled": {
+    "message": "Devre dışı"
+  },
+  "TabGuard_forget": {
+    "message": "Kararları unut"
+  },
+  "TabGuard_title": {
+    "message": "Kimlik sızıntısı olasılığı"
+  },
+  "TabGuard_message": {
+    "message": "$1 üzerinden bir sayfa yüklemek üzeresiniz.\n$1 oturumu açmış bir kullanıcı iseniz kimliğiniz hakkınızdaki bilgiler $2 tarafından elde edilebilir."
+  },
+  "TabGuard_optAnonymize": {
+    "message": "Anonim olarak yükle"
+  },
+  "TabGuard_optAllow": {
+    "message": "Normal olarak yükle"
+  },
+  "LearnMoreLink": {
+    "message": "Ayrıntılı bilgi alın…"
+  },
+  "HelpLink": {
+    "message": "Yardım…"
+  },
+  "EnableGesture": {
+    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+  },
+  "GestureLabel": {
+    "message": "Draw \"S\" to summon NoScript."
+  }
 }
