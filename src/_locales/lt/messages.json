@@ -1,1090 +1,831 @@
 {
-    "Add": {
-        "message": "Pridėti",
-        "description": ""
-    },
-    "Add_accesskey": {
-        "message": "A",
-        "description": ""
-    },
-    "AdditionalPermissions": {
-        "message": "Papildomi leidimai patikimiems tinklalapiams",
-        "description": ""
-    },
-    "AdditionalRestrictions": {
-        "message": "Papildomi apribojimai nepatikimiems tinklalapiams",
-        "description": ""
-    },
-    "SectionAdvanced": {
-        "message": "Išplėstiniai",
-        "description": ""
-    },
-    "Allow": {
-        "message": "Leisti",
-        "description": ""
-    },
-    "Allow_accesskey": {
-        "message": "l",
-        "description": ""
-    },
-    "AllowBookmarks": {
-        "message": "Leisti tinklalapius atidarytus per žymeles",
-        "description": ""
-    },
-    "AllowClipboard": {
-        "message": "Leisti pilną teksto kopijavimą ir įklijavimą iš išorinės iškarpinės",
-        "description": ""
-    },
-    "AllowLocalLinks": {
-        "message": "Leisti vietines nuorodas",
-        "description": ""
-    },
-    "AllowPage": {
-        "message": "Leisti visą šį puslapį",
-        "description": ""
-    },
-    "AllowPage_accesskey": {
-        "message": "A",
-        "description": ""
-    },
-    "AllowPing": {
-        "message": "Leisti <A PING…>",
-        "description": ""
-    },
-    "AllowViaBookmarks": {
-        "message": "Leisti tinklalapius atidarytus per žymeles",
-        "description": ""
-    },
-    "AlwaysBlockUntrustedContent": {
-        "message": "Blokuoti visus objektus ateinančius iš tinklalapio pažymėto kaip nepatikimas",
-        "description": ""
-    },
-    "SectionAppearance": {
-        "message": "Išvaizda",
-        "description": ""
-    },
-    "AutoAllowTopLevel": {
-        "message": "Laikinai nustatyti aukščiausio lygio tinklalapius kaip PATIKIMUS",
-        "description": ""
-    },
-    "AutoTrustedLabel": {
-        "message": "Auto-trusted",
-        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
-    },
-    "AutoReload": {
-        "message": "Automatiškai perkrauti paveiktus puslapius kai pasikeičia leidimai",
-        "description": ""
-    },
-    "AutoReload_currentTab": {
-        "message": "Perkrauti tik esamą skirtuką",
-        "description": ""
-    },
-    "BaseDom": {
-        "message": "2-jo lygio domenai (noscript.net)",
-        "description": ""
-    },
-    "BlockedItems": {
-        "message": "Užblokuota $1 iš $2 elementų.",
-        "description": ""
-    },
-    "BlockedObjects": {
-        "message": "NoScript užblokavo objektus",
-        "description": ""
-    },
-    "BookmarkSync": {
-        "message": "Sukurti atsarginę NoScript konfigūracijos kopiją žymelėse lengvesnei sinchronizacijai",
-        "description": ""
-    },
-    "Cancel": {
-        "message": "Atšaukti",
-        "description": ""
-    },
-    "CascadePermissions": {
-        "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet",
-        "description": ""
-    },
-    "CascadeRestrictions": {
-        "message": "Bet kokia viršutiniame dokumente užblokuota galimybė turi būti užblokuota ir jo antriniuose dokumentuose",
-        "description": ""
-    },
-    "CascadedLabel": {
-        "message": "Cascaded",
-        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
-    },
-    "ClearClickDescription": {
-        "message": "NoScript neleidžia pelei ar klaviatūrai sąveikauti su dalinai paslėptais elementais. Paspauskite ant žemiau esančios nuorodos kad pereitumėt iš trukdančios versijos į švarią.",
-        "description": ""
-    },
-    "ClearClickHeader": {
-        "message": "Galimas clickjacking / UI redressing bandymas!",
-        "description": ""
-    },
-    "ClearClickOpt": {
-        "message": "ClearClick apsauga puslapiuose…",
-        "description": ""
-    },
-    "ClearClickReport": {
-        "message": "Pranešimas",
-        "description": ""
-    },
-    "ClearClickReport_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "ClearClickReportId": {
-        "message": "Pranešimo ID:",
-        "description": ""
-    },
-    "ClearClickTitle": {
-        "message": "ClearClick Įspėjimas",
-        "description": ""
-    },
-    "Close": {
-        "message": "Užverti",
-        "description": ""
-    },
-    "CollapseBlockedObjects": {
-        "message": "Suglausti užblokuotus objektus",
-        "description": ""
-    },
-    "ConfirmUnblock": {
-        "message": "Klausti leidimo prieš laikinai atblokuojant objektą",
-        "description": ""
-    },
-    "CtxMenu": {
-        "message": "Kontekstinis meniu",
-        "description": ""
-    },
-    "Custom": {
-        "message": "Pasirinktinas",
-        "description": ""
-    },
-    "CustomizePresets": {
-        "message": "Parengties keitimas (visiems tinklalapiams kurie dalinasi šia parengtimi)",
-        "description": ""
-    },
-    "Default": {
-        "message": "Numatytas",
-        "description": ""
-    },
-    "DefaultPolicies": {
-        "message": "Numatytoji politika",
-        "description": ""
-    },
-    "Description": {
-        "message": "Maksimalus jūsų naršyklės apsaugojimas: Aktyvų turinį NoScript leidžia tik iš jūsų pasirinktų patikimų domenų, kad apsisaugotumėte nuo išnaudojimo.",
-        "description": ""
-    },
-    "Donate": {
-        "message": "Paaukoti",
-        "description": ""
-    },
-    "Donate_accesskey": {
-        "message": "o",
-        "description": ""
-    },
-    "Embeddings": {
-        "message": "Įterpimai",
-        "description": ""
-    },
-    "Exceptions": {
-        "message": "Išimtys...",
-        "description": ""
-    },
-    "Export": {
-        "message": "Eksportuoti",
-        "description": ""
-    },
-    "Export_accesskey": {
-        "message": "E",
-        "description": ""
-    },
-    "FixLinks": {
-        "message": "Pabandyti pataisyti JavaScript nuorodas",
-        "description": ""
-    },
-    "Hider": {
-        "message": "Numesti čia paslėpimui",
-        "description": ""
-    },
-    "Reveal": {
-        "message": "Spausti čia, kad atgautumėte trūkstančius mygtukus...",
-        "description": ""
-    },
-    "ShowFullAddresses": {
-        "message": "Rodyti pilnus adresus iššokančiame leidimų lange (https://www.noscript.net)",
-        "description": ""
-    },
-    "ShowProbePlaceholders": {
-        "message": "Show synthetic placeholders for invisible capability probes",
-        "description": ""
-    },
-    "SectionGeneral": {
-        "message": "Bendras",
-        "description": ""
-    },
-    "NotEnforced": {
-        "message": "Restrictions disabled by user's settings: NoScript won't block anything on this page!",
-        "description": ""
-    },
-    "NoEnforcement": {
-        "message": "Globalus apribojimų išjungimas (pavojinga)",
-        "description": ""
-    },
-    "Enforce": {
-        "message": "Įjungti apribojimus globaliai",
-        "description": ""
-    },
-    "EnforceOnRestart": {
-        "message": "Restore restrictions on browser restart",
-        "description": ""
-    },
-    "NoEnforcementForTab": {
-        "message": "Išjungti apribojimus šiam skirtukui",
-        "description": ""
-    },
-    "EnforceForTab": {
-        "message": "Įjungti apribojimus šiam skirtukui",
-        "description": ""
-    },
-    "toggleEnforcementForTab": {
-        "message": "Toggle restrictions enforcement for current tab",
-        "description": ""
-    },
-    "pagePermissionsUI": {
-        "message": "Configure current page's permissions",
-        "description": ""
-    },
-    "HighContrast": {
-        "message": "Didelis kontrastas",
-        "description": ""
-    },
-    "httpsOnly": {
-        "message": "Lyginti tik HTTPS turinį",
-        "description": ""
-    },
-    "tabLess_tip": {
-        "message": "Site outside of a content tab, e.g. in a sidebar",
-        "description": ""
-    },
-    "tabLess_short": {
-        "message": "(sidebar?)",
-        "description": ""
-    },
-    "tabLess_reload_warning": {
-        "message": "Changing permissions in a sidebar will require a MANUAL reload.",
-        "description": ""
-    },
-    "Https": {
-        "message": "HTTPS",
-        "description": ""
-    },
-    "Https_always": {
-        "message": "VIsada",
-        "description": ""
-    },
-    "Https_behavior": {
-        "message": "Elgesys",
-        "description": ""
-    },
-    "Https_cookies": {
-        "message": "Sausainiukai",
-        "description": ""
-    },
-    "Https_description": {
-        "message": "Drausti aktyvų tinklo turinį, nebent ji ateina iš saugaus (HTTPS) prisijungimo:",
-        "description": ""
-    },
-    "Https_never": {
-        "message": "Niekada",
-        "description": ""
-    },
-    "Https_proxy": {
-        "message": "Naudojant tarpinį serverį (rekomenduojama su Tor)",
-        "description": ""
-    },
-    "HttpsFaq": {
-        "message": "HTTPS DUK…",
-        "description": ""
-    },
-    "HttpsFaq_accesskey": {
-        "message": "Q",
-        "description": ""
-    },
-    "HttpsForced": {
-        "message": "Versti sekančius tinklalapius naudoti saugius (HTTPS) prisijungimus:",
-        "description": ""
-    },
-    "HttpsForcedExceptions": {
-        "message": "Niekada neversti saugių (HTTPS) prisijungimų šiems tinklalapiams:",
-        "description": ""
-    },
-    "Import": {
-        "message": "Importuoti",
-        "description": ""
-    },
-    "Import_accesskey": {
-        "message": "I",
-        "description": ""
-    },
-    "OptIncognitoPerm": {
-        "message": "Įgalinti nuolatinių leidimų nustatymą inkognito / privačiuose skirtukuose.\nATSARGIAI: tai gali nutekinti svetainės informaciją!",
-        "description": ""
-    },
-    "OptAmnesticUpdates": {
-        "message": "Atšaukti laikinus NoScript naujinimų leidimus, net jei naršyklė nepaleidžiama iš naujo",
-        "description": ""
-    },
-    "KeepLocked": {
-        "message": "Laikyti šį elementą užrakintą (rekomenduotina)",
-        "description": ""
-    },
-    "MatchSample": {
-        "message": "Modelio atitikimo pavyzdys:",
-        "description": ""
-    },
-    "Next": {
-        "message": "Kitas",
-        "description": ""
-    },
-    "NoUntrustedPlaceholder": {
-        "message": "Jokių vietos rezervavimo ženklų objektams ateinantiems iš nesaugiais pažymėtų tinklalapių",
-        "description": ""
-    },
-    "Notifications": {
-        "message": "Pranešimai",
-        "description": ""
-    },
-    "Notify": {
-        "message": "Rodyti žinutes apie užblokuotus skriptus",
-        "description": ""
-    },
-    "Notify_bottom": {
-        "message": "Žinutes rodyti apačioje",
-        "description": ""
-    },
-    "NotifyMeta": {
-        "message": "Rodyti žinutes apie užblokuotus META nukreipimus",
-        "description": ""
-    },
-    "NotifyMeta_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "NselForce": {
-        "message": "Rodyti <NOSCRIPT> elementą, kuris seka užblokuotą <SCRIPT>",
-        "description": ""
-    },
-    "NselNever": {
-        "message": "Slėpti <NOSCRIPT> elementus",
-        "description": ""
-    },
-    "OK": {
-        "message": "OK",
-        "description": ""
-    },
-    "OptBlockCssScanners": {
-        "message": "Blokuoti CSS skenerius",
-        "description": ""
-    },
-    "OptFilterXGet": {
-        "message": "Išvalyti įtartinas kryžminės-svetainės užklausas",
-        "description": ""
-    },
-    "OptFilterXPost": {
-        "message": "Paversti tarptinklapines POST užklausas beduomenėmis GET užklausomis",
-        "description": ""
-    },
-    "OptOverrideTorBrowserPolicy": {
-        "message": "Nepaisyti Tor Naršyklės Saugumo lygio parengties",
-        "description": ""
-    },
-    "Options": {
-        "message": "Parinktys...",
-        "description": ""
-    },
-    "Options_accesskey": {
-        "message": "O",
-        "description": ""
-    },
-    "OptionsLong": {
-        "message": "NoScript Parinktys",
-        "description": ""
-    },
-    "OptionsWidth": {
-        "message": "40em",
-        "description": ""
-    },
-    "PermanentInPrivate": {
-        "message": "Visuomet \"Leisti\" komandas privačiuose languose.",
-        "description": ""
-    },
-    "SectionSitePermissions": {
-        "message": "Leidimai kiekvienam tinklalapiui",
-        "description": ""
-    },
-    "PermissionsText": {
-        "message": "Jūs galite nurodyti, kuriems tinklalapiams leidžiama paleisti skriptus. Įrašykite adresą arba domeną (pvz.: \"http://www.site.com\" arba \"site.com\") to tinklalapio kuriam norite suteikti leidimą ir tada paspauskite Leisti.",
-        "description": ""
-    },
-    "Plugins": {
-        "message": "įskiepiai",
-        "description": ""
-    },
-    "Policies": {
-        "message": "Politika",
-        "description": ""
-    },
-    "Preset": {
-        "message": "Saugumo lygis",
-        "description": ""
-    },
-    "Prev": {
-        "message": "Ankstesnis",
-        "description": ""
-    },
-    "RecentBlocked": {
-        "message": "Neseniai užblokuoti tinklalapiai",
-        "description": ""
-    },
-    "Refresh": {
-        "message": "Atnaujinti",
-        "description": ""
-    },
-    "ReloadWarn": {
-        "message": "Šios parinktys pradės veikti naujuose arba (rankiniu būdu) perkrautuose puslapiuose.",
-        "description": ""
-    },
-    "RemoveSelected": {
-        "message": "Pašalinti pasirinktus tinklalapius",
-        "description": ""
-    },
-    "Reset": {
-        "message": "Atstatyti",
-        "description": ""
-    },
-    "Reset_accesskey": {
-        "message": "s",
-        "description": ""
-    },
-    "ResetDef": {
-        "message": "Atstatyti numatytą",
-        "description": ""
-    },
-    "ResetDef_accesskey": {
-        "message": "D",
-        "description": ""
-    },
-    "RevokeTemp": {
-        "message": "Atšaukti laikinus leidimus",
-        "description": ""
-    },
-    "RevokeTemp_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "SecureCookies": {
-        "message": "Įjungti automatinį saugų slapukų valdymą",
-        "description": ""
-    },
-    "SecureCookiesExceptions": {
-        "message": "Ignoruoti nesaugius slapukus, nustatytus per HTTPS šių tinklalapių:",
-        "description": ""
-    },
-    "SecureCookiesForced": {
-        "message": "Versti visų slapukų nustatytų per HTTPS šių tinklalapių šifravimą:",
-        "description": ""
-    },
-    "SecurityManager": {
-        "message": "Saugumo valdiklis",
-        "description": ""
-    },
-    "Show": {
-        "message": "Rodyti...",
-        "description": ""
-    },
-    "ShowConsole": {
-        "message": "Rodyti konsolę...",
-        "description": ""
-    },
-    "ShowConsole_accesskey": {
-        "message": "S",
-        "description": ""
-    },
-    "ShowPlaceholder": {
-        "message": "Rodyti vietos rezervavimo ženklo piktogramą",
-        "description": ""
-    },
-    "ShowReleaseNotes": {
-        "message": "Rodyti laidos užrašus atnaujinimams",
-        "description": ""
-    },
-    "ShowCtxMenuItem": {
-        "message": "Rodyti NoScript kontekstinio meniu elementus",
-        "description": ""
-    },
-    "ShowCountBadge": {
-        "message": "Rodyti užblokuotų elementų skaičiaus ženkliuką",
-        "description": ""
-    },
-    "SitePermissions": {
-        "message": "Tinklalapio leidimai",
-        "description": ""
-    },
-    "SitePermissions_accessKey": {
-        "message": "S",
-        "description": ""
-    },
-    "SitePolicies": {
-        "message": "Konkrečios svetainės politika",
-        "description": ""
-    },
-    "TempTrustPage": {
-        "message": "Viską šiame puslapyje nustatyti kaip laikinai PATIKIMA",
-        "description": ""
-    },
-    "TempTrustPage_accesskey": {
-        "message": "T",
-        "description": ""
-    },
-    "TempToPerm": {
-        "message": "Puslapio leidimus padaryti pastoviais",
-        "description": ""
-    },
-    "TempToPerm_accesskey": {
-        "message": "M",
-        "description": ""
-    },
-    "Trust": {
-        "message": "Žymėti kaip patikimą",
-        "description": ""
-    },
-    "Trust_accesskey": {
-        "message": "T",
-        "description": ""
-    },
-    "Trusted": {
-        "message": "Patikimas",
-        "description": ""
-    },
-    "Trusted_temporary": {
-        "message": "Laik. PATIKIMAS",
-        "description": ""
-    },
-    "Trusted_permanent": {
-        "message": "PATIKIMAS",
-        "description": ""
-    },
-    "TrustedPagesAdj": {
-        "message": "patikimas",
-        "description": ""
-    },
-    "Uninstall": {
-        "message": "išdiegti",
-        "description": ""
-    },
-    "Unknown": {
-        "message": "Nežinoma",
-        "description": ""
-    },
-    "UnsafeReload": {
-        "message": "Nesaugus perkrovimas",
-        "description": ""
-    },
-    "UnsafeReload_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "Untrust": {
-        "message": "Pažymėti kaip nepatikimą",
-        "description": ""
-    },
-    "Untrust_accesskey": {
-        "message": "U",
-        "description": ""
-    },
-    "Untrusted": {
-        "message": "Nepatikimas",
-        "description": ""
-    },
-    "UntrustedPagesAdj": {
-        "message": "nepatikimas",
-        "description": ""
-    },
-    "WebAddress": {
-        "message": "Ieškokite ar pridėkite tinklalapį:",
-        "description": ""
-    },
-    "WebAddress_accesskey": {
-        "message": "w",
-        "description": ""
-    },
-    "XSS_notify": {
-        "message": "Rodyti XSS pranešimus",
-        "description": ""
-    },
-    "XSS_clearUserChoices": {
-        "message": "Išvalyti XSS pasirinktis",
-        "description": ""
-    },
-    "XSS_promptTitle": {
-        "message": "NoScript XSS Įspėjimas",
-        "description": ""
-    },
-    "XSS_promptMessage": {
-        "message": "NoScript aptiko potencialią tarpsaitinę scenarijaus ataką\niš $1 į $2.\n%tartini duomenys:\n$3",
-        "description": ""
-    },
-    "XSS_optBlock": {
-        "message": "Blokuoti šią užklausą",
-        "description": ""
-    },
-    "XSS_optSanitize": {
-        "message": "Išvalyti šią užklausą",
-        "description": ""
-    },
-    "XSS_optAllow": {
-        "message": "Leisti šią užklausą",
-        "description": ""
-    },
-    "XSS_optAlwaysAllow": {
-        "message": "Visada dokumentų užklausas nuo $1 iki $2",
-        "description": ""
-    },
-    "XSS_optAlwaysBlock": {
-        "message": "Visada blokuoti dokumento užklausas nuo $1 iki $2",
-        "description": ""
-    },
-    "Xss": {
-        "message": "XSS",
-        "description": ""
-    },
-    "Xss_accesskey": {
-        "message": "X",
-        "description": ""
-    },
-    "XssExceptions": {
-        "message": "Anti-XSS apsaugos išimtys",
-        "description": ""
-    },
-    "XssExceptions_description": {
-        "message": "Kryptys atitinkančios šias reguliarias išraiškas NEBUS apsaugotos nuo XSS.",
-        "description": ""
-    },
-    "XssFaq": {
-        "message": "XSS DUK…",
-        "description": ""
-    },
-    "XssFaq_accesskey": {
-        "message": "Q",
-        "description": ""
-    },
-    "about": {
-        "message": "Apie $1",
-        "description": ""
-    },
-    "allowFrom": {
-        "message": "Leisti viską iš $1",
-        "description": ""
-    },
-    "allowGlobal": {
-        "message": "Išjungti visas leidimų patikras (pavojinga)",
-        "description": ""
-    },
-    "allowLocal": {
-        "message": "Leisti $1",
-        "description": ""
-    },
-    "allowTemp": {
-        "message": "Laikinai leisti $1",
-        "description": ""
-    },
-    "allowTempFrom": {
-        "message": "Laikinai leisti viską iš $1",
-        "description": ""
-    },
-    "allowed_no": {
-        "message": "Dabar uždrausti scenarijai",
-        "description": ""
-    },
-    "allowed_prt": {
-        "message": "Dalinai leidžiami scenarijai",
-        "description": ""
-    },
-    "allowed_yes": {
-        "message": "Dabar leidžiami scenarijai",
-        "description": ""
-    },
-    "alwaysAsk": {
-        "message": "Visuomet prašyti patvirtinimo",
-        "description": ""
-    },
-    "audio_samples": {
-        "message": "Audio pavyzdžiai",
-        "description": ""
-    },
-    "bookmarkSync_confirm": {
-        "message": "NoScript rado konfigūracijos žymę išsaugotą\n$1.\nAr tikrai norite perrašyti savo vietinę NoScript konfigūraciją su šios žymės turiniu?",
-        "description": ""
-    },
-    "bookmarkSync_message": {
-        "message": "Ši žymė NĖRA skirta atidarymui, bet sinchronizacijai, naudojant tokias paslaugas kaip Weave ar XMarks plėtinį.",
-        "description": ""
-    },
-    "bookmarkSync_title": {
-        "message": "NoScript konfigūracijos žymė",
-        "description": ""
-    },
-    "caps": {
-        "message": "Enable these capabilities",
-        "description": ""
-    },
-    "capsContext": {
-        "message": "Enable these capabilities when top page matches",
-        "description": ""
-    },
-    "anySite": {
-        "message": "ANY SITE",
-        "description": ""
-    },
-    "cap_script": {
-        "message": "skriptas",
-        "description": ""
-    },
-    "cap_frame": {
-        "message": "rėmas",
-        "description": ""
-    },
-    "cap_object": {
-        "message": "objektas",
-        "description": ""
-    },
-    "cap_media": {
-        "message": "media",
-        "description": ""
-    },
-    "cap_font": {
-        "message": "šriftas",
-        "description": ""
-    },
-    "cap_webgl": {
-        "message": "webgl",
-        "description": ""
-    },
-    "cap_fetch": {
-        "message": "atnešti",
-        "description": ""
-    },
-    "cap_ping": {
-        "message": "ping",
-        "description": ""
-    },
-    "cap_noscript": {
-        "message": "noscript",
-        "description": ""
-    },
-    "cap_lazy_load": {
-        "message": "lazy load",
-        "description": ""
-    },
-    "cap_unchecked_css": {
-        "message": "neribotas CSS",
-        "description": ""
-    },
-    "cap_lan": {
-        "message": "LAN",
-        "description": ""
-    },
-    "cap_other": {
-        "message": "kita",
-        "description": ""
-    },
-    "cap_wasm": {
-        "message": "wasm",
-        "description": "WebAssembly modules compilation and execution capability."
-    },
-    "cap_x_load": {
-        "message": "x-load",
-        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
-    },
-    "changelog": {
-        "message": "Pakeitimai",
-        "description": ""
-    },
-    "changelog_tip": {
-        "message": "Rodyti pakeitimus",
-        "description": ""
-    },
-    "confirm": {
-        "message": "Ar esate tikri?",
-        "description": ""
-    },
-    "disable": {
-        "message": "Išjungti $1",
-        "description": ""
-    },
-    "disable_accessKey": {
-        "message": "D",
-        "description": ""
-    },
-    "distrust": {
-        "message": "Pažymėti $1 kaip nesaugų",
-        "description": ""
-    },
-    "extensionContributors": {
-        "message": "Pagalbininkai:",
-        "description": ""
-    },
-    "extensionContributors_tip": {
-        "message": "Žmonės kuriems turėtumėte padėkoti už šį plėtinį",
-        "description": ""
-    },
-    "extensionCreator_tip": {
-        "message": "Aplankyti autoriaus namų puslapį",
-        "description": ""
-    },
-    "extensionCreatorLabel": {
-        "message": "Autorius:",
-        "description": ""
-    },
-    "extensionHomepage_tip": {
-        "message": "Aplankyti plėtinio namų puslapį",
-        "description": ""
-    },
-    "forbidGlobal": {
-        "message": "Drausti scenarijus globaliai (siūloma)",
-        "description": ""
-    },
-    "forbidLocal": {
-        "message": "Drausti $1",
-        "description": ""
-    },
-    "freshInstallReload": {
-        "message": "Tam, kad veiktų šioje kortelėje, NoScript turi ją perkrauti.\nTęsti?",
-        "description": ""
-    },
-    "privilegedPage": {
-        "message": "Tai privilegijuotas puslapis, kuriam leidimai negali būti sukonfigūruoti.",
-        "description": ""
-    },
-    "incompatibleOptions": {
-        "message": "\"$1\"\nyra nesuderinamas su \"$2\".\nAr norite įjungti ankstesnį ir išjungti vėlesnį?",
-        "description": ""
-    },
-    "incompatibleOptions_title": {
-        "message": "Nesuderinamų pasirinkimų įspėjimas",
-        "description": ""
-    },
-    "informaction_tip": {
-        "message": "Aplankyti InformAction namų puslapį",
-        "description": ""
-    },
-    "license": {
-        "message": "Licenzija",
-        "description": ""
-    },
-    "license_tip": {
-        "message": "Skaityti galutinio naudotojo licenziją",
-        "description": ""
-    },
-    "logo_tip": {
-        "message": "Aplankyti plėtinio namų puslapį",
-        "description": ""
-    },
-    "metaRefresh_notify": {
-        "message": "NoScript užblokavo <META> peradresavimą <NOSCRIPT> elemente: $1 per $2 sekundes.",
-        "description": ""
-    },
-    "Reload": {
-        "message": "Perkrauti",
-        "description": ""
-    },
-    "removal_message": {
-        "message": "Išjungdami arba ištrindami NoScript, jūs prarandate VISAS apsaugas kurias suteikia NoScript.\n\nJeigu tiesiog pavargote tvarkyti scenarijus kiekvienai svetainei atskirai, yra saugesnis pasirinkimas.\n\nNoScript gali nustoti blokuoti scenarijus, išskyrus tuos kuriuos pažymėjote kaip nepatikimus, kartu saugodama nuo XXS, paspaudimų užgrobimo, CSRF ir kitų interneto problemų.\n\nAr tikrai norite pašalinti VISAS No Script apsaugas?",
-        "description": ""
-    },
-    "removal_no": {
-        "message": "Ne, tiesiog neblokuok scenarijų",
-        "description": ""
-    },
-    "removal_title": {
-        "message": "Saugumo sumažinimo įspėjimas",
-        "description": ""
-    },
-    "removal_yes": {
-        "message": "Taip, pašalinti VISAS apsaugas",
-        "description": ""
-    },
-    "reset_title": {
-        "message": "NoScript atstatymas",
-        "description": ""
-    },
-    "reset_warning": {
-        "message": "VISI NoScript nustatymai ir svetainių leidimai bus atstatyti į numatytąsias reikšmes nedelsiant.\nŠio veiksmo atšaukti neįmanoma.\nAr norite tęsti?",
-        "description": ""
-    },
-    "siteInfo_confirm": {
-        "message": "Jūs ketinate prašyti informacijos apie \"$1\" tinklalapį\npateikdami užklausą į $2.\nAr norite tęsti?",
-        "description": ""
-    },
-    "siteInfo_tooltip": {
-        "message": "Middle-click or shift+click for site info…",
-        "description": ""
-    },
-    "sponsor_tip": {
-        "message": "Aplankyti rėmėjo namų puslapį",
-        "description": ""
-    },
-    "unsafeReload_warning": {
-        "message": "NESAUGIAI perkraunama įtartina\n\n$1 [$2]\n\nIŠ [$3]\n\nNoScript NEAPSAUGOS šios užklausos!\n",
-        "description": ""
-    },
-    "untrustedOrigin": {
-        "message": "nepatikima prigimtis",
-        "description": ""
-    },
-    "version": {
-        "message": "$1 versija",
-        "description": ""
-    },
-    "versionShort": {
-        "message": "v $1",
-        "description": ""
-    },
-    "settingsThemeLabel": {
-        "message": "Theme",
-        "description": ""
-    },
-    "themeDark": {
-        "message": "Dark",
-        "description": ""
-    },
-    "themeLight": {
-        "message": "Light",
-        "description": ""
-    },
-    "themeAuto": {
-        "message": "Auto",
-        "description": ""
-    },
-    "ModernRed": {
-        "message": "Modern Red",
-        "description": ""
-    },
-    "VintageBlue": {
-        "message": "Vintage Blue",
-        "description": ""
-    },
-    "toVintageBlue": {
-        "message": "Switch to the Vintage Blue style",
-        "description": ""
-    },
-    "DonateShort": {
-        "message": "Paaukoti",
-        "description": ""
-    },
-    "DonateLong": {
-        "message": "NoScript is Free Software and can't exist without your help. Please donate now!",
-        "description": ""
-    },
-    "Onboarding_title": {
-        "message": "Welcome to NoScript!",
-        "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
-    },
-    "behavior_title": {
-        "message": "Site Classification Behavior",
-        "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
-    },
-    "behavior_label": {
-        "message": "Current site classification behavior:",
-        "description": ""
-    },
-    "behavior_prompt": {
-        "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript.",
-        "description": ""
-    },
-    "behavior_defaultDeny_title": {
-        "message": "STRICT / Default Deny",
-        "description": ""
-    },
-    "behavior_defaultDeny_description": {
-        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "behavior_auto_title": {
-        "message": "EASIER / Auto",
-        "description": ""
-    },
-    "behavior_auto_description": {
-        "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "behavior_defaultAllow_title": {
-        "message": "EASIEST / Default allow",
-        "description": ""
-    },
-    "behavior_defaultAllow_description": {
-        "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "Modify": {
-        "message": "Keisti",
-        "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
-    },
-    "TabGuard_label": {
-        "message": "Cross-tab identity leak protection",
-        "description": ""
-    },
-    "TabGuard_optEnabled": {
-        "message": "Enabled everywhere",
-        "description": ""
-    },
-    "TabGuard_optPromptNever": {
-        "message": "Never prompt before anonymization",
-        "description": ""
-    },
-    "TabGuard_optPromptPost": {
-        "message": "Prompt before anonymizing POST submissions",
-        "description": ""
-    },
-    "TabGuard_optPromptAlways": {
-        "message": "Prompt before anonymizing any request",
-        "description": ""
-    },
-    "TabGuard_optIncognito": {
-        "message": "Enabled in Private Browsing only",
-        "description": ""
-    },
-    "TabGuard_optDisabled": {
-        "message": "Išjungta",
-        "description": ""
-    },
-    "TabGuard_forget": {
-        "message": "Forget decisions",
-        "description": ""
-    },
-    "TabGuard_title": {
-        "message": "Potential Identity Leak",
-        "description": ""
-    },
-    "TabGuard_message": {
-        "message": "You are about to load a page from $1.\nIf you are a $1 logged-in user, information about your identity might be acquired by $2.",
-        "description": ""
-    },
-    "TabGuard_optAnonymize": {
-        "message": "Load anonymously",
-        "description": ""
-    },
-    "TabGuard_optAllow": {
-        "message": "Load normally",
-        "description": ""
-    },
-    "LearnMoreLink": {
-        "message": "Learn more…",
-        "description": ""
-    },
-    "HelpLink": {
-        "message": "Pagalba…",
-        "description": ""
-    }
+  "Add": {
+    "message": "Pridėti"
+  },
+  "Add_accesskey": {
+    "message": "A"
+  },
+  "AdditionalPermissions": {
+    "message": "Papildomi leidimai patikimiems tinklalapiams"
+  },
+  "AdditionalRestrictions": {
+    "message": "Papildomi apribojimai nepatikimiems tinklalapiams"
+  },
+  "SectionAdvanced": {
+    "message": "Išplėstiniai"
+  },
+  "Allow": {
+    "message": "Leisti"
+  },
+  "Allow_accesskey": {
+    "message": "l"
+  },
+  "AllowBookmarks": {
+    "message": "Leisti tinklalapius atidarytus per žymeles"
+  },
+  "AllowClipboard": {
+    "message": "Leisti pilną teksto kopijavimą ir įklijavimą iš išorinės iškarpinės"
+  },
+  "AllowLocalLinks": {
+    "message": "Leisti vietines nuorodas"
+  },
+  "AllowPage": {
+    "message": "Leisti visą šį puslapį"
+  },
+  "AllowPage_accesskey": {
+    "message": "A"
+  },
+  "AllowPing": {
+    "message": "Leisti <A PING…>"
+  },
+  "AllowViaBookmarks": {
+    "message": "Leisti tinklalapius atidarytus per žymeles"
+  },
+  "AlwaysBlockUntrustedContent": {
+    "message": "Blokuoti visus objektus ateinančius iš tinklalapio pažymėto kaip nepatikimas"
+  },
+  "SectionAppearance": {
+    "message": "Išvaizda"
+  },
+  "AutoAllowTopLevel": {
+    "message": "Laikinai nustatyti aukščiausio lygio tinklalapius kaip PATIKIMUS"
+  },
+  "AutoTrustedLabel": {
+    "message": "Auto-trusted",
+    "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+  },
+  "AutoReload": {
+    "message": "Automatiškai perkrauti paveiktus puslapius kai pasikeičia leidimai"
+  },
+  "AutoReload_currentTab": {
+    "message": "Perkrauti tik esamą skirtuką"
+  },
+  "BaseDom": {
+    "message": "2-jo lygio domenai (noscript.net)"
+  },
+  "BlockedItems": {
+    "message": "Užblokuota $1 iš $2 elementų."
+  },
+  "BlockedObjects": {
+    "message": "NoScript užblokavo objektus"
+  },
+  "BookmarkSync": {
+    "message": "Sukurti atsarginę NoScript konfigūracijos kopiją žymelėse lengvesnei sinchronizacijai"
+  },
+  "Cancel": {
+    "message": "Atšaukti"
+  },
+  "CascadePermissions": {
+    "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet"
+  },
+  "CascadeRestrictions": {
+    "message": "Bet kokia viršutiniame dokumente užblokuota galimybė turi būti užblokuota ir jo antriniuose dokumentuose"
+  },
+  "CascadedLabel": {
+    "message": "Cascaded",
+    "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
+  },
+  "ClearClickDescription": {
+    "message": "NoScript neleidžia pelei ar klaviatūrai sąveikauti su dalinai paslėptais elementais. Paspauskite ant žemiau esančios nuorodos kad pereitumėt iš trukdančios versijos į švarią."
+  },
+  "ClearClickHeader": {
+    "message": "Galimas clickjacking / UI redressing bandymas!"
+  },
+  "ClearClickOpt": {
+    "message": "ClearClick apsauga puslapiuose…"
+  },
+  "ClearClickReport": {
+    "message": "Pranešimas"
+  },
+  "ClearClickReport_accesskey": {
+    "message": "R"
+  },
+  "ClearClickReportId": {
+    "message": "Pranešimo ID:"
+  },
+  "ClearClickTitle": {
+    "message": "ClearClick Įspėjimas"
+  },
+  "Close": {
+    "message": "Užverti"
+  },
+  "CollapseBlockedObjects": {
+    "message": "Suglausti užblokuotus objektus"
+  },
+  "ConfirmUnblock": {
+    "message": "Klausti leidimo prieš laikinai atblokuojant objektą"
+  },
+  "CtxMenu": {
+    "message": "Kontekstinis meniu"
+  },
+  "Custom": {
+    "message": "Pasirinktinas"
+  },
+  "CustomizePresets": {
+    "message": "Parengties keitimas (visiems tinklalapiams kurie dalinasi šia parengtimi)"
+  },
+  "Default": {
+    "message": "Numatytas"
+  },
+  "DefaultPolicies": {
+    "message": "Numatytoji politika"
+  },
+  "Description": {
+    "message": "Maksimalus jūsų naršyklės apsaugojimas: Aktyvų turinį NoScript leidžia tik iš jūsų pasirinktų patikimų domenų, kad apsisaugotumėte nuo išnaudojimo."
+  },
+  "Donate": {
+    "message": "Paaukoti"
+  },
+  "Donate_accesskey": {
+    "message": "o"
+  },
+  "Embeddings": {
+    "message": "Įterpimai"
+  },
+  "Exceptions": {
+    "message": "Išimtys…"
+  },
+  "Export": {
+    "message": "Eksportuoti"
+  },
+  "Export_accesskey": {
+    "message": "E"
+  },
+  "FixLinks": {
+    "message": "Pabandyti pataisyti JavaScript nuorodas"
+  },
+  "Hider": {
+    "message": "Numesti čia paslėpimui"
+  },
+  "Reveal": {
+    "message": "Spausti čia, kad atgautumėte trūkstančius mygtukus…"
+  },
+  "ShowFullAddresses": {
+    "message": "Rodyti pilnus adresus iššokančiame leidimų lange (https://www.noscript.net)"
+  },
+  "ShowProbePlaceholders": {
+    "message": "Show synthetic placeholders for invisible capability probes"
+  },
+  "SectionGeneral": {
+    "message": "Bendras"
+  },
+  "NotEnforced": {
+    "message": "Restrictions disabled by user's settings: NoScript won't block anything on this page!"
+  },
+  "NoEnforcement": {
+    "message": "Globalus apribojimų išjungimas (pavojinga)"
+  },
+  "Enforce": {
+    "message": "Įjungti apribojimus globaliai"
+  },
+  "EnforceOnRestart": {
+    "message": "Restore restrictions on browser restart"
+  },
+  "NoEnforcementForTab": {
+    "message": "Išjungti apribojimus šiam skirtukui"
+  },
+  "EnforceForTab": {
+    "message": "Įjungti apribojimus šiam skirtukui"
+  },
+  "toggleEnforcementForTab": {
+    "message": "Toggle restrictions enforcement for current tab"
+  },
+  "pagePermissionsUI": {
+    "message": "Configure current page's permissions"
+  },
+  "HighContrast": {
+    "message": "Didelis kontrastas"
+  },
+  "httpsOnly": {
+    "message": "Lyginti tik HTTPS turinį"
+  },
+  "tabLess_tip": {
+    "message": "Site outside of a content tab, e.g. in a sidebar"
+  },
+  "tabLess_short": {
+    "message": "(sidebar?)"
+  },
+  "tabLess_reload_warning": {
+    "message": "Changing permissions in a sidebar will require a MANUAL reload."
+  },
+  "Https": {
+    "message": "HTTPS"
+  },
+  "Https_always": {
+    "message": "VIsada"
+  },
+  "Https_behavior": {
+    "message": "Elgesys"
+  },
+  "Https_cookies": {
+    "message": "Sausainiukai"
+  },
+  "Https_description": {
+    "message": "Drausti aktyvų tinklo turinį, nebent ji ateina iš saugaus (HTTPS) prisijungimo:"
+  },
+  "Https_never": {
+    "message": "Niekada"
+  },
+  "Https_proxy": {
+    "message": "Naudojant tarpinį serverį (rekomenduojama su Tor)"
+  },
+  "HttpsFaq": {
+    "message": "HTTPS DUK…"
+  },
+  "HttpsFaq_accesskey": {
+    "message": "Q"
+  },
+  "HttpsForced": {
+    "message": "Versti sekančius tinklalapius naudoti saugius (HTTPS) prisijungimus:"
+  },
+  "HttpsForcedExceptions": {
+    "message": "Niekada neversti saugių (HTTPS) prisijungimų šiems tinklalapiams:"
+  },
+  "Import": {
+    "message": "Importuoti"
+  },
+  "Import_accesskey": {
+    "message": "I"
+  },
+  "OptIncognitoPerm": {
+    "message": "Įgalinti nuolatinių leidimų nustatymą inkognito / privačiuose skirtukuose.\nATSARGIAI: tai gali nutekinti svetainės informaciją!"
+  },
+  "OptAmnesticUpdates": {
+    "message": "Atšaukti laikinus NoScript naujinimų leidimus, net jei naršyklė nepaleidžiama iš naujo"
+  },
+  "KeepLocked": {
+    "message": "Laikyti šį elementą užrakintą (rekomenduotina)"
+  },
+  "MatchSample": {
+    "message": "Modelio atitikimo pavyzdys:"
+  },
+  "Next": {
+    "message": "Kitas"
+  },
+  "NoUntrustedPlaceholder": {
+    "message": "Jokių vietos rezervavimo ženklų objektams ateinantiems iš nesaugiais pažymėtų tinklalapių"
+  },
+  "Notifications": {
+    "message": "Pranešimai"
+  },
+  "Notify": {
+    "message": "Rodyti žinutes apie užblokuotus skriptus"
+  },
+  "Notify_bottom": {
+    "message": "Žinutes rodyti apačioje"
+  },
+  "NotifyMeta": {
+    "message": "Rodyti žinutes apie užblokuotus META nukreipimus"
+  },
+  "NotifyMeta_accesskey": {
+    "message": "R"
+  },
+  "NselForce": {
+    "message": "Rodyti <NOSCRIPT> elementą, kuris seka užblokuotą <SCRIPT>"
+  },
+  "NselNever": {
+    "message": "Slėpti <NOSCRIPT> elementus"
+  },
+  "OK": {
+    "message": "OK"
+  },
+  "OptBlockCssScanners": {
+    "message": "Blokuoti CSS skenerius"
+  },
+  "OptFilterXGet": {
+    "message": "Išvalyti įtartinas kryžminės-svetainės užklausas"
+  },
+  "OptFilterXPost": {
+    "message": "Paversti tarptinklapines POST užklausas beduomenėmis GET užklausomis"
+  },
+  "OptOverrideTorBrowserPolicy": {
+    "message": "Nepaisyti Tor Naršyklės Saugumo lygio parengties"
+  },
+  "Options": {
+    "message": "Parinktys…"
+  },
+  "Options_accesskey": {
+    "message": "O"
+  },
+  "OptionsLong": {
+    "message": "NoScript Parinktys"
+  },
+  "OptionsWidth": {
+    "message": "40em"
+  },
+  "PermanentInPrivate": {
+    "message": "Visuomet \"Leisti\" komandas privačiuose languose."
+  },
+  "SectionSitePermissions": {
+    "message": "Leidimai kiekvienam tinklalapiui"
+  },
+  "PermissionsText": {
+    "message": "Jūs galite nurodyti, kuriems tinklalapiams leidžiama paleisti skriptus. Įrašykite adresą arba domeną (pvz.: \"http://www.site.com\" arba \"site.com\") to tinklalapio kuriam norite suteikti leidimą ir tada paspauskite Leisti."
+  },
+  "Plugins": {
+    "message": "įskiepiai"
+  },
+  "Policies": {
+    "message": "Politika"
+  },
+  "Preset": {
+    "message": "Saugumo lygis"
+  },
+  "Prev": {
+    "message": "Ankstesnis"
+  },
+  "RecentBlocked": {
+    "message": "Neseniai užblokuoti tinklalapiai"
+  },
+  "Refresh": {
+    "message": "Atnaujinti"
+  },
+  "ReloadWarn": {
+    "message": "Šios parinktys pradės veikti naujuose arba (rankiniu būdu) perkrautuose puslapiuose."
+  },
+  "RemoveSelected": {
+    "message": "Pašalinti pasirinktus tinklalapius"
+  },
+  "Reset": {
+    "message": "Atstatyti"
+  },
+  "Reset_accesskey": {
+    "message": "s"
+  },
+  "ResetDef": {
+    "message": "Atstatyti numatytą"
+  },
+  "ResetDef_accesskey": {
+    "message": "D"
+  },
+  "RevokeTemp": {
+    "message": "Atšaukti laikinus leidimus"
+  },
+  "RevokeTemp_accesskey": {
+    "message": "R"
+  },
+  "SecureCookies": {
+    "message": "Įjungti automatinį saugų slapukų valdymą"
+  },
+  "SecureCookiesExceptions": {
+    "message": "Ignoruoti nesaugius slapukus, nustatytus per HTTPS šių tinklalapių:"
+  },
+  "SecureCookiesForced": {
+    "message": "Versti visų slapukų nustatytų per HTTPS šių tinklalapių šifravimą:"
+  },
+  "SecurityManager": {
+    "message": "Saugumo valdiklis"
+  },
+  "Show": {
+    "message": "Rodyti…"
+  },
+  "ShowConsole": {
+    "message": "Rodyti konsolę…"
+  },
+  "ShowConsole_accesskey": {
+    "message": "S"
+  },
+  "ShowPlaceholder": {
+    "message": "Rodyti vietos rezervavimo ženklo piktogramą"
+  },
+  "ShowReleaseNotes": {
+    "message": "Rodyti laidos užrašus atnaujinimams"
+  },
+  "ShowCtxMenuItem": {
+    "message": "Rodyti NoScript kontekstinio meniu elementus"
+  },
+  "ShowCountBadge": {
+    "message": "Rodyti užblokuotų elementų skaičiaus ženkliuką"
+  },
+  "SitePermissions": {
+    "message": "Tinklalapio leidimai"
+  },
+  "SitePermissions_accessKey": {
+    "message": "S"
+  },
+  "SitePolicies": {
+    "message": "Konkrečios svetainės politika"
+  },
+  "TempTrustPage": {
+    "message": "Viską šiame puslapyje nustatyti kaip laikinai PATIKIMA"
+  },
+  "TempTrustPage_accesskey": {
+    "message": "T"
+  },
+  "TempToPerm": {
+    "message": "Puslapio leidimus padaryti pastoviais"
+  },
+  "TempToPerm_accesskey": {
+    "message": "M"
+  },
+  "Trust": {
+    "message": "Žymėti kaip patikimą"
+  },
+  "Trust_accesskey": {
+    "message": "T"
+  },
+  "Trusted": {
+    "message": "Patikimas"
+  },
+  "Trusted_temporary": {
+    "message": "Laik. PATIKIMAS"
+  },
+  "Trusted_permanent": {
+    "message": "PATIKIMAS"
+  },
+  "TrustedPagesAdj": {
+    "message": "patikimas"
+  },
+  "Uninstall": {
+    "message": "išdiegti"
+  },
+  "Unknown": {
+    "message": "Nežinoma"
+  },
+  "UnsafeReload": {
+    "message": "Nesaugus perkrovimas"
+  },
+  "UnsafeReload_accesskey": {
+    "message": "R"
+  },
+  "Untrust": {
+    "message": "Pažymėti kaip nepatikimą"
+  },
+  "Untrust_accesskey": {
+    "message": "U"
+  },
+  "Untrusted": {
+    "message": "Nepatikimas"
+  },
+  "UntrustedPagesAdj": {
+    "message": "nepatikimas"
+  },
+  "WebAddress": {
+    "message": "Ieškokite ar pridėkite tinklalapį:"
+  },
+  "WebAddress_accesskey": {
+    "message": "w"
+  },
+  "XSS_notify": {
+    "message": "Rodyti XSS pranešimus"
+  },
+  "XSS_clearUserChoices": {
+    "message": "Išvalyti XSS pasirinktis"
+  },
+  "XSS_promptTitle": {
+    "message": "NoScript XSS Įspėjimas"
+  },
+  "XSS_promptMessage": {
+    "message": "NoScript aptiko potencialią tarpsaitinę scenarijaus ataką\niš $1 į $2.\n%tartini duomenys:\n$3"
+  },
+  "XSS_optBlock": {
+    "message": "Blokuoti šią užklausą"
+  },
+  "XSS_optSanitize": {
+    "message": "Išvalyti šią užklausą"
+  },
+  "XSS_optAllow": {
+    "message": "Leisti šią užklausą"
+  },
+  "XSS_optAlwaysAllow": {
+    "message": "Visada dokumentų užklausas nuo $1 iki $2"
+  },
+  "XSS_optAlwaysBlock": {
+    "message": "Visada blokuoti dokumento užklausas nuo $1 iki $2"
+  },
+  "Xss": {
+    "message": "XSS"
+  },
+  "Xss_accesskey": {
+    "message": "X"
+  },
+  "XssExceptions": {
+    "message": "Anti-XSS apsaugos išimtys"
+  },
+  "XssExceptions_description": {
+    "message": "Kryptys atitinkančios šias reguliarias išraiškas NEBUS apsaugotos nuo XSS."
+  },
+  "XssFaq": {
+    "message": "XSS DUK…"
+  },
+  "XssFaq_accesskey": {
+    "message": "Q"
+  },
+  "about": {
+    "message": "Apie $1"
+  },
+  "allowFrom": {
+    "message": "Leisti viską iš $1"
+  },
+  "allowGlobal": {
+    "message": "Išjungti visas leidimų patikras (pavojinga)"
+  },
+  "allowLocal": {
+    "message": "Leisti $1"
+  },
+  "allowTemp": {
+    "message": "Laikinai leisti $1"
+  },
+  "allowTempFrom": {
+    "message": "Laikinai leisti viską iš $1"
+  },
+  "allowed_no": {
+    "message": "Dabar uždrausti scenarijai"
+  },
+  "allowed_prt": {
+    "message": "Dalinai leidžiami scenarijai"
+  },
+  "allowed_yes": {
+    "message": "Dabar leidžiami scenarijai"
+  },
+  "alwaysAsk": {
+    "message": "Visuomet prašyti patvirtinimo"
+  },
+  "audio_samples": {
+    "message": "Audio pavyzdžiai"
+  },
+  "bookmarkSync_confirm": {
+    "message": "NoScript rado konfigūracijos žymę išsaugotą\n$1.\nAr tikrai norite perrašyti savo vietinę NoScript konfigūraciją su šios žymės turiniu?"
+  },
+  "bookmarkSync_message": {
+    "message": "Ši žymė NĖRA skirta atidarymui, bet sinchronizacijai, naudojant tokias paslaugas kaip Weave ar XMarks plėtinį."
+  },
+  "bookmarkSync_title": {
+    "message": "NoScript konfigūracijos žymė"
+  },
+  "caps": {
+    "message": "Enable these capabilities"
+  },
+  "capsContext": {
+    "message": "Enable these capabilities when top page matches"
+  },
+  "anySite": {
+    "message": "ANY SITE"
+  },
+  "cap_script": {
+    "message": "skriptas"
+  },
+  "cap_frame": {
+    "message": "rėmas"
+  },
+  "cap_object": {
+    "message": "objektas"
+  },
+  "cap_media": {
+    "message": "media"
+  },
+  "cap_font": {
+    "message": "šriftas"
+  },
+  "cap_webgl": {
+    "message": "webgl"
+  },
+  "cap_fetch": {
+    "message": "atnešti"
+  },
+  "cap_ping": {
+    "message": "ping"
+  },
+  "cap_noscript": {
+    "message": "noscript"
+  },
+  "cap_lazy_load": {
+    "message": "lazy load"
+  },
+  "cap_unchecked_css": {
+    "message": "neribotas CSS"
+  },
+  "cap_lan": {
+    "message": "LAN"
+  },
+  "cap_other": {
+    "message": "kita"
+  },
+  "cap_wasm": {
+    "message": "wasm",
+    "description": "WebAssembly modules compilation and execution capability."
+  },
+  "cap_x_load": {
+    "message": "x-load",
+    "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
+  },
+  "changelog": {
+    "message": "Pakeitimai"
+  },
+  "changelog_tip": {
+    "message": "Rodyti pakeitimus"
+  },
+  "confirm": {
+    "message": "Ar esate tikri?"
+  },
+  "disable": {
+    "message": "Išjungti $1"
+  },
+  "disable_accessKey": {
+    "message": "D"
+  },
+  "distrust": {
+    "message": "Pažymėti $1 kaip nesaugų"
+  },
+  "extensionContributors": {
+    "message": "Pagalbininkai:"
+  },
+  "extensionContributors_tip": {
+    "message": "Žmonės kuriems turėtumėte padėkoti už šį plėtinį"
+  },
+  "extensionCreator_tip": {
+    "message": "Aplankyti autoriaus namų puslapį"
+  },
+  "extensionCreatorLabel": {
+    "message": "Autorius:"
+  },
+  "extensionHomepage_tip": {
+    "message": "Aplankyti plėtinio namų puslapį"
+  },
+  "forbidGlobal": {
+    "message": "Drausti scenarijus globaliai (siūloma)"
+  },
+  "forbidLocal": {
+    "message": "Drausti $1"
+  },
+  "freshInstallReload": {
+    "message": "Tam, kad veiktų šioje kortelėje, NoScript turi ją perkrauti.\nTęsti?"
+  },
+  "privilegedPage": {
+    "message": "Tai privilegijuotas puslapis, kuriam leidimai negali būti sukonfigūruoti."
+  },
+  "incompatibleOptions": {
+    "message": "\"$1\"\nyra nesuderinamas su \"$2\".\nAr norite įjungti ankstesnį ir išjungti vėlesnį?"
+  },
+  "incompatibleOptions_title": {
+    "message": "Nesuderinamų pasirinkimų įspėjimas"
+  },
+  "informaction_tip": {
+    "message": "Aplankyti InformAction namų puslapį"
+  },
+  "license": {
+    "message": "Licenzija"
+  },
+  "license_tip": {
+    "message": "Skaityti galutinio naudotojo licenziją"
+  },
+  "logo_tip": {
+    "message": "Aplankyti plėtinio namų puslapį"
+  },
+  "metaRefresh_notify": {
+    "message": "NoScript užblokavo <META> peradresavimą <NOSCRIPT> elemente: $1 per $2 sekundes."
+  },
+  "Reload": {
+    "message": "Perkrauti"
+  },
+  "removal_message": {
+    "message": "Išjungdami arba ištrindami NoScript, jūs prarandate VISAS apsaugas kurias suteikia NoScript.\n\nJeigu tiesiog pavargote tvarkyti scenarijus kiekvienai svetainei atskirai, yra saugesnis pasirinkimas.\n\nNoScript gali nustoti blokuoti scenarijus, išskyrus tuos kuriuos pažymėjote kaip nepatikimus, kartu saugodama nuo XXS, paspaudimų užgrobimo, CSRF ir kitų interneto problemų.\n\nAr tikrai norite pašalinti VISAS No Script apsaugas?\n"
+  },
+  "removal_no": {
+    "message": "Ne, tiesiog neblokuok scenarijų"
+  },
+  "removal_title": {
+    "message": "Saugumo sumažinimo įspėjimas"
+  },
+  "removal_yes": {
+    "message": "Taip, pašalinti VISAS apsaugas"
+  },
+  "reset_title": {
+    "message": "NoScript atstatymas"
+  },
+  "reset_warning": {
+    "message": "VISI NoScript nustatymai ir svetainių leidimai bus atstatyti į numatytąsias reikšmes nedelsiant.\nŠio veiksmo atšaukti neįmanoma.\nAr norite tęsti?"
+  },
+  "siteInfo_confirm": {
+    "message": "Jūs ketinate prašyti informacijos apie \"$1\" tinklalapį\npateikdami užklausą į $2.\nAr norite tęsti?"
+  },
+  "siteInfo_tooltip": {
+    "message": "Middle-click or shift+click for site info…"
+  },
+  "sponsor_tip": {
+    "message": "Aplankyti rėmėjo namų puslapį"
+  },
+  "unsafeReload_warning": {
+    "message": "NESAUGIAI perkraunama įtartina\n\n$1 [$2]\n\nIŠ [$3]\n\nNoScript NEAPSAUGOS šios užklausos!\n"
+  },
+  "untrustedOrigin": {
+    "message": "nepatikima prigimtis"
+  },
+  "version": {
+    "message": "$1 versija"
+  },
+  "versionShort": {
+    "message": "v $1"
+  },
+  "settingsThemeLabel": {
+    "message": "Theme"
+  },
+  "themeDark": {
+    "message": "Dark"
+  },
+  "themeLight": {
+    "message": "Light"
+  },
+  "themeAuto": {
+    "message": "Auto"
+  },
+  "ModernRed": {
+    "message": "Modern Red"
+  },
+  "VintageBlue": {
+    "message": "Vintage Blue"
+  },
+  "toVintageBlue": {
+    "message": "Switch to the Vintage Blue style"
+  },
+  "DonateShort": {
+    "message": "Paaukoti"
+  },
+  "DonateLong": {
+    "message": "NoScript is Free Software and can't exist without your help. Please donate now!"
+  },
+  "Onboarding_title": {
+    "message": "Welcome to NoScript!",
+    "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
+  },
+  "behavior_title": {
+    "message": "Site Classification Behavior",
+    "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
+  },
+  "behavior_label": {
+    "message": "Current site classification behavior:"
+  },
+  "behavior_prompt": {
+    "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript."
+  },
+  "behavior_defaultDeny_title": {
+    "message": "STRICT / Default Deny"
+  },
+  "behavior_defaultDeny_description": {
+    "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced."
+  },
+  "behavior_auto_title": {
+    "message": "EASIER / Auto"
+  },
+  "behavior_auto_description": {
+    "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced."
+  },
+  "behavior_defaultAllow_title": {
+    "message": "EASIEST / Default allow"
+  },
+  "behavior_defaultAllow_description": {
+    "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced."
+  },
+  "Modify": {
+    "message": "Keisti",
+    "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
+  },
+  "TabGuard_label": {
+    "message": "Cross-tab identity leak protection"
+  },
+  "TabGuard_optEnabled": {
+    "message": "Enabled everywhere"
+  },
+  "TabGuard_optPromptNever": {
+    "message": "Never prompt before anonymization"
+  },
+  "TabGuard_optPromptPost": {
+    "message": "Prompt before anonymizing POST submissions"
+  },
+  "TabGuard_optPromptAlways": {
+    "message": "Prompt before anonymizing any request"
+  },
+  "TabGuard_optIncognito": {
+    "message": "Enabled in Private Browsing only"
+  },
+  "TabGuard_optDisabled": {
+    "message": "Išjungta"
+  },
+  "TabGuard_forget": {
+    "message": "Forget decisions"
+  },
+  "TabGuard_title": {
+    "message": "Potential Identity Leak"
+  },
+  "TabGuard_message": {
+    "message": "You are about to load a page from $1.\nIf you are a $1 logged-in user, information about your identity might be acquired by $2."
+  },
+  "TabGuard_optAnonymize": {
+    "message": "Load anonymously"
+  },
+  "TabGuard_optAllow": {
+    "message": "Load normally"
+  },
+  "LearnMoreLink": {
+    "message": "Learn more…"
+  },
+  "HelpLink": {
+    "message": "Pagalba…"
+  },
+  "EnableGesture": {
+    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+  },
+  "GestureLabel": {
+    "message": "Draw \"S\" to summon NoScript."
+  }
 }

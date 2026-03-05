@@ -1,1090 +1,831 @@
 {
-    "Add": {
-        "message": "Shtoni",
-        "description": ""
-    },
-    "Add_accesskey": {
-        "message": "S",
-        "description": ""
-    },
-    "AdditionalPermissions": {
-        "message": "Leje shtesë për sajte që u zini besë",
-        "description": ""
-    },
-    "AdditionalRestrictions": {
-        "message": "Kufizime shtesë për sajte që s’u zihet besë",
-        "description": ""
-    },
-    "SectionAdvanced": {
-        "message": "Të mëtejshme",
-        "description": ""
-    },
-    "Allow": {
-        "message": "Lejoje",
-        "description": ""
-    },
-    "Allow_accesskey": {
-        "message": "L",
-        "description": ""
-    },
-    "AllowBookmarks": {
-        "message": "Lejoji sajtet e hapur përmes faqerojtësish",
-        "description": ""
-    },
-    "AllowClipboard": {
-        "message": "Lejo kopjim dhe hedhje teksti të pasur prej të papastrash të jashtme",
-        "description": ""
-    },
-    "AllowLocalLinks": {
-        "message": "Lejo lidhje vendore",
-        "description": ""
-    },
-    "AllowPage": {
-        "message": "Lejoje krejt këtë faqe",
-        "description": ""
-    },
-    "AllowPage_accesskey": {
-        "message": "L",
-        "description": ""
-    },
-    "AllowPing": {
-        "message": "Lejo <NJË PING…>",
-        "description": ""
-    },
-    "AllowViaBookmarks": {
-        "message": "Lejoji sajtet e hapur përmes faqerojtësish",
-        "description": ""
-    },
-    "AlwaysBlockUntrustedContent": {
-        "message": "Blloko çdo objekt të ardhur prej një sajti të shënuar si i pabesueshëm",
-        "description": ""
-    },
-    "SectionAppearance": {
-        "message": "Dukje",
-        "description": ""
-    },
-    "AutoAllowTopLevel": {
-        "message": "Cakto përkohësisht sajte të nivelit të epërm si TË BESUESHËM",
-        "description": ""
-    },
-    "AutoTrustedLabel": {
-        "message": "Auto-trusted",
-        "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
-    },
-    "AutoReload": {
-        "message": "Kur ndryshohen lejet, ringarko automatikisht faqet e prekura prej ndryshimeve",
-        "description": ""
-    },
-    "AutoReload_currentTab": {
-        "message": "Ringarko vetëm skedën e tanishme",
-        "description": ""
-    },
-    "BaseDom": {
-        "message": "Përkatësi bazë të nivelit të 2-të (noscript.net)",
-        "description": ""
-    },
-    "BlockedItems": {
-        "message": "U bllokuan $1 nga $2 elementët.",
-        "description": ""
-    },
-    "BlockedObjects": {
-        "message": "Objekete të Bllokuar nga NoScript",
-        "description": ""
-    },
-    "BookmarkSync": {
-        "message": "Kopjeruajeni formësimin e NoScript-it në një faqerojtës, për njëkohësim të kollajtë",
-        "description": ""
-    },
-    "Cancel": {
-        "message": "Anuloje",
-        "description": ""
-    },
-    "CascadePermissions": {
-        "message": "Apliko automatikisht leje të dokumentit të epërm mbi nëndokumente dhe përfshirje ende të paformësuara",
-        "description": ""
-    },
-    "CascadeRestrictions": {
-        "message": "Çfarëdo aftësie e bllokuar te dokumenti i epërm duhet bllokuar edhe te nëndokumentet e tij",
-        "description": ""
-    },
-    "CascadedLabel": {
-        "message": "Cascaded",
-        "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
-    },
-    "ClearClickDescription": {
-        "message": "NoScript-i kapi një ndërveprim miu apo tastiere me një element pjesërisht të fshehur. Që të kalohet nga versioni i errësuar në atë të dukshmin, apo anasjelltas, klikoni mbi figurën më poshtë.",
-        "description": ""
-    },
-    "ClearClickHeader": {
-        "message": "Përpjekje Clickjacking / Riveshje UI Potenciale!",
-        "description": ""
-    },
-    "ClearClickOpt": {
-        "message": "Mbrojtje ClearClick në faqe…",
-        "description": ""
-    },
-    "ClearClickReport": {
-        "message": "Raportoje",
-        "description": ""
-    },
-    "ClearClickReport_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "ClearClickReportId": {
-        "message": "ID Raporti:",
-        "description": ""
-    },
-    "ClearClickTitle": {
-        "message": "Sinjalizim ClearClick",
-        "description": ""
-    },
-    "Close": {
-        "message": "Mbylle",
-        "description": ""
-    },
-    "CollapseBlockedObjects": {
-        "message": "Tkurri elementët e bllokuar",
-        "description": ""
-    },
-    "ConfirmUnblock": {
-        "message": "Kërko ripohim përpara zhbllokimit të përkohshëm të një elementi",
-        "description": ""
-    },
-    "CtxMenu": {
-        "message": "Menu kontekstuale",
-        "description": ""
-    },
-    "Custom": {
-        "message": "Vetjake",
-        "description": ""
-    },
-    "CustomizePresets": {
-        "message": "Përshtatje paracaktimi (për krejt sajtet që kanë të përbashkët një paracaktim)",
-        "description": ""
-    },
-    "Default": {
-        "message": "Parazgjedhje",
-        "description": ""
-    },
-    "DefaultPolicies": {
-        "message": "Rregulla Parazgjedhje",
-        "description": ""
-    },
-    "Description": {
-        "message": "Mbrojtje maksimale për shfletuesin tuaj: NoScript lejon lëndë aktive vetëm për përkatësi të besuara që doni, për të penguar shfrytësimin.",
-        "description": ""
-    },
-    "Donate": {
-        "message": "Dhuroni",
-        "description": ""
-    },
-    "Donate_accesskey": {
-        "message": "u",
-        "description": ""
-    },
-    "Embeddings": {
-        "message": "Trupëzime",
-        "description": ""
-    },
-    "Exceptions": {
-        "message": "Përjashtime…",
-        "description": ""
-    },
-    "Export": {
-        "message": "Eksporto",
-        "description": ""
-    },
-    "Export_accesskey": {
-        "message": "E",
-        "description": ""
-    },
-    "FixLinks": {
-        "message": "Përpjekje për të ndrequr lidhje JavaScript",
-        "description": ""
-    },
-    "Hider": {
-        "message": "Hidheni këtu që të fshihet.",
-        "description": ""
-    },
-    "Reveal": {
-        "message": "Klikoni këtu që merren butonat që mungojnë…",
-        "description": ""
-    },
-    "ShowFullAddresses": {
-        "message": "Paraqit adresa të plota te flluska e lejeve (https://www.noscript.net)",
-        "description": ""
-    },
-    "ShowProbePlaceholders": {
-        "message": "Show synthetic placeholders for invisible capability probes",
-        "description": ""
-    },
-    "SectionGeneral": {
-        "message": "Të përgjithshme",
-        "description": ""
-    },
-    "NotEnforced": {
-        "message": "Kufizimet janë çaktivizuar nga rregullimet e përdoruesit: NoScript s’do të bllokojë gjë në këtë faqe!",
-        "description": ""
-    },
-    "NoEnforcement": {
-        "message": "Çaktivizoji globalisht kufizimet (e rrezikshme)",
-        "description": ""
-    },
-    "Enforce": {
-        "message": "Aktivizoji globalisht kufizimet",
-        "description": ""
-    },
-    "EnforceOnRestart": {
-        "message": "Rikthe kufizime mbi rinisje shfletuesi",
-        "description": ""
-    },
-    "NoEnforcementForTab": {
-        "message": "Çaktivizoji kufizimet për këtë skedë",
-        "description": ""
-    },
-    "EnforceForTab": {
-        "message": "Aktivizoji kufizimet për këtë skedë",
-        "description": ""
-    },
-    "toggleEnforcementForTab": {
-        "message": "Aktivizoni/çaktivizoni detyrim kufizimesh për skedën e tanishme",
-        "description": ""
-    },
-    "pagePermissionsUI": {
-        "message": "Formësoni leje të faqes së tanishme",
-        "description": ""
-    },
-    "HighContrast": {
-        "message": "Me shumë kontrast",
-        "description": ""
-    },
-    "httpsOnly": {
-        "message": "Kërko përputhje vetëm për lëndë HTTPS",
-        "description": ""
-    },
-    "tabLess_tip": {
-        "message": "Sajt jashtë një skede lënde, p.sh., në një anështyllë",
-        "description": ""
-    },
-    "tabLess_short": {
-        "message": "(anështyllë?)",
-        "description": ""
-    },
-    "tabLess_reload_warning": {
-        "message": "Ndryshimi i lejeve në një anështyllë do të dojë doemos një ringarkim DORAZI.",
-        "description": ""
-    },
-    "Https": {
-        "message": "HTTPS",
-        "description": ""
-    },
-    "Https_always": {
-        "message": "Përherë",
-        "description": ""
-    },
-    "Https_behavior": {
-        "message": "Sjellje",
-        "description": ""
-    },
-    "Https_cookies": {
-        "message": "Cookies",
-        "description": ""
-    },
-    "Https_description": {
-        "message": "Ndalo lëndë web aktive, veç në ardhtë prej një lidhjeje të sigurt (HTTPS):",
-        "description": ""
-    },
-    "Https_never": {
-        "message": "Kurrë",
-        "description": ""
-    },
-    "Https_proxy": {
-        "message": "Kur përdoret një ndërmjetës (e këshilluar me Tor-in)",
-        "description": ""
-    },
-    "HttpsFaq": {
-        "message": "FAQ mbi HTTPS-në…",
-        "description": ""
-    },
-    "HttpsFaq_accesskey": {
-        "message": "Q",
-        "description": ""
-    },
-    "HttpsForced": {
-        "message": "Detyroji sajtet vijues të përdorin lidhje të sigurta (HTTPS)",
-        "description": ""
-    },
-    "HttpsForcedExceptions": {
-        "message": "Mos e detyro kurrë përdorimin e lidhjeve të sigurta (HTTPS) për sajtet vijues:",
-        "description": ""
-    },
-    "Import": {
-        "message": "Importo",
-        "description": ""
-    },
-    "Import_accesskey": {
-        "message": "I",
-        "description": ""
-    },
-    "OptIncognitoPerm": {
-        "message": "Aktivizoni ujdisje lejesh të përhershme në skeda inkonjito/private.\nDIJENI: duke bërë kështu mund të rrjedhin të dhëna sajti!",
-        "description": ""
-    },
-    "OptAmnesticUpdates": {
-        "message": "Shfuqizo përkohësisht leje për përditësime NoScript, edhe nëse shletuesi s’është rinisur",
-        "description": ""
-    },
-    "KeepLocked": {
-        "message": "Mbaje të kyçur këtë element (e këshilluar)",
-        "description": ""
-    },
-    "MatchSample": {
-        "message": "Shembull rregullsie për kërkim përputhjesh",
-        "description": ""
-    },
-    "Next": {
-        "message": "Pasuesi",
-        "description": ""
-    },
-    "NoUntrustedPlaceholder": {
-        "message": "S’ka vendmbajtëse për objekte të ardhur nga sajte të shënuar si jo të besueshëm",
-        "description": ""
-    },
-    "Notifications": {
-        "message": "Njoftime",
-        "description": ""
-    },
-    "Notify": {
-        "message": "Shfaq mesazhe mbi programthe të bllokuar",
-        "description": ""
-    },
-    "Notify_bottom": {
-        "message": "Mesazhin vëre në fund",
-        "description": ""
-    },
-    "NotifyMeta": {
-        "message": "Shfaq mesazh mbi ridrejtime META të bllokuar",
-        "description": ""
-    },
-    "NotifyMeta_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "NselForce": {
-        "message": "Shfaq elementin <NOSCRIPT> që pason një <SCRIPT> të bllokuar",
-        "description": ""
-    },
-    "NselNever": {
-        "message": "Fshihi elementet <NOSCRIPT>",
-        "description": ""
-    },
-    "OK": {
-        "message": "OK",
-        "description": ""
-    },
-    "OptBlockCssScanners": {
-        "message": "Blloko skanues me bazë CSS-në",
-        "description": ""
-    },
-    "OptFilterXGet": {
-        "message": "Sanitizo kërkesa të dyshimta ndërsajtëshe",
-        "description": ""
-    },
-    "OptFilterXPost": {
-        "message": "Kërkesat ndërsajtëshe POST shndërroji në kërkesa GET pa të dhëna",
-        "description": ""
-    },
-    "OptOverrideTorBrowserPolicy": {
-        "message": "Anashkalo paracaktim Shkalle Sigurie të Shfletuesit Tor",
-        "description": ""
-    },
-    "Options": {
-        "message": "Mundësi…",
-        "description": ""
-    },
-    "Options_accesskey": {
-        "message": "M",
-        "description": ""
-    },
-    "OptionsLong": {
-        "message": "Mundësi NoScript-i",
-        "description": ""
-    },
-    "OptionsWidth": {
-        "message": "40em",
-        "description": ""
-    },
-    "PermanentInPrivate": {
-        "message": "\"Lejo\" në mënyrë të përhershme urdhra në dritare private",
-        "description": ""
-    },
-    "SectionSitePermissions": {
-        "message": "Leje Sipas Sajtesh",
-        "description": ""
-    },
-    "PermissionsText": {
-        "message": "Mund të specifikoni cilët sajteve u lejohet të ekzekutojnë programthe. Shtypni adresën ose përkatësinë (p.sh. \"http://www.sajti.com\" ose \"sajti.com\") të sajtit që doni të lejohet dhe mandej klikoni mbi Lejoje.",
-        "description": ""
-    },
-    "Plugins": {
-        "message": "Shtojca",
-        "description": ""
-    },
-    "Policies": {
-        "message": "Rregulla",
-        "description": ""
-    },
-    "Preset": {
-        "message": "Shkallë Sigurie",
-        "description": ""
-    },
-    "Prev": {
-        "message": "I mëparshmi",
-        "description": ""
-    },
-    "RecentBlocked": {
-        "message": "Sajte të bllokuar së fundi",
-        "description": ""
-    },
-    "Refresh": {
-        "message": "Rifreskoje",
-        "description": ""
-    },
-    "ReloadWarn": {
-        "message": "Këto mundësi do të hyjnë në fuqi në faqe të reja ose të ringarkuara (dorazi)",
-        "description": ""
-    },
-    "RemoveSelected": {
-        "message": "Hiqi Sajtet e Përzgjedhur",
-        "description": ""
-    },
-    "Reset": {
-        "message": "Riktheje te parazgjedhjet",
-        "description": ""
-    },
-    "Reset_accesskey": {
-        "message": "k",
-        "description": ""
-    },
-    "ResetDef": {
-        "message": "Riktheje te Parazgjedhja",
-        "description": ""
-    },
-    "ResetDef_accesskey": {
-        "message": "z",
-        "description": ""
-    },
-    "RevokeTemp": {
-        "message": "Shfuqizo Leje të Përkohshme",
-        "description": ""
-    },
-    "RevokeTemp_accesskey": {
-        "message": "q",
-        "description": ""
-    },
-    "SecureCookies": {
-        "message": "Aktivizo Administrim të Sigurt Automatik të Cookie-ve",
-        "description": ""
-    },
-    "SecureCookiesExceptions": {
-        "message": "Shpërfili cookie-et e pasigurta të depozituara përmes HTTPS-je nga sajtet vijues:",
-        "description": ""
-    },
-    "SecureCookiesForced": {
-        "message": "Zbato me detyrim fshehtëzim për krejt cookie-t e depozituara përmes HTTPS-je nga sajtet vijues:",
-        "description": ""
-    },
-    "SecurityManager": {
-        "message": "Përgjegjës Sigurie",
-        "description": ""
-    },
-    "Show": {
-        "message": "Shfaqni…",
-        "description": ""
-    },
-    "ShowConsole": {
-        "message": "Shfaqni Konsol…",
-        "description": ""
-    },
-    "ShowConsole_accesskey": {
-        "message": "S",
-        "description": ""
-    },
-    "ShowPlaceholder": {
-        "message": "Shfaq ikonë vendmbajtëse",
-        "description": ""
-    },
-    "ShowReleaseNotes": {
-        "message": "Shfaq shënime versioni gjatë përditësimesh",
-        "description": ""
-    },
-    "ShowCtxMenuItem": {
-        "message": "Shfaq element menuje kontekstuale NoScript",
-        "description": ""
-    },
-    "ShowCountBadge": {
-        "message": "Shfaq stemë numri elementesh të bllokuar",
-        "description": ""
-    },
-    "SitePermissions": {
-        "message": "Leje Sajti",
-        "description": ""
-    },
-    "SitePermissions_accessKey": {
-        "message": "L",
-        "description": ""
-    },
-    "SitePolicies": {
-        "message": "Rregulla Specifike Për Sajtin",
-        "description": ""
-    },
-    "TempTrustPage": {
-        "message": "Vëre gjithçka në këtë faqe si Përkohësisht të BESUESHME",
-        "description": ""
-    },
-    "TempTrustPage_accesskey": {
-        "message": "P",
-        "description": ""
-    },
-    "TempToPerm": {
-        "message": "Bëji të përhershme lejet e faqes",
-        "description": ""
-    },
-    "TempToPerm_accesskey": {
-        "message": "B",
-        "description": ""
-    },
-    "Trust": {
-        "message": "Vëri shenjë si i Besueshëm",
-        "description": ""
-    },
-    "Trust_accesskey": {
-        "message": "B",
-        "description": ""
-    },
-    "Trusted": {
-        "message": "I besueshëm",
-        "description": ""
-    },
-    "Trusted_temporary": {
-        "message": "Përkoh. i BESUESHËM",
-        "description": ""
-    },
-    "Trusted_permanent": {
-        "message": "I BESUESHËM",
-        "description": ""
-    },
-    "TrustedPagesAdj": {
-        "message": "i besueshëm",
-        "description": ""
-    },
-    "Uninstall": {
-        "message": "Çinstaloje",
-        "description": ""
-    },
-    "Unknown": {
-        "message": "I panjohur",
-        "description": ""
-    },
-    "UnsafeReload": {
-        "message": "Ringarkim i Pasigurt",
-        "description": ""
-    },
-    "UnsafeReload_accesskey": {
-        "message": "R",
-        "description": ""
-    },
-    "Untrust": {
-        "message": "Vëri shenjë si Jo i Besueshëm",
-        "description": ""
-    },
-    "Untrust_accesskey": {
-        "message": "J",
-        "description": ""
-    },
-    "Untrusted": {
-        "message": "Jo i besueshëm",
-        "description": ""
-    },
-    "UntrustedPagesAdj": {
-        "message": "jo i besueshëm",
-        "description": ""
-    },
-    "WebAddress": {
-        "message": "Kërkoni ose shtoni një sajt:",
-        "description": ""
-    },
-    "WebAddress_accesskey": {
-        "message": "a",
-        "description": ""
-    },
-    "XSS_notify": {
-        "message": "Shfaq njoftime XSS",
-        "description": ""
-    },
-    "XSS_clearUserChoices": {
-        "message": "Pastroji Zgjedhjet XSS",
-        "description": ""
-    },
-    "XSS_promptTitle": {
-        "message": "Sinjalizim nga NoScript për XSS",
-        "description": ""
-    },
-    "XSS_promptMessage": {
-        "message": "NoScript-i pikasi një sulm potencial Cross-Site Scripting\nnga $1 për $2.\nTë dhëna të dyshimta:\n$3",
-        "description": ""
-    },
-    "XSS_optBlock": {
-        "message": "Bllokoje këtë kërkesë",
-        "description": ""
-    },
-    "XSS_optSanitize": {
-        "message": "Sanitizoje këtë kërkesë",
-        "description": ""
-    },
-    "XSS_optAllow": {
-        "message": "Lejoje këtë kërkesë",
-        "description": ""
-    },
-    "XSS_optAlwaysAllow": {
-        "message": "Lejo përherë kërkesa dokumenti nga $1 për $2",
-        "description": ""
-    },
-    "XSS_optAlwaysBlock": {
-        "message": "Blloko përherë kërkesa dokumenti nga $1 për $2",
-        "description": ""
-    },
-    "Xss": {
-        "message": "XSS",
-        "description": ""
-    },
-    "Xss_accesskey": {
-        "message": "X",
-        "description": ""
-    },
-    "XssExceptions": {
-        "message": "Përjashtime Nga Mbrojtja Anti-XSS",
-        "description": ""
-    },
-    "XssExceptions_description": {
-        "message": "Destinacionet me përputhje me këto shprehje të rregullta NUK do të mbrohen kundër XSS.",
-        "description": ""
-    },
-    "XssFaq": {
-        "message": "FAQ mbi XSS…",
-        "description": ""
-    },
-    "XssFaq_accesskey": {
-        "message": "Q",
-        "description": ""
-    },
-    "about": {
-        "message": "Mbi $1",
-        "description": ""
-    },
-    "allowFrom": {
-        "message": "Lejo gjithçka prej $1",
-        "description": ""
-    },
-    "allowGlobal": {
-        "message": "Çaktivizo krejt kontrollet për leje (e rrezikshme)",
-        "description": ""
-    },
-    "allowLocal": {
-        "message": "Lejoje $1",
-        "description": ""
-    },
-    "allowTemp": {
-        "message": "Lejoje $1 përkohësisht",
-        "description": ""
-    },
-    "allowTempFrom": {
-        "message": "Lejo përkohësisht gjithçka prej $1",
-        "description": ""
-    },
-    "allowed_no": {
-        "message": "Programthet Hëpërhë të Ndaluara",
-        "description": ""
-    },
-    "allowed_prt": {
-        "message": "Programthet Pjesërisht të Lejuara",
-        "description": ""
-    },
-    "allowed_yes": {
-        "message": "Programthet Hëpërhë të Lejuara",
-        "description": ""
-    },
-    "alwaysAsk": {
-        "message": "Kërko përherë ripohim",
-        "description": ""
-    },
-    "audio_samples": {
-        "message": "Shembuj audio",
-        "description": ""
-    },
-    "bookmarkSync_confirm": {
-        "message": "NoScript-i gjeti një faqerojtës formësimi që duket se është ruajtur\n$1.\nDoni të mbishkruhet vërtet formësimi juaj lokal për NoScript-in me lëndën e këtij faqerojtësi?",
-        "description": ""
-    },
-    "bookmarkSync_message": {
-        "message": "Ky faqerojtës NUK është menduar të hapet, por të njëkohësohet duke përdorur një shërbim të tillë si zgjerimi Weave apo ai XMarks.",
-        "description": ""
-    },
-    "bookmarkSync_title": {
-        "message": "Faqerojtës Formësimi NoScript-i",
-        "description": ""
-    },
-    "caps": {
-        "message": "Aktivizoji këto aftësi",
-        "description": ""
-    },
-    "capsContext": {
-        "message": "Aktivizoji këto aftësi, kur ka përputhje te faqja e epërme",
-        "description": ""
-    },
-    "anySite": {
-        "message": "ÇFARËDO SAJTI",
-        "description": ""
-    },
-    "cap_script": {
-        "message": "programth",
-        "description": ""
-    },
-    "cap_frame": {
-        "message": "kuadër",
-        "description": ""
-    },
-    "cap_object": {
-        "message": "objekt",
-        "description": ""
-    },
-    "cap_media": {
-        "message": "media",
-        "description": ""
-    },
-    "cap_font": {
-        "message": "shkronja",
-        "description": ""
-    },
-    "cap_webgl": {
-        "message": "webgl",
-        "description": ""
-    },
-    "cap_fetch": {
-        "message": "CSS e pakufizuar",
-        "description": ""
-    },
-    "cap_ping": {
-        "message": "ping",
-        "description": ""
-    },
-    "cap_noscript": {
-        "message": "noscript",
-        "description": ""
-    },
-    "cap_lazy_load": {
-        "message": "lazy load",
-        "description": ""
-    },
-    "cap_unchecked_css": {
-        "message": "CSS e pakufizuar",
-        "description": ""
-    },
-    "cap_lan": {
-        "message": "LAN",
-        "description": ""
-    },
-    "cap_other": {
-        "message": "tjetër",
-        "description": ""
-    },
-    "cap_wasm": {
-        "message": "wasm",
-        "description": "WebAssembly modules compilation and execution capability."
-    },
-    "cap_x_load": {
-        "message": "x-load",
-        "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
-    },
-    "changelog": {
-        "message": "Regjistër ndryshimesh",
-        "description": ""
-    },
-    "changelog_tip": {
-        "message": "Shfaq regjistër ndryshimesh",
-        "description": ""
-    },
-    "confirm": {
-        "message": "Jeni i sigurt?",
-        "description": ""
-    },
-    "disable": {
-        "message": "Çaktivizo $1",
-        "description": ""
-    },
-    "disable_accessKey": {
-        "message": "Ç",
-        "description": ""
-    },
-    "distrust": {
-        "message": "Vëri shenjë $1 si Jo i Besueshëm",
-        "description": ""
-    },
-    "extensionContributors": {
-        "message": "Kontribues:",
-        "description": ""
-    },
-    "extensionContributors_tip": {
-        "message": "Persona që do të duhej të falënderonit për këtë zgjerim",
-        "description": ""
-    },
-    "extensionCreator_tip": {
-        "message": "Vizitoni faqen e autorit",
-        "description": ""
-    },
-    "extensionCreatorLabel": {
-        "message": "Autor:",
-        "description": ""
-    },
-    "extensionHomepage_tip": {
-        "message": "Vizitoni faqen e zgjerimit",
-        "description": ""
-    },
-    "forbidGlobal": {
-        "message": "Ndaloji Programthet Globalisht (e këshillueshme)",
-        "description": ""
-    },
-    "forbidLocal": {
-        "message": "Ndaloje $1",
-        "description": ""
-    },
-    "freshInstallReload": {
-        "message": "Që të mund të funksionojë në këtë skedë, NoScript-i lyp ringarkimin e saj.\nTë bëhet  kjo?",
-        "description": ""
-    },
-    "privilegedPage": {
-        "message": "Kjo është një faqe e privilegjuar, lejet e së cilës s’mund të formësohen.",
-        "description": ""
-    },
-    "incompatibleOptions": {
-        "message": "\"$1\"\nështë e papërputhshme me \"$2\".\nDoni të aktivizohet e mëparshmja dhe të çaktivizohet e mëvonshmja?",
-        "description": ""
-    },
-    "incompatibleOptions_title": {
-        "message": "Sinjalizim Mundësish të Papërputhshme",
-        "description": ""
-    },
-    "informaction_tip": {
-        "message": "Vizitoni faqen hyrëse për InformAction",
-        "description": ""
-    },
-    "license": {
-        "message": "Licencë",
-        "description": ""
-    },
-    "license_tip": {
-        "message": "Lexoni licencën për përdorues të thjeshtë",
-        "description": ""
-    },
-    "logo_tip": {
-        "message": "Vizitoni faqen e zgjerimit",
-        "description": ""
-    },
-    "metaRefresh_notify": {
-        "message": "NoScript-i bllokoi një ridrejtim <META> brenda një elementi <NOSCRIPT>: $1 në $2 sekonda.",
-        "description": ""
-    },
-    "Reload": {
-        "message": "Ringarkoje",
-        "description": ""
-    },
-    "removal_message": {
-        "message": "Duke e çaktivizuar apo çinstaluar NoScript-in, hiqni dorë nga KREJT mbrojtja e dhënë prej NoScript-it.\n\nNëse thjesht jeni të lodhur nga marrja me leje programthesh sajt pas sajti, ka një zgjedhje më të parrezikshme.\n\nNoScript-i mund të bllokojë programthe, hiq ata të cilëve u vini shenjë si jo të besueshëm, teksa ende ju mbron përmes kundërmasave të sigurisë më të përparuara kundër XSS, Clickjacking, CSRF dhe të tjera rreziqesh web.\n\nDoni vërtet të hiqe KREJT mbrojtja NoScript?\n",
-        "description": ""
-    },
-    "removal_no": {
-        "message": "Jo, thjesht ndale bllokimin e programtheve",
-        "description": ""
-    },
-    "removal_title": {
-        "message": "Sinjalizim Uljeje Niveli Sigurie",
-        "description": ""
-    },
-    "removal_yes": {
-        "message": "Po, hiqi KREJT mbrojtjet",
-        "description": ""
-    },
-    "reset_title": {
-        "message": "Rikthim i NoScript-it te parazgjedhjet",
-        "description": ""
-    },
-    "reset_warning": {
-        "message": "KREJT parapëlqimet për NoScript-in dhe lejet për sajte do të rikthehen menjëherë te vlerat e tyre parazgjedhje.\nKy veprim s’mund të prapakthehet.\nDoni vërtet të vazhdohet?",
-        "description": ""
-    },
-    "siteInfo_confirm": {
-        "message": "Ju ndan një hap nga kërkim informacionesh rreth sajtit \"$1\"\npërmes parashtrimit të një kërkese te $2.\nDoni të vazhdohet?",
-        "description": ""
-    },
-    "siteInfo_tooltip": {
-        "message": "Për të dhëna sajti, klikoni me të mesit ose Shift+klik…",
-        "description": ""
-    },
-    "sponsor_tip": {
-        "message": "Vizitoni faqen hyrëse të sponsorit",
-        "description": ""
-    },
-    "unsafeReload_warning": {
-        "message": "Po ringarkohet JO PA RREZIK një $1[$2]\n\ni dyshimtë\n\nNGA [$3]\n\nNoScript-i NUK do ta mbrojë këtë kërkesë!\n",
-        "description": ""
-    },
-    "untrustedOrigin": {
-        "message": "origjinë jo e besueshme",
-        "description": ""
-    },
-    "version": {
-        "message": "Versioni $1",
-        "description": ""
-    },
-    "versionShort": {
-        "message": "v $1",
-        "description": ""
-    },
-    "settingsThemeLabel": {
-        "message": "Temë",
-        "description": ""
-    },
-    "themeDark": {
-        "message": "E errët",
-        "description": ""
-    },
-    "themeLight": {
-        "message": "E lehtë",
-        "description": ""
-    },
-    "themeAuto": {
-        "message": "Auto",
-        "description": ""
-    },
-    "ModernRed": {
-        "message": "E kuqe Moderne",
-        "description": ""
-    },
-    "VintageBlue": {
-        "message": "Blu e Dikurshme",
-        "description": ""
-    },
-    "toVintageBlue": {
-        "message": "Kalo te stil Blu e Dikurshme",
-        "description": ""
-    },
-    "DonateShort": {
-        "message": "Dhuroni",
-        "description": ""
-    },
-    "DonateLong": {
-        "message": "NoScript është Software i Lirë dhe s’mund të ekzistojë pa ndihmën tuaj. Ju lutemi, dhuroni që tani!",
-        "description": ""
-    },
-    "Onboarding_title": {
-        "message": "Mirë se vini në NoScript!",
-        "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
-    },
-    "behavior_title": {
-        "message": "Site Classification Behavior",
-        "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
-    },
-    "behavior_label": {
-        "message": "Current site classification behavior:",
-        "description": ""
-    },
-    "behavior_prompt": {
-        "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript.",
-        "description": ""
-    },
-    "behavior_defaultDeny_title": {
-        "message": "STRICT / Default Deny",
-        "description": ""
-    },
-    "behavior_defaultDeny_description": {
-        "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "behavior_auto_title": {
-        "message": "EASIER / Auto",
-        "description": ""
-    },
-    "behavior_auto_description": {
-        "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "behavior_defaultAllow_title": {
-        "message": "EASIEST / Default allow",
-        "description": ""
-    },
-    "behavior_defaultAllow_description": {
-        "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced.",
-        "description": ""
-    },
-    "Modify": {
-        "message": "Ndryshojeni",
-        "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
-    },
-    "TabGuard_label": {
-        "message": "Mbrojtje nga rrjedhje identiteti nga skeda në skedë",
-        "description": ""
-    },
-    "TabGuard_optEnabled": {
-        "message": " E aktivizuar kudo",
-        "description": ""
-    },
-    "TabGuard_optPromptNever": {
-        "message": "Mos pyet kurrë përpara anonimizimesh",
-        "description": ""
-    },
-    "TabGuard_optPromptPost": {
-        "message": "Pyet, përpara anonimizimi parashtrimesh POST",
-        "description": ""
-    },
-    "TabGuard_optPromptAlways": {
-        "message": "Pyet, përpara anonimizimi të çfarëdo kërkese",
-        "description": ""
-    },
-    "TabGuard_optIncognito": {
-        "message": "E aktivizuar vetëm në Shfletim Privat",
-        "description": ""
-    },
-    "TabGuard_optDisabled": {
-        "message": "E çaktivizuar",
-        "description": ""
-    },
-    "TabGuard_forget": {
-        "message": "Harroji vendimet",
-        "description": ""
-    },
-    "TabGuard_title": {
-        "message": "Rrjedhje Potenciale Identiteti",
-        "description": ""
-    },
-    "TabGuard_message": {
-        "message": "Ju ndan një hap nga ngarkimi i një faqeje prej $1.\nNëse jeni një përdorues $1 që ka bërë hyrjen, nga $2 mund të shtihen në dorë hollësi rreth identitetit tuaj.",
-        "description": ""
-    },
-    "TabGuard_optAnonymize": {
-        "message": "Ngarkoje në mënyrë anonime",
-        "description": ""
-    },
-    "TabGuard_optAllow": {
-        "message": "Ngarkoje si zakonisht",
-        "description": ""
-    },
-    "LearnMoreLink": {
-        "message": "Mësoni më tepër…",
-        "description": ""
-    },
-    "HelpLink": {
-        "message": "Ndihmë…",
-        "description": ""
-    }
+  "Add": {
+    "message": "Shtoni"
+  },
+  "Add_accesskey": {
+    "message": "S"
+  },
+  "AdditionalPermissions": {
+    "message": "Leje shtesë për sajte që u zini besë"
+  },
+  "AdditionalRestrictions": {
+    "message": "Kufizime shtesë për sajte që s’u zihet besë"
+  },
+  "SectionAdvanced": {
+    "message": "Të mëtejshme"
+  },
+  "Allow": {
+    "message": "Lejoje"
+  },
+  "Allow_accesskey": {
+    "message": "L"
+  },
+  "AllowBookmarks": {
+    "message": "Lejoji sajtet e hapur përmes faqerojtësish"
+  },
+  "AllowClipboard": {
+    "message": "Lejo kopjim dhe hedhje teksti të pasur prej të papastrash të jashtme"
+  },
+  "AllowLocalLinks": {
+    "message": "Lejo lidhje vendore"
+  },
+  "AllowPage": {
+    "message": "Lejoje krejt këtë faqe"
+  },
+  "AllowPage_accesskey": {
+    "message": "L"
+  },
+  "AllowPing": {
+    "message": "Lejo <NJË PING…>"
+  },
+  "AllowViaBookmarks": {
+    "message": "Lejoji sajtet e hapur përmes faqerojtësish"
+  },
+  "AlwaysBlockUntrustedContent": {
+    "message": "Blloko çdo objekt të ardhur prej një sajti të shënuar si i pabesueshëm"
+  },
+  "SectionAppearance": {
+    "message": "Dukje"
+  },
+  "AutoAllowTopLevel": {
+    "message": "Cakto përkohësisht sajte të nivelit të epërm si TË BESUESHËM"
+  },
+  "AutoTrustedLabel": {
+    "message": "Besuar automatikisht",
+    "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
+  },
+  "AutoReload": {
+    "message": "Kur ndryshohen lejet, ringarko automatikisht faqet e prekura prej ndryshimeve"
+  },
+  "AutoReload_currentTab": {
+    "message": "Ringarko vetëm skedën e tanishme"
+  },
+  "BaseDom": {
+    "message": "Përkatësi bazë të nivelit të 2-të (noscript.net)"
+  },
+  "BlockedItems": {
+    "message": "U bllokuan $1 nga $2 elementët."
+  },
+  "BlockedObjects": {
+    "message": "Objekete të Bllokuar nga NoScript"
+  },
+  "BookmarkSync": {
+    "message": "Kopjeruajeni formësimin e NoScript-it në një faqerojtës, për njëkohësim të kollajtë"
+  },
+  "Cancel": {
+    "message": "Anuloje"
+  },
+  "CascadePermissions": {
+    "message": "Apliko automatikisht leje të dokumentit të epërm mbi nëndokumente dhe përfshirje ende të paformësuara"
+  },
+  "CascadeRestrictions": {
+    "message": "Çfarëdo aftësie e bllokuar te dokumenti i epërm duhet bllokuar edhe te nëndokumentet e tij"
+  },
+  "CascadedLabel": {
+    "message": "Cascaded",
+    "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
+  },
+  "ClearClickDescription": {
+    "message": "NoScript-i kapi një ndërveprim miu apo tastiere me një element pjesërisht të fshehur. Që të kalohet nga versioni i errësuar në atë të dukshmin, apo anasjelltas, klikoni mbi figurën më poshtë."
+  },
+  "ClearClickHeader": {
+    "message": "Përpjekje Clickjacking / Riveshje UI Potenciale!"
+  },
+  "ClearClickOpt": {
+    "message": "Mbrojtje ClearClick në faqe…"
+  },
+  "ClearClickReport": {
+    "message": "Raportoje"
+  },
+  "ClearClickReport_accesskey": {
+    "message": "R"
+  },
+  "ClearClickReportId": {
+    "message": "ID Raporti:"
+  },
+  "ClearClickTitle": {
+    "message": "Sinjalizim ClearClick"
+  },
+  "Close": {
+    "message": "Mbylle"
+  },
+  "CollapseBlockedObjects": {
+    "message": "Tkurri elementët e bllokuar"
+  },
+  "ConfirmUnblock": {
+    "message": "Kërko ripohim përpara zhbllokimit të përkohshëm të një elementi"
+  },
+  "CtxMenu": {
+    "message": "Menu kontekstuale"
+  },
+  "Custom": {
+    "message": "Vetjake"
+  },
+  "CustomizePresets": {
+    "message": "Përshtatje paracaktimi (për krejt sajtet që kanë të përbashkët një paracaktim)"
+  },
+  "Default": {
+    "message": "Parazgjedhje"
+  },
+  "DefaultPolicies": {
+    "message": "Rregulla Parazgjedhje"
+  },
+  "Description": {
+    "message": "Mbrojtje maksimale për shfletuesin tuaj: NoScript lejon lëndë aktive vetëm për përkatësi të besuara që doni, për të penguar shfrytësimin."
+  },
+  "Donate": {
+    "message": "Dhuroni"
+  },
+  "Donate_accesskey": {
+    "message": "u"
+  },
+  "Embeddings": {
+    "message": "Trupëzime"
+  },
+  "Exceptions": {
+    "message": "Përjashtime…"
+  },
+  "Export": {
+    "message": "Eksporto"
+  },
+  "Export_accesskey": {
+    "message": "E"
+  },
+  "FixLinks": {
+    "message": "Përpjekje për të ndrequr lidhje JavaScript"
+  },
+  "Hider": {
+    "message": "Hidheni këtu që të fshihet."
+  },
+  "Reveal": {
+    "message": "Klikoni këtu që merren butonat që mungojnë…"
+  },
+  "ShowFullAddresses": {
+    "message": "Paraqit adresa të plota te flluska e lejeve (https://www.noscript.net)"
+  },
+  "ShowProbePlaceholders": {
+    "message": "Show synthetic placeholders for invisible capability probes"
+  },
+  "SectionGeneral": {
+    "message": "Të përgjithshme"
+  },
+  "NotEnforced": {
+    "message": "Kufizimet janë çaktivizuar nga rregullimet e përdoruesit: NoScript s’do të bllokojë gjë në këtë faqe!"
+  },
+  "NoEnforcement": {
+    "message": "Çaktivizoji globalisht kufizimet (e rrezikshme)"
+  },
+  "Enforce": {
+    "message": "Aktivizoji globalisht kufizimet"
+  },
+  "EnforceOnRestart": {
+    "message": "Rikthe kufizime mbi rinisje shfletuesi"
+  },
+  "NoEnforcementForTab": {
+    "message": "Çaktivizoji kufizimet për këtë skedë"
+  },
+  "EnforceForTab": {
+    "message": "Aktivizoji kufizimet për këtë skedë"
+  },
+  "toggleEnforcementForTab": {
+    "message": "Aktivizoni/çaktivizoni detyrim kufizimesh për skedën e tanishme"
+  },
+  "pagePermissionsUI": {
+    "message": "Formësoni leje të faqes së tanishme"
+  },
+  "HighContrast": {
+    "message": "Me shumë kontrast"
+  },
+  "httpsOnly": {
+    "message": "Kërko përputhje vetëm për lëndë HTTPS"
+  },
+  "tabLess_tip": {
+    "message": "Sajt jashtë një skede lënde, p.sh., në një anështyllë"
+  },
+  "tabLess_short": {
+    "message": "(anështyllë?)"
+  },
+  "tabLess_reload_warning": {
+    "message": "Ndryshimi i lejeve në një anështyllë do të dojë doemos një ringarkim DORAZI."
+  },
+  "Https": {
+    "message": "HTTPS"
+  },
+  "Https_always": {
+    "message": "Përherë"
+  },
+  "Https_behavior": {
+    "message": "Sjellje"
+  },
+  "Https_cookies": {
+    "message": "Cookies"
+  },
+  "Https_description": {
+    "message": "Ndalo lëndë web aktive, veç në ardhtë prej një lidhjeje të sigurt (HTTPS):"
+  },
+  "Https_never": {
+    "message": "Kurrë"
+  },
+  "Https_proxy": {
+    "message": "Kur përdoret një ndërmjetës (e këshilluar me Tor-in)"
+  },
+  "HttpsFaq": {
+    "message": "FAQ mbi HTTPS-në…"
+  },
+  "HttpsFaq_accesskey": {
+    "message": "Q"
+  },
+  "HttpsForced": {
+    "message": "Detyroji sajtet vijues të përdorin lidhje të sigurta (HTTPS):"
+  },
+  "HttpsForcedExceptions": {
+    "message": "Mos e detyro kurrë përdorimin e lidhjeve të sigurta (HTTPS) për sajtet vijues:"
+  },
+  "Import": {
+    "message": "Importo"
+  },
+  "Import_accesskey": {
+    "message": "I"
+  },
+  "OptIncognitoPerm": {
+    "message": "Aktivizoni ujdisje lejesh të përhershme në skeda inkonjito/private.\nDIJENI: duke bërë kështu mund të rrjedhin të dhëna sajti!"
+  },
+  "OptAmnesticUpdates": {
+    "message": "Shfuqizo përkohësisht leje për përditësime NoScript, edhe nëse shletuesi s’është rinisur"
+  },
+  "KeepLocked": {
+    "message": "Mbaje të kyçur këtë element (e këshilluar)"
+  },
+  "MatchSample": {
+    "message": "Shembull rregullsie për kërkim përputhjesh:"
+  },
+  "Next": {
+    "message": "Pasuesi"
+  },
+  "NoUntrustedPlaceholder": {
+    "message": "S’ka vendmbajtëse për objekte të ardhur nga sajte të shënuar si jo të besueshëm"
+  },
+  "Notifications": {
+    "message": "Njoftime"
+  },
+  "Notify": {
+    "message": "Shfaq mesazhe mbi programthe të bllokuar"
+  },
+  "Notify_bottom": {
+    "message": "Mesazhin vëre në fund"
+  },
+  "NotifyMeta": {
+    "message": "Shfaq mesazh mbi ridrejtime META të bllokuar"
+  },
+  "NotifyMeta_accesskey": {
+    "message": "R"
+  },
+  "NselForce": {
+    "message": "Shfaq elementin <NOSCRIPT> që pason një <SCRIPT> të bllokuar"
+  },
+  "NselNever": {
+    "message": "Fshihi elementet <NOSCRIPT>"
+  },
+  "OK": {
+    "message": "OK"
+  },
+  "OptBlockCssScanners": {
+    "message": "Blloko skanues me bazë CSS-në"
+  },
+  "OptFilterXGet": {
+    "message": "Sanitizo kërkesa të dyshimta ndërsajtëshe"
+  },
+  "OptFilterXPost": {
+    "message": "Kërkesat ndërsajtëshe POST shndërroji në kërkesa GET pa të dhëna"
+  },
+  "OptOverrideTorBrowserPolicy": {
+    "message": "Anashkalo paracaktim Shkalle Sigurie të Shfletuesit Tor"
+  },
+  "Options": {
+    "message": "Mundësi…"
+  },
+  "Options_accesskey": {
+    "message": "M"
+  },
+  "OptionsLong": {
+    "message": "Mundësi NoScript-i"
+  },
+  "OptionsWidth": {
+    "message": "40em"
+  },
+  "PermanentInPrivate": {
+    "message": "\"Lejo\" në mënyrë të përhershme urdhra në dritare private"
+  },
+  "SectionSitePermissions": {
+    "message": "Leje Sipas Sajtesh"
+  },
+  "PermissionsText": {
+    "message": "Mund të specifikoni cilët sajteve u lejohet të ekzekutojnë programthe. Shtypni adresën ose përkatësinë (p.sh. \"http://www.sajti.com\" ose \"sajti.com\") të sajtit që doni të lejohet dhe mandej klikoni mbi Lejoje."
+  },
+  "Plugins": {
+    "message": "Shtojca"
+  },
+  "Policies": {
+    "message": "Rregulla"
+  },
+  "Preset": {
+    "message": "Shkallë Sigurie"
+  },
+  "Prev": {
+    "message": "I mëparshmi"
+  },
+  "RecentBlocked": {
+    "message": "Sajte të bllokuar së fundi"
+  },
+  "Refresh": {
+    "message": "Rifreskoje"
+  },
+  "ReloadWarn": {
+    "message": "Këto mundësi do të hyjnë në fuqi në faqe të reja ose të ringarkuara (dorazi)"
+  },
+  "RemoveSelected": {
+    "message": "Hiqi Sajtet e Përzgjedhur"
+  },
+  "Reset": {
+    "message": "Riktheje te parazgjedhjet"
+  },
+  "Reset_accesskey": {
+    "message": "k"
+  },
+  "ResetDef": {
+    "message": "Riktheje te Parazgjedhja"
+  },
+  "ResetDef_accesskey": {
+    "message": "z"
+  },
+  "RevokeTemp": {
+    "message": "Shfuqizo Leje të Përkohshme"
+  },
+  "RevokeTemp_accesskey": {
+    "message": "q"
+  },
+  "SecureCookies": {
+    "message": "Aktivizo Administrim të Sigurt Automatik të Cookie-ve"
+  },
+  "SecureCookiesExceptions": {
+    "message": "Shpërfili cookie-et e pasigurta të depozituara përmes HTTPS-je nga sajtet vijues:"
+  },
+  "SecureCookiesForced": {
+    "message": "Zbato me detyrim fshehtëzim për krejt cookie-t e depozituara përmes HTTPS-je nga sajtet vijues:"
+  },
+  "SecurityManager": {
+    "message": "Përgjegjës Sigurie"
+  },
+  "Show": {
+    "message": "Shfaqni…"
+  },
+  "ShowConsole": {
+    "message": "Shfaqni Konsol…"
+  },
+  "ShowConsole_accesskey": {
+    "message": "S"
+  },
+  "ShowPlaceholder": {
+    "message": "Shfaq ikonë vendmbajtëse"
+  },
+  "ShowReleaseNotes": {
+    "message": "Shfaq shënime versioni gjatë përditësimesh"
+  },
+  "ShowCtxMenuItem": {
+    "message": "Shfaq element menuje kontekstuale NoScript"
+  },
+  "ShowCountBadge": {
+    "message": "Shfaq stemë numri elementesh të bllokuar"
+  },
+  "SitePermissions": {
+    "message": "Leje Sajti"
+  },
+  "SitePermissions_accessKey": {
+    "message": "L"
+  },
+  "SitePolicies": {
+    "message": "Rregulla Specifike Për Sajtin"
+  },
+  "TempTrustPage": {
+    "message": "Vëre gjithçka në këtë faqe si Përkohësisht të BESUESHME"
+  },
+  "TempTrustPage_accesskey": {
+    "message": "P"
+  },
+  "TempToPerm": {
+    "message": "Bëji të përhershme lejet e faqes"
+  },
+  "TempToPerm_accesskey": {
+    "message": "B"
+  },
+  "Trust": {
+    "message": "Vëri shenjë si i Besueshëm"
+  },
+  "Trust_accesskey": {
+    "message": "B"
+  },
+  "Trusted": {
+    "message": "I besueshëm"
+  },
+  "Trusted_temporary": {
+    "message": "Përkoh. i BESUESHËM"
+  },
+  "Trusted_permanent": {
+    "message": "I BESUESHËM"
+  },
+  "TrustedPagesAdj": {
+    "message": "i besueshëm"
+  },
+  "Uninstall": {
+    "message": "Çinstaloje"
+  },
+  "Unknown": {
+    "message": "I panjohur"
+  },
+  "UnsafeReload": {
+    "message": "Ringarkim i Pasigurt"
+  },
+  "UnsafeReload_accesskey": {
+    "message": "R"
+  },
+  "Untrust": {
+    "message": "Vëri shenjë si Jo i Besueshëm"
+  },
+  "Untrust_accesskey": {
+    "message": "J"
+  },
+  "Untrusted": {
+    "message": "Jo i besueshëm"
+  },
+  "UntrustedPagesAdj": {
+    "message": "jo i besueshëm"
+  },
+  "WebAddress": {
+    "message": "Kërkoni ose shtoni një sajt:"
+  },
+  "WebAddress_accesskey": {
+    "message": "a"
+  },
+  "XSS_notify": {
+    "message": "Shfaq njoftime XSS"
+  },
+  "XSS_clearUserChoices": {
+    "message": "Pastroji Zgjedhjet XSS"
+  },
+  "XSS_promptTitle": {
+    "message": "Sinjalizim nga NoScript për XSS"
+  },
+  "XSS_promptMessage": {
+    "message": "NoScript-i pikasi një sulm potencial Cross-Site Scripting\nnga $1 për $2.\nTë dhëna të dyshimta:\n$3"
+  },
+  "XSS_optBlock": {
+    "message": "Bllokoje këtë kërkesë"
+  },
+  "XSS_optSanitize": {
+    "message": "Sanitizoje këtë kërkesë"
+  },
+  "XSS_optAllow": {
+    "message": "Lejoje këtë kërkesë"
+  },
+  "XSS_optAlwaysAllow": {
+    "message": "Lejo përherë kërkesa dokumenti nga $1 për $2"
+  },
+  "XSS_optAlwaysBlock": {
+    "message": "Blloko përherë kërkesa dokumenti nga $1 për $2"
+  },
+  "Xss": {
+    "message": "XSS"
+  },
+  "Xss_accesskey": {
+    "message": "X"
+  },
+  "XssExceptions": {
+    "message": "Përjashtime Nga Mbrojtja Anti-XSS"
+  },
+  "XssExceptions_description": {
+    "message": "Destinacionet me përputhje me këto shprehje të rregullta NUK do të mbrohen kundër XSS."
+  },
+  "XssFaq": {
+    "message": "FAQ mbi XSS…"
+  },
+  "XssFaq_accesskey": {
+    "message": "Q"
+  },
+  "about": {
+    "message": "Mbi $1"
+  },
+  "allowFrom": {
+    "message": "Lejo gjithçka prej $1"
+  },
+  "allowGlobal": {
+    "message": "Çaktivizo krejt kontrollet për leje (e rrezikshme)"
+  },
+  "allowLocal": {
+    "message": "Lejoje $1"
+  },
+  "allowTemp": {
+    "message": "Lejoje $1 përkohësisht"
+  },
+  "allowTempFrom": {
+    "message": "Lejo përkohësisht gjithçka prej $1"
+  },
+  "allowed_no": {
+    "message": "Programthet Hëpërhë të Ndaluara"
+  },
+  "allowed_prt": {
+    "message": "Programthet Pjesërisht të Lejuara"
+  },
+  "allowed_yes": {
+    "message": "Programthet Hëpërhë të Lejuara"
+  },
+  "alwaysAsk": {
+    "message": "Kërko përherë ripohim"
+  },
+  "audio_samples": {
+    "message": "Shembuj audio"
+  },
+  "bookmarkSync_confirm": {
+    "message": "NoScript-i gjeti një faqerojtës formësimi që duket se është ruajtur\n$1.\nDoni të mbishkruhet vërtet formësimi juaj lokal për NoScript-in me lëndën e këtij faqerojtësi?"
+  },
+  "bookmarkSync_message": {
+    "message": "Ky faqerojtës NUK është menduar të hapet, por të njëkohësohet duke përdorur një shërbim të tillë si zgjerimi Weave apo ai XMarks."
+  },
+  "bookmarkSync_title": {
+    "message": "Faqerojtës Formësimi NoScript-i"
+  },
+  "caps": {
+    "message": "Aktivizoji këto aftësi"
+  },
+  "capsContext": {
+    "message": "Aktivizoji këto aftësi, kur ka përputhje te faqja e epërme"
+  },
+  "anySite": {
+    "message": "ÇFARËDO SAJTI"
+  },
+  "cap_script": {
+    "message": "programth"
+  },
+  "cap_frame": {
+    "message": "kuadër"
+  },
+  "cap_object": {
+    "message": "objekt"
+  },
+  "cap_media": {
+    "message": "media"
+  },
+  "cap_font": {
+    "message": "shkronja"
+  },
+  "cap_webgl": {
+    "message": "webgl"
+  },
+  "cap_fetch": {
+    "message": "fetch"
+  },
+  "cap_ping": {
+    "message": "ping"
+  },
+  "cap_noscript": {
+    "message": "noscript"
+  },
+  "cap_lazy_load": {
+    "message": "lazy load"
+  },
+  "cap_unchecked_css": {
+    "message": "CSS e pakufizuar"
+  },
+  "cap_lan": {
+    "message": "LAN"
+  },
+  "cap_other": {
+    "message": "tjetër"
+  },
+  "cap_wasm": {
+    "message": "wasm",
+    "description": "WebAssembly modules compilation and execution capability."
+  },
+  "cap_x_load": {
+    "message": "x-load",
+    "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
+  },
+  "changelog": {
+    "message": "Regjistër ndryshimesh"
+  },
+  "changelog_tip": {
+    "message": "Shfaq regjistër ndryshimesh"
+  },
+  "confirm": {
+    "message": "Jeni i sigurt?"
+  },
+  "disable": {
+    "message": "Çaktivizo $1"
+  },
+  "disable_accessKey": {
+    "message": "Ç"
+  },
+  "distrust": {
+    "message": "Vëri shenjë $1 si Jo i Besueshëm"
+  },
+  "extensionContributors": {
+    "message": "Kontribues:"
+  },
+  "extensionContributors_tip": {
+    "message": "Persona që do të duhej të falënderonit për këtë zgjerim"
+  },
+  "extensionCreator_tip": {
+    "message": "Vizitoni faqen e autorit"
+  },
+  "extensionCreatorLabel": {
+    "message": "Autor:"
+  },
+  "extensionHomepage_tip": {
+    "message": "Vizitoni faqen e zgjerimit"
+  },
+  "forbidGlobal": {
+    "message": "Ndaloji Programthet Globalisht (e këshillueshme)"
+  },
+  "forbidLocal": {
+    "message": "Ndaloje $1"
+  },
+  "freshInstallReload": {
+    "message": "Që të mund të funksionojë në këtë skedë, NoScript-i lyp ringarkimin e saj.\nTë bëhet kjo?"
+  },
+  "privilegedPage": {
+    "message": "Kjo është një faqe e privilegjuar, lejet e së cilës s’mund të formësohen."
+  },
+  "incompatibleOptions": {
+    "message": "\"$1\"\nështë e papërputhshme me \"$2\".\nDoni të aktivizohet e mëparshmja dhe të çaktivizohet e mëvonshmja?"
+  },
+  "incompatibleOptions_title": {
+    "message": "Sinjalizim Mundësish të Papërputhshme"
+  },
+  "informaction_tip": {
+    "message": "Vizitoni faqen hyrëse për InformAction"
+  },
+  "license": {
+    "message": "Licencë"
+  },
+  "license_tip": {
+    "message": "Lexoni licencën për përdorues të thjeshtë"
+  },
+  "logo_tip": {
+    "message": "Vizitoni faqen e zgjerimit"
+  },
+  "metaRefresh_notify": {
+    "message": "NoScript-i bllokoi një ridrejtim <META> brenda një elementi <NOSCRIPT>: $1 në $2 sekonda."
+  },
+  "Reload": {
+    "message": "Ringarkoje"
+  },
+  "removal_message": {
+    "message": "Duke e çaktivizuar apo çinstaluar NoScript-in, hiqni dorë nga KREJT mbrojtja e dhënë prej NoScript-it.\n\nNëse thjesht jeni të lodhur nga marrja me leje programthesh sajt pas sajti, ka një zgjedhje më të parrezikshme.\n\nNoScript-i mund të bllokojë programthe, hiq ata të cilëve u vini shenjë si jo të besueshëm, teksa ende ju mbron përmes kundërmasave të sigurisë më të përparuara kundër XSS, Clickjacking, CSRF dhe të tjera rreziqesh web.\n\nDoni vërtet të hiqe KREJT mbrojtja NoScript?\n"
+  },
+  "removal_no": {
+    "message": "Jo, thjesht ndale bllokimin e programtheve"
+  },
+  "removal_title": {
+    "message": "Sinjalizim Uljeje Niveli Sigurie"
+  },
+  "removal_yes": {
+    "message": "Po, hiqi KREJT mbrojtjet"
+  },
+  "reset_title": {
+    "message": "Rikthim i NoScript-it te parazgjedhjet"
+  },
+  "reset_warning": {
+    "message": "KREJT parapëlqimet për NoScript-in dhe lejet për sajte do të rikthehen menjëherë te vlerat e tyre parazgjedhje.\nKy veprim s’mund të prapakthehet.\nDoni vërtet të vazhdohet?"
+  },
+  "siteInfo_confirm": {
+    "message": "Ju ndan një hap nga kërkim informacionesh rreth sajtit \"$1\"\npërmes parashtrimit të një kërkese te $2.\nDoni të vazhdohet?"
+  },
+  "siteInfo_tooltip": {
+    "message": "Për të dhëna sajti, klikoni me të mesit ose Shift+klik…"
+  },
+  "sponsor_tip": {
+    "message": "Vizitoni faqen hyrëse të sponsorit"
+  },
+  "unsafeReload_warning": {
+    "message": "Po ringarkohet JO PA RREZIK një $1[$2]\n\ni dyshimtë\n\nNGA [$3]\n\nNoScript-i NUK do ta mbrojë këtë kërkesë!\n"
+  },
+  "untrustedOrigin": {
+    "message": "origjinë jo e besueshme"
+  },
+  "version": {
+    "message": "Versioni $1"
+  },
+  "versionShort": {
+    "message": "v $1"
+  },
+  "settingsThemeLabel": {
+    "message": "Temë"
+  },
+  "themeDark": {
+    "message": "E errët"
+  },
+  "themeLight": {
+    "message": "E lehtë"
+  },
+  "themeAuto": {
+    "message": "Auto"
+  },
+  "ModernRed": {
+    "message": "E kuqe Moderne"
+  },
+  "VintageBlue": {
+    "message": "Blu e Dikurshme"
+  },
+  "toVintageBlue": {
+    "message": "Kalo te stil Blu e Dikurshme"
+  },
+  "DonateShort": {
+    "message": "Dhuroni"
+  },
+  "DonateLong": {
+    "message": "NoScript është Software i Lirë dhe s’mund të ekzistojë pa ndihmën tuaj. Ju lutemi, dhuroni që tani!"
+  },
+  "Onboarding_title": {
+    "message": "Mirë se vini në NoScript!",
+    "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
+  },
+  "behavior_title": {
+    "message": "Sjellje Klasifikimi Sajtesh",
+    "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
+  },
+  "behavior_label": {
+    "message": "Sjellje e tanishme klasifikimi sajtesh:"
+  },
+  "behavior_prompt": {
+    "message": "Ju lutemi, përzgjidhni mënyrës se si sillet NoScript-i kur has sajte të paklasifikuar. Këtë zgjedhje mund ta rivizitoni që nga faqja e Mundësive të NoScript-it dhe kurdo që riktheni NoScript-in te parazgjedhjet."
+  },
+  "behavior_defaultDeny_title": {
+    "message": "STRIKTE / Parazgjedhja “Mohoje”"
+  },
+  "behavior_defaultDeny_description": {
+    "message": "Sjellja tradicionale dhe më e siguruara e NoScript-it: sajte të paklasifikuar, shënuar si “PARAZGJEDHJE”, NUK konsiderohen të besuar. Aftësi potencialisht dëmprurëse, përfshi programthe, çaktivizohen. Mundeni të aktivizoni dorazi sajte të cilëve u zini besë duke hapur ndërfaqen e NoScript-it dhe duke u vënë shenjë si “TË BESUAR”, ose duke përshtatur më tej aftësitë e tyre përmes përzgjedhjes së “VETJAKE”. Mbrojtjet ndërsajtëshe zbatohen përherë."
+  },
+  "behavior_auto_title": {
+    "message": "MË E LEHTË / Auto"
+  },
+  "behavior_auto_description": {
+    "message": "Një kompromis mes sigurisë dhe leverdisë: sajti i nivelit të epërm, adresa e të cilit shfaqet te shtylla e lëvizjeve, promovohet automatikisht si “I BESUAR Përkohësisht”, veç në qoftë tashmë i klasifikuar dorazi. Sajtet palë të treta ende është e nevojshme të klasifikohen dorazi. Mbrojtjet ndërsajtëshe zbatohen përherë."
+  },
+  "behavior_defaultAllow_title": {
+    "message": "MË E LEHTA / Parazgjedhja “Lejoje”"
+  },
+  "behavior_defaultAllow_description": {
+    "message": "Sjellja më e shpenguar: sajte të nivelit të epërm të paklasifikuar promovohen si “Përkohësisht TË BESUAR” dhe aftësitë e aktivizuara për sajtin e nivelit të epërm u kalohen automatikisht krejt nënburimeve të tij prej palësh të treta të paklasifikuar. Sajtet e klasifikuar tashmë si “TË PABESUAR” dhe “VETJAKE” s’preken nga kjo. Mbrojtjet ndërsajtëshe zbatohen përherë."
+  },
+  "Modify": {
+    "message": "Ndryshojeni",
+    "description": "Verb to label action triggers such as buttons used to modify a property shown in the same context (e.g. current behavior)"
+  },
+  "TabGuard_label": {
+    "message": "Mbrojtje nga rrjedhje identiteti nga skeda në skedë"
+  },
+  "TabGuard_optEnabled": {
+    "message": "E aktivizuar kudo"
+  },
+  "TabGuard_optPromptNever": {
+    "message": "Mos pyet kurrë përpara anonimizimesh"
+  },
+  "TabGuard_optPromptPost": {
+    "message": "Pyet, përpara anonimizimi parashtrimesh POST"
+  },
+  "TabGuard_optPromptAlways": {
+    "message": "Pyet, përpara anonimizimi të çfarëdo kërkese"
+  },
+  "TabGuard_optIncognito": {
+    "message": "E aktivizuar vetëm në Shfletim Privat"
+  },
+  "TabGuard_optDisabled": {
+    "message": "E çaktivizuar"
+  },
+  "TabGuard_forget": {
+    "message": "Harroji vendimet"
+  },
+  "TabGuard_title": {
+    "message": "Rrjedhje Potenciale Identiteti"
+  },
+  "TabGuard_message": {
+    "message": "Ju ndan një hap nga ngarkimi i një faqeje prej $1.\nNëse jeni një përdorues $1 që ka bërë hyrjen, nga $2 mund të shtihen në dorë hollësi rreth identitetit tuaj."
+  },
+  "TabGuard_optAnonymize": {
+    "message": "Ngarkoje në mënyrë anonime"
+  },
+  "TabGuard_optAllow": {
+    "message": "Ngarkoje si zakonisht"
+  },
+  "LearnMoreLink": {
+    "message": "Mësoni më tepër…"
+  },
+  "HelpLink": {
+    "message": "Ndihmë…"
+  },
+  "EnableGesture": {
+    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+  },
+  "GestureLabel": {
+    "message": "Draw \"S\" to summon NoScript."
+  }
 }
