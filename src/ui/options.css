@@ -317,6 +317,10 @@ button.close {
   margin: .5em;
 }
 
+#behavior button.close {
+  position: fixed;
+}
+
 .modifier::after {
   content: " ≡ ";
   color: var(--text-color);
@@ -343,7 +347,7 @@ button.close {
 #behavior > .content {
   max-width: calc(min(90%, 65em) - 1em);
   position: absolute;
-  margin: .5em 1.5em;
+  margin: .5em 1em .5em 4em;
   z-index: 1;
   transform: none;
   transition: transform  1s;
@@ -353,20 +357,24 @@ button.close {
   transform: scale(.5, .5);
 }
 
-#behavior h1 {
-  font-size: min(7vw, 3em);
-  color: var(--accent-color);
-  margin: 0 0 0 9mm;
-  padding: 0;
+
+.onboarding #behavior > .content > div.onboarding {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#behavior h2 {
-  font-size: 2em;
+
+#behavior h1 {
+  font-size: min(6vw, 3em);
+  color: var(--accent-color);
+  padding: 0;
   margin: 0;
 }
 
-:root:not(.onboarding) #behavior h2 {
-  margin-top: 3rem;
+#behavior h2 {
+  font-size: min(4vw, 2em);
+  margin: 0;
 }
 
 #behavior h3 {
@@ -444,11 +452,10 @@ button.close {
   --cursor: normal;
 }
 
-#behavior > .donate {
-  position: absolute;
-  top: 0em;
-  right: 4em;
+#behavior .donate {
   z-index: 10;
+  padding: 0;
+  margin: .5em 0;
 }
 
 [value=defaultDeny] ~ h3, [data-behavior=defaultDeny] {

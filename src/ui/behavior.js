@@ -42,8 +42,8 @@
   }
 
   if (isOnboarding) {
-    behaviorUI.appendChild(
-      document.querySelector(".donate.button").cloneNode(true),
+    behaviorUI.querySelector(".content > .onboarding").appendChild(
+      document.querySelector(".donate.button").cloneNode(true)
     );
     document.documentElement.classList.add("onboarding");
     showBehaviorUI();
