@@ -43,10 +43,10 @@
     fill: "#ffffff",
   };
   const LABEL_SIZE = 24;
-  /**
-  * Helper to calculate metrics used by both drawPath and processGesture.
-  * Consolidates bounding box and horizontal direction changes.
-  */
+
+  const ACTIVE = { passive: false, capture: true };
+  const PASSIVE = { passive: true, capture: true };
+
   function getPathMetrics(p) {
     if (p.length === 0) {
       return { directions: [], minX: 0, maxX: 0, minY: 0, maxY: 0 };
@@ -189,6 +189,8 @@
   function cleanup(success) {
     if (!success) console.debug("Aborted gesture", new Error().stack); // DEV_ONLY
 
+    setActive(false);
+
     if (ctx) {
       if (success) {
         ctx.strokeStyle = "#ffffff";
@@ -275,19 +277,36 @@
         return cleanup(false);
       }
     }
-    e.preventDefault();
+
+    if (active) {
+      e.preventDefault();
+    } else {
+      setActive(true);
+    }
     drawPath(metrics);
   };
 
+  let active = false;
+  function setActive(value, force = false) {
+    if (!force && active === value) {
+      return;
+    }
+    [PASSIVE, ACTIVE].forEach(state => removeEventListener("touchmove", onTouchMove, state));
+    if (configuration.enabled) {
+      addEventListener("touchmove", onTouchMove, value ? ACTIVE : PASSIVE);
+    }
+    active = value;
+  }
 
   function configure() {
     let { enabled } = configuration;
-    const act = window[`${enabled ? "add" : "remove" }EventListener`].bind(window); ;
-    act("touchstart", onTouchStart, { passive: true });
-    act("touchmove", onTouchMove, { passive: false });
-    act("touchend", processGesture, { passive: false });
-    act("touchcancel", processGesture, { passive: true });
-    if (!enabled) {
+    const act = window[`${enabled ? "add" : "remove" }EventListener`].bind(window);
+    act("touchstart", onTouchStart, PASSIVE);
+    act("touchend", processGesture, PASSIVE);
+    act("touchcancel", processGesture, PASSIVE);
+    if (enabled) {
+      setActive(false, true);
+    } else {
       cleanup(false);
     }
   }
