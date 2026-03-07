@@ -243,13 +243,28 @@
     if (!e.isTrusted || e.touches.length > 1) {
       return;
     }
+    path = [];
+    console.debug("NoScript gesture processing touch event", e); // DEV_ONLY
+
+    const { clientX, clientY, radiusX, radiusY } = e.touches[0];
+
+    if (Math.max(radiusX, radiusY) < 10) {
+      console.debug("Too small to be a finger!"); // DEV_ONLY
+      return;
+    }
+
+    if (ns?.canScript && e.target instanceof HTMLCanvasElement) {
+      console.debug("Input to a drawing app? Bailing out."); // DEV_ONLY
+      return;
+    }
+
     setupLogo();
     setupCanvas();
-    path = [{ x: e.touches[0].clientX, y: e.touches[0].clientY }];
+    path.push({ x: clientX, y: clientY });
   };
 
   const onTouchMove = e => {
-    if (!(e.isTrusted && canvas)) {
+    if (!(e.isTrusted && canvas && path.length)) {
       return;
     }
     path.push({ x: e.touches[0].clientX, y: e.touches[0].clientY });
