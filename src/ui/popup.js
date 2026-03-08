@@ -91,6 +91,43 @@ addEventListener("unload", e => {
       tabId = tab.id;
     }
 
+    if (!browser.windows) {
+      // emulate popup over page by using blurred content as background
+
+      const debounce = (callback, wait) => {
+        let timeout;
+        return () => {
+          clearTimeout(timeout);
+          timeout = setTimeout(callback, wait);
+        }
+      };
+
+      let updating;
+      const updateBG = debounce(async () => {
+        await updating;
+        updating = new Promise(async (resolve) => {
+          const imgUrl = await browser.tabs.captureTab(tabId);
+          requestAnimationFrame(() => {
+            document.documentElement.style.backgroundImage = `url("${imgUrl}")`;
+            resolve();
+          });
+        });
+      }, 500);
+
+      updateBG();
+
+      browser.tabs.onUpdated.addListener(id => {
+        if (id == tabId) {
+          updateBG();
+        }
+      });
+      document.body.addEventListener("touchend", e => {
+        if (e.target == document.body) {
+          close();
+        }
+      });
+    }
+
     addEventListener("keydown", e => {
       if (e.code === "Enter") {
         let focused = document.activeElement;
