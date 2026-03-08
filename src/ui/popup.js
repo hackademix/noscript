@@ -121,8 +121,17 @@ addEventListener("unload", e => {
           updateBG();
         }
       });
+
+      let closing = false;
+      const shouldClose = e => e.touches.length <= 1 && e.target == document.body;
+      document.body.addEventListener("touchstart", e => {
+        closing = shouldClose(e);
+      });
+      document.body.addEventListener("touchmove", e => {
+        closing &&= shouldClose(e);
+      });
       document.body.addEventListener("touchend", e => {
-        if (e.target == document.body) {
+        if (closing &&= shouldClose(e)) {
           close();
         }
       });
