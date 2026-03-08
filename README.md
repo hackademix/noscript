@@ -4,58 +4,25 @@ Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
-<br>
-
-<div align = center>
-
-[![Badge License]][License]   
-[![Badge Release]][Releases]
-
-<br>
-<br>
-
 [<img
-    src = 'src/img/icon256.png'
-    width = 120
+    src = 'src/img/icon128.png'
+    width = 128
 />][Website]
-
 # NoScript Security Suite
 
-*Free Open Source Software providing* <br>
-*extra protection for various browsers.*
+*Free and Open Source Software providing extra protection for various browsers.*
 
-<br>
-<br>
+[![Badge Release]][Releases] [![Badge License]][License] [![Button Website]][Website]
 
-[![Button Website]][Website]
-
-<br>
-<br>
-
-## Supported
-
-<br>
-
-![Badge Firefox]   
-![Badge Chromium]   
-
-![Badge Firefox Mobile]   
-![Badge Tor Browser]
-
-<br>
-<br>
+## Download
+[![Badge Firefox]](https://addons.mozilla.org/en-US/firefox/addon/noscript)
+[![Badge Chromium]](https://chromewebstore.google.com/detail/noscript/doojmbjmlfjjnbmnoijecmcbfeoakpjm)
 
 ## Security Reports
 
-We strive to fix security sensitive issues in the shortest <br>
-time possible - hours ideally - while protecting users.
+We strive to fix security sensitive issues in the shortest time possible, usually in hours, while protecting users at the same time.
 
-Please report privately to **[security@noscript.net]**
-
-To ensure confidentiality and protect users, <br>
-please encrypt your report with this **PGP key**.
-
-<br>
+Please report these issues privately to **[security@noscript.net](mailto:security@noscript.net)**. To ensure confidentiality, please encrypt your report with this **PGP key**:
 
 ```
 3359 0391 70A3 CD9B 25CF 5A46 231A 83AF DA9C 2434
@@ -63,30 +30,16 @@ please encrypt your report with this **PGP key**.
 
 </div>
 
-<br>
-
-
 <!----------------------------------------------------------------------------->
-
-[security@noscript.net]: mailto:security@noscript.net
-
 [Releases]: https://github.com/hackademix/noscript/releases
 [Website]: https://noscript.net
 
 [License]: LICENSE
-
-
 <!----------------------------------[ Badges ]--------------------------------->
+[Badge Release]: https://img.shields.io/github/v/release/hackademix/noscript?style=for-the-badge&labelColor=569A31&color=407225&logo=GitLFS&logoColor=white
+[Badge License]: https://img.shields.io/badge/License-GPL3+-015d93.svg?style=for-the-badge&labelColor=blue&logo=GNU&logoColor=white
 
-[Badge Release]: https://img.shields.io/github/v/release/hackademix/noscript?style=for-the-badge&labelColor=569A31&color=407225&logoColor=white&logo=GitLFS
-[Badge License]: https://img.shields.io/badge/License-GPL3+-015d93.svg?style=for-the-badge&labelColor=blue&logoColor=white&logo=GNU
-
-[Badge Firefox]: https://img.shields.io/badge/Firefox-e86434.svg?style=for-the-badge&logoColor=white&logo=FirefoxBrowser
-[Badge Firefox Mobile]: https://img.shields.io/badge/Firefox_Mobile-2b9a5b.svg?style=for-the-badge&logoColor=white&logo=Android
-[Badge Chromium]: https://img.shields.io/badge/Chromium-4285F4.svg?style=for-the-badge&logoColor=white&logo=GoogleChrome
-[Badge Tor Browser]: https://img.shields.io/badge/Tor_Browser-7D4698?style=for-the-badge&logo=Tor-Browser&logoColor=white
-
-
+[Badge Firefox]: https://img.shields.io/badge/Firefox-e86434.svg?style=for-the-badge&logo=FirefoxBrowser&logoColor=white
+[Badge Chromium]: https://img.shields.io/badge/Chromium-4285F4.svg?style=for-the-badge&logo=GoogleChrome&logoColor=white
 <!---------------------------------[ Buttons ]--------------------------------->
-
-[Button Website]: https://img.shields.io/badge/Ｗｅｂｓｉｔｅ-d12027?style=for-the-badge&logoColor=white&logo=ONLYOFFICE
+[Button Website]: https://img.shields.io/badge/Ｗｅｂｓｉｔｅ-d12027?style=for-the-badge&logo=ONLYOFFICE&logoColor=white
