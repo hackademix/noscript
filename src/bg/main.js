@@ -197,15 +197,15 @@
       return Settings.export();
     },
 
-    async importSettings({data}) {
+    async importSettings({ data }) {
       return await Settings.import(data);
     },
 
-    async fetchChildPolicy({url, contextUrl}, sender) {
+    async fetchChildPolicy({ url, contextUrl }, sender) {
       return await ns.computeChildPolicy(...arguments);
     },
 
-    async openPopup(msg, {tab}) {
+    async openPopup(msg, { tab }) {
       await messageHandler.openStandalonePopup(tab);
     },
 
@@ -227,9 +227,8 @@
         browser.tabs.create({ url: popupFor(tab.id) });
         return;
       }
-
       const win = await browser.windows.get(tab.windowId);
-      const width = 610, height = 400;
+      const width = 800, height = 600;
       browser.windows.create({
         url: popupFor(tab.id),
         width,

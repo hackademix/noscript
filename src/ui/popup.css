@@ -55,6 +55,10 @@ html:not(.mobile) #scrollable {
   max-height: 550px;
 }
 
+html.window #scrollable {
+  height: 550px;
+}
+
 #top {
   font-size: 1em;
   position: relative;

@@ -77,9 +77,22 @@ addEventListener("unload", e => {
         close();
       }
       if (browser.windows) {
-        const myWinId = (await browser.windows.getCurrent()).id;
+        // stand-alone window
+
+        document.documentElement.classList.add("window");
+
+        const parent = await browser.windows.get(pageTab.windowId);
+        let { id, width, height } = await browser.windows.getCurrent();
+        width += document.body.offsetWidth - innerWidth;
+        height += document.body.offsetHeight - innerHeight;
+        browser.windows.update(id, {
+          width, height,
+          top: parent.top + Math.round((parent.height - height) / 2),
+          left: parent.left +  Math.round((parent.width - width) / 2),
+        });
+
         browser.windows.onFocusChanged.addListener(windowId => {
-          if (windowId !== browser.windows.WINDOW_ID_NONE && myWinId !== windowId) {
+          if (windowId !== browser.windows.WINDOW_ID_NONE && id !== windowId) {
             close();
           }
         });
