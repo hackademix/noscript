@@ -33,6 +33,7 @@ html.tor .tor, html:not(.tor) .not-tor {
 }
 
 body {
+  font-size: 1rem;
   background-color: var(--bg-color2);
   color: var(--text-color);
 }
