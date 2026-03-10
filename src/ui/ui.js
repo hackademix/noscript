@@ -864,7 +864,9 @@ var UI = (() => {
       window.setTimeout(
         () => {
           row.classList.toggle("customizing", true);
-          customizer.querySelector("input:not(:disabled)").focus();
+          customizer.querySelector("input:not(:disabled)")?.focus();
+          customizer.scrollIntoView();
+          row.scrollIntoView();
         },
         10
       );
