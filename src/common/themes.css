@@ -30,8 +30,8 @@
   --img-ui-custom: url(/img/ui-custom64.webp);
   --img-ui-clock: url(/img/ui-clock64.webp);
 
-  --icon-size: 2.2em;
-  --line-size: 1.5em;
+  --icon-size: 2.5em;
+  --line-size: 1.8em;
   --popup-size: 600px;
 
   --bg-preset-color: var(--form-color2);
@@ -68,10 +68,6 @@
   --img-ui-black: url(/img/vintage/ui-black64.webp);
   --img-ui-custom: url(/img/vintage/ui-custom64.webp);
   --img-ui-clock: url(/img/vintage/ui-clock64.webp);
-
-  --icon-size: 2em;
-  --line-size: 1.5em;
-  --popup-size: 600px;
 
 }
 
