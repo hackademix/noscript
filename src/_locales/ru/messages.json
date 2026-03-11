@@ -51,7 +51,7 @@
     "message": "Автоматически доверять сайтам, загруженным как документ верхнего уровня"
   },
   "AutoTrustedLabel": {
-    "message": "Автодоверенные",
+    "message": "Автодоверие",
     "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
   },
   "AutoReload": {
@@ -82,7 +82,7 @@
     "message": "Все возможности, заблокированные в документе верхнего уровня, \nдолжны быть заблокированы и в его субдокументах"
   },
   "CascadedLabel": {
-    "message": "Каскадн. разреш.",
+    "message": "Каскадно разр.",
     "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
   },
   "ClearClickDescription": {
@@ -119,7 +119,7 @@
     "message": "Пункт в контекстном меню"
   },
   "Custom": {
-    "message": "Индивидуальная"
+    "message": "Индивидуально"
   },
   "CustomizePresets": {
     "message": "Преднастройки (для всех страниц, использующих эти преднастройки)"
