@@ -79,7 +79,8 @@ addEventListener("unload", e => {
       if (browser.windows) {
         // stand-alone window
 
-        document.documentElement.classList.add("window");
+        const { classList } = document.documentElement;
+        classList.add("window");
 
         const parent = await browser.windows.get(pageTab.windowId);
         let { id, width, height } = await browser.windows.getCurrent();
@@ -90,6 +91,8 @@ addEventListener("unload", e => {
           top: parent.top + Math.round((parent.height - height) / 2),
           left: parent.left +  Math.round((parent.width - width) / 2),
         });
+
+        classList.add("resized");
 
         browser.windows.onFocusChanged.addListener(windowId => {
           if (windowId !== browser.windows.WINDOW_ID_NONE && id !== windowId) {

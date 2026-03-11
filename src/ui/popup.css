@@ -30,7 +30,11 @@ html:not(.mobile) > body {
 
 #popup-container {
   background-color: var(--bg-color2);
-  padding: 0.5em;
+}
+
+.resized #popup-container {
+  width: 100vw;
+  height: 100vh;
 }
 
 .mobile #popup-container {
@@ -55,20 +59,24 @@ html:not(.mobile) #scrollable {
   max-height: 550px;
 }
 
-html.window #scrollable {
+.window #scrollable {
   height: 550px;
+}
+
+.resized #scrollable {
+  height: min(100vh - 2em - var(--icon-size) , 550px);
 }
 
 #top {
   font-size: 1em;
   position: relative;
-  padding: .3em 0 .6em 0;
+  padding: .3em .5em .6em .5em;
   margin: 0;
   min-width: 18.75em;
   display: flex;
   -moz-user-select: none;
   user-select: none;
-  background: linear-gradient(to bottom, transparent 0, transparent 90%, var(--form-color1) 100%) no-repeat;
+  background: linear-gradient(to bottom, transparent 0, transparent 80%, var(--bg-color1) 100%) no-repeat;
 }
 
 #noscript-popup {

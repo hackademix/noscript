@@ -49,12 +49,11 @@ fieldset > .opt-group ~ .opt-group {
 @media (max-width: 550px) {
 
   .sites td.url {
-    vertical-align: top;
+    padding-left: 1em;
   }
 
   #sites .presets {
     width: 0 !important;
-    padding: 0 !important;
     margin: 0 !important;
     padding-bottom: 1em !important;
   }
@@ -200,11 +199,14 @@ input[type="checkbox"] {
 }
 
 .sites tr, .sites td {
-  margin: 0;
   padding: 0;
   border: none;
   font-size: 1em;
   vertical-align: middle;
+}
+
+tr.site td {
+  padding-top: .2em;
 }
 
 html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
@@ -231,7 +233,6 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
 
 
 .site .url {
-    padding: 0 0 0 0.5em;
     color: var(--fg-color2);
     display: flex;
     align-items: center;
@@ -314,14 +315,13 @@ td.presets {
   font-size: 1em;
   white-space: nowrap;
   width: 0;
+  padding-left: 0.5em;
 }
 
 span.preset {
   position: relative;
   display: inline-block;
   font-size: 1em;
-  height: var(--line-size);
-  bottom: -.1em;
 }
 
 .preset label, .preset input, .preset button {
@@ -446,8 +446,8 @@ input.temp {
   outline: 0;
   background: var(--img-ui-clock) no-repeat center;
   background-size: 60%;
-  width: 1.5em;
-  height: 1.5em;
+  width: var(--line-size);
+  height: var(--line-size);
   transition: 0.2s background-size;
   right: 0;
   top: 0;
@@ -467,7 +467,6 @@ input.temp + label {
 input.preset:checked ~ input.temp {
   opacity: .7;
   right: .4em;
-  pointer-events: all;
 }
 
 .presets input.preset:checked ~ input.temp:checked {
