@@ -24,6 +24,8 @@
   if (!navigator.maxTouchPoints) {
     return;
   }
+  const createHTMLElement =
+    tagName => document.createElementNS("http://www.w3.org/1999/xhtml", tagName);
 
   let configuration = await Messages.send("fetchGestureConfiguration");
   Messages.addHandler({
@@ -89,7 +91,7 @@
         return;
       }
     }
-    logo = document.createElement("div");
+    logo = createHTMLElement("div");
     logo.className = "__NoScript_Theme__";
     if (theme?.vintage) {
       logo.classList.add("vintage");
@@ -111,7 +113,7 @@
     if (canvas) {
       return;
     }
-    canvas = document.createElement("canvas");
+    canvas = createHTMLElement("canvas");
     Object.assign(canvas.style, {
       position: "fixed",
       top: 0,
@@ -218,7 +220,7 @@
     if (e && !e.isTrusted) {
       return;
     }
-
+    console.debug("processGesture", e); // DEV_ONLY
     if (path.length < 5) {
       cleanup(false);
       return;
@@ -274,7 +276,7 @@
     }
     const metrics = getPathMetrics(path);
     const { directions } = metrics;
-    console.debug("Directions", directions, metrics); // DEV_ONLY
+    console.debug("Directions", active, directions, metrics, e); // DEV_ONLY
     if (directions.length < 1) {
       return;
     }
