@@ -910,10 +910,9 @@
 
       normalizeRequest(request);
       let result = ALLOW;
-      let promises = [];
 
       pending.headersProcessed = true;
-      let {url, documentUrl, tabId, responseHeaders, type} = request;
+      let {url, tabId, responseHeaders, type} = request;
       let isMainFrame = type === "main_frame";
       try {
         let capabilities;
@@ -953,11 +952,6 @@
         }
       } catch (e) {
         error(e, "Error in onHeadersReceived", request);
-      }
-
-      promises = promises.filter(p => p instanceof Promise);
-      if (promises.length > 0) {
-        return Promise.allSettled(promises).then(() => result);
       }
 
       return result;
