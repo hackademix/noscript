@@ -79,7 +79,7 @@
     "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet"
   },
   "CascadeRestrictions": {
-    "message": "最上層文件中已封鎖的功能，也必須於子文件中套用該封鎖。"
+    "message": "最上層文件中已封鎖的功能，也必須於子文件中套用該封鎖"
   },
   "CascadedLabel": {
     "message": "Cascaded",
@@ -155,7 +155,7 @@
     "message": "嘗試修正 JavaScript 連結"
   },
   "Hider": {
-    "message": "拖到這裡來隱藏"
+    "message": "拖到這裡來隱藏。"
   },
   "Reveal": {
     "message": "按這裡找回消失的按鈕…"
@@ -578,7 +578,7 @@
     "message": "字體"
   },
   "cap_webgl": {
-    "message": "WebGL"
+    "message": "webgl"
   },
   "cap_fetch": {
     "message": "獲取"
@@ -682,13 +682,13 @@
     "message": "若您停用或解除安裝 NoScript，您會失去所有由 NoScript 提供的保護。\n\n如果您只是覺得為每個網站個別設定權限太過麻煩，其實有更安全的解決方法。\n\nNoScript 可以設定為停止封鎖指令碼，除了您指定為不信任的網站以外，同時也繼續使用最先進的安全措施保護您，免於 XSS、點擊劫持、CSRF 及其他網路威脅的危害。\n\n您真的確定要移除所有的 NoScript 防護嗎？\n"
   },
   "removal_no": {
-    "message": "不，只停用指令碼封鎖。"
+    "message": "不，只停用指令碼封鎖"
   },
   "removal_title": {
     "message": "降低安全性警告"
   },
   "removal_yes": {
-    "message": "是，移除所有保護。"
+    "message": "是，移除所有保護"
   },
   "reset_title": {
     "message": "重設 NoScript"

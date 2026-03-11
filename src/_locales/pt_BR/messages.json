@@ -578,7 +578,7 @@
     "message": "Font"
   },
   "cap_webgl": {
-    "message": "Webgl"
+    "message": "webgl"
   },
   "cap_fetch": {
     "message": "Fetch"
