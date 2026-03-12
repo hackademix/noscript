@@ -69,6 +69,16 @@ var LifeCycle = (() => {
         }
       ));
 
+      const policy = ns.policy.dry(true);
+      const unrestrictedTabs = [...ns.unrestrictedTabs];
+
+      if (policy.sites.temp.length == 0 &&
+        !Object.values(policy.sites.custom).some(({temp}) => temp) &&
+        unrestrictedTabs.length == 0 &&
+        Object.keys(allSeen).length == 0) {
+        debug("No temporary settings to save, bailing out.");
+        return;
+      }
 
       if (!tab) { // no suitable existing tab, let's open a new one
         if (!UA.isMozilla) {
@@ -107,9 +117,9 @@ var LifeCycle = (() => {
       let tabId = tab.id;
       let {url} = tab;
       let {cypherText, key, iv} = await encrypt(JSON.stringify({
-        policy: ns.policy.dry(true),
+        policy,
         allSeen,
-        unrestrictedTabs: [...ns.unrestrictedTabs]
+        unrestrictedTabs,
       }));
 
       try {
@@ -147,6 +157,13 @@ var LifeCycle = (() => {
                 error(e, "Survival tab failed");
                 reject(e);
               } // otherwise we keep waiting for further updates from the tab until content script is ready to answer
+              // ... for no longer than 100ms, though
+              setTimeout(() => {
+                if (!stored) {
+                  debug("Fallback delayed storeInTab...");
+                  storeInTab(tabId, tabInfo);
+                }
+              }, 100)
             };
           };
 
