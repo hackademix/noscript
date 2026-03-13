@@ -467,6 +467,7 @@ input.temp + label {
 input.preset:checked ~ input.temp {
   opacity: .7;
   right: .4em;
+  pointer-events: all;
 }
 
 .presets input.preset:checked ~ input.temp:checked {
