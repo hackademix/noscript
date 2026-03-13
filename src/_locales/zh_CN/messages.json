@@ -161,7 +161,7 @@
     "message": "点击此处找回丢失的按钮…"
   },
   "ShowFullAddresses": {
-    "message": "在授权弹窗里显示完整网址（https://www.noscript.net）。"
+    "message": "在授权弹窗里显示完整网址（https://www.noscript.net）"
   },
   "ShowProbePlaceholders": {
     "message": "对不可见的能力探测显示合成占位符"
@@ -206,7 +206,7 @@
     "message": "(侧栏？)"
   },
   "tabLess_reload_warning": {
-    "message": "在侧栏中更改权限需要手动重载"
+    "message": "在侧栏中更改权限需要手动重载。"
   },
   "Https": {
     "message": "HTTPS"
@@ -341,7 +341,7 @@
     "message": "刷新"
   },
   "ReloadWarn": {
-    "message": "这些选项会在新打开或手动重新载入页面时生效。"
+    "message": "这些选项会在新打开或手动重新载入页面时生效"
   },
   "RemoveSelected": {
     "message": "移除选定网站"
@@ -823,9 +823,9 @@
     "message": "帮助…"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+    "message": "启用手势激活：在网页上绘制 ”S\" 打开为该站点打开 NoScript 的用户界面"
   },
   "GestureLabel": {
-    "message": "Draw \"S\" to summon NoScript."
+    "message": "绘制 \"S\" 召唤 NoScript。"
   }
 }
