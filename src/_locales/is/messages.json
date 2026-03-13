@@ -749,11 +749,11 @@
     "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
   },
   "behavior_title": {
-    "message": "Site Classification Behavior",
+    "message": "Hegðun vefsvæðaflokkunar",
     "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
   },
   "behavior_label": {
-    "message": "Current site classification behavior:"
+    "message": "Núverandi hegðun vefsvæðaflokkunar:"
   },
   "behavior_prompt": {
     "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript."
@@ -823,9 +823,9 @@
     "message": "Help…"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+    "message": "Virkja bendingavirkni: þegar teiknað er \"S\" á vefsíðu opnast viðmót NoScript fyrir vefsvæðið"
   },
   "GestureLabel": {
-    "message": "Draw \"S\" to summon NoScript."
+    "message": "Teiknaðu \"S\" til að opna NoScript."
   }
 }

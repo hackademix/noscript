@@ -566,7 +566,7 @@
     "message": "script"
   },
   "cap_frame": {
-    "message": "frame"
+    "message": "kader"
   },
   "cap_object": {
     "message": "object"
@@ -581,7 +581,7 @@
     "message": "webgl"
   },
   "cap_fetch": {
-    "message": "fetch"
+    "message": "ophalen"
   },
   "cap_ping": {
     "message": "ping"
@@ -590,7 +590,7 @@
     "message": "noscript"
   },
   "cap_lazy_load": {
-    "message": "lazy load"
+    "message": "uitgesteld laden"
   },
   "cap_unchecked_css": {
     "message": "onbeperkte CSS"
@@ -606,11 +606,11 @@
     "description": "WebAssembly modules compilation and execution capability."
   },
   "cap_x_load": {
-    "message": "x-load",
+    "message": "x-belasting",
     "description": "Capability for file:// documents to load subresources from a different and non descendant directory."
   },
   "changelog": {
-    "message": "Changelog"
+    "message": "Wijzigingenlogboek"
   },
   "changelog_tip": {
     "message": "Changelog tonen"
@@ -745,7 +745,7 @@
     "message": "NoScript is gratis software en kan niet bestaan zonder uw hulp. Doneer nu!"
   },
   "Onboarding_title": {
-    "message": "Welkom bij NoScript",
+    "message": "Welkom bij NoScript!",
     "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
   },
   "behavior_title": {
