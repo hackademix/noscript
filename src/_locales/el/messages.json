@@ -48,10 +48,10 @@
     "message": "Εμφάνιση"
   },
   "AutoAllowTopLevel": {
-    "message": "Temporarily set top-level sites to TRUSTED"
+    "message": "Προσωρινή ρύθμιση ιστότοπων ανώτατου επιπέδου σε TRUSTED"
   },
   "AutoTrustedLabel": {
-    "message": "Auto-trusted",
+    "message": "Αυτόματα αξιόπιστο",
     "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
   },
   "AutoReload": {
@@ -61,13 +61,13 @@
     "message": "Ανανέωση μόνο της τρέχουσας καρτέλας"
   },
   "BaseDom": {
-    "message": "Base 2nd level Domains (noscript.net)"
+    "message": "Βασικοί Τομείς 2ου Επιπέδου (noscript.net)"
   },
   "BlockedItems": {
     "message": "Μπλοκαρίστηκαν $1 από τα $2 αντικείμενα."
   },
   "BlockedObjects": {
-    "message": "NoScript Blocked Objects"
+    "message": "Αποκλεισμένα αντικείμενα NoScript"
   },
   "BookmarkSync": {
     "message": "Να γίνει αντίγραφο ασφαλείας των ρυθμίσεων του NoScript σε ένα σελιδοδείκτη για εύκολο συγχρονισμό"
@@ -76,10 +76,10 @@
     "message": "Ακύρωση"
   },
   "CascadePermissions": {
-    "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet"
+    "message": "Αυτόματη εφαρμογή δικαιωμάτων του αρχικού εγγράφου σε δευτερεύοντα έγγραφα και συμπεριλήψεις που δεν έχουν ρυθμιστεί ακόμα"
   },
   "CascadeRestrictions": {
-    "message": "Any capability blocked in the top document must be blocked in its subdocuments too"
+    "message": "Οποιαδήποτε δυνατότητα που έχει αποκλειστεί στο αρχικό έγγραφο πρέπει να αποκλειστεί και στα δευτερεύοντα έγγραφά του"
   },
   "CascadedLabel": {
     "message": "Cascaded",
@@ -512,7 +512,7 @@
     "message": "Q"
   },
   "about": {
-    "message": "About $1"
+    "message": "Σχετικά $1"
   },
   "allowFrom": {
     "message": "Να επιτρέπονται όλα από το $1"
@@ -554,10 +554,10 @@
     "message": "Σελιδοδείκτης ρυθμίσεων NoScript"
   },
   "caps": {
-    "message": "Enable these capabilities"
+    "message": "Ενεργοποιήστε αυτές τις δυνατότητες"
   },
   "capsContext": {
-    "message": "Enable these capabilities when top page matches"
+    "message": "Ενεργοποιήστε αυτές τις δυνατότητες από την αρχική σελίδα"
   },
   "anySite": {
     "message": "ΟΠΟΙΑΔΗΠΟΤΕ ΣΕΛΙΔΑ"
@@ -661,7 +661,7 @@
     "message": "Προειδοποίηση ασύμβατων ρυθμίσεων"
   },
   "informaction_tip": {
-    "message": "Visit InformAction home page"
+    "message": "Μετάβαση στην αρχική σελίδα του InformAction"
   },
   "license": {
     "message": "Άδεια χρήσης"
@@ -745,7 +745,7 @@
     "message": "Το NoScript είναι ελεύθερο λογισμικό και δεν μπορεί να υπάρξει χωρίς τη βοήθειά σου. Παρακαλούμε κάνε μια δωρεά τώρα!"
   },
   "Onboarding_title": {
-    "message": "Welcome to NoScript!",
+    "message": "Καλώς ορίσατε στο NoScript!",
     "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
   },
   "behavior_title": {
@@ -759,13 +759,13 @@
     "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript."
   },
   "behavior_defaultDeny_title": {
-    "message": "STRICT / Default Deny"
+    "message": "STRICT / Προεπιλογή Άρνηση"
   },
   "behavior_defaultDeny_description": {
     "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced."
   },
   "behavior_auto_title": {
-    "message": "EASIER / Auto"
+    "message": "EASIER / Αυτόματο"
   },
   "behavior_auto_description": {
     "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced."
@@ -784,28 +784,28 @@
     "message": "Cross-tab identity leak protection"
   },
   "TabGuard_optEnabled": {
-    "message": "Enabled everywhere"
+    "message": "Ενεργοποιημένο παντού"
   },
   "TabGuard_optPromptNever": {
-    "message": "Never prompt before anonymization"
+    "message": "Να μην εμφανίζεται ποτέ μήνυμα πριν από την ανωνυμοποίηση"
   },
   "TabGuard_optPromptPost": {
-    "message": "Prompt before anonymizing POST submissions"
+    "message": "Προτροπή πριν από την ανωνυμοποίηση υποβολών POST"
   },
   "TabGuard_optPromptAlways": {
-    "message": "Prompt before anonymizing any request"
+    "message": "Προτροπή πριν από την ανωνυμοποίηση οποιουδήποτε αιτήματος"
   },
   "TabGuard_optIncognito": {
-    "message": "Enabled in Private Browsing only"
+    "message": "Ενεργοποιημένο μόνο στην Ιδιωτική Περιήγηση"
   },
   "TabGuard_optDisabled": {
     "message": "Απενεργοποιημένο"
   },
   "TabGuard_forget": {
-    "message": "Forget decisions"
+    "message": "Ξεχάστε τις αποφάσεις"
   },
   "TabGuard_title": {
-    "message": "Potential Identity Leak"
+    "message": "Πιθανή διαρροή ταυτότητας"
   },
   "TabGuard_message": {
     "message": "You are about to load a page from $1.\nIf you are a $1 logged-in user, information about your identity might be acquired by $2."
@@ -814,10 +814,10 @@
     "message": "Load anonymously"
   },
   "TabGuard_optAllow": {
-    "message": "Load normally"
+    "message": "Κανονική φόρτωση"
   },
   "LearnMoreLink": {
-    "message": "Learn more…"
+    "message": "Μάθετε περισσότερα…"
   },
   "HelpLink": {
     "message": "Βοήθεια…"
