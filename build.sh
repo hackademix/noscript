@@ -165,6 +165,10 @@ fi
 CYGPATH=$(which cypath)
 COMMON_BUILD_OPTS="--ignore-files='test/**' 'embargoed/**' content/experiments.js"
 
+is_signed() {
+  [ -f "$1" ] && ( unzip -l "$1" | grep "META-INF/mozilla.rsa" ) >/dev/null 2>&1;
+}
+
 fix_manifest() {
   node manifest.js "$1" "$MANIFEST_IN" "$MANIFEST_OUT" || exit 9
 }
@@ -177,6 +181,7 @@ build() {
       grep 'ready: .*\.zip' | sed -re 's/.* ready: //'
     return
   fi
+
   UNPACKED_DIR="$UNPACKED_BASE/${1:-out}"
   rm -rf "$UNPACKED_DIR"
   cp -rp "$BUILD" "$UNPACKED_DIR" && echo >&2 "Copied $BUILD to $UNPACKED_DIR"
@@ -185,11 +190,14 @@ build() {
   bash "$BUILD/nscl/include.sh" "$UNPACKED_DIR"
 
   if [[ $1 == "firefox" ]]; then
+    if ! [[ $UNPACKED_ONLY ]] && is_signed "$XPI.xpi"; then
+      echo "$XPI.xpi is already signed, skipping creation!" >&2
+    fi
     # we use svg icons on Firefox
     rm "$UNPACKED_DIR/img/"*.png
   fi
 
-  if [ "$UNPACKED_ONLY" ]; then
+  if [[ $UNPACKED_ONLY ]]; then
     return
   fi
 
@@ -219,7 +227,7 @@ SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
 elif [ -f "$XPI.zip" ]; then
-  if unzip -l "$XPI.xpi" | grep "META-INF/mozilla.rsa" >/dev/null 2>&1; then
+  if is_signed "$XPI.xpi"; then
     echo "A signed $XPI.xpi already exists, not overwriting."
   else
     unset SIGNED
@@ -229,6 +237,9 @@ elif [ -f "$XPI.zip" ]; then
 fi
 if [ -f "$XPI.xpi" ]; then
   ln -fs "$XPI.xpi" "$BASE/latest.xpi"
+  if is_signed "$XPI.xpi"; then
+    SIGNED="$XPI.xpi"
+  fi
 elif ! [ "$UNPACKED_ONLY" ]; then
   echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
   exit 3
