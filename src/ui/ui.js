@@ -1299,7 +1299,9 @@ var UI = (() => {
             temp.checked = perms.temp;
           }
         } else if (presetName == "DEFAULT") {
-          if (this.mainSite && UI.sync.cascadePermissions && this.mainSiteKey != siteMatch && this.mainSite !== siteMatch) {
+          if (this.mainSite && UI.sync.cascadePermissions &&
+            this.mainSiteKey != siteMatch && this.mainSite !== siteMatch &&
+            !Sites.isImplied(this.mainSite, siteMatch)) {
             const label = _("CascadedLabel");
             const title = `${label} ⬊ ${Sites.toExternal(this.mainSite)} ⬊`;
             const widgets = preset.parentNode.querySelectorAll("[title]");
