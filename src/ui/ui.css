@@ -124,16 +124,15 @@ fieldset > .opt-group ~ .opt-group {
     vertical-align: middle;
     border: 1px solid var(--fg-color2);
   }
+
   .url > span > span {
-    white-space: wrap;
-    word-break: break-all;
     letter-spacing: -0.2mm;
     font-size: 80%;
-   }
+  }
 
-   .customizer-controls fieldset {
+  .customizer-controls fieldset {
      padding-top: 1.2em;
-   }
+  }
 }
 
 
@@ -236,6 +235,8 @@ html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
     color: var(--fg-color2);
     display: flex;
     align-items: center;
+    white-space: wrap;
+    word-break: break-all;
 }
 .site .url .protocol { display: none }
 
