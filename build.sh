@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+# Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -55,7 +55,7 @@ ver_from_manifest() {
 VER=$(ver_from_manifest "$MANIFEST_IN")
 if [ "$1" == "tag" ]; then
   # ensure nscl is up-to-date git-wise
-  bash ./nscl_gitsync.sh
+  bash "$BASE/nscl_gitsync.sh"
   OPTS=""
   if [ "$2" != "quiet" ]; then
     OPTS="-e"
@@ -157,9 +157,19 @@ fi
 UNPACKED_BASE="$BASE/unpacked"
 mkdir -p "$UNPACKED_BASE"
 
-if ! [ "$UNPACKED_ONLY" ]; then
+if ! [[ $UNPACKED_ONLY ]]; then
+  if [[ $(git status -s) ]]; then
+    echo "Please build packages only on a clean tree!" >&2
+    git status
+    exit 7
+  fi
   echo "Creating $XPI.xpi..."
   mkdir -p "$XPI_DIR"
+  "$BASE/html5_events/html5_events.pl" >"$BASE/html5_events/last_run.log" 2>&1
+  IC_FILE="$SRC/xss/InjectionChecker.js"
+  if git diff "$IC_FILE" | grep IC_EVENT_PATTERN >/dev/null; then
+    git commit -m'[XSS] Updated IC_EVENT_PATTERN.' "$IC_FILE"
+  fi
 fi
 
 CYGPATH=$(which cypath)
@@ -190,8 +200,9 @@ build() {
   bash "$BUILD/nscl/include.sh" "$UNPACKED_DIR"
 
   if [[ $1 == "firefox" ]]; then
-    if ! [[ $UNPACKED_ONLY ]] && is_signed "$XPI.xpi"; then
+    if ! [[ $UNPACKED_ONLY ]] && ! [[ $FIREFOX_TARGET == *:tor ]] && is_signed "$XPI.xpi"; then
       echo "$XPI.xpi is already signed, skipping creation!" >&2
+      return
     fi
     # we use svg icons on Firefox
     rm "$UNPACKED_DIR/img/"*.png
@@ -264,4 +275,9 @@ if [ "$SIGNED" ] && ! [ "$UNPACKED_ONLY" ]; then
   "$0" tag quiet
   nscl
   ../../we-publish "$XPI.xpi"
+
+  if ! grep 'Patching ' "$BASE/html5_events/last_run.log" 2>&1; then
+    echo "WARNING - last IC_EVENT_PATTERN generation run log:" >&2
+    cat "$BASE/html5_events/last_run.log" >&2
+  fi
 fi

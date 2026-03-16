@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+# Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -13,7 +13,10 @@ use File::stat;
 use File::Basename;
 use List::MoreUtils qw(uniq);
 
-my $HTML_ATOMS_URL = "https://hg.mozilla.org/mozilla-central/raw-file/tip/xpcom/ds/StaticAtoms.py";
+my $branch = $ARGV[0] || "main";
+my $HTML_ATOMS_URL = "https://raw.githubusercontent.com/mozilla-firefox/firefox/refs/heads/${branch}/xpcom/ds/StaticAtoms.py";
+
+print "Fetching $HTML_ATOMS_URL\n";
 
 my $HERE = dirname($0);
 my $SOURCE_FILE = "$HERE/../src/xss/InjectionChecker.js";
@@ -69,7 +72,7 @@ sub create_re
   $content =~ s/\s+/\n/g;
   $content =~ s/^\s+|\s+$//g;
 
-  my @all_events = grep(!/^only$/, uniq(split("\n", $content)));
+  my @all_events = grep(!/^only$/, uniq(sort(split("\n", $content))));
 
   open (OUT, ">$archive");
   print OUT join("\n", @all_events);
