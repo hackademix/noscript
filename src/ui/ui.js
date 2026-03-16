@@ -861,21 +861,36 @@ var UI = (() => {
         }
       };
       this.scrollableFit();
+      row.classList.toggle("customizing", true);
       window.setTimeout(
         () => {
-          row.classList.toggle("customizing", true);
           customizer.querySelector("input:not(:disabled)")?.focus();
-          customizer.scrollIntoView();
-          row.scrollIntoView();
+          // ensure customizer is visible at the bottom
+          let scrollable = customizer.offsetParent;
+          while (scrollable && getComputedStyle(scrollable).overflowY != "auto") {
+            scrollable = scrollable.parentElement;
+          }
+          if (!scrollable) {
+            return;
+          }
+          let { bottom } = customizer.getBoundingClientRect();
+          const { top } = scrollable.getBoundingClientRect();
+          bottom -= top;
+          if (bottom > scrollable.clientHeight) {
+            scrollable.scrollTop += bottom - scrollable.clientHeight;
+          }
         },
         10
       );
     }
 
     scrollableFit() {
-      if (UA.mobile) return;
       const scrollable = document.querySelector("#scrollable");
-      if (!scrollable) return;
+      if (!scrollable || UA.mobile || document.documentElement.classList.contains("window") ||
+        parseInt(getComputedStyle(scrollable).maxHeight) == scrollable.offsetHeight) {
+        this.scrollableFit = () => { };
+        return;
+      }
       scrollable.style.overflow = "hidden";
       scrollable.style.minHeight = 0;
       scrollable.style.height = "";
