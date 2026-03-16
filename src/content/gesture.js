@@ -239,6 +239,9 @@
     } else {
       cleanup(false);
     }
+    if (active && e?.type == "touchend") {
+      e.preventDefault();
+    }
   }
 
   const onTouchStart = e => {
@@ -308,9 +311,14 @@
     if (!force && active === value) {
       return;
     }
-    [PASSIVE, ACTIVE].forEach(state => removeEventListener("touchmove", onTouchMove, state));
+    [PASSIVE, ACTIVE].forEach(state => {
+      removeEventListener("touchmove", onTouchMove, state);
+      removeEventListener("touchend", processGesture, state);
+    });
     if (configuration.enabled) {
-      addEventListener("touchmove", onTouchMove, value ? ACTIVE : PASSIVE);
+      const state = value ? ACTIVE : PASSIVE;
+      addEventListener("touchmove", onTouchMove, state);
+      addEventListener("touchend", processGesture, state);
     }
     active = value;
   }
@@ -319,11 +327,9 @@
     let { enabled } = configuration;
     const act = window[`${enabled ? "add" : "remove" }EventListener`].bind(window);
     act("touchstart", onTouchStart, PASSIVE);
-    act("touchend", processGesture, PASSIVE);
     act("touchcancel", processGesture, PASSIVE);
-    if (enabled) {
-      setActive(false, true);
-    } else {
+    setActive(false, true);
+    if (!enabled) {
       cleanup(false);
     }
   }
