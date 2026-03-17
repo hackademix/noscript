@@ -82,7 +82,7 @@
     "message": "Οποιαδήποτε δυνατότητα που έχει αποκλειστεί στο αρχικό έγγραφο πρέπει να αποκλειστεί και στα δευτερεύοντα έγγραφά του"
   },
   "CascadedLabel": {
-    "message": "Cascaded",
+    "message": "Διαδοχή",
     "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
   },
   "ClearClickDescription": {
@@ -116,13 +116,13 @@
     "message": "Να ζητείται επιβεβαίωση πριν το προσωρινό ξεμπλοκάρισμα αντικειμένων"
   },
   "CtxMenu": {
-    "message": "Contextual menu"
+    "message": "Μενού περιβάλλοντος"
   },
   "Custom": {
     "message": "Προσαρμοσμένο"
   },
   "CustomizePresets": {
-    "message": "Preset customization (for all the sites sharing a preset)"
+    "message": "Προσαρμογή προεπιλογών (για όλους τους ιστότοπους που μοιράζονται μια προεπιλογή)"
   },
   "Default": {
     "message": "Προκαθορισμένο"
@@ -131,7 +131,7 @@
     "message": "Προκαθορισμένες πολιτικές"
   },
   "Description": {
-    "message": "Maximum protection for your browser: NoScript allows active content only for trusted domains of your choice to prevent exploitation."
+    "message": "Μέγιστη προστασία για το πρόγραμμα περιήγησής σας: Το NoScript επιτρέπει ενεργό περιεχόμενο μόνο για αξιόπιστους τομείς της επιλογής σας για την αποτροπή εκμετάλλευσης."
   },
   "Donate": {
     "message": "Δωρεά"
@@ -823,9 +823,9 @@
     "message": "Βοήθεια…"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+    "message": "Ενεργοποίηση χειρονομίας: η σχεδίαση \"S\" σε μια ιστοσελίδα ανοίγει το περιβάλλον χρήστη του NoScript για τον ιστότοπο"
   },
   "GestureLabel": {
-    "message": "Draw \"S\" to summon NoScript."
+    "message": "Σχεδιάστε το \"S\" για να καλέσετε το NoScript."
   }
 }
