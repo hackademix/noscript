@@ -158,7 +158,7 @@ UNPACKED_BASE="$BASE/unpacked"
 mkdir -p "$UNPACKED_BASE"
 
 if ! [[ $UNPACKED_ONLY ]]; then
-  if [[ $(git status -s) ]]; then
+  if [[ $(git status -s  | grep ' src/' | grep -v ' src/manifest.json') ]]; then
     echo "Please build packages only on a clean tree!" >&2
     git status
     exit 7
