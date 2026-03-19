@@ -92,7 +92,14 @@ if [[ $1 == "bump" ]]; then
       if [[ $NEW_VER == "+" ]]; then
         # auto-increment,
         # otherwise we will assume current manifest had been manually updated
-        NEW_VER=$(( ${VER/[0-9.a-z]*\./} + 1))
+        if [[ $VER =~ [^0-9.]|\.9[0-9][0-9]$ ]]; then
+          # increment latest .9xx dev number
+          NEW_VER=$(( ${VER/[0-9.a-z]*\./} + 1))
+        else
+          # (re)start numbering dev builds
+          "$0" bump "$VER.901"
+          exit
+        fi
       fi
     fi
     REPLACE_EXPR='s/(?<PREAMBLE>"version":.*)'"$pattern"'"/$+{PREAMBLE}'"$NEW_VER"'"/'
@@ -115,7 +122,8 @@ if [[ $1 == "bump" ]]; then
   done
   echo "Bumping to $VER"
   git commit -m "Version bump: $VER." || exit
-  if ! [[ $VER =~ [^0-9.]|\.9[0-9][0-9]$ ]] ; then
+  shift
+  if ! { [[ $NEW_VER ]] || [[ $VER =~ [^0-9.]|\.9[0-9][0-9]$ ]] ; } then
     # it's a stable release: let's lock nscl and tag
     git submodule update
     "$0" tag
