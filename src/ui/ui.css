@@ -205,7 +205,7 @@ input[type="checkbox"] {
 }
 
 tr.site td {
-  padding-top: .2em;
+  padding-top: .1em;
 }
 
 html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {

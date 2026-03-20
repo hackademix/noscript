@@ -6,7 +6,7 @@
 @import url(../common/themes.css);
 
 html {
-  font-size: 13px;
+  font-size: 12px;
   font-family: system-ui, sans-serif;
   background-color: var(--bg-color2);
 }
