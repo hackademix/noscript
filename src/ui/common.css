@@ -68,7 +68,6 @@ input[type="text"], textarea, select {
 }
 
 input[type="checkbox"]:not(.https-only, .temp, .reveal) {
-  -webkit-appearance: none;
   appearance: none;
   margin: .4em;
   font: inherit;
@@ -104,7 +103,6 @@ input[type="checkbox"]:not(.https-only, .temp, .reveal):checked {
  }
 
 input[type="radio"]:not(.preset) {
-  -webkit-appearance: none;
   appearance: none;
   background-color: var(--form-color1);
   margin: .4em;

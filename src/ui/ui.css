@@ -332,8 +332,6 @@ span.preset {
 .presets input.preset {
   font-size: 1em;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   background: transparent var(--img-ui-no) no-repeat center;
   outline: 0;
   opacity: .7;
@@ -438,8 +436,6 @@ input.preset[value="CUSTOM"] {
 input.temp {
   font-size: 1em;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   margin: 0;
   padding: 0;
   border: 0;

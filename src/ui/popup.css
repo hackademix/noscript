@@ -90,8 +90,6 @@ html:not(.mobile) #scrollable {
 
 .icon {
   appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
   cursor: pointer;
   color: var(--accent-color);
   background: transparent no-repeat left;
@@ -184,8 +182,6 @@ html:not(.mobile) #scrollable {
 
 
 .hider-close, .reveal {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   border: none;
   border-radius: 0;
