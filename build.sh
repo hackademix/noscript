@@ -149,6 +149,7 @@ if [[ $1 =~ ^(sign(ed)?|tor)$ ]]; then
   BUILD_CMD="$BASE/../../we-sign"
   BUILD_OPTS=""
   FIREFOX_TARGET="$FIREFOX_TARGET:${1}"
+  shift
 fi
 
 if [ "$1" != "debug" ]; then
@@ -160,6 +161,8 @@ if [ "$1" != "debug" ]; then
   done
 else
   DBG="-dbg"
+  FIREFOX_TARGET="$FIREFOX_TARGET:dbg"
+  shift
 fi
 
 UNPACKED_BASE="$BASE/unpacked"
@@ -208,7 +211,7 @@ build() {
   bash "$BUILD/nscl/include.sh" "$UNPACKED_DIR"
 
   if [[ $1 == "firefox" ]]; then
-    if ! [[ $UNPACKED_ONLY ]] && ! [[ $FIREFOX_TARGET == *:tor ]] && is_signed "$XPI.xpi"; then
+    if ! [[ $UNPACKED_ONLY ]] && ! [[ $FIREFOX_TARGET == *:tor* ]] && is_signed "$XPI.xpi"; then
       echo "$XPI.xpi is already signed, skipping creation!" >&2
       return
     fi
@@ -237,8 +240,10 @@ build() {
 fix_manifest "$FIREFOX_TARGET"
 build firefox
 
-if [[ $FIREFOX_TARGET == *:tor ]]; then
-  bash "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT"
+if [[ $FIREFOX_TARGET == *:tor* ]]; then
+  if ! [[ $DBG ]]; then
+    bash "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT"
+  fi
   exit
 fi
 
@@ -264,8 +269,6 @@ elif ! [ "$UNPACKED_ONLY" ]; then
   exit 3
 fi
 
-
-
 # create Chromium pre-release
 
 BUILD_CMD="$CHROMIUM_BUILD_CMD"
@@ -279,7 +282,7 @@ fix_manifest mv3chrome
 ZIP=$(build chromium)
 [ -f "$ZIP" ] &&  mv "$ZIP" "$XPI$DBG-chrome.zip"
 
-if [ "$SIGNED" ] && ! [ "$UNPACKED_ONLY" ]; then
+if [[ $SIGNED ]] && ! [[ $UNPACKED_ONLY ]] && ! [[ $DBG ]]; then
   "$0" tag quiet
   nscl
   ../../we-publish "$XPI.xpi"

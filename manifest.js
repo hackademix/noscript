@@ -39,7 +39,9 @@ const FIREFOX_UPDATE_URL = "https://secure.informaction.com/update/?v=" + extVer
 const EDGE_UPDATE_URL = "https://edge.microsoft.com/extensionwebstorebase/v1/crx";
 
 const isFirefox = MANIFEST_VER.includes("firefox");
-const isTor = MANIFEST_VER.endsWith(":tor");
+const isTor = MANIFEST_VER.includes(":tor");
+const isDebug = MANIFEST_VER.includes(":dbg");
+
 if (isFirefox) {
   const pre = /[a-zA-Z-]|\.9\d{2}$/.test(extVer);
   if (isTor) {
@@ -53,7 +55,7 @@ if (isFirefox) {
   const url = isTor
     ? `https://dist.torproject.org/torbrowser/noscript/update-${pre ? "pre" : "stable"}.json`
     : pre ? FIREFOX_UPDATE_URL : "";
-  if (url) {
+  if (url && !isDebug) {
     json.browser_specific_settings.gecko.update_url = url;
   }
   json.icons = {};
