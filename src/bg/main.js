@@ -333,6 +333,7 @@
           if (frameId == 0 || url != "null") {
             break;
           }
+          await NavCache.wakening;
           const parentFrameId = NavCache.getFrame(tabId, frameId)?.parentFrameId || 0;
           const parentUrl = NavCache.getFrame(tabId, parentFrameId)?.url;
           if (parentUrl) {
