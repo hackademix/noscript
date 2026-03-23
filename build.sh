@@ -264,8 +264,8 @@ if [ -f "$XPI.xpi" ]; then
   if is_signed "$XPI.xpi"; then
     SIGNED="$XPI.xpi"
   fi
-elif ! [ "$UNPACKED_ONLY" ]; then
-  echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
+elif ! { [[ $UNPACKED_ONLY ]] || [[ $DBG ]] ; } then
+  echo >&2 "ERROR: Could not create $XPI.xpi!"
   exit 3
 fi
 
