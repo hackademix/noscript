@@ -292,7 +292,7 @@ ns.on("capabilities", () => {
     // scriptless user interaction tracking.
     // See https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42829
 
-    const only3rdParty = ns.canScript || !browser.extension.inIncognitoContext;
+    const pp0MitigationOnly = ns.canScript || !browser.extension.inIncognitoContext;
 
     const prefetchCallback =
       // false && // REL_ONLY
@@ -302,7 +302,7 @@ ns.on("capabilities", () => {
         url.hostname = `prefetch.${url.hostname}`;
         return false; // let default processing continue with the modified hostname
       } : null;
-    prefetchCSSResources(only3rdParty, prefetchCallback);
+    prefetchCSSResources(pp0MitigationOnly, prefetchCallback);
   }
 
   if (!ns.canScript) {
