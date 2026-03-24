@@ -108,7 +108,13 @@
             policy = await Messages.send(msg.id, msg) || this.domPolicy;
             debug("Asynchronous policy", policy);
           } catch (e) {
-            error(e, "(Asynchronous policy fetch)");
+            if (/An unexpected error occurred/.test(e)) {
+              // This might be just the browser context unloading:
+              // if that's the case, deferring suppresses the console spam
+              setTimeout(() => error(e, "(deferred - Asynchronous policy fetch)"), 0);
+            } else {
+              error(e, "(Asynchronous policy fetch)");
+            }
           }
         }
         setup(policy);
