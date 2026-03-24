@@ -62,6 +62,9 @@ if (isFirefox) {
   for (const size of [16, 32, 48, 64, 128, 256]) {
     json.icons[size] = "img/logo.svg";
   }
+  for (const s of [json.background.scripts, json.content_scripts[0].js]) {
+    s.splice(s.indexOf("/nscl/lib/browser-polyfill.js"), 1);
+  }
 }
 
 if (MANIFEST_VER.includes(3)) {
@@ -70,7 +73,6 @@ if (MANIFEST_VER.includes(3)) {
 
   const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
   const scriptsFilter = src => !excludedScriptsRx.test(src);
-  console.log(json.background);
   json.background.scripts = json.background.scripts.filter(scriptsFilter);
   for (const cs of json.content_scripts) {
     cs.js = cs.js.filter(scriptsFilter);
@@ -117,9 +119,6 @@ if (MANIFEST_VER.includes(3)) {
   delete json.web_accessible_resources;
   delete json.host_permissions;
   delete json.action;
-
-  // match_origin_as_fallback is MV3 only
-  // json.content_scripts.forEach(cs => delete cs.match_origin_as_fallback);
 }
 
 if (isFirefox || json.manifest_version == 2) {
