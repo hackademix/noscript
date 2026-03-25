@@ -217,6 +217,8 @@ build() {
     fi
     # we use svg icons on Firefox
     rm "$UNPACKED_DIR/img/"*.png
+    # no need for browser-polyfill, since Firefox is our primary API target
+    echo >"$UNPACKED_DIR/nscl/lib/browser-polyfill.js" '"Empty stub: no need for extensions API polyfill on Firefox!"'
   fi
 
   if [[ $UNPACKED_ONLY ]]; then
