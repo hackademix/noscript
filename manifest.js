@@ -1,7 +1,7 @@
 /*
- * NoScript Commons Library
- * Reusable building blocks for cross-browser security/privacy WebExtensions.
- * Copyright (C) 2020-2024 Giorgio Maone <https://maone.net>
+ * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
+ *
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
