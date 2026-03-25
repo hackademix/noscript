@@ -135,7 +135,7 @@ XPI="$XPI_DIR/noscript-${VER}"
 
 rm -rf "$BUILD" "$XPI"
 cp -pR "$SRC" "$BUILD"
-cp -p LICENSE "$BUILD"/
+cp -p LICENSE COPYRIGHT "$BUILD"/
 
 BUILD_CMD="web-ext"
 BUILD_OPTS="build --overwrite-dest"
@@ -224,12 +224,14 @@ build() {
   if [[ $UNPACKED_ONLY ]]; then
     return
   fi
-
+  WEBEXT_IN="${UNPACKED_DIR}_pkg"
+  rm -rf "$WEBEXT_IN"
+  cp -rp "$UNPACKED_DIR" "$WEBEXT_IN"
+  node optimize.js "$WEBEXT_IN"
   if [ "$CYGPATH" ]; then
-    WEBEXT_IN="$(cygpath -w "$UNPACKED_DIR")"
+    WEBEXT_IN="$(cygpath -w "$WEBEXT_IN")"
     WEBEXT_OUT="$(cygpath -w "$XPI_DIR")"
   else
-    WEBEXT_IN="$UNPACKED_DIR"
     WEBEXT_OUT="$XPI_DIR"
   fi
 
