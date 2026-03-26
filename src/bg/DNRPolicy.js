@@ -75,9 +75,9 @@
     if (Sites.isSecureDomainKey(siteKey)) {
       return `||${Sites.toggleSecureDomainKey(siteKey,false)}^`
     }
-    const schemeLess = siteKey.replace(/^[\w-]+:\/+/, "");
+    const schemeLess = siteKey.replace(/^[\w-]+:\/*/, "");
     let urlFilter = `${siteKey == schemeLess ? "||" : "|"}${siteKey}`;
-    if (!schemeLess.includes('/')) {
+    if (schemeLess && !schemeLess.includes('/')) {
       urlFilter += '^';
     }
     return urlFilter;
