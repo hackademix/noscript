@@ -29,7 +29,7 @@ if (/^(?:file|ftp):$/.test(location.protocol)) {
     ns.pendingSyncFetchPolicy = false;
     ns.syncFetchPolicy = () => {};
 
-    let url = document.URL;
+    const url = document.URL;
 
     // Here we've got no CSP header yet (file: or ftp: URL), we need one
     // injected in the DOM as soon as possible.
@@ -77,6 +77,18 @@ if (/^(?:file|ftp):$/.test(location.protocol)) {
       && document.readyState !== "complete";
 
     if (mustFreeze) {
+      const normalizeDir = e => {
+        // Chromium does this automatically. We need it to understand we're a directory earlier and allow browser UI scripts.
+        if (document.baseURI === `${url}/`) {
+          if (e) {
+            document.removeEventListener(e.type, normalizeDir);
+            e.stopImmediatePropagation();
+          }
+          window.stop();
+          location.replace(document.baseURI);
+        }
+      }
+      normalizeDir();
       // Mozilla has already parsed the <head> element, we must take extra steps...
       try {
         DocumentFreezer.freeze();
@@ -86,17 +98,9 @@ if (/^(?:file|ftp):$/.test(location.protocol)) {
           debug("Readystate: %s, suppressedScripts = %s, canScript = %s", document.readyState, DocumentFreezer.suppressedScripts, ns.canScript);
 
           if (!ns.canScript) {
-            queueMicrotask(() => DocumentFreezer.unfreezeLive());
-            let normalizeDir = e => {
-              // Chromium does this automatically. We need it to understand we're a directory earlier and allow browser UI scripts.
-              if (document.baseURI === document.URL + "/") {
-                if (e) {
-                  document.removeEventListener(e.type, normalizeDir);
-                  e.stopImmediatePropagation();
-                }
-                window.stop();
-                location.replace(document.baseURI);
-              }
+            if (url.endsWith("/")) {
+              DocumentFreezer.unfreezeLive();
+              return;
             }
             if (DocumentFreezer.firedDOMContentLoaded) {
               normalizeDir();

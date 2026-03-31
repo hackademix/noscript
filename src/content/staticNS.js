@@ -180,7 +180,9 @@
 
       if (DocumentFreezer.isFrozen) {
         if (!this.canScript) {
-          DocumentFreezer.unfreezeLive();
+          if (location.protocol.startsWith("http")) {
+            DocumentFreezer.unfreezeLive();
+          }
         } else {
           DocumentFreezer.unfreezeAutoReload();
         }
