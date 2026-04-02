@@ -253,7 +253,10 @@
 
     const { clientX, clientY, radiusX, radiusY } = e.touches[0];
 
-    if (Math.max(radiusX, radiusY) < 10) {
+    if (Math.max(radiusX, radiusY) < 10
+        // RFPTarget::TouchEvents sets both to 0, see issue #540
+        && radiusX + radiusY != 0
+      ) {
       console.debug("Too small to be a finger!"); // DEV_ONLY
       return;
     }
