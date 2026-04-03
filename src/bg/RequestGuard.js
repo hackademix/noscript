@@ -495,8 +495,9 @@
     },
 
     async reportTo(originalRequest, allowed, policyType) {
-      const { requestId, tabId, frameId, type, url, documentUrl, originUrl } =
+      const { requestId, tabId, type, url, documentUrl, originUrl } =
         originalRequest;
+
       const pending = pendingRequests.get(requestId); // null if from a CSP report
 
       const request = {
@@ -554,24 +555,30 @@
         return;
       }
       if (pending) request.initialUrl = pending.initialUrl;
-      if (type !== "sub_frame") {
+      let { frameId, parentFrameId } = originalRequest;
+      if (type == "sub_frame") {
         // we couldn't deliver it to frameId, since it's generally not loaded yet
-        try {
-          await Messages.send(
-            "seen",
-            { request, allowed, policyType, ownFrame: true },
-            { tabId, frameId }
-          );
-        } catch (e) {
-          debug(
-            `Couldn't deliver "seen" message for ${type}@${url} ${
-              allowed ? "A" : "F"
-            } to document ${documentUrl} (${frameId}/${tabId})`,
-            e
-          );
-        }
+        frameId = parentFrameId;
       }
-      if (frameId === 0) return;
+      try {
+        await Messages.send(
+          "seen",
+          { request, allowed, policyType, ownFrame: true },
+          { tabId, frameId }
+        );
+      } catch (e) {
+        debug(
+          `Couldn't deliver "seen" message for ${type}@${url} ${
+            allowed ? "A" : "F"
+          } to document ${documentUrl} (${frameId}/${tabId})`,
+          e
+        );
+      }
+
+      if (frameId === 0) {
+        return;
+      }
+
       try {
         await Messages.send(
           "seen",
