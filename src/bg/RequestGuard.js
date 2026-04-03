@@ -608,39 +608,28 @@
     return redirected;
   }
 
-  let normalizeRequest = request => {
-
-    function fakeOriginFromTab({tabId, type} = request) {
-      if (type !== "main_frame") {
-        let tabUrl = request.tabUrl || tabId !== -1 && TabCache.get(tabId)?.url;
-        if (tabUrl) {
-          return request.initiator = request.originUrl = request.documentUrl = tabUrl;
-        }
-      }
-      return request.initiator || request.originUrl;
-    }
+  const normalizeRequest = request => {
 
     if ("initiator" in request && !("originUrl" in request)) {
-      if (request.initiator === "null") {
-        // Chromium sandboxed content?
-        fakeOriginFromTab();
-      }
       request.originUrl = request.initiator;
       if (request.type !== "main_frame" && !("documentUrl" in request)) {
         request.documentUrl = request.initiator;
       }
     }
-    if ("frameAncestors" in request && (!request.originUrl || request.documentUrl)) {
-      // Gecko sandboxed content?
+    if (request.frameAncestors && !request.originUrl && request.type == "sub_frame") {
+      // Gecko sandboxed iframe
       for (let f of request.frameAncestors) {
         if (f.url !== "null" && !f.url.startsWith("moz-nullprincipal:")) {
-          request.originUrl = request.documentUrl = f.url;
+          let { url } = f;
+          if (url === "") {
+            // redacted ancestor url in sandboxed frame, let's grab the real one from NavCache
+            url = NavCache.getFrame(request.tabId, f.frameId)?.url;
+          }
+          request.originUrl = request.documentUrl = url;
           break;
         }
       }
-      if (!request.originUrl) {
-        fakeOriginFromTab();
-      }
+      request.originUrl ||= request.documentUrl;
     }
   };
 
@@ -760,7 +749,7 @@
 
     let {tabId, type, url, originUrl} = request;
 
-    const {policy} = ns
+    const { policy } = ns;
 
     let previous = recent.find(request);
     if (previous) {
