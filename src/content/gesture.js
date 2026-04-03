@@ -251,16 +251,6 @@
     path = [];
     console.debug("NoScript gesture processing touch event", e); // DEV_ONLY
 
-    const { clientX, clientY, radiusX, radiusY } = e.touches[0];
-
-    if (Math.max(radiusX, radiusY) < 10
-        // RFPTarget::TouchEvents sets both to 0, see issue #540
-        && radiusX + radiusY != 0
-      ) {
-      console.debug("Too small to be a finger!"); // DEV_ONLY
-      return;
-    }
-
     if (ns?.canScript && e.target instanceof HTMLCanvasElement) {
       console.debug("Input to a drawing app? Bailing out."); // DEV_ONLY
       return;
@@ -268,6 +258,8 @@
 
     setupLogo();
     setupCanvas();
+
+    const { clientX, clientY } = e.touches[0];
     path.push({ x: clientX, y: clientY });
   };
 
