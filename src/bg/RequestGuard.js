@@ -35,6 +35,7 @@
       object: "object",
       object_subrequest: "fetch",
       xmlhttprequest: "fetch",
+      websocket: "fetch",
       ping: "ping",
       beacon: "ping",
       media: "media",
