@@ -616,8 +616,16 @@
         request.documentUrl = request.initiator;
       }
     }
-    if (request.frameAncestors && !request.originUrl && request.type == "sub_frame") {
-      // Gecko sandboxed iframe
+    if (request.frameAncestors && !request.originUrl && request.type != "main_frame") {
+      // Gecko sandboxed content
+      if (request.documentUrl || request.type != "sub_frame") {
+        // this is a navigation triggered by the framed document: let's use its current URL
+        request.originUrl = NavCache.getFrame(request.tabId, request.frameId)?.url || "null";
+        request.documentUrl ||= request.originUrl;
+        return;
+      }
+      // both originUrl and documentUrl are undefined:
+      // initial sandboxed iframe creation, let's use first viable ancestor
       for (let f of request.frameAncestors) {
         if (f.url !== "null" && !f.url.startsWith("moz-nullprincipal:")) {
           let { url } = f;
@@ -629,7 +637,7 @@
           break;
         }
       }
-      request.originUrl ||= request.documentUrl;
+      request.originUrl ||= "null";
     }
   };
 
