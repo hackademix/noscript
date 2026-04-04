@@ -396,6 +396,17 @@ var LifeCycle = (() => {
         // add the wasm capability to any preset which already has the script capability
         await configureNewCap("wasm", ["DEFAULT", "TRUSTED", "CUSTOM"], caps => caps.has("script"));
       }
+
+      if (Ver.is(previousVersion, "<=", "13.6.15")) {
+        // remove the "fetch" capability from DEFAULT unless "script" is there
+        await forEachPreset(({ capabilities }) => {
+          if (capabilities.has("fetch") && !capabilities.has("script")) {
+            capabilities.delete("fetch");
+            return true;
+          }
+          return false;
+        }, ["DEFAULT"]);
+      }
     },
 
     async onUpdateAvailable(details) {
