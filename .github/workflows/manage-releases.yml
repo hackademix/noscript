@@ -1,0 +1,250 @@
+# .github/workflows/manage-releases.yml
+
+# Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Triggered by *1984 tags pushed by tools/deploy2tor.sh.
+#
+# For the current tag:
+#   - Creates a GitHub Release named after the regular version (no 1984 suffix)
+#   - Attaches the XPI from dist.torproject.org              (always present)
+#   - Attaches the AMO XPI from secure.informaction.com     (if already uploaded)
+#   - Attaches the Chrome ZIP from secure.informaction.com  (if already uploaded)
+#
+# Additionally, for pre-release tags only:
+#   - Derives the corresponding stable version (strips trailing .9xx from VER)
+#     and finds its GitHub release
+#   - If it is missing the AMO XPI, checks informaction.com and uploads
+#     it if now available
+#
+# Required secrets: only the automatic GITHUB_TOKEN.
+
+name: Manage releases
+
+on:
+  push:
+    tags:
+      - '*1984'
+
+jobs:
+  release:
+    name: Create / update current release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      version:    ${{ steps.meta.outputs.version }}
+      prerelease: ${{ steps.meta.outputs.prerelease }}
+
+    steps:
+      - name: Derive version and pre-release flag
+        id: meta
+        run: |
+          TOR_TAG="${GITHUB_REF_NAME}"
+          echo "tor_tag=${TOR_TAG}" >> "$GITHUB_OUTPUT"
+
+          # Strip the Tor suffix to obtain the regular version.
+          # Stable:     13.6.15.1984     → 13.6.15   (strip .1984)
+          # Pre:        13.6.15.90101984 → 13.6.15.901 (strip 01984)
+          # Both cases share "01984" at the tail; stable also has a leading dot.
+          VER="${TOR_TAG%01984}"
+          VER="${VER%.1984}"
+          echo "version=${VER}" >> "$GITHUB_OUTPUT"
+
+          # Stable = suffix is exactly ".1984" or ".01984"; anything else is pre.
+          SUFFIX="${TOR_TAG#"${VER}"}"
+          if [[ "$SUFFIX" =~ ^\.0?1984$ ]]; then
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=true"  >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract changelog from regular tag annotation
+        id: changelog
+        env:
+          VER: ${{ steps.meta.outputs.version }}
+        run: |
+          COMMIT=$(git rev-parse HEAD)
+
+          # Try VER as-is, then with trailing .0 components stripped
+          # (handles the 13.5.0.1984 → regular tag "13.5" case).
+          VER_SHORT="${VER%.0}"
+          VER_SHORTER="${VER_SHORT%.0}"
+
+          REG_TAG=""
+          for candidate in "$VER" "v$VER" "$VER_SHORT" "v$VER_SHORT" \
+                           "$VER_SHORTER" "v$VER_SHORTER"; do
+            if git tag --points-at "$COMMIT" | grep -qxF "$candidate"; then
+              REG_TAG="$candidate"
+              break
+            fi
+          done
+
+          if [[ -z "$REG_TAG" ]]; then
+            echo "No regular tag found on this commit for '$VER'; changelog will be empty." >&2
+            touch /tmp/changelog.md
+          else
+            git tag -l --format='%(contents)' "$REG_TAG" > /tmp/changelog.md
+            echo "Using annotation from tag '$REG_TAG'."
+          fi
+
+      - name: Download XPI from dist.torproject.org
+        id: tor_xpi
+        env:
+          TOR_TAG: ${{ steps.meta.outputs.tor_tag }}
+        run: |
+          FILE="noscript-${TOR_TAG}.xpi"
+          URL="https://dist.torproject.org/torbrowser/noscript/${FILE}"
+          echo "Downloading ${URL}"
+          curl -fsSL --retry 3 -o "$FILE" "$URL"
+          ls -lh "$FILE"
+          echo "file=${FILE}" >> "$GITHUB_OUTPUT"
+          echo "label=${FILE}#auto-updated from torproject.org" >> "$GITHUB_OUTPUT"
+
+      - name: Download AMO XPI from informaction.com
+        id: amo_xpi
+        env:
+          VER:        ${{ steps.meta.outputs.version }}
+          PRERELEASE: ${{ steps.meta.outputs.prerelease }}
+        run: |
+          FILE="noscript-${VER}.xpi"
+          if [[ "$PRERELEASE" == "true" ]]; then
+            SUBPATH="betas"
+            LABEL_SOURCE="mozilla.org"
+          else
+            SUBPATH="releases"
+            LABEL_SOURCE="informaction.com"
+          fi
+          URL="https://secure.informaction.com/download/${SUBPATH}/${FILE}"
+          echo "Trying ${URL}"
+          if curl -fsSL --retry 3 -o "$FILE" "$URL" 2>/dev/null; then
+            ls -lh "$FILE"
+            echo "found=true"                                          >> "$GITHUB_OUTPUT"
+            echo "file=${FILE}"                                        >> "$GITHUB_OUTPUT"
+            echo "label=${FILE}#auto-updated from ${LABEL_SOURCE}"    >> "$GITHUB_OUTPUT"
+          else
+            echo "AMO XPI not yet available at ${URL}, skipping."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download Chrome ZIP from informaction.com
+        id: chrome_zip
+        env:
+          VER:        ${{ steps.meta.outputs.version }}
+          PRERELEASE: ${{ steps.meta.outputs.prerelease }}
+        run: |
+          FILE="noscript-${VER}-chrome.zip"
+          if [[ "$PRERELEASE" == "true" ]]; then
+            SUBPATH="betas"
+          else
+            SUBPATH="releases"
+          fi
+          URL="https://secure.informaction.com/download/${SUBPATH}/${FILE}"
+          echo "Trying ${URL}"
+          if curl -fsSL --retry 3 -o "$FILE" "$URL" 2>/dev/null; then
+            ls -lh "$FILE"
+            echo "found=true"  >> "$GITHUB_OUTPUT"
+            echo "file=${FILE}" >> "$GITHUB_OUTPUT"
+          else
+            echo "Chrome ZIP not yet available at ${URL}, skipping."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create / update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name:   ${{ steps.meta.outputs.tor_tag }}
+          name:       ${{ steps.meta.outputs.version }}
+          prerelease: ${{ steps.meta.outputs.prerelease }}
+          body_path:  /tmp/changelog.md
+          files: |
+            ${{ steps.tor_xpi.outputs.file }}
+            ${{ steps.amo_xpi.outputs.found == 'true' && steps.amo_xpi.outputs.file || '' }}
+            ${{ steps.chrome_zip.outputs.found == 'true' && steps.chrome_zip.outputs.file || '' }}
+
+  # ── Backfill AMO XPI on the corresponding stable release ─────────────────
+  #
+  # Only runs for pre-release tags. For a tag like 13.5.2.90101984, VER is
+  # "13.5.2.901" — the trailing .9xx is stripped to derive the stable base
+  # version "13.5.2", whose release is then checked and patched if needed.
+  # Stable tags are excluded because the release job already handles attaching
+  # the AMO XPI (if available) at creation time.
+  backfill-stable-amo:
+    name: Backfill AMO XPI on corresponding stable release
+    needs: release
+    if: needs.release.outputs.prerelease == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check and backfill AMO XPI if missing
+        env:
+          GH_TOKEN:   ${{ secrets.GITHUB_TOKEN }}
+          VER:        ${{ needs.release.outputs.version }}
+          PRERELEASE: ${{ needs.release.outputs.prerelease }}
+        run: |
+          # Derive the stable base version:
+          # - stable tag   (13.5.2.1984)    → VER=13.5.2       → STABLE_VER=13.5.2
+          # - pre tag      (13.5.2.90101984) → VER=13.5.2.901  → STABLE_VER=13.5.2
+          # Strip any trailing .9xx component to reach the stable version.
+          LAST_COMPONENT="${VER##*.}"
+          if [[ "$LAST_COMPONENT" =~ ^9[0-9]{2,}$ ]]; then
+            STABLE_VER="${VER%.*}"
+          else
+            STABLE_VER="$VER"
+          fi
+
+          echo "Stable base version to check: ${STABLE_VER}"
+
+          # Find the GitHub release whose name matches STABLE_VER.
+          STABLE_TAG=$(gh release list \
+                         --repo "$GITHUB_REPOSITORY" \
+                         --limit 100 \
+                         --json tagName,name,isPrerelease \
+                         --jq \
+                           --arg sv "$STABLE_VER" \
+                           '[.[] | select(.isPrerelease == false)
+                                 | select(.name == $sv)] | first | .tagName' \
+                       2>/dev/null || true)
+
+          if [[ -z "$STABLE_TAG" || "$STABLE_TAG" == "null" ]]; then
+            echo "No stable GitHub release found for version '${STABLE_VER}', nothing to backfill."
+            exit 0
+          fi
+
+          echo "Stable release tag: ${STABLE_TAG}"
+
+          # Check whether it already has the AMO XPI asset.
+          HAS_AMO=$(gh release view "$STABLE_TAG" \
+                      --repo "$GITHUB_REPOSITORY" \
+                      --json assets \
+                      --jq \
+                        --arg f "noscript-${STABLE_VER}.xpi" \
+                        '.assets[] | select(.name == $f) | .name' \
+                    2>/dev/null || true)
+
+          if [[ -n "$HAS_AMO" ]]; then
+            echo "Release '${STABLE_TAG}' already has the AMO XPI, nothing to do."
+            exit 0
+          fi
+
+          FILE="noscript-${STABLE_VER}.xpi"
+          URL="https://secure.informaction.com/download/releases/${FILE}"
+          echo "AMO XPI missing from '${STABLE_TAG}', checking ${URL} ..."
+
+          if curl -fsSL --retry 3 -o "$FILE" "$URL" 2>/dev/null; then
+            ls -lh "$FILE"
+            gh release upload "$STABLE_TAG" "$FILE" \
+              --repo "$GITHUB_REPOSITORY" \
+              --clobber
+            echo "Uploaded ${FILE} to release ${STABLE_TAG}."
+          else
+            echo "AMO XPI for '${STABLE_VER}' not yet available at ${URL}, skipping."
+          fi

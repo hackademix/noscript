@@ -4,7 +4,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-BASE="$PWD"
+BASE="$(git rev-parse --show-toplevel)"
 SRC="$BASE/src"
 BUILD="$BASE/build"
 MANIFEST_IN="$SRC/manifest.json"
