@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 SRC_DIR="src/_locales"
 TMP_DIR="/tmp/_locales"
 EN_FILE="$SRC_DIR/en/messages.json"
