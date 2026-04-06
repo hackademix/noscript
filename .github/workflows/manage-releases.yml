@@ -26,11 +26,11 @@ on:
   push:
     tags:
       - '*1984'
-    workflow_dispatch:
-      inputs:
-        tor_tag:
-          description: 'Tag to process (e.g., 13.5.0.1984)'
-          required: true
+  workflow_dispatch:
+    inputs:
+      tor_tag:
+        description: 'Tag to process (e.g., 13.5.0.1984)'
+        required: true
 jobs:
   release:
     name: Create / update current release
