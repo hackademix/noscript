@@ -26,7 +26,11 @@ on:
   push:
     tags:
       - '*1984'
-
+    workflow_dispatch:
+        inputs:
+          tor_tag:
+            description: 'Tag to process (e.g., 13.5.0.1984)'
+            required: true
 jobs:
   release:
     name: Create / update current release
@@ -41,7 +45,8 @@ jobs:
       - name: Derive version and pre-release flag
         id: meta
         run: |
-          TOR_TAG="${GITHUB_REF_NAME}"
+          # Use workflow_dispatch input if provided, otherwise use the pushed tag
+          TOR_TAG="${{ github.event.inputs.tor_tag || github.ref_name }}"
           echo "tor_tag=${TOR_TAG}" >> "$GITHUB_OUTPUT"
 
           # Strip the Tor suffix to obtain the regular version.
