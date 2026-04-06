@@ -70,15 +70,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Extract changelog from regular tag annotation
+      - name: Extract changelog
         id: changelog
         env:
           VER: ${{ steps.meta.outputs.version }}
+          PRERELEASE: ${{ steps.meta.outputs.prerelease }}
         run: |
           COMMIT=$(git rev-parse HEAD)
-
-          # Try VER as-is, then with trailing .0 components stripped
-          # (handles the 13.5.0.1984 → regular tag "13.5" case).
           VER_SHORT="${VER%.0}"
           VER_SHORTER="${VER_SHORT%.0}"
 
@@ -95,8 +93,19 @@ jobs:
             echo "No regular tag found on this commit for '$VER'; changelog will be empty." >&2
             touch /tmp/changelog.md
           else
-            git tag -l --format='%(contents)' "$REG_TAG" > /tmp/changelog.md
-            echo "Using annotation from tag '$REG_TAG'."
+            if [[ "$PRERELEASE" == "true" ]]; then
+              # Pre-release: extract from tag annotation
+              git tag -l --format='%(contents)' "$REG_TAG" > /tmp/changelog.md
+              echo "Using annotation from tag '$REG_TAG'."
+            else
+              # Extract the version from REG_TAG (remove leading 'v' if present)
+              CHANGELOG_VER="${REG_TAG#v}"
+              echo "Fetching changelog for stable release ${CHANGELOG_VER} from noscript.net..."
+              CHANGELOG_VER_ESCAPED="${CHANGELOG_VER//./\.}"
+              curl -L "https://noscript.net/changelog" | \
+                grep -A1000 "v $CHANGELOG_VER_ESCAPED$" | \
+                grep -m1 -B1000 '^$' > /tmp/changelog.md
+            fi
           fi
 
       - name: Download XPI from dist.torproject.org
