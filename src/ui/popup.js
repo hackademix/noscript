@@ -537,7 +537,9 @@ addEventListener("unload", e => {
       if (UI.isBrowserAction) {
         window.close();
       } else {
-        browser.tabs.remove(tab.id);
+        (async () => {
+          browser.tabs.remove((await browser.tabs.getCurrent()).id);
+        })();
       }
     }
 
