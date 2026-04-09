@@ -76,14 +76,13 @@ jobs:
           VER: ${{ steps.meta.outputs.version }}
           PRERELEASE: ${{ steps.meta.outputs.prerelease }}
         run: |
-          COMMIT=$(git rev-parse HEAD)
           VER_SHORT="${VER%.0}"
           VER_SHORTER="${VER_SHORT%.0}"
 
           REG_TAG=""
           for candidate in "$VER" "v$VER" "$VER_SHORT" "v$VER_SHORT" \
                            "$VER_SHORTER" "v$VER_SHORTER"; do
-            if git tag --points-at "$COMMIT" | grep -qxF "$candidate"; then
+            if git tag --points-at "$candidate" >/dev/null 2>&1; then
               REG_TAG="$candidate"
               break
             fi
