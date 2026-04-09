@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -445,7 +445,7 @@ addEventListener("unload", e => {
         } else {
           let domain = tld.getDomain(url.hostname);
           if (domain) {
-            domain = url.protocol === "https:" ? Sites.secureDomainKey(domain) : domain;
+            domain = Sites.isSecureProtocol(url.protocol) ? Sites.secureDomainKey(domain) : domain;
           } else {
             domain = url.protocol;
           }
