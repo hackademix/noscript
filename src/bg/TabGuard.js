@@ -184,8 +184,10 @@ var TabGuard = (() => {
 
       // we suspect tabs which 1) have not been removed/discarded, 2) are restricted by policy, 3) can run JavaScript
       let suspiciousTabs = [...ties].map(TabCache.get).filter(
-        tab => tab && !tab.discarded && ns.isEnforced(tab.id) &&
-        (!(tab._isExplicitOrigin = tab._isExplicitOrigin || /^(?:https?|ftps?|file):/.test(tab.url)) || ns.policy.can(tab.url, "script"))
+        tab => tab && !tab.discarded && ns.isEnforced(tab.id) && (
+          !(tab._isExplicitOrigin = tab._isExplicitOrigin || /^(?:https?|ftps?|file):/.test(tab.url)) ||
+          ns.getPolicy(tab.cookieStoreId).can(tab.url, "script")
+        )
       );
 
       return suspiciousTabs.length > 0 && (async () => {
@@ -222,7 +224,7 @@ var TabGuard = (() => {
             }
             if (tab.url !== "about:blank") {
               debug(`Real origin for ${tab._externalUrl} (tab ${tab.id}) is ${tab.url}.`);
-              if (!ns.policy.can(tab.url, "script")) return;
+              if (!ns.getPolicy(tab.cookieStoreId).can(tab.url, "script")) return;
             }
           }
           if (!tab._contentType) {

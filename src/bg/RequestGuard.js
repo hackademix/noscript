@@ -390,7 +390,7 @@
 
         const wantsTemp = forcedTemp || checked.includes("temp");
         if (!contextMatch) {
-          const isDefault = perms === ns.policy.DEFAULT;
+          const isDefault = perms === policy.DEFAULT;
           perms = perms.clone();
           if (isDefault) perms.temp = wantsTemp;
           policy.set(key, perms);

@@ -1139,7 +1139,7 @@ var UI = (() => {
     }
 
     _customOrAuto(row) {
-      const { policy } = UI;
+      const policy = this.policy;
       const { perms, contextMatch, siteMatch } = row;
       const isAuto = policy.autoAllowTop && perms.temp &&
           contextMatch == siteMatch &&
@@ -1363,7 +1363,7 @@ var UI = (() => {
               w.title = title;
               w.textContent &&= label;
             }
-            row._customPerms = perms = UI.policy.cascade(this.policy.DEFAULT, this.mainUrl, {permissions: true});
+            row._customPerms = perms = this.policy.cascade(this.policy.DEFAULT, this.mainUrl, {permissions: true});
           }
           preset.classList.toggle("canScript", perms.capabilities.has("script"));
         }

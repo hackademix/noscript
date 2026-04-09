@@ -339,7 +339,10 @@
       return tab?.url || documentUrl || url;
     },
     requestCan(request, capability) {
-      return !this.isEnforced(request.tabId) || this.policy.can(request.url, capability, this.policyContext(request));
+      return (
+        !this.isEnforced(request.tabId) ||
+        ns.getPolicy(request.cookieStoreId).can(request.url, capability, this.policyContext(request))
+      );
     },
 
     getPolicy(cookieStoreId){
