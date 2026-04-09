@@ -227,6 +227,7 @@ document.querySelector("#version").textContent = _("Version",
 
   function updateContainersEnabled() {
     let containersEnabled = Boolean(contextStore.enabled && browser.contextualIdentities);
+    document.querySelector("#containers-opt").style.display = browser.contextualIdentities? "": "none";
     document.querySelector("#opt-containers").disabled = !browser.contextualIdentities;
     document.querySelector("#opt-containers").checked = contextStore.enabled;
     document.querySelector("#select-container").hidden = !containersEnabled;
