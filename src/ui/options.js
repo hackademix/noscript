@@ -204,10 +204,7 @@ document.querySelector("#version").textContent = _("Version",
     let presetsUI = new UI.Sites(parent,
       {"DEFAULT": true, "TRUSTED": true, "UNTRUSTED": true});
     presetsUI.onChange = () => {
-      if (policy && contextStore) {  // contextStore presets always copy default policy's
-        contextStore.updatePresets(policy);
-        UI.updateSettings({policy, contextStore});
-      }
+      UI.updateSettings({policy, contextStore});
     }
 
     presetsUI.render([""]);

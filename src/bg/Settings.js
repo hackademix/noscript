@@ -201,8 +201,14 @@ var Settings = {
     }
 
     if (contextStore) {
-      let newContextStore = new ContextStore(contextStore);
-      ns.contextStore = newContextStore
+      ns.contextStore = new ContextStore(contextStore);
+    }
+
+    if (policy && ns.contextStore) {
+      ns.contextStore.updatePresets(ns.policy);
+    }
+
+    if (contextStore || (policy && ns.contextStore)) {
       await ns.saveContextStore();
     }
 
