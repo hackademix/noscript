@@ -59,4 +59,3 @@ pushd "$XPI_DIR" &&
 rsync -e "ssh -p $PORT" -avuzP --delete noscript-*1984.xpi noscript-*1984.xpi.gpg update-*.json "$DEST" &&
 popd &&
 ssh -p $PORT $SRV 'static-update-component dist.torproject.org'
-bash $BASE/tools/backfill-tor-tags.sh

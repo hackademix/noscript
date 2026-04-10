@@ -52,6 +52,16 @@ ver_from_manifest() {
   grep '"version":' "$1" | sed -re 's/.*": "(.*?)".*/\1/'
 }
 
+update_releases() {
+  bash "$BASE/tools/release.sh" "$VER"
+  # If this is a pre-release try to update last stable too,
+  # in case AMO has published its signed XPI in the meanwhile
+  if [[ $VER =~ \.9[0-9]{2,}$ ]]; then
+    local STABLE_VER="${VER%.*}"
+    bash "$BASE/tools/release.sh" "$STABLE_VER"
+  fi
+}
+
 VER=$(ver_from_manifest "$MANIFEST_IN")
 if [ "$1" == "tag" ]; then
   # ensure nscl is up-to-date git-wise
@@ -246,7 +256,7 @@ build firefox
 
 if [[ $FIREFOX_TARGET == *:tor* ]]; then
   if ! [[ $DBG ]]; then
-    bash "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT"
+    bash "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT" && update_releases
   fi
   exit
 fi
@@ -289,8 +299,7 @@ ZIP=$(build chromium)
 if [[ $SIGNED ]] && ! [[ $UNPACKED_ONLY ]] && ! [[ $DBG ]]; then
   "$0" tag quiet
   nscl
-  ../../we-publish "$XPI.xpi"
-
+  "$BASE/../../we-publish" "$XPI.xpi" && update_releases
   if ! grep 'Patching ' "$BASE/html5_events/last_run.log" 2>&1; then
     echo "WARNING - last IC_EVENT_PATTERN generation run log:" >&2
     cat "$BASE/html5_events/last_run.log" >&2
