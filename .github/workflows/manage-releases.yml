@@ -94,15 +94,16 @@ jobs:
           else
             if [[ "$PRERELEASE" == "true" ]]; then
               # Pre-release: extract from tag annotation
-              git tag -l --format='%(contents)' "$REG_TAG" > /tmp/changelog.md
+              git tag -l --format='%(contents)' "$REG_TAG" | tail -n+3 > /tmp/changelog.md
               echo "Using annotation from tag '$REG_TAG'."
             else
               # Extract the version from REG_TAG (remove leading 'v' if present)
               CHANGELOG_VER="${REG_TAG#v}"
               echo "Fetching changelog for stable release ${CHANGELOG_VER} from noscript.net..."
-              CHANGELOG_VER_ESCAPED="${CHANGELOG_VER//./\.}"
+              CHANGELOG_VER_ESCAPED="${CHANGELOG_VER//./\\.}"
               curl -L "https://noscript.net/changelog" | \
-                grep -A1000 "v $CHANGELOG_VER_ESCAPED$" | \
+                grep -m1 -A1000 "v $CHANGELOG_VER_ESCAPED$" | \
+                tail -n+3 | \
                 grep -m1 -B1000 '^$' > /tmp/changelog.md
             fi
           fi
