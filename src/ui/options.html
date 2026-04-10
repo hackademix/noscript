@@ -56,7 +56,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <input type="checkbox" id="opt-enforceOnRestart"><label for="opt-enforceOnRestart" id="lbl-enforceOnRestart">__MSG_EnforceOnRestart__</label>
     </span>
     <span id="containers-opt">
-      <input type="checkbox" class="enforcement_required" id="opt-containers"><label for="opt-containers" id="lbl-containers">Enable support for container tabs</label>
+      <input type="checkbox" class="enforcement_required" id="opt-containers"><label for="opt-containers" id="lbl-containers">__MSG_enable_container_tabs_label__</label>
     </span>
   </div>
   <div class="opt-group not-tor">
@@ -88,9 +88,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 <h3 class="flextabs__tab"><button class="flextabs__toggle enforcement_required">__MSG_SectionSitePermissions__</button></h3>
 <div class="flextabs__content">
-  <label for="select-container" id="select-container-label">Choose a container:</label>
+  <label for="select-container" id="select-container-label">__MSG_select_container_label__</label>
   <select name="select-container" id="select-container">
-    <option value="default">Default</option>
+    <option value="default">__MSG_DefaultContainerName__</option>
   </select>
   <section class="sect-sites">
   <form id="form-newsite" class="browser-style" >
@@ -103,13 +103,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
     </div>
   </div>
   <div class="per-site-buttons" id="per-site-buttons">
-    <label for="copy-container" id="copy-container-label">Copy permissions from container:</label>
+    <label for="copy-container" id="copy-container-label">__MSG_copy_container_label__</label>
     <select name="copy-container" id="copy-container">
       <option value=blank></option>
-      <option value="default">Default</option>
+      <option value="default">__MSG_DefaultContainerName__</option>
     </select>
     <div style="inline-size:0;margin-inline:.5em;border:1px solid #888"></div>
-    <button id="btn-clear-container">Clear permissions for this container</button>
+    <button id="btn-clear-container">__MSG_clear_container_label__</button>
   </div>
   </section>
 </div>

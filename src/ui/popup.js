@@ -193,7 +193,7 @@ addEventListener("unload", e => {
         document.querySelector("#container-id").textContent = containerName;
         debug("found container name", containerName, "for cookieStoreId", cookieStoreId);
       } catch(err) {
-        document.querySelector("#container-id").textContent = "Default";
+        document.querySelector("#container-id").textContent = _("DefaultContainerName");
         debug("no container for cookieStoreId", cookieStoreId, "error:", err.message);
       }
     } else {

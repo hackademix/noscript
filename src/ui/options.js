@@ -246,14 +246,14 @@ document.querySelector("#version").textContent = _("Version",
   async function copyContainer() {
     cookieStoreId = containerSelect.value;
     if (cookieStoreId == "default") {
-      alert("Cannot replace the default policy.")
+      alert(_("forbid_replace_default_policy"))
       containerCopy.value = "blank";
       return;
     }
     let copyCookieStoreId = containerCopy.value;
     let copyContainerName = containerCopy.options[containerCopy.selectedIndex].text;
     let copyPolicy = await UI.getPolicy(copyCookieStoreId);
-    if (confirm(`Copying permissions from "${copyContainerName}".\n` + "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?")) {
+    if (confirm(_("container_copy_warning", copyContainerName))) {
       sitesUI.clear()
       currentPolicy = await UI.replacePolicy(cookieStoreId, new Policy(copyPolicy.dry(true)));
       await UI.updateSettings({policy, contextStore});
@@ -333,7 +333,7 @@ document.querySelector("#version").textContent = _("Version",
     }, true);
 
     document.querySelector("#btn-clear-container").addEventListener("click", async ev => {
-      if (confirm("All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?")) {
+      if (confirm(_("container_clear_warning"))) {
         sitesUI.clear()
         currentPolicy.sites = Sites.hydrate({});
         await UI.updateSettings({policy, contextStore});
