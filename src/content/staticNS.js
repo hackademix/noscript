@@ -121,7 +121,7 @@
       });
       const {readyState} = document;
       asyncFetch();
-      if (readyState == "complete" ||
+      if (this.policy || readyState == "complete" ||
           !this.syncFetchPolicy && this.embeddingDocument ||
           window.origin == "null" && window.location.href == "about:blank" && window.top == self
       ) {
