@@ -71,7 +71,7 @@ var UI = (() => {
             if (UI.tabId !== m.tabId) return;
             UI.policy = new Policy(m.policy);
             UI.contextStore = new ContextStore(m.contextStore);
-            UI.snapshot = UI.policy.snapshot+UI.contextStore.snapshot;
+            UI.snapshot = `${UI.policy.snapshot}${UI.contextStore.snapshot}`;
             UI.seen = m.seen;
             UI.tabLess = m.tabLess;
             UI.unrestrictedTab = m.unrestrictedTab;
@@ -155,7 +155,6 @@ var UI = (() => {
       this.contextStore.revokeTemp();
       if (this.isDirty(true)) {
         await this.updateSettings({policy: this.policy, contextStore: this.contextStore, reloadAffected});
-        await this.updateSettings({policy, contextStore, reloadAffected});
       }
     },
 
@@ -163,10 +162,10 @@ var UI = (() => {
       await this.contextStore.updateContainers(this.policy);
       if (this.contextStore.enabled && this.contextStore.policies.hasOwnProperty(cookieStoreId)) {
         let currentPolicy = this.contextStore.policies[cookieStoreId];
-        debug("id", cookieStoreId, "has cookiestore", currentPolicy);
+        debug("id", cookieStoreId, "has cookiestore", currentPolicy); // DEV_ONLY
         return currentPolicy;
       } else {
-        debug("default cookiestore", cookieStoreId);
+        debug("default cookiestore", cookieStoreId); // DEV_ONLY
         return this.policy;
       }
     },
@@ -186,7 +185,7 @@ var UI = (() => {
     },
 
     isDirty(reset = false) {
-      let currentSnapshot = this.policy.snapshot+this.contextStore.snapshot;
+      const currentSnapshot = `${this.policy.snapshot}${this.contextStore.snapshot}`;
       let dirty = currentSnapshot != this.snapshot;
       if (reset) this.snapshot = currentSnapshot;
       return dirty;
