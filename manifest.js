@@ -42,8 +42,11 @@ const isFirefox = MANIFEST_VER.includes("firefox");
 const isTor = MANIFEST_VER.includes(":tor");
 const isDebug = MANIFEST_VER.includes(":dbg");
 
+const pre = /[a-zA-Z-]|\.9\d{2}$/.test(extVer);
+if (!(isFirefox && pre && !isTor)) {
+  permissions.delete("contextualIdentities");
+}
 if (isFirefox) {
-  const pre = /[a-zA-Z-]|\.9\d{2}$/.test(extVer);
   if (isTor) {
     // add version suffix to separate Tor Browser builds
     const suffix = "1984";
