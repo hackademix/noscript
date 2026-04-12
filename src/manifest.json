@@ -36,7 +36,8 @@
       "webRequestFilterResponse",
       "webRequestFilterResponse.serviceWorkerScript",
       "dns",
-      "<all_urls>"
+      "<all_urls>",
+      "contextualIdentities"
   ],
   "host_permissions": [
       "<all_urls>"
@@ -62,6 +63,7 @@
       "/nscl/common/Sites.js",
       "/nscl/common/Permissions.js",
       "/nscl/common/Policy.js",
+      "/nscl/common/ContextStore.js",
       "/nscl/common/locale.js",
       "/nscl/common/Storage.js",
       "/nscl/common/include.js",

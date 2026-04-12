@@ -100,6 +100,7 @@ var Settings = {
   async update(settings) {
     let {
       policy,
+      contextStore,
       xssUserChoices,
       tabId,
       unrestrictedTab,
@@ -179,6 +180,7 @@ var Settings = {
       // User is resetting options:
       // pick either current Tor Browser Security Level or default NoScript policy
       policy = ns.local.torBrowserPolicy || this.createDefaultDryPolicy();
+      contextStore = new ContextStore().dry();
       reloadOptionsUI = true;
     }
 
@@ -196,6 +198,18 @@ var Settings = {
     if (policy) {
       ns.policy = new Policy(policy);
       await ns.savePolicy();
+    }
+
+    if (contextStore) {
+      ns.contextStore = new ContextStore(contextStore);
+    }
+
+    if (policy && ns.contextStore) {
+      ns.contextStore.updatePresets(ns.policy);
+    }
+
+    if (contextStore || (policy && ns.contextStore)) {
+      await ns.saveContextStore();
     }
 
     if (typeof unrestrictedTab === "boolean") {
@@ -245,6 +259,7 @@ var Settings = {
         knownCapabilities: Permissions.ALL,
       },
       policy: ns.policy.dry(),
+      contextStore: ns.contextStore.dry(),
       local: ns.local,
       sync: ns.sync,
       xssUserChoices: XSS.getUserChoices(),

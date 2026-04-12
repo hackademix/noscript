@@ -381,17 +381,19 @@
 
       const wantsContext = checked.includes("ctx");
 
-      let { siteMatch, contextMatch, perms } = ns.policy.get(key, contextUrl);
+      let cookieStoreId = sender.tab && sender.tab.cookieStoreId;
+      let policy = ns.getPolicy(cookieStoreId);
+      let { contextMatch, perms } = policy.get(key, contextUrl);
 
       if (!perms.capabilities.has(policyType) ||
           !contextMatch && wantsContext && ctxKey) {
 
         const wantsTemp = forcedTemp || checked.includes("temp");
         if (!contextMatch) {
-          const isDefault = perms === ns.policy.DEFAULT;
+          const isDefault = perms === policy.DEFAULT;
           perms = perms.clone();
           if (isDefault) perms.temp = wantsTemp;
-          ns.policy.set(key, perms);
+          policy.set(key, perms);
           if (ctxKey && wantsContext) {
             perms.contextual.set(ctxKey, perms = perms.clone(/* noContext = */ true));
           }
@@ -399,6 +401,7 @@
         perms.temp = wantsTemp;
         perms.capabilities.add(policyType);
         await ns.savePolicy();
+        await ns.saveContextStore();
         await RequestGuard.DNRPolicy?.update();
       }
       return {enable: key};
@@ -645,13 +648,14 @@
   function intersectCapabilities(policyMatch, request) {
     const {cascadePermissions, cascadeRestrictions} = ns.sync;
     if (request.frameId !== 0 && cascadeRestrictions || request.type != "main_frame" && cascadePermissions) {
-      const {tabUrl, frameAncestors} = request;
+      const {tabUrl, frameAncestors, cookieStoreId} = request;
       const topUrl = tabUrl ||
         cascadePermissions && request.frameId == 0 && request.documentUrl ||
         frameAncestors && frameAncestors[frameAncestors?.length - 1]?.url ||
         TabCache.get(request.tabId)?.url;
       if (topUrl) {
-        return ns.policy.cascade(policyMatch, topUrl, {
+        const policy = ns.getPolicy(cookieStoreId);
+        return policy.cascade(policyMatch, topUrl, {
           permissions: cascadePermissions,
           restrictions: cascadeRestrictions,
         }).capabilities;
@@ -719,9 +723,10 @@
 
   function checkLANRequest(request) {
     if (!ns.isEnforced(request.tabId)) return ALLOW;
-    let {originUrl, url} = request;
+    let {originUrl, url, cookieStoreId} = request;
+    let policy = ns.getPolicy(cookieStoreId);
     if (originUrl && !Sites.isInternal(originUrl) && url.startsWith("http") &&
-      !ns.policy.can(originUrl, "lan", ns.policyContext(request))) {
+      !policy.can(originUrl, "lan", ns.policyContext(request))) {
       // we want to block any request whose origin resolves to at least one external WAN IP
       // and whose destination resolves to at least one LAN IP
       const {proxyInfo} = request; // see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/proxy/ProxyInfo
@@ -756,9 +761,9 @@
 
     normalizeRequest(request);
 
-    let {tabId, type, url, originUrl} = request;
+    let {tabId, type, cookieStoreId, url, originUrl} = request;
 
-    const { policy } = ns;
+    const policy = ns.getPolicy(cookieStoreId);
 
     let previous = recent.find(request);
     if (previous) {
@@ -917,12 +922,12 @@
       let result = ALLOW;
 
       pending.headersProcessed = true;
-      let {url, tabId, responseHeaders, type} = request;
+      let {url, tabId, cookieStoreId, responseHeaders, type} = request;
       let isMainFrame = type === "main_frame";
       try {
         let capabilities;
         if (ns.isEnforced(tabId)) {
-          const { policy } = ns;
+          const policy = ns.getPolicy(cookieStoreId);
           const policyMatch = policy.get(url, ns.policyContext(request));
           let { perms } = policyMatch;
           if (isMainFrame) {
@@ -1013,13 +1018,14 @@
   async function injectPolicyScript(details) {
     await ns.initializing;
     if (ns.local.debug?.disablePolicyInjection) return '';  // DEV_ONLY
-    const {url, tabId, frameId, type} = details;
+    const {url, tabId, frameId, cookieStoreId, type} = details;
     const isTop = type == "main_frame";
     const domPolicy = await ns.computeChildPolicy(
       { url },
       {
         tab: { id: tabId, url: isTop ? url : null },
         frameId: isTop ? 0 : frameId,
+        cookieStoreId,
       }
     );
     domPolicy.navigationURL = url;
