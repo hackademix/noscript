@@ -829,27 +829,27 @@
     "message": "Teken ‘S’ om NoScript op te roepen."
   },
   "DefaultContainerName": {
-    "message": "Default"
+    "message": "Standaard"
   },
   "enable_container_tabs_label": {
-    "message": "Enable support for container tabs"
+    "message": "Ondersteuning voor containertabbladen inschakelen"
   },
   "clear_container_label": {
-    "message": "Clear permissions for this container"
+    "message": "Toestemmingen voor deze container wissen"
   },
   "copy_container_label": {
-    "message": "Copy permissions from container:"
+    "message": "Toestemmingen van container kopiëren:"
   },
   "forbid_replace_default_policy": {
-    "message": "Cannot replace the default policy."
+    "message": "Kan het standaardbeleid niet vervangen."
   },
   "container_clear_warning": {
-    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Alle website-toestemmingen voor deze container zullen worden verwijderd.\nDeze actie kan niet ongedaan worden gemaakt.\nWilt u doorgaan?"
   },
   "select_container_label": {
-    "message": "Choose a container:"
+    "message": "Kies een container:"
   },
   "container_copy_warning": {
-    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Toestemmingen van ‘$1’ worden gekopieerd.\nAlle website-toestemmingen voor deze container zullen worden verwijderd.\nDeze actie kan niet ongedaan worden gemaakt.\nWilt u doorgaan?"
   }
 }
