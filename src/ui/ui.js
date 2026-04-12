@@ -34,7 +34,7 @@ var UI = (() => {
         settingsListeners.add(l);
       },
       removeListener(l) {
-        settinsListeners.delete(l);
+        settingsListeners.delete(l);
       }
     },
 
