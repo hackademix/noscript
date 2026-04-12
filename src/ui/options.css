@@ -114,23 +114,24 @@ fieldset:disabled {
   flex: 2 2;
 }
 
-.per-site-buttons {
+#container-options {
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-end;
-  width: 100%;
-  text-align: right;
-  margin: .5em 0 0 0;
+  justify-content: flex-start;
 }
-#btn-clear-container {
-  margin-inline-start: .5em;
-}
-#copy-container {
-  margin-inline: .5em;
-}
-#copy-container-label {
+
+#container-options label {
   margin-block: auto;
 }
+
+#container-options div {
+  margin-inline-end: 1em;
+}
+
+#container-options button{
+  margin-inline: auto 3.5em;
+}
+
 
 #policy {
   display: block;
