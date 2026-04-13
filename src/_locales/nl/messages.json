@@ -827,5 +827,29 @@
   },
   "GestureLabel": {
     "message": "Teken ‘S’ om NoScript op te roepen."
+  },
+  "DefaultContainerName": {
+    "message": "Standaard"
+  },
+  "enable_container_tabs_label": {
+    "message": "Ondersteuning voor containertabbladen inschakelen"
+  },
+  "clear_container_label": {
+    "message": "Toestemmingen voor deze container wissen"
+  },
+  "copy_container_label": {
+    "message": "Toestemmingen van container kopiëren:"
+  },
+  "forbid_replace_default_policy": {
+    "message": "Kan het standaardbeleid niet vervangen."
+  },
+  "container_clear_warning": {
+    "message": "Alle website-toestemmingen voor deze container zullen worden verwijderd.\nDeze actie kan niet ongedaan worden gemaakt.\nWilt u doorgaan?"
+  },
+  "select_container_label": {
+    "message": "Kies een container:"
+  },
+  "container_copy_warning": {
+    "message": "Toestemmingen van ‘$1’ worden gekopieerd.\nAlle website-toestemmingen voor deze container zullen worden verwijderd.\nDeze actie kan niet ongedaan worden gemaakt.\nWilt u doorgaan?"
   }
 }

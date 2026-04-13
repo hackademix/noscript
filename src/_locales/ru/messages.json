@@ -827,5 +827,29 @@
   },
   "GestureLabel": {
     "message": "Нарисуйте «S», чтобы вызвать NoScript."
+  },
+  "DefaultContainerName": {
+    "message": "Default"
+  },
+  "enable_container_tabs_label": {
+    "message": "Enable support for container tabs"
+  },
+  "clear_container_label": {
+    "message": "Clear permissions for this container"
+  },
+  "copy_container_label": {
+    "message": "Copy permissions from container:"
+  },
+  "forbid_replace_default_policy": {
+    "message": "Cannot replace the default policy."
+  },
+  "container_clear_warning": {
+    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+  },
+  "select_container_label": {
+    "message": "Choose a container:"
+  },
+  "container_copy_warning": {
+    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
   }
 }

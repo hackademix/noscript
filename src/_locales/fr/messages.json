@@ -248,7 +248,7 @@
     "message": "l"
   },
   "OptIncognitoPerm": {
-    "message": "Permettre de définir des autorisations permanentes en mode de navigation privée.\nATTENTION : des renseignements pourraient être divulgués."
+    "message": "Permettre de définir des autorisations permanentes en mode de navigation privée.\nATTENTION : des renseignements pourraient être divulgués !"
   },
   "OptAmnesticUpdates": {
     "message": "Révoquer les autorisations temporaires lors des mises à jour de NoScript, même si le navigateur n’est pas redémarré"
@@ -742,7 +742,7 @@
     "message": "Faire un don"
   },
   "DonateLong": {
-    "message": "NoScript est un logiciel libre et gratuit qui ne peut pas exister sans votre aide. Veuillez faire un don dès maintenant."
+    "message": "NoScript est un logiciel libre et gratuit qui ne peut pas exister sans votre aide. Faites un don dès maintenant."
   },
   "Onboarding_title": {
     "message": "Bienvenue sur NoScript",
@@ -808,7 +808,7 @@
     "message": "Fuite possible d’identité"
   },
   "TabGuard_message": {
-    "message": "Vous êtes sur le point de charger une page de $1.\nSi vous êtes un utilisateur connecté à $1, des renseignements sur votre identité pourraient être recueillis par $2"
+    "message": "Vous êtes sur le point de charger une page de $1.\nSi vous êtes un utilisateur connecté à $1, des renseignements sur votre identité pourraient être recueillis par $2."
   },
   "TabGuard_optAnonymize": {
     "message": "Charger anonymement"
@@ -823,9 +823,33 @@
     "message": "Aide…"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+    "message": "Activer l’activation par geste : dessiner un « S » sur une page Web ouvre l interface utilisateur de NoScript pour ce site"
   },
   "GestureLabel": {
-    "message": "Draw \"S\" to summon NoScript."
+    "message": "Dessiner un « S » pour lancer NoScript."
+  },
+  "DefaultContainerName": {
+    "message": "Default"
+  },
+  "enable_container_tabs_label": {
+    "message": "Enable support for container tabs"
+  },
+  "clear_container_label": {
+    "message": "Clear permissions for this container"
+  },
+  "copy_container_label": {
+    "message": "Copy permissions from container:"
+  },
+  "forbid_replace_default_policy": {
+    "message": "Cannot replace the default policy."
+  },
+  "container_clear_warning": {
+    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+  },
+  "select_container_label": {
+    "message": "Choose a container:"
+  },
+  "container_copy_warning": {
+    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
   }
 }

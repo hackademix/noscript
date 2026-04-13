@@ -827,5 +827,29 @@
   },
   "GestureLabel": {
     "message": "Narysuj literę „S”, aby wywołać NoScript."
+  },
+  "DefaultContainerName": {
+    "message": "Domyślnie"
+  },
+  "enable_container_tabs_label": {
+    "message": "Włącz obsługę kart kontenerów"
+  },
+  "clear_container_label": {
+    "message": "Wyczyść uprawnienia dla tego kontenera"
+  },
+  "copy_container_label": {
+    "message": "Pobierz uprawnienia z kontenera:"
+  },
+  "forbid_replace_default_policy": {
+    "message": "Nie można zastąpić domyślnej polityki."
+  },
+  "container_clear_warning": {
+    "message": "Wszystkie uprawnienia witryny dla tego kontenera zostaną usunięte.\nTej czynności nie można cofnąć.\nCzy chcesz kontynuować?"
+  },
+  "select_container_label": {
+    "message": "Wybierz kontener:"
+  },
+  "container_copy_warning": {
+    "message": "Kopiowanie uprawnień z „$1”.\nWszystkie uprawnienia serwisu dla tego kontenera zostaną usunięte.\nTej czynności nie można cofnąć.\nCzy chcesz kontynuować?"
   }
 }
