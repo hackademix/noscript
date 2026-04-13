@@ -832,24 +832,24 @@
     "message": "Default"
   },
   "enable_container_tabs_label": {
-    "message": "Enable support for container tabs"
+    "message": "Включить поддержку вкладок в контейнере"
   },
   "clear_container_label": {
-    "message": "Clear permissions for this container"
+    "message": "Очистить разрешения для этого контейнера"
   },
   "copy_container_label": {
-    "message": "Copy permissions from container:"
+    "message": "Копировать разрешения из контейнера:"
   },
   "forbid_replace_default_policy": {
     "message": "Cannot replace the default policy."
   },
   "container_clear_warning": {
-    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Все разрешения сайтов для этого контейнера будут удалены.\nЭто действие невозможно отменить.\nПродолжить?"
   },
   "select_container_label": {
-    "message": "Choose a container:"
+    "message": "Выберите контейнер:"
   },
   "container_copy_warning": {
-    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Копирование разрешений из \\\"$1\\\".\nВсе разрешения сайтов для этого контейнера будут удалены.\nЭто действие невозможно отменить.\nПродолжить?\""
   }
 }
