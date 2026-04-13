@@ -223,24 +223,27 @@ document.querySelector("#version").textContent = _("Version",
   var currentPolicy = await UI.getPolicy(cookieStoreId);
 
   function updateContainersEnabled() {
-    const containersEnabled = Boolean(contextStore.enabled && browser.contextualIdentities);
-    document.querySelector("#containers-opt").style.display = browser.contextualIdentities? "": "none";
-    document.querySelector("#opt-containers").disabled = !browser.contextualIdentities;
+    const supported = browser.contextualIdentities && !contextStore.disabledByHost;
+    const containersEnabled = supported && contextStore.enabled;
+    document.querySelector("#containers-opt").style.display = supported ? "": "none";
+    document.querySelector("#opt-containers").disabled = !supported;
     document.querySelector("#opt-containers").checked = contextStore.enabled;
-    document.querySelector("#container-options").style.display = containersEnabled ? "" : "none";
+    document.querySelector("#container-options").style.display = supported ? "" : "none";
   }
   updateContainersEnabled();
 
-  function constrainContainerCopy() {
+  function syncContainerSelectors() {
     containerCopy.disabled = cookieStoreId == "default";
     for (const opt of containerCopy.options) {
-      opt.disabled = opt.value == cookieStoreId;
+      if (opt.disabled = (opt.value == cookieStoreId)) {
+        document.querySelector("#container-options").style.setProperty("--container-color", opt.style.color);
+      }
     }
   }
 
   async function changeContainer() {
     cookieStoreId = containerSelect.value;
-    constrainContainerCopy();
+    syncContainerSelectors();
     currentPolicy = await UI.getPolicy(cookieStoreId);
     debug("container change", cookieStoreId, currentPolicy);
     sitesUI.clear()
@@ -275,9 +278,7 @@ document.querySelector("#version").textContent = _("Version",
     let newContainers = [{cookieStoreId: "default", name: "Default"},];
     let identities = browser.contextualIdentities && await browser.contextualIdentities.query({});
     if (identities) {
-      identities.forEach(({cookieStoreId, name}) => {
-        newContainers.push({cookieStoreId, name});
-      })
+      newContainers.push(...identities);
     }
     if (JSON.stringify(newContainers) == JSON.stringify(containers)) return;
     containers = newContainers;
@@ -286,6 +287,7 @@ document.querySelector("#version").textContent = _("Version",
       const o = options.appendChild(document.createElement("option"));
       o.value = container.cookieStoreId;
       o.text = container.name;
+      o.style.color = container.colorCode || "";
     }
     while (containerSelect.firstChild) {
       containerSelect.removeChild(containerSelect.firstChild);
@@ -298,7 +300,7 @@ document.querySelector("#version").textContent = _("Version",
     containerCopy.appendChild(document.createElement("option")).value = "blank";
     containerCopy.appendChild(options);
 
-    constrainContainerCopy();
+    syncContainerSelectors();
   }
   containerSelect.onfocus = updateContainerOptions;
   containerCopy.onfocus = updateContainerOptions;

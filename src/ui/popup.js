@@ -186,20 +186,30 @@ addEventListener("unload", e => {
         if (e.tabId !== tabId) close();
       });
     }
+    {
+      let { contextStore } = UI;
+      const containerId = document.querySelector("#container-id");
+      if (contextStore?.enabled && !contextStore.disabledByHost && browser.contextualIdentities) {
+        try {
+          const { name, colorCode} = await browser.contextualIdentities.get(cookieStoreId);
+          containerId.textContent = name;
+          containerId.style.setProperty("--container-color", colorCode);
 
-    if (UI.contextStore && UI.contextStore.enabled && browser.contextualIdentities) {
-      try {
-        let containerName = (await browser.contextualIdentities.get(cookieStoreId)).name;
-        document.querySelector("#container-id").textContent = containerName;
-        debug("found container name", containerName, "for cookieStoreId", cookieStoreId);
-      } catch(err) {
-        document.querySelector("#container-id").textContent = _("DefaultContainerName");
-        debug("no container for cookieStoreId", cookieStoreId, "error:", err.message);
+          debug("found container name", name, "for cookieStoreId", cookieStoreId); // DEV_ONLY
+        } catch (err) {
+          if (/\bdisabled\b/.test(err.message)) {
+            contextStore = null;
+          } else {
+            containerId.textContent = _("DefaultContainerName");
+          }
+          debug("no container for cookieStoreId", cookieStoreId, "error:", err.message); // DEV_ONLY
+        } } else {
+        contextStore = null;
       }
-    } else {
-      document.querySelector("#container-id").style.visibility = 'hidden';
+      if (!contextStore) {
+        containerId.style.display = "none";
+      }
     }
-
     await include("/ui/toolbar.js");
     UI.toolbarInit();
     {

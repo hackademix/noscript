@@ -157,9 +157,24 @@ html:not(.mobile) #scrollable {
   margin-block: auto;
   padding: .4em;
   font-size: 1.2em;
-  border:1px solid lightgray;
+  border:1px solid;
+  border-color: var(--container-color);
   border-radius: .3em;
+  content: "📦︎";
+  font-variant-emoji: text;
 }
+
+.container-id::before {
+  content: "📦︎";
+  font-variant-emoji: text;
+  font-size: 1em;
+  line-height: 0;
+  padding: 0 .4em 0 0;
+  margin: 0;
+  color: var(--container-color);
+}
+
+
 
 .hider {
   background: var(--form-color1);

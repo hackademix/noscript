@@ -120,12 +120,23 @@ fieldset:disabled {
   justify-content: flex-start;
 }
 
+#container-options::before {
+  content: "📦︎";
+  font-variant-emoji: text;
+  font-size: 2em;
+  color: var(--container-color);
+}
+
+#select-container {
+  border-color: var(--container-color);
+}
+
 #container-options label {
   margin-block: auto;
 }
 
 #container-options div {
-  margin-inline-end: 1em;
+  margin-inline: .5em;
 }
 
 #container-options button{
