@@ -829,27 +829,27 @@
     "message": "Zeichne ein »S«, um NoScript aufzurufen."
   },
   "DefaultContainerName": {
-    "message": "Default"
+    "message": "Standard"
   },
   "enable_container_tabs_label": {
-    "message": "Enable support for container tabs"
+    "message": "Unterstützung für Umgebungs-Tabs aktivieren"
   },
   "clear_container_label": {
-    "message": "Clear permissions for this container"
+    "message": "Berechtigungen für diese Umgebung aufheben"
   },
   "copy_container_label": {
-    "message": "Copy permissions from container:"
+    "message": "Berechtigungen von Umgebung kopieren:"
   },
   "forbid_replace_default_policy": {
-    "message": "Cannot replace the default policy."
+    "message": "Die Standardrichtlinie kann nicht ersetzt werden."
   },
   "container_clear_warning": {
-    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Alle Webseiten-Berechtigungen für diese Umgebung werden entfernt.\nDieser Vorgang kann nicht rückgängig gemacht werden.\nMöchten Sie fortfahren?"
   },
   "select_container_label": {
-    "message": "Choose a container:"
+    "message": "Wählen Sie eine Umgebung:"
   },
   "container_copy_warning": {
-    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Berechtigungen von »$1« werden kopiert.\nAlle Webseiten-Berechtigungen für diese Umgebung werden entfernt.\nDieser Vorgang kann nicht rückgängig gemacht werden.\nMöchten Sie fortfahren?"
   }
 }
