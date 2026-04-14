@@ -16,6 +16,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 [<img
     src = 'src/img/logo-full.svg'
+    alt = 'NoScript Logo'
     width = 120
 />][Website]
 
