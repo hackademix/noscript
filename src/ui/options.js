@@ -224,7 +224,6 @@ document.querySelector("#version").textContent = _("Version",
 
   function updateContainersEnabled() {
     const supported = browser.contextualIdentities && !contextStore.disabledByHost;
-    const containersEnabled = supported && contextStore.enabled;
     document.querySelector("#containers-opt").style.display = supported ? "": "none";
     document.querySelector("#opt-containers").disabled = !supported;
     document.querySelector("#opt-containers").checked = contextStore.enabled;
@@ -275,8 +274,8 @@ document.querySelector("#version").textContent = _("Version",
 
   var containers = [];
   async function updateContainerOptions() {
-    let newContainers = [{cookieStoreId: "default", name: "Default"},];
-    let identities = browser.contextualIdentities && await browser.contextualIdentities.query({});
+    const newContainers = [{cookieStoreId: "default", name: _("DefaultContainerName")},];
+    const identities = !contextStore.disabledByHost && browser.contextualIdentities && await browser.contextualIdentities.query({});
     if (identities) {
       newContainers.push(...identities);
     }
@@ -304,7 +303,9 @@ document.querySelector("#version").textContent = _("Version",
   }
   containerSelect.onfocus = updateContainerOptions;
   containerCopy.onfocus = updateContainerOptions;
-  if (contextStore.enabled) await updateContainerOptions();
+  if (contextStore.enabled) {
+    await updateContainerOptions();
+  }
 
   UI.onSettings.addListener(async () => {
     currentPolicy = await UI.getPolicy(cookieStoreId);
