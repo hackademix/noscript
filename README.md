@@ -15,7 +15,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 <br>
 
 [<img
-    src = 'src/img/icon256.png'
+    src = 'src/img/logo-full.svg'
     width = 120
 />][Website]
 
