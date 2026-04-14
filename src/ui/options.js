@@ -227,7 +227,7 @@ document.querySelector("#version").textContent = _("Version",
     document.querySelector("#containers-opt").style.display = supported ? "": "none";
     document.querySelector("#opt-containers").disabled = !supported;
     document.querySelector("#opt-containers").checked = contextStore.enabled;
-    document.querySelector("#container-options").style.display = supported ? "" : "none";
+    document.querySelector("#container-options").style.display = contextStore.enabled ? "" : "none";
   }
   updateContainersEnabled();
 
