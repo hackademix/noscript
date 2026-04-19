@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -32,7 +32,7 @@ fieldset > .opt-group ~ .opt-group {
   margin-right: 1em;
 }
 
-.customizing ~ .customizer .customizer-controls {
+.customizing .customizer-controls {
   max-height: 100em;
   opacity: 1;
   pointer-events: all;
@@ -48,14 +48,14 @@ fieldset > .opt-group ~ .opt-group {
 
 @media (max-width: 550px) {
 
-  .sites td.url {
+  .sites li.url {
     padding-left: 1em;
   }
 
   #sites .presets {
-    width: 0 !important;
     margin: 0 !important;
-    padding-bottom: 1em !important;
+    padding-right: 1em;
+    align-items: center;
   }
 
   #presets .presets input.preset {
@@ -65,8 +65,8 @@ fieldset > .opt-group ~ .opt-group {
   #sites .presets input.preset {
      min-width: 0 !important;
      margin-top: 0;
-     margin-left: 0;
-     margin-right: 1em;
+     margin-left: .5em;
+     margin-right: .5em;
      font-weight: bold;
   }
 
@@ -79,21 +79,14 @@ fieldset > .opt-group ~ .opt-group {
     background-position: center;
   }
 
-  #sites .customizing input.preset:checked  {
-    margin-left: 0;
-  }
-
-   #sites .presets input.preset:checked + label {
+  #sites .presets input.preset:checked + label {
     z-index: 1000;
     font-size: 60%;
-    left: 0;
     width: auto;
-    top: calc(var(--line-size) * 1.8);
     margin: 0 !important;
     padding: 0 !important;
-    text-align: center !important;
     display: block !important;
-    position: absolute;
+    position: static;
     overflow: visible !important;
     background: none !important;
   }
@@ -104,25 +97,22 @@ fieldset > .opt-group ~ .opt-group {
   }
 
   .presets input.preset:checked ~ input.temp {
-    left: var(--line-size);
-    right: auto;
-    pointer-events: none;
+    left: calc(var(--line-size) * 1.3);
   }
 
   .customizing input.preset:checked ~ input.temp {
     pointer-events: all !important;
     z-index: 1000;
-    padding: calc(var(--line-size) / 2);
   }
 
-  #sites .customizing input.preset:checked + label {
+  .sites .customizing input.preset:checked + label {
     pointer-events: none;
+    text-align: center !important;
   }
 
-  td.presets {
+
+  div.presets {
     white-space: nowrap !important;
-    vertical-align: middle;
-    border: 1px solid var(--fg-color2);
   }
 
   .url > span > span {
@@ -133,11 +123,6 @@ fieldset > .opt-group ~ .opt-group {
   .customizer-controls fieldset {
      padding-top: 1.2em;
   }
-}
-
-
-.site.filtered, .site.filtered + .customizer {
-  display: none;
 }
 
 .capsContext > div {
@@ -181,63 +166,57 @@ input[type="checkbox"] {
   height: 1em;
 }
 
-.presets {
-  -moz-user-select: none;
-  user-select: none;
-}
-.sites {
-  border: 0;
-  border-collapse: collapse;
-  border-spacing: 0;
+ul.sites {
   width: 100%;
   image-rendering: -webkit-optimize-contrast;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .vintage .sites {
   image-rendering: auto;
 }
 
-.sites tr, .sites td {
+.sites li, .sites > li > div {
   padding: 0;
   border: none;
   font-size: 1em;
   vertical-align: middle;
 }
 
-tr.site td {
-  padding-top: .1em;
-}
-
-html:not(.mobile) .sites > tr.site:not(.customizing):is(:focus-within) {
+html:not(.mobile) .sites > .site:not(.customizing):is(:focus-within),
+.customizing {
   background-image: var(--bg-focused-row);
   border-color: transparent;
 }
 
-.sites > tr.site:not(.customizing) {
+.sites > .site:not(.customizing) {
   border-top: var(--border-row-sep);
 }
 
-.sites > tr.site:nth-of-type(even) {
+.sites > .site:nth-of-type(even) {
   background-color: var(--bg-even-row);
 }
 
-.sites > tr.site:nth-of-type(odd) {
+.sites > .site:nth-of-type(odd) {
   background-color: var(--bg-odd-row);
 }
 
-
-.sites > tr.site:first-of-type, tr.site:focus-within + tr, .sites > tr.customizing, .sites > tr.customizing + tr.site, .customizer, .customizer + tr.site  {
+.sites > .site:first-of-type, .site:focus-within + li {
   border-color: transparent;
 }
-
-
 .site .url {
-    color: var(--fg-color2);
-    display: flex;
-    align-items: center;
-    white-space: wrap;
-    word-break: break-all;
+  color: var(--fg-color2);
+  display: flex;
+  align-items: center;
+  white-space: wrap;
+  word-break: break-all;
+  flex: 1;
 }
+
 .site .url .protocol { display: none }
 
 .site .url .domain { cursor: help }
@@ -312,17 +291,21 @@ label.https-only {
 }
 
 
-td.presets {
+div.presets {
   font-size: 1em;
   white-space: nowrap;
-  width: 0;
   padding-left: 0.5em;
+  user-select: none;
 }
 
 span.preset {
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .2em;
   font-size: 1em;
+  overflow: visible;
 }
 
 .preset label, .preset input, .preset button {
@@ -398,6 +381,26 @@ span.preset {
   width: var(--preset-label-width);
   background-color: var(--form-color2);
   border-radius: 1em 1em 0 0;
+}
+
+.site {
+  display: flex;
+  flex-direction: column;
+  content-visibility: auto;
+  contain-intrinsic-size: auto calc(var(--line-size) * 1.2);
+}
+
+.site.filtered, site.filtered {
+  display: none;
+}
+
+.site-controls {
+  display: flex;
+  flex-direction: row;
+}
+
+.site-controls > div {
+  display: flex;
 }
 
 @media (min-width: 550px) {

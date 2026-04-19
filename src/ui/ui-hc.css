@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -61,7 +61,7 @@ input.temp {
   opacity: 1 !important;
 }
 
-tr.site {
+li.site {
   border-top: 1px solid #888;
   display: flex;
   align-items: center;
@@ -106,10 +106,10 @@ tr.site {
   outline-offset: max(2px, 0.15em);
 }
 
-:root.hc td.presets {
+:root.hc div.presets {
   min-width: 30%;
 }
 
-:root.hc tr.site {
+:root.hc li.site {
   border-top: .5px dotted currentColor;
 }

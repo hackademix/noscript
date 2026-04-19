@@ -280,6 +280,7 @@ button.add {
   .flextabs__content {
     padding: 0;
     border-radius: .5em;
+    width: calc(100% - 1em); /* accounts for parent .5em horizontal padding */
   }
   .opt-group > span {
     margin: 0;

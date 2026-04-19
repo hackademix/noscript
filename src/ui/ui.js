@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -389,49 +389,43 @@ var UI = (() => {
   }
 
   const TEMPLATE = `
-    <table class="sites">
-    <tr class="site">
-
-    <td class="presets">
-    <span class="preset">
-      <input id="preset" class="preset" type="radio" name="preset"><label for="preset" class="preset">PRESET</label>
-      <input tabindex="-1" id="temp" class="temp" type="checkbox"><label for="temp">Temporary</label></input>
-    </span>
-    </td>
-
-    <td class="url" data-key="secure">
-    <input tabindex="0" class="https-only" id="https-only" type="checkbox"><label for="https-only" class="https-only"></label>
-    <span tabindex="0" class="full-address" aria-role="button">
-    <span class="protocol">https://</span><span class="sub">www.</span><span class="domain">noscript.net</span><span class="path"></span>
-    </span>
-    </td>
-
-
-
-    </tr>
-    <tr tabindex="-1" class="customizer">
-    <td colspan="2">
-    <div class="customizer-controls">
-    <fieldset>
-    <legend class="capsContext">
-      <label></label>
-      <div>
-      <select><option>ANY SITE</option></select>
-      <button class="reset" disabled>Reset</button>
+    <ul class="sites">
+      <li class="site">
+        <div class="site-controls">
+          <div class="presets">
+          <span class="preset">
+            <input id="preset" class="preset" type="radio" name="preset"><label for="preset" class="preset">PRESET</label>
+            <input tabindex="-1" id="temp" class="temp" type="checkbox"><label for="temp">Temporary</label></input>
+          </span>
+          </div>
+          <div class="url" data-key="secure">
+            <input tabindex="0" class="https-only" id="https-only" type="checkbox"><label for="https-only" class="https-only"></label>
+            <span tabindex="0" class="full-address" aria-role="button">
+            <span class="protocol">https://</span><span class="sub">www.</span><span class="domain">noscript.net</span><span class="path"></span>
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div tabindex="-1" class="customizer">
+      <div class="customizer-controls">
+        <fieldset>
+        <legend class="capsContext">
+          <label></label>
+          <div>
+          <select><option>ANY SITE</option></select>
+          <button class="reset" disabled>Reset</button>
+          </div>
+        </legend>
+        <div class="caps">
+        <span class="cap">
+          <input class="cap" type="checkbox" value="script" />
+          <label class="cap">script</label>
+        </span>
+        </div>
+        </fieldset>
       </div>
-    </legend>
-    <div class="caps">
-    <span class="cap">
-      <input class="cap" type="checkbox" value="script" />
-      <label class="cap">script</label>
-    </span>
     </div>
-
-    </fieldset>
-    </div>
-    </td>
-    </tr>
-    </table>
   `;
 
   const TEMP_PRESETS = ["CUSTOM"];
@@ -461,8 +455,8 @@ var UI = (() => {
       this.clear();
     }
 
-    initRow(table = this.table) {
-      let row = table.querySelector("tr.site");
+    initRow() {
+      let row = this.list.querySelector(".site");
       // PRESETS
       {
         let presets = row.querySelector(".presets");
@@ -502,10 +496,10 @@ var UI = (() => {
         input.title = label.title = label.textContent = _("httpsOnly");
       }
 
-      // CUSTOMIZER ROW
+      // CUSTOMIZER
       {
         let [customizer, capsContext, cap, capInput, capLabel] =
-          table.querySelectorAll(
+          this.fragment.querySelectorAll(
             ".customizer, .capsContext, span.cap, input.cap, label.cap"
           );
         row._customizer = customizer;
@@ -535,8 +529,6 @@ var UI = (() => {
           createCap(capability);
         }
       }
-
-      // debug(table.outerHTML);
       return row;
     }
 
@@ -581,7 +573,7 @@ var UI = (() => {
     }
 
     allSiteRows() {
-      return this.table.querySelectorAll("tr.site");
+      return this.list.querySelectorAll(".site");
     }
 
     anyPermissionsChanged(includePureNoTab = false) {
@@ -591,11 +583,11 @@ var UI = (() => {
     }
 
     clear() {
-      debug("Clearing list", this.table);
+      debug("Clearing list", this.list);
       this.template = document.createElement("template");
       this.template.innerHTML = TEMPLATE;
       this.fragment = this.template.content;
-      this.table = this.fragment.querySelector("table.sites");
+      this.list = this.fragment.querySelector(".sites");
       this.rowTemplate = this.initRow();
       for (let r of this.allSiteRows()) {
         r.remove();
@@ -616,12 +608,9 @@ var UI = (() => {
 
     handleEvent(ev) {
       let target = ev.target;
-      let customizer = target.closest(".customizer");
-      let row = customizer
-        ? customizer.parentNode.querySelector("tr.customizing")
-        : target.closest("tr.site");
+      let row = target.closest(".site");
       if (!row) return;
-
+      let customizer = target.closest(".customizer");
       let isTemp = target.matches("input.temp");
       let preset = target.matches("input.preset")
         ? target
@@ -750,10 +739,13 @@ var UI = (() => {
         const { classList } = input.parentNode;
         classList.toggle("needed", this.siteNeeds(row._site, type));
         classList.toggle("checked", input.checked);
-        classList.toggle(
-          "belongs",
-          type == "x-load" && row._site?.startsWith("file:")
-        );
+        const isExtra = classList.contains("extra");
+        if (isExtra) {
+          const belongs = type == "x-load" && row._site?.startsWith("file:");
+          classList.toggle(
+            "belongs", belongs);
+          input.disabled ||= !belongs;
+        }
       }
     }
 
@@ -769,8 +761,9 @@ var UI = (() => {
         perms,
         this.dirty
       );
-      for (let r of this.table.querySelectorAll("tr.customizing")) {
+      for (let r of this.list.querySelectorAll(".customizing")) {
         r.classList.toggle("customizing", false);
+        r.querySelector(".CUSTOM .preset[aria-expanded]").setAttribute("aria-expanded", false);
       }
 
       if (
@@ -790,7 +783,6 @@ var UI = (() => {
       }
 
       customizer._preset = preset;
-
       this.setupCaps(perms, preset, row);
 
       let temp = preset.parentNode.querySelector("input.temp");
@@ -861,7 +853,7 @@ var UI = (() => {
         handleSelection();
       }
 
-      row.parentNode.insertBefore(customizer, row.nextElementSibling);
+      row.appendChild(customizer);
       customizer.onkeydown = (e) => {
         if (e.shiftKey) return true;
         switch (e.code) {
@@ -898,6 +890,7 @@ var UI = (() => {
       };
       this.scrollableFit();
       row.classList.toggle("customizing", true);
+      preset.setAttribute("aria-expanded", true);
       window.setTimeout(
         () => {
           customizer.querySelector("input:not(:disabled)")?.focus();
@@ -945,7 +938,7 @@ var UI = (() => {
         parentNode.innerHTML = "";
         if (!sites) return;
         parentNode.appendChild(this.fragment);
-        const root = parentNode.querySelector("table.sites");
+        const root = parentNode.querySelector(".sites");
         if (!root.wiredBy) {
           root.addEventListener("keydown", (e) => this._keyNavHandler(e), true);
           root.addEventListener(
@@ -957,9 +950,9 @@ var UI = (() => {
               switch (e.code) {
                 case "Space": {
                   let focused = document.activeElement;
-                  if (focused.matches("tr .preset")) {
+                  if (focused.matches(".site .preset")) {
                     focused
-                      .closest("tr")
+                      .closest(".site")
                       .querySelector(".preset[value='CUSTOM']")
                       .click();
                     e.preventDefault();
@@ -988,8 +981,11 @@ var UI = (() => {
     _keyNavHandler(e) {
       let focused = document.activeElement;
       if (!focused || e.ctrlKey || e.metaKey) return;
-      let row = focused.closest("tr");
-      if (!row || row.matches(".customizer")) return;
+      if (focused.closest(".customizer")) {
+        return;
+      }
+      let row = focused.closest(".site");
+      if (!row) return;
       let dir = "next";
       let newRow;
       let mappedPreset = {
@@ -1031,7 +1027,7 @@ var UI = (() => {
             this.customize(null);
             let prop = `${dir}ElementSibling`;
             newRow = row[prop];
-            if (!(newRow?.matches("tr"))) newRow = row;
+            if (!(newRow?.matches(".site"))) newRow = row;
           }
 
           if (newRow === row) {
@@ -1079,7 +1075,7 @@ var UI = (() => {
     }
 
     focus() {
-      let firstPreset = this.table.querySelector("input.preset:checked");
+      let firstPreset = this.list.querySelector("input.preset:checked");
       if (firstPreset) firstPreset.focus();
     }
 
@@ -1111,7 +1107,7 @@ var UI = (() => {
         }
       }
       this.clear();
-      for (const row of rows) this.table.appendChild(row);
+      for (const row of rows) this.list.appendChild(row);
     }
 
     sorter(a, b) {
@@ -1374,7 +1370,7 @@ var UI = (() => {
     }
 
     append(site, siteMatch, perms, contextMatch) {
-      this.table.appendChild(this.createSiteRow(...arguments));
+      this.list.appendChild(this.createSiteRow(...arguments));
     }
 
     toggleSecure(row, secure = !!row.querySelector("https-only:checked")) {
