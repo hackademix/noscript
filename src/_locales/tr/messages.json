@@ -170,22 +170,22 @@
     "message": "Genel"
   },
   "NotEnforced": {
-    "message": "Kısıtlamalar kullanıcı ayarlarından devre dışı bırakılmış: NoScript bu sayfadaki hiçbir şeyi engellemeyecek!"
+    "message": "Kısıtlamalar kullanıcı ayarlarından kapatılmış: NoScript bu sayfadaki hiçbir şeyi engellemeyecek!"
   },
   "NoEnforcement": {
-    "message": "Kısıtlamalar genel olarak devre dışı bırakılsın (tehlikeli)"
+    "message": "Kısıtlamalar genel olarak kapatılsın (tehlikeli)"
   },
   "Enforce": {
-    "message": "Kısıtlamalar genel olarak etkinleştirilsin"
+    "message": "Kısıtlamalar genel olarak açılsın"
   },
   "EnforceOnRestart": {
     "message": "Web tarayıcı yeniden başlatıldığında kısıtlamalar geri yüklensin"
   },
   "NoEnforcementForTab": {
-    "message": "Kısıtlamalar bu sekme için devre dışı bırakılsın"
+    "message": "Kısıtlamalar bu sekme için kapatılsın"
   },
   "EnforceForTab": {
-    "message": "Kısıtlamalar bu sekme için etkinleştirilsin"
+    "message": "Kısıtlamalar bu sekme için açılsın"
   },
   "toggleEnforcementForTab": {
     "message": "Geçerli sekme için uygulanacak kısıtlamaları değiştir"
@@ -218,7 +218,7 @@
     "message": "Davranış"
   },
   "Https_cookies": {
-    "message": "Çerezler"
+    "message": "Tanımlama bilgileri"
   },
   "Https_description": {
     "message": "Güvenli (HTTPS) bir bağlantıdan gelmeyen etkin web içeriği engellensin:"
@@ -269,13 +269,13 @@
     "message": "Bildirimler"
   },
   "Notify": {
-    "message": "Engellenmiş betikler hakkında ileti görüntülensin"
+    "message": "Engellenmiş betikler ile ilgili ileti görüntülensin"
   },
   "Notify_bottom": {
     "message": "İleti aşağıda görüntülensin"
   },
   "NotifyMeta": {
-    "message": "Engellenmiş META yönlendirmeleri hakkında ileti görüntülensin"
+    "message": "Engellenmiş META yönlendirmeleri ile ilgili ileti görüntülensin"
   },
   "NotifyMeta_accesskey": {
     "message": "B"
@@ -314,7 +314,7 @@
     "message": "40em"
   },
   "PermanentInPrivate": {
-    "message": "Gizli pencerelerde komutlara kalıcı olarak \"İzin Verilsin\""
+    "message": "Gizli pencerelerde komutlara kalıcı olarak \"İzin verilsin\""
   },
   "SectionSitePermissions": {
     "message": "Siteye özel izinler"
@@ -365,13 +365,13 @@
     "message": "G"
   },
   "SecureCookies": {
-    "message": "Otomatik güvenli çerez yönetimi kullanılsın"
+    "message": "Otomatik güvenli tanımlama bilgileri yönetimi kullanılsın"
   },
   "SecureCookiesExceptions": {
-    "message": "Şu siteler için HTTPS üzerinden ayarlanan güvensiz çerezler yok sayılsın:"
+    "message": "Şu siteler için HTTPS üzerinden ayarlanan güvenli olmayan tanımlama bilgileri yok sayılsın:"
   },
   "SecureCookiesForced": {
-    "message": "Şu siteler için HTTPS üzerinden ayarlanan tüm çerezler şifrelensin:"
+    "message": "Şu siteler için HTTPS üzerinden ayarlanan tüm tanımlama bilgileri şifrelensin:"
   },
   "SecurityManager": {
     "message": "Güvenlik yönetimi"
@@ -518,7 +518,7 @@
     "message": "$1 üzerindekilerin tümüne izin verilsin"
   },
   "allowGlobal": {
-    "message": "Tüm izin denetimleri devre dışı bırakılsın (tehlikeli)"
+    "message": "Tüm izin denetimleri kapatılsın (tehlikeli)"
   },
   "allowLocal": {
     "message": "$1 üzerindekilere izin verilsin"
@@ -554,10 +554,10 @@
     "message": "NoScript yapılandırma yer imi"
   },
   "caps": {
-    "message": "Bu özellikler etkinleştirilsin"
+    "message": "Bu özellikler açılsın"
   },
   "capsContext": {
-    "message": "Üst belge eşleştiğinde bu özellikler etkinleştirilsin"
+    "message": "Üst belge eşleştiğinde bu özellikler açılsın"
   },
   "anySite": {
     "message": "TÜM SİTELER"
@@ -619,7 +619,7 @@
     "message": "Emin misiniz?"
   },
   "disable": {
-    "message": "$1 devre dışı bırakılsın"
+    "message": "$1 kapatılsın"
   },
   "disable_accessKey": {
     "message": "D"
@@ -655,7 +655,7 @@
     "message": "Bu sayfa ayrıcalıklı olduğundan izinleri ayarlanamaz."
   },
   "incompatibleOptions": {
-    "message": "\"$1\"\n\"$2\" ile uyumsuz.\nBirinciyi etkinleştirip ikinciyi devre dışı bırakmak ister misiniz?"
+    "message": "\"$1\"\n\"$2\" ile uyumsuz.\nBirinciyi açıp ikinciyi kapatmak ister misiniz?"
   },
   "incompatibleOptions_title": {
     "message": "Uyumsuz ayarlar uyarısı"
@@ -679,7 +679,7 @@
     "message": "Yenile"
   },
   "removal_message": {
-    "message": "NoScript uygulamasını devre dışı bırakarak ya da kaldırarak NoScript tarafından sağlanan TÜM korumadan vazgeçmiş olursunuz.\n\nYalnızca her siteye tek tek izin vermekten sıkıldıysanız daha güvenli bir yol var.\n\nNoScript sizi XSS, Clickjacking, CSRF ve diğer web tehditlerinden gelebilecek saldırılarına karış en gelişmiş önlemler ile korumaya devam ederken, güvenilmez olarak işaretlediğiniz siteler dışındaki sitelerin betiklerine izin verebilir.\n\nTÜM NoScript korumasını kaldırmak istediğinize emin misiniz?\n"
+    "message": "NoScript uygulamasını kapatarak ya da kaldırarak NoScript tarafından sağlanan TÜM korumadan vazgeçmiş olursunuz.\n\nYalnızca her siteye tek tek izin vermekten sıkıldıysanız daha güvenli bir yol var.\n\nNoScript sizi XSS, Clickjacking, CSRF ve diğer internet tehditlerinden gelebilecek saldırılarına karşı en gelişmiş önlemler ile korumayı sürdürürken, güvenilmez olarak işaretlediğiniz siteler dışındaki sitelerin betiklerine izin verebilir.\n\nTÜM NoScript korumasını kaldırmak istediğinize emin misiniz?\n"
   },
   "removal_no": {
     "message": "Hayır, yalnız betik engellenmesi kaldırılsın"
@@ -694,10 +694,10 @@
     "message": "NoScript ayarlarını sıfırla"
   },
   "reset_warning": {
-    "message": "TÜM NoScript ayarlarını ve site izinlerini anında varsayılan değerlere sıfırlar.\nBu işlem geri alınamaz.\nDevam etmek istiyor musunuz?"
+    "message": "TÜM NoScript ayarlarını ve site izinlerini anında varsayılan değerlere sıfırlar.\nBu işlem geri alınamaz.\nİlerlemek istiyor musunuz?"
   },
   "siteInfo_confirm": {
-    "message": "$2 üzerine bir sorgu gönderek \n\"$1\" sitesi hakkında bilgi istemek üzeresiniz.\nDevam etmek istiyor musunuz?"
+    "message": "$2 üzerine bir sorgu gönderek \n\"$1\" sitesi ile ilgili bilgi istemek üzeresiniz.\nİlerlemek istiyor musunuz?"
   },
   "siteInfo_tooltip": {
     "message": "Site bilgileri için orta tık ya da shift tuşuna basarak sol tık kullanın…"
@@ -762,7 +762,7 @@
     "message": "KISITLI / Varsayılan red"
   },
   "behavior_defaultDeny_description": {
-    "message": "Geleneksel ve en güvenli NoScript davranışı: \"DEFAULT\" olarak işaretlenmiş sınıflandırılmamış siteler güvenilir olarak kabul edilmez. Betiklerle birlikte potansiyel olarak zararlı özellikler kapatıldı. NoScript arayüzünü açıp \"GÜVENİLİR\" olarak işaretleyerek güvendiğiniz siteleri el ile ekleyebilir veya \"ÖZEL\" seçeneğini seçerek davranışı özelleştirebilirsiniz. Siteler arası korumaları her zaman uygulanır."
+    "message": "Geleneksel ve en güvenli NoScript davranışı: \"DEFAULT\" olarak işaretlenmiş sınıflandırılmamış siteler güvenilir olarak kabul edilmez. Betiklerle birlikte potansiyel olarak zararlı özellikler kapatıldı. NoScript arayüzünü açıp \"GÜVENİLİR\" olarak işaretleyerek güvendiğiniz siteleri el ile ekleyebilir veya \"ÖZEL\" olarak seçerek davranışı özelleştirebilirsiniz. Siteler arası korumaları her zaman uygulanır."
   },
   "behavior_auto_title": {
     "message": "GEVŞEK / Otomatik"
@@ -784,7 +784,7 @@
     "message": "Sekmeler arası kimlik sızıntısı koruması"
   },
   "TabGuard_optEnabled": {
-    "message": "Heryerde etkin"
+    "message": "Her yerde açık"
   },
   "TabGuard_optPromptNever": {
     "message": "Anonimleştirmeden önce onay istenmesin"
@@ -796,10 +796,10 @@
     "message": "Tüm istekler anonimleştirilmeden önce onay istensin"
   },
   "TabGuard_optIncognito": {
-    "message": "Yalnızca gizli gezinme için etkin"
+    "message": "Yalnızca gizli gezinmede açık"
   },
   "TabGuard_optDisabled": {
-    "message": "Devre dışı"
+    "message": "Kapalı"
   },
   "TabGuard_forget": {
     "message": "Kararları unut"
@@ -808,7 +808,7 @@
     "message": "Kimlik sızıntısı olasılığı"
   },
   "TabGuard_message": {
-    "message": "$1 üzerinden bir sayfa yüklemek üzeresiniz.\n$1 oturumu açmış bir kullanıcı iseniz kimliğiniz hakkınızdaki bilgiler $2 tarafından elde edilebilir."
+    "message": "$1 üzerinden bir sayfa yüklemek üzeresiniz.\n$1 oturumu açmış bir kullanıcı iseniz kimliğiniz ile ilgili bilgiler $2 tarafından elde edilebilir."
   },
   "TabGuard_optAnonymize": {
     "message": "Anonim olarak yükle"
@@ -823,33 +823,33 @@
     "message": "Yardım…"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+    "message": "El hareketi etkinleştirmesini aç: Bir site sayfasında \"S\" çizilmesi, site için NoScript kullanıcı arayüzünü açar"
   },
   "GestureLabel": {
-    "message": "Draw \"S\" to summon NoScript."
+    "message": "NoScript açmak için \"S\" çizin."
   },
   "DefaultContainerName": {
     "message": "Varsayılan"
   },
   "enable_container_tabs_label": {
-    "message": "Enable support for container tabs"
+    "message": "Kapsayıcı sekmeleri desteğini aç"
   },
   "clear_container_label": {
-    "message": "Clear permissions for this container"
+    "message": "Bu kapsayıcının izinlerini temizle"
   },
   "copy_container_label": {
-    "message": "Copy permissions from container:"
+    "message": "Kapsayıcının izinlerini kopyala:"
   },
   "forbid_replace_default_policy": {
-    "message": "Cannot replace the default policy."
+    "message": "Varsayılan ilke değiştirilemez."
   },
   "container_clear_warning": {
-    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Bu kapsayıcı için tüm site izinleri kaldırılacak.\nBu işlem geri alınamaz.\nİlerlemek istiyor musunuz?"
   },
   "select_container_label": {
-    "message": "Choose a container:"
+    "message": "Bir kapsayıcı seçin:"
   },
   "container_copy_warning": {
-    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "İzinler \"$1\" üzerinden kopyalanıyor.\nBu kapsayıcı için tüm site izinleri kaldırılacak.\nBu işlem geri alınamaz.\nİlerlemek istiyor musunuz?"
   }
 }
