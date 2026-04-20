@@ -1,27 +1,27 @@
 {
   "Add": {
-    "message": "追加する"
+    "message": "追加"
   },
   "Add_accesskey": {
     "message": "A"
   },
   "AdditionalPermissions": {
-    "message": "信頼済みサイトの追加ためのアクセス許諾"
+    "message": "信頼済みサイトに対する追加の権限"
   },
   "AdditionalRestrictions": {
-    "message": "信頼できないサイトの追加を制限"
+    "message": "信頼できないサイトに対する追加の制限"
   },
   "SectionAdvanced": {
-    "message": "上級者向け"
+    "message": "詳細設定"
   },
   "Allow": {
-    "message": "許可する"
+    "message": "許可"
   },
   "Allow_accesskey": {
     "message": "l"
   },
   "AllowBookmarks": {
-    "message": "ブックマークを介して開かれたサイトを許可する"
+    "message": "ブックマークから開いたサイトを許可する"
   },
   "AllowClipboard": {
     "message": "外部のクリップボードからのリッチテキストのコピーと貼り付けを許可する"
@@ -39,7 +39,7 @@
     "message": "<A PING…> を許可する"
   },
   "AllowViaBookmarks": {
-    "message": "ブックマークを介して開かれたサイトを許可する"
+    "message": "ブックマークから開いたサイトを許可する"
   },
   "AlwaysBlockUntrustedContent": {
     "message": "信頼できないとマークされたサイトからのすべてのオブジェクトをブロックする"
@@ -48,35 +48,35 @@
     "message": "外観"
   },
   "AutoAllowTopLevel": {
-    "message": "トップレベルサイトを一時的に信頼できるに設定します"
+    "message": "トップレベルサイトを一時的に信頼済みに設定する"
   },
   "AutoTrustedLabel": {
-    "message": "Auto-trusted",
+    "message": "自動的に信頼済み",
     "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
   },
   "AutoReload": {
-    "message": "アクセス許諾が変更されたときに影響を受けるページを自動的に再読み込みする"
+    "message": "権限が変更された際に影響を受けるページを自動的に再読み込みする"
   },
   "AutoReload_currentTab": {
-    "message": "現在のタブのみを再読み込みします"
+    "message": "現在のタブのみを再読み込みする"
   },
   "BaseDom": {
-    "message": "セカンドレベルドメインを基準（noscript.net）"
+    "message": "セカンドレベルドメインを基準にする (noscript.net)"
   },
   "BlockedItems": {
-    "message": "$2 アイテムのうち $1 をブロックしました。"
+    "message": "$2 件中 $1 件をブロックしました。"
   },
   "BlockedObjects": {
     "message": "NoScript がブロックしたオブジェクト"
   },
   "BookmarkSync": {
-    "message": "簡単に同期できるように、ブックマークに NoScript の環境設定をバックアップします"
+    "message": "NoScript の設定をブックマークにバックアップして簡単に同期できるようにする"
   },
   "Cancel": {
-    "message": "取り消す"
+    "message": "キャンセル"
   },
   "CascadePermissions": {
-    "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet"
+    "message": "設定されていないサブドキュメントおよびインクルードに対してトップドキュメントの権限を自動的に適用する"
   },
   "CascadeRestrictions": {
     "message": "トップドキュメントでブロックした機能をサブドキュメントでもブロックする"
@@ -86,16 +86,16 @@
     "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
   },
   "ClearClickDescription": {
-    "message": "NoScript は、マウスやキーボードの操作に部分的に隠された要素が相互作用することを検知し、阻止しました。 下の画像をクリックし、ブロックとクリアを切り替えます。"
+    "message": "NoScript は、部分的に非表示になっている要素に対するマウスまたはキーボードの操作を遮断しました。下の画像をクリックすると、隠れている状態と表示されている状態を切り替えることができます。"
   },
   "ClearClickHeader": {
-    "message": "潜在的なクリックジャック攻撃 / UI 改ざんの企て!"
+    "message": "クリックジャッキング / UI 改ざんの恐れがあります！"
   },
   "ClearClickOpt": {
-    "message": "…ページのClearClick 保護機能"
+    "message": "ページの ClearClick 保護…"
   },
   "ClearClickReport": {
-    "message": "レポート"
+    "message": "報告"
   },
   "ClearClickReport_accesskey": {
     "message": "R"
@@ -113,7 +113,7 @@
     "message": "ブロックされたオブジェクトを折りたたむ"
   },
   "ConfirmUnblock": {
-    "message": "オブジェクトのブロックを一時的に解除する前に、確認を求めます"
+    "message": "オブジェクトのブロックを一時的に解除する前に確認する"
   },
   "CtxMenu": {
     "message": "コンテキストメニュー"
@@ -122,16 +122,16 @@
     "message": "カスタム"
   },
   "CustomizePresets": {
-    "message": "プリセットのカスタマイズ（プリセットを共有するすべてのサイト用）"
+    "message": "プリセットのカスタマイズ (プリセットを共有するすべてのサイト用)"
   },
   "Default": {
-    "message": "既定"
+    "message": "デフォルト"
   },
   "DefaultPolicies": {
     "message": "デフォルトポリシー"
   },
   "Description": {
-    "message": "ブラウザの最大限の保護：NoScript は、悪用を防ぐために、選択した信頼できるドメインに対してのみアクティブコンテンツを許可します。"
+    "message": "ブラウザーの最大限の保護: NoScript は、悪用を防ぐために、選択した信頼できるドメインに対してのみアクティブコンテンツを許可します。"
   },
   "Donate": {
     "message": "寄付する"
@@ -152,7 +152,7 @@
     "message": "E"
   },
   "FixLinks": {
-    "message": "JavaScript リンクを修正しようとしました"
+    "message": "JavaScript リンクの修正を試行する"
   },
   "Hider": {
     "message": "ここにドロップして非表示にします。"
@@ -161,52 +161,52 @@
     "message": "不足しているボタンを取得するにはここをクリックしてください…"
   },
   "ShowFullAddresses": {
-    "message": "アクセス許諾ポップアップに、完全なアドレスを一覧表示する (https://www.noscript.net)"
+    "message": "権限のポップアップに完全なアドレスを表示する (https://www.noscript.net)"
   },
   "ShowProbePlaceholders": {
-    "message": "Show synthetic placeholders for invisible capability probes"
+    "message": "非表示の機能プローブに対して合成プレースホルダーを表示する"
   },
   "SectionGeneral": {
-    "message": "全般"
+    "message": "一般"
   },
   "NotEnforced": {
-    "message": "Restrictions disabled by user's settings: NoScript won't block anything on this page!"
+    "message": "ユーザーの設定により制限が無効になっています。NoScript はこのページ上のコンテンツを何もブロックしません！"
   },
   "NoEnforcement": {
-    "message": "グローバルな制限を無効にする　（危険）"
+    "message": "制限を全体で無効にする (危険)"
   },
   "Enforce": {
-    "message": "グローバルな制限を有効にする"
+    "message": "制限を全体で有効にする"
   },
   "EnforceOnRestart": {
-    "message": "Restore restrictions on browser restart"
+    "message": "ブラウザーの再起動時に制限を元に戻す"
   },
   "NoEnforcementForTab": {
-    "message": "このタブの制限を無効にします"
+    "message": "このタブの制限を無効にする"
   },
   "EnforceForTab": {
     "message": "このタブの制限を有効にする"
   },
   "toggleEnforcementForTab": {
-    "message": "Toggle restrictions enforcement for current tab"
+    "message": "現在のタブの制限を切り替える"
   },
   "pagePermissionsUI": {
-    "message": "Configure current page's permissions"
+    "message": "現在のページの権限を設定する"
   },
   "HighContrast": {
-    "message": "高コントラスト"
+    "message": "ハイコントラスト"
   },
   "httpsOnly": {
     "message": "HTTPS コンテンツのみに一致"
   },
   "tabLess_tip": {
-    "message": "Site outside of a content tab, e.g. in a sidebar"
+    "message": "コンテンツタブ以外 (サイドバー内など)"
   },
   "tabLess_short": {
-    "message": "(sidebar?)"
+    "message": "(サイドバー？)"
   },
   "tabLess_reload_warning": {
-    "message": "Changing permissions in a sidebar will require a MANUAL reload."
+    "message": "サイドバーの権限を変更するには、手動で再読み込みする必要があります。"
   },
   "Https": {
     "message": "HTTPS"
@@ -215,19 +215,19 @@
     "message": "常に"
   },
   "Https_behavior": {
-    "message": "振る舞い"
+    "message": "動作"
   },
   "Https_cookies": {
-    "message": "Cookies"
+    "message": "Cookie"
   },
   "Https_description": {
-    "message": "安全な（HTTPS）接続からのものでない限り、アクティブな Web コンテンツを禁止する:"
+    "message": "安全な (HTTPS) 接続経由でないアクティブなウェブコンテンツを無効にする:"
   },
   "Https_never": {
-    "message": "どんな場合でも"
+    "message": "なし"
   },
   "Https_proxy": {
-    "message": "プロキシを使用する場合 （Tor を推奨）"
+    "message": "プロキシを使用する場合 (Tor での利用を推奨)"
   },
   "HttpsFaq": {
     "message": "HTTPS FAQ…"
@@ -236,10 +236,10 @@
     "message": "Q"
   },
   "HttpsForced": {
-    "message": "次のサイトには、強制的に安全な（HTTPS）接続を使用する:"
+    "message": "以下のサイトで安全な (HTTPS) 接続を強制的に使用する:"
   },
   "HttpsForcedExceptions": {
-    "message": "次のサイトには、安全な（HTTPS）接続を強制しない:"
+    "message": "以下のサイトでは安全な (HTTPS) 接続を強制的に使用しない:"
   },
   "Import": {
     "message": "インポート"
@@ -251,7 +251,7 @@
     "message": "シークレット/プライベートタブで永続的な権限設定をする　注意：これはサイト情報の流出をもたらすかもしれません。"
   },
   "OptAmnesticUpdates": {
-    "message": "NoScript が更新されたとき，ブラウザを再起動しなくても一時的な権限を取り消す"
+    "message": "NoScript が更新された際に、ブラウザーを再起動しなくても一時的な権限を取り消す"
   },
   "KeepLocked": {
     "message": "この要素をロックしたままにする（推奨）"
@@ -299,7 +299,7 @@
     "message": "クロスサイト POST リクエストをデータレス GET リクエストに変換します"
   },
   "OptOverrideTorBrowserPolicy": {
-    "message": "Tor ブラウザのセキュリティレベルプリセットをオーバーライドする"
+    "message": "Tor Browser のセキュリティレベルの設定を上書きする"
   },
   "Options": {
     "message": "オプション…"
@@ -317,10 +317,10 @@
     "message": "プライベートウィンドウの永続的な \"許可\" コマンド"
   },
   "SectionSitePermissions": {
-    "message": "サイトごとのアクセス許諾"
+    "message": "サイトごとの権限"
   },
   "PermissionsText": {
-    "message": "スクリプトの実行を許可する Web サイトを指定できます。許可するサイトのアドレスやドメイン（例えば. \"http://www.site.com\" や \"site.com\"）を入力し、［許可］をクリックします。"
+    "message": "スクリプトの実行を許可するウェブサイトを指定できます。許可するサイトのアドレスやドメイン (例: \"http://www.site.com\" または \"site.com\") を入力し、「許可」をクリックします。"
   },
   "Plugins": {
     "message": "プラグイン"
@@ -359,7 +359,7 @@
     "message": "D"
   },
   "RevokeTemp": {
-    "message": "一時的なアクセス許諾を取り消す"
+    "message": "一時的な権限を取り消す"
   },
   "RevokeTemp_accesskey": {
     "message": "R"
@@ -398,7 +398,7 @@
     "message": "ブロックされたアイテムカウントバッジを表示"
   },
   "SitePermissions": {
-    "message": "サイトのアクセス許諾"
+    "message": "サイトの権限"
   },
   "SitePermissions_accessKey": {
     "message": "S"
@@ -413,7 +413,7 @@
     "message": "T"
   },
   "TempToPerm": {
-    "message": "ページのアクセス許諾を永続的にする"
+    "message": "ページの権限を永続的にする"
   },
   "TempToPerm_accesskey": {
     "message": "M"
@@ -461,7 +461,7 @@
     "message": "信頼できない"
   },
   "WebAddress": {
-    "message": "Web サイトを検索または追加する:"
+    "message": "ウェブサイトを検索または追加する:"
   },
   "WebAddress_accesskey": {
     "message": "w"
@@ -518,7 +518,7 @@
     "message": "$1 からすべて許可"
   },
   "allowGlobal": {
-    "message": "すべてのアクセス許諾チェックを無効にします （危険）"
+    "message": "すべての権限チェックを無効にする (危険)"
   },
   "allowLocal": {
     "message": "$1 を許可"
@@ -578,7 +578,7 @@
     "message": "フォント"
   },
   "cap_webgl": {
-    "message": "webgl"
+    "message": "WebGL"
   },
   "cap_fetch": {
     "message": "フェッチ"
@@ -616,7 +616,7 @@
     "message": "変更履歴を表示"
   },
   "confirm": {
-    "message": "本気なの？"
+    "message": "本当によろしいですか？"
   },
   "disable": {
     "message": "$1 を無効にする"
@@ -652,7 +652,7 @@
     "message": "このタブで操作するには、NoScript で再読込する必要があります。\n続行しますか？"
   },
   "privilegedPage": {
-    "message": "これは特権ページであり、そのアクセス許諾は設定できません。"
+    "message": "これは特権ページであり、権限の設定を行うことはできません。"
   },
   "incompatibleOptions": {
     "message": "\"$1\"\nは \"$2\"と互換性がありません。\n前者を有効にし、後者を無効にしますか？"
@@ -679,7 +679,7 @@
     "message": "再読込"
   },
   "removal_message": {
-    "message": "NoScript を無効化または削除することにより、NoScript が提供するすべての保護が失われます。\n\nサイトごとにスクリプトのアクセス許可を処理することにうんざりしている場合は、より安全な選択があります。\n\nNoScript は、スクリプトのブロックを停止できます。 XSS（クロスサイトスクリプティング）、クリックジャック攻撃、CSRF（クロスサイトリクエストフォージェリ）、およびその他の Web 脅威に対する最新のセキュリティ対策であなたを保護しながら、信頼できないものとしてマークします。\n\nNoScript 保護のすべてを本当に削除しますか？\n"
+    "message": "NoScript を無効化または削除することにより、NoScript が提供するすべての保護が失われます。\n\nサイトごとにスクリプトの許可設定を管理するのが面倒だと感じる場合は、より安全な選択肢があります。\n\nNoScript は、ユーザーが信頼できないとマークしたスクリプトを除き、スクリプトのブロックを停止させることができます。それと同時に、XSS、クリックジャッキング、CSRF、その他のウェブ上の脅威に対する最先端のセキュリティ対策により、引き続きユーザーを保護します。\n\n本当に NoScript のすべての保護を無効にしますか？\n"
   },
   "removal_no": {
     "message": "いいえ、スクリプトのブロックを停止するだけです"
@@ -694,7 +694,7 @@
     "message": "NoScript のリセット"
   },
   "reset_warning": {
-    "message": "NoScript のすべての設定とサイトのアクセス許可は、すぐに既定値にリセットされます。\nこのアクションは元に戻せません。\n続行しますか？"
+    "message": "NoScript のすべての設定とサイトごとの権限は、直ちにデフォルトにリセットされます。\nこの操作は元に戻せません。\n続行しますか？"
   },
   "siteInfo_confirm": {
     "message": "\"$1\" サイトに関する情報を照会しようとしています。 $2 にクエリを送信します。\n続行しますか？"
@@ -823,10 +823,10 @@
     "message": "Help…"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+    "message": "ジェスチャーによる起動を有効にする: ウェブページ上で「S」の文字を描くと、サイトの NoScript の UI が開きます"
   },
   "GestureLabel": {
-    "message": "Draw \"S\" to summon NoScript."
+    "message": "「S」と描いて NoScript を起動します。"
   },
   "DefaultContainerName": {
     "message": "Default"

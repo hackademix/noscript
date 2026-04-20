@@ -762,7 +762,7 @@
     "message": "কড়া / ডিফল্টে আটকাবে"
   },
   "behavior_defaultDeny_description": {
-    "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced."
+    "message": "নোস্ক্রিপ্টের চিরাচরিত ও সবচেয়ে নিরাপদ আচরণ: শ্রেণীভুক্ত হয় নি এমন সব সাইট “ডিফল্ট” শ্রেণীর অন্তর্গত বলে বিবেচিত হবে এবং ধরে নেওয়া হবে সেগুলো নিরাপদ নয়। স্ক্রিপ্টসহ অন্যান্য সম্ভাব্য ক্ষতিকর অংশ নিষ্ক্রিয় করা থাকবে। যেসব সাইটের ওপর আপনার আস্থা আছে সেগুলোকে নোস্ক্রিপ্টের ইন্টারফেসে ঢুকে আপনি “বিশ্বস্ত” শ্রেণীভুক্ত পারবেন, কিংবা “কাস্টম” শ্রেণীভুক্ত করে সাইটের বিভিন্ন অংশ ইচ্ছামতো সক্রিয় বা নিষ্ক্রিয় করতে পারবেন। ভিন-সাইট সুরক্ষা সবসময় চালু থাকবে।"
   },
   "behavior_auto_title": {
     "message": "নির্ঝঞ্ঝাট / স্বয়ংক্রিয়"

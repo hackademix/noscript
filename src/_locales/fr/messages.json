@@ -829,27 +829,27 @@
     "message": "Dessiner un « S » pour lancer NoScript."
   },
   "DefaultContainerName": {
-    "message": "Default"
+    "message": "Valeur par défaut"
   },
   "enable_container_tabs_label": {
-    "message": "Enable support for container tabs"
+    "message": "Activer la prise en charge des onglets conteneurs"
   },
   "clear_container_label": {
-    "message": "Clear permissions for this container"
+    "message": "Supprimer les autorisations de ce conteneur"
   },
   "copy_container_label": {
-    "message": "Copy permissions from container:"
+    "message": "Copier les autorisations du conteneur :"
   },
   "forbid_replace_default_policy": {
-    "message": "Cannot replace the default policy."
+    "message": "Impossible de remplacer la stratégie par défaut."
   },
   "container_clear_warning": {
-    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Les autorisations de site pour ce conteneur seront supprimées.\nCette action est irréversible.\nVoulez-vous poursuivre ?"
   },
   "select_container_label": {
-    "message": "Choose a container:"
+    "message": "Choisissez un conteneur :"
   },
   "container_copy_warning": {
-    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Copie des autorisations de « $1 ».\nLes autorisations de site associées à ce conteneur seront supprimées.\nCette action est irréversible.\nVoulez-vous poursuivre ?"
   }
 }

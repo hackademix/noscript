@@ -817,7 +817,7 @@
     "message": "Lataa normaalisti"
   },
   "LearnMoreLink": {
-    "message": "Learn more…"
+    "message": "Lue lisää"
   },
   "HelpLink": {
     "message": "Help…"
@@ -829,7 +829,7 @@
     "message": "Draw \"S\" to summon NoScript."
   },
   "DefaultContainerName": {
-    "message": "Default"
+    "message": "Oletus"
   },
   "enable_container_tabs_label": {
     "message": "Enable support for container tabs"
