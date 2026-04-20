@@ -189,7 +189,7 @@ if ! [[ $UNPACKED_ONLY ]]; then
   "$BASE/html5_events/html5_events.pl" >"$BASE/html5_events/last_run.log" 2>&1
   IC_FILE="$SRC/xss/InjectionChecker.js"
   if git diff "$IC_FILE" | grep IC_EVENT_PATTERN >/dev/null; then
-    git commit -m'[XSS] Updated IC_EVENT_PATTERN.' "$IC_FILE"
+    git commit -m'[XSS] Updated IC_EVENT_PATTERN.' "$IC_FILE" "$BASE/html5_events/"
   fi
 fi
 

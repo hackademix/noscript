@@ -42,6 +42,7 @@ onMozDOMFullscreen_Exit
 onMozDOMFullscreen_Exited
 onMozDOMFullscreen_NewOrigin
 onMozDOMFullscreen_Request
+onMozDOMFullscreen_WarnAboutKeyboardLock
 onMozDOMPointerLock_Entered
 onMozDOMPointerLock_Exited
 onMozEdgeUICanceled
