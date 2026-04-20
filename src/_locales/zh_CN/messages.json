@@ -829,27 +829,27 @@
     "message": "绘制 \"S\" 召唤 NoScript。"
   },
   "DefaultContainerName": {
-    "message": "Default"
+    "message": "默认"
   },
   "enable_container_tabs_label": {
-    "message": "Enable support for container tabs"
+    "message": "启用对容器标签页的支持"
   },
   "clear_container_label": {
-    "message": "Clear permissions for this container"
+    "message": "清除此容器的权限"
   },
   "copy_container_label": {
-    "message": "Copy permissions from container:"
+    "message": "从容器复制权限："
   },
   "forbid_replace_default_policy": {
-    "message": "Cannot replace the default policy."
+    "message": "无法替换默认策略。"
   },
   "container_clear_warning": {
-    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "将删除此容器的所有站点权限。\n此操作无法撤销。\n要继续吗？"
   },
   "select_container_label": {
-    "message": "Choose a container:"
+    "message": "选择容器："
   },
   "container_copy_warning": {
-    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "从 \"$1\" 复制权限。\n将删除此容器的所有站点权限。\n此操作无法撤销。\n要继续吗？"
   }
 }
