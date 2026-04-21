@@ -253,10 +253,10 @@ var UI = (() => {
 
     hilite(el) {
       el.classList.add("hilite");
+      el.scrollIntoView();
       window.setTimeout(() => {
           el.classList.remove("hilite");
           el.classList.add("hilite-end");
-          el.scrollIntoView();
           window.setTimeout(() => {
             el.classList.remove("hilite-end");
           }, 1000)
@@ -934,49 +934,94 @@ var UI = (() => {
     }
 
     render(sites = this.sites, sorter = this.sorter) {
-      if (sites) this._populate(sites, sorter);
-      requestAnimationFrame(() => {
-        const { parentNode } = this;
-        parentNode.innerHTML = "";
-        if (!sites) return;
-        parentNode.appendChild(this.fragment);
-        const root = parentNode.querySelector(".sites");
-        if (!root.wiredBy) {
-          root.addEventListener("keydown", (e) => this._keyNavHandler(e), true);
-          root.addEventListener(
-            "keyup",
-            (e) => {
-              // we use a keyup listener to open the customizer from other presets
-              // because space repetition may lead to unintendedly "click" on the
-              // first cap checkbox once focused from keydown
-              switch (e.code) {
-                case "Space": {
-                  let focused = document.activeElement;
-                  if (focused.matches(".site .preset")) {
-                    focused
-                      .closest(".site")
-                      .querySelector(".preset[value='CUSTOM']")
-                      .click();
-                    e.preventDefault();
-                  }
-                }
-              }
-            },
-            true
-          );
-          root.addEventListener("click", this, true);
-          root.addEventListener("change", this, true);
-          root.wiredBy = this;
-
-          if (!UA.mobile) {
+      if (sites) {
+        this._populate(sites, sorter);
+      }
+      return new Promise(resolve => {
+        requestAnimationFrame(() => {
+          const { parentNode } = this;
+          parentNode.innerHTML = "";
+          if (!sites) {
+            resolve();
             return;
           }
-          const siteWidth = root.querySelector(".site")?.offsetWidth + 12;
-          const viewportWidth = document.documentElement.clientWidth;
-          if (viewportWidth < siteWidth) {
-            document.documentElement.style.zoom = viewportWidth / siteWidth;
+
+          const PAGE_SIZE = 50;
+          const unfiltered = this.list.querySelectorAll(".site:not(.filtered)");
+          if (unfiltered.length > PAGE_SIZE) {
+            let timeout;
+            let overflowIdx;
+            const resetOverflow = () => {
+              clearTimeout(timeout);
+              overflowIdx = PAGE_SIZE;
+              for (let j = unfiltered.length; j-- > overflowIdx;) {
+                unfiltered[j].classList.add("overflown");
+              }
+            };
+            resetOverflow();
+
+            const updateOverflow = () => {
+              clearTimeout(timeout);
+              requestAnimationFrame(() => {
+                const end = Math.min(unfiltered.length, overflowIdx + PAGE_SIZE);
+                for (let j = overflowIdx; j < end; j++) {
+                  unfiltered[j].classList.remove("overflown");
+                }
+                if (end <= unfiltered.length) {
+                  overflowIdx += PAGE_SIZE;
+                  timeout = setTimeout(updateOverflow, 10);
+                }
+              });
+            };
+            timeout = setTimeout(updateOverflow, 20);
+
+            (this.resizeObserver || new ResizeObserver(entries => {
+              if (entries[0].contentRect.height == 0) {
+                resetOverflow();
+              } else {
+                updateOverflow();
+              }
+            })).observe(this.list);
           }
-        }
+          parentNode.appendChild(this.fragment);
+          resolve();
+          const root = parentNode.querySelector(".sites");
+          if (!root.wiredBy) {
+            root.addEventListener("keydown", (e) => this._keyNavHandler(e), true);
+            root.addEventListener(
+              "keyup",
+              (e) => {
+                // we use a keyup listener to open the customizer from other presets
+                // because space repetition may lead to unintendedly "click" on the
+                // first cap checkbox once focused from keydown
+                switch (e.code) {
+                  case "Space": {
+                    let focused = document.activeElement;
+                    if (focused.matches(".site .preset")) {
+                      focused
+                        .closest(".site")
+                        .querySelector(".preset[value='CUSTOM']")
+                        .click();
+                      e.preventDefault();
+                    }
+                  }
+                }
+              },
+              true
+            );
+            root.addEventListener("click", this, true);
+            root.addEventListener("change", this, true);
+            root.wiredBy = this;
+            if (!UA.mobile) {
+              return;
+            }
+            const siteWidth = root.querySelector(".site")?.offsetWidth + 12;
+            const viewportWidth = document.documentElement.clientWidth;
+            if (viewportWidth < siteWidth) {
+              document.documentElement.style.zoom = viewportWidth / siteWidth;
+            }
+          }
+        });
       });
     }
 

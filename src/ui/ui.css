@@ -354,7 +354,6 @@ span.preset {
   font-size: 1em;
   vertical-align: baseline;
 }
-
 .presets label.preset {
   letter-spacing: -0.06em;
   width: 0;
@@ -393,7 +392,9 @@ span.preset {
 .site.filtered, site.filtered {
   display: none;
 }
-
+.site.overflown {
+  display: none;
+}
 .site-controls {
   display: flex;
   flex-direction: row;

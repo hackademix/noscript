@@ -207,7 +207,7 @@ document.querySelector("#version").textContent = _("Version",
       UI.updateSettings({policy, contextStore});
     }
 
-    presetsUI.render([""]);
+    await presetsUI.render([""]);
     window.setTimeout(() => {
       let def = parent.querySelector('input.preset[value="DEFAULT"]');
       def.checked = true;
@@ -337,7 +337,7 @@ document.querySelector("#version").textContent = _("Version",
     validate();
     newSiteInput.addEventListener("input", validate);
 
-    newSiteForm.addEventListener("submit", e => {
+    newSiteForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       e.stopPropagation();
       let site = newSiteInput.value.trim();
@@ -345,9 +345,10 @@ document.querySelector("#version").textContent = _("Version",
       if (valid && canAdd(site)) {
         currentPolicy.set(site, currentPolicy.TRUSTED);
         UI.updateSettings({policy, contextStore});
-        newSiteInput.value = "";
-        sitesUI.render(currentPolicy.sites);
-        sitesUI.hilite(site);
+        const rendering = sitesUI.render(currentPolicy.sites);
+        validate(); // apply filter and disable button
+        await rendering;
+        sitesUI.hilite(site); // display and focus
         sitesUI.onChange();
       }
     }, true);

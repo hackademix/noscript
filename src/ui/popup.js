@@ -548,7 +548,7 @@ addEventListener("unload", e => {
         });
       }
 
-      sitesUI.render(sites);
+      await sitesUI.render(sites);
       window.scrollTo(0, 0);
       window.setTimeout(() => sitesUI.focus(), 10);
     }
