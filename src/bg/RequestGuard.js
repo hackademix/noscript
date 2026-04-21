@@ -221,7 +221,7 @@
         (await browser.tabs.query({})).forEach(tab => TabStatus.probe(tab.id));
       } else {
         try {
-          TabStatus.recordAll(tabId, await ns.collectSeen(tabId));
+          TabStatus.recordAll(tabId, await ns?.collectSeen(tabId));
         } catch (e) {
           error(e);
         }
