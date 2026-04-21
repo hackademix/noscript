@@ -481,7 +481,9 @@ var UI = (() => {
             temp.nextElementSibling.remove();
             temp.remove();
           }
-
+          if (customizable) {
+            input.setAttribute("aria-expanded", false);
+          }
           presets.appendChild(clone);
         }
 
@@ -761,9 +763,9 @@ var UI = (() => {
         perms,
         this.dirty
       );
-      for (let r of this.list.querySelectorAll(".customizing")) {
+      for (const r of this.list.querySelectorAll(".customizing")) {
         r.classList.toggle("customizing", false);
-        r.querySelector(".CUSTOM .preset[aria-expanded]").setAttribute("aria-expanded", false);
+        r.querySelector(".preset[aria-expanded=true]")?.setAttribute("aria-expanded", false);
       }
 
       if (
