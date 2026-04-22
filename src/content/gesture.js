@@ -276,6 +276,7 @@
     const { directions } = metrics;
     console.debug("Directions", active, directions, metrics, e); // DEV_ONLY
     if (directions.length < 1) {
+      setActive(true);
       return;
     }
     if (directions[0] != -1 || directions.length > 3) {
@@ -293,11 +294,8 @@
       }
     }
 
-    if (active) {
-      e.preventDefault();
-    } else {
-      setActive(true);
-    }
+    e.preventDefault();
+
     drawPath(metrics);
   };
 
