@@ -121,8 +121,9 @@
       });
       const {readyState} = document;
       asyncFetch();
+      // WARNING: be careful adding exceptions to sync fetching here, since on MV3 we never have
+      // content-blocking CSP headers injected at the network level (DNRPolicy.js doesn't).
       if (this.policy || readyState == "complete" ||
-          !this.syncFetchPolicy && this.embeddingDocument ||
           window.origin == "null" && window.location.href == "about:blank" && window.top == self
       ) {
         // no point trying sync too in these cases

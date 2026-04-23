@@ -20,6 +20,14 @@
 
 // depends on /nscl/service/NavCache.js
 
+// This module is meant to replace the granular content blocking performed by RequestGuard.js
+// on Manifest V2/2.5 (based on Firefox's blocking async webRequest API)
+// with a declarativeNetRequest implementation on Manifest V3.
+// One IMPORTANT difference is that this implementation won't try to inject Content-Security-Policy
+// headers in documents for content blocking (the only one being injected is for reporting only):
+// in MV3 all the CSP heavy lifting is done by staticNS.js via nscl's DocumentCSP, so it's vital
+// that content-side the correct policy is always fetched timely (synchronously, if needed).
+
 'use strict';
 {
   const DEFAULT_PRIORITY = 1;
