@@ -143,6 +143,7 @@ oncanplaythrough
 oncardstatechange
 oncfstatechange
 onchange
+oncharacterboundsupdate
 oncharacteristicchanged
 onchargingchange
 onchargingtimechange
@@ -460,6 +461,8 @@ onsystemstatusbarclick
 onterminate
 ontext
 ontextInput
+ontextformatupdate
+ontextupdate
 ontimeout
 ontimeupdate
 ontoggle
