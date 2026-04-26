@@ -81,7 +81,7 @@
     // Note: using '^' instead of '/' as a terminator
     // takes explicit port numbers in account
     if (Sites.isSecureDomainKey(siteKey)) {
-      return `||${Sites.toggleSecureDomainKey(siteKey,false)}^`
+      return `||${Sites.toggleSecureDomainKey(siteKey, false)}^`
     }
     const schemeLess = siteKey.replace(/^[\w-]+:\/*/, "");
     let urlFilter = `${siteKey == schemeLess ? "||" : "|"}${siteKey}`;
@@ -148,8 +148,18 @@
         condition: {
           resourceTypes: ["main_frame", "sub_frame"],
         },
+      }, {
+        id: 2,
+        priority: MAX_PRIORITY,
+        action: {
+          type: "allow"
+        },
+        condition: {
+          resourceTypes: ["xmlhttprequest"],
+          urlFilter: browser.runtime.onSyncMessage.DNR_URL_FILTER,
+        },
       }],
-      lastId: 1,
+      lastId: 2,
       add({capabilities, temp}, priority = SITE_PRIORITY, siteKey) {
         const urlFilter = siteKey ? toUrlFilter(siteKey) : undefined;
         forBlockAllow(capabilities, (type, resourceTypes) => {
@@ -200,6 +210,9 @@
   }
 
   async function addTabRules(rules = []) {
+    if (!ns.policy?.enforced) {
+      return;
+    }
     if (ns.unrestrictedTabs.size) {
       const tabIds = [...ns.unrestrictedTabs];
       tabIds.push(browser.tabs.TAB_ID_NONE); // for service workers
