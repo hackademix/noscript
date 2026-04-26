@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -784,43 +784,44 @@
       }
       return ALLOW;
     }
-    let isFetch = "fetch" === policyType;
 
+    const isFetch = "fetch" === policyType;
     if ((isFetch || "frame" === policyType) &&
         (((isFetch && !originUrl
           || url === originUrl) && originUrl === documentUrl
           // some extensions make them both undefined,
           // see https://github.com/eight04/image-picka/issues/150
         ) ||
-        Sites.isInternal(originUrl))
+        Sites.isInternal(originUrl)) ||
+        Sites.isInternal(url)
     ) {
       // livemark request or similar browser-internal, always allow;
       return ALLOW;
     }
 
+    let allowed = false;
+
     if (/^(?:data|blob):/.test(url)) {
       request._dataUrl = url;
       request.url = url = documentUrl || originUrl;
+      allowed = Sites.isInternal(url);
     }
 
-    let allowed = Sites.isInternal(url);
+    if (tabId < 0 && documentUrl?.startsWith("https:")) {
+      allowed = [...ns.unrestrictedTabs]
+        .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
+    }
     if (!allowed) {
-      if (tabId < 0 && documentUrl?.startsWith("https:")) {
-        allowed = [...ns.unrestrictedTabs]
-          .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
-      }
-      if (!allowed) {
-        const capabilities = intersectCapabilities(
-          policy.get(url, ns.policyContext(request)),
-          request);
-        allowed = !policyType || capabilities.has(policyType);
-        if (allowed && request._dataUrl && type.endsWith("frame")) {
-          let blocker = csp.buildFromCapabilities(capabilities);
-          if (blocker) {
-            let redirectUrl = CSP.patchDataURI(request._dataUrl, blocker);
-            if (redirectUrl !== request._dataUrl) {
-              return previous.return = {redirectUrl};
-            }
+      const capabilities = intersectCapabilities(
+        policy.get(url, ns.policyContext(request)),
+        request);
+      allowed = !policyType || capabilities.has(policyType);
+      if (allowed && request._dataUrl && type.endsWith("frame")) {
+        const blocker = csp.buildFromCapabilities(capabilities);
+        if (blocker) {
+          const redirectUrl = CSP.patchDataURI(request._dataUrl, blocker);
+          if (redirectUrl !== request._dataUrl) {
+            return previous.return = { redirectUrl };
           }
         }
       }
