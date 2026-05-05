@@ -201,9 +201,7 @@ var TabGuard = (() => {
             try {
               tab.url = (await Scripting.executeScript({
                 target: {tabId: tab.id, allFrames: false},
-                func: () => {
-                  return window.origin === 'null' ? window.location.href : window.origin;
-                },
+                func: () => window.origin === 'null' ? window.location.href : window.origin,
               }))[0].result;
             } catch (e) {
               // We don't have permissions to run in this tab, probably because it has been left empty.
@@ -231,7 +229,7 @@ var TabGuard = (() => {
             try {
               tab._contentType = (await Scripting.executeScript({
                 target: {tabId: tab.id},
-                func() { return document.contentType }
+                func: () => document.contentType,
               }))[0].result;
             } catch (e) {
               // We don't have permissions to run in this tab: privileged!
