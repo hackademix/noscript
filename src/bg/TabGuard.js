@@ -117,7 +117,7 @@ var TabGuard = (() => {
       const mode = ns.sync.TabGuardMode;
       if (mode === "off" || !request.incognito && mode!== "global") return;
 
-      anonymizedRequests.delete(request.id);
+      anonymizedRequests.delete(request.requestId);
 
       const {tabId, type, url, originUrl} = request;
 
@@ -262,7 +262,7 @@ var TabGuard = (() => {
           anonymizedTabs.set(tabId, {tabDomain, otherDomains: [...otherDomains]});
           session.save();
 
-          anonymizedRequests.add(request.id);
+          anonymizedRequests.add(request.requestId);
           return {requestHeaders};
         };
 
@@ -300,7 +300,7 @@ var TabGuard = (() => {
     // must be called from a webRequest.onHeadersReceived blocking listener
     // TODO: explore DNR alternative
     onReceive(request) {
-      if (!anonymizedRequests.has(request.id)) return false;
+      if (!anonymizedRequests.has(request.requestId)) return false;
       let headersModified = false;
       let {responseHeaders} = request;
       for (let j = responseHeaders.length; j-- > 0;) {
@@ -319,7 +319,7 @@ var TabGuard = (() => {
         scheduledCuts.delete(requestId);
         TabTies.cut(tabId);
       }
-      anonymizedRequests.delete(request.id);
+      anonymizedRequests.delete(request.requestId);
     },
     isAnonymizedRequest(requestId) {
       return anonymizedRequests.has(requestId);
