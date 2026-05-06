@@ -1241,30 +1241,29 @@ var UI = (() => {
         }
       }
 
-      let { hostname } = url;
+      const { hostname, protocol } = url;
       let overrideDefault =
-        site && url.protocol && site !== url.protocol
-          ? this.policy.get(url.protocol, contextMatch)
+        site && protocol && site != protocol
+          ? this.policy.get(protocol, contextMatch)
           : null;
       if (!overrideDefault?.siteMatch) overrideDefault = null;
 
-      let domain = tld.getDomain(hostname);
-      let disableDefault = false;
-      if (!siteMatch || (siteMatch === url.protocol && site !== siteMatch)) {
+      const domain = tld.getDomain(hostname);
+      if (!siteMatch || (siteMatch == protocol && site != siteMatch)) {
         siteMatch = site;
       }
-      let secure = Sites.isSecureDomainKey(siteMatch);
-      let isOnion =
+      const secure = Sites.isSecureDomainKey(siteMatch);
+      const isOnion =
         UI.local.isTorBrowser && hostname?.endsWith(".onion");
-      let keyStyle = secure
+      const keyStyle = secure
         ? "secure"
         : !domain || /^\w+:/.test(siteMatch)
-        ? /(?:https|file|data):/.test(url.protocol) || isOnion
+        ? Sites.isSecureProtocol(protocol) || /(?:file|data):/.test(protocol) || isOnion
           ? "full"
           : "unsafe"
         : isOnion
         ? "secure"
-        : domain === hostname
+        : domain == hostname
         ? "domain"
         : "host";
 
@@ -1285,13 +1284,13 @@ var UI = (() => {
       row.perms = perms;
       if (domain) {
         // "normal" URL
-        let justDomain = hostname === domain;
-        let domainEntry = secure || domain === site;
-        let unicodeDomain = (row.domain = punycode.toUnicode(domain));
+        const justDomain = hostname == domain;
+        const domainEntry = secure || domain == site;
+        const unicodeDomain = (row.domain = punycode.toUnicode(domain));
         row._label = domainEntry ? `.${unicodeDomain}` : Sites.toExternal(site);
-        row.querySelector(".protocol").textContent = `${url.protocol}//`;
+        row.querySelector(".protocol").textContent = `${protocol}//`;
         row.querySelector(".sub").textContent = justDomain
-          ? keyStyle === "full" || keyStyle == "unsafe"
+          ? keyStyle == "full" || keyStyle == "unsafe"
             ? ""
             : "…"
           : punycode.toUnicode(
@@ -1303,12 +1302,12 @@ var UI = (() => {
       } else {
         fullAddress.textContent = row._label = row.domain = siteMatch;
       }
-      let httpsOnly = row.querySelector("input.https-only");
-      httpsOnly.checked = keyStyle === "full" || keyStyle === "secure";
 
-      let presets = row.querySelectorAll("input.preset");
+      row.querySelector("input.https-only").checked = keyStyle == "full" || keyStyle == "secure";
+
+      const presets = row.querySelectorAll("input.preset");
       let idSuffix = `-${this.uiCount}-${sitesCount}`;
-      for (let p of presets) {
+      for (const p of presets) {
         p.id = `${p.value}${idSuffix}`;
         p.name = `preset${idSuffix}`;
         let label = p.nextElementSibling;
@@ -1321,9 +1320,9 @@ var UI = (() => {
         }
       }
 
-      let getPresetName = (perms) => {
+      const getPresetName = (perms) => {
         let presetName = "CUSTOM";
-        for (let p of ["TRUSTED", "UNTRUSTED", "DEFAULT"]) {
+        for (const p of ["TRUSTED", "UNTRUSTED", "DEFAULT"]) {
           let preset = this.policy[p];
           switch (perms) {
             case preset:
@@ -1349,7 +1348,7 @@ var UI = (() => {
           );
           if (override) {
             let def = row.querySelector(`.presets input[value="DEFAULT"]`);
-            if (def && def !== override) {
+            if (def && def != override) {
               let label = def.nextElementSibling;
               label.title =
                 def.title = `${override.title} (${overrideDefault.siteMatch})`;
@@ -1365,11 +1364,11 @@ var UI = (() => {
         }
       }
 
-      let tempFirst = true; // TODO: make it a preference
-      let unsafeMatch = keyStyle !== "secure" && keyStyle !== "full";
-      if (presetName === "DEFAULT" && (tempFirst || unsafeMatch)) {
+      const tempFirst = true; // TODO: make it a preference
+      const unsafeMatch = keyStyle != "secure" && keyStyle != "full";
+      if (presetName == "DEFAULT" && (tempFirst || unsafeMatch)) {
         // prioritize temporary privileges over permanent
-        for (let p of TEMP_PRESETS) {
+        for (const p of TEMP_PRESETS) {
           if (
             p in this.presets &&
             (unsafeMatch || (tempFirst && p === "TRUSTED"))
