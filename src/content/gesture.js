@@ -132,9 +132,16 @@
 
     ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
-    ctx.font = `bold ${LABEL_SIZE}px sans-serif`;
     ctx.textBaseline = "bottom";
-    canvas.labelX = (canvas.width - ctx.measureText(configuration.label).width) / 2;
+    for (let h = LABEL_SIZE; h > 1; h--) {
+      ctx.font = `bold ${h}px sans-serif`
+      const labelMeasures = ctx.measureText(configuration.label);
+      canvas.labelHeight = labelMeasures.fontBoundingBoxAscent + labelMeasures.fontBoundingBoxDescent;
+      canvas.labelX = (canvas.width - labelMeasures.width) / 2;
+      if (canvas.labelX > h) {
+        break;
+      }
+    }
   }
 
   function drawPath(metrics) {
@@ -163,14 +170,16 @@
       ctx.beginPath();
       ctx.strokeStyle = COLORS.fill;
       ctx.fillStyle = COLORS.outline + "80";
-      const pad = 10;
-      ctx.roundRect(canvas.labelX - pad, metrics.minY - LABEL_SIZE - pad,
-        canvas.width - canvas.labelX * 2 + pad * 2, LABEL_SIZE + pad * 2, [pad]);
+      const { labelX, labelHeight } = canvas;
+      const pad = labelHeight / 2;
+      const rectY = Math.max(metrics.minY - labelHeight - pad, 0);
+      ctx.roundRect(labelX - pad, rectY,
+        canvas.width - labelX * 2 + pad * 2, labelHeight + pad * 2, [pad]);
       ctx.fill();
       ctx.lineWidth = 1;
       ctx.stroke();
       ctx.fillStyle = COLORS.fill;
-      ctx.fillText(label, canvas.labelX, metrics.minY, canvas.width);
+      ctx.fillText(label, canvas.labelX, rectY + labelHeight + pad, canvas.width);
 
       const width = metrics.maxX - metrics.minX;
       const height = metrics.maxY - metrics.minY;
