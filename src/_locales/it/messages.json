@@ -48,10 +48,10 @@
     "message": "Aspetto"
   },
   "AutoAllowTopLevel": {
-    "message": "Imposta i siti principali temporaneamente come FIDATI"
+    "message": "Imposta il sito principale come \"Temporaneamente FIDATO\""
   },
   "AutoTrustedLabel": {
-    "message": "Auto-trusted",
+    "message": "Fidato (auto)",
     "description": "Short label for CUSTOM preset when automatically filled with TRUSTED capabilities as a top-level site"
   },
   "AutoReload": {
@@ -76,13 +76,13 @@
     "message": "Annulla"
   },
   "CascadePermissions": {
-    "message": "Automatically apply top document's permissions to subdocuments and inclusions not configured yet"
+    "message": "Applica automaticamente i permessi del documento principale a tutte le inclusioni non ancora configurate"
   },
   "CascadeRestrictions": {
-    "message": "Qualsiasi funzionalità bloccata nel documento superiore deve essere bloccata anche nei suoi sotto-documenti."
+    "message": "Qualsiasi funzionalità bloccata nel documento superiore deve essere bloccata anche nei suoi sotto-documenti"
   },
   "CascadedLabel": {
-    "message": "Cascaded",
+    "message": "Ereditato",
     "description": "Short label for DEFAULT preset when the actual capabilities are inherited from top-level site"
   },
   "ClearClickDescription": {
@@ -191,7 +191,7 @@
     "message": "Abilita/disabilita le restrizioni per la scheda corrente"
   },
   "pagePermissionsUI": {
-    "message": "Configure current page's permissions"
+    "message": "Configura i permessi della pagina corrente"
   },
   "HighContrast": {
     "message": "Alto contrasto"
@@ -200,13 +200,13 @@
     "message": "Consenti solo contenuti veicolati tramite HTTPS"
   },
   "tabLess_tip": {
-    "message": "Site outside of a content tab, e.g. in a sidebar"
+    "message": "Sito rilevato fuori dalle schede (barra laterale?)"
   },
   "tabLess_short": {
-    "message": "(sidebar?)"
+    "message": "(barra laterale?)"
   },
   "tabLess_reload_warning": {
-    "message": "Changing permissions in a sidebar will require a MANUAL reload."
+    "message": "Cambiare i permessi in una barra laterale richiede di ricaricarla manualmente."
   },
   "Https": {
     "message": "HTTPS"
@@ -745,36 +745,36 @@
     "message": "NoScript è un software libero e gratuito: non esisterebbe senza il tuo aiuto. Dona ora!"
   },
   "Onboarding_title": {
-    "message": "Welcome to NoScript!",
+    "message": "Benvenut* in NoScript!",
     "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
   },
   "behavior_title": {
-    "message": "Site Classification Behavior",
+    "message": "Classificazione dei siti",
     "description": "The title of the NoScript's Behavior selector, where user decides how NoScript should manage the trust policy assigned to unclassified sites"
   },
   "behavior_label": {
-    "message": "Current site classification behavior:"
+    "message": "Modalità di classificazione dei siti corrente:"
   },
   "behavior_prompt": {
-    "message": "Please select the way NoScript behaves when encountering unclassified sites. You can revisit this choice from the NoScript Options page and whenever you reset NoScript."
+    "message": "Seleziona come NoScript deve comporarsi quando incontra siti non ancora classificati. Questa scelta può essere modificata in seguito dalla pagina delle opzioni e ogni volta che si reimposta NoScript."
   },
   "behavior_defaultDeny_title": {
-    "message": "STRICT / Default Deny"
+    "message": "RESTRITTIVA / Blocco predefinito"
   },
   "behavior_defaultDeny_description": {
-    "message": "The traditional and most secure NoScript behavior: unclassified sites, marked as \"DEFAULT\", are NOT considered trusted. Potentially harmful capabilities, including scripts, are disabled. You can manually enable the sites you trust by opening the NoScript interface and marking them as \"TRUSTED\", or further customize their capabilities by selecting \"CUSTOM\". Cross-site protections are always enforced."
+    "message": "La modalità tradizionale e più sicura: ogni sito non ancora classificato, contrassegnato dall'etichetta \"PREDEFINITO\", si considera NON fidato. Le capacità potenzialmente dannose, inclusa l'esecuzione di script, sono disabilitate. L'utente può abilitare manualmente i siti di cui si fida aprendo l'interfaccia di NoScript e selezionando \"FIDATO\", o configurare in maniera più precisa le loro capacità selezionando \"PERSONALIZZATO\". Le protezioni tra un sito e l'altro (cross-site) sono sempre abilitate."
   },
   "behavior_auto_title": {
-    "message": "EASIER / Auto"
+    "message": "PIÙ FACILE / Blocco automatico"
   },
   "behavior_auto_description": {
-    "message": "A compromise between security and convenience: the top level site, whose address is shown in the navigation bar, is automatically promoted to \"Temporarily TRUSTED\" unless already manually classified. 3d party sites still need to be classified manually. Cross-site protections are always enforced."
+    "message": "Compromesso tra sicurezza e comodità: il sito principale, il cui indirizzo è visibile nella barra di navigazione, è promosso in automatico a \"Temporaneamente FIDATO\" a meno che non sia già stato classificato manualmente. I siti di terze parti richiederanno comunque una classificazione manuale. Le protezioni tra un sito e l'altro (cross-site) sono sempre abilitate."
   },
   "behavior_defaultAllow_title": {
-    "message": "EASIEST / Default allow"
+    "message": "FACILISSIMA / Blocco manuale"
   },
   "behavior_defaultAllow_description": {
-    "message": "The most relaxed behavior: unclassified top-level sites are promoted to \"Temporarily TRUSTED\", and capabilities enabled for the top-level site are automatically cascaded to all its 3rd party unclassified sub-resources. Sites already classified as \"UNTRUSTED\" and \"CUSTOM\" are not affected. Cross-site protections are always enforced."
+    "message": "La modalità pi permissiva: ogni sito principale non ancora classificato viene promosso in automatico a \"Temporaneamente FIDATO\", e le sue capacita si propagano a tutte le inclusioni di terze parti. I siti già classificati come \"NON FIDATO\" o \"PERSONALIZZATO\" non vengono toccati. Le protezioni tra un sito e l'altro (cross-site) sono sempre abilitate."
   },
   "Modify": {
     "message": "Modifica",
@@ -787,10 +787,10 @@
     "message": "Abilitata in tutte le finestre"
   },
   "TabGuard_optPromptNever": {
-    "message": "Never prompt before anonymization"
+    "message": "Non chiedere mai prima di anonimizzare"
   },
   "TabGuard_optPromptPost": {
-    "message": "Prompt before anonymizing POST submissions"
+    "message": "Chiedi conferma prima di anonimizzare l'invio di dati col metodo POST"
   },
   "TabGuard_optPromptAlways": {
     "message": "Chiedi prima di anonimizzare qualsiasi richiesta"
@@ -817,39 +817,39 @@
     "message": "Carica normalmente"
   },
   "LearnMoreLink": {
-    "message": "Learn more…"
+    "message": "Maggiori informazioni…"
   },
   "HelpLink": {
     "message": "Aiuto…"
   },
   "EnableGesture": {
-    "message": "Enable gesture activation: drawing \"S\" on a web page opens NoScript's UI for the site"
+    "message": "Attivazione tramite gesto: disegnare una \"S\" sulla pagina web per modificare i permessi del sito"
   },
   "GestureLabel": {
-    "message": "Draw \"S\" to summon NoScript."
+    "message": "Disegna una \"S\" per aprire NoScript."
   },
   "DefaultContainerName": {
-    "message": "Default"
+    "message": "Senza contenitore"
   },
   "enable_container_tabs_label": {
-    "message": "Enable support for container tabs"
+    "message": "Abilita il supporto per le schede con contenitore"
   },
   "clear_container_label": {
-    "message": "Clear permissions for this container"
+    "message": "Elimina i permessi per questo contenitore"
   },
   "copy_container_label": {
-    "message": "Copy permissions from container:"
+    "message": "Copia i permessi da:"
   },
   "forbid_replace_default_policy": {
-    "message": "Cannot replace the default policy."
+    "message": "Non si può sostituire la policy predefinita."
   },
   "container_clear_warning": {
-    "message": "All site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Tutti i permessi per i siti in questo contenitore saranno eliminati.\nQuesta modifica è irreversibile.\nContinuare?"
   },
   "select_container_label": {
-    "message": "Choose a container:"
+    "message": "Seleziona un contenitore:"
   },
   "container_copy_warning": {
-    "message": "Copying permissions from \"$1\".\nAll site permissions for this container will be removed.\nThis action cannot be reverted.\nDo you want to continue?"
+    "message": "Sto per copiare i permessi dal contenitore \"$1\".\nTutti i permessi del contenitore corrente saranno sostituiti.\nQuesta modifica è irreversibile.\nContinuare?"
   }
 }
