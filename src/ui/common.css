@@ -18,7 +18,7 @@ html.tor:not(.mobile) {
 
 html.mobile {
   font-family: Inter, sans-serif;
-  font-size: 4mm;
+  font-size: min(4mm, 4vw);
 }
 
 html.mobile .desktop {
