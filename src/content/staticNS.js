@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -202,9 +202,9 @@
     }
   };
   globalThis.ns = globalThis.ns ? Object.assign(ns, globalThis.ns) : ns;
-  globalThis.ns_setupCallBack = ns.domPolicy
+  globalThis.ns_setupCallback = ns.domPolicy
     ? () => {}
-    : ({domPolicy}) => {
+    : (domPolicy) => {
       ns.domPolicy = domPolicy;
       if (ns.setup) {
         if (ns.syncSetup) ns.syncSetup(domPolicy);
