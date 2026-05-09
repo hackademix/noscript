@@ -37,18 +37,22 @@ var seen = {
   _map: new Map(),
   _list: null,
   record(event) {
-    const {request} = event;
+    const { request } = event;
     let key = request.key || `${request.id}:${request.url}`;
-    if (this._map.has(key)) return;
+    if (this._map.has(key)) {
+      request.redundant = true;
+      return false;
+    }
     this._map.set(key, event);
     this._list = null;
+    return true;
   },
   recordAll(events) {
     this._map.clear();
     for (let e of events) this.record(e);
   },
   get list() {
-    return this._list || (this._list = [...this._map.values()]);
+    return this._list ||= [...this._map.values()];
   }
 }
 

@@ -35,12 +35,9 @@ a.__NoScript_PlaceHolder__.mozilla {
   background-image: var(--img-logo);
 }
 
-.__ns__pop2top {
-  z-index: 2147483647 !important;
-}
-
 .__ns__pop2top:is(.html5-video-container, #song-video, .ytmusic-player) {
   display: initial !important;
+  z-index: 2147483647 !important;
 }
 
 a.__NoScript_PlaceHolder__:hover {
