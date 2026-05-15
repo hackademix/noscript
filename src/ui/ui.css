@@ -249,7 +249,6 @@ html:not(.mobile) .sites > .site:not(.customizing):is(:focus-within),
 .site .url .full-address {
   display: inline-block;
   max-height: 3em;
-  min-width: 6em;
   overflow: auto;
 }
 

@@ -14,6 +14,7 @@ xpi
 # dev env options
 .editorconfig
 .eslintrc.json
+.lite_project.lua
 .zed
 # auto-generated files
 TLD/tld.js
