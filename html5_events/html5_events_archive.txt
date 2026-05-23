@@ -111,6 +111,7 @@ onappinstalled
 onattributechanged
 onattributereadreq
 onattributewritereq
+onaudiblechange
 onaudioend
 onaudioprocess
 onaudiostart
