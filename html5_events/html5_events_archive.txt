@@ -216,6 +216,7 @@ ondragstart
 ondrain
 ondrop
 ondurationchange
+oneffectiveaudiosessiontypechange
 oneitbroadcasted
 onemergencycbmodechange
 onemptied
@@ -225,6 +226,7 @@ onend
 onendEvent
 onended
 onenter
+onenterpictureinpicture
 onenterpincodereq
 onerror
 onevicted
@@ -268,6 +270,7 @@ onkeypress
 onkeystatuseschange
 onkeyup
 onlanguagechange
+onleavepictureinpicture
 onlevelchange
 onload
 onloadeddata
