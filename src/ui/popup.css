@@ -51,9 +51,15 @@ html:not(.mobile) > body {
 #scrollable {
    overflow: auto;
    min-height: 6em;
-   transition: height .5s, min-height 1s;
    max-height: 66vh;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  #scrollable {
+   transition: height .5s, min-height 1s;
+  }
+}
+
 
 html:not(.mobile) #scrollable {
   max-height: 550px;

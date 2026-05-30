@@ -398,10 +398,13 @@ button.close {
   transition: transform  1s;
 }
 
-#behavior.hidden .content {
-  transform: scale(.5, .5);
-}
 
+
+@media (prefers-reduced-motion: no-preference) {
+  #behavior.hidden .content {
+    transform: scale(.5, .5);
+  }
+}
 
 .onboarding #behavior > .content > div.onboarding {
   display: flex;

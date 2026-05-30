@@ -41,9 +41,15 @@ fieldset > .opt-group ~ .opt-group {
 .customizer-controls {
   max-height: 0;
   opacity: 0;
-  transition: opacity .5s, max-height .5s;
   pointer-events: none;
   overflow: hidden;
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .customizer-controls {
+   transition: opacity .5s, max-height .5s;
+  }
 }
 
 @media (max-width: 550px) {
@@ -542,16 +548,19 @@ legend {
 .hilite {
   background-color: #850 !important;
 }
-.hilite-end {
-  transition: background-color 1s;
-}
-.hilite .url {
-  transform: scale(2);
-  transition: none;
-}
-.hilite-end .url {
-  transform: none;
-  transition: transform 1s;
+
+@media (prefers-reduced-motion: no-preference) {
+  .hilite-end {
+    transition: background-color 1s;
+  }
+  .hilite .url {
+    transform: scale(2);
+    transition: none;
+  }
+  .hilite-end .url {
+    transform: none;
+    transition: transform 1s;
+  }
 }
 
 #xssChoices {

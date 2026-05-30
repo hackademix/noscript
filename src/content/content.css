@@ -51,6 +51,13 @@ a.__NoScript_PlaceHolder__.__ns__closing {
   transform: scale(0, 0);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  a.__NoScript_PlaceHolder__.__ns__closing {
+    display: none !important;
+  }
+}
+
+
 a.__NoScript_PlaceHolder__ > span {
   display: flex !important;
   flex-direction: row;

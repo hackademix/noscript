@@ -167,13 +167,18 @@ input:disabled, button:disabled, select:disabled {
   border-color: transparent;
   background-color: transparent;
   transform: scale(1.2);
-  transition: all .5s ease-in-out;
   text-transform: uppercase;
 }
 
 .donate:hover {
   transform: scale(1.8);
   text-shadow: var(--bg-color2) 1px 1px 3px, -1px -1px 3px, -1px 0 3px, 1px 0 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+ .donate {
+    transition: all .5s ease-in-out;
+  }
 }
 
 .donate:before {
