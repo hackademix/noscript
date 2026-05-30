@@ -1030,25 +1030,11 @@
       }
     );
     domPolicy.navigationURL = url;
-    const callback = "ns_setupCallback";
-    if (DocStartInjection.mv3Callbacks) {
-      return {
-        data: {domPolicy},
-        callback,
-        assign: "ns",
-      };
-    }
-    let debugStatement = ns.local.debug ? `
-      let mark = Date.now() + ":" + Math.random();
-      console.debug("domPolicy", domPolicy, document.readyState, location.href, mark, window.ns, document.documentElement);` : '';
-    return `
-      const domPolicy = ${JSON.stringify(domPolicy)};
-      if (globalThis.${callback}) {
-        globalThis.${callback}(domPolicy);
-      } else {
-        (globalThis.ns ||= {}).domPolicy = domPolicy;
-      }
-      ${debugStatement}`;
+    return {
+      data: { domPolicy },
+      callback: "ns_setupCallback",
+      assign: "ns",
+    };
   }
 
   // external interface
