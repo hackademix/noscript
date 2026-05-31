@@ -64,6 +64,12 @@
         url, origin, document.readyState
       );
 
+      if (this.syncFetchPolicy) {
+        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
+        this.syncFetchPolicy();
+        return;
+      }
+
       if (this.domPolicy) {
         debug("Injected policy found!");
         try {
@@ -74,27 +80,14 @@
         }
       }
 
-      if (this.syncFetchPolicy) {
-        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
-        this.syncFetchPolicy();
-        return;
-      }
-
       this.pendingSyncFetchPolicy = true;
-
-      if (!sync) {
-        queueMicrotask(() => this.fetchPolicy(true));
-        return;
-      }
 
       if (origin !== 'null' && (window.location.origin !== origin || url.startsWith(`blob:${origin}/`))) {
         debug(`Fetching policy for actual URL ${origin} (was ${url})`);
         url = origin;
       }
 
-      if (!this.syncFetchPolicy) {
-        this.fetchLikeNoTomorrow(url);
-      }
+      this.fetchLikeNoTomorrow(url);
     },
 
     fetchLikeNoTomorrow(url, setup = this.setup.bind(this)) {
@@ -204,7 +197,7 @@
   globalThis.ns = globalThis.ns ? Object.assign(ns, globalThis.ns) : ns;
   globalThis.ns_setupCallback = ns.domPolicy
     ? () => {}
-    : (domPolicy) => {
+    : ({ domPolicy }) => {
       ns.domPolicy = domPolicy;
       if (ns.setup) {
         if (ns.syncSetup) ns.syncSetup(domPolicy);

@@ -67,12 +67,11 @@ if (/^(?:file|ftp):$/.test(location.protocol)) {
     }
     if (ns.domPolicy) {
       syncSetup(ns.domPolicy);
-      return;
     }
 
-    debug("Initial document state",  document.readyState, document.documentElement, document.head, document.body); // DEV_ONLY
+    debug("Initial document state",  document.readyState, document.documentElement, document.head, document.body, ns.policy); // DEV_ONLY
 
-    let mustFreeze = UA.isMozilla
+    let mustFreeze = !ns.canScript && UA.isMozilla
       && (!/^(?:image|video|audio)/.test(document.contentType) || document instanceof XMLDocument)
       && document.readyState !== "complete";
 
