@@ -564,7 +564,9 @@ addEventListener("unload", e => {
         window.close();
       } else {
         (async () => {
-          browser.tabs.remove((await browser.tabs.getCurrent()).id);
+          const currentTabId = (await browser.tabs.getCurrent()).id;
+          await browser.tabs.update(tabId, { active: true });
+          await browser.tabs.remove(currentTabId);
         })();
       }
     }
