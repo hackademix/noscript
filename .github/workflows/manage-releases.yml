@@ -20,7 +20,7 @@
 #
 # Required secrets: only the automatic GITHUB_TOKEN.
 
-name: Manage releases
+name: Nishaj Yousuf Madayikolmannil
 
 on:
   push:
