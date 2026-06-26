@@ -203,10 +203,10 @@
     "message": "Site outside of a content tab, e.g. in a sidebar"
   },
   "tabLess_short": {
-    "message": "(sidebar?)"
+    "message": "(sivupalkki?)"
   },
   "tabLess_reload_warning": {
-    "message": "Changing permissions in a sidebar will require a MANUAL reload."
+    "message": "Käyttöoikeuksien muutos vaatii sivun MANUAALISEN päivityksen."
   },
   "Https": {
     "message": "HTTPS"
@@ -637,7 +637,7 @@
     "message": "Avaa kehittäjän sivusto"
   },
   "extensionCreatorLabel": {
-    "message": "Kehittäjä"
+    "message": "Kehittäjä:"
   },
   "extensionHomepage_tip": {
     "message": "Avaa laajennuksen sivusto"
@@ -745,7 +745,7 @@
     "message": "NoScript on ilmainen ohjelmisto, eikä se selviä ilman käyttäjien tukea. Lahjoita nyt, kiitos!"
   },
   "Onboarding_title": {
-    "message": "Welcome to NoScript!",
+    "message": "Tervetuloa NoScriptiin!",
     "description": "The onboarding page, containing the Trust Mode selector, is shown on first run after a CLEAN installation"
   },
   "behavior_title": {
@@ -817,7 +817,7 @@
     "message": "Lataa normaalisti"
   },
   "LearnMoreLink": {
-    "message": "Lue lisää"
+    "message": "Lue lisää…"
   },
   "HelpLink": {
     "message": "Help…"
