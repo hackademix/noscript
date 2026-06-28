@@ -365,7 +365,8 @@
       const tabId = tab ? tab.id : -1;
 
       if (url == sender.url) {
-        while (url == "about:blank" || url == "about:srcdoc" || url.startsWith("data:")) {
+        while (url == "about:blank" || url == "about:srcdoc" ||
+                url.startsWith("data:") || url.startsWith("blob:")) {
           url = origin;
           if (frameId == 0 || url != "null") {
             break;
