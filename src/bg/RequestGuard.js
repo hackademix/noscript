@@ -677,7 +677,9 @@
         let other = last[j];
         if (request.timeStamp - other.timeStamp > this.MAX_AGE) {
           last.splice(0, ++j);
-          if (last.length === 0) this._byUrl.delete(other.url);
+          if (last.length === 0) {
+            this._byUrl.delete(other._dataUrl || other.url);
+          }
           break;
         }
         if (request.url && other.type === request.type && other.documentUrl === request.documentUrl
