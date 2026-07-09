@@ -36,7 +36,11 @@ if [ "$1" == '-u' ]; then
   shift
 fi
 
-strip_rc_ver() {
+is_dev_ver() {
+  [[ $1 =~ [^0-9.]|\.9[0-9][0-9]$ ]]
+}
+
+strip_dev_ver() {
   MANIFEST="$1"
   if [[ "$2" == "rel" ]]; then
     # release: truncate alpha/beta/rc suffixes (or *.9xx with increment)
@@ -75,8 +79,8 @@ if [ "$1" == "tag" ]; then
   exit 0
 fi
 if [[ "$1" =~ ^r(el(ease)?)?$ ]]; then
-  strip_rc_ver "$MANIFEST_IN" rel
-  "$0" && "$0" bump
+  strip_dev_ver "$MANIFEST_IN" rel
+  "$0" bump && "$0" sign
   exit
 fi
 
@@ -102,7 +106,7 @@ if [[ $1 == "bump" ]]; then
       if [[ $NEW_VER == "+" ]]; then
         # auto-increment,
         # otherwise we will assume current manifest had been manually updated
-        if [[ $VER =~ [^0-9.]|\.9[0-9][0-9]$ ]]; then
+        if is_dev_ver $VER; then
           # increment latest .9xx dev number
           NEW_VER=$(( ${VER/[0-9.a-z]*\./} + 1))
         else
@@ -133,7 +137,7 @@ if [[ $1 == "bump" ]]; then
   echo "Bumping to $VER"
   git commit -m "Version bump: $VER." || exit
   shift
-  if ! { [[ $NEW_VER ]] || [[ $VER =~ [^0-9.]|\.9[0-9][0-9]$ ]] ; } then
+  if ! { [[ $NEW_VER ]] || is_dev_ver $VER ; } then
     # it's a stable release: let's lock nscl and tag
     git submodule update
     "$0" tag
@@ -157,7 +161,11 @@ CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 FIREFOX_TARGET="mv2firefox"
 if [[ $1 =~ ^(sign(ed)?|tor)$ ]]; then
   BUILD_CMD="$BASE/../../we-sign"
-  BUILD_OPTS=""
+  PUB_CHANNEL="listed"
+  if is_dev_ver $VER || [[ $1 == "tor" ]]; then
+    PUB_CHANNEL="unlisted"
+  fi
+  BUILD_OPTS="--channel=$PUB_CHANNEL"
   FIREFOX_TARGET="$FIREFOX_TARGET:${1}"
   shift
 fi
