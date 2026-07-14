@@ -25,7 +25,7 @@ if (location.protocol == "file:") {
 
   function modifyWindow(scope, {port, xray}) {
     const { window } = xray;
-    const { Proxy, document, Node } = window;
+    const { Proxy, document, Node, Document } = window;
 
     const { Reflect } = globalThis;
 
@@ -48,7 +48,7 @@ if (location.protocol == "file:") {
     const watch = watching => {
       if (watching instanceof Node && !watchList.has(watching)) {
         const ownerDocument =  call(nodeProps.ownerDocument, watching);
-        const crossDoc = ownerDocument != document;
+        const crossDoc = ownerDocument != document && !(watching instanceof Document);
         const parentNode = call(nodeProps.parentNode, watching);
 
         if (!crossDoc && parentNode) {
