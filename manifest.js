@@ -131,7 +131,7 @@ if (isFirefox || json.manifest_version == 2) {
     cs => cs.world != "MAIN" && cs.js?.some(src => src.endsWith("/Worlds.js"))).js;
 
   json.content_scripts.find(cs => cs.world == "MAIN" && cs.js?.some(src => src.endsWith("/Worlds.main.js")))
-    .js.filter(src => src.endsWith(".main.js"))
+    ?.js.filter(src => src.endsWith(".main.js"))
     .forEach(src => {
       const isolatedSrc = src.replace(/.*(\/[\w+.]+)\.main(?=\.js$)/, "$1");
       const idx = isolatedWorldJS.findIndex(src => src.endsWith(isolatedSrc));
