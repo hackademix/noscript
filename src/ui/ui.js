@@ -370,9 +370,10 @@ var UI = (() => {
   };
 
   function fireOnChange(sitesUI, data) {
+    UI.policy = sitesUI.policy;
     if (UI.isDirty(true)) {
       UI.updateSettings({policy: UI.policy, contextStore: UI.contextStore});
-      if (sitesUI.onChange) sitesUI.onChange(data, this);
+      sitesUI?.onChange(data, this);
     }
   }
 
@@ -446,13 +447,12 @@ var UI = (() => {
   UI.Sites = class {
     constructor(parentNode, presets = DEF_PRESETS, policy = null) {
       this.parentNode = parentNode;
-      this.policy = (policy)? policy : UI.policy;
+      this.policy = policy || UI.policy;
       this.uiCount = UI.Sites.count = (UI.Sites.count || 0) + 1;
-      this.sites = this.policy.sites;
       this.presets = presets;
       this.customizing = null;
       this.typesMap = new Map();
-      this.clear();
+      this.clear(true);
     }
 
     initRow() {
@@ -584,7 +584,7 @@ var UI = (() => {
       );
     }
 
-    clear() {
+    clear(forgetSites = false) {
       debug("Clearing list", this.list);
       this.template = document.createElement("template");
       this.template.innerHTML = TEMPLATE;
@@ -597,11 +597,9 @@ var UI = (() => {
 
       this.customize(null);
       this.sitesCount = 0;
-      this.sites = ({
-        trusted: [],
-        untrusted: [],
-        custom: {},
-      })
+      if (forgetSites) {
+        this.sites = [];
+      }
     }
 
     siteNeeds(site, type) {
@@ -1164,15 +1162,17 @@ var UI = (() => {
 
     async tempTrustAll() {
       let changed = 0;
+      const policy = UI.policy = this.policy;
       for (let row of this.allSiteRows()) {
         if (row._preset === "DEFAULT") {
-          this.policy.set(row._site, this.policy.TRUSTED.tempTwin);
+          policy.set(row._site, this.policy.TRUSTED.tempTwin);
           changed++;
         }
       }
       if (changed && UI.isDirty(true)) {
+        this.render();
         await UI.updateSettings({
-          policy: UI.policy,
+          policy,
           contextStore: UI.contextStore,
           reloadAffected: true
         });

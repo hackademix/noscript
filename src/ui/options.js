@@ -262,7 +262,7 @@ document.querySelector("#version").textContent = _("Version",
     let copyContainerName = containerCopy.options[containerCopy.selectedIndex].text;
     let copyPolicy = await UI.getPolicy(copyCookieStoreId);
     if (confirm(_("container_copy_warning", copyContainerName))) {
-      sitesUI.clear()
+      sitesUI.clear(true);
       currentPolicy = await UI.replacePolicy(cookieStoreId, new Policy(copyPolicy.dry(true)));
       await UI.updateSettings({policy, contextStore});
       sitesUI.policy = currentPolicy;

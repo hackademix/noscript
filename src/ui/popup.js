@@ -410,9 +410,9 @@ addEventListener("unload", e => {
 
     let justDomains = !UI.local.showFullAddresses;
 
-    let policy = await UI.getPolicy(cookieStoreId);
-    debug("popup policy", policy);
-    sitesUI = new UI.Sites(document.getElementById("sites"), UI.DEF_PRESETS, policy);
+    UI.policy = await UI.getPolicy(cookieStoreId);
+    debug("popup policy", UI.policy);
+    sitesUI = new UI.Sites(document.getElementById("sites"), UI.DEF_PRESETS);
 
     sitesUI.onChange = (row) => {
       const reload = sitesUI.anyPermissionsChanged()
@@ -449,7 +449,7 @@ addEventListener("unload", e => {
         typesMap
       } = sitesUI;
       typesMap.clear();
-      let policySites = policy.sites;
+      let policySites = UI.policy.sites;
       let domains = new Map();
       let protocols = new Set();
 
