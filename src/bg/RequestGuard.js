@@ -73,7 +73,7 @@
       (async () => {
         await TabStatus._session.load();
         TabStatus.updateTab();
-      });
+      })();
     },
     map: new Map(),
     _originsCache: new Map(),
