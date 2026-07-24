@@ -26,7 +26,7 @@
 var TabGuard = (() => {
 
   let anonymizedTabs = new Map();
-  browser.tabs.onRemoved.addListener(({id}) => {
+  browser.tabs.onRemoved.addListener(id => {
     if (anonymizedTabs.has(id)) {
       anonymizedTabs.delete(id);
       session.save();
