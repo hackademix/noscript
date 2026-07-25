@@ -193,7 +193,7 @@ var Prompts = (() => {
     },
     async prompt(features) {
       features = Object.assign({}, this.DEFAULTS, features || {});
-      return new Promise((resolve, reject) => {
+      return new Promise(async (resolve, reject) => {
         ++id;
         let data = {
           id,
@@ -217,7 +217,7 @@ var Prompts = (() => {
           }
         };
         promptDataMap.set(id, data);
-        if (promptData && winMan.validateCurrent()) {
+        if (promptData && await winMan.validateCurrent()) {
           backlog.push(data);
           switch(promptData.features.multiple) {
             case "focus":
