@@ -39,5 +39,6 @@
     }
   }
   let ace  = punycode.toASCII(domain);
-  location.href = `${BASE}/about/${domain};${ace}`;
+  let url = new URL(`/about/${domain};${ace}`, BASE);
+  location.href = url.href;
 })();
