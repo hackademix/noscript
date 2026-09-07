@@ -63,8 +63,12 @@ if (location.protocol == "file:") {
         }
 
         // Chromium cannot marshall DOM nodes in port.postMessage():
-        // following hack triggers eventHook.js' mutation observer instead.
+        // the following hack triggers eventHook.js' mutation observer instead.
 
+        if (watching == document || parentNode == document) {
+          // we don't need to watch the root!
+          return;
+        }
         const nextSibling = call(nodeProps.nextSibling, watching);
         if (crossDoc) {
           call(adoptNode, document, watching);
