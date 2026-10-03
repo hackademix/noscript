@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -37,34 +37,6 @@ if (/^(?:file|ftp):$/.test(location.protocol)) {
 
     let syncSetup = ns.setup.bind(ns);
 
-    if (window.wrappedJSObject) {
-      if (top === window) {
-        let persistentPolicy = null;
-        syncSetup = policy => {
-          if (persistentPolicy) return;
-          ns.setup(policy);
-          persistentPolicy = JSON.stringify(policy);
-          Object.freeze(persistentPolicy);
-          try {
-            Object.defineProperty(window.wrappedJSObject, "_noScriptPolicy", {value: cloneInto(persistentPolicy, window)});
-          } catch(e) {
-            error(e);
-          }
-        };
-      } else try {
-        if (top.wrappedJSObject._noScriptPolicy) {
-          debug("Policy set in parent frame found!")
-          try {
-            ns.setup(JSON.parse(top.wrappedJSObject._noScriptPolicy));
-            return;
-          } catch(e) {
-            error(e);
-          }
-        }
-      } catch (e) {
-        // cross-origin access violation, ignore
-      }
-    }
     if (ns.domPolicy) {
       syncSetup(ns.domPolicy);
     }

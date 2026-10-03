@@ -22,6 +22,9 @@
 {
   debug(`Prerendering: ${document.prerendering}`, self.performance?.getEntriesByType?.('navigation')[0]?.activationStart); // DEV_ONLY
 
+  const EXT_ID = browser.runtime.getURL("").split(/\/+/)[1];
+  const FETCH_POLICY_EVENT = `NoScriptPolicy-${EXT_ID}`;
+
   let listenersMap = new Map();
   let backlog = new Set();
 
@@ -114,6 +117,46 @@
       });
       const {readyState} = document;
       asyncFetch();
+
+      window.addEventListener(FETCH_POLICY_EVENT, ({ detail }) => {
+        if (detail.window && this.policy) {
+          const event = new CustomEvent(FETCH_POLICY_EVENT, {
+            detail: { policy: this.policy },
+            composed: true
+          });
+          debug("Returning policy to related window.", window);
+          detail.window.dispatchEvent(event);
+        } else if (detail.policy) {
+          debug("Policy retrieved from related window.", detail.policy); // DEV_ONLY
+          setup(detail.policy);
+        }
+      }, true);
+
+      if (window.parent != window || window.opener) {
+        const fetchFromRelatedWindow = w => {
+          if (this.policy) {
+            // already fetched, bail
+            return this.policy;
+          }
+          const event = new CustomEvent(FETCH_POLICY_EVENT, {
+            detail: { window },
+            composed: true
+          });
+          try {
+            w.dispatchEvent(event);
+          } catch (e) {
+            // SOP violation, ignore
+          }
+          return this.policy;
+        }
+        if (window.opener) {
+          fetchFromRelatedWindow(window.opener);
+        }
+        for (let w = window; w != w.parent && !this.policy;) {
+          fetchFromRelatedWindow(w = w.parent);
+        }
+      }
+
       // WARNING: be careful adding exceptions to sync fetching here, since on MV3 we never have
       // content-blocking CSP headers injected at the network level (DNRPolicy.js doesn't).
       if (this.policy || readyState == "complete" ||
@@ -181,6 +224,7 @@
           DocumentFreezer.unfreezeAutoReload();
         }
       }
+
       return true;
     },
 
