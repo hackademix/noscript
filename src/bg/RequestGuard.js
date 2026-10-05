@@ -19,6 +19,7 @@
  */
 
 "use strict";
+
 {
   const VERSION_LABEL =  `NoScript ${browser.runtime.getManifest().version}`;
   browser.action.setTitle({title: VERSION_LABEL});
@@ -82,32 +83,35 @@
         allowed: {},
         blocked: {},
         noscriptFrames: {},
-        origins: new Set(),
+        origins: {},
       }
     },
     hasOrigin(tabId, url) {
-      let records = this.map.get(tabId);
-      return records?.origins.has(Sites.origin(url));
+      const origins = this.map.get(tabId)?.origins;
+      const o = origins && Sites.origin(url);
+      return o && origins[o];
     },
     addOrigin(tabId, url) {
       if (tabId < 0) return;
-      let origin = Sites.origin(url);
-      if (!origin) return;
-      let {origins} = this.map.get(tabId) || this.initTab(tabId);
-      if (!origins.has(origin)) {
-        origins.add(origin);
+      const o = Sites.origin(url);
+      if (!o) return;
+      const { origins } = this.map.get(tabId) || this.initTab(tabId);
+      if (!origins[o]) {
+        origins[o] = true;
         this._originsCache.clear();
       }
     },
 
-    findTabsByOrigin(origin) {
-      let tabIds = this._originsCache.get(origin);
+    findTabsByOrigin(o) {
+      let tabIds = this._originsCache.get(o);
       if (!tabIds) {
         tabIds = [];
-        for(let [tabId, {origins}] of [...this.map]) {
-          if (origins.has(origin)) tabIds.push(tabId);
+        for (const [tabId, { origins }] of [...this.map]) {
+          if (origins[o]) {
+            tabIds.push(tabId);
+          }
         }
-        this._originsCache.set(origin, tabIds);
+        this._originsCache.set(o, tabIds);
       }
       return tabIds;
     },
