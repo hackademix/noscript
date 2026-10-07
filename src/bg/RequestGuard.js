@@ -83,7 +83,7 @@
         allowed: {},
         blocked: {},
         noscriptFrames: {},
-        origins: {},
+        origins: Object.create(null),
       }
     },
     hasOrigin(tabId, url) {
@@ -96,7 +96,7 @@
       const o = Sites.origin(url);
       if (!o) return;
       const { origins } = this.map.get(tabId) || this.initTab(tabId);
-      if (!origins[o]) {
+      if (!Object.hasOwn(origins, o)) {
         origins[o] = true;
         this._originsCache.clear();
       }
@@ -107,7 +107,7 @@
       if (!tabIds) {
         tabIds = [];
         for (const [tabId, { origins }] of [...this.map]) {
-          if (origins[o]) {
+          if (Object.hasOwn(origins, o)) {
             tabIds.push(tabId);
           }
         }
@@ -265,6 +265,7 @@
       TabStatus.map.delete(tabId);
       TabStatus._originsCache.clear();
       TabStatus._pendingTabs.delete(tabId);
+      TabStatus._session.save();
     },
   };
   TabStatus.init();
