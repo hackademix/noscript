@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -21,6 +21,9 @@
 'use strict';
 {
   debug(`Prerendering: ${document.prerendering}`, self.performance?.getEntriesByType?.('navigation')[0]?.activationStart); // DEV_ONLY
+
+  const EXT_ID = browser.runtime.getURL("").split(/\/+/)[1];
+  const FETCH_POLICY_EVENT = `NoScriptPolicy-${EXT_ID}`;
 
   let listenersMap = new Map();
   let backlog = new Set();
@@ -64,6 +67,12 @@
         url, origin, document.readyState
       );
 
+      if (this.syncFetchPolicy) {
+        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
+        this.syncFetchPolicy();
+        return;
+      }
+
       if (this.domPolicy) {
         debug("Injected policy found!");
         try {
@@ -74,27 +83,14 @@
         }
       }
 
-      if (this.syncFetchPolicy) {
-        // extra hops to ensure that scripts don't run when CSP has not been set through HTTP headers
-        this.syncFetchPolicy();
-        return;
-      }
-
       this.pendingSyncFetchPolicy = true;
-
-      if (!sync) {
-        queueMicrotask(() => this.fetchPolicy(true));
-        return;
-      }
 
       if (origin !== 'null' && (window.location.origin !== origin || url.startsWith(`blob:${origin}/`))) {
         debug(`Fetching policy for actual URL ${origin} (was ${url})`);
         url = origin;
       }
 
-      if (!this.syncFetchPolicy) {
-        this.fetchLikeNoTomorrow(url);
-      }
+      this.fetchLikeNoTomorrow(url);
     },
 
     fetchLikeNoTomorrow(url, setup = this.setup.bind(this)) {
@@ -108,15 +104,62 @@
             policy = await Messages.send(msg.id, msg) || this.domPolicy;
             debug("Asynchronous policy", policy);
           } catch (e) {
-            error(e, "(Asynchronous policy fetch)");
+            if (/An unexpected error occurred/.test(e)) {
+              // This might be just the browser context unloading:
+              // if that's the case, deferring suppresses the console spam
+              setTimeout(() => error(e, "(deferred - Asynchronous policy fetch)"), 0);
+            } else {
+              error(e, "(Asynchronous policy fetch)");
+            }
           }
         }
         setup(policy);
       });
       const {readyState} = document;
       asyncFetch();
-      if (readyState == "complete" ||
-          !this.syncFetchPolicy && this.embeddingDocument ||
+
+      window.addEventListener(FETCH_POLICY_EVENT, ({ detail }) => {
+        if (detail.window && this.policy) {
+          const event = new CustomEvent(FETCH_POLICY_EVENT, {
+            detail: { policy: this.policy },
+            composed: true
+          });
+          debug("Returning policy to related window.", window);
+          detail.window.dispatchEvent(event);
+        } else if (detail.policy) {
+          debug("Policy retrieved from related window.", detail.policy); // DEV_ONLY
+          setup(detail.policy);
+        }
+      }, true);
+
+      if (window.parent != window || window.opener) {
+        const fetchFromRelatedWindow = w => {
+          if (this.policy) {
+            // already fetched, bail
+            return this.policy;
+          }
+          const event = new CustomEvent(FETCH_POLICY_EVENT, {
+            detail: { window },
+            composed: true
+          });
+          try {
+            w.dispatchEvent(event);
+          } catch (e) {
+            // SOP violation, ignore
+          }
+          return this.policy;
+        }
+        if (window.opener) {
+          fetchFromRelatedWindow(window.opener);
+        }
+        for (let w = window; w != w.parent && !this.policy;) {
+          fetchFromRelatedWindow(w = w.parent);
+        }
+      }
+
+      // WARNING: be careful adding exceptions to sync fetching here, since on MV3 we never have
+      // content-blocking CSP headers injected at the network level (DNRPolicy.js doesn't).
+      if (this.policy || readyState == "complete" ||
           window.origin == "null" && window.location.href == "about:blank" && window.top == self
       ) {
         // no point trying sync too in these cases
@@ -174,11 +217,14 @@
 
       if (DocumentFreezer.isFrozen) {
         if (!this.canScript) {
-          DocumentFreezer.unfreezeLive();
+          if (location.protocol.startsWith("http")) {
+            DocumentFreezer.unfreezeLive();
+          }
         } else {
           DocumentFreezer.unfreezeAutoReload();
         }
       }
+
       return true;
     },
 
@@ -193,9 +239,9 @@
     }
   };
   globalThis.ns = globalThis.ns ? Object.assign(ns, globalThis.ns) : ns;
-  globalThis.ns_setupCallBack = ns.domPolicy
+  globalThis.ns_setupCallback = ns.domPolicy
     ? () => {}
-    : ({domPolicy}) => {
+    : ({ domPolicy }) => {
       ns.domPolicy = domPolicy;
       if (ns.setup) {
         if (ns.syncSetup) ns.syncSetup(domPolicy);

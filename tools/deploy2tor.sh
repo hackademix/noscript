@@ -1,6 +1,11 @@
-#!/bin/bash
-BASEDIR="$(dirname "$0")"/..
-MANIFEST="${1:-$BASEDIR/unpacked/firefox/manifest.json}"
+#!/usr/bin/env bash
+
+# Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+BASE="$(git rev-parse --show-toplevel)"
+MANIFEST="${1:-$BASE/unpacked/firefox/manifest.json}"
 if ! [ -f "$MANIFEST" ]; then
   echo >&2 "Manifest '$1' not found!"
   exit 1
@@ -9,7 +14,7 @@ fi
 from_manifest()  {
   grep "\"$1\":" "$MANIFEST" | sed -re 's/.*": "(.*?)".*/\1/'
 }
-XPI_DIR="$BASEDIR/xpi"
+XPI_DIR="$BASE/xpi"
 XPI_VER="$(from_manifest version)"
 if ! [[ $XPI_VER = *1984 ]]; then
   echo >&2 "$XPI_VER doesn't look like a Tor Browser version!"

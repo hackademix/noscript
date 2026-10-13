@@ -42,21 +42,21 @@
   }
 
   if (isOnboarding) {
-    behaviorUI.appendChild(
-      document.querySelector(".donate.button").cloneNode(true),
+    behaviorUI.querySelector(".content > .onboarding").appendChild(
+      document.querySelector(".donate.button").cloneNode(true)
     );
     document.documentElement.classList.add("onboarding");
     showBehaviorUI();
   } else {
     showBehaviorUI(false);
+    behaviorUI.addEventListener("click", e => {
+      if (e.target == behaviorUI) {
+        close();
+      }
+    });
   }
 
   behaviorUI.querySelector(".close")?.addEventListener("click", close);
-  behaviorUI.addEventListener("click", e => {
-    if (e.target == behaviorUI) {
-      close();
-    }
-  });
 
   const currentBehavior = document.getElementById("current-behavior");
 

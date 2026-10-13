@@ -1,4 +1,5 @@
-(function(root, factory) {
+// vendored fork from https://github.com/mdmoreau/flextabs/tree/v0.3.0
+(function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     define([], factory);
   } else if (typeof module === 'object' && module.exports) {
@@ -34,13 +35,11 @@
     };
 
     _.aria = function() {
-      for (var i = 0; i < _.toggle.length; i += 1) {
-        var style = getComputedStyle(_.content[i]);
-        if (style.getPropertyValue('display') !== 'none') {
-          _.toggle[i].setAttribute('aria-expanded', true);
-        } else {
-          _.toggle[i].setAttribute('aria-expanded', false);
-        }
+      for (const t of _.toggle) {
+        const expanded = t.classList.contains('flextabs__toggle--active--last') ||
+          // todo: set accordionMode by caching the actual `display` for .flextabs__content--active
+          this.accordionMode && t.classList.contains('flextabs__toggle--active');
+        t.setAttribute('aria-expanded', expanded);
       }
     };
 

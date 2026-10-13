@@ -24,6 +24,8 @@
   if (!navigator.maxTouchPoints) {
     return;
   }
+  const createHTMLElement =
+    tagName => document.createElementNS("http://www.w3.org/1999/xhtml", tagName);
 
   let configuration = await Messages.send("fetchGestureConfiguration");
   Messages.addHandler({
@@ -89,7 +91,7 @@
         return;
       }
     }
-    logo = document.createElement("div");
+    logo = createHTMLElement("div");
     logo.className = "__NoScript_Theme__";
     if (theme?.vintage) {
       logo.classList.add("vintage");
@@ -111,7 +113,7 @@
     if (canvas) {
       return;
     }
-    canvas = document.createElement("canvas");
+    canvas = createHTMLElement("canvas");
     Object.assign(canvas.style, {
       position: "fixed",
       top: 0,
@@ -130,9 +132,16 @@
 
     ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
-    ctx.font = `bold ${LABEL_SIZE}px sans-serif`;
     ctx.textBaseline = "bottom";
-    canvas.labelX = (canvas.width - ctx.measureText(configuration.label).width) / 2;
+    for (let h = LABEL_SIZE; h > 1; h--) {
+      ctx.font = `bold ${h}px sans-serif`
+      const labelMeasures = ctx.measureText(configuration.label);
+      canvas.labelHeight = labelMeasures.fontBoundingBoxAscent + labelMeasures.fontBoundingBoxDescent;
+      canvas.labelX = (canvas.width - labelMeasures.width) / 2;
+      if (canvas.labelX > h) {
+        break;
+      }
+    }
   }
 
   function drawPath(metrics) {
@@ -161,14 +170,16 @@
       ctx.beginPath();
       ctx.strokeStyle = COLORS.fill;
       ctx.fillStyle = COLORS.outline + "80";
-      const pad = 10;
-      ctx.roundRect(canvas.labelX - pad, metrics.minY - LABEL_SIZE - pad,
-        canvas.width - canvas.labelX * 2 + pad * 2, LABEL_SIZE + pad * 2, [pad]);
+      const { labelX, labelHeight } = canvas;
+      const pad = labelHeight / 2;
+      const rectY = Math.max(metrics.minY - labelHeight - pad, 0);
+      ctx.roundRect(labelX - pad, rectY,
+        canvas.width - labelX * 2 + pad * 2, labelHeight + pad * 2, [pad]);
       ctx.fill();
       ctx.lineWidth = 1;
       ctx.stroke();
       ctx.fillStyle = COLORS.fill;
-      ctx.fillText(label, canvas.labelX, metrics.minY, canvas.width);
+      ctx.fillText(label, canvas.labelX, rectY + labelHeight + pad, canvas.width);
 
       const width = metrics.maxX - metrics.minX;
       const height = metrics.maxY - metrics.minY;
@@ -218,7 +229,7 @@
     if (e && !e.isTrusted) {
       return;
     }
-
+    console.debug("processGesture", e); // DEV_ONLY
     if (path.length < 5) {
       cleanup(false);
       return;
@@ -237,6 +248,9 @@
     } else {
       cleanup(false);
     }
+    if (active && e?.type == "touchend") {
+      e.preventDefault();
+    }
   }
 
   const onTouchStart = e => {
@@ -246,13 +260,6 @@
     path = [];
     console.debug("NoScript gesture processing touch event", e); // DEV_ONLY
 
-    const { clientX, clientY, radiusX, radiusY } = e.touches[0];
-
-    if (Math.max(radiusX, radiusY) < 10) {
-      console.debug("Too small to be a finger!"); // DEV_ONLY
-      return;
-    }
-
     if (ns?.canScript && e.target instanceof HTMLCanvasElement) {
       console.debug("Input to a drawing app? Bailing out."); // DEV_ONLY
       return;
@@ -260,6 +267,8 @@
 
     setupLogo();
     setupCanvas();
+
+    const { clientX, clientY } = e.touches[0];
     path.push({ x: clientX, y: clientY });
   };
 
@@ -274,8 +283,9 @@
     }
     const metrics = getPathMetrics(path);
     const { directions } = metrics;
-    console.debug("Directions", directions, metrics); // DEV_ONLY
+    console.debug("Directions", active, directions, metrics, e); // DEV_ONLY
     if (directions.length < 1) {
+      setActive(true);
       return;
     }
     if (directions[0] != -1 || directions.length > 3) {
@@ -293,11 +303,8 @@
       }
     }
 
-    if (active) {
-      e.preventDefault();
-    } else {
-      setActive(true);
-    }
+    e.preventDefault();
+
     drawPath(metrics);
   };
 
@@ -306,9 +313,14 @@
     if (!force && active === value) {
       return;
     }
-    [PASSIVE, ACTIVE].forEach(state => removeEventListener("touchmove", onTouchMove, state));
+    [PASSIVE, ACTIVE].forEach(state => {
+      removeEventListener("touchmove", onTouchMove, state);
+      removeEventListener("touchend", processGesture, state);
+    });
     if (configuration.enabled) {
-      addEventListener("touchmove", onTouchMove, value ? ACTIVE : PASSIVE);
+      const state = value ? ACTIVE : PASSIVE;
+      addEventListener("touchmove", onTouchMove, state);
+      addEventListener("touchend", processGesture, state);
     }
     active = value;
   }
@@ -317,11 +329,9 @@
     let { enabled } = configuration;
     const act = window[`${enabled ? "add" : "remove" }EventListener`].bind(window);
     act("touchstart", onTouchStart, PASSIVE);
-    act("touchend", processGesture, PASSIVE);
     act("touchcancel", processGesture, PASSIVE);
-    if (enabled) {
-      setActive(false, true);
-    } else {
+    setActive(false, true);
+    if (!enabled) {
       cleanup(false);
     }
   }

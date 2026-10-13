@@ -26,7 +26,7 @@
 var TabGuard = (() => {
 
   let anonymizedTabs = new Map();
-  browser.tabs.onRemoved.addListener(({id}) => {
+  browser.tabs.onRemoved.addListener(id => {
     if (anonymizedTabs.has(id)) {
       anonymizedTabs.delete(id);
       session.save();
@@ -117,7 +117,7 @@ var TabGuard = (() => {
       const mode = ns.sync.TabGuardMode;
       if (mode === "off" || !request.incognito && mode!== "global") return;
 
-      anonymizedRequests.delete(request.id);
+      anonymizedRequests.delete(request.requestId);
 
       const {tabId, type, url, originUrl} = request;
 
@@ -184,8 +184,10 @@ var TabGuard = (() => {
 
       // we suspect tabs which 1) have not been removed/discarded, 2) are restricted by policy, 3) can run JavaScript
       let suspiciousTabs = [...ties].map(TabCache.get).filter(
-        tab => tab && !tab.discarded && ns.isEnforced(tab.id) &&
-        (!(tab._isExplicitOrigin = tab._isExplicitOrigin || /^(?:https?|ftps?|file):/.test(tab.url)) || ns.policy.can(tab.url, "script"))
+        tab => tab && !tab.discarded && ns.isEnforced(tab.id) && (
+          !(tab._isExplicitOrigin = tab._isExplicitOrigin || /^(?:https?|ftps?|file):/.test(tab.url)) ||
+          ns.getPolicy(tab.cookieStoreId).can(tab.url, "script")
+        )
       );
 
       return suspiciousTabs.length > 0 && (async () => {
@@ -199,9 +201,7 @@ var TabGuard = (() => {
             try {
               tab.url = (await Scripting.executeScript({
                 target: {tabId: tab.id, allFrames: false},
-                func: () => {
-                  return window.origin === 'null' ? window.location.href : window.origin;
-                },
+                func: () => window.origin === 'null' ? window.location.href : window.origin,
               }))[0].result;
             } catch (e) {
               // We don't have permissions to run in this tab, probably because it has been left empty.
@@ -222,14 +222,14 @@ var TabGuard = (() => {
             }
             if (tab.url !== "about:blank") {
               debug(`Real origin for ${tab._externalUrl} (tab ${tab.id}) is ${tab.url}.`);
-              if (!ns.policy.can(tab.url, "script")) return;
+              if (!ns.getPolicy(tab.cookieStoreId).can(tab.url, "script")) return;
             }
           }
           if (!tab._contentType) {
             try {
               tab._contentType = (await Scripting.executeScript({
                 target: {tabId: tab.id},
-                func() { return document.contentType }
+                func: () => document.contentType,
               }))[0].result;
             } catch (e) {
               // We don't have permissions to run in this tab: privileged!
@@ -260,7 +260,7 @@ var TabGuard = (() => {
           anonymizedTabs.set(tabId, {tabDomain, otherDomains: [...otherDomains]});
           session.save();
 
-          anonymizedRequests.add(request.id);
+          anonymizedRequests.add(request.requestId);
           return {requestHeaders};
         };
 
@@ -298,7 +298,7 @@ var TabGuard = (() => {
     // must be called from a webRequest.onHeadersReceived blocking listener
     // TODO: explore DNR alternative
     onReceive(request) {
-      if (!anonymizedRequests.has(request.id)) return false;
+      if (!anonymizedRequests.has(request.requestId)) return false;
       let headersModified = false;
       let {responseHeaders} = request;
       for (let j = responseHeaders.length; j-- > 0;) {
@@ -317,7 +317,7 @@ var TabGuard = (() => {
         scheduledCuts.delete(requestId);
         TabTies.cut(tabId);
       }
-      anonymizedRequests.delete(request.id);
+      anonymizedRequests.delete(request.requestId);
     },
     isAnonymizedRequest(requestId) {
       return anonymizedRequests.has(requestId);

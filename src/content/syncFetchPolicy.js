@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -29,7 +29,7 @@ if (/^(?:file|ftp):$/.test(location.protocol)) {
     ns.pendingSyncFetchPolicy = false;
     ns.syncFetchPolicy = () => {};
 
-    let url = document.URL;
+    const url = document.URL;
 
     // Here we've got no CSP header yet (file: or ftp: URL), we need one
     // injected in the DOM as soon as possible.
@@ -37,46 +37,29 @@ if (/^(?:file|ftp):$/.test(location.protocol)) {
 
     let syncSetup = ns.setup.bind(ns);
 
-    if (window.wrappedJSObject) {
-      if (top === window) {
-        let persistentPolicy = null;
-        syncSetup = policy => {
-          if (persistentPolicy) return;
-          ns.setup(policy);
-          persistentPolicy = JSON.stringify(policy);
-          Object.freeze(persistentPolicy);
-          try {
-            Object.defineProperty(window.wrappedJSObject, "_noScriptPolicy", {value: cloneInto(persistentPolicy, window)});
-          } catch(e) {
-            error(e);
-          }
-        };
-      } else try {
-        if (top.wrappedJSObject._noScriptPolicy) {
-          debug("Policy set in parent frame found!")
-          try {
-            ns.setup(JSON.parse(top.wrappedJSObject._noScriptPolicy));
-            return;
-          } catch(e) {
-            error(e);
-          }
-        }
-      } catch (e) {
-        // cross-origin access violation, ignore
-      }
-    }
     if (ns.domPolicy) {
       syncSetup(ns.domPolicy);
-      return;
     }
 
-    debug("Initial document state",  document.readyState, document.documentElement, document.head, document.body); // DEV_ONLY
+    debug("Initial document state",  document.readyState, document.documentElement, document.head, document.body, ns.policy); // DEV_ONLY
 
-    let mustFreeze = UA.isMozilla
+    let mustFreeze = !ns.canScript && UA.isMozilla
       && (!/^(?:image|video|audio)/.test(document.contentType) || document instanceof XMLDocument)
       && document.readyState !== "complete";
 
     if (mustFreeze) {
+      const normalizeDir = e => {
+        // Chromium does this automatically. We need it to understand we're a directory earlier and allow browser UI scripts.
+        if (document.baseURI === `${url}/`) {
+          if (e) {
+            document.removeEventListener(e.type, normalizeDir);
+            e.stopImmediatePropagation();
+          }
+          window.stop();
+          location.replace(document.baseURI);
+        }
+      }
+      normalizeDir();
       // Mozilla has already parsed the <head> element, we must take extra steps...
       try {
         DocumentFreezer.freeze();
@@ -86,17 +69,9 @@ if (/^(?:file|ftp):$/.test(location.protocol)) {
           debug("Readystate: %s, suppressedScripts = %s, canScript = %s", document.readyState, DocumentFreezer.suppressedScripts, ns.canScript);
 
           if (!ns.canScript) {
-            queueMicrotask(() => DocumentFreezer.unfreezeLive());
-            let normalizeDir = e => {
-              // Chromium does this automatically. We need it to understand we're a directory earlier and allow browser UI scripts.
-              if (document.baseURI === document.URL + "/") {
-                if (e) {
-                  document.removeEventListener(e.type, normalizeDir);
-                  e.stopImmediatePropagation();
-                }
-                window.stop();
-                location.replace(document.baseURI);
-              }
+            if (url.endsWith("/")) {
+              DocumentFreezer.unfreezeLive();
+              return;
             }
             if (DocumentFreezer.firedDOMContentLoaded) {
               normalizeDir();

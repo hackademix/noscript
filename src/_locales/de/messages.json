@@ -827,5 +827,29 @@
   },
   "GestureLabel": {
     "message": "Zeichne ein »S«, um NoScript aufzurufen."
+  },
+  "DefaultContainerName": {
+    "message": "Standard"
+  },
+  "enable_container_tabs_label": {
+    "message": "Unterstützung für Umgebungs-Tabs aktivieren"
+  },
+  "clear_container_label": {
+    "message": "Berechtigungen für diese Umgebung aufheben"
+  },
+  "copy_container_label": {
+    "message": "Berechtigungen von Umgebung kopieren:"
+  },
+  "forbid_replace_default_policy": {
+    "message": "Die Standardrichtlinie kann nicht ersetzt werden."
+  },
+  "container_clear_warning": {
+    "message": "Alle Webseiten-Berechtigungen für diese Umgebung werden entfernt.\nDieser Vorgang kann nicht rückgängig gemacht werden.\nMöchten Sie fortfahren?"
+  },
+  "select_container_label": {
+    "message": "Wählen Sie eine Umgebung:"
+  },
+  "container_copy_warning": {
+    "message": "Berechtigungen von »$1« werden kopiert.\nAlle Webseiten-Berechtigungen für diese Umgebung werden entfernt.\nDieser Vorgang kann nicht rückgängig gemacht werden.\nMöchten Sie fortfahren?"
   }
 }

@@ -5,21 +5,20 @@
  */
 @import url(../common/themes.css);
 
-body {
-  background-color: var(--bg-color2);
-  color: var(--text-color);
+html {
   font-size: 12px;
   font-family: system-ui, sans-serif;
+  background-color: var(--bg-color2);
 }
 
-html.tor:not(.mobile) > body {
+html.tor:not(.mobile) {
   /* Tor Browser may fallback to a serif system-ui font, which is ugly */
   font-family: sans-serif;
 }
 
-html.mobile > body {
+html.mobile {
   font-family: Inter, sans-serif;
-  font-size: 4mm;
+  font-size: min(4mm, 4vw);
 }
 
 html.mobile .desktop {
@@ -33,8 +32,18 @@ html.tor .tor, html:not(.tor) .not-tor {
   display: initial;
 }
 
+body {
+  font-size: 1rem;
+  background-color: var(--bg-color2);
+  color: var(--text-color);
+}
+
 a, a:visited {
   color: var(--accent-color);
+}
+
+button, select {
+  font-size: 1rem;
 }
 
 button, .button {
@@ -59,7 +68,6 @@ input[type="text"], textarea, select {
 }
 
 input[type="checkbox"]:not(.https-only, .temp, .reveal) {
-  -webkit-appearance: none;
   appearance: none;
   margin: .4em;
   font: inherit;
@@ -95,7 +103,6 @@ input[type="checkbox"]:not(.https-only, .temp, .reveal):checked {
  }
 
 input[type="radio"]:not(.preset) {
-  -webkit-appearance: none;
   appearance: none;
   background-color: var(--form-color1);
   margin: .4em;
@@ -160,13 +167,18 @@ input:disabled, button:disabled, select:disabled {
   border-color: transparent;
   background-color: transparent;
   transform: scale(1.2);
-  transition: all .5s ease-in-out;
   text-transform: uppercase;
 }
 
 .donate:hover {
   transform: scale(1.8);
   text-shadow: var(--bg-color2) 1px 1px 3px, -1px -1px 3px, -1px 0 3px, 1px 0 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+ .donate {
+    transition: all .5s ease-in-out;
+  }
 }
 
 .donate:before {

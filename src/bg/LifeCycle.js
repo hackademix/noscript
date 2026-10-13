@@ -69,6 +69,17 @@ var LifeCycle = (() => {
         }
       ));
 
+      const policy = ns.policy.dry(true);
+      const contextStore = ns.contextStore.dry(true);
+      const unrestrictedTabs = [...ns.unrestrictedTabs];
+
+      if (policy.sites.temp.length == 0 &&
+        !Object.values(policy.sites.custom).some(({temp}) => temp) &&
+        unrestrictedTabs.length == 0 &&
+        Object.keys(allSeen).length == 0) {
+        debug("No temporary settings to save, bailing out.");
+        return;
+      }
 
       if (!tab) { // no suitable existing tab, let's open a new one
         if (!UA.isMozilla) {
@@ -107,9 +118,10 @@ var LifeCycle = (() => {
       let tabId = tab.id;
       let {url} = tab;
       let {cypherText, key, iv} = await encrypt(JSON.stringify({
-        policy: ns.policy.dry(true),
+        policy,
+        contextStore,
         allSeen,
-        unrestrictedTabs: [...ns.unrestrictedTabs]
+        unrestrictedTabs,
       }));
 
       try {
@@ -147,6 +159,13 @@ var LifeCycle = (() => {
                 error(e, "Survival tab failed");
                 reject(e);
               } // otherwise we keep waiting for further updates from the tab until content script is ready to answer
+              // ... for no longer than 100ms, though
+              setTimeout(() => {
+                if (!stored) {
+                  debug("Fallback delayed storeInTab...");
+                  storeInTab(tabId, tabInfo);
+                }
+              }, 100)
             };
           };
 
@@ -208,7 +227,7 @@ var LifeCycle = (() => {
             iv
           }, key, cypherText
         );
-        let {policy, allSeen, unrestrictedTabs} = JSON.parse(new TextDecoder().decode(encoded));
+        let {policy, contextStore, allSeen, unrestrictedTabs} = JSON.parse(new TextDecoder().decode(encoded));
         if (!policy) {
           throw new error("Ephemeral policy not found in survival tab %s!", tabId);
         }
@@ -216,6 +235,7 @@ var LifeCycle = (() => {
         destroyIfNeeded();
         if (ns.initializing) await ns.initializing;
         ns.policy = new Policy(policy);
+        ns.contextStore = new ContextStore(contextStore);
         await Promise.allSettled(
           Object.entries(allSeen).map(
             async ([tabId, seen]) => {
@@ -319,6 +339,17 @@ var LifeCycle = (() => {
         if (changed) {
           await ns.savePolicy();
         }
+        if (ns.contextStore) {
+          changed = false;
+          for (let k of Object.keys(ns.contextStore.policies)){
+            for (let p of ns.contextStore.policies[k].getPresets(presetNames)) {
+              if (callback(p)) changed = true;
+            }
+          }
+          if (changed) {
+            await ns.saveContextStore();
+          }
+        }
       };
 
       const configureNewCap = async (cap, presetNames, capsFilter) => {
@@ -378,6 +409,17 @@ var LifeCycle = (() => {
       if (Ver.is(previousVersion, "<=", "13.0.902")) {
         // add the wasm capability to any preset which already has the script capability
         await configureNewCap("wasm", ["DEFAULT", "TRUSTED", "CUSTOM"], caps => caps.has("script"));
+      }
+
+      if (Ver.is(previousVersion, "<=", "13.6.15")) {
+        // remove the "fetch" capability from DEFAULT unless "script" is there
+        await forEachPreset(({ capabilities }) => {
+          if (capabilities.has("fetch") && !capabilities.has("script")) {
+            capabilities.delete("fetch");
+            return true;
+          }
+          return false;
+        }, ["DEFAULT"]);
       }
     },
 

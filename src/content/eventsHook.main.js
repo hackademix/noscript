@@ -25,7 +25,7 @@ if (location.protocol == "file:") {
 
   function modifyWindow(scope, {port, xray}) {
     const { window } = xray;
-    const { Proxy, document } = window;
+    const { Proxy, document, Node, Document } = window;
 
     const { Reflect } = globalThis;
 
@@ -46,9 +46,9 @@ if (location.protocol == "file:") {
     const call = (func, obj, ...args) => Reflect.apply(func, obj, args || NO_ARGS);
 
     const watch = watching => {
-      if (!watchList.has(watching)) {
+      if (watching instanceof Node && !watchList.has(watching)) {
         const ownerDocument =  call(nodeProps.ownerDocument, watching);
-        const crossDoc = ownerDocument != document;
+        const crossDoc = ownerDocument != document && !(watching instanceof Document);
         const parentNode = call(nodeProps.parentNode, watching);
 
         if (!crossDoc && parentNode) {
@@ -63,8 +63,12 @@ if (location.protocol == "file:") {
         }
 
         // Chromium cannot marshall DOM nodes in port.postMessage():
-        // following hack triggers eventHook.js' mutation observer instead.
+        // the following hack triggers eventHook.js' mutation observer instead.
 
+        if (watching == document || parentNode == document) {
+          // we don't need to watch the root!
+          return;
+        }
         const nextSibling = call(nodeProps.nextSibling, watching);
         if (crossDoc) {
           call(adoptNode, document, watching);

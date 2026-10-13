@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
 
-# Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+# Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-BASE="$PWD"
+BASE="$(git rev-parse --show-toplevel)"
 SRC="$BASE/src"
 BUILD="$BASE/build"
 MANIFEST_IN="$SRC/manifest.json"
@@ -36,7 +36,11 @@ if [ "$1" == '-u' ]; then
   shift
 fi
 
-strip_rc_ver() {
+is_dev_ver() {
+  [[ $1 =~ [^0-9.]|\.9[0-9][0-9]$ ]]
+}
+
+strip_dev_ver() {
   MANIFEST="$1"
   if [[ "$2" == "rel" ]]; then
     # release: truncate alpha/beta/rc suffixes (or *.9xx with increment)
@@ -52,10 +56,20 @@ ver_from_manifest() {
   grep '"version":' "$1" | sed -re 's/.*": "(.*?)".*/\1/'
 }
 
+update_releases() {
+  bash "$BASE/tools/release.sh" "$VER"
+  # If this is a pre-release try to update last stable too,
+  # in case AMO has published its signed XPI in the meanwhile
+  if [[ $VER =~ \.9[0-9]{2,}$ ]]; then
+    local STABLE_VER="${VER%.*}"
+    bash "$BASE/tools/release.sh" "$STABLE_VER"
+  fi
+}
+
 VER=$(ver_from_manifest "$MANIFEST_IN")
 if [ "$1" == "tag" ]; then
   # ensure nscl is up-to-date git-wise
-  bash ./nscl_gitsync.sh
+  bash "$BASE/nscl_gitsync.sh"
   OPTS=""
   if [ "$2" != "quiet" ]; then
     OPTS="-e"
@@ -65,8 +79,8 @@ if [ "$1" == "tag" ]; then
   exit 0
 fi
 if [[ "$1" =~ ^r(el(ease)?)?$ ]]; then
-  strip_rc_ver "$MANIFEST_IN" rel
-  "$0" && "$0" bump
+  strip_dev_ver "$MANIFEST_IN" rel
+  "$0" bump && "$0" sign
   exit
 fi
 
@@ -92,7 +106,14 @@ if [[ $1 == "bump" ]]; then
       if [[ $NEW_VER == "+" ]]; then
         # auto-increment,
         # otherwise we will assume current manifest had been manually updated
-        NEW_VER=$(( ${VER/[0-9.a-z]*\./} + 1))
+        if is_dev_ver $VER; then
+          # increment latest .9xx dev number
+          NEW_VER=$(( ${VER/[0-9.a-z]*\./} + 1))
+        else
+          # (re)start numbering dev builds
+          "$0" bump "$VER.901"
+          exit
+        fi
       fi
     fi
     REPLACE_EXPR='s/(?<PREAMBLE>"version":.*)'"$pattern"'"/$+{PREAMBLE}'"$NEW_VER"'"/'
@@ -115,7 +136,8 @@ if [[ $1 == "bump" ]]; then
   done
   echo "Bumping to $VER"
   git commit -m "Version bump: $VER." || exit
-  if ! [[ $VER =~ [^0-9.]|\.9[0-9][0-9]$ ]] ; then
+  shift
+  if ! { [[ $NEW_VER ]] || is_dev_ver $VER ; } then
     # it's a stable release: let's lock nscl and tag
     git submodule update
     "$0" tag
@@ -127,7 +149,7 @@ XPI="$XPI_DIR/noscript-${VER}"
 
 rm -rf "$BUILD" "$XPI"
 cp -pR "$SRC" "$BUILD"
-cp -p LICENSE "$BUILD"/
+cp -p LICENSE COPYRIGHT "$BUILD"/
 
 BUILD_CMD="web-ext"
 BUILD_OPTS="build --overwrite-dest"
@@ -139,8 +161,13 @@ CHROMIUM_BUILD_OPTS="$BUILD_OPTS"
 FIREFOX_TARGET="mv2firefox"
 if [[ $1 =~ ^(sign(ed)?|tor)$ ]]; then
   BUILD_CMD="$BASE/../../we-sign"
-  BUILD_OPTS=""
+  PUB_CHANNEL="listed"
+  if is_dev_ver $VER || [[ $1 == "tor" ]]; then
+    PUB_CHANNEL="unlisted"
+  fi
+  BUILD_OPTS="--channel=$PUB_CHANNEL"
   FIREFOX_TARGET="$FIREFOX_TARGET:${1}"
+  shift
 fi
 
 if [ "$1" != "debug" ]; then
@@ -152,18 +179,34 @@ if [ "$1" != "debug" ]; then
   done
 else
   DBG="-dbg"
+  FIREFOX_TARGET="$FIREFOX_TARGET:dbg"
+  shift
 fi
 
 UNPACKED_BASE="$BASE/unpacked"
 mkdir -p "$UNPACKED_BASE"
 
-if ! [ "$UNPACKED_ONLY" ]; then
+if ! [[ $UNPACKED_ONLY ]]; then
+  if [[ $(git status -s  | grep ' src/' | grep -v ' src/manifest.json') ]]; then
+    echo "Please build packages only on a clean tree!" >&2
+    git status
+    exit 7
+  fi
   echo "Creating $XPI.xpi..."
   mkdir -p "$XPI_DIR"
+  "$BASE/html5_events/html5_events.pl" >"$BASE/html5_events/last_run.log" 2>&1
+  IC_FILE="$SRC/xss/InjectionChecker.js"
+  if git diff "$IC_FILE" | grep IC_EVENT_PATTERN >/dev/null; then
+    git commit -m'[XSS] Updated IC_EVENT_PATTERN.' "$IC_FILE" "$BASE/html5_events/"
+  fi
 fi
 
 CYGPATH=$(which cypath)
 COMMON_BUILD_OPTS="--ignore-files='test/**' 'embargoed/**' content/experiments.js"
+
+is_signed() {
+  [ -f "$1" ] && ( unzip -l "$1" | grep "META-INF/mozilla.rsa" ) >/dev/null 2>&1;
+}
 
 fix_manifest() {
   node manifest.js "$1" "$MANIFEST_IN" "$MANIFEST_OUT" || exit 9
@@ -177,6 +220,7 @@ build() {
       grep 'ready: .*\.zip' | sed -re 's/.* ready: //'
     return
   fi
+
   UNPACKED_DIR="$UNPACKED_BASE/${1:-out}"
   rm -rf "$UNPACKED_DIR"
   cp -rp "$BUILD" "$UNPACKED_DIR" && echo >&2 "Copied $BUILD to $UNPACKED_DIR"
@@ -185,19 +229,27 @@ build() {
   bash "$BUILD/nscl/include.sh" "$UNPACKED_DIR"
 
   if [[ $1 == "firefox" ]]; then
+    if ! [[ $UNPACKED_ONLY ]] && ! [[ $FIREFOX_TARGET == *:tor* ]] && is_signed "$XPI.xpi"; then
+      echo "$XPI.xpi is already signed, skipping creation!" >&2
+      return
+    fi
     # we use svg icons on Firefox
     rm "$UNPACKED_DIR/img/"*.png
+    # no need for browser-polyfill, since Firefox is our primary API target
+    echo >"$UNPACKED_DIR/nscl/lib/browser-polyfill.js" '"Empty stub: no need for extensions API polyfill on Firefox!"'
   fi
 
-  if [ "$UNPACKED_ONLY" ]; then
+  if [[ $UNPACKED_ONLY ]]; then
     return
   fi
-
+  WEBEXT_IN="${UNPACKED_DIR}_pkg"
+  rm -rf "$WEBEXT_IN"
+  cp -rp "$UNPACKED_DIR" "$WEBEXT_IN"
+  node optimize.js "$WEBEXT_IN"
   if [ "$CYGPATH" ]; then
-    WEBEXT_IN="$(cygpath -w "$UNPACKED_DIR")"
+    WEBEXT_IN="$(cygpath -w "$WEBEXT_IN")"
     WEBEXT_OUT="$(cygpath -w "$XPI_DIR")"
   else
-    WEBEXT_IN="$UNPACKED_DIR"
     WEBEXT_OUT="$XPI_DIR"
   fi
 
@@ -210,8 +262,10 @@ build() {
 fix_manifest "$FIREFOX_TARGET"
 build firefox
 
-if [[ $FIREFOX_TARGET == *:tor ]]; then
-  bash "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT"
+if [[ $FIREFOX_TARGET == *:tor* ]]; then
+  if ! [[ $DBG ]]; then
+    bash "$BASE/tools/deploy2tor.sh" "$MANIFEST_OUT" && update_releases
+  fi
   exit
 fi
 
@@ -219,7 +273,7 @@ SIGNED="$XPI_DIR/noscript_security_suite-$VER-an+fx.xpi"
 if [ -f "$SIGNED" ]; then
   mv "$SIGNED" "$XPI.xpi"
 elif [ -f "$XPI.zip" ]; then
-  if unzip -l "$XPI.xpi" | grep "META-INF/mozilla.rsa" >/dev/null 2>&1; then
+  if is_signed "$XPI.xpi"; then
     echo "A signed $XPI.xpi already exists, not overwriting."
   else
     unset SIGNED
@@ -229,12 +283,13 @@ elif [ -f "$XPI.zip" ]; then
 fi
 if [ -f "$XPI.xpi" ]; then
   ln -fs "$XPI.xpi" "$BASE/latest.xpi"
-elif ! [ "$UNPACKED_ONLY" ]; then
-  echo >&2 "ERROR: Could not create $XPI$DBG.xpi!"
+  if is_signed "$XPI.xpi"; then
+    SIGNED="$XPI.xpi"
+  fi
+elif ! { [[ $UNPACKED_ONLY ]] || [[ $DBG ]] ; } then
+  echo >&2 "ERROR: Could not create $XPI.xpi!"
   exit 3
 fi
-
-
 
 # create Chromium pre-release
 
@@ -249,8 +304,12 @@ fix_manifest mv3chrome
 ZIP=$(build chromium)
 [ -f "$ZIP" ] &&  mv "$ZIP" "$XPI$DBG-chrome.zip"
 
-if [ "$SIGNED" ] && ! [ "$UNPACKED_ONLY" ]; then
+if [[ $SIGNED ]] && ! [[ $UNPACKED_ONLY ]] && ! [[ $DBG ]]; then
   "$0" tag quiet
   nscl
-  ../../we-publish "$XPI.xpi"
+  "$BASE/../../we-publish" "$XPI.xpi" && update_releases
+  if ! grep 'Patching ' "$BASE/html5_events/last_run.log" 2>&1; then
+    echo "WARNING - last IC_EVENT_PATTERN generation run log:" >&2
+    cat "$BASE/html5_events/last_run.log" >&2
+  fi
 fi

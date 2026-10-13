@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -19,6 +19,7 @@
  */
 
 "use strict";
+
 {
   const VERSION_LABEL =  `NoScript ${browser.runtime.getManifest().version}`;
   browser.action.setTitle({title: VERSION_LABEL});
@@ -35,6 +36,7 @@
       object: "object",
       object_subrequest: "fetch",
       xmlhttprequest: "fetch",
+      websocket: "fetch",
       ping: "ping",
       beacon: "ping",
       media: "media",
@@ -72,7 +74,7 @@
       (async () => {
         await TabStatus._session.load();
         TabStatus.updateTab();
-      });
+      })();
     },
     map: new Map(),
     _originsCache: new Map(),
@@ -81,32 +83,35 @@
         allowed: {},
         blocked: {},
         noscriptFrames: {},
-        origins: new Set(),
+        origins: {},
       }
     },
     hasOrigin(tabId, url) {
-      let records = this.map.get(tabId);
-      return records?.origins.has(Sites.origin(url));
+      const origins = this.map.get(tabId)?.origins;
+      const o = origins && Sites.origin(url);
+      return o && origins[o];
     },
     addOrigin(tabId, url) {
       if (tabId < 0) return;
-      let origin = Sites.origin(url);
-      if (!origin) return;
-      let {origins} = this.map.get(tabId) || this.initTab(tabId);
-      if (!origins.has(origin)) {
-        origins.add(origin);
+      const o = Sites.origin(url);
+      if (!o) return;
+      const { origins } = this.map.get(tabId) || this.initTab(tabId);
+      if (!origins[o]) {
+        origins[o] = true;
         this._originsCache.clear();
       }
     },
 
-    findTabsByOrigin(origin) {
-      let tabIds = this._originsCache.get(origin);
+    findTabsByOrigin(o) {
+      let tabIds = this._originsCache.get(o);
       if (!tabIds) {
         tabIds = [];
-        for(let [tabId, {origins}] of [...this.map]) {
-          if (origins.has(origin)) tabIds.push(tabId);
+        for (const [tabId, { origins }] of [...this.map]) {
+          if (origins[o]) {
+            tabIds.push(tabId);
+          }
         }
-        this._originsCache.set(origin, tabIds);
+        this._originsCache.set(o, tabIds);
       }
       return tabIds;
     },
@@ -220,7 +225,7 @@
         (await browser.tabs.query({})).forEach(tab => TabStatus.probe(tab.id));
       } else {
         try {
-          TabStatus.recordAll(tabId, await ns.collectSeen(tabId));
+          TabStatus.recordAll(tabId, await ns?.collectSeen(tabId));
         } catch (e) {
           error(e);
         }
@@ -380,17 +385,19 @@
 
       const wantsContext = checked.includes("ctx");
 
-      let { siteMatch, contextMatch, perms } = ns.policy.get(key, contextUrl);
+      let cookieStoreId = sender.tab && sender.tab.cookieStoreId;
+      let policy = ns.getPolicy(cookieStoreId);
+      let { contextMatch, perms } = policy.get(key, contextUrl);
 
       if (!perms.capabilities.has(policyType) ||
           !contextMatch && wantsContext && ctxKey) {
 
         const wantsTemp = forcedTemp || checked.includes("temp");
         if (!contextMatch) {
-          const isDefault = perms === ns.policy.DEFAULT;
+          const isDefault = perms === policy.DEFAULT;
           perms = perms.clone();
           if (isDefault) perms.temp = wantsTemp;
-          ns.policy.set(key, perms);
+          policy.set(key, perms);
           if (ctxKey && wantsContext) {
             perms.contextual.set(ctxKey, perms = perms.clone(/* noContext = */ true));
           }
@@ -398,6 +405,7 @@
         perms.temp = wantsTemp;
         perms.capabilities.add(policyType);
         await ns.savePolicy();
+        await ns.saveContextStore();
         await RequestGuard.DNRPolicy?.update();
       }
       return {enable: key};
@@ -495,8 +503,9 @@
     },
 
     async reportTo(originalRequest, allowed, policyType) {
-      const { requestId, tabId, frameId, type, url, documentUrl, originUrl } =
+      const { requestId, tabId, type, url, documentUrl, originUrl } =
         originalRequest;
+
       const pending = pendingRequests.get(requestId); // null if from a CSP report
 
       const request = {
@@ -554,24 +563,30 @@
         return;
       }
       if (pending) request.initialUrl = pending.initialUrl;
-      if (type !== "sub_frame") {
+      let { frameId, parentFrameId } = originalRequest;
+      if (type == "sub_frame") {
         // we couldn't deliver it to frameId, since it's generally not loaded yet
-        try {
-          await Messages.send(
-            "seen",
-            { request, allowed, policyType, ownFrame: true },
-            { tabId, frameId }
-          );
-        } catch (e) {
-          debug(
-            `Couldn't deliver "seen" message for ${type}@${url} ${
-              allowed ? "A" : "F"
-            } to document ${documentUrl} (${frameId}/${tabId})`,
-            e
-          );
-        }
+        frameId = parentFrameId;
       }
-      if (frameId === 0) return;
+      try {
+        await Messages.send(
+          "seen",
+          { request, allowed, policyType, ownFrame: true },
+          { tabId, frameId }
+        );
+      } catch (e) {
+        debug(
+          `Couldn't deliver "seen" message for ${type}@${url} ${
+            allowed ? "A" : "F"
+          } to document ${documentUrl} (${frameId}/${tabId})`,
+          e
+        );
+      }
+
+      if (frameId === 0) {
+        return;
+      }
+
       try {
         await Messages.send(
           "seen",
@@ -601,52 +616,50 @@
     return redirected;
   }
 
-  let normalizeRequest = request => {
-
-    function fakeOriginFromTab({tabId, type} = request) {
-      if (type !== "main_frame") {
-        let tabUrl = request.tabUrl || tabId !== -1 && TabCache.get(tabId)?.url;
-        if (tabUrl) {
-          return request.initiator = request.originUrl = request.documentUrl = tabUrl;
-        }
-      }
-      return request.initiator || request.originUrl;
-    }
+  const normalizeRequest = request => {
 
     if ("initiator" in request && !("originUrl" in request)) {
-      if (request.initiator === "null") {
-        // Chromium sandboxed content?
-        fakeOriginFromTab();
-      }
       request.originUrl = request.initiator;
       if (request.type !== "main_frame" && !("documentUrl" in request)) {
         request.documentUrl = request.initiator;
       }
     }
-    if ("frameAncestors" in request && (!request.originUrl || request.documentUrl)) {
-      // Gecko sandboxed content?
+    if (request.frameAncestors && !request.originUrl && request.type != "main_frame") {
+      // Gecko sandboxed content
+      if (request.documentUrl || request.type != "sub_frame") {
+        // this is a navigation triggered by the framed document: let's use its current URL
+        request.originUrl = NavCache.getFrame(request.tabId, request.frameId)?.url || "null";
+        request.documentUrl ||= request.originUrl;
+        return;
+      }
+      // both originUrl and documentUrl are undefined:
+      // initial sandboxed iframe creation, let's use first viable ancestor
       for (let f of request.frameAncestors) {
         if (f.url !== "null" && !f.url.startsWith("moz-nullprincipal:")) {
-          request.originUrl = request.documentUrl = f.url;
+          let { url } = f;
+          if (url === "") {
+            // redacted ancestor url in sandboxed frame, let's grab the real one from NavCache
+            url = NavCache.getFrame(request.tabId, f.frameId)?.url;
+          }
+          request.originUrl = request.documentUrl = url;
           break;
         }
       }
-      if (!request.originUrl) {
-        fakeOriginFromTab();
-      }
+      request.originUrl ||= "null";
     }
   };
 
   function intersectCapabilities(policyMatch, request) {
     const {cascadePermissions, cascadeRestrictions} = ns.sync;
     if (request.frameId !== 0 && cascadeRestrictions || request.type != "main_frame" && cascadePermissions) {
-      const {tabUrl, frameAncestors} = request;
+      const {tabUrl, frameAncestors, cookieStoreId} = request;
       const topUrl = tabUrl ||
         cascadePermissions && request.frameId == 0 && request.documentUrl ||
         frameAncestors && frameAncestors[frameAncestors?.length - 1]?.url ||
         TabCache.get(request.tabId)?.url;
       if (topUrl) {
-        return ns.policy.cascade(policyMatch, topUrl, {
+        const policy = ns.getPolicy(cookieStoreId);
+        return policy.cascade(policyMatch, topUrl, {
           permissions: cascadePermissions,
           restrictions: cascadeRestrictions,
         }).capabilities;
@@ -668,7 +681,9 @@
         let other = last[j];
         if (request.timeStamp - other.timeStamp > this.MAX_AGE) {
           last.splice(0, ++j);
-          if (last.length === 0) this._byUrl.delete(other.url);
+          if (last.length === 0) {
+            this._byUrl.delete(other._dataUrl || other.url);
+          }
           break;
         }
         if (request.url && other.type === request.type && other.documentUrl === request.documentUrl
@@ -714,12 +729,12 @@
 
   function checkLANRequest(request) {
     if (!ns.isEnforced(request.tabId)) return ALLOW;
-    let {originUrl, url} = request;
-    if (originUrl && !Sites.isInternal(originUrl) && url.startsWith("http") &&
-      !ns.policy.can(originUrl, "lan", ns.policyContext(request))) {
+    const { originUrl, url } = request;
+    if (originUrl && !Sites.isInternal(originUrl) && (new URL(url)).hostname &&
+      !ns.getPolicy(request.cookieStoreId).can(originUrl, "lan", ns.policyContext(request))) {
       // we want to block any request whose origin resolves to at least one external WAN IP
       // and whose destination resolves to at least one LAN IP
-      const {proxyInfo} = request; // see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/proxy/ProxyInfo
+      const { proxyInfo } = request; // see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/proxy/ProxyInfo
       const neverDNS = (proxyInfo?.type?.startsWith("http") || proxyInfo?.proxyDNS)
                      || !(UA.isMozilla && DNS.supported);
       if (neverDNS) {
@@ -751,9 +766,9 @@
 
     normalizeRequest(request);
 
-    let {tabId, type, url, originUrl} = request;
+    let {tabId, type, cookieStoreId, url, originUrl} = request;
 
-    const {policy} = ns
+    const policy = ns.getPolicy(cookieStoreId);
 
     let previous = recent.find(request);
     if (previous) {
@@ -774,43 +789,44 @@
       }
       return ALLOW;
     }
-    let isFetch = "fetch" === policyType;
 
+    const isFetch = "fetch" === policyType;
     if ((isFetch || "frame" === policyType) &&
         (((isFetch && !originUrl
           || url === originUrl) && originUrl === documentUrl
           // some extensions make them both undefined,
           // see https://github.com/eight04/image-picka/issues/150
         ) ||
-        Sites.isInternal(originUrl))
+        Sites.isInternal(originUrl)) ||
+        Sites.isInternal(url)
     ) {
       // livemark request or similar browser-internal, always allow;
       return ALLOW;
     }
 
+    let allowed = false;
+
     if (/^(?:data|blob):/.test(url)) {
       request._dataUrl = url;
       request.url = url = documentUrl || originUrl;
+      allowed = Sites.isInternal(url);
     }
 
-    let allowed = Sites.isInternal(url);
+    if (tabId < 0 && documentUrl?.startsWith("https:")) {
+      allowed = [...ns.unrestrictedTabs]
+        .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
+    }
     if (!allowed) {
-      if (tabId < 0 && documentUrl?.startsWith("https:")) {
-        allowed = [...ns.unrestrictedTabs]
-          .some(tabId => TabStatus.hasOrigin(tabId, documentUrl));
-      }
-      if (!allowed) {
-        const capabilities = intersectCapabilities(
-          policy.get(url, ns.policyContext(request)),
-          request);
-        allowed = !policyType || capabilities.has(policyType);
-        if (allowed && request._dataUrl && type.endsWith("frame")) {
-          let blocker = csp.buildFromCapabilities(capabilities);
-          if (blocker) {
-            let redirectUrl = CSP.patchDataURI(request._dataUrl, blocker);
-            if (redirectUrl !== request._dataUrl) {
-              return previous.return = {redirectUrl};
-            }
+      const capabilities = intersectCapabilities(
+        policy.get(url, ns.policyContext(request)),
+        request);
+      allowed = !policyType || capabilities.has(policyType);
+      if (allowed && request._dataUrl && type.endsWith("frame")) {
+        const blocker = csp.buildFromCapabilities(capabilities);
+        if (blocker) {
+          const redirectUrl = CSP.patchDataURI(request._dataUrl, blocker);
+          if (redirectUrl !== request._dataUrl) {
+            return previous.return = { redirectUrl };
           }
         }
       }
@@ -910,15 +926,14 @@
 
       normalizeRequest(request);
       let result = ALLOW;
-      let promises = [];
 
       pending.headersProcessed = true;
-      let {url, documentUrl, tabId, responseHeaders, type} = request;
+      let {url, tabId, cookieStoreId, responseHeaders, type} = request;
       let isMainFrame = type === "main_frame";
       try {
         let capabilities;
         if (ns.isEnforced(tabId)) {
-          const { policy } = ns;
+          const policy = ns.getPolicy(cookieStoreId);
           const policyMatch = policy.get(url, ns.policyContext(request));
           let { perms } = policyMatch;
           if (isMainFrame) {
@@ -953,11 +968,6 @@
         }
       } catch (e) {
         error(e, "Error in onHeadersReceived", request);
-      }
-
-      promises = promises.filter(p => p instanceof Promise);
-      if (promises.length > 0) {
-        return Promise.allSettled(promises).then(() => result);
       }
 
       return result;
@@ -1014,35 +1024,22 @@
   async function injectPolicyScript(details) {
     await ns.initializing;
     if (ns.local.debug?.disablePolicyInjection) return '';  // DEV_ONLY
-    const {url, tabId, frameId, type} = details;
+    const {url, tabId, frameId, cookieStoreId, type} = details;
     const isTop = type == "main_frame";
     const domPolicy = await ns.computeChildPolicy(
       { url },
       {
         tab: { id: tabId, url: isTop ? url : null },
         frameId: isTop ? 0 : frameId,
+        cookieStoreId,
       }
     );
     domPolicy.navigationURL = url;
-    const callback = "ns_setupCallback";
-    if (DocStartInjection.mv3Callbacks) {
-      return {
-        data: {domPolicy},
-        callback,
-        assign: "ns",
-      };
-    }
-    let debugStatement = ns.local.debug ? `
-      let mark = Date.now() + ":" + Math.random();
-      console.debug("domPolicy", domPolicy, document.readyState, location.href, mark, window.ns, document.documentElement);` : '';
-    return `
-      const domPolicy = ${JSON.stringify(domPolicy)};
-      if (globalThis.${callback}) {
-        globalThis.${callback}(domPolicy);
-      } else {
-        (globalThis.ns ||= {}).domPolicy = domPolicy;
-      }
-      ${debugStatement}`;
+    return {
+      data: { domPolicy },
+      callback: "ns_setupCallback",
+      assign: "ns",
+    };
   }
 
   // external interface

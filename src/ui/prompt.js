@@ -20,7 +20,7 @@
 
 (async () => {
   let data = await Messages.send("getPromptData");
-  debug("Prompt data", data);
+  debug("Prompt data", data); // DEV_ONLY
   if (!data) {
     error("Missing promptData");
     window.close();
@@ -28,8 +28,8 @@
   }
 
   let done = async () => {
-    await Messages.send("promptDone", data);
     done = () => {};
+    await Messages.send("promptDone", data);
     if ("windows" in browser) {
       try {
         await browser.windows.remove((await browser.windows.getCurrent()).id);
@@ -38,7 +38,7 @@
       }
     }
     window.close();
-  }
+  };
 
   let {title, message, options, checks, buttons} = data.features;
 
@@ -65,7 +65,7 @@
   function createButton(container, label, count) {
     let button = document.createElement("button");
     if (count === 0) button.type = "submit";
-    button.id = `${button}-${count}`;
+    button.id = `button-${count}`;
     button.value = count;
     button.textContent = label;
     container.appendChild(button);
@@ -98,7 +98,7 @@
     let lines = message.split(/\n/);
     let container = document.querySelector("#message");
     container.classList.toggle("multiline", lines.length > 1);
-    message.innerHTML = "";
+    container.innerHTML = "";
     for (let l of lines) {
       let p = document.createElement("p");
       p.textContent = l;
@@ -108,7 +108,7 @@
   renderInputs("#options", options, "radio", "opt");
   renderInputs("#checks", checks, "checkbox", "flag");
   renderInputs("#buttons", buttons, "button", "button");
-  addEventListener("hide", e => {
+  addEventListener("pagehide", e => {
     done();
   });
 
@@ -129,7 +129,7 @@
     if (e.ctrlKey || e.metaKey || e.shiftKey) return;
     switch(e.code) {
       case "Escape":
-        window.close();
+        done();
         return;
       case "Enter":
         let defButton = document.querySelector("#buttons button[type=submit]");

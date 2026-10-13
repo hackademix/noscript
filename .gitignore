@@ -9,8 +9,16 @@ xpi
 *.zip
 *.crx
 *.bak
+*.log
+.build.lock
 # dev env options
+.editorconfig
 .eslintrc.json
+.lite_project.lua
+.zed
 # auto-generated files
 TLD/tld.js
 TLD/tld_template.js
+# local utilities
+art
+utils

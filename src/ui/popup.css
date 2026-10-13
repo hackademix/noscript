@@ -9,8 +9,18 @@ html:not(.mobile) {
 }
 
 body {
-  margin: 0.5em;
+  margin: 0;
   padding: 0;
+}
+
+.mobile > body {
+  min-height: 100vh;
+  backdrop-filter: blur(1.2px) brightness(60%);
+  background: transparent;
+}
+
+html.mobile {
+  background-size: cover;
 }
 
 html:not(.mobile) > body {
@@ -18,23 +28,61 @@ html:not(.mobile) > body {
   padding: 0;
 }
 
+#popup-container {
+  background-color: var(--bg-color2);
+}
+
+.resized #popup-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.mobile #popup-container {
+  box-shadow: 0 5px 5px 5px black;
+  border-radius: 0 0 8px 8px;
+}
+
+@media (orientation: landscape) {
+  .mobile #popup-container {
+    max-width: max(750px, calc(100vh - 8em));
+  }
+}
+
+#scrollable {
+   overflow: auto;
+   min-height: 6em;
+   max-height: 66vh;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #scrollable {
+   transition: height .5s, min-height 1s;
+  }
+}
+
+
 html:not(.mobile) #scrollable {
-  overflow: auto;
   max-height: 550px;
-  min-height: 6em;
-  transition: height .5s, min-height 1s;
+}
+
+.window #scrollable {
+  height: 550px;
+}
+
+.resized #scrollable {
+  height: min(100vh - 2em - var(--icon-size) , 550px);
 }
 
 #top {
   font-size: 1em;
   position: relative;
-  padding: 0 0 .3em 0;
+  padding: .3em .5em .6em .5em;
   margin: 0;
   min-width: 18.75em;
   display: flex;
   -moz-user-select: none;
   user-select: none;
-  background: linear-gradient(to bottom, transparent 0, transparent 95%, var(--form-color1) 100%) no-repeat;
+  background: linear-gradient(to bottom, transparent 0, transparent 80%, var(--bg-color1) 100%) no-repeat;
 }
 
 #noscript-popup {
@@ -48,8 +96,6 @@ html:not(.mobile) #scrollable {
 
 .icon {
   appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
   cursor: pointer;
   color: var(--accent-color);
   background: transparent no-repeat left;
@@ -57,7 +103,7 @@ html:not(.mobile) #scrollable {
   border: none;
   font-size: 1.2em;
   background-size: 1.2em;
-  margin: 0 1.2em 0 1.2em;
+  margin: 0 1.2em;
 }
 
 .icon:focus-visible {
@@ -109,6 +155,33 @@ html:not(.mobile) #scrollable {
   display: none;
 }
 
+#top > .container-id {
+  text-align: center;
+  align-items: center;
+  display: flex;
+  margin: .2em;
+  margin-block: auto;
+  padding: .4em;
+  font-size: 1.2em;
+  border:1px solid;
+  border-color: var(--container-color);
+  border-radius: .3em;
+  content: "📦︎";
+  font-variant-emoji: text;
+}
+
+.container-id::before {
+  content: "📦︎";
+  font-variant-emoji: text;
+  font-size: 1em;
+  line-height: 0;
+  padding: 0 .4em 0 0;
+  margin: 0;
+  color: var(--container-color);
+}
+
+
+
 .hider {
   background: var(--form-color1);
   box-shadow: inset 0 1px 3px #444;
@@ -142,8 +215,6 @@ html:not(.mobile) #scrollable {
 
 
 .hider-close, .reveal {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   border: none;
   border-radius: 0;
@@ -304,7 +375,8 @@ html:not(.mobile) #scrollable {
   display: none;
 }
 :is(html.incognito, html.tor) #incognito-ui-chooser {
-  display: initial;
+  display: block;
+  background: var(--bg-color1);
 }
 
 #incognito-ui-chooser label {
@@ -312,6 +384,5 @@ html:not(.mobile) #scrollable {
 }
 
 #incognito-ui-chooser input:checked + label {
-  background: var(--bg-color1);
   color: var(--accent-color);
 }

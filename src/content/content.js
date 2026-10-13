@@ -37,18 +37,22 @@ var seen = {
   _map: new Map(),
   _list: null,
   record(event) {
-    const {request} = event;
+    const { request } = event;
     let key = request.key || `${request.id}:${request.url}`;
-    if (this._map.has(key)) return;
+    if (this._map.has(key)) {
+      request.redundant = true;
+      return false;
+    }
     this._map.set(key, event);
     this._list = null;
+    return true;
   },
   recordAll(events) {
     this._map.clear();
     for (let e of events) this.record(e);
   },
   get list() {
-    return this._list || (this._list = [...this._map.values()]);
+    return this._list ||= [...this._map.values()];
   }
 }
 
@@ -292,7 +296,7 @@ ns.on("capabilities", () => {
     // scriptless user interaction tracking.
     // See https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42829
 
-    const only3rdParty = ns.canScript || !browser.extension.inIncognitoContext;
+    const pp0MitigationOnly = ns.canScript || !browser.extension.inIncognitoContext;
 
     const prefetchCallback =
       // false && // REL_ONLY
@@ -302,7 +306,7 @@ ns.on("capabilities", () => {
         url.hostname = `prefetch.${url.hostname}`;
         return false; // let default processing continue with the modified hostname
       } : null;
-    prefetchCSSResources(only3rdParty, prefetchCallback);
+    prefetchCSSResources(pp0MitigationOnly, prefetchCallback);
   }
 
   if (!ns.canScript) {

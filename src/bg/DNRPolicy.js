@@ -20,6 +20,14 @@
 
 // depends on /nscl/service/NavCache.js
 
+// This module is meant to replace the granular content blocking performed by RequestGuard.js
+// on Manifest V2/2.5 (based on Firefox's blocking async webRequest API)
+// with a declarativeNetRequest implementation on Manifest V3.
+// One IMPORTANT difference is that this implementation won't try to inject Content-Security-Policy
+// headers in documents for content blocking (the only one being injected is for reporting only):
+// in MV3 all the CSP heavy lifting is done by staticNS.js via nscl's DocumentCSP, so it's vital
+// that content-side the correct policy is always fetched timely (synchronously, if needed).
+
 'use strict';
 {
   const DEFAULT_PRIORITY = 1;
@@ -73,11 +81,11 @@
     // Note: using '^' instead of '/' as a terminator
     // takes explicit port numbers in account
     if (Sites.isSecureDomainKey(siteKey)) {
-      return `||${Sites.toggleSecureDomainKey(siteKey,false)}^`
+      return `||${Sites.toggleSecureDomainKey(siteKey, false)}^`
     }
-    const schemeLess = siteKey.replace(/^[\w-]+:\/+/, "");
+    const schemeLess = siteKey.replace(/^[\w-]+:\/*/, "");
     let urlFilter = `${siteKey == schemeLess ? "||" : "|"}${siteKey}`;
-    if (!schemeLess.includes('/')) {
+    if (schemeLess && !schemeLess.includes('/')) {
       urlFilter += '^';
     }
     return urlFilter;
@@ -140,8 +148,18 @@
         condition: {
           resourceTypes: ["main_frame", "sub_frame"],
         },
+      }, {
+        id: 2,
+        priority: MAX_PRIORITY,
+        action: {
+          type: "allow"
+        },
+        condition: {
+          resourceTypes: ["xmlhttprequest"],
+          urlFilter: browser.runtime.onSyncMessage.DNR_URL_FILTER,
+        },
       }],
-      lastId: 1,
+      lastId: 2,
       add({capabilities, temp}, priority = SITE_PRIORITY, siteKey) {
         const urlFilter = siteKey ? toUrlFilter(siteKey) : undefined;
         forBlockAllow(capabilities, (type, resourceTypes) => {
@@ -192,6 +210,9 @@
   }
 
   async function addTabRules(rules = []) {
+    if (!ns.policy?.enforced) {
+      return;
+    }
     if (ns.unrestrictedTabs.size) {
       const tabIds = [...ns.unrestrictedTabs];
       tabIds.push(browser.tabs.TAB_ID_NONE); // for service workers

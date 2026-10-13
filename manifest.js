@@ -1,7 +1,7 @@
 /*
- * NoScript Commons Library
- * Reusable building blocks for cross-browser security/privacy WebExtensions.
- * Copyright (C) 2020-2024 Giorgio Maone <https://maone.net>
+ * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
+ *
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -39,9 +39,14 @@ const FIREFOX_UPDATE_URL = "https://secure.informaction.com/update/?v=" + extVer
 const EDGE_UPDATE_URL = "https://edge.microsoft.com/extensionwebstorebase/v1/crx";
 
 const isFirefox = MANIFEST_VER.includes("firefox");
-const isTor = MANIFEST_VER.endsWith(":tor");
+const isTor = MANIFEST_VER.includes(":tor");
+const isDebug = MANIFEST_VER.includes(":dbg");
+
+const pre = /[a-zA-Z-]|\.9\d{2}$/.test(extVer);
+if (!(isFirefox && pre && !isTor)) {
+  permissions.delete("contextualIdentities");
+}
 if (isFirefox) {
-  const pre = /[a-zA-Z-]|\.9\d{2}$/.test(extVer);
   if (isTor) {
     // add version suffix to separate Tor Browser builds
     const suffix = "1984";
@@ -53,12 +58,15 @@ if (isFirefox) {
   const url = isTor
     ? `https://dist.torproject.org/torbrowser/noscript/update-${pre ? "pre" : "stable"}.json`
     : pre ? FIREFOX_UPDATE_URL : "";
-  if (url) {
+  if (url && !isDebug) {
     json.browser_specific_settings.gecko.update_url = url;
   }
   json.icons = {};
   for (const size of [16, 32, 48, 64, 128, 256]) {
     json.icons[size] = "img/logo.svg";
+  }
+  for (const s of [json.background.scripts, json.content_scripts[0].js]) {
+    s.splice(s.indexOf("/nscl/lib/browser-polyfill.js"), 1);
   }
 }
 
@@ -68,7 +76,6 @@ if (MANIFEST_VER.includes(3)) {
 
   const excludedScriptsRx = /\bcontent\/(?:embeddingDocument|dirindex)\.js$/;
   const scriptsFilter = src => !excludedScriptsRx.test(src);
-  console.log(json.background);
   json.background.scripts = json.background.scripts.filter(scriptsFilter);
   for (const cs of json.content_scripts) {
     cs.js = cs.js.filter(scriptsFilter);
@@ -115,9 +122,6 @@ if (MANIFEST_VER.includes(3)) {
   delete json.web_accessible_resources;
   delete json.host_permissions;
   delete json.action;
-
-  // match_origin_as_fallback is MV3 only
-  // json.content_scripts.forEach(cs => delete cs.match_origin_as_fallback);
 }
 
 if (isFirefox || json.manifest_version == 2) {
@@ -127,7 +131,7 @@ if (isFirefox || json.manifest_version == 2) {
     cs => cs.world != "MAIN" && cs.js?.some(src => src.endsWith("/Worlds.js"))).js;
 
   json.content_scripts.find(cs => cs.world == "MAIN" && cs.js?.some(src => src.endsWith("/Worlds.main.js")))
-    .js.filter(src => src.endsWith(".main.js"))
+    ?.js.filter(src => src.endsWith(".main.js"))
     .forEach(src => {
       const isolatedSrc = src.replace(/.*(\/[\w+.]+)\.main(?=\.js$)/, "$1");
       const idx = isolatedWorldJS.findIndex(src => src.endsWith(isolatedSrc));

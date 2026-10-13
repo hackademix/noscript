@@ -1,7 +1,7 @@
 /*
  * NoScript - a Firefox extension for whitelist driven safe JavaScript execution
  *
- * Copyright (C) 2005-2024 Giorgio Maone <https://maone.net>
+ * Copyright (C) 2005-2026 Giorgio Maone <https://maone.net>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -77,9 +77,25 @@ addEventListener("unload", e => {
         close();
       }
       if (browser.windows) {
-        const myWinId = (await browser.windows.getCurrent()).id;
+        // stand-alone window
+
+        const { classList } = document.documentElement;
+        classList.add("window");
+
+        const parent = await browser.windows.get(pageTab.windowId);
+        let { id, width, height } = await browser.windows.getCurrent();
+        width += document.body.offsetWidth - innerWidth;
+        height += document.body.offsetHeight - innerHeight;
+        browser.windows.update(id, {
+          width, height,
+          top: parent.top + Math.round((parent.height - height) / 2),
+          left: parent.left +  Math.round((parent.width - width) / 2),
+        });
+
+        classList.add("resized");
+
         browser.windows.onFocusChanged.addListener(windowId => {
-          if (windowId !== browser.windows.WINDOW_ID_NONE && myWinId !== windowId) {
+          if (windowId !== browser.windows.WINDOW_ID_NONE && id !== windowId) {
             close();
           }
         });
@@ -89,6 +105,53 @@ addEventListener("unload", e => {
       }
     } else {
       tabId = tab.id;
+    }
+    let cookieStoreId = pageTab.cookieStoreId;
+
+    if (!browser.windows) {
+      // emulate popup over page by using blurred content as background
+
+      const debounce = (callback, wait) => {
+        let timeout;
+        return () => {
+          clearTimeout(timeout);
+          timeout = setTimeout(callback, wait);
+        }
+      };
+
+      let updating;
+      const updateBG = debounce(async () => {
+        await updating;
+        updating = new Promise(async (resolve) => {
+          const imgUrl = await browser.tabs.captureTab(tabId);
+          requestAnimationFrame(() => {
+            document.documentElement.style.backgroundImage = `url("${imgUrl}")`;
+            resolve();
+          });
+        });
+      }, 500);
+
+      updateBG();
+
+      browser.tabs.onUpdated.addListener(id => {
+        if (id == tabId) {
+          updateBG();
+        }
+      });
+
+      let closing = false;
+      const shouldClose = e => e.touches.length <= 1 && e.target == document.body;
+      document.body.addEventListener("touchstart", e => {
+        closing = shouldClose(e);
+      });
+      document.body.addEventListener("touchmove", e => {
+        closing &&= shouldClose(e);
+      });
+      document.body.addEventListener("touchend", e => {
+        if (closing &&= shouldClose(e)) {
+          close();
+        }
+      });
     }
 
     addEventListener("keydown", e => {
@@ -123,7 +186,30 @@ addEventListener("unload", e => {
         if (e.tabId !== tabId) close();
       });
     }
+    {
+      let { contextStore } = UI;
+      const containerId = document.querySelector("#container-id");
+      if (contextStore?.enabled && !contextStore.disabledByHost && browser.contextualIdentities) {
+        try {
+          const { name, colorCode} = await browser.contextualIdentities.get(cookieStoreId);
+          containerId.textContent = name;
+          containerId.style.setProperty("--container-color", colorCode);
 
+          debug("found container name", name, "for cookieStoreId", cookieStoreId); // DEV_ONLY
+        } catch (err) {
+          if (/\bdisabled\b/.test(err.message)) {
+            contextStore = null;
+          } else {
+            containerId.textContent = _("DefaultContainerName");
+          }
+          debug("no container for cookieStoreId", cookieStoreId, "error:", err.message); // DEV_ONLY
+        } } else {
+        contextStore = null;
+      }
+      if (!contextStore) {
+        containerId.style.display = "none";
+      }
+    }
     await include("/ui/toolbar.js");
     UI.toolbarInit();
     {
@@ -324,7 +410,9 @@ addEventListener("unload", e => {
 
     let justDomains = !UI.local.showFullAddresses;
 
-    sitesUI = new UI.Sites(document.getElementById("sites"));
+    UI.policy = await UI.getPolicy(cookieStoreId);
+    debug("popup policy", UI.policy);
+    sitesUI = new UI.Sites(document.getElementById("sites"), UI.DEF_PRESETS);
 
     sitesUI.onChange = (row) => {
       const reload = sitesUI.anyPermissionsChanged()
@@ -383,7 +471,7 @@ addEventListener("unload", e => {
         } else {
           let domain = tld.getDomain(url.hostname);
           if (domain) {
-            domain = url.protocol === "https:" ? Sites.secureDomainKey(domain) : domain;
+            domain = Sites.isSecureProtocol(url.protocol) ? Sites.secureDomainKey(domain) : domain;
           } else {
             domain = url.protocol;
           }
@@ -460,7 +548,7 @@ addEventListener("unload", e => {
         });
       }
 
-      sitesUI.render(sites);
+      await sitesUI.render(sites);
       window.scrollTo(0, 0);
       window.setTimeout(() => sitesUI.focus(), 10);
     }
@@ -475,7 +563,11 @@ addEventListener("unload", e => {
       if (UI.isBrowserAction) {
         window.close();
       } else {
-        browser.tabs.remove(tab.id);
+        (async () => {
+          const currentTabId = (await browser.tabs.getCurrent()).id;
+          await browser.tabs.update(tabId, { active: true });
+          await browser.tabs.remove(currentTabId);
+        })();
       }
     }
 
