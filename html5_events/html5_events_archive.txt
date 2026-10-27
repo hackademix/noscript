@@ -344,6 +344,7 @@ onoverflowchanged
 onpagehide
 onpagereveal
 onpageshow
+onpageswap
 onpaint
 onpairingaborted
 onpairingconfirmationreq
