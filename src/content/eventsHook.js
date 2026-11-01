@@ -104,7 +104,6 @@ if (location.protocol == "file:") {
     }
     console.warn(`Suppressing on${e.type} event from ${url}`, e.target, e.currentTarget);
     e.preventDefault();
-    e.stopPropagation();
     e.stopImmediatePropagation();
   }
 
