@@ -30,7 +30,7 @@ cleanup() {
 trap cleanup SIGHUP SIGINT SIGQUIT SIGABRT EXIT
 touch "$LOCK"
 
-UNPACKED_ONLY=
+export UNPACKED_ONLY=
 if [ "$1" == '-u' ]; then
   UNPACKED_ONLY=1
   shift
