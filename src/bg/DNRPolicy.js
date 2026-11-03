@@ -251,7 +251,7 @@
     const ctxSettings = [...policy.sites].filter(([siteKey, perms]) => perms.contextual?.size);
 
     await TabCache.wakening;
-    const tabs = (ctxSettings.length ||  cascadePermissions || cascadeRestrictions) &&
+    const tabs = (ctxSettings.length || cascadePermissions || cascadeRestrictions) &&
       TabCache.getAll().filter(tab => tab.url && !ns.unrestrictedTabs.has(tab.id));
     if (!tabs?.length) {
       return rules;
@@ -315,30 +315,44 @@
     function addCascadeRules(type /* either "block" or "allow" */, priority) {
       const tabPresets = new Map();
       const getResourceTypes = ResourceTypesFor[type];
-      for(const {url, id} of tabs) {
+      const lockToTopDomains = chrome.declarativeNetRequest.RuleConditionKeys?.TOP_DOMAINS;
+      for (const { url, id } of tabs) {
+        if (!url.startsWith("http")) {
+          continue;
+        }
+        let domain;
+        try {
+          domain = new URL(url).hostname;
+        } catch (e) {
+        }
+        if (!domain) {
+          continue;
+        }
         const resourceTypes = getResourceTypes(policy.get(url, url).perms.capabilities);
         if (!resourceTypes.length) continue;
         const key = JSON.stringify(resourceTypes);
+        let preset;
         if (tabPresets.has(key)) {
-          tabPresets.get(key).tabIds.push(id);
+          (preset = tabPresets.get(key)).tabIds.push(id);
         } else {
-          tabPresets.set(key, {
-            resourceTypes,
-            tabIds: [id],
+          tabPresets.set(key,
+            preset = {
+              resourceTypes,
+              tabIds: [id],
           });
         }
+        if (lockToTopDomains) {
+          (preset[lockToTopDomains] ||= []).push(domain);
+        }
       }
-      for (const {resourceTypes, tabIds} of tabPresets.values()) {
+      for (const condition of tabPresets.values()) {
         rules.push({
           id: TAB_BASE + rules.length,
           priority,
           action: {
             type,
           },
-          condition: {
-            tabIds,
-            resourceTypes,
-          }
+          condition,
         });
       }
     }
@@ -415,7 +429,10 @@
   });
 
   NavCache.onUrlChanged.addListener((frame) => {
-    if (frame.parentFrameId == -1 && autoAllow([{ url: frame.url }])) {
+    if (frame.parentFrameId != -1) {
+      return;
+    }
+   if (autoAllow([{ url: frame.url }]).length) {
       Promise.allSettled([RequestGuard.DNRPolicy.update(), ns.saveSession()]);
       return;
     }
