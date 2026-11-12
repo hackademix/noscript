@@ -128,7 +128,7 @@ document.querySelector("#version").textContent = _("Version",
         let w = f.contentWindow;
         let a = w.document.querySelector("a");
         a.href = w.URL.createObjectURL(new w.Blob([settings], {
-          type: "text/plain"
+          type: "application/json",
         }));
         a.click();
         setTimeout(() => {
