@@ -120,9 +120,9 @@ document.querySelector("#version").textContent = _("Version",
       if (f) f.remove();
       f = document.createElement("iframe");
       f.id = id;
-      let d = new Date();
-      let pad = n => String(n).padStart(2, "0");
-      let stamp = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}` +
+      const d = new Date();
+      const pad = n => String(n).padStart(2, "0");
+      const stamp = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}` +
         `_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
       f.srcdoc = `<a download="noscript_data_${stamp}.json" target="_blank">NoScript Export</a>`;
       f.style.position = "fixed";
