@@ -19,7 +19,47 @@
  */
 
 'use strict';
+
+UA.isMozilla || (async () => {
+  const askedKey = "noscript.askedForPrivacyPermissions";
+  let asked = (await browser.storage.session.get([askedKey]))[askedKey];
+  if (asked) return;
+
+  addEventListener("click", async (e) => {
+    if (!e.isTrusted || asked) {
+      return;
+    }
+    asked = true;
+    browser.storage.session.set({ [askedKey]: true });
+
+    console.debug("Requesting privacy permissions to disable network prediction settings causing breakages."); // DEV_ONLY
+    await browser.permissions.request({
+      permissions: ['privacy'],
+    });
+
+    const setting = browser.privacy?.network.networkPredictionEnabled;
+    if (!setting) {
+      return;
+    }
+    const current = await setting.get({});
+    if (current.levelOfControl === "not_controllable") {
+      throw new Error("Network prediction setting is not controllable");
+    }
+
+    await setting.set({
+      value: false,
+      scope: "regular",
+    });
+    await setting.set({
+      value: false,
+      scope: "incognito_persistent",
+    });
+  }, { capture: true });
+
+})();
+
 var UI = (() => {
+
 
   const settingsListeners = new Set();
   const notifySettings = async () => {

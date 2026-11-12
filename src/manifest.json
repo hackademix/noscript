@@ -42,6 +42,9 @@
   "host_permissions": [
       "<all_urls>"
   ],
+  "optional_permissions": [
+    "privacy"
+  ],
 
   "background": {
     "service_worker": "sw.js",
