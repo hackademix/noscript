@@ -125,12 +125,28 @@ var notifyPage = async () => {
   return false;
 }
 
-window.addEventListener("pageshow", notifyPage);
+addEventListener("pageshow", notifyPage);
+
+{
+  const interactions = ["pointerdown", "keydown"];
+  const opts = { capture: true, passive: true, once: true, }
+  const listener = event => {
+    if (event.isTrusted) {
+      Messages.send("interaction");
+      for (const type of interactions) {
+        document.removeEventListener(type, listener, opts);
+      }
+    }
+  };
+  for (const type of interactions) {
+    document.addEventListener(type, listener, opts);
+  }
+}
 
 const violations = new Set();
 const documentOrigin = new URL(document.URL).origin;
 
-window.addEventListener("securitypolicyviolation", async e => {
+addEventListener("securitypolicyviolation", async e => {
   if (!e.isTrusted) return;
   let {violatedDirective, originalPolicy, disposition} = e;
 

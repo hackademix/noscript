@@ -71,6 +71,7 @@
       for (const event of ["Activated", "Updated", "Removed"]) {
         browser.tabs[`on${event}`].addListener(TabStatus[`on${event}Tab`]);
       }
+      browser.webNavigation.onCommitted.addListener(TabStatus.onNavigationCommitted);
       (async () => {
         await TabStatus._session.load();
         TabStatus.updateTab();
@@ -78,12 +79,15 @@
     },
     map: new Map(),
     _originsCache: new Map(),
+    INTERSTITIAL_MS: 10000,
     newRecords() {
       return {
         allowed: {},
         blocked: {},
         noscriptFrames: {},
         origins: Object.create(null),
+        timeStamp: Date.now(),
+        replayToContent: [],
       }
     },
     hasOrigin(tabId, url) {
@@ -115,12 +119,33 @@
       }
       return tabIds;
     },
-    initTab(tabId, records = this.newRecords()) {
+    initTab(tabId, forceClear = false) {
       if (tabId < 0) return;
-      this.map.set(tabId, records);
-      this._session.save();
+      let records = this.map.get(tabId);
+      // keep recent records on interstitials shown for less than this.INTERSTITIAL_MS
+      const now = Date.now();
+      console.debug("initTab", tabId, records, now - records?.timeStamp); // DEV_ONLY
+      if (forceClear || !records || now - records.timeStamp > this.INTERSTITIAL_MS) {
+        records = this.newRecords();
+        this.map.set(tabId, records);
+        this._session.save();
+      } else {
+        records.timeStamp = now;
+      }
       return records;
     },
+
+    forgetInterstitials(tabId) {
+      const records = this.map.get(tabId);
+      if (!records) {
+        return;
+      }
+      if (records?.replayToContent) {
+        records.replayToContent = [];
+      }
+      records.timeStamp -= this.INTERSTITIAL_MS;
+    },
+
     _record(request, what, optValue) {
       let {tabId, frameId, type, url, documentUrl} = request;
       let policyType = policyTypesMap[type] || type;
@@ -134,6 +159,9 @@
         if (frameId === 0) {
           request.type = type = "main_frame";
           Content.reportTo(request, optValue, type);
+          for (const { request, allowed } of records.replayToContent) {
+            Content.reportTo(request, allowed, policyTypesMap[request.type]);
+          }
         }
       }
       if (type.endsWith("frame")) {
@@ -143,12 +171,14 @@
       }
       let collection = records[what];
       if (collection) {
-        if (type in collection) {
-          if (!collection[type].includes(requestKey)) {
-            collection[type].push(requestKey);
+        collection[type] ||= [];
+        if (!collection[type].includes(requestKey)) {
+          collection[type].push(requestKey);
+          if (Date.now() - records.timeStamp < this.INTERSTITIAL_MS) {
+            records.replayToContent.push({
+              request, allowed: what != "blocked",
+            });
           }
-        } else {
-          collection[type] = [requestKey];
         }
       }
       this._session.save();
@@ -267,10 +297,20 @@
       TabStatus._pendingTabs.delete(tabId);
       TabStatus._session.save();
     },
+    onNavigationCommitted(details) {
+      if (details.frameId == 0 &&
+        details.transitionQualifiers?.includes("forward_back")) {
+        TabStatus.initTab(details.tabId, true);
+      }
+    },
   };
   TabStatus.init();
 
   const messageHandler = {
+
+    async interaction(message, sender) {
+      TabStatus.forgetInterstitials(sender.tab.id);
+    },
 
     async pageshow(message, sender) {
       if (sender.frameId === 0) {
