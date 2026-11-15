@@ -23,9 +23,7 @@
 if (location.protocol == "file:") {
   // Regard as "mutually safe" directories sharing a common ancestor at least this deep
   const SAFE_PATH_DEPTH = 5;
-  const safePath = path =>
-    unescape(path).replace(/\\/g, "/")
-    .split("/", SAFE_PATH_DEPTH).join("/");
+  const safePath = path => path.split("/", SAFE_PATH_DEPTH).join("/");
   const toDir = url => url.replace(/[^\/]+$/, "")
   const CURRENT_DIR = safePath(toDir(location.pathname));
 
@@ -38,7 +36,8 @@ if (location.protocol == "file:") {
     if (url.protocol != "file:") {
       return true;
     }
-
+    // canonicalize Windows paths
+    url = new URL(unescape(url.pathname).replace(/[\\/]+/g, "/"), url);
     const filePath = safePath(url.pathname);
 
     if (filePath.startsWith(CURRENT_DIR)) {
