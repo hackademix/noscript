@@ -25,9 +25,11 @@ if (location.protocol == "file:") {
 
   function modifyWindow(scope, {port, xray}) {
     const { window } = xray;
-    const { Proxy, document, Node, Document } = window;
+    const { document, Node, Document } = window;
 
     const { Reflect } = globalThis;
+    const { apply } = Reflect;
+    const NO_ARGS = [];
 
     const { addEventListener } = window.EventTarget.prototype;
     const nodeProps = {};
@@ -40,16 +42,26 @@ if (location.protocol == "file:") {
     const adoptNode = document.adoptNode;
     const getDocumentElement = xray.getSafeDescriptor(Document.prototype, "documentElement", "get").get;
 
+    const nodeTypeGetter = Object.getOwnPropertyDescriptor(
+      Node.prototype, "nodeType"
+    ).get;
+
+    const isNode = node => {
+      try {
+        apply(nodeTypeGetter, node, NO_ARGS);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    };
+
     const watchList = new WeakSet();
 
-    const NO_ARGS = [];
-    const call = (func, obj, ...args) => Reflect.apply(func, obj, args || NO_ARGS);
-
     const watch = watching => {
-      if (watching instanceof Node && !watchList.has(watching)) {
-        const ownerDocument =  call(nodeProps.ownerDocument, watching);
+      if (isNode(watching) && !watchList.has(watching)) {
+        const ownerDocument =  apply(nodeProps.ownerDocument, watching, NO_ARGS);
         const crossDoc = ownerDocument != document && !(watching instanceof Document);
-        const parentNode = call(nodeProps.parentNode, watching);
+        const parentNode = apply(nodeProps.parentNode, watching, NO_ARGS);
 
         if (!crossDoc && parentNode) {
           // Nothing to do: eventHook.js' MutationObserver should kick in
@@ -69,18 +81,18 @@ if (location.protocol == "file:") {
           // we don't need to watch the root!
           return;
         }
-        const nextSibling = call(nodeProps.nextSibling, watching);
+        const nextSibling = apply(nodeProps.nextSibling, watching, NO_ARGS);
         if (crossDoc) {
-          call(adoptNode, document, watching);
+          apply(adoptNode, document, [watching]);
         }
-        const documentElement = call(getDocumentElement, document);
-        call(nodeProps.insertBefore, documentElement, watching, null);
-        call(nodeProps.removeChild, documentElement, watching);
+        const documentElement = apply(getDocumentElement, document, NO_ARGS);
+        apply(nodeProps.insertBefore, documentElement, [watching, null]);
+        apply(nodeProps.removeChild, documentElement, [watching]);
         if (crossDoc) {
           // put the node back at its place in its document
-          call(adoptNode, ownerDocument, watching);
+          apply(adoptNode, ownerDocument, [watching]);
           if (parentNode) {
-            call(nodeProps.insertBefore, ownerDocument,  watching, nextSibling);
+            apply(nodeProps.insertBefore, ownerDocument, [watching, nextSibling]);
           }
         }
       }
@@ -88,7 +100,7 @@ if (location.protocol == "file:") {
 
     exportFunction(function(...args) {
       watch(this);
-      return addEventListener.call(this, ...args);
+      return apply(addEventListener, this, args);
     }, EventTarget.prototype, {defineAs: "addEventListener"});
 
     // patch every new node
@@ -101,7 +113,7 @@ if (location.protocol == "file:") {
       for (const m of nodeCreators[clazz]) {
         const method = proto[m];
         exportFunction(function (...args) {
-          const node = method.call(this, ...args);
+          const node = apply(method, this, args);
           watch(node);
           return node;
         }, proto, { defineAs: m });
